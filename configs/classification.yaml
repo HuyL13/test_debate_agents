@@ -1,0 +1,25 @@
+task: classification
+data_dir: data/cocolofa
+split: dev
+context: paper
+engine:
+  mode: adaptive
+  protocol: round_robin
+  max_rounds: 3
+  early_stop: true
+model:
+  provider: openai
+  name: SET_MODEL_SNAPSHOT
+  base_url: https://api.openai.com/v1
+  api_key_env: OPENAI_API_KEY
+  temperature: 0.0
+  max_completion_tokens: 1200
+  timeout_seconds: 90
+  max_attempts: 3
+  backoff_seconds: 1
+  structured_output: true
+  input_cost_per_million: null
+  output_cost_per_million: null
+  cached_input_cost_per_million: null
+output_dir: outputs/classification-dev
+cache_dir: cache

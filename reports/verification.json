@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-06",
+  "environment": "Windows, Python 3.11.9, project .venv",
+  "tests": {
+    "command": ".venv/Scripts/python.exe -m pytest -q",
+    "exit_code": 0,
+    "passed": 53,
+    "failed": 0
+  },
+  "compile": {
+    "command": ".venv/Scripts/python.exe -m compileall -q src scripts",
+    "exit_code": 0
+  },
+  "dependencies": {
+    "command": ".venv/Scripts/python.exe -m pip check",
+    "exit_code": 0,
+    "result": "No broken requirements found."
+  },
+  "dataset": {
+    "script": "scripts/verify_dataset.py",
+    "all_published_counts_match": true,
+    "cross_split_article_overlap": false,
+    "cross_split_comment_overlap": false,
+    "missing_parent_sample": "399:10493"
+  },
+  "offline_smoke_matrix": {
+    "script": "scripts/smoke_matrix.py",
+    "run_count": 12,
+    "dev_samples_per_run": 10,
+    "all_completed": true,
+    "synthetic": true,
+    "service_api_requests": 0
+  },
+  "cli_checks": {
+    "run_detection_mock_dev_10": "passed",
+    "run_classification_mock_dev_10": "passed",
+    "evaluate_from_saved_predictions": "passed",
+    "freeze_experiment_mock": "passed",
+    "frozen_test_runner_mock_1": "passed; synthetic plumbing check only"
+  },
+  "review": {
+    "independent_review_rounds": 2,
+    "important_findings_resolved": [
+      "Incomplete provider token usage no longer yields false cost estimates",
+      "HTTP error bodies and request IDs retained in audit",
+      "Manifest fingerprints and selection invariants verified",
+      "Interrupted final audit writes quarantined before resume"
+    ]
+  },
+  "real_benchmark": {
+    "performed": false,
+    "reason": "OPENAI_API_KEY absent; model snapshot not configured",
+    "detection_f1": null,
+    "classification_macro_f1": null
+  }
+}
