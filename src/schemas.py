@@ -49,7 +49,8 @@ def validate_plan(plan, max_rounds, initial=None):
     if len(plan['order']) != 3 or set(plan['order']) != set(ROLES):
         raise ValueError('Order must include each role once')
     a, b = plan['affirmative'], plan['negative']
-    if sorted([len(a), len(b)]) != [1, 2] or len(set(a + b)) != 3 or set(a + b) != set(ROLES):
+    if plan['protocol'] == 'point_counterpoint' and (
+            sorted([len(a), len(b)]) != [1, 2] or len(set(a + b)) != 3 or set(a + b) != set(ROLES)):
         raise ValueError('Teams must be a disjoint 2v1 partition of all roles')
     if not plan['topic'].strip() or not plan['reason'].strip():
         raise ValueError('Planner must state topic and reason')

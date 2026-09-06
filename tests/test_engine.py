@@ -136,3 +136,11 @@ def test_adaptive_point_counterpoint_requires_natural_two_sided_reports():
     plan.update(affirmative=['Logical'], negative=['Factual', 'Contextual'])
     with pytest.raises(ValueError, match='teams'):
         validate_plan(plan, 3, initial)
+
+
+@pytest.mark.parametrize('protocol', ['round_robin', 'cross_examination'])
+def test_non_debate_protocol_accepts_unused_empty_teams(protocol):
+    plan = {'protocol': protocol, 'topic': 'x', 'reason': 'x',
+            'order': list(ROLES), 'affirmative': [], 'negative': [],
+            'examiner': 'Logical', 'max_rounds': 3}
+    validate_plan(plan, 3, {role: report() for role in ROLES})
