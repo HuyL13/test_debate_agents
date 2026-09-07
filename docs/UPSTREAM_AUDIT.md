@@ -86,3 +86,18 @@ Actual environment: No `OPENAI_API_KEY` was present. No model was specified by t
 Decision: Deliver API-ready code/config and offline verification with explicit synthetic flags. Leave real quality metrics unmeasured. Require a configured accessible model snapshot and environment key for real runs.
 
 Reason: Offline fixtures validate program behavior, not model quality. All six architecture settings are smoke-tested independently for each task; no prompts were optimized on test outcomes.
+
+## D8 — NVIDIA integration follow-up
+
+The user subsequently provided access to NVIDIA's compatible endpoint and model
+`openai/gpt-oss-20b`. Real connectivity and JSON Schema responses were verified.
+Dedicated `*.nvidia.yaml` configs use the supplied temperature (1), output budget
+(4096), and an environment-based credential. The existing transport accepted
+`max_completion_tokens` on this endpoint; no SDK replacement was necessary.
+
+Real dev calls exposed a validation bug: RR/CE planners sometimes supplied empty
+unused debate-team arrays, but validation required a 2v1 partition unconditionally.
+Only point-counterpoint now requires that partition. RR still validates all three
+roles in its order; CE still has one registered examiner and the other two respondents.
+Two regression cases cover the unused fields. Failed/pre-fix traces remain separate
+from new runs; see reports/NVIDIA_DEV_SMOKE.md for the follow-up outcomes.

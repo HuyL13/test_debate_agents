@@ -9,7 +9,7 @@ Repo Python local thực hiện hai task gốc của CoCoLoFa với kiến trúc
 
 ## Trạng thái bàn giao
 
-Code, dữ liệu upstream đã ghim, môi trường `.venv`, kiểm thử và smoke test offline có sẵn trong repo local. **Chưa chạy benchmark API thật:** môi trường lúc triển khai không có `OPENAI_API_KEY`. Các trace có `synthetic: true` chỉ kiểm tra plumbing, không đo năng lực LLM. Xem [báo cáo bàn giao](reports/RESULTS.md), [dataset verification](reports/dataset_verification.json) và [khác biệt với upstream](docs/UPSTREAM_AUDIT.md).
+Code, dữ liệu upstream đã ghim, môi trường `.venv`, kiểm thử và smoke test offline có sẵn trong repo local. API NVIDIA `openai/gpt-oss-20b` đã được kết nối và chạy trên dev; xem [kết quả API thật](reports/NVIDIA_DEV_SMOKE.md). **Chưa chạy benchmark toàn bộ test split.** Các trace có `synthetic: true` chỉ kiểm tra plumbing, không đo năng lực LLM. Xem thêm [báo cáo bàn giao](reports/RESULTS.md), [dataset verification](reports/dataset_verification.json) và [khác biệt với upstream](docs/UPSTREAM_AUDIT.md).
 
 ## Chạy nhanh trên Windows
 
@@ -38,6 +38,28 @@ git -C upstream/PARD checkout b34807ce339b05518c998a51b5741917de01c917
 Linux/macOS: dùng `.venv/bin/python` thay cho `.\.venv\Scripts\python.exe`. Chạy các lệnh tại thư mục gốc repo. `requirements.txt` là dependency runtime; `requirements-dev.txt` thêm pytest; lock ghi lại phiên bản đã kiểm thử.
 
 ## Chạy API thật trên dev
+
+### NVIDIA NIM đã kiểm tra kết nối
+
+Hai cấu hình `configs/detection.nvidia.yaml` và `configs/classification.nvidia.yaml`
+dùng endpoint `https://integrate.api.nvidia.com/v1`, model `openai/gpt-oss-20b`,
+temperature 1 và giới hạn output 4096 token. Client hiện tại đã được kiểm tra bằng
+request thật với JSON Schema; không cần cài thêm SDK `openai`.
+
+```powershell
+$env:NVIDIA_API_KEY = "YOUR_NVIDIA_API_KEY"
+.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.nvidia.yaml --limit 10 --output outputs/nvidia-detection-dev
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --limit 10 --output outputs/nvidia-classification-dev
+```
+
+Thêm `--mode single` và chọn output khác để chạy baseline single-agent. Thêm
+`--resume` vào đúng lệnh cũ để tiếp tục. Key chỉ được truyền qua biến môi trường
+của process; repo không lưu key. Giá token để `null` vì chưa đối chiếu hóa đơn;
+token usage vẫn được ghi đầy đủ. Kết quả dev subset không phải benchmark test.
+
+Tham khảo [model NVIDIA](https://docs.api.nvidia.com/nim/reference/openai-gpt-oss-20b).
+
+### Endpoint OpenAI hoặc nhà cung cấp khác
 
 Sửa `model.name: SET_MODEL_SNAPSHOT` trong **cả hai** file `configs/detection.yaml`, `configs/classification.yaml` thành cùng một model/snapshot mà tài khoản của bạn truy cập được. Cấu hình mặc định dùng OpenAI Chat Completions; endpoint tương thích có thể dùng `provider: openai_compatible` và đổi `base_url`, `api_key_env`.
 

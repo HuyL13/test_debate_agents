@@ -1,6 +1,6 @@
 # Kết quả bàn giao
 
-Code baseline đã triển khai; benchmark API thật **chưa chạy** vì chưa có key/model được cấu hình. Không có điểm PARD-adapted thật để so với paper.
+Code baseline đã triển khai. Sau lần bàn giao đầu, API NVIDIA đã được cấu hình để chạy thử trên dev; xem [NVIDIA_DEV_SMOKE.md](NVIDIA_DEV_SMOKE.md). Benchmark toàn bộ test split **chưa chạy**; chưa có điểm PARD-adapted trên test để so với paper.
 
 | Split | Articles | Detection samples | Classification samples | Negatives |
 |---|---:|---:|---:|---:|
