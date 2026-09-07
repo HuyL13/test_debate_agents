@@ -1,5 +1,9 @@
 # NVIDIA API — dev smoke runs
 
+**Full test follow-up:** [live paper comparison](FULL_TEST_COMPARISON.md).
+This separate frozen evaluation runs all 798 detection and 481 classification
+test comments for each of single and adaptive. Pending cells are not dev scores.
+
 **Latest code revision and rerun:** [v3/v4 results and full traces](NVIDIA_V3_RESULTS.md).
 Detection single accuracy increased from 0.80 to 0.90; adaptive from 0.60 to 0.70.
 The constrained v4 planner completed 104 calls without validation failures.
