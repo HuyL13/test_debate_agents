@@ -9,6 +9,23 @@ from src.labels import ROLES
 from src.schemas import validate_plan
 
 
+def test_adaptive_schema_constrains_order_and_natural_teams():
+    from src.schemas import plan_schema, validate_output
+    initial = {'Factual': report('Fallacious'), 'Logical': report('Non-Fallacious'),
+               'Contextual': report('Non-Fallacious')}
+    schema = plan_schema(3, initial)
+    plan = {'protocol': 'point_counterpoint', 'topic': 'x', 'reason': 'x',
+            'order': list(ROLES), 'affirmative': ['Factual'],
+            'negative': ['Logical', 'Contextual'], 'examiner': 'Factual', 'max_rounds': 1}
+    validate_output(plan, schema)
+    for key in ('order', 'affirmative', 'negative'):
+        with pytest.raises(ValueError):
+            validate_output({**plan, key: []}, schema)
+    consensus = {role: report() for role in ROLES}
+    with pytest.raises(ValueError):
+        validate_output(plan, plan_schema(3, consensus))
+
+
 def report(label='Fallacious', confidence=0.9):
     return {'prediction': label, 'confidence': confidence, 'content': 'Text supports this assessment.'}
 

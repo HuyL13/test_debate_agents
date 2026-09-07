@@ -9,6 +9,10 @@ Repo Python local thực hiện hai task gốc của CoCoLoFa với kiến trúc
 
 ## Trạng thái bàn giao
 
+Lần sửa và chạy lại mới nhất: [kết quả v3/v4 và trace](reports/NVIDIA_V3_RESULTS.md).
+58 kiểm thử đạt; planner v4 hết lỗi validation trong run detection 10 mẫu.
+Detection tăng điểm, classification giảm điểm: chưa coi prompt mới là cải thiện chung.
+
 Code, dữ liệu upstream đã ghim, môi trường `.venv`, kiểm thử và smoke test offline có sẵn trong repo local. API NVIDIA `openai/gpt-oss-20b` đã được kết nối và chạy trên dev; xem [kết quả API thật](reports/NVIDIA_DEV_SMOKE.md). **Chưa chạy benchmark toàn bộ test split.** Các trace có `synthetic: true` chỉ kiểm tra plumbing, không đo năng lực LLM. Xem thêm [báo cáo bàn giao](reports/RESULTS.md), [dataset verification](reports/dataset_verification.json) và [khác biệt với upstream](docs/UPSTREAM_AUDIT.md).
 
 ## Chạy nhanh trên Windows

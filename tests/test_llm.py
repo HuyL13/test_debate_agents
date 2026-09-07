@@ -69,6 +69,38 @@ def test_cache_isolates_task_role_sample_and_temperature(tmp_path):
     assert len(transport.requests) == 4
 
 
+def test_validation_retry_receives_feedback_without_mutating_audit(tmp_path):
+    transport = Transport([envelope('{}'), envelope(VALID)])
+    client = make_client(tmp_path, transport)
+    call(client)
+    first, second = transport.requests
+    assert len(first['messages']) == 2
+    assert len(second['messages']) == 3
+    assert 'prediction' in second['messages'][-1]['content']
+    logs = [json.loads(line) for line in (tmp_path / 'raw.jsonl').read_text().splitlines()]
+    assert logs[0]['request'] == first
+    assert logs[1]['request'] == second
+    assert call(client)['prediction'] == 'Fallacious'
+    assert len(transport.requests) == 2
+
+
+def test_custom_validator_feedback_survives_transport_retry(tmp_path):
+    invalid = json.dumps({'prediction': 'Fallacious', 'confidence': 0.8, 'content': 'invalid'})
+    transport = Transport([envelope(invalid), TimeoutError(), envelope(VALID)])
+    client = make_client(tmp_path, transport)
+
+    def validate(value):
+        if value['content'] == 'invalid':
+            raise ValueError('Concrete execution constraint')
+
+    result = client.generate(system_prompt='Analyze.', user_prompt='input',
+                             schema=report_schema('detection'), metadata={}, validator=validate)
+    assert result['content'] == 'Evidence.'
+    assert 'Concrete execution constraint' in transport.requests[1]['messages'][-1]['content']
+    assert transport.requests[1] == transport.requests[2]
+    assert len(transport.requests[0]['messages']) == 2
+
+
 def test_transient_failure_retried_but_auth_error_not_retried(tmp_path):
     transient = HTTPError('https://example.invalid', 429, 'rate limit', {}, None)
     transport = Transport([transient, envelope(VALID)])

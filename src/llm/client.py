@@ -1,5 +1,6 @@
 import json
 import time
+from copy import deepcopy
 from dataclasses import asdict
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
@@ -77,15 +78,22 @@ class Client:
                                          'response': cached['response'], 'valid': True})
             return cached['parsed']
         last_error = None
+        feedback = None
         for attempt in range(self.config.max_attempts):
+            request_payload = deepcopy(payload)
+            if feedback:
+                request_payload['messages'].append({'role': 'user', 'content':
+                    'The previous attempt failed output validation: ' + feedback +
+                    '. Generate a fresh complete JSON answer satisfying the schema and all '
+                    'execution constraints. Keep the original task and supplied evidence unchanged.'})
             event = {'timestamp': datetime.now(timezone.utc).isoformat(), 'metadata': metadata,
                      'cache_key': key, 'cache_hit': False, 'attempt': attempt + 1,
-                     'request': payload, 'valid': False}
+                     'request': request_payload, 'valid': False}
             started = time.monotonic()
             retryable, parsed, response = True, None, None
             self.usage['api_calls'] += 1
             try:
-                response = self.transport.complete(payload)
+                response = self.transport.complete(request_payload)
                 event['response'] = response
                 accumulate_usage(self.usage, response.get('usage'))
                 self.model_versions.add(response.get('model', self.config.name))
@@ -112,6 +120,7 @@ class Client:
             except (ValueError, KeyError, IndexError, TypeError) as exc:
                 last_error = exc
                 event['error'] = str(exc)
+                feedback = str(exc)[:1500]
             except Exception as exc:
                 last_error = exc
                 retryable = False

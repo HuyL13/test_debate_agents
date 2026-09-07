@@ -101,3 +101,30 @@ Only point-counterpoint now requires that partition. RR still validates all thre
 roles in its order; CE still has one registered examiner and the other two respondents.
 Two regression cases cover the unused fields. Failed/pre-fix traces remain separate
 from new runs; see reports/NVIDIA_DEV_SMOKE.md for the follow-up outcomes.
+
+## D9 — Dev-informed prompt and retry revision (v3)
+
+Following inspection of the existing dev traces, validation failures now supply
+the concrete error to the next attempt. Each request remains independently
+auditable; the original request defines cache identity and cached results are
+revalidated. Transport failures do not create validation feedback.
+
+Shared prompts emphasize text fidelity, an identifiable inference rather than
+missing citations, and the distinction between causal escalation and population
+generalization. Cross-examination explicitly requests an interrogative that tests
+a competing interpretation. These are prompt instructions, not a semantic
+guarantee or a new deterministic label rule. No gold labels enter model inputs.
+
+These changes are informed by the first ten dev examples already inspected, so
+rerunning them measures a development iteration, not held-out generalization.
+The model, temperature, token budget and sample selection remain unchanged.
+Single and adaptive are both rerun because they share the revised prompt.
+Several changes are bundled in this iteration; it cannot isolate their individual
+effects. The original runs and traces remain available for comparison.
+
+The v3 detection run and one resume both failed on planner team arrays. In v4,
+the adaptive planner schema enumerates valid role-order permutations, fixes the
+two teams to the natural initial prediction groups, and excludes point-counterpoint
+when exactly two groups do not exist. Unused teams may be populated for RR/CE;
+executors ignore them. This moves deterministic execution constraints into the
+schema while retaining model selection of protocol, topic, examiner and budget.

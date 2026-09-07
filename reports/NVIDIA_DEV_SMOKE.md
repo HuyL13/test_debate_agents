@@ -1,5 +1,11 @@
 # NVIDIA API — dev smoke runs
 
+**Latest code revision and rerun:** [v3/v4 results and full traces](NVIDIA_V3_RESULTS.md).
+Detection single accuracy increased from 0.80 to 0.90; adaptive from 0.60 to 0.70.
+The constrained v4 planner completed 104 calls without validation failures.
+Classification regressed by 0.10 accuracy for both modes; the prompt revision is
+not an across-task quality improvement. The tables below retain the original runs.
+
 **Full historical trace:** [7 runs / 277 API attempts](traces/README.md), including
 the interrupted pre-fix runs, every failed retry, per-agent outputs and links to
 the exact original request/response log lines. In the old classification run,

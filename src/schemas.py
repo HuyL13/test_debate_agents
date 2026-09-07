@@ -1,4 +1,5 @@
 import math
+from itertools import permutations
 
 from jsonschema import Draft202012Validator
 
@@ -19,13 +20,25 @@ def report_schema(task):
 QUESTION_SCHEMA = object_schema({'question': {'type': ['string', 'null']}, 'content': {'type': 'string'}})
 
 
-def plan_schema(max_rounds):
+def plan_schema(max_rounds, initial=None):
     role_list = {'type': 'array', 'items': {'type': 'string', 'enum': list(ROLES)}}
-    return object_schema({'protocol': {'type': 'string', 'enum': list(PROTOCOLS)},
+    schema = object_schema({'protocol': {'type': 'string', 'enum': list(PROTOCOLS)},
                           'topic': {'type': 'string'}, 'reason': {'type': 'string'},
                           'order': role_list, 'affirmative': role_list, 'negative': role_list,
                           'examiner': {'type': 'string', 'enum': list(ROLES)},
                           'max_rounds': {'type': 'integer', 'minimum': 1, 'maximum': max_rounds}})
+    if initial is not None:
+        properties = schema['properties']
+        properties['order'] = {**role_list, 'enum': [list(order) for order in permutations(ROLES)]}
+        groups = {}
+        for role in ROLES:
+            groups.setdefault(initial[role]['prediction'], []).append(role)
+        teams = list(groups.values()) if len(groups) == 2 else [[], []]
+        properties['affirmative'] = {**role_list, 'enum': [teams[0]]}
+        properties['negative'] = {**role_list, 'enum': [teams[1]]}
+        if len(groups) != 2:
+            properties['protocol']['enum'].remove('point_counterpoint')
+    return schema
 
 
 def validate_output(value, schema):

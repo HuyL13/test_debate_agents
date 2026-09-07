@@ -1,5 +1,8 @@
 # Trace toàn bộ lịch sử chạy NVIDIA
 
+**Các run mới sau sửa code:** [kết quả và trace v3/v4](../NVIDIA_V3_RESULTS.md).
+Danh mục 7 run bên dưới là lịch sử trước lần sửa này.
+
 Đọc toàn bộ raw_calls.jsonl của 7 run: probe, single, adaptive trước sửa và v2. Tổng cộng **46 lượt sample, 277 API attempt, 13 attempt lỗi, 395.809 token**, gồm retry và run dở dang. Không gọi lại API.
 
 Mỗi trang sample có input, gold chỉ dùng đánh giá, timeline, output từng attempt và liên kết đúng dòng request/response gốc. Trường reasoning riêng của provider chỉ nằm trong raw log; bản trace hiển thị message.content.

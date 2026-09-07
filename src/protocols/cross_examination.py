@@ -13,6 +13,9 @@ def execute(ask, initial, plan, task, early_stop):
         if question is None:
             question_output = ask(examiner, f'ce_{round_index}_question', reports, history,
                                   'Ask a targeted question exposing a contradiction or unsupported premise. '
+                                  'Write an actual interrogative about a specific inference in the reports; '
+                                  'do not copy the target comment as the question. Test a competing '
+                                  'interpretation rather than asking others to confirm consensus. '
                                   'Use null only if there is no unresolved question.', schema=QUESTION_SCHEMA)
             question = question_output['question']
         else:
@@ -32,7 +35,8 @@ def execute(ask, initial, plan, task, early_stop):
             history.append({'round': round_index, 'role': role, 'kind': 'answer', **output})
         reflection = ask(examiner, f'ce_{round_index}_reflection', reports, history,
                          'Assess whether the answers resolved the question. Return the next targeted '
-                         'question or null if resolved; explain briefly in content.', schema=QUESTION_SCHEMA)
+                         'interrogative question or null if resolved; do not repeat the target comment '
+                         'or seek confirmation of agreement alone. Explain briefly in content.', schema=QUESTION_SCHEMA)
         history.append({'round': round_index, 'role': examiner, 'kind': 'reflection', **reflection})
         question = reflection['question']
         if early_stop and not question:

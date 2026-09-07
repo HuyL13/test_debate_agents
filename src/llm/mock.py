@@ -16,6 +16,9 @@ class MockTransport:
                      'order': ['Factual', 'Logical', 'Contextual'], 'affirmative': ['Factual'],
                      'negative': ['Logical', 'Contextual'], 'examiner': 'Logical',
                      'max_rounds': min(3, properties['max_rounds']['maximum'])}
+            for field in ('order', 'affirmative', 'negative'):
+                if 'enum' in properties[field]:
+                    value[field] = properties[field]['enum'][0]
         elif 'question' in properties:
             value = {'question': None if 'next targeted' in user.get('instruction', '') else
                      'Which supplied premise supports the conclusion?', 'content': 'Synthetic question/reflection.'}

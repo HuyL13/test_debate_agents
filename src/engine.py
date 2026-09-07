@@ -49,7 +49,7 @@ class Engine:
                 if self.mode == 'adaptive':
                     plan = ask('Planner', 'plan', initial, [],
                                f'Select the protocol and execution parameters. Maximum budget: {self.max_rounds}.',
-                               schema=plan_schema(self.max_rounds),
+                               schema=plan_schema(self.max_rounds, initial),
                                validator=lambda p: validate_plan(p, self.max_rounds, initial))
                 else:
                     groups = defaultdict(list)
