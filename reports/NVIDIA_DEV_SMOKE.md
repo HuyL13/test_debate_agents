@@ -1,5 +1,12 @@
 # NVIDIA API — dev smoke runs
 
+**Full historical trace:** [7 runs / 277 API attempts](traces/README.md), including
+the interrupted pre-fix runs, every failed retry, per-agent outputs and links to
+the exact original request/response log lines. In the old classification run,
+`237:10009` had three correct initial predictions but failed at the planner;
+in v2 its initial predictions were already wrong. Execution recovery and
+classification quality must be assessed separately.
+
 Model: `openai/gpt-oss-20b`; endpoint: `https://integrate.api.nvidia.com/v1`.
 Temperature 1, output budget 4096, JSON Schema enabled, title + immediate parent context.
 Credential supplied by the user and passed only in process environment.
