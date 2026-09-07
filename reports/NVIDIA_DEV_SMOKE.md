@@ -1,5 +1,10 @@
 # NVIDIA API — dev smoke runs
 
+**Adaptive redesigned after stopping full-test:** [disagreement-review results and traces](ADAPTIVE_REVIEW_DEV.md).
+Both dev10 tasks reached 80% accuracy; token counts fell 62–66% versus the immediately
+preceding adaptive runs. The new method still does not beat the single reference.
+Adaptive full-test remains stopped; only the existing single runs continue.
+
 **Full test follow-up:** [live paper comparison](FULL_TEST_COMPARISON.md).
 This separate frozen evaluation runs all 798 detection and 481 classification
 test comments for each of single and adaptive. Pending cells are not dev scores.

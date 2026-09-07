@@ -68,10 +68,31 @@ def render(jobs, destination):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prepare-only', action='store_true')
+    parser.add_argument('--watch-only', action='store_true', help='Observe existing jobs without launching or resuming any process')
     args = parser.parse_args()
     os.chdir(ROOT)
     directory = ROOT / 'outputs/full-test-v1'
     directory.mkdir(parents=True, exist_ok=True)
+    if args.watch_only:
+        status = read(directory / 'status.json')
+        jobs = status['jobs']
+        while True:
+            for job in jobs:
+                output = Path(job['output'])
+                job['completed'] = completed(output)
+                summary = output / 'summary.json'
+                if job['state'] != 'stopped_by_user' and summary.exists() and read(summary).get('status') == 'complete':
+                    result = evaluate_run(output / 'predictions.jsonl')
+                    if result['count'] != job['expected'] or result['selection_scope'] != 'full_split':
+                        raise ValueError('Incomplete coverage while observing')
+                    job.update(state='complete', result=result)
+            render(jobs, ROOT / 'reports/FULL_TEST_COMPARISON.md')
+            status.update(updated_at=datetime.now(timezone.utc).isoformat(), monitor_pid=os.getpid(),
+                          supervisor_state='monitor_only_no_restarts')
+            write_json(directory / 'status.json', status)
+            if all(job['state'] in ('complete', 'stopped_by_user', 'blocked') for job in jobs):
+                return 0
+            time.sleep(30)
     lock = directory / 'supervisor.lock'
     if not args.prepare_only:
         # Exclusive creation prevents two supervisors writing the same runs.

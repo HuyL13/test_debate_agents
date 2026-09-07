@@ -19,7 +19,8 @@ from src.llm.client import Client, ModelConfig
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_KEYS = {'task', 'data_dir', 'split', 'context', 'engine', 'model', 'output_dir', 'cache_dir'}
-ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True}
+ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True,
+                   'adaptive_policy': 'planner'}
 
 
 def validate_config(config):

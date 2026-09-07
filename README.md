@@ -9,14 +9,21 @@ Repo Python local thực hiện hai task gốc của CoCoLoFa với kiến trúc
 
 ## Trạng thái bàn giao
 
-**Full test đang được chạy:** [bảng đối sánh với paper](reports/FULL_TEST_COMPARISON.md)
-tự cập nhật mỗi 30 giây. Bốn run single/adaptive × detection/classification đã
-đóng băng bằng `reports/frozen-full-*-v1.json`; mỗi method chạy đủ 798/481 mẫu.
+**Full test single đang chạy; adaptive đã dừng theo yêu cầu:**
+[bảng đối sánh với paper](reports/FULL_TEST_COMPARISON.md) tự cập nhật mỗi 30 giây.
+Bốn cấu hình cũ đã đóng băng bằng `reports/frozen-full-*-v1.json`; target mỗi method
+là 798/481 mẫu. Hai adaptive dừng giữa chừng, không có điểm full-test.
 Chi tiết tiến độ và log ở `outputs/full-test-v1/status.json` và các file `.console.log`.
-Giữ máy thức và có mạng. Supervisor tự resume; dừng một run nếu ba lượt liên tiếp
-không có tiến triển. Nếu cần khởi động lại sau khi supervisor đã thoát, đặt
-`NVIDIA_API_KEY` trong môi trường rồi chạy `python scripts/full_benchmark.py` bằng `.venv`.
-Không đổi source/config/data trong khi các run đã freeze đang chạy.
+Giữ máy thức và có mạng. Supervisor cũ đã dừng; monitor hiện tại chỉ quan sát,
+không tự khởi động lại adaptive. Bản runtime cũ để resume single được lưu ở
+`outputs/full-test-v1/frozen-runtime`; không resume chúng bằng source mới.
+
+Adaptive mới: [thiết kế disagreement review](docs/ADAPTIVE_REVISION.md),
+cấu hình `configs/detection.review.yaml` và `configs/classification.review.yaml`.
+Biến thể này bỏ planner và chỉ phản biện một vòng khi nhãn ban đầu bất đồng;
+đã chạy đủ dev10 cho hai task: [kết quả và trace](reports/ADAPTIVE_REVIEW_DEV.md).
+Accuracy đạt 80% ở cả hai, giảm 62–66% token so với adaptive gần nhất;
+chưa vượt single và chưa chạy lại full-test.
 
 Lần sửa và chạy lại mới nhất: [kết quả v3/v4 và trace](reports/NVIDIA_V3_RESULTS.md).
 58 kiểm thử đạt; planner v4 hết lỗi validation trong run detection 10 mẫu.

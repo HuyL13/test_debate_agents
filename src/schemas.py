@@ -20,6 +20,17 @@ def report_schema(task):
 QUESTION_SCHEMA = object_schema({'question': {'type': ['string', 'null']}, 'content': {'type': 'string'}})
 
 
+def review_schema(task):
+    properties = report_schema(task)['properties']
+    return object_schema({**properties, 'supporting_quote': {'type': 'string', 'minLength': 1}})
+
+
+def validate_review_quote(value, target):
+    quote = ' '.join(value['supporting_quote'].split())
+    if not quote or quote not in ' '.join(target.split()):
+        raise ValueError('supporting_quote must be a nonempty verbatim span from the target comment')
+
+
 def plan_schema(max_rounds, initial=None):
     role_list = {'type': 'array', 'items': {'type': 'string', 'enum': list(ROLES)}}
     schema = object_schema({'protocol': {'type': 'string', 'enum': list(PROTOCOLS)},

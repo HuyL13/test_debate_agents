@@ -7,11 +7,12 @@ from src.io_utils import canonical
 from src.labels import PROTOCOLS, ROLES, labels_for
 from src.prompts import system_prompt
 from src.protocols import EXECUTORS
-from src.schemas import plan_schema, report_schema, validate_plan
+from src.schemas import plan_schema, report_schema, review_schema, validate_plan, validate_review_quote
 
 
 class Engine:
-    def __init__(self, llm, *, task, mode='adaptive', protocol='round_robin', max_rounds=3, early_stop=True):
+    def __init__(self, llm, *, task, mode='adaptive', protocol='round_robin', max_rounds=3, early_stop=True,
+                 adaptive_policy='planner'):
         labels_for(task)
         if mode not in ('single', 'no_deliberation', 'fixed', 'adaptive'):
             raise ValueError('Unknown engine mode')
@@ -19,6 +20,9 @@ class Engine:
             raise ValueError('Protocol budget must be 1..5 with a registered protocol')
         self.llm, self.task, self.mode = llm, task, mode
         self.protocol, self.max_rounds, self.early_stop = protocol, max_rounds, early_stop
+        if adaptive_policy not in ('planner', 'disagreement'):
+            raise ValueError('Unknown adaptive policy')
+        self.adaptive_policy = adaptive_policy
 
     def run(self, model_input: ModelInput, metadata):
         if not isinstance(model_input, ModelInput):
@@ -45,7 +49,28 @@ class Engine:
                        for role in ROLES}
             final_agents = deepcopy(initial)
             reason = 'no_deliberation'
-            if self.mode != 'no_deliberation':
+            if self.mode == 'adaptive' and self.adaptive_policy == 'disagreement':
+                if len({report['prediction'] for report in initial.values()}) == 1:
+                    reason = 'initial_consensus'
+                else:
+                    selected_protocol = 'independent_review'
+                    plan = {'protocol': selected_protocol, 'order': list(ROLES), 'max_rounds': 1,
+                            'reason': 'Initial labels disagree; one isolated review per role.'}
+                    for role in ROLES:
+                        output = ask(role, 'independent_review', initial, [],
+                                     'Compare the competing initial predictions against the target text. '
+                                     'Identify the strongest alternative interpretation and resolve the '
+                                     'specific inference that distinguishes it. Keep or change your label '
+                                     'based on that evidence, not confidence or vote counts. Include a '
+                                     'nonempty verbatim supporting_quote from the target comment and '
+                                     'explain its relevance in content. A quotation alone is not proof '
+                                     'of a fallacy. Do not invent a disagreement when none is substantive.',
+                                     schema=review_schema(self.task),
+                                     validator=lambda value: validate_review_quote(value, model_input.comment))
+                        final_agents[role] = output
+                        history.append({'round': 0, 'role': role, 'kind': 'independent_review', **output})
+                    reason = 'one_review_round'
+            elif self.mode != 'no_deliberation':
                 if self.mode == 'adaptive':
                     plan = ask('Planner', 'plan', initial, [],
                                f'Select the protocol and execution parameters. Maximum budget: {self.max_rounds}.',

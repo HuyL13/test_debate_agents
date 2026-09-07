@@ -26,6 +26,8 @@ class MockTransport:
             labels = properties['prediction']['enum']
             value = {'prediction': labels[seed % len(labels)], 'confidence': 0.9,
                      'content': 'OFFLINE MOCK: deterministic plumbing fixture, not model analysis.'}
+            if 'supporting_quote' in properties:
+                value['supporting_quote'] = user['input']['comment']
         return {'id': 'mock-' + digest(payload)[:12], 'model': 'offline-mock-v1',
                 'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps(value), 'refusal': None}}],
                 'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}}

@@ -1,6 +1,6 @@
 # CoCoLoFa full-test comparison
 
-Updated UTC: 2026-09-07T05:11:06.514696+00:00
+Updated UTC: 2026-09-07T07:59:10.986984+00:00
 
 Published baselines: [CoCoLoFa paper, Tables 4 and 5](https://aclanthology.org/2024.emnlp-main.39.pdf). These are published numbers, not baseline reruns. All scores below are percentages.
 
@@ -23,10 +23,10 @@ Published baselines: [CoCoLoFa paper, Tables 4 and 5](https://aclanthology.org/2
 
 | Run | Completed / required | State | Launches |
 |---|---:|---|---:|
-| detection / single | 3 / 798 | running | 1 |
-| detection / adaptive | 0 / 798 | running | 1 |
-| classification / single | 1 / 481 | running | 1 |
-| classification / adaptive | 0 / 481 | running | 1 |
+| detection / single | 264 / 798 | running | 4 |
+| detection / adaptive | 13 / 798 | stopped_by_user | 4 |
+| classification / single | 235 / 481 | running | 4 |
+| classification / adaptive | 14 / 481 | stopped_by_user | 4 |
 
 ## Evaluation conditions
 
