@@ -1,6 +1,6 @@
 # CoCoLoFa full-test comparison
 
-Updated UTC: 2026-09-07T07:59:10.986984+00:00
+Updated UTC: 2026-09-07T10:23:14.618464+00:00
 
 Published baselines: [CoCoLoFa paper, Tables 4 and 5](https://aclanthology.org/2024.emnlp-main.39.pdf). These are published numbers, not baseline reruns. All scores below are percentages.
 
@@ -16,16 +16,16 @@ Published baselines: [CoCoLoFa paper, Tables 4 and 5](https://aclanthology.org/2
 | Llama3 8B / zero-shot (paper) | 76 | 43 | 55 | 57 | 42 | 41 |
 | Llama3 8B / few-shot (paper) | 62 | 95 | 75 | 57 | 50 | 48 |
 | Llama3 8B / CoT (paper) | 77 | 56 | 65 | 63 | 58 | 58 |
-| gpt-oss-20b / single (this repo) | pending | pending | pending | pending | pending | pending |
+| gpt-oss-20b / single (this repo) | pending | pending | pending | 84.22 | 79.69 | 80.64 |
 | gpt-oss-20b / adaptive (this repo) | pending | pending | pending | pending | pending | pending |
 
 ## Run status
 
 | Run | Completed / required | State | Launches |
 |---|---:|---|---:|
-| detection / single | 264 / 798 | running | 4 |
+| detection / single | 754 / 798 | running | 4 |
 | detection / adaptive | 13 / 798 | stopped_by_user | 4 |
-| classification / single | 235 / 481 | running | 4 |
+| classification / single | 481 / 481 | complete | 4 |
 | classification / adaptive | 14 / 481 | stopped_by_user | 4 |
 
 ## Evaluation conditions
