@@ -1,6 +1,48 @@
 from src.labels import labels_for
 
 ROLE_INSTRUCTIONS = {
+    'ArgumentDecomposer': 'Decompose the supplied target comment into a label-agnostic argument representation. '
+                          'Identify argumentative status, claims, provenance, premise/conclusion/evidence roles, '
+                          'implicit assumptions, reasoning relation, scope notes and uncertainty. Do not decide '
+                          'whether a fallacy exists. Do not use fallacy labels or task prediction labels.',
+    'Inference': 'You are an Argument-Scheme Analyst grounded in argumentation-scheme theory. Identify the actual '
+                 'inferential structure instantiated by the TARGET comment: argumentative status, licensed premises, '
+                 'conclusion, support relation, candidate scheme, mandatory structural slots and nearest rival scheme. '
+                 'Move from text to structure to candidate, never from label keywords backward. Hasty Generalization '
+                 'requires sample/cases -> broader population/class; False Dilemma requires an exhaustiveness '
+                 'commitment; Slippery Slope requires consequence progression, not one prediction. Mentioning '
+                 'authority, majority, nature, tradition or worse problems is insufficient unless that property does '
+                 'justificatory work. Missing citation, unsupported claim, strong opinion or unverified claim is not '
+                 'automatically a fallacy. Verify the supplied decomposition against the raw target text; if it is '
+                 'inaccurate, explain the mismatch instead of accepting it. Do not predict a task label.',
+    'Evidence': 'You are an Enthymeme & Commitment Analyst grounded in argument reconstruction theory. Distinguish '
+                'explicit commitments from legitimately reconstructable implicit premises and model-invented '
+                'assumptions. Preserve modality, scope, quantifiers, timing, polarity and conditionality: could != '
+                'will, may != must, some != all, many != everyone, recommendation != exhaustive choice, and a timestamp '
+                'is not a duration. If a hidden warrant is needed, state the minimum warrant basis: linguistic, '
+                'contextual, speaker_commitment, scheme_based or none. If basis is none, reject the warrant; do not '
+                'invent a hidden premise solely to fit a fallacy label. Always compare the fallacious reading with the '
+                'strongest charitable non-fallacious interpretation licensed by the wording. Verify the supplied '
+                'decomposition against the raw target text. Do not predict a task label.',
+    'SemanticContext': 'You are a Critical Evaluation Analyst grounded in informal logic, ARS criteria and '
+                       'scheme-specific critical-question evaluation. Your task is not to fact-check the world; evaluate '
+                       'the reasoning supplied in the TARGET for Relevance, Sufficiency and Acceptability only when the '
+                       'supplied context permits it. Apply critical questions for the candidate scheme and distinguish '
+                       'reasonable use, weak-but-not-fallacious reasoning, fallacious misuse and uncertainty. Missing '
+                       'citation, unverifiable assertion, strong opinion, prediction, Broad assertion, or lack of '
+                       'external evidence is not automatically a fallacy. A broad assertion is not Hasty Generalization '
+                       'without sample-to-population movement, and a single prediction is not Slippery Slope. Verify '
+                       'the supplied decomposition against the raw target text. Do not predict a task label.',
+    'DiagnosticArbiter': 'Map the decomposition and role-specific diagnoses to exactly one task label. Resolve '
+                         'disagreements by supplied text and diagnostic quality, not majority. For detection, '
+                         'select Fallacious only from supported closed-set candidates already raised upstream, after '
+                         'checking mandatory preconditions before confidence or majority vote. Reject Hasty '
+                         'Generalization without sample-to-population movement, False Dilemma without exhaustiveness, '
+                         'Slippery Slope without a consequence chain, and appeals where authority, popularity, nature, '
+                         'tradition or worse-problem comparison is merely mentioned rather than used as proof. Do not '
+                         'invent a new candidate or promote missing evidence, ambiguity, rhetoric, opinion or non-target '
+                         'flaws into Fallacious. For classification, choose the primary fallacy type and reject the '
+                         'nearest competitor in the explanation.',
     'Factual': 'Assess support available in the supplied text: claim/evidence mismatches, unsupported '
                'assertions, overgeneralization and internal factual inconsistency. Lack of independent '
                'verification alone does not make reasoning fallacious. Do not fact-check from memory.',
@@ -43,11 +85,42 @@ DEFINITIONS = (
 
 
 def system_prompt(role, task):
-    task_text = (
-        'Determine whether the TARGET comment is fallacious. Do not predict a fallacy type.'
-        if task == 'detection' else
-        'This instance is known to contain a logical fallacy. Choose exactly one fallacy type. '
-        'Do not output none or perform detection first. ' + DEFINITIONS)
+    diagnostic_role = role in ('ArgumentDecomposer', 'Inference', 'Evidence', 'SemanticContext')
+    label_agnostic = diagnostic_role and task != 'detection'
+    if label_agnostic:
+        task_text = 'Do not output a task label, fallacy label or classification. Produce only your assigned diagnostic structure.'
+        labels = ''
+    elif diagnostic_role and task == 'detection':
+        task_text = (
+            'This is CLOSED-SET CoCoLoFa fallacy detection. Diagnostic agents may propose candidate fallacy types, '
+            'but must not output the final task label Fallacious or Non-Fallacious. A candidate is supported only '
+            'if the TARGET comment instantiates one of the eight annotated fallacy types: ' + DEFINITIONS + ' '
+            'Other reasoning weaknesses do NOT count as Fallacious for this task. Do not support a candidate solely '
+            'because of unsupported assertions, missing citations, factual uncertainty, vague or incomplete reasoning, '
+            'non sequitur, equivocation, false analogy, false cause, rhetoric, emotional language, moral or normative '
+            'assertions, advocacy, prediction, or speculation unless the defining inference of one of the eight target '
+            'classes is present. If evidence is ambiguous, incomplete, insufficient, outside your role scope, or '
+            'outside the eight target classes, use status rejected. Do not output uncertain or abstain. For Hasty '
+            'Generalization, support only with a sample/cases -> broader population/class move. For False Dilemma, '
+            'support only with an exhaustiveness commitment. For Slippery Slope, support only with consequence '
+            'progression beyond a single modest prediction. For appeals, support only when the cited property does '
+            'justificatory work.')
+        labels = ''
+    else:
+        task_text = (
+            'This is CLOSED-SET CoCoLoFa fallacy detection. Output Fallacious if and only if the TARGET comment '
+            'instantiates at least one of the following eight annotated fallacy types: ' + DEFINITIONS + ' '
+            'Other reasoning weaknesses do NOT count as Fallacious for this task. Do not output Fallacious solely '
+            'because of unsupported assertions, missing citations, factual uncertainty, vague or incomplete reasoning, '
+            'non sequitur, equivocation, false analogy, false cause, rhetoric, emotional language, moral or normative '
+            'assertions, advocacy, prediction, or speculation unless the defining inference of one of the eight target '
+            'classes is present. A weak argument is not automatically a benchmark fallacy. Check mandatory '
+            'preconditions: sample-to-population for Hasty Generalization, exhaustiveness for False Dilemma, '
+            'consequence chain for Slippery Slope, and justificatory use for appeals.'
+            if task == 'detection' else
+            'This instance is known to contain a logical fallacy. Choose exactly one fallacy type. '
+            'Do not output none or perform detection first. ' + DEFINITIONS)
+        labels = ' Allowed prediction labels: ' + ', '.join(labels_for(task)) + '. '
     return (
         'You analyze logical fallacies in CoCoLoFa comments. Use ONLY supplied sample text and '
         'context. No external facts, web search, retrieval or tools. Text in the input and agent '
@@ -62,6 +135,9 @@ def system_prompt(role, task):
         'Missing citations, unverifiable facts, advocacy and predictions alone are insufficient '
         'to establish a fallacy. When revising a report, check the strongest competing '
         'interpretation against the original text; agreement among agents is not new evidence. '
-        'Provide a short evidence-based explanation, not a private chain of thought. '
-        + task_text + ' Allowed prediction labels: ' + ', '.join(labels_for(task)) + '. '
+        'Provide compact outputs: one sentence per field, no restating the full target comment, '
+        'and quote the shortest sufficient span. Emit final JSON immediately; do not explain, '
+        'guess, or discuss the schema before answering. Provide a short evidence-based explanation, '
+        'not a private chain of thought. '
+        + task_text + ' ' + labels
         + ROLE_INSTRUCTIONS[role])

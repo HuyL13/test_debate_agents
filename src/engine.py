@@ -3,10 +3,11 @@ from collections import defaultdict
 from copy import deepcopy
 
 from src.data.loader import ModelInput
+from src.diagnostic import execute as execute_diagnostic
 from src.io_utils import canonical
 from src.labels import PROTOCOLS, ROLES, labels_for
 from src.prompts import system_prompt
-from src.protocols import EXECUTORS
+from src.legacy_protocols import EXECUTORS
 from src.schemas import plan_schema, report_schema, review_schema, validate_plan, validate_review_quote
 
 
@@ -20,7 +21,7 @@ class Engine:
             raise ValueError('Protocol budget must be 1..5 with a registered protocol')
         self.llm, self.task, self.mode = llm, task, mode
         self.protocol, self.max_rounds, self.early_stop = protocol, max_rounds, early_stop
-        if adaptive_policy not in ('planner', 'disagreement'):
+        if adaptive_policy not in ('planner', 'disagreement', 'diagnostic_no_debate', 'diagnostic_review'):
             raise ValueError('Unknown adaptive policy')
         self.adaptive_policy = adaptive_policy
 
@@ -30,16 +31,36 @@ class Engine:
         started = time.monotonic()
         selected_protocol, plan = 'none', None
 
-        def ask(role, stage, reports, history, instruction, schema=None, question=None, validator=None):
+        def ask(role, stage, reports, history, instruction, schema=None, question=None, validator=None, extra=None):
             payload = {'input': model_input.as_dict(), 'reports': deepcopy(reports),
                        'history': deepcopy(history), 'instruction': instruction, 'question': question,
-                       'plan': deepcopy(plan)}
+                       'plan': deepcopy(plan), **deepcopy(extra or {})}
             return self.llm.generate(system_prompt=system_prompt(role, self.task), user_prompt=canonical(payload),
                                      schema=schema or report_schema(self.task),
                                      metadata={**metadata, 'task': self.task, 'role': role, 'stage': stage,
                                                'protocol': selected_protocol}, validator=validator)
 
         initial, final_agents, history = {}, {}, []
+        if self.mode == 'adaptive' and self.adaptive_policy in ('diagnostic_no_debate', 'diagnostic_review'):
+            selected_protocol = self.adaptive_policy
+            decomposition, initial, history, final_agents, reason, aggregation = execute_diagnostic(
+                ask, model_input, self.adaptive_policy, self.task)
+            if aggregation and aggregation['prediction'] == 'Non-Fallacious':
+                arbiter = {'prediction': 'Non-Fallacious', 'confidence': 1.0,
+                           'content': 'No supported closed-set CoCoLoFa candidate passed the detection hard gate.'}
+            else:
+                arbiter = ask('DiagnosticArbiter', 'final',
+                              {'initial_diagnoses': initial, 'final_diagnoses': final_agents}, history,
+                              'Synthesize decomposition and role-specific diagnoses. Produce exactly one final task prediction.',
+                              extra={'decomposition': decomposition, 'detection_aggregation': aggregation})
+            aggregation_trace = {k: v for k, v in (aggregation or {}).items() if k != 'prediction'}
+            return {'prediction': arbiter['prediction'], 'planner_protocol': selected_protocol, 'plan': None,
+                    'decomposition': decomposition, 'initial_diagnoses': initial,
+                    'diagnostic_review': history, 'final_diagnoses': final_agents,
+                    'initial_agents': {}, 'deliberation': history, 'final_agents': {},
+                    'arbiter': arbiter, 'stop_reason': reason,
+                    **aggregation_trace,
+                    'latency_seconds': time.monotonic() - started}
         if self.mode == 'single':
             arbiter = ask('Single', 'single', {}, [], 'Predict the task label.')
             reason = 'single'

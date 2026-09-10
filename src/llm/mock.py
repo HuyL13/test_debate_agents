@@ -22,6 +22,30 @@ class MockTransport:
         elif 'question' in properties:
             value = {'question': None if 'next targeted' in user.get('instruction', '') else
                      'Which supplied premise supports the conclusion?', 'content': 'Synthetic question/reflection.'}
+        elif 'argumentative_status' in properties:
+            value = {'argumentative_status': 'explicit_argument',
+                     'claims': [{'id': 'C1', 'source': 'target_comment', 'role': 'conclusion',
+                                 'text': user['input']['comment']}],
+                     'conclusion_id': 'C1', 'implicit_assumptions': [],
+                     'reasoning_relation': 'OFFLINE MOCK decomposition.',
+                     'scope_notes': [], 'uncertainty': []}
+        elif 'issue_status' in properties:
+            value = {'issue_status': 'present', 'diagnosis': 'OFFLINE MOCK diagnostic fixture.',
+                     'supporting_quote': user['input']['comment'],
+                     'structure_objection': 'OFFLINE MOCK structure note.',
+                     'alternative_interpretation': 'OFFLINE MOCK alternative.'}
+        elif 'candidate_type' in properties:
+            value = {'candidate_type': 'None', 'status': 'rejected',
+                     'necessary_conditions_met': False, 'sufficient_evidence': False,
+                     'supporting_quote': user['input']['comment'],
+                     'premise': '', 'conclusion': '', 'defective_inference': '',
+                     'strongest_nonfallacious_reading': 'OFFLINE MOCK non-fallacious reading.',
+                     'auxiliary_observation': 'OFFLINE MOCK candidate fixture.'}
+        elif 'decision' in properties:
+            value = {'decision': 'keep', 'diagnosis': 'OFFLINE MOCK review fixture.',
+                     'supporting_quote': user['input']['comment'],
+                     'response_to_other_diagnoses': 'OFFLINE MOCK response.',
+                     'remaining_uncertainty': 'OFFLINE MOCK uncertainty.'}
         else:
             labels = properties['prediction']['enum']
             value = {'prediction': labels[seed % len(labels)], 'confidence': 0.9,

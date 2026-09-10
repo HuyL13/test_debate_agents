@@ -5,6 +5,7 @@ FALLACIES = (
 )
 DETECTION = ('Non-Fallacious', 'Fallacious')
 ROLES = ('Factual', 'Logical', 'Contextual')
+DIAGNOSTIC_ROLES = ('Inference', 'Evidence', 'SemanticContext')
 PROTOCOLS = ('round_robin', 'point_counterpoint', 'cross_examination')
 
 

@@ -41,6 +41,16 @@ def score(records):
               'zero_division': 0}
     if task == 'detection':
         result.update({k: per_class['Fallacious'][k] for k in ('precision', 'recall', 'f1')})
+        non_idx = labels.index('Non-Fallacious')
+        fall_idx = labels.index('Fallacious')
+        tn = matrix[non_idx][non_idx]
+        fp = matrix[non_idx][fall_idx]
+        fn = matrix[fall_idx][non_idx]
+        tp = matrix[fall_idx][fall_idx]
+        result.update({'gold_fallacious_rate': (tp + fn) / len(records),
+                       'predicted_fallacious_rate': (tp + fp) / len(records),
+                       'false_positive_rate': fp / (fp + tn) if fp + tn else 0.0,
+                       'false_negative_rate': fn / (fn + tp) if fn + tp else 0.0})
     else:
         result['macro_f1'] = sum(v['f1'] for v in per_class.values()) / 8
     return result
