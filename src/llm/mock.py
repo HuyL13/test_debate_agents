@@ -22,6 +22,8 @@ class MockTransport:
         elif 'question' in properties:
             value = {'question': None if 'next targeted' in user.get('instruction', '') else
                      'Which supplied premise supports the conclusion?', 'content': 'Synthetic question/reflection.'}
+        elif 'premises' in properties:
+            value = {'premises': [], 'conclusion': user['input']['comment']}
         elif 'argumentative_status' in properties:
             value = {'argumentative_status': 'explicit_argument',
                      'claims': [{'id': 'C1', 'source': 'target_comment', 'role': 'conclusion',
@@ -48,8 +50,10 @@ class MockTransport:
                      'remaining_uncertainty': 'OFFLINE MOCK uncertainty.'}
         else:
             labels = properties['prediction']['enum']
-            value = {'prediction': labels[seed % len(labels)], 'confidence': 0.9,
+            value = {'prediction': labels[seed % len(labels)],
                      'content': 'OFFLINE MOCK: deterministic plumbing fixture, not model analysis.'}
+            if 'confidence' in properties:
+                value['confidence'] = 0.9
             if 'supporting_quote' in properties:
                 value['supporting_quote'] = user['input']['comment']
         return {'id': 'mock-' + digest(payload)[:12], 'model': 'offline-mock-v1',

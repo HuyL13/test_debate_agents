@@ -3,6 +3,8 @@ from src.labels import labels_for
 
 def vector(report, task):
     """Detection signed confidence; classification a categorical confidence vector."""
+    if 'confidence' not in report:
+        return [int(report['prediction'] == label) for label in labels_for(task)]
     if task == 'detection':
         return [report['confidence'] * (1 if report['prediction'] == 'Fallacious' else -1)]
     # One-hot mass plus uniform residual uncertainty, with no ordinal label distance.

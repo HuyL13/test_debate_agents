@@ -9,11 +9,12 @@ from src.labels import PROTOCOLS, ROLES, labels_for
 from src.prompts import system_prompt
 from src.legacy_protocols import EXECUTORS
 from src.schemas import plan_schema, report_schema, review_schema, validate_plan, validate_review_quote
+from src import simplified
 
 
 class Engine:
     def __init__(self, llm, *, task, mode='adaptive', protocol='round_robin', max_rounds=3, early_stop=True,
-                 adaptive_policy='planner'):
+                 adaptive_policy='planner', flow=None):
         labels_for(task)
         if mode not in ('single', 'no_deliberation', 'fixed', 'adaptive'):
             raise ValueError('Unknown engine mode')
@@ -24,23 +25,40 @@ class Engine:
         if adaptive_policy not in ('planner', 'disagreement', 'diagnostic_no_debate', 'diagnostic_review'):
             raise ValueError('Unknown adaptive policy')
         self.adaptive_policy = adaptive_policy
+        if flow not in (None, 'A', 'B'):
+            raise ValueError('flow must be A or B')
+        if flow and (mode not in ('no_deliberation', 'adaptive', 'fixed') or adaptive_policy != 'planner'):
+            raise ValueError('Simplified flows require no_deliberation, fixed, or adaptive planner')
+        self.flow = flow
 
     def run(self, model_input: ModelInput, metadata):
         if not isinstance(model_input, ModelInput):
             raise TypeError('Engine accepts only label-free ModelInput')
         started = time.monotonic()
         selected_protocol, plan = 'none', None
+        decomposition = None
+        if self.flow:
+            model_input = ModelInput(model_input.title, model_input.parent_comment, model_input.comment)
 
         def ask(role, stage, reports, history, instruction, schema=None, question=None, validator=None, extra=None):
             payload = {'input': model_input.as_dict(), 'reports': deepcopy(reports),
                        'history': deepcopy(history), 'instruction': instruction, 'question': question,
                        'plan': deepcopy(plan), **deepcopy(extra or {})}
-            return self.llm.generate(system_prompt=system_prompt(role, self.task), user_prompt=canonical(payload),
-                                     schema=schema or report_schema(self.task),
+            if decomposition is not None:
+                payload['decomposition'] = deepcopy(decomposition)
+            return self.llm.generate(system_prompt=(simplified.prompt(role, self.task) if self.flow
+                                                   else system_prompt(role, self.task)), user_prompt=canonical(payload),
+                                     schema=schema or (simplified.prediction_schema(self.task) if self.flow
+                                                       else report_schema(self.task)),
                                      metadata={**metadata, 'task': self.task, 'role': role, 'stage': stage,
                                                'protocol': selected_protocol}, validator=validator)
 
         initial, final_agents, history = {}, {}, []
+        if self.flow == 'B':
+            decomposition = ask('ArgumentDecomposer', 'decomposition', {}, [],
+                                'Extract explicit target premises and conclusion only.',
+                                schema=simplified.decomposition_schema(),
+                                validator=lambda value: simplified.validate_decomposition(value, model_input.comment))
         if self.mode == 'adaptive' and self.adaptive_policy in ('diagnostic_no_debate', 'diagnostic_review'):
             selected_protocol = self.adaptive_policy
             decomposition, initial, history, final_agents, reason, aggregation = execute_diagnostic(
@@ -113,6 +131,9 @@ class Engine:
                     ask, initial, plan, self.task, self.early_stop)
             arbiter = ask('Arbiter', 'final', {'initial': initial, 'final': final_agents}, history,
                           'Synthesize the evidence and produce exactly one final task prediction.')
-        return {'prediction': arbiter['prediction'], 'planner_protocol': selected_protocol, 'plan': plan,
+        flow_trace = ({'flow': self.flow, 'agent_roles': simplified.ROLE_NAMES,
+                       **({'decomposition': decomposition} if decomposition is not None else {})}
+                      if self.flow else {})
+        return {**flow_trace, 'prediction': arbiter['prediction'], 'planner_protocol': selected_protocol, 'plan': plan,
                 'initial_agents': initial, 'deliberation': history, 'final_agents': final_agents,
                 'arbiter': arbiter, 'stop_reason': reason, 'latency_seconds': time.monotonic() - started}

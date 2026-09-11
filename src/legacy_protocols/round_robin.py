@@ -15,7 +15,7 @@ def execute(ask, initial, plan, task, early_stop):
         if early_stop and previous is not None:
             same_label = len({r['prediction'] for r in reports.values()}) == 1
             spread = max(distance(reports[a], reports[b], task) for a in reports for b in reports)
-            if same_label and (spread < 0.15 or all(r['confidence'] > 0.8 for r in reports.values())):
+            if same_label and (spread < 0.15 or all(r.get('confidence', 0) > 0.8 for r in reports.values())):
                 return reports, history, 'consensus'
             if stable(reports, previous, plan['order'], task):
                 return reports, history, 'stagnation'
