@@ -82,7 +82,7 @@ class Sample:
 
 def load_split(path):
     path = Path(path)
-    articles = json.loads(path.read_text(encoding='utf-8'))
+    articles = json.loads(path.read_text(encoding='utf-8-sig'))
     if not isinstance(articles, list) or not articles:
         raise ValueError('Split must be a non-empty list of articles')
     mapping = {label.lower(): label for label in FALLACIES}

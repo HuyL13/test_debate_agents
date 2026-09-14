@@ -2,24 +2,16 @@ task: detection
 data_dir: data/cocolofa
 split: dev
 context: paper
-engine:
-  mode: adaptive
-  protocol: round_robin
-  max_rounds: 3
-  early_stop: true
+
 model:
-  provider: openai
-  name: SET_MODEL_SNAPSHOT
-  base_url: https://api.openai.com/v1
-  api_key_env: OPENAI_API_KEY
-  temperature: 0.0
-  max_completion_tokens: 1200
-  timeout_seconds: 90
+  provider: openai_compatible
+  name_env: NVIDIA_MODEL
+  base_url_env: NVIDIA_BASE_URL
+  api_key_env: NVIDIA_API_KEY
+  temperature: 1.0
+  max_completion_tokens: 1600
+  timeout_seconds: 120
   max_attempts: 3
-  backoff_seconds: 1
-  structured_output: true
-  input_cost_per_million: null
-  output_cost_per_million: null
-  cached_input_cost_per_million: null
-output_dir: outputs/detection-dev
+
+output_root: runs
 cache_dir: cache
