@@ -195,6 +195,7 @@ def execute(config, *, limit=None, resume=False, output=None):
             print(
                 f"[{index}/{len(samples)}] {sample.sample_id} done "
                 f"prediction={row['prediction']} "
+                f"gold={row['gold']} "
                 f"calls={result['stats']['provider_calls']} "
                 f"tokens={result['stats']['total_tokens']} "
                 f"seconds={result['stats']['wall_time_seconds']:.2f}",
