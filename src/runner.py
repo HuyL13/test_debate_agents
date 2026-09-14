@@ -128,14 +128,18 @@ def execute(config, *, limit=None, resume=False, output=None):
     engine = Engine(client, task=config["task"])
     predictions = []
     errors = []
-    for sample in samples:
+    print(f"Run directory: {run_dir}", flush=True)
+    print(f"Task: {config['task']} split={config['split']} samples={len(samples)}", flush=True)
+    for index, sample in enumerate(samples, 1):
         trace_path = run_dir / "traces" / sample_trace_filename(sample.sample_id)
         if resume and trace_path.exists():
             trace = yaml.safe_load(trace_path.read_text(encoding="utf-8"))
             predictions.append(_prediction_row(trace))
+            print(f"[{index}/{len(samples)}] {sample.sample_id} resume-skip", flush=True)
             continue
         model_input = sample.model_input(config["context"])
         try:
+            print(f"[{index}/{len(samples)}] {sample.sample_id} start", flush=True)
             result = engine.run(model_input, {"sample_id": sample.sample_id, "split": config["split"]})
             trace = build_sample_trace(
                 sample={
@@ -170,8 +174,17 @@ def execute(config, *, limit=None, resume=False, output=None):
                 "total_tokens": result["stats"]["total_tokens"],
                 "wall_time_seconds": result["stats"]["wall_time_seconds"],
             })
+            print(
+                f"[{index}/{len(samples)}] {sample.sample_id} done "
+                f"prediction={row['prediction']} "
+                f"calls={result['stats']['provider_calls']} "
+                f"tokens={result['stats']['total_tokens']} "
+                f"seconds={result['stats']['wall_time_seconds']:.2f}",
+                flush=True,
+            )
         except Exception as exc:
             errors.append({"sample_id": sample.sample_id, "error": f"{type(exc).__name__}: {exc}"})
+            print(f"[{index}/{len(samples)}] {sample.sample_id} error {type(exc).__name__}: {exc}", flush=True)
             break
     predictions_path = run_dir / "predictions.jsonl"
     if predictions_path.exists():

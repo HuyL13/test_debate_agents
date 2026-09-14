@@ -70,6 +70,17 @@ def test_runner_writes_yaml_traces_samples_csv_and_audit(tmp_path):
     assert read_jsonl(run / "predictions.jsonl")[0]["sample_id"] == "2:21"
 
 
+def test_runner_prints_progress_while_samples_run(tmp_path, capsys):
+    cfg = config(tmp_path)
+
+    execute(cfg, limit=1)
+
+    out = capsys.readouterr().out
+    assert "Run directory:" in out
+    assert "[1/1] 2:21 start" in out
+    assert "[1/1] 2:21 done" in out
+
+
 def test_resume_keeps_manifest_and_does_not_duplicate_completed_sample(tmp_path):
     cfg = config(tmp_path)
     execute(cfg, limit=1)
