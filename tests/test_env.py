@@ -17,6 +17,16 @@ def test_dotenv_file_populates_missing_environment(tmp_path, monkeypatch):
     assert os.environ["NVIDIA_MODEL"] == "already-set"
 
 
+def test_dotenv_file_accepts_utf8_bom_from_windows_tools(tmp_path, monkeypatch):
+    env_path = tmp_path / ".env"
+    env_path.write_text("NVIDIA_API_KEY=abc123\n", encoding="utf-8-sig")
+    monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
+
+    load_dotenv_file(env_path)
+
+    assert os.environ["NVIDIA_API_KEY"] == "abc123"
+
+
 def test_expand_env_rejects_missing_required_variable(monkeypatch):
     monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
 
