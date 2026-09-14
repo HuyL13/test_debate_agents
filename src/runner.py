@@ -91,6 +91,15 @@ def _prediction_row(trace):
     }
 
 
+def _log_json(label, value):
+    print(f"{label}: {json.dumps(value, ensure_ascii=False, sort_keys=True)}", flush=True)
+
+
+def _shorten(text, limit=600):
+    text = " ".join(str(text).split())
+    return text if len(text) <= limit else text[: limit - 3] + "..."
+
+
 def execute(config, *, limit=None, resume=False, output=None):
     config = validate_config(config)
     if limit is not None and (type(limit) is not int or limit < 1):
@@ -140,6 +149,7 @@ def execute(config, *, limit=None, resume=False, output=None):
         model_input = sample.model_input(config["context"])
         try:
             print(f"[{index}/{len(samples)}] {sample.sample_id} start", flush=True)
+            print(f"TARGET: {_shorten(model_input.comment)}", flush=True)
             result = engine.run(model_input, {"sample_id": sample.sample_id, "split": config["split"]})
             trace = build_sample_trace(
                 sample={
@@ -174,6 +184,14 @@ def execute(config, *, limit=None, resume=False, output=None):
                 "total_tokens": result["stats"]["total_tokens"],
                 "wall_time_seconds": result["stats"]["wall_time_seconds"],
             })
+            for role in ("scheme", "enthymeme", "critical"):
+                _log_json(f"  {role}", result["initial_analysis"][role])
+            if result["conflicts"]:
+                for conflict in result["conflicts"]:
+                    _log_json("  conflict", conflict)
+            else:
+                print("  conflicts: none", flush=True)
+            _log_json("  arbiter", result["arbiter"])
             print(
                 f"[{index}/{len(samples)}] {sample.sample_id} done "
                 f"prediction={row['prediction']} "

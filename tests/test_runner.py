@@ -78,6 +78,11 @@ def test_runner_prints_progress_while_samples_run(tmp_path, capsys):
     out = capsys.readouterr().out
     assert "Run directory:" in out
     assert "[1/1] 2:21 start" in out
+    assert "TARGET: I think this election is about good and evil." in out
+    assert "scheme:" in out
+    assert "enthymeme:" in out
+    assert "critical:" in out
+    assert "arbiter:" in out
     assert "[1/1] 2:21 done" in out
 
 
