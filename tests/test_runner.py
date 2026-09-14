@@ -84,6 +84,10 @@ def test_runner_prints_progress_while_samples_run(tmp_path, capsys):
     assert "critical:" in out
     assert "arbiter:" in out
     assert "[1/1] 2:21 done prediction=Non-Fallacious gold=Non-Fallacious" in out
+    assert "logical_calls=" in out
+    assert "provider_calls=" in out
+    assert "cache_hits=" in out
+    assert "retries=" in out
 
 
 def test_resume_keeps_manifest_and_does_not_duplicate_completed_sample(tmp_path):

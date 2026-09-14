@@ -23,6 +23,41 @@ SCHEMAS = {
 }
 
 
+def _unique(values):
+    result = []
+    for value in values:
+        if value is not None and value not in result:
+            result.append(value)
+    return result
+
+
+def _candidate_state(reports):
+    entries = []
+    for role in ANALYSTS:
+        report = reports[role]
+        candidate = report.get("candidate")
+        if role == "scheme":
+            viable = candidate is not None and report.get("structure_complete") is True
+            reason = "structure_complete=true" if viable else "structure_complete=false"
+        elif role == "enthymeme":
+            viable = candidate is not None and report.get("assumption_licensed") is True
+            reason = "assumption_licensed=true" if viable else "assumption_licensed=false"
+        else:
+            viable = candidate is not None and report.get("criterion_met") is True
+            reason = "criterion_met=true" if viable else "criterion_met=false"
+        entries.append({"source": role, "candidate": candidate, "viable": viable, "reason": reason})
+    active = _unique(entry["candidate"] for entry in entries if entry["viable"])
+    return entries, active
+
+
+def _reports_for_active_candidates(active):
+    roles = ("scheme", "enthymeme", "critical")
+    reports = {}
+    for index, role in enumerate(roles):
+        reports[role] = {"candidate": active[index] if index < len(active) else None}
+    return reports
+
+
 class Engine:
     def __init__(self, llm, *, task):
         labels_for(task)
@@ -47,8 +82,10 @@ class Engine:
             )
             calls.append(result)
             reports[role] = result.output
-        conflicts = build_conflicts(reports)
+        initial_state, active_candidates = _candidate_state(reports)
+        conflicts = build_conflicts(_reports_for_active_candidates(active_candidates)) if len(active_candidates) > 1 else []
         resolutions = []
+        survivors = list(active_candidates)
         for conflict in conflicts[:2]:
             stage = "resolve__" + "__vs__".join(slug(candidate) for candidate in conflict["candidates"])
             result = self._call(
@@ -67,6 +104,11 @@ class Engine:
             )
             calls.append(result)
             resolutions.append({**conflict, "resolution": result.output})
+            winner = result.output.get("winner")
+            pair = set(conflict["candidates"])
+            survivors = [candidate for candidate in survivors if candidate not in pair]
+            if winner is not None and winner not in survivors:
+                survivors.append(winner)
         arbiter = self._call(
             role="arbiter",
             stage="arbiter",
@@ -78,6 +120,7 @@ class Engine:
                 "task": self.task,
                 "reports": reports,
                 "resolutions": resolutions,
+                "surviving_candidates": survivors,
             },
         )
         calls.append(arbiter)
@@ -86,6 +129,11 @@ class Engine:
             "prediction": arbiter.output["prediction"],
             "initial_analysis": reports,
             "conflicts": resolutions,
+            "candidate_state": {
+                "initial": initial_state,
+                "after_viability": active_candidates,
+                "after_conflicts": survivors,
+            },
             "arbiter": arbiter.output,
             "stats": stats,
         }

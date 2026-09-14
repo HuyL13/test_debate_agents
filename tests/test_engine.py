@@ -10,6 +10,18 @@ class Result:
     stats: object
 
 
+@dataclass
+class Stats:
+    stage: str
+    logical_calls: int = 1
+    provider_calls: int = 1
+    cache_hit: bool = False
+    retries: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+
+
 class RecordingClient:
     def __init__(self):
         self.calls = []
@@ -28,7 +40,7 @@ class RecordingClient:
             output = {
                 "candidate": "False Dilemma",
                 "evidence_spans": ["good and evil"],
-                "relation": "moral contrast",
+                "relation": "alternatives_to_choice",
                 "structure_complete": False,
             }
         elif stage == "enthymeme":
@@ -42,7 +54,7 @@ class RecordingClient:
             output = {
                 "candidate": None,
                 "evidence_spans": ["good and evil"],
-                "criterion": "exhaustiveness commitment",
+                "criterion": "exhaustiveness_commitment",
                 "criterion_met": False,
                 "alternative_reading": "moral rhetoric",
             }
@@ -57,7 +69,7 @@ class RecordingClient:
             output = {"prediction": "Non-Fallacious", "evidence_spans": ["good and evil"]}
         if validator:
             validator(output)
-        return Result(output=output, stats={"stage": stage})
+        return Result(output=output, stats=Stats(stage=stage))
 
 
 def test_engine_runs_only_conflict_guided_stages_without_gold_leakage():
@@ -85,3 +97,65 @@ def test_engine_runs_only_conflict_guided_stages_without_gold_leakage():
     assert "gold" not in prompt_text
     assert "confidence" not in str(trace).lower()
     assert "content" not in str(trace).lower()
+
+
+class ViabilityClient(RecordingClient):
+    def generate(self, *, system_prompt, user_prompt, schema, metadata, validator=None):
+        self.calls.append({"system_prompt": system_prompt, "user_prompt": user_prompt, "metadata": metadata})
+        stage = metadata["stage"]
+        if stage == "scheme":
+            output = {
+                "candidate": "False Dilemma",
+                "evidence_spans": ["It only gets worse"],
+                "relation": "alternatives_to_choice",
+                "structure_complete": False,
+            }
+        elif stage == "enthymeme":
+            output = {
+                "candidate": "Appeal to Authority",
+                "evidence_spans": ["let them dictate rules against fairness"],
+                "required_assumption": "rule-makers are authoritative support for the conclusion",
+                "assumption_licensed": False,
+            }
+        elif stage == "critical":
+            output = {
+                "candidate": "Slippery Slope",
+                "evidence_spans": ["It only gets worse", "Rights will be trampled and compromised"],
+                "criterion": "consequence_progression",
+                "criterion_met": True,
+                "alternative_reading": None,
+            }
+        else:
+            output = {"prediction": "Non-Fallacious", "evidence_spans": ["It only gets worse"]}
+        if validator:
+            validator(output)
+        return Result(output=output, stats=Stats(stage=stage))
+
+
+def test_engine_prunes_nonviable_candidates_before_conflicts_and_binds_arbiter():
+    client = ViabilityClient()
+    engine = Engine(client, task="detection")
+    sample = ModelInput(
+        title="Rules",
+        parent_comment="",
+        comment=(
+            "Once you let them dictate rules against fairness, they will continue the problem. "
+            "It only gets worse. Rights will be trampled and compromised."
+        ),
+    )
+
+    trace = engine.run(sample, {"sample_id": "427:6078", "split": "test"})
+
+    assert [call["metadata"]["stage"] for call in client.calls] == [
+        "scheme",
+        "enthymeme",
+        "critical",
+        "arbiter",
+    ]
+    assert trace["conflicts"] == []
+    assert trace["candidate_state"]["after_viability"] == ["Slippery Slope"]
+    assert trace["candidate_state"]["after_conflicts"] == ["Slippery Slope"]
+    assert trace["arbiter"]["prediction"] == "Non-Fallacious"
+    assert trace["prediction"] == "Fallacious"
+    arbiter_payload = client.calls[-1]["user_prompt"]
+    assert '"surviving_candidates": ["Slippery Slope"]' in arbiter_payload

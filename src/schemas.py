@@ -1,6 +1,34 @@
 from src.labels import FALLACIES, labels_for
 
 
+RELATIONS = (
+    "sample_to_population",
+    "event_to_consequence",
+    "consequence_progression",
+    "alternatives_to_choice",
+    "authority_to_claim",
+    "popularity_to_claim",
+    "nature_to_value",
+    "tradition_to_preservation",
+    "worse_problem_to_deprioritization",
+    "other",
+    "none",
+)
+
+CRITERIA = (
+    "sample_to_population",
+    "consequence_progression",
+    "exhaustiveness_commitment",
+    "authority_justification",
+    "popularity_justification",
+    "nature_to_value",
+    "tradition_to_preservation",
+    "worse_problem_deprioritization",
+    "target_fallacy_condition",
+    "none",
+)
+
+
 def object_schema(properties, required=None):
     return {
         "type": "object",
@@ -27,7 +55,7 @@ def scheme_schema(task):
     return object_schema({
         "candidate": _candidate(task),
         "evidence_spans": _spans(),
-        "relation": _string(),
+        "relation": {"enum": list(RELATIONS)},
         "structure_complete": {"type": "boolean"},
     })
 
@@ -45,9 +73,9 @@ def critical_schema(task):
     return object_schema({
         "candidate": _candidate(task),
         "evidence_spans": _spans(),
-        "criterion": _string(),
+        "criterion": {"enum": list(CRITERIA)},
         "criterion_met": {"type": "boolean"},
-        "alternative_reading": _string(),
+        "alternative_reading": {"anyOf": [_string(), {"type": "null"}]},
     })
 
 

@@ -21,7 +21,7 @@ def test_trace_has_meaningful_filename_stats_and_no_legacy_blobs(tmp_path):
             "scheme": {
                 "candidate": "False Dilemma",
                 "evidence_spans": ["good and evil"],
-                "relation": "moral contrast",
+                "relation": "alternatives_to_choice",
                 "structure_complete": False,
             },
             "enthymeme": {
@@ -33,7 +33,7 @@ def test_trace_has_meaningful_filename_stats_and_no_legacy_blobs(tmp_path):
             "critical": {
                 "candidate": None,
                 "evidence_spans": ["good and evil"],
-                "criterion": "exhaustiveness commitment",
+                "criterion": "exhaustiveness_commitment",
                 "criterion_met": False,
                 "alternative_reading": "moral rhetoric",
             },

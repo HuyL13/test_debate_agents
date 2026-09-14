@@ -23,7 +23,7 @@ class MockTransport:
             value = {
                 "candidate": "False Dilemma" if "good and evil" in target else "Slippery Slope",
                 "evidence_spans": [span],
-                "relation": "offline structural fixture",
+                "relation": "alternatives_to_choice" if "good and evil" in target else "consequence_progression",
                 "structure_complete": "only" in target.lower(),
             }
         elif "assumption_licensed" in properties:
@@ -37,7 +37,7 @@ class MockTransport:
             value = {
                 "candidate": None if "good and evil" in target else "Slippery Slope",
                 "evidence_spans": [span],
-                "criterion": "mandatory target structure",
+                "criterion": "exhaustiveness_commitment" if "good and evil" in target else "consequence_progression",
                 "criterion_met": "good and evil" not in target,
                 "alternative_reading": "offline non-fallacious reading",
             }
