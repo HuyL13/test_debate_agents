@@ -8,6 +8,7 @@ from urllib.error import HTTPError, URLError
 from src.io_utils import append_jsonl, digest
 from src.llm.cache import Cache
 from src.llm.config import ModelConfig
+from src.llm.gemini_client import GeminiTransport
 from src.llm.mock import MockTransport
 from src.llm.openai_client import OpenAITransport
 from src.schemas import validate_output
@@ -48,7 +49,14 @@ class Client:
         self.config = config
         self.cache = Cache(cache_path)
         self.audit_path = audit_path
-        self.transport = transport or (MockTransport() if config.provider == 'mock' else OpenAITransport(config))
+        if transport is not None:
+            self.transport = transport
+        elif config.provider == 'mock':
+            self.transport = MockTransport()
+        elif config.provider == 'gemini':
+            self.transport = GeminiTransport(config)
+        else:
+            self.transport = OpenAITransport(config)
         self.usage = {'api_calls': 0, 'cache_hits': 0, 'prompt_tokens': 0, 'completion_tokens': 0,
                       'total_tokens': 0, 'provider_cached_tokens': 0, 'missing_usage_responses': 0}
         self.model_versions = set()

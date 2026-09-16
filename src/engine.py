@@ -3,6 +3,9 @@ from collections import defaultdict
 from copy import deepcopy
 
 from src.data.loader import ModelInput
+from src.ars_diagnostic import execute as execute_ars
+from src.ars_prompts import ars_system_prompt
+from src.ars_schemas import ars_arbiter_schema, validate_ars_arbiter
 from src.diagnostic import execute as execute_diagnostic
 from src.io_utils import canonical
 from src.labels import PROTOCOLS, ROLES, labels_for
@@ -22,7 +25,8 @@ class Engine:
             raise ValueError('Protocol budget must be 1..5 with a registered protocol')
         self.llm, self.task, self.mode = llm, task, mode
         self.protocol, self.max_rounds, self.early_stop = protocol, max_rounds, early_stop
-        if adaptive_policy not in ('planner', 'disagreement', 'diagnostic_no_debate', 'diagnostic_review'):
+        if adaptive_policy not in ('planner', 'disagreement', 'diagnostic_no_debate', 'diagnostic_review',
+                                   'ars_no_debate', 'ars_review'):
             raise ValueError('Unknown adaptive policy')
         self.adaptive_policy = adaptive_policy
         if flow not in (None, 'A', 'B'):
@@ -46,8 +50,16 @@ class Engine:
                        'plan': deepcopy(plan), **deepcopy(extra or {})}
             if decomposition is not None:
                 payload['decomposition'] = deepcopy(decomposition)
-            return self.llm.generate(system_prompt=(simplified.prompt(role, self.task) if self.flow
-                                                   else system_prompt(role, self.task)), user_prompt=canonical(payload),
+
+            ars_role = role in ('ARSArgumentDecomposer', 'Acceptability', 'Relevance', 'Sufficiency', 'ARSArbiter')
+            if ars_role:
+                selected_system_prompt = ars_system_prompt(role, self.task)
+            elif self.flow:
+                selected_system_prompt = simplified.prompt(role, self.task)
+            else:
+                selected_system_prompt = system_prompt(role, self.task)
+
+            return self.llm.generate(system_prompt=selected_system_prompt, user_prompt=canonical(payload),
                                      schema=schema or (simplified.prediction_schema(self.task) if self.flow
                                                        else report_schema(self.task)),
                                      metadata={**metadata, 'task': self.task, 'role': role, 'stage': stage,
@@ -59,6 +71,41 @@ class Engine:
                                 'Extract explicit target premises and conclusion only.',
                                 schema=simplified.decomposition_schema(),
                                 validator=lambda value: simplified.validate_decomposition(value, model_input.comment))
+        if self.mode == 'adaptive' and self.adaptive_policy in ('ars_no_debate', 'ars_review'):
+            selected_protocol = self.adaptive_policy
+            decomposition, initial, history, final_agents, reason = execute_ars(
+                ask,
+                model_input,
+                self.adaptive_policy,
+            )
+
+            arbiter = ask(
+                'ARSArbiter',
+                'ars_final',
+                {'final_diagnoses': final_agents},
+                [],
+                'Validate the final ARS diagnoses against the raw target and map them to exactly one final task prediction.',
+                schema=ars_arbiter_schema(self.task),
+                validator=lambda value: validate_ars_arbiter(value, self.task),
+                extra={'decomposition': decomposition},
+            )
+
+            return {
+                'framework': 'ARS',
+                'prediction': arbiter['prediction'],
+                'planner_protocol': selected_protocol,
+                'plan': None,
+                'decomposition': decomposition,
+                'initial_diagnoses': initial,
+                'diagnostic_review': history,
+                'final_diagnoses': final_agents,
+                'initial_agents': {},
+                'deliberation': history,
+                'final_agents': {},
+                'arbiter': arbiter,
+                'stop_reason': reason,
+                'latency_seconds': time.monotonic() - started,
+            }
         if self.mode == 'adaptive' and self.adaptive_policy in ('diagnostic_no_debate', 'diagnostic_review'):
             selected_protocol = self.adaptive_policy
             decomposition, initial, history, final_agents, reason, aggregation = execute_diagnostic(

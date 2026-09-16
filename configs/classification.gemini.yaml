@@ -1,0 +1,26 @@
+task: classification
+data_dir: data/cocolofa
+split: dev
+context: paper
+engine:
+  mode: adaptive
+  protocol: round_robin
+  max_rounds: 1
+  early_stop: false
+  adaptive_policy: ars_no_debate
+model:
+  provider: gemini
+  name: gemini-2.5-flash
+  base_url: https://generativelanguage.googleapis.com/v1beta
+  api_key_env: GEMINI_API_KEY
+  temperature: 1.0
+  max_completion_tokens: 2048
+  timeout_seconds: 120
+  max_attempts: 3
+  backoff_seconds: 1
+  structured_output: true
+  input_cost_per_million: null
+  output_cost_per_million: null
+  cached_input_cost_per_million: null
+output_dir: outputs/gemini-classification-ars-no-debate-dev-v1
+cache_dir: cache/gemini-v1

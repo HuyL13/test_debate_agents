@@ -79,6 +79,34 @@ token usage vẫn được ghi đầy đủ. Kết quả dev subset không phả
 
 Tham khảo [model NVIDIA](https://docs.api.nvidia.com/nim/reference/openai-gpt-oss-20b).
 
+### Các provider API
+
+Lớp LLM dùng chung một contract cho agent, cache, retry, audit và structured
+validation. Chọn provider trong `model`:
+
+| Provider | Endpoint mặc định/mẫu | Biến môi trường key | Ghi chú |
+|---|---|---|---|
+| `openai` | `https://api.openai.com/v1` | `OPENAI_API_KEY` | OpenAI Chat Completions |
+| `openai_compatible` | NVIDIA hoặc endpoint tương thích | tùy `api_key_env` | Dùng cho NVIDIA và provider tương thích OpenAI |
+| `gemini` | `https://generativelanguage.googleapis.com/v1beta` | `GEMINI_API_KEY` | Gemini native `generateContent` |
+| `mock` | không gọi mạng | không cần | Chỉ smoke test, không phải kết quả model |
+
+Ví dụ chạy ARS bằng Gemini:
+
+```powershell
+$env:GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.gemini.yaml --limit 10 --output outputs/gemini-detection-ars-dev10
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.gemini.yaml --limit 10 --output outputs/gemini-classification-ars-dev10
+.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.gemini.ars.yaml --limit 10 --output outputs/gemini-detection-ars-review-dev10
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.gemini.ars.yaml --limit 10 --output outputs/gemini-classification-ars-review-dev10
+```
+
+Gemini native nhận system instruction riêng và JSON structured output qua
+`responseJsonSchema`; adapter lọc các keyword JSON Schema ngoài subset provider,
+nhưng validator nội bộ vẫn kiểm tra schema đầy đủ sau khi nhận response. Xem
+[Gemini generateContent](https://ai.google.dev/api/generate-content) và
+[Gemini structured output](https://ai.google.dev/gemini-api/docs/structured-output?lang=rest).
+
 ### Endpoint OpenAI hoặc nhà cung cấp khác
 
 Sửa `model.name: SET_MODEL_SNAPSHOT` trong **cả hai** file `configs/detection.yaml`, `configs/classification.yaml` thành cùng một model/snapshot mà tài khoản của bạn truy cập được. Cấu hình mặc định dùng OpenAI Chat Completions; endpoint tương thích có thể dùng `provider: openai_compatible` và đổi `base_url`, `api_key_env`.
@@ -131,6 +159,14 @@ Detection báo positive-class Precision/Recall/F1; classification báo Macro-F1 
 | `--mode fixed --protocol point_counterpoint` | Hai nhóm 1v2 hoặc 2v1 |
 | `--mode fixed --protocol cross_examination` | Một examiner, hai respondents |
 | `--mode adaptive` | Ba analysis → planner → protocol được chọn → arbiter |
+| `adaptive_policy: ars_no_debate` | Decomposer → Acceptability / Relevance / Sufficiency → arbiter |
+| `adaptive_policy: ars_review` | ARS diagnoses → synchronous role-preserving review → arbiter |
+
+ARS V1 được mô tả trong [ARS Diagnostic V1](docs/ARS_DIAGNOSTIC_V1.md). Hai policy
+giữ nguyên các baseline legacy và Diagnostic V1; chuyên gia ARS chỉ đánh giá
+Acceptability / Relevance / Sufficiency, còn `ARSArbiter` là thành phần duy nhất
+được nhìn ontology nhãn CoCoLoFa. Dùng `cache/ars-v1` cho run ARS mới và tạo
+cache directory khác (`cache/ars-v1-run1`, ...) khi cần run độc lập ở temperature 1.
 
 `engine.max_rounds` nhận 1–5, mặc định 3; không bắt buộc debate một vòng. `engine.early_stop: false` chạy hết budget. Với fixed mode, thứ tự mặc định Factual → Logical → Contextual; examiner là Factual. Adaptive mode có planner chọn vai trò và budget, cấm point-counterpoint khi không có đúng hai nhóm prediction tự nhiên.
 

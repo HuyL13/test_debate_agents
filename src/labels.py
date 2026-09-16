@@ -6,8 +6,17 @@ FALLACIES = (
 DETECTION = ('Non-Fallacious', 'Fallacious')
 ROLES = ('Factual', 'Logical', 'Contextual')
 DIAGNOSTIC_ROLES = ('Inference', 'Evidence', 'SemanticContext')
-PROTOCOLS = ('round_robin', 'point_counterpoint', 'cross_examination')
+ARS_ROLES = (
+    'Acceptability',
+    'Relevance',
+    'Sufficiency',
+)
 
+ARS_SPECIAL_ROLES = (
+    'ARSArgumentDecomposer',
+    'ARSArbiter',
+)
+PROTOCOLS = ('round_robin', 'point_counterpoint', 'cross_examination')
 
 def labels_for(task):
     if task == 'detection':

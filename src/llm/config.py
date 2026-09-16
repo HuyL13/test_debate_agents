@@ -22,7 +22,7 @@ class ModelConfig:
     def __post_init__(self):
         if not isinstance(self.name, str) or not self.name.strip():
             raise ValueError('A model name is required')
-        if self.provider not in ('openai', 'openai_compatible', 'mock'):
+        if self.provider not in ('openai', 'openai_compatible', 'gemini', 'mock'):
             raise ValueError('Unsupported provider')
         url = urlparse(self.base_url)
         if url.scheme not in ('https', 'http') or not url.hostname or url.query or url.fragment or url.username:
