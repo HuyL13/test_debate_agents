@@ -4,6 +4,7 @@ from scripts.provider_smoke import (
     build_provider_config,
     extract_model_ids,
     get_provider_spec,
+    resolve_model_name,
 )
 
 
@@ -60,3 +61,18 @@ def test_build_provider_config_overrides_only_runtime_model_fields(tmp_path):
     assert configured['output_dir'] == str(tmp_path / 'outputs' / 'market')
     assert configured['cache_dir'] == str(tmp_path / 'cache' / 'market')
     assert base_config['model']['name'] == 'old-model'
+
+
+def test_resolve_model_prefers_configured_model_over_first_discovered_model():
+    base_config = {'model': {'name': 'openai/gpt-oss-20b'}}
+    spec = get_provider_spec('nvidia_2')
+
+    model = resolve_model_name(
+        base_config,
+        spec,
+        'https://integrate.api.nvidia.com/v1',
+        'fixture-key',
+        discover=lambda *_: '01-ai/yi-large',
+    )
+
+    assert model == 'openai/gpt-oss-20b'

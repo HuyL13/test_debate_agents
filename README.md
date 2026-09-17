@@ -121,8 +121,9 @@ python scripts/provider_smoke.py `
   --cache-root cache/provider-smoke-live
 ```
 
-Đặt `MARKET_MODEL`, `ROUTER_MODEL`, `MINIMAX_MODEL` hoặc `NVIDIA_MODEL` nếu
-provider trả về model đầu tiên không phù hợp. Mỗi mẫu ARS no-debate cần 5 API
+Runner ưu tiên model đã có trong config (`openai/gpt-oss-20b` cho NVIDIA), sau
+đó mới dùng `MARKET_MODEL`, `ROUTER_MODEL`, `MINIMAX_MODEL` hoặc `NVIDIA_MODEL`;
+chỉ tự chọn model đầu tiên từ `/models` khi config không có model cụ thể. Mỗi mẫu ARS no-debate cần 5 API
 calls; dùng `--config configs/detection.ars.yaml` để kiểm tra policy review,
 với 8 calls/mẫu. Kết quả tổng hợp nằm ở
 `outputs/provider-smoke-live/summary.json`.

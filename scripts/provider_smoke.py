@@ -107,6 +107,16 @@ def discover_model(spec, base_url, key, timeout=20):
     return models[0]
 
 
+def resolve_model_name(base_config, spec, base_url, key, model_override=None, discover=discover_model):
+    model_name = model_override or os.environ.get(spec.model_env)
+    configured_model = base_config.get('model', {}).get('name')
+    if not model_name and configured_model not in (None, '', 'SET_MODEL_SNAPSHOT'):
+        model_name = configured_model
+    if model_name:
+        return model_name
+    return discover(spec, base_url, key)
+
+
 def build_provider_config(base_config, provider_name, model_name, output_root, cache_root):
     spec = get_provider_spec(provider_name)
     configured = copy.deepcopy(base_config)
@@ -133,10 +143,14 @@ def run_provider(base_config, provider_name, limit, output_root, cache_root, mod
         }
 
     base_url = os.environ.get(spec.base_env, spec.default_base_url)
-    model_name = model_override or os.environ.get(spec.model_env)
     try:
-        if not model_name:
-            model_name = discover_model(spec, base_url, key)
+        model_name = resolve_model_name(
+            base_config,
+            spec,
+            base_url,
+            key,
+            model_override,
+        )
         config = build_provider_config(
             base_config,
             provider_name,
