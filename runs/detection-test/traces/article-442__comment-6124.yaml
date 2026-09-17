@@ -1,0 +1,113 @@
+sample:
+  id: 442:6124
+  article_id: 442
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: This is the perfect example of someone using their fame for good. he is
+    singing about what he believes in and therefore can make change with art.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: using fame for good
+    - role: endorsed_claim
+      text: can make change with art
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is the perfect example of someone using their fame for good. he is singing
+      about what he believes in and therefore can make change with art.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker is claiming that the singer can effect social
+      change through his art because of his fame.
+    candidate: Appeal to Authority
+    supporting_reason: He is singing about what he believes in and therefore can make
+      change with art.
+    support_relation: The fame of the singer is used as the justification for the
+      claim that he will effect change; the argument appeals to the singer’s status
+      rather than to evidence of efficacy.
+    label_justification: Appealing to the singer’s fame as a reason for social impact
+      is an Appeal to Authority because the argument relies on the authority/impressive
+      stature of the individual instead of presenting persuasive evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is the perfect example of someone using their fame for good. he is singing
+      about what he believes in and therefore can make change with art.
+  counterargument:
+    decisive_counterargument: Just because someone is famous does not guarantee that
+      their art will effectively bring about social change; fame is not a proof of
+      influence or expertise in the domain of human rights.
+    candidate: Appeal to Authority
+    challenged_inference: the claim that the singer’s fame and belief-based lyrics
+      inherently allow him to effect change through art
+    label_justification: The argument equates fame with the capacity to influence
+      social outcomes, implying that because the individual is famous, his artistic
+      expression must compel change. This is an appeal to authority, since it relies
+      on the person’s status rather than on evidence of actual effect or expertise.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is the perfect example of someone using their fame for good. he is singing
+      about what he believes in and therefore can make change with art.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target attributes the singer’s capacity for social change
+    to his fame, using the singer’s status as the justification for the claim rather
+    than providing evidence of actual effectiveness. This reliance on the singer’s
+    authority (fame) to support the conclusion that he can change society with art
+    constitutes an Appeal to Authority.
+  decision_reason: The argument asserts that the singer’s fame implies he can effect
+    change, thereby appealing to the singer’s authority rather than evidence of his
+    impact. Evidence ID T1 supports the claim that the singer’s fame is used as an
+    authority basis. Consequently, Appeal to Authority is the appropriate classification.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is the perfect example of someone using their fame for good. he is singing
+    about what he believes in and therefore can make change with art.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3988
+  completion_tokens: 2156
+  total_tokens: 6144
+  wall_time_seconds: 121.03200000000652

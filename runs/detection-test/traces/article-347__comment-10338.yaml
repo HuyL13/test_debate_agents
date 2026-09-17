@@ -1,0 +1,103 @@
+sample:
+  id: 347:10338
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: Something needs to be done, but I agree with the commenter who said that
+    too much tightening of regulations in regards to NGOs may eventually lead to NGOs
+    ceasing to exist. It is critical to find the right balance when it comes to tightening
+    regulations. Also, more international measures may need to be configured in order
+    to ensure the safe operation of NGOs.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - too much tightening of regulations in regards to NGOs may eventually lead to
+      NGOs ceasing to exist
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - too much tightening of regulations in regards to NGOs may eventually lead to
+      NGOs ceasing to exist
+    - It is critical to find the right balance when it comes to tightening regulations
+    - more international measures may need to be configured in order to ensure the
+      safe operation of NGOs
+    conclusion_or_goal: To find the right balance in tightening regulations on NGOs
+    candidate: null
+    supporting_reason: Too much tightening of regulations may eventually lead to NGOs
+      ceasing to exist
+    support_relation: used to justify the need for balanced regulation
+    label_justification: The reason is explicitly employed to support the goal of
+      balanced regulation; no fallacious reasoning is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - too much tightening of regulations in regards to NGOs may eventually lead to
+      NGOs ceasing to exist
+    decisive_counterargument: The statement that excessive regulation will inevitably
+      cause all NGOs to disappear is speculative and lacks evidence; many NGOs have
+      adapted to stricter rules and continue to operate. Without data showing a causal
+      link, the claim remains unsubstantiated.
+    candidate: Hasty Generalization
+    challenged_inference: too much tightening of regulations in regards to NGOs may
+      eventually lead to NGOs ceasing to exist
+    label_justification: The objection shows that the claim generalizes a possible
+      outcome to all NGOs without supporting evidence or examples, which is a classic
+      hasty generalization. The argument presents an unqualified negative result as
+      if it were inevitable, thereby failing the required evidence step before concluding
+      the regulation’s effect.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  evidence_spans:
+  - too much tightening of regulations in regards to NGOs may eventually lead to NGOs
+    ceasing to exist
+  decisive_condition: The claim in TARGET does not provide an explicit sample or case
+    to justify the broad conclusion about all NGOs; it only states a speculative possibility
+    without a concrete example, so the structural requirement for Hasty Generalization
+    is not met.
+  decision_reason: Without an explicit sample leading to a generalization, the TARGET
+    does not satisfy the structural condition for a hasty generalization.
+  verified: false
+  rejection_reason: Without an explicit sample leading to a generalization, the TARGET
+    does not satisfy the structural condition for a hasty generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3348
+  completion_tokens: 2274
+  total_tokens: 5622
+  wall_time_seconds: 43.46900000004098

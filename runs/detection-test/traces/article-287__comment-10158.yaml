@@ -1,0 +1,117 @@
+sample:
+  id: 287:10158
+  article_id: 287
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: While all the centralized power this government has seems pretty problematic,
+    the 'digital authoritarianism' bit seems pretty weak. Is this really a big and
+    important part of the problem these people are facing? It feels like the more
+    traditional authoritarian methods are significantly more important to deal with
+    than how some people are treated online.
+  target: Only focusing on the big problems may let many smaller solvable ones last
+    longer then they should. Attack all problems if possible. A healthier system may
+    be the result.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+    candidate: null
+  goal:
+    conclusion_or_goal: Attack all problems, not just the big ones
+    candidate: null
+    supporting_reason: Only focusing on the big problems may let many smaller solvable
+      ones last longer than they should. Attack all problems if possible. A healthier
+      system may be the result.
+    support_relation: mechanism_supports_goal
+    label_justification: The reasoning legitimately supports the conclusion; it does
+      not invoke any of the specified fallacies. No fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+  counterargument:
+    decisive_counterargument: It is not the case that concentrating on the big problems
+      necessarily prevents one from also tackling the smaller solvable ones; both
+      can be addressed concurrently. The target's phrasing creates an either‑or scenario
+      that merely forces a choice between the two, but in reality a middle ground
+      is both possible and practical.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Only focusing on the big problems necessarily allows many
+      smaller solvable ones to persist longer.
+    label_justification: 'The argument presents a false binary: it suggests that either
+      the focus must be on only the big problems or it must attack all problems, implying
+      that the two are mutually exclusive and exhaustive. This is a classic false
+      dilemma.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not contain a comparison to a worse
+    problem or any suggestion that a lesser problem is deprioritized in favor of a
+    more severe issue. It merely warns that concentrating exclusively on large problems
+    could postpone smaller ones, which does not satisfy the structural prerequisites
+    for an Appeal to Worse Problems. Consequently, no fallacy is supported by the
+    TARGET, so the surviving candidate is rejected.
+  decision_reason: The target does not present the comparison or structure required
+    for Appeal to Worse Problems, so the claim is not fallacious.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Only focusing on the big problems may let many smaller solvable ones last longer
+    then they should. Attack all problems if possible. A healthier system may be the
+    result.
+  verified: false
+  rejection_reason: The target does not present the comparison or structure required
+    for Appeal to Worse Problems, so the claim is not fallacious.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3960
+  completion_tokens: 2836
+  total_tokens: 6796
+  wall_time_seconds: 121.92200000000594

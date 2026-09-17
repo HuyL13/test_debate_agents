@@ -1,0 +1,136 @@
+sample:
+  id: 15:3942
+  article_id: 15
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: There seems to be too much first world perspective in this argument. Life
+    is rough on the third world and blindly applying child rights from our perspective
+    will lead to worse problems for them. I understand the emotional appeal to things
+    such as beating children and making them work for low pay but you can't just wave
+    a wand from an economic standpoint and make this better like that
+  target: I agree with you completely. Plus, people are acting like they should abandon
+    their traditions. Of course, the extreme forms of violence and sexual exploitation
+    that some kids experience are terrible, but things like kids working in the family
+    business or mild corporal punishment is just something ingrained in many cultures
+    and that's their right.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: things like kids working in the family business or mild corporal punishment
+        is just something ingrained in many cultures
+    - role: preservation_conclusion
+      text: that’s their right
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you completely. Plus, people are acting like they should abandon
+      their traditions. Of course, the extreme forms of violence and sexual exploitation
+      that some kids experience are
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: To justify mild corporal punishment and child labor in the
+      family business as culturally right
+    candidate: Appeal to Tradition
+    supporting_reason: These practices are ingrained in many cultures
+    support_relation: The argument uses tradition as a justification for accepting
+      these practices as right, implying that because they have been done for a long
+      time, they are acceptable
+    label_justification: The speaker claims that just because a practice is traditional
+      or long‑standing it is automatically correct or permissible, which is the classic
+      definition of an appeal to tradition fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you completely. Plus, people are acting like they should abandon
+      their traditions. Of course, the extreme forms of violence and sexual exploitation
+      that some kids experience are
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+  counterargument:
+    decisive_counterargument: Traditional acceptance does not necessarily equate with
+      moral permissibility; many harmful customs have been abandoned after critical
+      examination, and children's well‑being should not be sacrificed because a practice
+      is longstanding.
+    candidate: Appeal to Tradition
+    challenged_inference: The argument that mild corporal punishment and child labor
+      are right in families is justified solely because they are ingrained in many
+      cultures and thus a tradition.
+    label_justification: The reasoning treats cultural tradition as a sufficient moral
+      justification, without evaluating the practice’s actual impact on children –
+      the classic structure of an Appeal to Tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you completely. Plus, people are acting like they should abandon
+      their traditions. Of course, the extreme forms of violence and sexual exploitation
+      that some kids experience are
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly presents a tradition premise (“kids working
+    in the family business or mild corporal punishment is just something ingrained
+    in many cultures”) followed by a preservation conclusion (“that’s their right”),
+    satisfying the structural definition of an Appeal to Tradition.
+  decision_reason: The argument treats cultural tradition as a sufficient moral justification
+    for mild corporal punishment and child labor, exactly matching the appeal to tradition
+    structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree with you completely. Plus, people are acting like they should abandon
+    their traditions. Of course, the extreme forms of violence and sexual exploitation
+    that some kids experience are
+  - terrible, but things like kids working in the family business or mild corporal
+    punishment is just something ingrained in many cultures and that's their right.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4747
+  completion_tokens: 3589
+  total_tokens: 8336
+  wall_time_seconds: 197.23399999999674

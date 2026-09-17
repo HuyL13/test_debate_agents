@@ -1,0 +1,145 @@
+sample:
+  id: 617:8449
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: We live in a time where we shout freedom of speech from the rooftops until
+    someone says something that’s not flattering.where we have  That’s a slippery
+    slope because where does it stop why even have a news channel if you only want
+    people to say things that paint you in a positive light. Pretty soon the news
+    won’t be looked at as facts only fantasy.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We live in a time where we shout freedom of speech from the rooftops until someone
+      says something that’s not flattering.where we have  That’s a slippery slope
+      because where does
+    - it stop why even have a news channel if you only want people to say things that
+      paint you in a positive light. Pretty soon the news won’t be looked
+    - at as facts only fantasy.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The target argues that the current cultural emphasis on freedom
+      of speech will ultimately erode the credibility of news, turning it into fantasy.
+    candidate: Slippery Slope
+    supporting_reason: The argument claims that because society freely shouts 'freedom
+      of speech' until someone says something unfavorable—therefore a slippery-slope
+      situation arises, leading inevitably to a future in which news is no longer
+      perceived as factual.
+    support_relation: The slippery‑slope reason is used to justify the conclusion
+      that news will become fantasy.
+    label_justification: The reasoning presents a single-step prediction that free
+      speech will eventually undermine news credibility, providing only an isolated
+      adverse outcome without intermediate support, which meets the criteria for a
+      slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We live in a time where we shout freedom of speech from the rooftops until someone
+      says something that’s not flattering.where we have  That’s a slippery slope
+      because where does
+    - it stop why even have a news channel if you only want people to say things that
+      paint you in a positive light. Pretty soon the news won’t be looked
+    - at as facts only fantasy.
+  counterargument:
+    decisive_counterargument: 'The argument assumes that allowing unfiltered speech
+      will inevitably cause news outlets to stop reporting facts and become merely
+      ‘fantasy,’ yet it offers no evidence or mechanism for such a transformation.
+      In societies where freedom of expression is valued, journalism still upholds
+      factual accuracy, showing that the alleged causal chain is unfounded. '
+    candidate: Slippery Slope
+    challenged_inference: The claim that permitting negative or non‑flattering speech
+      will inevitably lead to news channels abandoning factual reporting in favor
+      of echoing positive narratives.
+    label_justification: The objection targets the unsupported causal progression
+      asserted in the target – that a single policy change (unrestricted freedom)
+      will lead to an alleged cascade of adverse outcomes. This is precisely the hallmark
+      of a slippery‑slope argument, where an initial step is presumed to trigger a
+      chain of harmful consequences without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We live in a time where we shout freedom of speech from the rooftops until someone
+      says something that’s not flattering.where we have  That’s a slippery slope
+      because where does
+    - it stop why even have a news channel if you only want people to say things that
+      paint you in a positive light. Pretty soon the news won’t be looked
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target presents a single-step prediction (allowing negative
+    speech will directly cause news to become fantasy) without a series of intermediate
+    consequential steps, so the required slippery‑slope progression is missing.
+  decision_reason: The target does not contain the necessary chain of escalating adverse
+    outcomes; it states only one outcome, so the slippery‑slope fallacy criteria are
+    not met.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - We live in a time where we shout freedom of speech from the rooftops until someone
+    says something that’s not flattering.where we have  That’s a slippery slope because
+    where does
+  - it stop why even have a news channel if you only want people to say things that
+    paint you in a positive light. Pretty soon the news won’t be looked
+  - at as facts only fantasy.
+  verified: false
+  rejection_reason: The target does not contain the necessary chain of escalating
+    adverse outcomes; it states only one outcome, so the slippery‑slope fallacy criteria
+    are not met.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4749
+  completion_tokens: 4293
+  total_tokens: 9042
+  wall_time_seconds: 198.95300000000134

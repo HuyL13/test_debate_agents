@@ -1,0 +1,139 @@
+sample:
+  id: 433:6695
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: Why does everyone think that a protest and movement will do anything? This
+    has been going on for years and nothing has changed. Protesting isn't going to
+    change it either. Think of all the protests we have seen on the past, most of
+    them yielded no concrete changes. We should really think about how we can directly
+    influence policy changes. Maybe the people protesting for change should be the
+    first to sign up to be officers to begin the change? They could bring the perspective
+    and actually effect the change they want to see from within. It would do a lot
+    more to help than just standing outside with a sign, don't you think?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: past protests
+    - role: observed_property
+      text: no concrete changes
+    - role: target_population
+      text: protests
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why does everyone think that a protest and movement will do anything? This has
+      been going on for years and nothing has changed. Protesting isn't going to change
+      it either.
+    - Think of all the protests we have seen on the past, most of them yielded no
+      concrete changes. We should really think about how we can directly influence
+      policy changes.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Protests are ineffective for bringing policy change; therefore
+      protesters should instead join the police force to influence policy from within.
+    candidate: Hasty Generalization
+    supporting_reason: Most of the protests that have occurred in the past yielded
+      no concrete changes.
+    support_relation: The author's claim that protests have been ineffective is used
+      to justify the recommendation that protesters sign up as officers to effect
+      change internally.
+    label_justification: The argument generalizes from the observed failures of a
+      limited set of protests to all protests, asserting that protests cannot bring
+      change, which is a classic hasty generalization. The reasoning is used to support
+      the conclusion, but the generalization lacks sufficient evidence to be reliable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Think of all the protests we have seen on the past, most of them yielded no
+      concrete changes. We should really think about how we can directly influence
+      policy changes.
+  counterargument:
+    decisive_counterargument: The claim that all protests are ineffective rests on
+      a narrow sample of past demonstrations and ignores the numerous historical instances
+      where organized protest movements have achieved substantive policy changes (e.g.,
+      the civil rights movement in the United States or the anti‑apartheid protests
+      in South Africa). Thus, concluding that ‘protesting isn’t going to change it
+      either’ is an overgeneralized statement.
+    candidate: Hasty Generalization
+    challenged_inference: All protests fail to bring concrete changes because past
+      protests have not resulted in any change.
+    label_justification: The target resorts to a universal claim about protests’ effectiveness
+      based on a limited set of exemplifying protest outcomes, which is the classic
+      pattern of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why does everyone think that a protest and movement will do anything? This has
+      been going on for years and nothing has changed. Protesting isn't going to change
+      it either.
+    - Think of all the protests we have seen on the past, most of them yielded no
+      concrete changes. We should really think about how we can directly influence
+      policy changes.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument samples past protests that largely yielded no concrete
+    changes and concludes that all protests are ineffective, which generalizes from
+    a limited set to an entire class, meeting the structural requirements for a hasty
+    generalization.
+  decision_reason: The target states that most past protests had no concrete change
+    and thus asserts that protesting won’t bring change in any case, a classic overgeneralization
+    from specific examples to all protests. This matches the defined structure of
+    a hasty generalization and is supported by the text passages detailing past protests
+    and their ineffectiveness.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why does everyone think that a protest and movement will do anything? This has
+    been going on for years and nothing has changed. Protesting isn't going to change
+    it either.
+  - Think of all the protests we have seen on the past, most of them yielded no concrete
+    changes. We should really think about how we can directly influence policy changes.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5182
+  completion_tokens: 3756
+  total_tokens: 8938
+  wall_time_seconds: 174.875

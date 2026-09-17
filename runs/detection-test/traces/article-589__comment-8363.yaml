@@ -1,0 +1,144 @@
+sample:
+  id: 589:8363
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: It's clear from all polling that the vast, overwhelming majority of the
+    population of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter?
+    The voice of the majority should be respected, even if it's contrary to the values
+    some of us in other countries might have. It's up to us to help change that majority
+    opinion, not force it on them.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: population of Azerbaijan
+    - role: popularity_claim
+      text: the vast, overwhelming majority doesn't support LGBTQ rights
+    - role: target_claim
+      text: the voice of the majority should be respected
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+    - respected, even if it's contrary to the values some of us in other countries
+      might have. It's up to us to help change that majority opinion, not force it
+      on
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The voice of Azerbaijan’s majority should be respected and
+      democracy matters; we should help change that opinion rather than force it on
+      them.
+    candidate: Appeal to Majority
+    supporting_reason: It’s clear from all polling that the vast, overwhelming majority
+      of the population of Azerbaijan doesn’t support LGBTQ rights.
+    support_relation: The Majority’s lack of support is used to justify treating their
+      stance as the legitimate democratic voice.
+    label_justification: The argument appeals to the fact that a large majority holds
+      a particular view, asserting that this makes the view inherently correct or
+      entitled to be respected, which is a classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+  counterargument:
+    decisive_counterargument: The mere fact that a group holds a certain opinion does
+      not make it true, right, or ethically correct. Democratic legitimacy is not
+      equivalent to the majority’s current convictions; it also requires safeguarding
+      the rights and dignities of those who are in the minority. Laws and policies
+      that deny basic human rights—such as the right to be free from discrimination—cannot
+      be justified simply because most people oppose them. An appeal to the sheer
+      size of the majority therefore misrepresents what democracy is about and ignores
+      the principle that individual liberties must be protected even against popular
+      sentiment.
+    candidate: Appeal to Majority
+    challenged_inference: The argument that the majority’s view on LGBTQ rights must
+      be respected because it reflects democratic sentiment and by implication because
+      the majority is ‘overwhelming’.
+    label_justification: The target uses the majority’s number as evidence of the
+      correctness or moral authority of their stance. This directly matches the pattern
+      of an Appeal to Majority fallacy, where popularity or numerical dominance is
+      inappropriately cited as a reason to accept a claim. The counterargument specifically
+      shows that majority opinion alone is insufficient to vindicate the claims made,
+      thus exposing that failure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+    - respected, even if it's contrary to the values some of us in other countries
+      might have. It's up to us to help change that majority opinion, not force it
+      on
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that because a vast majority opposes LGBTQ
+    rights, that majority’s stance should be respected as the sole guide for democratic
+    legitimacy, using the size of the majority as an argument for its moral authority.
+    This directly matches the Appeal to Majority structure – citing a large number
+    of people holding a view to assert that the view is correct or must be honored.
+    Evidence supporting this is provided in passages T1 and T2.
+  decision_reason: The argument appeals to the fact that the majority holds a particular
+    view and justifies treating that view as intrinsically legitimate, which is the
+    hallmark of an Appeal to Majority fallacy. Evidence from T1 and T2 explicitly
+    states the majority’s stance and claims it should be respected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's clear from all polling that the vast, overwhelming majority of the population
+    of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+    of the majority should be
+  - respected, even if it's contrary to the values some of us in other countries might
+    have. It's up to us to help change that majority opinion, not force it on
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4727
+  completion_tokens: 3640
+  total_tokens: 8367
+  wall_time_seconds: 180.78200000000288

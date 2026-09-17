@@ -1,0 +1,130 @@
+sample:
+  id: 172:4713
+  article_id: 172
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: Is this really helpful? I mean coal mines have always been a source of income
+    for the local economy. For years they have provided jobs and supported the economy.
+    Aren't we just creating a new problem by stopping them?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: coal mines have always been a source of income for the local economy.
+        For years they have provided jobs and supported the economy.
+    - role: preservation_conclusion
+      text: Aren't we just creating a new problem by stopping them?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is this really helpful? I mean coal mines have always been a source of income
+      for the local economy. For years they have provided jobs and supported the economy.
+      Aren't
+    - we just creating a new problem by stopping them?
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The speaker doubts that ending coal mining is beneficial and
+      argues that stopping it would create a new problem for the local economy.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument relies on the longstanding fact that coal mines
+      have always been a source of income and jobs for the local economy.
+    support_relation: The historical economic benefit is invoked to justify the conclusion
+      that it is wrong or harmful to stop coal mines.
+    label_justification: The speaker is appealing to the tradition of coal mining’s
+      economic role to argue against its cessation, which fits the definition of an
+      Appeal to Tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is this really helpful? I mean coal mines have always been a source of income
+      for the local economy. For years they have provided jobs and supported the economy.
+      Aren't
+    - we just creating a new problem by stopping them?
+  counterargument:
+    decisive_counterargument: While coal mining has historically provided jobs and
+      income, it also causes significant environmental damage, health risks, and contributes
+      to climate change, which outweigh the local economic benefits. Stopping coal
+      mining can open opportunities for sustainable industries that support long‑term
+      economic and societal well‑being.
+    candidate: Appeal to Tradition
+    challenged_inference: Stopping coal mines creates a new problem because, historically,
+      coal mining has been a source of income and jobs.
+    label_justification: The objection points out that the argument relies on the
+      historic persistence of coal mining as evidence of its value, ignoring the current
+      environmental costs and the existence of alternative economic pathways. This
+      is a classic case of using tradition or long‑standing practice as the sole justification
+      for policy, which is the definition of an Appeal to Tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is this really helpful? I mean coal mines have always been a source of income
+      for the local economy. For years they have provided jobs and supported the economy.
+      Aren't
+    - we just creating a new problem by stopping them?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument explicitly relies on the historical role of coal
+    mining (“coal mines have always been a source of income … for years they have
+    provided jobs and supported the economy”) to argue that stopping it would create
+    a new problem. This meets the structural definition of an Appeal to Tradition
+    fallacy, where a longstanding practice is cited to preserve the status quo without
+    addressing contemporary evidence.
+  decision_reason: The premises appeal to the tradition of coal mines benefiting the
+    local economy, and the conclusion advocates against their cessation, fitting the
+    appeal‑to‑tradition structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Is this really helpful? I mean coal mines have always been a source of income
+    for the local economy. For years they have provided jobs and supported the economy.
+    Aren't
+  - we just creating a new problem by stopping them?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4324
+  completion_tokens: 3118
+  total_tokens: 7442
+  wall_time_seconds: 154.76500000001397

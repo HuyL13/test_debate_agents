@@ -1,0 +1,142 @@
+sample:
+  id: 589:11065
+  article_id: 589
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: Imagine living in such a poor country and yet focusing all your attention
+    on trans people, who make up almost 0 percent of the country. Why not focus on
+    ending poverty or corruption or something else with actual importance? Isn't bringing
+    prosperity and happiness to your country more important than hate?
+  target: I think poverty and basic human rights can both be addressed. Poverty is
+    often a sign of uneducated citizens, as is discrimination. By addressing the root
+    causes of both issues everyone will benefit. By promoting acceptance of diversity
+    and understanding of everyone we can help to eliminate many issues. Let's prioritize
+    all people and everyone will benefit.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think poverty and basic human rights can both be addressed. Poverty is often
+      a sign of uneducated citizens, as is discrimination. By addressing the root
+      causes of both issues
+    - everyone will benefit. By promoting acceptance of diversity and understanding
+      of everyone we can help to eliminate many issues. Let's prioritize all people
+      and everyone will benefit.
+    candidate: null
+  goal:
+    conclusion_or_goal: Prioritize all people by addressing the root causes of poverty
+      and discrimination so that everyone benefits.
+    candidate: null
+    supporting_reason: Poverty and discrimination share root causes, notably that
+      uneducated citizens are linked to both problems; tackling these root causes
+      will improve basic human rights and reduce poverty.
+    support_relation: The reason states that because poverty and discrimination stem
+      from similar causes, addressing those causes will lead to overall benefits for
+      all.
+    label_justification: The argument presents a general claim without specific evidence
+      or evidence-based case studies, but it does not violate any of the defined logical-fallacy
+      categories (hasty generalization, slippery slope, false dilemma, etc.). Therefore,
+      no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think poverty and basic human rights can both be addressed. Poverty is often
+      a sign of uneducated citizens, as is discrimination. By addressing the root
+      causes of both issues
+    - everyone will benefit. By promoting acceptance of diversity and understanding
+      of everyone we can help to eliminate many issues. Let's prioritize all people
+      and everyone will benefit.
+  counterargument:
+    decisive_counterargument: The claim that 'poverty is often a sign of uneducated
+      citizens, as is discrimination' overgeneralizes a complex phenomenon. Poverty
+      arises from a variety of structural, economic, and political causes, many of
+      them unrelated to education level; numerous studies show that poorer populations
+      can have high levels of education. Thus, treating poverty as a proxy for lack
+      of education obscures the true roots and risks diverting resources away from
+      more effective interventions.
+    candidate: False Dilemma
+    challenged_inference: The inference that addressing root causes of both poverty
+      and discrimination will automatically benefit everyone
+    label_justification: The objection directly critiques the overgeneralization that
+      poverty equates with lack of education, exposing a hasty generalization in the
+      target’s reasoning rather than a simple rhetorical criticism. The counterargument
+      relies on evidence that poverty stems from many factors besides education, thereby
+      undermining the target’s causal claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think poverty and basic human rights can both be addressed. Poverty is often
+      a sign of uneducated citizens, as is discrimination. By addressing the root
+      causes of both issues
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present a set of mutually exclusive alternatives
+    that are claimed to be exhaustive—there is no false dichotomous framing—so it
+    fails to satisfy the structural requirement for a False Dilemma.
+  decision_reason: The statement discusses addressing both poverty and discrimination
+    together, asserting that tackling their root causes benefits everyone. It does
+    not present only two alternative paths or assert that choosing one excludes the
+    other, which is required for a false dilemma. Therefore the target contains no
+    false dilemma fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think poverty and basic human rights can both be addressed. Poverty is often
+    a sign of uneducated citizens, as is discrimination. By addressing the root causes
+    of both issues
+  - everyone will benefit. By promoting acceptance of diversity and understanding
+    of everyone we can help to eliminate many issues. Let's prioritize all people
+    and everyone will benefit.
+  verified: false
+  rejection_reason: The statement discusses addressing both poverty and discrimination
+    together, asserting that tackling their root causes benefits everyone. It does
+    not present only two alternative paths or assert that choosing one excludes the
+    other, which is required for a false dilemma. Therefore the target contains no
+    false dilemma fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4379
+  completion_tokens: 2978
+  total_tokens: 7357
+  wall_time_seconds: 209.03099999999904

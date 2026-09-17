@@ -1,0 +1,153 @@
+sample:
+  id: 486:8055
+  article_id: 486
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: What's with all the baseless speculation? It was the opposition, Greeks,
+    Russians, etc., etc. Seemingly with no evidence for any of them being the culprits.
+    Seems smarter to not just throw out every name out there and cause unnecessary
+    derision towards whatever group.
+  target: Completely agree! When things like this happen, it is so easy to rush to
+    the opposition like the Greeks or Russians and that rises and unhealthy stereotype.
+    Everyone always suspects those groups to always be behind malice activity and
+    it's often not the case. Each incident should be evaluated on its own merits.
+    However, it seems that people have a tendency to prematurely blame certain groups
+    without sufficient evidence. It's an unfair and unhealthy practice that we should
+    all strive to change. We should educate ourselves and others about the importance
+    of avoiding snap judgements like this.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Completely agree! When things like this happen, it is so easy to rush to the
+      opposition like the Greeks or Russians and that rises and unhealthy stereotype.
+      Everyone always suspects
+    - those groups to always be behind malice activity and it's often not the case.
+      Each incident should be evaluated on its own merits. However, it seems that
+      people have a
+    - tendency to prematurely blame certain groups without sufficient evidence. It's
+      an unfair and unhealthy practice that we should all strive to change. We should
+      educate ourselves and others about the
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker agrees with the idea that we should avoid snap
+      judgments toward specific groups and encourages education and awareness to counter
+      unfair prejudice.
+    candidate: null
+    supporting_reason: The paragraph states that people tend to prematurely blame
+      groups such as Greeks or Russians without sufficient evidence and highlights
+      this as an unfair, unhealthy practice. It then urges people to change this behavior
+      and to educate others about avoiding such snap judgments.
+    support_relation: The reason is that people often form unfounded stereotypes and
+      snap judgments about specific groups, which the speaker identifies as problematic.
+      By pointing out this tendency and labeling it as unfair and unhealthy, the speaker
+      justifies the goal of discouraging and reducing such prejudice through education
+      and awareness.
+    label_justification: No fallacy is being committed; the speaker accurately describes
+      a common cognitive bias and uses that description to support the conclusion
+      that this bias should be challenged.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Completely agree! When things like this happen, it is so easy to rush to the
+      opposition like the Greeks or Russians and that rises and unhealthy stereotype.
+      Everyone always suspects
+    - those groups to always be behind malice activity and it's often not the case.
+      Each incident should be evaluated on its own merits. However, it seems that
+      people have a
+    - tendency to prematurely blame certain groups without sufficient evidence. It's
+      an unfair and unhealthy practice that we should all strive to change. We should
+      educate ourselves and others about the
+  counterargument:
+    decisive_counterargument: 'The statement ‘Everyone always suspects those groups’
+      implicitly asserts that every person holds that belief, yet no evidence or sample
+      is provided. Claiming an universal belief without empirical support is a classic
+      over‑generalization. By attributing the same prejudiced suspicion to the entire
+      population, the argument leans on a hasty generalization: a sweeping conclusion
+      drawn from no concrete data. To counter it, one can point out that only a subset
+      of the audience may suspect such groups and that many people do not hold or
+      repeat these stereotypes, thus invalidating the universal claim.'
+    candidate: Hasty Generalization
+    challenged_inference: Everyone always suspects those groups.
+    label_justification: The objection targets the unsupported blanket claim that
+      every individual in the audience harbors these stereotypes, which is an over‑generalization
+      not supported by evidence. This fallacy lies in the reasoning that an unsubstantiated
+      universal claim is being treated as fact.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Completely agree! When things like this happen, it is so easy to rush to the
+      opposition like the Greeks or Russians and that rises and unhealthy stereotype.
+      Everyone always suspects
+    - those groups to always be behind malice activity and it's often not the case.
+      Each incident should be evaluated on its own merits. However, it seems that
+      people have a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target includes an unsupported universal claim – “Everyone
+    always suspects those groups…” – without any supporting evidence or specific sample.
+    This constitutes a hasty generalization by attributing a belief to the entire
+    population based on no data.
+  decision_reason: The target explicitly asserts that all people hold the same stereotype
+    without evidence, satisfying the structural condition for a hasty generalization.
+    Evidence IDs supporting the claim are T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Completely agree! When things like this happen, it is so easy to rush to the opposition
+    like the Greeks or Russians and that rises and unhealthy stereotype. Everyone
+    always suspects
+  - those groups to always be behind malice activity and it's often not the case.
+    Each incident should be evaluated on its own merits. However, it seems that people
+    have a
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4942
+  completion_tokens: 2638
+  total_tokens: 7580
+  wall_time_seconds: 36.03099999995902

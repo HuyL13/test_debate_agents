@@ -1,0 +1,140 @@
+sample:
+  id: 238:5511
+  article_id: 238
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Something needs to be done about these tensions and loss of human rights.
+    Everyone deserves an fair and equal education in their own language. Isn't education
+    a human right? Don't we all want peace and unity throughout the world? We need
+    to do what we can to ensure all people have a good education easily accessible.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: everyone
+    - role: popularity_claim
+      text: everyone wants peace and unity
+    - role: target_claim
+      text: ensure all people have a good education easily accessible
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Something needs to be done about these tensions and loss of human rights. Everyone
+      deserves an fair and equal education in their own language. Isn't education
+      a human right? Don't
+    - we all want peace and unity throughout the world? We need to do what we can
+      to ensure all people have a good education easily accessible.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Call to take action to eliminate tensions, defend human rights,
+      and provide fair, accessible education in every language.
+    candidate: null
+    supporting_reason: Education is a human right; peace and unity are desired societal
+      outcomes.
+    support_relation: The reason that education constitutes a human right, and that
+      peace/unity are mutually desirable, is used to justify the proposed action.
+    label_justification: The reasoning does not rely on a faulty logical strategy
+      (e.g., appeal to authority, majority, etc.) and therefore does not exhibit any
+      of the target fallacies. It is a legitimate motivational claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Something needs to be done about these tensions and loss of human rights. Everyone
+      deserves an fair and equal education in their own language. Isn't education
+      a human right? Don't
+    - we all want peace and unity throughout the world? We need to do what we can
+      to ensure all people have a good education easily accessible.
+  counterargument:
+    decisive_counterargument: The conclusion that ‘we need to act to ensure universal
+      access to good education’ relies solely on the claim that everyone shares a
+      desire for peace, unity, and the right to education. This is a classic appeal
+      to popular sentiment—posing the majority’s wish as evidence that a specific
+      action is warranted—without showing any logical connection or empirical justification.
+      In other words, the argument leaps from ‘many people want peace and equal education’
+      to ‘what we need to do is provide equal education’ merely because it is a commonly
+      liked goal, which is a non sequitur.
+    candidate: Appeal to Majority
+    challenged_inference: We need to do what we can to ensure all people have a good
+      education easily accessible.
+    label_justification: The objection directly targets the premise that a broad,
+      unspecified desire (‘we all want peace and unity’) is sufficient to justify
+      a concrete policy action (equal education). This is the hallmark of an appeal
+      to popularity—using a widely shared value to claim a particular solution is
+      correct—rather than a neutral critique of the argument’s wording.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Something needs to be done about these tensions and loss of human rights. Everyone
+      deserves an fair and equal education in their own language. Isn't education
+      a human right? Don't
+    - we all want peace and unity throughout the world? We need to do what we can
+      to ensure all people have a good education easily accessible.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument uses the claim that “everyone wants peace and unity
+    throughout the world” as a basis for concluding that we must ensure all people
+    have a good, easily accessible education, thereby presenting a majority desirability
+    as justification for a specific policy action without providing an independent
+    logical link or evidence.
+  decision_reason: The target text explicitly states a universal desire for peace
+    and unity and then derives a policy conclusion—in this case, universal access
+    to good education—solely on that majority sentiment, which is characteristic of
+    an appeal to popularity. The evidence supporting this pattern is found in both
+    passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Something needs to be done about these tensions and loss of human rights. Everyone
+    deserves an fair and equal education in their own language. Isn't education a
+    human right? Don't
+  - we all want peace and unity throughout the world? We need to do what we can to
+    ensure all people have a good education easily accessible.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4334
+  completion_tokens: 3120
+  total_tokens: 7454
+  wall_time_seconds: 179.56200000003446

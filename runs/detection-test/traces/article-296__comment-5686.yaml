@@ -1,0 +1,122 @@
+sample:
+  id: 296:5686
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: There are more things to worry about than conspiracies. For now, these are
+    all theories. How about they focus on things that economic issues directly impacting
+    them?
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: conspiracies
+    - role: worse_issue
+      text: economic issues directly impacting them
+    - role: deprioritizing_conclusion
+      text: How about they focus on things that economic issues directly impacting
+        them?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are more things to worry about than conspiracies. For now, these are all
+      theories. How about they focus on things that economic issues directly impacting
+      them?
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Shift focus away from conspiracy theories toward addressing
+      economic issues that directly affect people.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Conspiracy theories are labeled as theories and deemed less
+      urgent compared to other concerns, implying these other concerns take priority.
+    support_relation: The statement uses the claim that more pressing issues exist
+      to justify dismissing conspiracy theories and redirect attention to economic
+      matters.
+    label_justification: The argument dismisses a claim (conspiracy theories) by pointing
+      to a broader, more consequential problem (economic issues) and urging focus
+      on that, which matches the definition of an Appeal to Worse Problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are more things to worry about than conspiracies. For now, these are all
+      theories. How about they focus on things that economic issues directly impacting
+      them?
+  counterargument:
+    decisive_counterargument: Conspiracy theories, even when framed as unsubstantiated
+      ideas, can significantly shape public opinion and influence policy decisions
+      that affect economic outcomes. Ignoring them outright neglects the potential
+      for real, tangible harm that such narratives might cause.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that conspiracies are less important and can be
+      safely ignored in favor of economic concerns dismisses the real influence conspiratorial
+      beliefs can have on economic behaviour and policy.
+    label_justification: The objection points out that even theories perceived as
+      conspiratorial may drive decisions affecting economic conditions, revealing
+      the problematic assumption that they can be unconditionally set aside. This
+      challenges the inference rather than pointing to a purely form‑based fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are more things to worry about than conspiracies. For now, these are all
+      theories. How about they focus on things that economic issues directly impacting
+      them?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target states conspiracies are less urgent than economic
+    issues and calls for focusing on them, showing a direct use of a worse problem
+    to dismiss the original claim. The structure—focal issue = conspiracies, worse
+    issue = economic issues, conclusion = deprioritization of conspiracies—is satisfied.
+  decision_reason: The statement frames conspiracies as trivial compared to pressing
+    economic issues and urges shifting attention, matching the definition of an appeal
+    to worse problems.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There are more things to worry about than conspiracies. For now, these are all
+    theories. How about they focus on things that economic issues directly impacting
+    them?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3876
+  completion_tokens: 2333
+  total_tokens: 6209
+  wall_time_seconds: 221.04699999999866

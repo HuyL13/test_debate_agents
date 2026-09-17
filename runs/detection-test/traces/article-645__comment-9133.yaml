@@ -1,0 +1,123 @@
+sample:
+  id: 645:9133
+  article_id: 645
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: Social media should not be blocking content unless it is violent or is about
+    a child. Posting about a political figure should not be taken down. Dissenting
+    opinions should not be removed.  Diverse viewpoints keep thinking and debate alive.
+    We need to hear from different people with different views.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Social media should not be blocking content unless it is violent or is about
+      a child. Posting about a political figure should not be taken down. Dissenting
+      opinions should not
+    - be removed.  Diverse viewpoints keep thinking and debate alive. We need to hear
+      from different people with different views.
+    candidate: null
+  goal:
+    conclusion_or_goal: Social media should not block content unless it is violent
+      or about a child (i.e., protecting free expression).
+    candidate: null
+    supporting_reason: Diverse viewpoints keep thinking and debate alive; we need
+      to hear from different people with different views.
+    support_relation: The reason is used to justify the conclusion that restricting
+      content is unnecessary when it concerns political expression, arguing that open
+      debate benefits society.
+    label_justification: The argument presents a clear normative claim supported by
+      a legitimate reason that diversity fosters debate. No logical fallacy is committed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - be removed.  Diverse viewpoints keep thinking and debate alive. We need to hear
+      from different people with different views.
+  counterargument:
+    decisive_counterargument: Political content can be defamatory, harassing, or inciting,
+      all of which may hurt people or disrupt society and therefore should be removable.
+      The assertion that only violent or child‑related material warrants blocking
+      ignores these legitimate reasons and presents a false dichotomy between violent/child
+      content and everything else.
+    candidate: False Dilemma
+    challenged_inference: All content about a political figure is safe and should
+      not be removed unless it is violent or about a child.
+    label_justification: The argument purports that the only justifiable basis for
+      blocking content is its violent or child‑centric nature, while assuming that
+      everything else is immune from legitimate removal. This establishes an empty
+      set of alternatives, leading to a false dilemma between two mutually exclusive
+      categories and obscuring other grounds for censorship.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Social media should not be blocking content unless it is violent or is about
+      a child. Posting about a political figure should not be taken down. Dissenting
+      opinions should not
+    - be removed.  Diverse viewpoints keep thinking and debate alive. We need to hear
+      from different people with different views.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states that content should only be blocked when it
+    is violent or about a child, thereby presenting an exclusive dichotomy between
+    ‘violent/child content’ and ‘everything else,’ implying no other justifiable grounds
+    for removal.
+  decision_reason: The target’s policy claim restricts content removal solely to violent
+    or child-related material while dismissing all other potential reasons for removal,
+    thereby establishing a false dilemma between these two mutually exclusive categories.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Social media should not be blocking content unless it is violent or is about a
+    child. Posting about a political figure should not be taken down. Dissenting opinions
+    should not
+  - be removed.  Diverse viewpoints keep thinking and debate alive. We need to hear
+    from different people with different views.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4089
+  completion_tokens: 3704
+  total_tokens: 7793
+  wall_time_seconds: 251.54700000000594

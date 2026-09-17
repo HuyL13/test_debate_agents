@@ -1,0 +1,129 @@
+sample:
+  id: 610:11127
+  article_id: 610
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: People complain about the US and our levels of pollution and whatnot, but
+    when you compare it to most other countries in the world, the US looks perfect.
+    Developing countries have a very long way to go. I think the US and other 1st
+    world countries should do something to help these poor countries learn how to
+    properly handle this kind of issue.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People complain about the US and our levels of pollution and whatnot, but when
+      you compare it to most other countries in the world, the US looks perfect. Developing
+      countries
+    - have a very long way to go. I think the US and other 1st world countries should
+      do something to help these poor countries learn how to properly handle this
+    candidate: null
+  goal:
+    conclusion_or_goal: US and other first‑world countries should help developing
+      countries learn how to properly handle pollution issues.
+    candidate: Hasty Generalization
+    supporting_reason: T1, T2
+    support_relation: mechanism_supports_goal
+    label_justification: The argument generalizes the claim that the US 'looks perfect'
+      in terms of pollution based on a comparison with 'most other countries' without
+      providing specific evidence or clear criteria, thereby forming a broad inference
+      about the US’s overall environmental performance from limited information.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People complain about the US and our levels of pollution and whatnot, but when
+      you compare it to most other countries in the world, the US looks perfect. Developing
+      countries
+    - have a very long way to go. I think the US and other 1st world countries should
+      do something to help these poor countries learn how to properly handle this
+  counterargument:
+    decisive_counterargument: Comparing the United States’ pollution levels to those
+      of other countries does not, by itself, establish a moral obligation for developed
+      nations to aid poorer ones in managing pollution. The premise is merely descriptive;
+      it ignores that many first‑world countries still contribute heavily to global
+      emissions, that local governance structures often determine environmental outcomes,
+      and that cooperative, multilateral approaches are typically more effective than
+      unilateral aid. Therefore the leap from a comparative statistic to a prescriptive
+      duty is unsupported.
+    candidate: null
+    challenged_inference: The inference that the United States, because it appears
+      comparatively clean relative to most other nations, has a moral duty to assist
+      developing countries with pollution control.
+    label_justification: The objection demonstrates that no fallacious reasoning is
+      present; it simply shows that the argument relies on a non‑deductive leap rather
+      than a deceptive logical structure. Hence a fallacy label is not warranted.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People complain about the US and our levels of pollution and whatnot, but when
+      you compare it to most other countries in the world, the US looks perfect. Developing
+      countries
+    - have a very long way to go. I think the US and other 1st world countries should
+      do something to help these poor countries learn how to properly handle this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a sweeping conclusion that the US is perfect
+    in terms of pollution based on a vague comparison to “most other countries,” an
+    insufficient sample used to support a broad claim about the US’s overall environmental
+    performance.
+  decision_reason: The target explicitly cites a comparison with a loosely defined
+    group (“most other countries”) and then generalizes that the US therefore looks
+    perfect, satisfying the structural requirement of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - People complain about the US and our levels of pollution and whatnot, but when
+    you compare it to most other countries in the world, the US looks perfect. Developing
+    countries
+  - have a very long way to go. I think the US and other 1st world countries should
+    do something to help these poor countries learn how to properly handle this
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4248
+  completion_tokens: 4613
+  total_tokens: 8861
+  wall_time_seconds: 227.51600000000326

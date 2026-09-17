@@ -1,0 +1,127 @@
+sample:
+  id: 162:4984
+  article_id: 162
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: They have a coup going on right now. Maybe they should be organizing to
+    take control over their government first and focus on the internet after! What's
+    more important, the internet or the military trampling over everyone?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: internet
+    - role: alternative_b
+      text: military trampling over everyone
+    - role: exhaustiveness_commitment
+      text: What's more important, the internet or the military trampling over everyone?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: They are presenting a false dilemma by framing the choice
+      between prioritizing the internet or allowing the military to trample everyone.
+    candidate: False Dilemma
+    supporting_reason: The statement juxtaposes two options—focusing on the internet
+      or tolerating military domination—as if these are the only relevant priorities,
+      implying a binary choice that ignores other possible solutions or priorities.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument structure explicitly presents only two alternatives
+      (internet vs. military trampling), suggesting that one must choose one at the
+      expense of the other, which meets the criteria for a False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+  counterargument:
+    decisive_counterargument: The statement forces the reader into a binary choice—either
+      focus on maintaining internet access or let the military oppress everyone—while
+      ignoring that protecting civilians, political negotiation, and other initiatives
+      can coexist. By presenting only two extremes and implying that one must be selected
+      over the other, the argument relies on a false dichotomy.
+    candidate: False Dilemma
+    challenged_inference: Only the internet or the military are the salient concerns;
+      no other priorities are considered.
+    label_justification: The claim strips the situation to two mutually exclusive
+      options and presents them as the sole possibilities. This exemplifies a false
+      dilemma, as the speaker ignores the broader range of legitimate concerns that
+      could be addressed simultaneously.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The statement presents only two mutually exclusive alternatives—prioritising
+    the internet or tolerating military trampling—implying that one must choose between
+    them. This meets the structure of a False Dilemma by asserting exhaustive alternatives.
+  decision_reason: The target text explicitly frames the options as a choice between
+    the internet and the military trampling, with no acknowledgement of other possibilities,
+    thereby satisfying the false dilemma structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They have a coup going on right now. Maybe they should be organizing to take control
+    over their government first and focus on the internet after! What's more important,
+    the
+  - internet or the military trampling over everyone?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4070
+  completion_tokens: 2515
+  total_tokens: 6585
+  wall_time_seconds: 91.40600000000268

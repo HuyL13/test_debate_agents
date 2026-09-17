@@ -1,0 +1,115 @@
+sample:
+  id: 208:5420
+  article_id: 208
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: Art is either abstract or impactful. I think her art leans to the latter.
+    She can harness traumatic colonial past experiences to express a pain and emotion.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: abstract
+    - role: alternative_b
+      text: impactful
+    - role: exhaustiveness_commitment
+      text: Art is either abstract or impactful
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Jamie's art is impactful
+    candidate: False Dilemma
+    supporting_reason: Art is either abstract or impactful.
+    support_relation: The false dilemma is invoked to justify the conclusion that
+      her art is impactful.
+    label_justification: The reason limits art to only two mutually exclusive options,
+      excluding any other possible qualities or combinations (e.g., art that could
+      be both abstract and impactful). This restriction is used to support the claim
+      that her art is impactful, fitting the definition of a False Dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+  counterargument:
+    decisive_counterargument: The claim that all art must be either abstract or impactful
+      ignores a vast range of artistic expressions—such as representational, narrative,
+      performance, and mixed-media works—that do not fit neatly into those two categories.
+      Therefore, presenting art as a binary choice is a false dichotomy, misleadingly
+      narrowing the spectrum of artistic possibilities.
+    candidate: False Dilemma
+    challenged_inference: Art is either abstract or impactful
+    label_justification: This objection exposes a false dilemma because the original
+      statement frames art as belonging exclusively to one of two categories while
+      actually excluding or misrepresenting a multitude of other valid art forms.
+      The counterargument demonstrates that the dichotomy is not exhaustive, thereby
+      confirming the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target imposes an exclusive binary—‘art is either abstract
+    or impactful’—and then uses this to assert that the subject’s art is impactful,
+    thereby fulfilling the structure of a false dilemma.
+  decision_reason: The passage claims that all art falls into one of two mutually
+    exclusive categories, abstract or impactful, and concludes that the artwork in
+    question is impactful. This restrictive dichotomy excludes any other possible
+    artistic qualities and is used to support a conclusion, meeting the structural
+    criteria for a false dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Art is either abstract or impactful. I think her art leans to the latter. She
+    can harness traumatic colonial past experiences to express a pain and emotion.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4031
+  completion_tokens: 2700
+  total_tokens: 6731
+  wall_time_seconds: 53.48399999999674

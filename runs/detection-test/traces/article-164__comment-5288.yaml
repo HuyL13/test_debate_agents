@@ -1,0 +1,151 @@
+sample:
+  id: 164:5288
+  article_id: 164
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: Travel to Africa should be avoided if possible. Africa is such a vast place
+    yet Ebola is concentrated there. We should not bring any instances of this disease
+    back to our country.
+  target: I agree with that in general. But when it comes to Covid, it's already everywhere
+    so that shouldn't be the reason to avoid traveling to just an African country.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree with that in general. But when it comes to Covid, it's already everywhere
+      so that shouldn't be the reason to avoid traveling to just an African country.
+    candidate: null
+  goal:
+    conclusion_or_goal: Avoiding Africa solely due to Covid should not be a justification
+      for not traveling there.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Covid is already everywhere, so that shouldn't be the reason
+      to avoid traveling to just an African country.
+    support_relation: mechanism_supports_goal
+    label_justification: The reason is used legitimately to argue against a preventive
+      measure; it is not a fallacious undermining of the target argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree with that in general. But when it comes to Covid, it's already everywhere
+      so that shouldn't be the reason to avoid traveling to just an African country.
+  counterargument:
+    decisive_counterargument: The argument dismisses the Ebola‑related travel caution
+      merely because COVID‑19 is widespread. It presents the situation as if there
+      are only two options—avoid Africa due to Ebola or ignore Ebola because COVID
+      is everywhere—thereby excluding any other possible reasons (e.g., current local
+      outbreak data, public health advisories, personal health considerations) for
+      restricting travel. As such, it forces a binary choice that does not accurately
+      represent the range of legitimate factors involved in travel decisions. This
+      overlooks the fact that the presence of one disease does not negate concern
+      about another, and it ignores that global ubiquity of COVID‑19 is not a sufficient
+      justification to abandon specific region‑based precautions.
+    candidate: False Dilemma
+    challenged_inference: The premise that travel to Africa should be avoided is dismissed
+      solely because COVID‑19 is everywhere, implying that the only valid reason for
+      restricting travel is Ebola presence.
+    label_justification: The objection demonstrates that the author is forcing the
+      situation into a binary framework—either avoid Africa because of Ebola, or do
+      nothing because COVID is ubiquitous—thereby excluding other legitimate reasons
+      or considerations. This is a clear example of the False Dilemma fallacy, as
+      it misrepresents the possible alternatives in the decision‑making process.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree with that in general. But when it comes to Covid, it's already everywhere
+      so that shouldn't be the reason to avoid traveling to just an African country.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Evidence supports that the target uses the wider, more pressing
+      issue (Covid) to dismiss the validity of a lesser, more localized argument (avoiding
+      Africa to prevent Ebola infection). The target does not present a restricted
+      binary choice, so False Dilemma is not applicable.
+    loser_failure: False Dilemma requires presenting only two mutually exclusive options,
+      which the target does not do. It merely adds a counterpoint that Covid’s ubiquity
+      negates using it as a basis for avoiding Africa, not that there are only two
+      possible stances.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree with that in general. But when it comes to Covid, it's already everywhere
+      so that shouldn't be the reason to avoid traveling to just an African country.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present a 'worse problem' to downplay the
+    rationale for avoiding Africa; it simply argues that Covid’s ubiquity means it
+    should not be the basis for such avoidance. Therefore, the structural condition
+    for Appeal to Worse Problems is not satisfied, and no logical fallacy is detected.
+  decision_reason: The target’s statement does not invoke or rely on a worse problem
+    to undermine the original argument. It merely refutes the use of Covid as a reason
+    for avoiding African travel. Because the structural criteria for Appeal to Worse
+    Problems are unmet, the surviving candidate is rejected and no fallacy is identified.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I agree with that in general. But when it comes to Covid, it's already everywhere
+    so that shouldn't be the reason to avoid traveling to just an African country.
+  verified: false
+  rejection_reason: The target’s statement does not invoke or rely on a worse problem
+    to undermine the original argument. It merely refutes the use of Covid as a reason
+    for avoiding African travel. Because the structural criteria for Appeal to Worse
+    Problems are unmet, the surviving candidate is rejected and no fallacy is identified.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5204
+  completion_tokens: 2974
+  total_tokens: 8178
+  wall_time_seconds: 233.43699999999808

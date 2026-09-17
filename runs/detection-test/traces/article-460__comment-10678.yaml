@@ -1,0 +1,126 @@
+sample:
+  id: 460:10678
+  article_id: 460
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: COVID has turned a lot of countries into borderline authoritarian places
+    to live. The people of Malaysia need to make sure their government doesn't get
+    away with any kind of censorship or they will just keep doing it. Freedom of speech
+    is the most important part of a civilize society, so allowing the government to
+    trample on that will lead to them trampling on other rights as well.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - COVID has turned a lot of countries into borderline authoritarian places to
+      live. The people of Malaysia need to make sure their government doesn't get
+      away with any kind of
+    - censorship or they will just keep doing it. Freedom of speech is the most important
+      part of a civilize society, so allowing the government to trample on that will
+      lead
+    - to them trampling on other rights as well.
+    candidate: null
+  goal:
+    conclusion_or_goal: The people of Malaysia must ensure that their government does
+      not get away with any censorship
+    candidate: Slippery Slope
+    supporting_reason: Freedom of speech is the most important part of a civilized
+      society, so allowing the government to trample on that will lead to them trampling
+      on other rights as well
+    support_relation: The argument uses the claim that censoring freedom of speech
+      will inevitably cause the government to trample other rights to justify the
+      need to prevent censorship
+    label_justification: The conclusion relies on an unsubstantiated prediction that
+      a single step (allowing censorship) will lead inevitably to a chain of more
+      serious rights violations; this is a classic slippery‑slope fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - censorship or they will just keep doing it. Freedom of speech is the most important
+      part of a civilize society, so allowing the government to trample on that will
+      lead
+  counterargument:
+    decisive_counterargument: The claim that merely allowing the government to censor
+      free speech will inevitably lead to the erosion of other rights is a slippery-slope
+      assertion with no empirical backing. Without evidence that censorship triggers
+      further abuse of power, the inference remains unsubstantiated.
+    candidate: Slippery Slope
+    challenged_inference: Allowing government censorship of speech will lead to the
+      government trampling on other civil‑rights.
+    label_justification: The argument presents a causal chain—censorship → erosion
+      of additional rights—without supporting evidence, characteristic of a slippery‑slope
+      fallacy. The counterargument directly targets this unsupported progression,
+      thereby validating the assignment of the ‘Slippery Slope’ label.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - censorship or they will just keep doing it. Freedom of speech is the most important
+      part of a civilize society, so allowing the government to trample on that will
+      lead
+    - to them trampling on other rights as well.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Slippery Slope
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains an unsupported causal chain that claims
+    allowing governmental censorship of free speech will inevitably lead to the erosion
+    of other rights, a classic slippery‑slope argument.
+  decision_reason: The target explicitly states that permitting censorship will cause
+    further rights to be trampled, presenting an unsubstantiated progression from
+    one negative outcome to another.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - censorship or they will just keep doing it. Freedom of speech is the most important
+    part of a civilize society, so allowing the government to trample on that will
+    lead
+  - to them trampling on other rights as well.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4302
+  completion_tokens: 3375
+  total_tokens: 7677
+  wall_time_seconds: 273.625

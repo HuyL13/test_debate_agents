@@ -1,0 +1,131 @@
+sample:
+  id: 442:7323
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: Music has always been a vehicle for change. For long before recorded history,
+    all arts were a means for people to express what they think of the world they
+    live in and the world they'd like to live in. It's unfortunate that so many governments
+    are trying so hard to kill that tradition.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: tradition_premise
+      text: Music has always been a vehicle for change.
+    - role: preservation_conclusion
+      text: It’s unfortunate that so many governments are trying so hard to kill that
+        tradition.
+    structure_complete: true
+    structure_type: tradition_to_preservation
+    evidence_spans:
+    - Music has always been a vehicle for change. For long before recorded history,
+      all arts were a means for people to express what they think of the world they
+      live
+    - in and the world they'd like to live in. It's unfortunate that so many governments
+      are trying so hard to kill that tradition.
+    candidate: Appeal to Tradition
+  goal:
+    candidate: null
+    conclusion_or_goal: Music has always been a vehicle for change.
+    evidence_ids:
+    - T1
+    label_justification: The target presents a claim about music as a vehicle for
+      change, supported by a general statement about the historical role of all arts
+      in expressing opinions. This reasoning directly serves the conclusion and no
+      logical fallacy is evident. Consequently, the argument is considered legitimate
+      rather than fallacious.
+    mechanism_supports_goal: true
+    support_relation: reason
+    supporting_reason: For long before recorded history, all arts were a means for
+      people to express what they think of the world they live in and the world they'd
+      like to live in.
+    evidence_spans:
+    - Music has always been a vehicle for change. For long before recorded history,
+      all arts were a means for people to express what they think of the world they
+      live
+  counterargument:
+    decisive_counterargument: The passage merely states that governments are trying
+      to kill music as a vehicle for change, yet it offers no evidence or reasoning
+      to support that claim. Because there is no argument presented—only a regretful
+      observation—the claim does not commit any logical fallacy. Therefore, no fallacy
+      is identifiable in the reasoning.
+    candidate: null
+    challenged_inference: null
+    label_justification: The objection reveals that the TARGET statement lacks a structured
+      argument and therefore contains no reasoning flaw; it is not an instance of
+      any specific fallacy such as Appeal to Tradition, Hasty Generalization, or False
+      Dilemma.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Music has always been a vehicle for change. For long before recorded history,
+      all arts were a means for people to express what they think of the world they
+      live
+    - in and the world they'd like to live in. It's unfortunate that so many governments
+      are trying so hard to kill that tradition.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The target presents a traditional premise that music has always
+    been a vehicle for change and then concludes that governments should not try to
+    eliminate this tradition. This fits the appeal-to-tradition structure: an argument
+    that because something has existed historically, it should be preserved. The supplied
+    evidence passages T1 and T2 explicitly provide the premise and the negative stance
+    toward eliminating the tradition, meeting the structural requirement for the fallacy.'
+  decision_reason: 'Appeal to Tradition: premise of long‑standing tradition → call
+    to preserve it (or oppose its elimination). The target explicitly states music
+    has always been a vehicle for change and objects to governments trying to kill
+    that tradition, matching the appeal‑to‑tradition form.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Music has always been a vehicle for change. For long before recorded history,
+    all arts were a means for people to express what they think of the world they
+    live
+  - in and the world they'd like to live in. It's unfortunate that so many governments
+    are trying so hard to kill that tradition.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 3982
+  completion_tokens: 2974
+  total_tokens: 6956
+  wall_time_seconds: 135.39000000001397

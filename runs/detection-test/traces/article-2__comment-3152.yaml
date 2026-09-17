@@ -1,0 +1,145 @@
+sample:
+  id: 2:3152
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: The Buddhists are just following what they know based off various world
+    leaders when it comes to what happens to a country when Muslims come in. They
+    know they are prone to extremism and don't want their country to deal with that.  Intellectuals
+    like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+    Muslims can be, so these Buddhists are just doing what they can do make sure Myanmar
+    doesn't experience that.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Sam Harris, Bush, Trump
+    - role: endorsed_claim
+      text: Muslims are prone to extremism and should be avoided
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The Buddhists are just following what they know based off various world leaders
+      when it comes to what happens to a country when Muslims come in. They know they
+      are
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+    - be, so these Buddhists are just doing what they can do make sure Myanmar doesn't
+      experience that.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The Buddhists are following what they know—based on world
+      leaders—about the impact of Muslims on a country.
+    candidate: Appeal to Authority
+    supporting_reason: Intellectuals like Sam Harris and Presidents like Bush and
+      Trump have all told us how extremist Muslims can be, so these Buddhists are
+      just doing what they can to make sure Myanmar doesn’t experience that.
+    support_relation: The argument cites authority figures to justify the Buddhists’
+      belief that Muslims are prone to extremism and therefore to take measures against
+      them.
+    label_justification: The reasoning relies on the opinions of Sam Harris, Bush,
+      and Trump as evidence for the conclusion, which constitutes an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+  counterargument:
+    decisive_counterargument: While a few prominent figures may highlight concerns
+      about extremism, citing their opinions does not establish that Muslims in Myanmar
+      are inherently prone to extremist behavior or that the Buddhists’ actions are
+      justified solely because these leaders spoke on the issue. Their statements
+      are opinions, not empirical evidence projecting on the whole Muslim population
+      or on the specific context of Myanmar. The argument therefore relies on the
+      authority of a few individuals rather than on direct, context‑specific evidence.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that Buddhists’ efforts to prevent Muslim
+      extremism are justified because world leaders and intellectuals (e.g., Sam Harris,
+      Bush, Trump) have warned about Muslim extremism.
+    label_justification: The objection directly addresses the use of external authorities—Sam
+      Harris, Bush, Trump—to support the Buddhists’ reasoning, exposing that the argument
+      depends on their statements rather than on concrete facts about Muslims in Myanmar.
+      This is the hallmark of an Appeal to Authority fallacy. No other fallacy‑label
+      is warranted because the argument does not present a hasty generalization, false
+      dilemma or slippery‑slope structure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Buddhists are just following what they know based off various world leaders
+      when it comes to what happens to a country when Muslims come in. They know they
+      are
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that Buddhists base their actions on opinions
+    from individuals such as Sam Harris, President Bush, and President Trump, who
+    claim Muslims are prone to extremism. This use of external authorities to justify
+    a conclusion constitutes an Appeal to Authority.
+  decision_reason: The argument cites the statements of Sam Harris, Bush, and Trump
+    to support the Buddhists’ belief that Muslims are prone to extremism, thereby
+    relying on authority rather than on direct evidence. The evidence IDs supporting
+    this reasoning are T1, T2, and T3.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The Buddhists are just following what they know based off various world leaders
+    when it comes to what happens to a country when Muslims come in. They know they
+    are
+  - prone to extremism and don't want their country to deal with that.  Intellectuals
+    like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+    Muslims can
+  - be, so these Buddhists are just doing what they can do make sure Myanmar doesn't
+    experience that.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4890
+  completion_tokens: 3179
+  total_tokens: 8069
+  wall_time_seconds: 170.375

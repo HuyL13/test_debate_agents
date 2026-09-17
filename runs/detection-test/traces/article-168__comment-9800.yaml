@@ -1,0 +1,144 @@
+sample:
+  id: 168:9800
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: ''
+  target: North Macedonia's challenging past makes for a troubling present. The ethnic
+    and religious divisions that shattered Yugoslavia into pieces like Macedonia seem
+    to linger. It's a place where a war criminal can become an MP and where ethnic
+    nationalism is part of party's platform. What the country needs is unity among
+    the different religious and ethnic groups, and political stability. This is accomplished
+    easier with the Social Democrat candidate, but the country still has a way to
+    go before it is fully unified. Stay strong, Macedonia.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - North Macedonia's challenging past makes for a troubling present. The ethnic
+      and religious divisions that shattered Yugoslavia into pieces like Macedonia
+      seem to linger. It's a place where a war
+    - criminal can become an MP and where ethnic nationalism is part of party's platform.
+      What the country needs is unity among the different religious and ethnic groups,
+      and political stability.
+    - This is accomplished easier with the Social Democrat candidate, but the country
+      still has a way to go before it is fully unified. Stay strong, Macedonia.
+    candidate: null
+  goal:
+    conclusion_or_goal: North Macedonia needs unity among its religious and ethnic
+      groups and political stability.
+    candidate: null
+    supporting_reason: The Social Democrat candidate makes achieving that unity easier.
+    support_relation: The statement appeals to the candidate as a solution to the
+      nation’s problem, asserting that his candidacy will facilitate the desired unity.
+    label_justification: No logical fallacies are discernible in the target passage;
+      the reasoning is a straightforward claim that a particular candidate can help
+      unite the country.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - criminal can become an MP and where ethnic nationalism is part of party's platform.
+      What the country needs is unity among the different religious and ethnic groups,
+      and political stability.
+    - This is accomplished easier with the Social Democrat candidate, but the country
+      still has a way to go before it is fully unified. Stay strong, Macedonia.
+  counterargument:
+    decisive_counterargument: The text claims that the Social Democrat candidate will
+      more easily achieve unity among North Macedonia’s diverse ethnic and religious
+      groups, yet the only facts presented are that a war criminal can become an MP
+      and that ethnic nationalism appears in political parties.  From these unrelated
+      observational facts the author leaps to a sweeping conclusion about a particular
+      party’s effectiveness—an unwarranted generalization that lacks supporting evidence.
+    candidate: Hasty Generalization
+    challenged_inference: That the Social Democrat candidate provides the easiest
+      path to national unity based solely on the provided examples of a war criminal
+      MP and ethnic nationalism.
+    label_justification: 'This objection exposes a hasty generalization: the argument
+      moves from a few isolated observations (war criminal MP, ethnic nationalism
+      in parties) to a broad claim about the Social Democrat candidate’s capacity
+      to unify the country, without any empirical support or demonstration that the
+      candidate’s platform actually addresses these issues.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - North Macedonia's challenging past makes for a troubling present. The ethnic
+      and religious divisions that shattered Yugoslavia into pieces like Macedonia
+      seem to linger. It's a place where a war
+    - criminal can become an MP and where ethnic nationalism is part of party's platform.
+      What the country needs is unity among the different religious and ethnic groups,
+      and political stability.
+    - This is accomplished easier with the Social Democrat candidate, but the country
+      still has a way to go before it is fully unified. Stay strong, Macedonia.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Explicit transition from observed examples (war criminal, ethnic
+    nationalism) to a sweeping claim about the Social Democrat candidate’s effectiveness.
+  decision_reason: The passage cites specific issues—a war criminal becoming an MP
+    and ethnic nationalism in parties—as representative examples, and then asserts
+    that the Social Democrat candidate will more easily achieve national unity. This
+    moves from isolated observations to a broad claim about a candidate’s capacity
+    without supporting evidence, fulfilling the structural requirement for a hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - North Macedonia's challenging past makes for a troubling present. The ethnic and
+    religious divisions that shattered Yugoslavia into pieces like Macedonia seem
+    to linger. It's a place where a war
+  - criminal can become an MP and where ethnic nationalism is part of party's platform.
+    What the country needs is unity among the different religious and ethnic groups,
+    and political stability.
+  - This is accomplished easier with the Social Democrat candidate, but the country
+    still has a way to go before it is fully unified. Stay strong, Macedonia.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4587
+  completion_tokens: 2841
+  total_tokens: 7428
+  wall_time_seconds: 177.375

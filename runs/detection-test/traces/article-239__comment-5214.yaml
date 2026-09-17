@@ -1,0 +1,125 @@
+sample:
+  id: 239:5214
+  article_id: 239
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: It is great to see so many younger kids taking initiative to do what the
+    older generation does not want to deal with. Hopefully this will make the world
+    much safer for those yet to come. The future will be in the best of hands.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is great to see so many younger kids taking initiative to do what the older
+      generation does not want to deal with. Hopefully this will make the world much
+    - safer for those yet to come. The future will be in the best of hands.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker argues that the younger generation’s initiative
+      is leading to a safer, more promising future, implying that the future is in
+      the best hands of these young people.
+    candidate: null
+    supporting_reason: Many younger kids are taking initiative to handle problems
+      that older generations avoid.
+    support_relation: The observation of widespread youthful initiative is used as
+      evidence that these efforts will make the world safer and thereby justify the
+      optimistic claim that the future will be guided positively.
+    label_justification: No traditional fallacy is present; the argument simply draws
+      a hopeful inference from the descriptive observation without misapplying a standard
+      logical fallacy. The conclusion and reason both align naturally, so the reasoning
+      is supportive but not fallacious.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is great to see so many younger kids taking initiative to do what the older
+      generation does not want to deal with. Hopefully this will make the world much
+    - safer for those yet to come. The future will be in the best of hands.
+  counterargument:
+    decisive_counterargument: The claim that the world will become safer for future
+      generations merely because a handful of younger people are taking initiative
+      is an overreach. In order to make that claim, one would have to demonstrate
+      that the scale, scope, and effectiveness of these initiatives are sufficient
+      to overcome the myriad environmental, political, and economic challenges that
+      still exist. The passage offers no such evidence, only a hopeful assumption
+      that the actions of a few will guarantee a better future for all. Without a
+      demonstrated causal connection between the sample’s activity and the universal
+      outcome, the conclusion is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: Assuming that the limited actions of many younger kids will
+      automatically ensure the entire world’s safety for future generations.
+    label_justification: The objection directly points out that the speaker generalizes
+      from the actions of a sample (young people who are currently making an effort)
+      to a universal conclusion (the future will be safe for everyone). This is precisely
+      the reasoning failure defined as a hasty generalization, as the conclusion extends
+      beyond the evidence provided.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is great to see so many younger kids taking initiative to do what the older
+      generation does not want to deal with. Hopefully this will make the world much
+    - safer for those yet to come. The future will be in the best of hands.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target generalizes from a specific group of younger kids
+    taking initiative to the claim that the entire future will be safe, extending
+    a conclusion beyond the evidence provided. This matches the structure of a hasty
+    generalization.
+  decision_reason: The passage claims widespread safety for the entire world based
+    solely on the actions of a limited sample of younger kids, a classic overreach
+    of inference. Evidence IDs T1 and T2 show the complete statement.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is great to see so many younger kids taking initiative to do what the older
+    generation does not want to deal with. Hopefully this will make the world much
+  - safer for those yet to come. The future will be in the best of hands.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4025
+  completion_tokens: 3089
+  total_tokens: 7114
+  wall_time_seconds: 323.39000000001397

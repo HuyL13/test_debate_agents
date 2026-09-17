@@ -1,0 +1,138 @@
+sample:
+  id: 465:8593
+  article_id: 465
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: 'While it breaks the heart to hear of the suffering endured by these women,
+    an even greater threat against them, also produced by their traditional androcentric
+    society, looms even more darkly: honor killings. In southern Asia and parts of
+    MENA honor killings are normalized, and women live in terror. It would be nice
+    if activist groups would target that behavior and condemn it, and then perhaps
+    move on to issues like domestic abuse and gender equality.'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While it breaks the heart to hear of the suffering endured by these women, an
+      even greater threat against them, also produced by their traditional androcentric
+      society, looms even more
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+    - and condemn it, and then perhaps move on to issues like domestic abuse and gender
+      equality.
+    candidate: null
+  goal:
+    conclusion_or_goal: Advocate that activist groups should specifically condemn
+      and target honor killings before moving on to other issues such as domestic
+      abuse and gender equality.
+    candidate: null
+    supporting_reason: The speaker argues that honor killings constitute an even greater
+      threat to women, produced by traditional androcentric society, and that these
+      killings are normalized in southern Asia and parts of the MENA region, causing
+      women to live in terror.
+    support_relation: The reason is used as a justification for directing activist
+      efforts toward honor killings, positioning it as the most pressing issue to
+      address.
+    label_justification: The argument presents a direct causal link between the identified
+      threat (honor killings) and the recommended action (activist intervention).
+      No logical fallacy is present—there is no appeal to emotion, exaggeration, or
+      unjustified inference. The conclusion follows naturally from the premise that
+      the threat is severe and normalized.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While it breaks the heart to hear of the suffering endured by these women, an
+      even greater threat against them, also produced by their traditional androcentric
+      society, looms even more
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+    - and condemn it, and then perhaps move on to issues like domestic abuse and gender
+      equality.
+  counterargument:
+    decisive_counterargument: The text claims that honor killings are normalized across
+      Southern Asia and the MENA region and that women everywhere live in terror,
+      but it offers no specific data or diverse examples to substantiate this sweeping
+      statement. As a result, it relies on an over‑broad generalization that overlooks
+      regional, social, and individual variations, making the inference suspicious.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that honor killings are normalized in all of Southern
+      Asia and the MENA region and thus that women universally live in terror.
+    label_justification: This objection directly targets the reasoning step that goes
+      from a specific, unverified assertion to a blanket statement about an entire
+      region. Such an over‑broad leap, without evidence from multiple distinct cases,
+      exemplifies the hasty‑generalization fallacy. The counterargument does not merely
+      criticize the argument but exposes a formal failure in its inference—namely,
+      an unwarranted extrapolation from a single generalized claim.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target’s statement – “In southern Asia and parts of MENA
+    honor killings are normalized, and women live in terror” – generalizes about an
+    entire region without providing supporting evidence or varied examples. This satisfies
+    the mandatory structural condition for a hasty‑generalization. Evidence: T2'
+  decision_reason: The target contains an unsupported sweeping claim about a broad
+    population, fulfilling the structure of a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+    normalized, and women live in terror. It would be nice if activist groups would
+    target that behavior'
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4450
+  completion_tokens: 2822
+  total_tokens: 7272
+  wall_time_seconds: 111.35899999999674

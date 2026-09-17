@@ -1,0 +1,128 @@
+sample:
+  id: 313:5737
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: It seems to me that Bangladesh must either shut down its universities or
+    ban the internet on those campuses in order to maintain public safety for students.
+    I don't see how students can feel safe unless immediate action is taken. Let's
+    talk solutions, not merely options.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: shut down its universities
+    - role: alternative_b
+      text: ban the internet on those campuses
+    - role: exhaustiveness_commitment
+      text: must either shut down its universities or ban the internet on those campuses
+        in order to maintain public safety
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems to me that Bangladesh must either shut down its universities or ban
+      the internet on those campuses in order to maintain public safety for students.
+      I don't see
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Bangladesh must either shut down universities or ban internet
+      on campuses to maintain public safety for students.
+    candidate: False Dilemma
+    supporting_reason: Immediate action is necessary for students to feel safe.
+    support_relation: The argument presents only two options as viable solutions,
+      implying they are the exclusive choices for ensuring safety, thus using a false
+      dilemma to justify the policy.
+    label_justification: The target limits the discussion to shutting down universities
+      or banning campus internet, treating these as the only possible actions to maintain
+      safety. This exclusion of alternative solutions constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems to me that Bangladesh must either shut down its universities or ban
+      the internet on those campuses in order to maintain public safety for students.
+      I don't see
+    - how students can feel safe unless immediate action is taken. Let's talk solutions,
+      not merely options.
+  counterargument:
+    decisive_counterargument: The argument unfairly limits possible responses to only
+      shutting down universities or banning campus internet, ignoring a range of other
+      viable measures—such as enhancing campus security, implementing mental‑health
+      support services, limiting student travel, or regulating campus activities—that
+      could protect students without resorting to extreme censorship or closure.
+    candidate: False Dilemma
+    challenged_inference: Bangladesh can maintain public safety for students only
+      by shutting down universities or banning the internet on campus.
+    label_justification: The target presents only two extreme options as if they exhaust
+      all possibilities, a classic false dilemma structure. It excludes a variety
+      of plausible intermediate solutions, thereby committing a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems to me that Bangladesh must either shut down its universities or ban
+      the internet on those campuses in order to maintain public safety for students.
+      I don't see
+    - how students can feel safe unless immediate action is taken. Let's talk solutions,
+      not merely options.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly states that Bangladesh must either shut
+    down its universities or ban the internet on those campuses, presenting these
+    two options as the only possible means to maintain public safety for students.
+    This “must either” construction commits to an exhaustive set of alternatives,
+    meeting the structural requirement for a false dilemma. The concluding statement
+    further emphasizes the exclusivity of these solutions, thus supporting the fallacy.
+  decision_reason: The target contains an explicit binary exclusive claim (“must either
+    … or …”), satisfying the mandatory structural condition for a false dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It seems to me that Bangladesh must either shut down its universities or ban the
+    internet on those campuses in order to maintain public safety for students. I
+    don't see
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4326
+  completion_tokens: 2391
+  total_tokens: 6717
+  wall_time_seconds: 122.34399999999732

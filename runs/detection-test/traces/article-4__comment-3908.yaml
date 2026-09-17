@@ -1,0 +1,180 @@
+sample:
+  id: 4:3908
+  article_id: 4
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: Is the outbreak really this bad or is panic being used to attack the government?
+    How can we know the real situation without research and facts? I am not trying
+    to dismiss the severity but it is hard to judge with no verifiable information.
+    We can either accept the fear or just dismiss the issue entirely. Neither seem
+    like good options, so let's get the facts instead. Don't fall for the black and
+    white thinking. Do your research, get the facts and find a solution.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: accept the fear
+    - role: alternative_b
+      text: dismiss the issue entirely
+    - role: exhaustiveness_commitment
+      text: We can either accept the fear or just dismiss the issue entirely
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to dismiss the severity but it is hard to judge with no verifiable information.
+      We can either accept the fear or just dismiss the issue entirely. Neither seem
+      like good
+    - options, so let's get the facts instead. Don't fall for the black and white
+      thinking. Do your research, get the facts and find a solution.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The speaker is urging the audience to seek research and verified
+      facts in order to determine whether the outbreak is truly severe or merely a
+      panic, rather than accepting fear or dismissing the issue outright.
+    candidate: Appeal to Majority
+    supporting_reason: The speaker claims that because no verifiable information is
+      available, we must obtain facts through research and evidence to properly assess
+      the situation.
+    support_relation: The reason that a lack of evidence necessitates further research
+      is employed to justify the conclusion that accurate facts are required to evaluate
+      the outbreak’s seriousness.
+    label_justification: No logical fallacy is present; the argument appropriately
+      appeals to evidence rather than employing any invalid persuasive devices.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Is the outbreak really this bad or is panic being used to attack the government?
+      How can we know the real situation without research and facts? I am not trying
+    - to dismiss the severity but it is hard to judge with no verifiable information.
+      We can either accept the fear or just dismiss the issue entirely. Neither seem
+      like good
+    - options, so let's get the facts instead. Don't fall for the black and white
+      thinking. Do your research, get the facts and find a solution.
+  counterargument:
+    decisive_counterargument: In reality, there are many possible responses beyond
+      the two extremes presented—such as acknowledging uncertainty, taking precautionary
+      measures, or seeking reliable sources—so the claim that only “accepting fear”
+      or “dismissing the issue” are viable choices is misleading.
+    candidate: False Dilemma
+    challenged_inference: Only the two extremes (accept fear or dismiss the issue)
+      are viable options for dealing with the outbreak, implying no other reasonable
+      alternatives exist.
+    label_justification: The argument presents a false dilemma by limiting the possible
+      courses of action to two binary options, while ignoring other viable approaches.
+      The counterargument demonstrates that additional options are available, exposing
+      the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to dismiss the severity but it is hard to judge with no verifiable information.
+      We can either accept the fear or just dismiss the issue entirely. Neither seem
+      like good
+    - options, so let's get the facts instead. Don't fall for the black and white
+      thinking. Do your research, get the facts and find a solution.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Majority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: The TARGET text explicitly states that there are only two options—accept
+      the fear or dismiss the issue—presenting them as an exhaustive list. This matches
+      the mandatory structural condition of a false dilemma, which requires the presentation
+      of mutually exclusive and collectively exhaustive alternatives. No claim about
+      majority opinion or reliance on a group's sentiment is made, so Appeal to Majority
+      lacks the necessary structural support. The evidence supporting the false dilemma
+      is found in passages T2 and T3, where the binary choices and the blacklist of
+      black‑and‑white thinking are articulated.
+    loser_failure: Appeal to Majority is not supported because the TARGET contains
+      no statement that an idea is endorsed by many people or that the majority’s
+      view justifies the conclusion. Without such a claim, the fallacy cannot be instantiated.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to dismiss the severity but it is hard to judge with no verifiable information.
+      We can either accept the fear or just dismiss the issue entirely. Neither seem
+      like good
+    - options, so let's get the facts instead. Don't fall for the black and white
+      thinking. Do your research, get the facts and find a solution.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly lists only two options—accepting the fear
+    or dismissing the issue—and commits to these being the sole possibilities, while
+    ignoring other reasonable alternatives. This satisfies the structural requirements
+    for a false dilemma (providing exhaustive alternatives) and the inference fail
+    condition, making the classification valid.
+  decision_reason: The argument restricts the choices to two extremes and frames them
+    as exhaustive, thus committing a false dilemma. It fails to acknowledge additional
+    viable responses such as seeking reliable information or adopting precautionary
+    measures.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - to dismiss the severity but it is hard to judge with no verifiable information.
+    We can either accept the fear or just dismiss the issue entirely. Neither seem
+    like good
+  - options, so let's get the facts instead. Don't fall for the black and white thinking.
+    Do your research, get the facts and find a solution.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6361
+  completion_tokens: 3884
+  total_tokens: 10245
+  wall_time_seconds: 211.2190000000046

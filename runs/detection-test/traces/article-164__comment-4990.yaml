@@ -1,0 +1,130 @@
+sample:
+  id: 164:4990
+  article_id: 164
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: It's good to hear that Congo has eradicated ebola. But now they have covid.
+    Where will that end? They are not the first African nation to have received covid.
+    But hopefully this is the last one. We don't need this to go any further. This
+    is not good for the world.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's good to hear that Congo has eradicated ebola. But now they have covid.
+      Where will that end? They are not the first African nation to have received
+      covid. But
+    - hopefully this is the last one. We don't need this to go any further. This is
+      not good for the world.
+    candidate: null
+  goal:
+    conclusion_or_goal: Covid spreading to Congo is harmful to the world.
+    candidate: null
+    supporting_reason: T1
+    support_relation: cause-and-effect
+    label_justification: The target merely links the presence of Covid in Congo to
+      a negative outcome for the world. No logical fallacies (e.g., hasty generalization,
+      slippery slope, false dilemma, appeal to authority) are present; the reasoning
+      is straightforward, therefore no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's good to hear that Congo has eradicated ebola. But now they have covid.
+      Where will that end? They are not the first African nation to have received
+      covid. But
+  counterargument:
+    decisive_counterargument: 'The claim that Congo’s new COVID‑19 case will inevitably
+      spread worldwide and cause disastrous consequences relies on an unsubstantiated
+      assumption: that the emergence of the virus in one country automatically leads
+      to relentless, escalating spread. No evidence shows that detection in Congo
+      will trigger a global outbreak; containment measures and epidemiological data
+      could keep it local. Thus, the inference “this will not stop – it will end badly
+      for the world” is a *slippery slope*: it extrapolates one fact (the virus’s
+      presence) to an inevitable chain of worst‑case consequences without demonstrating
+      the connection. This unsupported escalation disqualifies the argument’s causal
+      link.'
+    candidate: Slippery Slope
+    challenged_inference: Because COVID‑19 has been detected in Congo, it will inevitably
+      lead to continued spread and end badly for the world.
+    label_justification: The counterargument directly targets the implicit logical
+      leap that continuous spread and global catastrophe are inevitable once the virus
+      appears in a single nation. By highlighting the lack of evidence linking a solitary
+      outbreak to an irreversible cascade, it shows that the argument is fallaciously
+      sliding from one event to an ultimate negative outcome—the hallmark of a slippery
+      slope.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's good to hear that Congo has eradicated ebola. But now they have covid.
+      Where will that end? They are not the first African nation to have received
+      covid. But
+    - hopefully this is the last one. We don't need this to go any further. This is
+      not good for the world.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The text only expresses a single, isolated negative prediction
+    that COVID‑19 in Congo will end badly for the world, without outlining a clear
+    progression or chain of increasingly adverse consequences. Therefore the necessary
+    structural condition for a Slippery Slope argument is missing, so the claim is
+    not fallacious under that label.
+  decision_reason: The target lacks the required escalation sequence; it presents
+    only a single bad outcome instead of an extrapolated chain, so it does not meet
+    the structural criteria for a Slippery Slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's good to hear that Congo has eradicated ebola. But now they have covid. Where
+    will that end? They are not the first African nation to have received covid. But
+  - hopefully this is the last one. We don't need this to go any further. This is
+    not good for the world.
+  verified: false
+  rejection_reason: The target lacks the required escalation sequence; it presents
+    only a single bad outcome instead of an extrapolated chain, so it does not meet
+    the structural criteria for a Slippery Slope fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4187
+  completion_tokens: 3257
+  total_tokens: 7444
+  wall_time_seconds: 232.57800000000134

@@ -1,0 +1,163 @@
+sample:
+  id: 595:8981
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: It's a travesty what we're doing to our natural ecosystems. How many more
+    animals do we need to massacre before more people decide to deal with climate
+    change? All of this because of all the artificial products we dump everywhere
+    we can. We need to change. The power is in our hands to secure a sustainable future.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's a travesty what we're doing to our natural ecosystems.
+    - role: evaluative_conclusion
+      text: We need to change. The power is in our hands to secure a sustainable future.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's a travesty what we're doing to our natural ecosystems. How many more animals
+      do we need to massacre before more people decide to deal with climate change?
+      All of
+    - this because of all the artificial products we dump everywhere we can. We need
+      to change. The power is in our hands to secure a sustainable future.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: No logical fallacy detected in the target passage.
+    candidate: null
+    supporting_reason: The statement is an expression of lament and a call to action;
+      it does not employ any of the identified fallacies (e.g., Hasty Generalization,
+      Slippery Slope, False Dilemma, Appeal to Authority, Appeal to Majority/Tradition/Nature,
+      Appeal to Worse Problems).
+    support_relation: none
+    label_justification: The passage contains no invalid reasoning pattern; it merely
+      communicates concern and motivation.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's a travesty what we're doing to our natural ecosystems. How many more animals
+      do we need to massacre before more people decide to deal with climate change?
+      All of
+    - this because of all the artificial products we dump everywhere we can. We need
+      to change. The power is in our hands to secure a sustainable future.
+  counterargument:
+    decisive_counterargument: There is no evidence that all ecological damage is caused
+      by artificial products; the claim attributes every harm to them without support,
+      so it generalizes without sufficient basis.
+    candidate: Hasty Generalization
+    challenged_inference: All of this because of all the artificial products we dump
+      everywhere we can.
+    label_justification: The argument generalizes that artificial products are responsible
+      for all ecological damage without evidence. This is a classic example of a hasty
+      generalization, where a broad causal claim is made from insufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - this because of all the artificial products we dump everywhere we can. We need
+      to change. The power is in our hands to secure a sustainable future.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: 'The target does not present a set of specific observations or
+      cases that are then generalized to a broad claim, which is the structural requirement
+      for a Hasty Generalization. It merely asserts a causal claim (“All of this because
+      of all the artificial products we dump everywhere we can”); this does not satisfy
+      the sample‑to‑general‑inference pattern necessary for a hasty generalization.
+      The Appeal to Nature structure, however, is evident: a statement about the natural
+      world (“It’s a travesty what we’re doing to our natural ecosystems”) is tied
+      to a value judgment and call to action (“We need to change … to secure a sustainable
+      future”), satisfying the mandatory structure.'
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's a travesty what we're doing to our natural ecosystems. How many more animals
+      do we need to massacre before more people decide to deal with climate change?
+      All of
+    - this because of all the artificial products we dump everywhere we can. We need
+      to change. The power is in our hands to secure a sustainable future.
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise (“It’s a travesty
+    what we’re doing to our natural ecosystems”) and an evaluative conclusion (“We
+    need to change…to secure a sustainable future”), matching the nature‑to‑value
+    structure of an appeal to nature. The argument employs the status of natural ecosystems
+    as a basis for moral evaluation, satisfying the mandatory structural condition
+    for the fallacy.
+  decision_reason: The target explicitly asserts that harming natural ecosystems is
+    a travesty and calls for action to preserve them, thereby treating the natural
+    as inherently valuable. This conforms to the structure required for an appeal
+    to nature, making the fallacy present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's a travesty what we're doing to our natural ecosystems. How many more animals
+    do we need to massacre before more people decide to deal with climate change?
+    All of
+  - this because of all the artificial products we dump everywhere we can. We need
+    to change. The power is in our hands to secure a sustainable future.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5295
+  completion_tokens: 5679
+  total_tokens: 10974
+  wall_time_seconds: 162.15599999998813

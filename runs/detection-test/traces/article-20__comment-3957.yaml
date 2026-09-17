@@ -1,0 +1,132 @@
+sample:
+  id: 20:3957
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: What else is the country supposed to do? Either they stay completely silent
+    and go on the way they've been going on, or they'll be the next target for Russian
+    invaders. It's easy for us to criticize them from our comfortable positions, but
+    we must understand that they have no real alternative.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: stay completely silent and go on the way they've been going on
+    - role: alternative_b
+      text: be the next target for Russian invaders
+    - role: exhaustiveness_commitment
+      text: they have no real alternative
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What else is the country supposed to do? Either they stay completely silent
+      and go on the way they've been going on, or they'll be the next target for Russian
+    - invaders. It's easy for us to criticize them from our comfortable positions,
+      but we must understand that they have no real alternative.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Armenia has no real alternative, so it must either stay silent
+      or be targeted by Russian invaders; criticism from abroad is misguided.
+    candidate: False Dilemma
+    supporting_reason: The claim that they have no real alternative to avoid being
+      the next target of Russian invaders.
+    support_relation: This reason is used to argue that the only viable options for
+      Armenia are silent compliance or becoming a target, framing it as a binary choice.
+    label_justification: The target reduces the country’s options to two mutually
+      exclusive possibilities and asserts that no other options exist, thereby presenting
+      a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What else is the country supposed to do? Either they stay completely silent
+      and go on the way they've been going on, or they'll be the next target for Russian
+    - invaders. It's easy for us to criticize them from our comfortable positions,
+      but we must understand that they have no real alternative.
+  counterargument:
+    decisive_counterargument: 'The target asserts that the country faces only two
+      outcomes – silent and live on as before, or become the next target of Russian
+      invaders – and that therefore no real alternative exists. In reality a state
+      can pursue a wide spectrum of diplomatic, economic or military strategies, negotiate
+      with multiple actors, seek partial cooperation, or adopt a cautious engagement
+      policy. By reducing the situation to only two mutually exclusive options, the
+      argument ignores plausible middle‑ground actions and exaggerates the danger.
+      This simplification is a textbook false dilemma: it presents the situation as
+      if it can be divided into only two outcomes when, in fact, a range of alternatives
+      is possible.'
+    candidate: False Dilemma
+    challenged_inference: the country has only two options (stay silent or become
+      the next target) and no real alternative
+    label_justification: The reasoning reduces the decision to an either/or choice,
+      disregarding other feasible strategies. This is the hallmark of the false dilemma
+      fallacy, not merely a critique or general statement. The counterargument directly
+      addresses the specific inference that only two outcomes exist, thereby exposing
+      the reasoning flaw.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What else is the country supposed to do? Either they stay completely silent
+      and go on the way they've been going on, or they'll be the next target for Russian
+    - invaders. It's easy for us to criticize them from our comfortable positions,
+      but we must understand that they have no real alternative.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states only two mutually exclusive alternatives—stay
+    silent or become a Russian target—while asserting that there are no other options,
+    satisfying the exhaustive alternatives structure required for a false dilemma.
+  decision_reason: It presents a binary choice and claims exhaustiveness, which is
+    fallacious.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What else is the country supposed to do? Either they stay completely silent and
+    go on the way they've been going on, or they'll be the next target for Russian
+  - invaders. It's easy for us to criticize them from our comfortable positions, but
+    we must understand that they have no real alternative.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4214
+  completion_tokens: 2332
+  total_tokens: 6546
+  wall_time_seconds: 99.43699999997625

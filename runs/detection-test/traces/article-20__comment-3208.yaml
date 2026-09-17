@@ -1,0 +1,133 @@
+sample:
+  id: 20:3208
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: The article should probably be taken at face value.  Its arguments are basing
+    a broad conclusion on a small or unrepresentative sample.  The article doesn't
+    provide concrete examples of evidence of how the general population of Armenia
+    feels about the war.  If they want to add weight to their arguments better evidence
+    such as interviews or scientifically based opinion polls would help.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+    - would help.
+    candidate: null
+  goal:
+    conclusion_or_goal: The article’s broad conclusion is not sufficiently supported
+      by evidence, so better data such as interviews or scientifically based opinion
+      polls are required.
+    candidate: null
+    supporting_reason: The article bases its arguments on a small or unrepresentative
+      sample.
+    support_relation: This reason explains why the article’s conclusion lacks proper
+      empirical backing and thus should not be accepted without additional evidence.
+    label_justification: No logical fallacy is present; the statement is a legitimate
+      critique of the argument’s evidential foundation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+  counterargument:
+    decisive_counterargument: The article’s concise discussion of Armenian opinion
+      may not come from a random or unrepresentative sample; it could be a carefully
+      selected group that still captures the national mood, and quality qualitative
+      insights can be credible even without large-scale polls.
+    candidate: Hasty Generalization
+    challenged_inference: Its arguments are basing a broad conclusion on a small or
+      unrepresentative sample.
+    label_justification: The objection directly attacks the claim that the article’s
+      conclusion hinges on an inadequate sample, highlighting that a narrow or unrepresentative
+      sample need not automatically invalidate a broad inference. This disproves the
+      assumption that the article commits a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The TARGET comment makes an evaluative claim that an article’s
+    conclusion is based on a small or unrepresentative sample, but it does not itself
+    provide a limited set of observations from which it draws a broader conclusion.
+    Therefore the STRUCTURAL FEATURES of a Hasty Generalization (explicit sample →
+    general assertion) are not present in the TARGET, so no fallacy is detected.
+  decision_reason: The TARGET does not commit a hasty generalization; it merely criticizes
+    the article’s usage of a small sample, which is a valid argument.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The article should probably be taken at face value.  Its arguments are basing
+    a broad conclusion on a small or unrepresentative sample.  The article doesn't
+    provide concrete examples of evidence
+  - of how the general population of Armenia feels about the war.  If they want to
+    add weight to their arguments better evidence such as interviews or scientifically
+    based opinion polls
+  verified: false
+  rejection_reason: The TARGET does not commit a hasty generalization; it merely criticizes
+    the article’s usage of a small sample, which is a valid argument.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4290
+  completion_tokens: 4283
+  total_tokens: 8573
+  wall_time_seconds: 344.59399999998277

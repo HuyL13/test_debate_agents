@@ -1,0 +1,116 @@
+sample:
+  id: 133:4597
+  article_id: 133
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: I think this is terrible. Once we start silencing people who disagree with
+    us, where does it end? Do we then try to control any form of criticism?
+  target: Agree with your comment. If they will start here with one person, then what
+    is next? Arresting everyone that they don't approve of?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: they will start here with one person
+    - role: intermediate_consequence
+      text: what is next?
+    - role: final_consequence
+      text: Arresting everyone that they don't approve of?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker warns that an initial arrest of one person could
+      lead to mass arrests of those who disagree with authorities.
+    candidate: Slippery Slope
+    supporting_reason: Arresting everyone that they don't approve of
+    support_relation: This reason is presented as the inevitable, escalating consequence
+      of the initial action, suggesting a chain of increasingly severe measures.
+    label_justification: The comment predicts that the start of a single arrest will
+      inevitably lead to a much larger, extreme outcome (arresting all dissenters),
+      which is the classic form of a slippery slope argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+  counterargument:
+    decisive_counterargument: 'The claim that targeting a single individual inevitably
+      leads to the arrest of everyone they disapprove of is an unjustified assertion.
+      No evidence is provided that the authorities would move from an isolated case
+      to a wholesale crackdown, and the argument skips any intermediate steps, relying
+      solely on a worst‑case scenario. This is a classic slippery‑slope error: presuming
+      a direct causal chain from one event to an extreme outcome without substantiation.'
+    candidate: Slippery Slope
+    challenged_inference: Starting with one person will inevitably lead to the arrest
+      of everyone who is not approved.
+    label_justification: The counterargument points to the lack of evidence for an
+      escalating causal progression, a defining feature of the slippery‑slope fallacy.
+      It therefore supports labeling the argument as a slippery slope rather than
+      merely criticizing the content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target expresses an inferred causal chain—from the arrest
+    of one person to the eventual arrest of everyone who is disapproved of—without
+    providing evidence or intermediate steps. This meets the structural requirement
+    of a slippery‑slope argument.
+  decision_reason: The comment predicts that beginning with a single arrest will inevitably
+    lead to the arrest of all dissenters, presenting an escalatory sequence without
+    justification, which is a classic slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Agree with your comment. If they will start here with one person, then what is
+    next? Arresting everyone that they don't approve of?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4172
+  completion_tokens: 2115
+  total_tokens: 6287
+  wall_time_seconds: 98.85900000005495

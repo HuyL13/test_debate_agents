@@ -1,0 +1,165 @@
+sample:
+  id: 217:4849
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: I think that taking allegations of sexual misconduct into account, instead
+    of actual convictions, is not a wise move. This could lead to innocent politicians
+    being slandered and removed from office, over false allegations, which happen
+    a lot. This could be used by political opponents to remove candidates from an
+    election a false allegation of sexual misconduct.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: taking allegations of sexual misconduct into account, instead of actual
+        convictions
+    - role: intermediate_consequence
+      text: could lead to innocent politicians being slandered and removed from office
+    - role: final_consequence
+      text: could be used by political opponents to remove candidates from an election
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker warns against using sexual misconduct allegations,
+      rather than convictions, as a basis for action against politicians, asserting
+      that doing so is unwise.
+    candidate: null
+    supporting_reason: The speaker invokes the potential harm of falsely accusing
+      and removing innocent politicians, stating that false allegations occur frequently
+      and could be weaponized by opponents in elections.
+    support_relation: This concern about the harmful consequences of relying on allegations
+      is presented as the basis for the conclusion that such practice is unwarranted.
+    label_justification: No logical fallacy is evident; the argument relies on anticipated
+      negative outcomes rather than a faulty inference.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+  counterargument:
+    decisive_counterargument: You claim that false allegations of sexual misconduct
+      are common, yet you provide no evidence for their frequency – the statement
+      "which happen a lot" is an unqualified assertion. Without data, the conclusion
+      that many innocent politicians would be harmed cannot be justified.
+    candidate: Hasty Generalization
+    challenged_inference: That false allegations of sexual misconduct happen a lot,
+      so innocent politicians will be slandered and removed from office.
+    label_justification: The argument relies on an unsubstantiated claim of frequency,
+      generalizing from no sample to the entire pool of allegations, which is precisely
+      the definition of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires explicit cases/sample -> broader
+      population/class. Slippery Slope requires action/condition -> progressively
+      worse consequences.
+    loser_failure: The target states that because false allegations 'happen a lot',
+      innocent politicians will be harmed. This introduces a broad claim of harm based
+      on an unsubstantiated assertion of frequency, lacking any concrete sample or
+      evidence. No sequence of escalating consequences is presented, only a single
+      negative outcome. Thus the argument commits a hasty generalization rather than
+      a slippery-slope claim.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The TARGET lacks an explicit sample or case from which a general
+    conclusion is drawn; it only states an unqualified claim that false allegations
+    happen a lot. Without a concrete example or data, it does not satisfy the structural
+    requirement for a Hasty Generalization.
+  decision_reason: The survivor fails the mandatory condition of providing a sample
+    or case that triggers a broader generalization, so the Hasty Generalization label
+    is rejected.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - office, over false allegations, which happen a lot. This could be used by political
+    opponents to remove candidates from an election a false allegation of sexual misconduct.
+  verified: false
+  rejection_reason: The survivor fails the mandatory condition of providing a sample
+    or case that triggers a broader generalization, so the Hasty Generalization label
+    is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5433
+  completion_tokens: 3137
+  total_tokens: 8570
+  wall_time_seconds: 104.01600000000326

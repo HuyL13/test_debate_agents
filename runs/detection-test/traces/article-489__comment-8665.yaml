@@ -1,0 +1,133 @@
+sample:
+  id: 489:8665
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: In authoritarian countries like this, police just always get away with their
+    crimes. Even though it might have gotten worse under Duterte, the underlying problem
+    has existed for as long as any of us have. It's going to be very hard for things
+    to change given how normal some of these abuses have been. Hopefully they can
+    put a lid on it and change things.
+  target: Whatever the majority of the populace thinks is going on in the police force
+    is probably correct. Mass formation of thoughts is often true. Such a large grouping
+    can't be wrong, there must be a form of truth to it.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of the populace
+    - role: popularity_claim
+      text: Whatever the majority of the populace thinks is going on in the police
+        force is probably correct
+    - role: target_claim
+      text: There must be a form of truth to it
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Whatever the majority of the populace thinks is going on in the police force
+      is probably correct. Mass formation of thoughts is often true. Such a large
+      grouping can't be
+    - wrong, there must be a form of truth to it.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The majority of the populace’s belief about the police force
+      is likely correct.
+    candidate: Appeal to Majority
+    supporting_reason: The argument uses the sheer size of the belief‑holding group
+      to claim the belief itself is true.
+    support_relation: Appeal to majority is presented as evidence supporting the conclusion
+      that the group’s view is correct.
+    label_justification: The reasoning directly commits the appeal to majority fallacy
+      by asserting that a commonly held belief must reflect truth, a classic definition
+      of the fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Whatever the majority of the populace thinks is going on in the police force
+      is probably correct. Mass formation of thoughts is often true. Such a large
+      grouping can't be
+    - wrong, there must be a form of truth to it.
+  counterargument:
+    decisive_counterargument: The claim that the majority’s view about police wrongdoing
+      must be correct relies solely on how many people hold that belief. Popularity
+      is not evidence of truth; many commonly held ideas are false, and the majority
+      can be misled by misinformation, propaganda, or groupthink. Without independent,
+      verifiable evidence supporting the claim, the inference that “mass formation
+      of thoughts is often true” is unjustified.
+    candidate: null
+    challenged_inference: The majority of the populace’s understanding of police behaviour
+      is accurate and therefore represents a truth that cannot be wrong.
+    label_justification: The argument uses the number of people who hold a belief
+      as the primary reason to accept it as true, which is the defining structure
+      of an Appeal to Majority (argumentum ad populum). It replaces independent evidence
+      with mere mass endorsement, a classic appeal to the majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Whatever the majority of the populace thinks is going on in the police force
+      is probably correct. Mass formation of thoughts is often true. Such a large
+      grouping can't be
+    - wrong, there must be a form of truth to it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly asserts that because the majority of the
+    populace holds a belief—about the police force—this belief is probably correct,
+    thereby using sheer popularity as evidence of truth, which satisfies the structural
+    criterion for an appeal to majority.
+  decision_reason: The claim that a widespread belief must be true is a textbook appeal
+    to majority, directly matching the fallacy’s definition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Whatever the majority of the populace thinks is going on in the police force is
+    probably correct. Mass formation of thoughts is often true. Such a large grouping
+    can't be
+  - wrong, there must be a form of truth to it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4381
+  completion_tokens: 2148
+  total_tokens: 6529
+  wall_time_seconds: 223.01600000000326

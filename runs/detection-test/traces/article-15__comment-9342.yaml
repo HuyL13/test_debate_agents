@@ -1,0 +1,143 @@
+sample:
+  id: 15:9342
+  article_id: 15
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: This is something that should be the country's main concern. Pretty much
+    every country on earth knows how wrong it is to hurt kids and yet the majority
+    of this country's kids are hurt and exploited? What is wrong with them? Obviously
+    I'm not saying all countries need to act and think just like us in all respects,
+    but this is one thing that absolutely should be.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: pretty much every country on earth
+    - role: endorsed_claim
+      text: it is wrong to hurt kids
+    - role: target_claim
+      text: This should be the country's main concern
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Child abuse in the country should be the country's main concern.
+    candidate: Appeal to Majority
+    supporting_reason: It claims that every country knows harming children is wrong
+      and that the majority of children in the country are hurt and exploited, using
+      this widespread recognition as justification for prioritizing the issue.
+    support_relation: "Use of a widespread consensus (\0Every country knows the wrongness,\
+      \ majority of children are hurt) as grounds for the conclusion."
+    label_justification: The argument relies on the fact that the majority/most of
+      a population (all countries, majority of children) holds a certain view to claim
+      that child abuse must be prioritized. This is characteristic of an appeal to
+      majority (or popularity) fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+  counterargument:
+    decisive_counterargument: While most countries recognize that harming children
+      is morally wrong, that widespread belief alone does not compel any single nation
+      to treat child abuse as its overriding priority. The inference relies exclusively
+      on a popular consensus, ignoring other factors—such as economic conditions,
+      competing public‑health threats, and the feasibility of intervention—that could
+      dictate a different allocation of national resources.
+    candidate: Appeal to Majority
+    challenged_inference: The speaker claims that because every country knows hurting
+      kids is wrong, the country’s main concern must be eliminating child abuse.
+    label_justification: The argument uses the premise that a majority (in fact, the
+      whole set of countries) holds a particular belief to justify a specific policy
+      priority. This directly exemplifies the Appeal to Majority fallacy, where popularity
+      is employed as the sole warrant for action without providing independent substantive
+      reasons.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+    - is one thing that absolutely should be.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The text explicitly cites an authority—‘pretty much every country
+    on earth’—to assert that hurting kids is wrong, then uses that authority to claim
+    that this issue must be the country’s main concern. The supplied passages T1 and
+    T2 contain this authority claim and the target claim, matching the appeal-to-authority
+    structure.
+  decision_reason: The argument relies on an authority (the collection of all countries)
+    to justify a claim about national priority, which constitutes an Appeal to Authority.
+    The evidence passes the structure test.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is something that should be the country's main concern. Pretty much every
+    country on earth knows how wrong it is to hurt kids and yet the majority of this
+  - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+    not saying all countries need to act and think just like us in all respects, but
+    this
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4202
+  completion_tokens: 3578
+  total_tokens: 7780
+  wall_time_seconds: 195.579000000027

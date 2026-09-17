@@ -1,0 +1,139 @@
+sample:
+  id: 238:10011
+  article_id: 238
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: I can see why the meeting between the Azerbaijan's President Ilham Aliyev
+    and Armenia's Prime Minister Nikol Pashinyan had it's detractors. There is certainly
+    some controversy between the two countries and some people will always hold a
+    grudge. I think we need to go back to more traditional views on this issue. Remember
+    how we would let the past be the past? How we would forgive and forget? That was
+    successful in our past and it surely can be a success in our current day as well.
+    It does not mean that the past grievances can't be addressed, it's more about
+    looking at those problems with a more impartial view. I'm sure if we can do this
+    that these countries will be able to form closer ties and will prosper because
+    of it. Traditionally I would say that would be a win-win for everyone involved.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Letting the past be the past and forgiving historically led to successful
+        outcomes for the region
+    - role: preservation_conclusion
+      text: Preserving this traditional approach will result in closer ties and mutual
+        prosperity
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T5
+    evidence_spans:
+    - and some people will always hold a grudge. I think we need to go back to more
+      traditional views on this issue. Remember how we would let the past be
+    - the past? How we would forgive and forget? That was successful in our past and
+      it surely can be a success in our current day as well. It does not
+    - will be able to form closer ties and will prosper because of it. Traditionally
+      I would say that would be a win-win for everyone involved.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The meeting between the Azerbaijan president and Armenian
+      prime minister will lead to closer ties and prosperity for both countries by
+      adopting a traditional approach of forgiving and forgetting.
+    candidate: Appeal to Tradition
+    supporting_reason: Past practice of letting the past be forgotten and forgiving
+      has been successful in history.
+    support_relation: The argument links the historical success of traditional approaches
+      to the expected positive outcome of the current meeting, using tradition as
+      justification for the conclusion.
+    label_justification: The reasoning explicitly appeals to the historical success
+      of traditional practices (forgave and forget) as a basis for deciding the current
+      course of action, which is characteristic of an Appeal to Tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - the past? How we would forgive and forget? That was successful in our past and
+      it surely can be a success in our current day as well. It does not
+  counterargument:
+    decisive_counterargument: The past may have had very different political, social,
+      and economic conditions, so a forgiveness‑and‑forgetting strategy that worked
+      once does not automatically work again. Assuming that the same traditional approach
+      will now guarantee a smoother relationship between Azerbaijan and Armenia lacks
+      any evidence that the circumstances are comparable.
+    candidate: Appeal to Tradition
+    challenged_inference: That because past reconciliation was successful, a return
+      to more traditional views on the Azerbaijan‑Armenia conflict will again lead
+      to peace and prosperity.
+    label_justification: The objection targets the inference that past success justifies
+      current action, which is the hallmark of an Appeal to Tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - the past? How we would forgive and forget? That was successful in our past and
+      it surely can be a success in our current day as well. It does not
+    - mean that the past grievances can't be addressed, it's more about looking at
+      those problems with a more impartial view. I'm sure if we can do this that these
+      countries
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly states that adopting traditional methods
+    of forgiving and forgetting—methods that were historically successful—will lead
+    to future prosperity, which is the classic definition of an appeal to tradition.
+  decision_reason: The target’s argument relies on past success of a traditional approach
+    as justification for its continued use, fulfilling the structure of an Appeal
+    to Tradition fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  - T5
+  evidence_spans:
+  - and some people will always hold a grudge. I think we need to go back to more
+    traditional views on this issue. Remember how we would let the past be
+  - the past? How we would forgive and forget? That was successful in our past and
+    it surely can be a success in our current day as well. It does not
+  - will be able to form closer ties and will prosper because of it. Traditionally
+    I would say that would be a win-win for everyone involved.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5622
+  completion_tokens: 3294
+  total_tokens: 8916
+  wall_time_seconds: 184.35900000005495

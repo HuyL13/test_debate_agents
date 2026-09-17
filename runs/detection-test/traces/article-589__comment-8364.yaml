@@ -1,0 +1,184 @@
+sample:
+  id: 589:8364
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: Imagine living in such a poor country and yet focusing all your attention
+    on trans people, who make up almost 0 percent of the country. Why not focus on
+    ending poverty or corruption or something else with actual importance? Isn't bringing
+    prosperity and happiness to your country more important than hate?
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: trans people
+    - role: worse_issue
+      text: poverty or corruption or other pressing issues
+    - role: deprioritizing_conclusion
+      text: focus on trans people should be deprioritized in favor of tackling poverty,
+        corruption, and other important problems
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Imagine living in such a poor country and yet focusing all your attention on
+      trans people, who make up almost 0 percent of the country. Why not focus on
+      ending
+    - poverty or corruption or something else with actual importance? Isn't bringing
+      prosperity and happiness to your country more important than hate?
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The argument seeks to demonstrate that focusing on trans people
+      in a poor country is an inappropriate priority because the trans population
+      is negligible and other issues (poverty, corruption, prosperity) are more important.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The statement that trans people make up almost 0% of the country
+      and that it would be better to focus on ending poverty or corruption is used
+      to argue that the current attention should shift to seemingly more pressing
+      national concerns.
+    support_relation: The quantitative claim about the trans population percentage
+      is employed to justify the supposed misallocation of attention toward a minor
+      group, thereby promoting the view that resources should concentrate on larger
+      societal problems.
+    label_justification: The argument abstracts a specific concern (attention to a
+      0% minority) and contrasts it with a more general societal priority (poverty,
+      corruption). This is a classic case of appealing to the perceived greater importance
+      of a larger problem to dismiss the smaller one, matching the 'Appeal to Worse
+      Problems' pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Imagine living in such a poor country and yet focusing all your attention on
+      trans people, who make up almost 0 percent of the country. Why not focus on
+      ending
+    - poverty or corruption or something else with actual importance? Isn't bringing
+      prosperity and happiness to your country more important than hate?
+  counterargument:
+    decisive_counterargument: 'The fatal targeting of a transgender person is a symptom
+      of deeper social injustices—such as institutional corruption, lack of rule of
+      law, and entrenched discrimination—that themselves hinder economic prosperity.
+      Addressing the plight of trans people is not a distraction from poverty relief;
+      rather, protecting human rights and enforcing anti‑corruption measures create
+      a more stable, inclusive society that benefits everyone. Thus, the author’s
+      insistence that attention must be devoted either to trans issues or to poverty
+      is misleading: the two domains are mutually enhancing, not mutually exclusive.'
+    candidate: False Dilemma
+    challenged_inference: Target implies that focusing on trans people precludes attention
+      to poverty, corruption, or other national concerns.
+    label_justification: The argument offers only two options—either prioritize trans
+      people or address socioeconomic problems—suggesting a binary choice and discarding
+      the possibility of addressing both simultaneously, which is a classic false
+      dilemma pattern.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Imagine living in such a poor country and yet focusing all your attention on
+      trans people, who make up almost 0 percent of the country. Why not focus on
+      ending
+    - poverty or corruption or something else with actual importance? Isn't bringing
+      prosperity and happiness to your country more important than hate?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: appeal-mixed-context
+    loser_failure: 'The false dilemma claim requires the argument to present two exclusive
+      alternatives and to assert that these alternatives exhaust all possibilities.
+      The target text presents a comparison: it asks why attention should be on trans
+      people when poverty or corruption are supposedly greater concerns, but it does
+      **not** explicitly state that attention must be on one or the other and not
+      both. The wording is a suggestion of prioritization, not a definitive binary
+      choice. In contrast, the appeal‑to‑worse‑problems structure is satisfied because
+      the argument explicitly contrasts a marginal issue (trans people making up almost
+      0% of the population) with more pressing societal issues (poverty, corruption)
+      and concludes that focusing on the latter is more important. Thus the mandatory
+      structural condition for a false dilemma is not directly supported by the target,
+      whereas the condition for an appeal to worse problems is.'
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Imagine living in such a poor country and yet focusing all your attention on
+      trans people, who make up almost 0 percent of the country. Why not focus on
+      ending
+    - poverty or corruption or something else with actual importance? Isn't bringing
+      prosperity and happiness to your country more important than hate?
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target draws a direct comparison between the attention given
+    to trans people (the minor issue) and the more pressing problems of poverty and
+    corruption, concluding that the former should be deprioritized because the latter
+    are more important.
+  decision_reason: The argument literally uses the greater importance of a larger
+    problem to dismiss the significance of a minor issue, which is the defining pattern
+    of an Appeal to Worse Problems fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Imagine living in such a poor country and yet focusing all your attention on trans
+    people, who make up almost 0 percent of the country. Why not focus on ending
+  - poverty or corruption or something else with actual importance? Isn't bringing
+    prosperity and happiness to your country more important than hate?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6050
+  completion_tokens: 4802
+  total_tokens: 10852
+  wall_time_seconds: 347.4850000000006

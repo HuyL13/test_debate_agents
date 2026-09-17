@@ -1,0 +1,129 @@
+sample:
+  id: 236:10004
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Either the governments listen to the people and enact policies that will
+    help with climate change, or we all ignore the issues and then die. We can't wait
+    any longer. The young people need to be listened to or everyone will suffer.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the governments listen to the people and enact policies that will help
+        with climate change
+    - role: alternative_b
+      text: we all ignore the issues and then die
+    - role: exhaustiveness_commitment
+      text: We can't wait any longer. The young people need to be listened to or everyone
+        will suffer
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+    - The young people need to be listened to or everyone will suffer.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Governments must listen to the people in order to prevent
+      the catastrophic outcomes of ignoring climate change.
+    candidate: False Dilemma
+    supporting_reason: 'The argument frames the situation as an either/or choice:
+      either governments listen and enact policies, or everyone ignores the issues
+      and dies. This presentation implies that these are the only two possibilities.'
+    support_relation: The binary framing serves as the justificatory step by claiming
+      that if the governments do not listen, the inevitable result is global suffering
+      and death, thereby persuading listeners to accept the conclusion.
+    label_justification: The argument commits to a false dichotomy, presenting the
+      only acceptable option as governments acting, while rejecting any other possible
+      responses. This is an instance of the False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+  counterargument:
+    decisive_counterargument: The claim that the only outcomes are that governments
+      either listen and enact policies or we ignore the issues and die ignores all
+      other possibilities—for example, governments might enact policies without listening
+      to the public, or people could take other actions to mitigate climate change.
+      Thus, the argument forces a binary choice that is not exhaustive.
+    candidate: False Dilemma
+    challenged_inference: Either the governments listen to the people and enact policies
+      that will help with climate change, or we all ignore the issues and then die.
+    label_justification: The inference presents a limited set of alternatives (listen
+      and act vs ignore and die) as though no other outcomes are possible. This narrow
+      framing is characteristic of a false dilemma, which is a logical fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+    - The young people need to be listened to or everyone will suffer.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The TARGET explicitly presents only two mutually exclusive alternatives—the
+    governments must listen and enact policies versus we all ignore the issues and
+    die—along with an implied exhaustion of options (“We can’t wait any longer” /
+    “The young people need to be listened to or everyone will suffer”). This satisfies
+    the structural requirements for a false dilemma, making the claim a fallacious
+    inference of exclusivity.
+  decision_reason: The argument commits to a binary choice while ignoring other reasonable
+    possibilities, thereby exhibiting a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Either the governments listen to the people and enact policies that will help
+    with climate change, or we all ignore the issues and then die. We can't wait any
+    longer.
+  - The young people need to be listened to or everyone will suffer.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4335
+  completion_tokens: 2466
+  total_tokens: 6801
+  wall_time_seconds: 394.59399999992456

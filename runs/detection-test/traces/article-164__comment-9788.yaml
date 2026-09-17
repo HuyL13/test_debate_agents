@@ -1,0 +1,121 @@
+sample:
+  id: 164:9788
+  article_id: 164
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: It's good to hear that Congo has eradicated ebola. But now they have covid.
+    Where will that end? They are not the first African nation to have received covid.
+    But hopefully this is the last one. We don't need this to go any further. This
+    is not good for the world.
+  target: Let's hope they are able to contain and prevent its spread effectively.
+    Their experience with Ebola may help guide them with this difficult task. It is
+    disappointing to see this region have to face another deadly disease. It is important
+    that we lend global support as needed to assist them.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Their experience with Ebola
+    - role: endorsed_claim
+      text: they are able to contain and prevent its spread effectively
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Let's hope they are able to contain and prevent its spread effectively. Their
+      experience with Ebola may help guide them with this difficult task. It is disappointing
+      to see this
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: They should lend global support to help contain the COVID
+      spread.
+    candidate: Appeal to Authority
+    supporting_reason: Their experience with Ebola may help guide them with this difficult
+      task.
+    support_relation: supports the conclusion that global support is needed.
+    label_justification: The argument makes a legitimate appeal to the experts’ prior
+      experience to justify a request for support; no fallacious reasoning is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Let's hope they are able to contain and prevent its spread effectively. Their
+      experience with Ebola may help guide them with this difficult task. It is disappointing
+      to see this
+    - region have to face another deadly disease. It is important that we lend global
+      support as needed to assist them.
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The TARGET statement merely expresses a hopeful wish and
+      a general recommendation for assistance; it does not present a logical claim
+      that relies on premises to conclude a conclusion. Since no specific argumentative
+      inference is made, there is no fallacious reasoning to critique.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Let's hope they are able to contain and prevent its spread effectively. Their
+      experience with Ebola may help guide them with this difficult task. It is disappointing
+      to see this
+    - region have to face another deadly disease. It is important that we lend global
+      support as needed to assist them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not commit an appeal to authority; it refers
+    to Congo’s relevant past experience as legitimate evidence of their capability
+    to contain COVID, therefore no fallacy is present.
+  decision_reason: The argument uses the Congo’s experience with Ebola as a basis
+    for believing they can effectively contain COVID, which is a legitimate inference
+    based on relevant expertise rather than a fallacious appeal to authority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Let's hope they are able to contain and prevent its spread effectively. Their
+    experience with Ebola may help guide them with this difficult task. It is disappointing
+    to see this
+  verified: false
+  rejection_reason: The argument uses the Congo’s experience with Ebola as a basis
+    for believing they can effectively contain COVID, which is a legitimate inference
+    based on relevant expertise rather than a fallacious appeal to authority.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4304
+  completion_tokens: 3384
+  total_tokens: 7688
+  wall_time_seconds: 190.51499999999942

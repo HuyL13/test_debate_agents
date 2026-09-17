@@ -1,0 +1,115 @@
+sample:
+  id: 399:10493
+  article_id: 399
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: The government should alter facts and make this look favorable. They need
+    to report the truth, or society will live a lie. Factual reporting should be above
+    political gain.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government should alter facts and make this look favorable. They need to
+      report the truth, or society will live a lie. Factual reporting should be above
+      political gain.
+    candidate: null
+  goal:
+    conclusion_or_goal: Factual reporting should be above political gain.
+    candidate: null
+    supporting_reason: They need to report the truth, or society will live a lie.
+    support_relation: reason
+    label_justification: The target does not present a clear logical fallacy; it merely
+      states a normative position and a supporting premise. The argument structure
+      is simple and does not use a faulty reasoning pattern such as hasty generalization,
+      slippery slope, false dilemma, appeal to authority, or any other listed fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government should alter facts and make this look favorable. They need to
+      report the truth, or society will live a lie. Factual reporting should be above
+      political gain.
+  counterargument:
+    decisive_counterargument: The argument claims that the only way to avoid a lying
+      society is for the government to report truth, presenting only two outcomes—truth
+      or lie—while ignoring any middle ground. The premise that society must live
+      a lie if the government fails to report truth is a false dichotomy that excludes
+      other possibilities, such as partial truths or other forms of information that
+      can keep society functioning. Therefore, the reasoning commits a False Dilemma
+      fallacy by treating the situation as an either/or scenario when, in fact, many
+      alternatives exist.
+    candidate: False Dilemma
+    challenged_inference: The government must report truth to prevent society from
+      living a lie, as only truth or lie exist.
+    label_justification: This objection directly exposes the conclusion’s reliance
+      on an artificial binary choice between truth and liars. By demonstrating that
+      other, non‑binary outcomes are plausible, the counterargument highlights the
+      false dilemma inherent in the target’s reasoning.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government should alter facts and make this look favorable. They need to
+      report the truth, or society will live a lie. Factual reporting should be above
+      political gain.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents only two outcomes—government reporting truth
+    or society living a lie—thereby treating the situation as an either/or scenario
+    and excluding other possibilities, which satisfies the structural requirement
+    of a false dilemma.
+  decision_reason: The passage explicitly states that society will live a lie if truth
+    is not reported, creating a dichotomous choice and ignoring other viable states
+    of affairs.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government should alter facts and make this look favorable. They need to report
+    the truth, or society will live a lie. Factual reporting should be above political
+    gain.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3811
+  completion_tokens: 3777
+  total_tokens: 7588
+  wall_time_seconds: 159.45299999999406

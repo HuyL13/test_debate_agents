@@ -1,0 +1,147 @@
+sample:
+  id: 409:10525
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: Totally unacceptable to see the rising murder rates in Jamaica and they
+    were already the highest in Latin America previously. This needs to be stopped
+    and it needs to be stopped quickly. I was a bit bewildered by the idea of legalizing
+    pepper spray as some sort of fix for this problem. I understand that we want to
+    give women the right to defend themselves, but I feel like there are much bigger
+    issues to deal with first. How about actually getting to the root of the problem
+    that is causing all these murders? We need to create a whole range of programs
+    that address violence and allows us to learn how this problem is engrained in
+    the society at a young age. We all can be a part of this solution, by talking
+    to those around us and making sure that everyone learns through love and empathy.
+    The pepper spray is a quick fix and it may have its place eventually, but lets
+    hit this major problem first.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Legalizing pepper spray as a fix for rising murder rates
+    - role: worse_issue
+      text: Root causes of murder rates in Jamaica
+    - role: deprioritizing_conclusion
+      text: Focus should first address root causes rather than legalizing pepper spray
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - Totally unacceptable to see the rising murder rates in Jamaica and they were
+      already the highest in Latin America previously. This needs to be stopped and
+      it needs to be
+    - the right to defend themselves, but I feel like there are much bigger issues
+      to deal with first. How about actually getting to the root of the problem that
+      is
+    - causing all these murders? We need to create a whole range of programs that
+      address violence and allows us to learn how this problem is engrained in the
+      society at
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Focus on addressing the root causes of violence in Jamaica
+      rather than prioritizing the legalization of pepper spray.
+    candidate: null
+    supporting_reason: Pepper spray is a quick fix that does not address the underlying
+      causes of murder. | T2, T3, T6
+    support_relation: The reason that pepper spray is merely a temporary or superficial
+      measure justifies the argument that systemic, long‑term programs should take
+      precedence.
+    label_justification: The target presents a coherent prioritization argument without
+      committing any logical fallacy; therefore no fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T6
+    evidence_spans:
+    - stopped quickly. I was a bit bewildered by the idea of legalizing pepper spray
+      as some sort of fix for this problem. I understand that we want to give women
+    - the right to defend themselves, but I feel like there are much bigger issues
+      to deal with first. How about actually getting to the root of the problem that
+      is
+    - spray is a quick fix and it may have its place eventually, but lets hit this
+      major problem first.
+  counterargument:
+    decisive_counterargument: 'The target’s argument presents only two mutually exclusive
+      options—either legalize pepper spray or focus entirely on rooting out violence
+      through societal programs—while dismissing the possibility that both can coexist
+      or that additional strategies might be relevant. This creates a false dilemma:
+      it forces the reader to choose between a quick fix and a long‑term strategy,
+      implying that no other viable approaches exist.'
+    candidate: False Dilemma
+    challenged_inference: Target claims that the only correct policy is to address
+      the root causes of violence rather than to legalize pepper spray, thereby presenting
+      an exclusive choice between two options and ignoring the possibility of combined
+      or alternative solutions.
+    label_justification: The objection demonstrates that the target relies on a limited
+      choice and therefore commits the false dilemma fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    - T6
+    evidence_spans:
+    - stopped quickly. I was a bit bewildered by the idea of legalizing pepper spray
+      as some sort of fix for this problem. I understand that we want to give women
+    - spray is a quick fix and it may have its place eventually, but lets hit this
+      major problem first.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly prioritizes addressing the root causes
+    of murder rates over legalizing pepper spray, presenting the larger issue as a
+    reason to delay or neglect the smaller issue.
+  decision_reason: The target states that there are much bigger issues to deal with
+    first and focuses on the root causes of murders rather than on pepper spray legalization,
+    which is the defining pattern of an Appeal to Worse Problems.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - the right to defend themselves, but I feel like there are much bigger issues to
+    deal with first. How about actually getting to the root of the problem that is
+  - causing all these murders? We need to create a whole range of programs that address
+    violence and allows us to learn how this problem is engrained in the society at
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5460
+  completion_tokens: 3417
+  total_tokens: 8877
+  wall_time_seconds: 155.71899999998277

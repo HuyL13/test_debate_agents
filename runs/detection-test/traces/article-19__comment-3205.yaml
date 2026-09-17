@@ -1,0 +1,131 @@
+sample:
+  id: 19:3205
+  article_id: 19
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: ''
+  target: Having to get permission to ask a world leader questions is not natural.
+    It indicates something is very wrong. Its not in our nature to act this way when
+    we want or need answers to important societal issues. What is natural is what
+    we have in the west where lots of people regularly talk to our leaders and have
+    transparency.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Having to get permission to ask a world leader questions is not natural.
+    - role: evaluative_conclusion
+      text: It indicates something very wrong.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having to get permission to ask a world leader questions is not natural. It
+      indicates something is very wrong. Its not in our nature to act this way when
+      we
+    - want or need answers to important societal issues. What is natural is what we
+      have in the west where lots of people regularly talk to our leaders and have
+      transparency.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Having to obtain permission to ask a world leader questions
+      is wrong and should be avoided.
+    candidate: Appeal to Nature
+    supporting_reason: The argument claims that because the practice is not natural,
+      it indicates something is very wrong, thereby using the naturalness of the status
+      quo as the ultimate justification.
+    support_relation: supports
+    label_justification: The reasoning hinges on the premise that naturalness equals
+      moral goodness, which is precisely the structure of an Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having to get permission to ask a world leader questions is not natural. It
+      indicates something is very wrong. Its not in our nature to act this way when
+      we
+    - want or need answers to important societal issues. What is natural is what we
+      have in the west where lots of people regularly talk to our leaders and have
+      transparency.
+  counterargument:
+    decisive_counterargument: The claim that requiring permission to question a world
+      leader is “unnatural” and therefore wrong relies on the mistaken assumption
+      that naturalness carries moral value. Just because a practice diverges from
+      a particular cultural norm (e.g., Western transparency) does not make it morally
+      or practically incorrect; many societies justifiably enforce restrictions for
+      security, diplomatic protocol, or public order.
+    candidate: null
+    challenged_inference: The inference that because seeking permission is not natural,
+      the practice is morally wrong.
+    label_justification: The objection shows the argument equates naturalness with
+      moral correctness, a classic appeal to nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having to get permission to ask a world leader questions is not natural. It
+      indicates something is very wrong. Its not in our nature to act this way when
+      we
+    - want or need answers to important societal issues. What is natural is what we
+      have in the west where lots of people regularly talk to our leaders and have
+      transparency.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target includes a premise that having to get permission
+    to ask a world leader questions is not natural, followed by a value judgment that
+    this indicates something is very wrong. The naturalness claim is used to justify
+    the negative evaluation, meeting the structural criteria for an Appeal to Nature
+    fallacy.
+  decision_reason: The target explicitly connects a naturalness assessment to a moral
+    judgment, establishing a classic appeal to nature structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Having to get permission to ask a world leader questions is not natural. It indicates
+    something is very wrong. Its not in our nature to act this way when we
+  - want or need answers to important societal issues. What is natural is what we
+    have in the west where lots of people regularly talk to our leaders and have transparency.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4235
+  completion_tokens: 3277
+  total_tokens: 7512
+  wall_time_seconds: 97.98399999999674

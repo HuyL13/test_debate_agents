@@ -1,0 +1,177 @@
+sample:
+  id: 296:5685
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: All this commotion over some mild disputes on privacy versus security? Doesn't
+    India have more pressing problems? I mean, data privacy is important, but I feel
+    like the Indian government should be more focused on things like the extreme poverty
+    they've got, the violent campaigns against minorities, and other such things that
+    seem a lot more important.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: data privacy
+    - role: worse_issue
+      text: extreme poverty, violent campaigns against minorities, and other such
+        things
+    - role: deprioritizing_conclusion
+      text: the Indian government should be more focused on those problems
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The Indian government should prioritize issues like extreme
+      poverty and minority rights over data privacy concerns.
+    candidate: False Dilemma
+    supporting_reason: Because there are other pressing problems that are more important.
+    support_relation: The reason is used to justify the shift in priority from privacy
+      to other issues.
+    label_justification: The argument presents a binary choice—privacy versus other
+      problems—implying that the government can focus on only one, thereby committing
+      a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+  counterargument:
+    decisive_counterargument: The speaker dismisses data‑privacy concerns merely because
+      other problems—poverty, violence against minorities, etc.—are perceived as more
+      urgent, implying that any lesser‑immediate issue is unimportant. This conclusion
+      does not follow from the fact that other issues exist; the priority of one problem
+      does not logically negate the importance of another. Rather than showing a valid
+      hierarchy, the argument simply uses the existence of more pressing problems
+      as a reason to ignore privacy, which is a direct example of the argument that
+      a worse problem is presented to dismiss or de‑prioritize another issue.
+    candidate: Appeal to Worse Problems
+    challenged_inference: All privacy concerns are unimportant because other problems
+      (poverty, violence) are more pressing.
+    label_justification: The objection exposes the reasoning that leverages the presence
+      of a more severe problem to marginalize a less severe one, fitting the definition
+      of the Appeal to Worse Problems fallacy. It demonstrates that the conclusion
+      is not logically compelled by the premises and merely shifts focus away from
+      privacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: The False Dilemma interpretation requires that the argument presents
+      a binary choice between two mutually exclusive options—here, implying the government
+      can only focus on privacy versus the other problems.  The target text does not
+      assert that there are only these two concerns or that prioritizing one automatically
+      excludes the other; it merely suggests that privacy is ‘mild’ compared to ‘extreme
+      poverty and violent campaigns’.  Because the passage fails to establish that
+      only a single, mutually exclusive option exists, the structural condition of
+      a False Dilemma is not met.  Thus the claim that the argument commits False
+      Dilemma is not directly supported by the target.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The argument uses the existence of more serious problems (extreme
+    poverty, violent campaigns against minorities) to argue that data‑privacy concerns
+    are less important, which matches the formal structure of an Appeal to Worse Problems.
+  decision_reason: The target explicitly compares privacy vs. security disputes to
+    other pressing issues and concludes that the government should ignore privacy
+    because other problems are more important. This satisfies the structural definition
+    of the Appeal to Worse Problems fallacy. The provided evidence (T1, T2) supports
+    this structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - All this commotion over some mild disputes on privacy versus security? Doesn't
+    India have more pressing problems? I mean, data privacy is important, but I feel
+    like the Indian government
+  - should be more focused on things like the extreme poverty they've got, the violent
+    campaigns against minorities, and other such things that seem a lot more important.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6088
+  completion_tokens: 4390
+  total_tokens: 10478
+  wall_time_seconds: 377.32800000000134

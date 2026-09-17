@@ -1,0 +1,148 @@
+sample:
+  id: 589:7764
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: If bloggers and social media influencers are allowed to incite violence
+    against one group of people for whatever reason it is only a matter of time before
+    another group is targeted for another reason. Nobody is safe if law enforcement
+    and decent citizens and the government look the other way at violence against
+    any group. There needs to be strict regulations against hate speech of any kind.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If bloggers and social media influencers are allowed to incite violence against
+      one group of people for whatever reason it is only a matter of time before another
+      group is
+    - targeted for another reason. Nobody is safe if law enforcement and decent citizens
+      and the government look the other way at violence against any group. There needs
+      to be strict
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: There needs to be strict regulations against hate speech of
+      any kind.
+    candidate: Slippery Slope
+    supporting_reason: If bloggers and social media influencers are allowed to incite
+      violence against one group of people for whatever reason it is only a matter
+      of time before another group is targeted for another reason.
+    support_relation: The imminent future targeting of another group is used to argue
+      that allowing incitement inevitably leads to broader harm, thereby justifying
+      stricter regulation.
+    label_justification: The argument predicts that a single permissive action (inciting
+      violence against one group) will inevitably trigger a chain of further negative
+      consequences (other groups being targeted). This leap without evidence of the
+      causal chain exemplifies the slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If bloggers and social media influencers are allowed to incite violence against
+      one group of people for whatever reason it is only a matter of time before another
+      group is
+    - targeted for another reason. Nobody is safe if law enforcement and decent citizens
+      and the government look the other way at violence against any group. There needs
+      to be strict
+  counterargument:
+    decisive_counterargument: The inference that permitting bloggers or influencers
+      to incite violence against one group necessarily leads to another group being
+      victimized later is an unsubstantiated slippery‑slope claim. A single possible
+      extension of harm does not establish a causal chain, nor does it prove that
+      any additional targeting will occur as a direct result of the initial incitement.
+      Thus the argument jumps from a hypothetical scenario to an inevitable escalation
+      without evidence.
+    candidate: Slippery Slope
+    challenged_inference: Allowing bloggers or influencers to incite violence against
+      one group inevitably results in violence against another group in the future.
+    label_justification: 'The objection targets the argument’s implicit claim that
+      permitting one act of incitement mechanically leads to subsequent acts of violence
+      against other groups. This is a classic slippery‑slope pattern: a minor step
+      (allowing hate speech) is presented as inevitably followed by a series of more
+      severe consequences (widespread group violence). The counterargument points
+      out that no such causal link or evidence is provided, exposing the fallacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If bloggers and social media influencers are allowed to incite violence against
+      one group of people for whatever reason it is only a matter of time before another
+      group is
+    - targeted for another reason. Nobody is safe if law enforcement and decent citizens
+      and the government look the other way at violence against any group. There needs
+      to be strict
+    - regulations against hate speech of any kind.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target posits that allowing bloggers to incite violence
+    against one group will inevitably result in other groups being targeted thereafter,
+    presenting a causal chain of escalating harms without evidence—a classic slippery‑slope
+    pattern.
+  decision_reason: The argument predicts an inevitable progression from an initial
+    act of incitement to subsequent violence against other groups, presenting a chain
+    of increasingly negative consequences without supporting evidence, which meets
+    the structural requirements for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If bloggers and social media influencers are allowed to incite violence against
+    one group of people for whatever reason it is only a matter of time before another
+    group is
+  - targeted for another reason. Nobody is safe if law enforcement and decent citizens
+    and the government look the other way at violence against any group. There needs
+    to be strict
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4784
+  completion_tokens: 4183
+  total_tokens: 8967
+  wall_time_seconds: 172.68800000000192

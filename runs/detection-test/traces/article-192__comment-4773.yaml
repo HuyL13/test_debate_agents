@@ -1,0 +1,133 @@
+sample:
+  id: 192:4773
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: Is Turkey not a democracy? If this is the government and subsequently the
+    policies they voted for, what's the problem? The will of the Turkish people should
+    be respected, even if they don't have the same values on things like free speech
+    that these Western institutions are criticizing them for.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Turkish people
+    - role: popularity_claim
+      text: they voted for the government and subsequently the policies
+    - role: target_claim
+      text: the will of the Turkish people should be respected, even if their values
+        differ from Western institutions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The will of the Turkish people should be respected.
+    candidate: null
+    supporting_reason: The government and its policies are the result of public votes
+      and hence reflect the democratic will of the people.
+    support_relation: This reason is used to justify that the Turkish people's preferences,
+      even if they differ on issues such as free speech, should guide policy decisions.
+    label_justification: No fallacy is present; the argument legitimately relies on
+      the legitimacy conferred by democratic elections.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+  counterargument:
+    decisive_counterargument: Just because a majority approves a policy does not mean
+      the policy cannot be oppressive or violate fundamental rights; democracies must
+      balance majority will with protections for minorities and core freedoms. Therefore,
+      respecting the Turkish people's vote alone cannot dismiss valid concerns about
+      free‑speech restrictions.
+    candidate: null
+    challenged_inference: The argument that a democracy’s policies are automatically
+      defensible solely because the governing bodies and their enacted policies reflect
+      the people’s votes.
+    label_justification: The target reasones that the Turkish public’s vote legitimises
+      their policies and dismisses Western criticism, appealing to the size of that
+      majority rather than evidence about rights or freedoms. This is the classic
+      appeal‑to‑majority fallacy, where a proposition is deemed true or acceptable
+      because a large group supports it.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target uses the fact that the Turkish people voted for their
+    government as a reason to claim their will should be respected, thereby employing
+    a majority approval argument.
+  decision_reason: The text explicitly connects the Turkish people’s voting (a majority
+    action) to the claim that their will must be respected, matching the structure
+    of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Is Turkey not a democracy? If this is the government and subsequently the policies
+    they voted for, what's the problem? The will of the Turkish people should be respected,
+    even
+  - if they don't have the same values on things like free speech that these Western
+    institutions are criticizing them for.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3981
+  completion_tokens: 3540
+  total_tokens: 7521
+  wall_time_seconds: 188.2039999999979

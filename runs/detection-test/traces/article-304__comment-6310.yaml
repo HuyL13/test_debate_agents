@@ -1,0 +1,132 @@
+sample:
+  id: 304:6310
+  article_id: 304
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: If they continue to take the rights of transgender people, what's to stop
+    them from taking the rights of others? Women? Religious minorities? Racial minorities?
+    Where will it stop? We need to consider long term impacts. Stop further targeting.
+    We need to stand up for all rights.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: They continue to take the rights of transgender people.
+    - role: intermediate_consequence
+      text: The rights of women, religious minorities, and racial minorities.
+    - role: final_consequence
+      text: The rights of all groups could eventually be taken.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If they continue to take the rights of transgender people, what's to stop them
+      from taking the rights of others? Women? Religious minorities? Racial minorities?
+      Where will it stop? We
+    - need to consider long term impacts. Stop further targeting. We need to stand
+      up for all rights.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Stop further targeting of trans rights and stand up for all
+      rights
+    candidate: Slippery Slope
+    supporting_reason: If trans rights are taken, the speaker argues other groups'
+      rights (women, religious minorities, racial minorities) would also be taken
+    support_relation: The reason is used to justify the conclusion that we must prevent
+      further targeting
+    label_justification: The argument presents an unsubstantiated chain of increasingly
+      adverse outcomes from an initial action, which is a classic slippery‑slope structure
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If they continue to take the rights of transgender people, what's to stop them
+      from taking the rights of others? Women? Religious minorities? Racial minorities?
+      Where will it stop? We
+    - need to consider long term impacts. Stop further targeting. We need to stand
+      up for all rights.
+  counterargument:
+    decisive_counterargument: The argument claims that if anyone is allowed to take
+      away transgender rights, they will inevitably proceed to strip the rights of
+      women, religious minorities, and racial minorities as well.  This is an unfounded
+      extrapolation; no evidence is presented that a single restriction on one group
+      automatically triggers additional restrictions on unrelated groups.  Rights
+      restrictions are context‑specific political actions, and an assumption of a
+      predictable cascade is a classic slippery‑slope error.
+    candidate: Slippery Slope
+    challenged_inference: If the rights of transgender people are taken, it will inevitably
+      lead to the taking of rights from women, religious minorities, and racial minorities,
+      proceeding until all rights are stripped.
+    label_justification: The claim assumes a chain of adverse consequences (trans
+      rights → other rights) in the absence of any evidence, which is the defining
+      feature of a slippery‑slope fallacy. The inference therefore commits a speculative,
+      unsubstantiated progression, revealing the fallacious reasoning.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If they continue to take the rights of transgender people, what's to stop them
+      from taking the rights of others? Women? Religious minorities? Racial minorities?
+      Where will it stop? We
+    - need to consider long term impacts. Stop further targeting. We need to stand
+      up for all rights.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains an unsubstantiated, linear progression from
+    limiting transgender rights to an eventual loss of rights for women, religious
+    minorities, and racial minorities, fitting the classic slippery‐slope structure.
+  decision_reason: The argument presents a speculative chain of escalating adverse
+    consequences without evidence, meeting the definition of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If they continue to take the rights of transgender people, what's to stop them
+    from taking the rights of others? Women? Religious minorities? Racial minorities?
+    Where will it stop? We
+  - need to consider long term impacts. Stop further targeting. We need to stand up
+    for all rights.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4497
+  completion_tokens: 3441
+  total_tokens: 7938
+  wall_time_seconds: 199.75

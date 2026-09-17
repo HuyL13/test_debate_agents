@@ -1,0 +1,131 @@
+sample:
+  id: 20:3058
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: Armenia's choice to stay silent on Russia's invasion of Ukraine to keep
+    their economic ties in tact with the country is a small factor for Russian politics.
+    What would really change the balance is a unified push from the UN against Russia.
+    We need the UN member nations to take a unified stand against Russian aggression
+    in Ukraine.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Armenia's choice to stay silent on Russia's invasion of Ukraine to keep their
+      economic ties in tact with the country is a small factor for Russian politics.
+      What would really
+    - change the balance is a unified push from the UN against Russia. We need the
+      UN member nations to take a unified stand against Russian aggression in Ukraine.
+    candidate: null
+  goal:
+    conclusion_or_goal: We need the UN member nations to take a unified stand against
+      Russian aggression in Ukraine.
+    candidate: null
+    supporting_reason: Armenia's choice to stay silent on Russia’s invasion of Ukraine
+      to keep their economic ties in tact with the country is a small factor for Russian
+      politics.
+    support_relation: The reasoning that Armenia’s silence is a small factor is used
+      to argue that only a unified push from the UN could substantially change the
+      balance, thereby establishing the conclusion that the UN needs to stand united.
+    label_justification: The reasoning does not exhibit any of the specified fallacies;
+      it is a straightforward causal claim linking Armenia’s limited influence to
+      the need for UN action. Therefore a fallacy label is not warranted, and the
+      mechanism supports the stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Armenia's choice to stay silent on Russia's invasion of Ukraine to keep their
+      economic ties in tact with the country is a small factor for Russian politics.
+      What would really
+  counterargument:
+    decisive_counterargument: The passage asserts that Armenia’s silence is merely
+      a minor factor and that only a unified United Nations stand can meaningfully
+      shift Russian policy.  No evidence is offered that a UN resolution or coordinated
+      action would actually influence Russia’s behavior; the claim relies solely on
+      the UN’s status as an international body to justify its supposed effect.  Thus,
+      the inference that a UN unified push will change the balance of power is unsupported
+      and effectively treats the UN’s authority as proof of causal impact.
+    candidate: Appeal to Authority
+    challenged_inference: An argument that a UN‑wide unified stand will alter Russia’s
+      political calculations relies on the UN’s prestige rather than on concrete evidence
+      of its influence.
+    label_justification: 'The inference borrows the UN’s status to claim a causal
+      effect without demonstrating it. That is precisely what an Appeal to Authority
+      fallacy is: using the perceived authority of the UN to justify a claim that
+      it would cause political change, instead of providing substantive evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Armenia's choice to stay silent on Russia's invasion of Ukraine to keep their
+      economic ties in tact with the country is a small factor for Russian politics.
+      What would really
+    - change the balance is a unified push from the UN against Russia. We need the
+      UN member nations to take a unified stand against Russian aggression in Ukraine.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The passage asserts that a UN‑wide unified stand will alter
+    Russia’s political calculations, relying solely on the United Nations’ status
+    as an authority rather than providing concrete evidence of its influence, which
+    constitutes an appeal to authority.
+  decision_reason: The argument depends on the UN’s prestige as the sole justification
+    for the claim that its unified action would change Russia’s behavior, without
+    offering supporting evidence. This fits the structure of an appeal to authority
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Armenia's choice to stay silent on Russia's invasion of Ukraine to keep their
+    economic ties in tact with the country is a small factor for Russian politics.
+    What would really
+  - change the balance is a unified push from the UN against Russia. We need the UN
+    member nations to take a unified stand against Russian aggression in Ukraine.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4200
+  completion_tokens: 3377
+  total_tokens: 7577
+  wall_time_seconds: 248.10899999999674

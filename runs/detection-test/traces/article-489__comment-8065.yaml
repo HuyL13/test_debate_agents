@@ -1,0 +1,118 @@
+sample:
+  id: 489:8065
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: In authoritarian countries like this, police just always get away with their
+    crimes. Even though it might have gotten worse under Duterte, the underlying problem
+    has existed for as long as any of us have. It's going to be very hard for things
+    to change given how normal some of these abuses have been. Hopefully they can
+    put a lid on it and change things.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+    - as any of us have. It's going to be very hard for things to change given how
+      normal some of these abuses have been. Hopefully they can put a lid
+    - on it and change things.
+    candidate: null
+  goal:
+    conclusion_or_goal: The underlying problem of police abuse will remain difficult
+      to change in authoritarian countries.
+    candidate: Hasty Generalization
+    supporting_reason: police always get away with their crimes in authoritarian countries
+    support_relation: This general statement is used to justify the claim that reform
+      will be hard.
+    label_justification: The argument draws a broad conclusion about all authoritarian
+      countries without sufficient evidence, fitting the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+  counterargument:
+    decisive_counterargument: While some incidents of police misconduct exist, many
+      officers are actually held accountable, and there are numerous cases of successful
+      investigations and prosecutions. The blanket statement that all police in authoritarian
+      countries always get away with crime is therefore an overgeneralization and
+      is not justified by systematic evidence.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that police in authoritarian countries always
+      get away with crimes, supported solely by an unsubstantiated observation, is
+      an unjustified universal claim.
+    label_justification: The inference draws a universal conclusion from a limited,
+      anecdotal observation—confirming the definition of a hasty generalization. The
+      counterargument demonstrates that uniform accountability does exist, contradicting
+      the sweeping claim and highlighting the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Universal claim drawn from insufficient evidence, fitting the
+    structure of a hasty generalization.
+  decision_reason: The comment asserts that police in all authoritarian countries
+    always escape punishment based on a single observed context, an unjustified generalization
+    supported by no broader evidence.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - In authoritarian countries like this, police just always get away with their crimes.
+    Even though it might have gotten worse under Duterte, the underlying problem has
+    existed for as long
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4429
+  completion_tokens: 4191
+  total_tokens: 8620
+  wall_time_seconds: 354.920999999973

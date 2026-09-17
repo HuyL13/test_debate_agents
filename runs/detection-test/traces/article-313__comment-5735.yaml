@@ -1,0 +1,138 @@
+sample:
+  id: 313:5735
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: This kind of censorship is so unnatural. How does the government expect
+    that students can just be made to shut up when they have such serious issues that
+    affect them? The very nature of humans, particularly young people, is to let their
+    voices be heard, especially in situations that really matter to them. The government
+    here should understand that their solution is not going to solve anything.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T2
+    - role: evaluative_conclusion
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - The very nature of humans, particularly young people, is to let their voices
+      be heard, especially in situations that really matter to them. The government
+      here should understand that their
+    - solution is not going to solve anything.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The government's censorship solution will not solve the problem
+      and is ineffective.
+    candidate: Appeal to Nature
+    supporting_reason: The very nature of humans, especially young people, is to let
+      their voices be heard; therefore censorship, being contrary to this natural
+      tendency, cannot be effective.
+    support_relation: supports
+    label_justification: The argument uses the natural human inclination to speak
+      up as a justification for rejecting censorship, which is an appeal to nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This kind of censorship is so unnatural. How does the government expect that
+      students can just be made to shut up when they have such serious issues that
+      affect them?
+    - The very nature of humans, particularly young people, is to let their voices
+      be heard, especially in situations that really matter to them. The government
+      here should understand that their
+    - solution is not going to solve anything.
+  counterargument:
+    decisive_counterargument: The claim that censorship is wrong merely because it
+      is 'unnatural' commits the appeal to nature fallacy. Just because a practice
+      deviates from what is naturally occurring in humans does not inherently make
+      it morally or politically unacceptable. The argument conflates naturalness with
+      normative value, ignoring that many culturally instituted norms (e.g., taxes,
+      traffic laws, institutional regulations) are neither natural nor naturalized
+      but are deemed necessary or ethical. Therefore, the assertion that the government’s
+      censorship cannot be justified on the basis of its ‘unnaturalness’ is fallacious
+      and does not support a conclusion about its moral or practical validity.
+    candidate: null
+    challenged_inference: Censorship is wrong/bad/unacceptable because it is unnatural
+      and violates the natural human tendency to speak out.
+    label_justification: The objection directly addresses the premise that naturalness
+      equates to moral goodness, which is the core of the Appeal to Nature fallacy.
+      By clarifying that unnaturalness does not automatically entail wrongness, the
+      counterargument precisely exposes the specific reasoning flaw in the target
+      statement. This aligns with the requirement to show that the objection supports
+      the fallacy label rather than merely criticizing the overall argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is so unnatural. How does the government expect that
+      students can just be made to shut up when they have such serious issues that
+      affect them?
+    - The very nature of humans, particularly young people, is to let their voices
+      be heard, especially in situations that really matter to them. The government
+      here should understand that their
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: Target contains a natural premise—‘the very nature of humans,…’—and
+    a value judgement—‘solution is not going to solve anything’—thereby inferring
+    from nature to value. Evidence from passages T2 and T3 supports this structure.
+  decision_reason: The argument appeals to humans’ natural inclination to speak up
+    as justification for dismissing censorship, i.e., it alleges that because什么 is
+    natural, the censorship is ineffective. This meets the appeal to nature structure.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - The very nature of humans, particularly young people, is to let their voices be
+    heard, especially in situations that really matter to them. The government here
+    should understand that their
+  - solution is not going to solve anything.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4375
+  completion_tokens: 3762
+  total_tokens: 8137
+  wall_time_seconds: 94.64100000000326

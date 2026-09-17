@@ -1,0 +1,143 @@
+sample:
+  id: 304:6309
+  article_id: 304
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: Most people know gay rights will not happen in Pakistan. That place is too
+    conservative. Eventually, maybe, but not now, as the socio-economic situation
+    improves, it might be more liberal .
+  target: The fact that they already have laws in place to protect trans people and
+    they have high profile parades where they aren't afraid to march proves that wrong,
+    though. I'm very surprised actually. If they are this progressive with trans people,
+    why not gays?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: they already have laws in place to protect trans people and they have
+        high profile parades where they aren't afraid to march
+    - role: observed_property
+      text: progressive with trans people
+    - role: target_population
+      text: gay rights
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that they already have laws in place to protect trans people and they
+      have high profile parades where they aren't afraid to march proves that wrong,
+      though. I'm
+    - very surprised actually. If they are this progressive with trans people, why
+      not gays?
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Pakistan does not lack gay rights or will not grant them soon,
+      because it already protects trans people.
+    candidate: Hasty Generalization
+    supporting_reason: The presence of laws protecting trans people and the existence
+      of high‑profile marches for trans individuals are presented as proof that Pakistan
+      will also extend similar protections to the gay community.
+    support_relation: The cited legal and symbolic support for trans people is used
+      to justify the broader claim that Pakistan is sufficiently progressive to recognize
+      gay rights.
+    label_justification: The argument draws a general conclusion about gay rights
+      from information that is relevant only to trans people. This overextends limited
+      evidence to a broader domain, an over‑generalized inference characteristic of
+      a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that they already have laws in place to protect trans people and they
+      have high profile parades where they aren't afraid to march proves that wrong,
+      though. I'm
+    - very surprised actually. If they are this progressive with trans people, why
+      not gays?
+  counterargument:
+    decisive_counterargument: The claim that the existence of trans‑rights laws and
+      anti‑hate parades necessarily implies that gay rights are also protected is
+      unjustified. The passage only cites evidence that Pakistan has enacted specific
+      legislation for trans people and allows them to hold public parades; it provides
+      no data about the status of gay people. Drawing a conclusion about gay rights
+      based solely on the status of trans rights is an unsupported generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Because Pakistan has laws protecting trans people and hosts
+      public parades for them, it therefore has—or should have—comparable protections
+      for gays.
+    label_justification: The inference extends a specific, limited observation (trans‑rights
+      legislation and parades) to a broader claim about another demographic group
+      (gay people) without supportive evidence. This is the classic structure of a
+      hasty generalization, where a sample (trans rights) is used to claim a property
+      for an entire class (gay rights).
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that they already have laws in place to protect trans people and they
+      have high profile parades where they aren't afraid to march proves that wrong,
+      though. I'm
+    - very surprised actually. If they are this progressive with trans people, why
+      not gays?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement uses specific evidence about trans rights
+    (laws and parades) as a sample to draw a broader conclusion about gay rights,
+    exemplifying the classic structure of a hasty generalization (sample → observed
+    property → conclusion about a larger group).
+  decision_reason: The text explicitly cites trans‑rights legislation and public parades
+    as proof that Pakistan is progressive, and then directly questions why the same
+    progress does not apply to gays, thereby over‑extending a limited observation
+    to a broader class. This satisfies the structural requirement for a hasty generalization.
+    The relevant evidence is found in passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that they already have laws in place to protect trans people and they
+    have high profile parades where they aren't afraid to march proves that wrong,
+    though. I'm
+  - very surprised actually. If they are this progressive with trans people, why not
+    gays?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4589
+  completion_tokens: 3006
+  total_tokens: 7595
+  wall_time_seconds: 136.01599999994505

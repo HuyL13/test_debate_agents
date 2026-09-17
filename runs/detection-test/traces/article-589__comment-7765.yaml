@@ -1,0 +1,117 @@
+sample:
+  id: 589:7765
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: It looks like the violence in Azerbaijan culminated from a lack of the country's
+    addressing issues against the lgbtq community. This is truly sad. Hate can often
+    lead to violence. This may have only been a matter of time. Let other countries
+    in the world take notice so that we can avoid these types of horrible events.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+    - This may have only been a matter of time. Let other countries in the world take
+      notice so that we can avoid these types of horrible events.
+    candidate: null
+  goal:
+    conclusion_or_goal: Express concern about violence against the LGBTQ community
+      in Azerbaijan and urge other countries to take notice to prevent similar horrible
+      events.
+    candidate: null
+    supporting_reason: Hate can often lead to violence
+    support_relation: supports
+    label_justification: The target makes a causal claim that hate leads to violence
+      to support its conclusion, but it does not commit a formal logical fallacy such
+      as a hasty generalization, false dilemma, or appeal to authority. The argument
+      is plausible and the reasoning serves its stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+  counterargument:
+    decisive_counterargument: The argument assumes that the single violent event in
+      Azerbaijan was caused by the country’s failure to address LGBTQ issues, then
+      generalizes that this lack is the root cause of the violence. However, one isolated
+      incident cannot prove that a broad systemic policy—or lack thereof—directly
+      produced the violence; other factors (individual motives, social dynamics, etc.)
+      could also be responsible.
+    candidate: Hasty Generalization
+    challenged_inference: Violence in Azerbaijan was caused by the country’s failure
+      to address issues against the LGBTQ community.
+    label_justification: The claim draws a sweeping causal conclusion from a single
+      incident without sufficient evidence that such a generalization holds, fitting
+      the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that the violence in Azerbaijan was caused
+    by the country's failure to address LGBTQ issues, drawing that causal conclusion
+    from a single incident without broader evidence— a sweeping causal claim based
+    on a single sample fits the definition of a hasty generalization.
+  decision_reason: The claim about a country‑wide causal factor drawn from a single
+    violent event meets the structural criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It looks like the violence in Azerbaijan culminated from a lack of the country's
+    addressing issues against the lgbtq community. This is truly sad. Hate can often
+    lead to violence.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4112
+  completion_tokens: 3758
+  total_tokens: 7870
+  wall_time_seconds: 172.06199999999808

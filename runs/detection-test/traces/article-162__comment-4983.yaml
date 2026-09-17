@@ -1,0 +1,119 @@
+sample:
+  id: 162:4983
+  article_id: 162
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: The military government in Myanmar seems to be pretty severe. The people
+    might be concerned about potential coup. First Vice President Myint Swe, do you
+    agree with this? Is this democratic?
+  target: Once they start to to such things, it won't stop. It will get worse from
+    here. Could lead to a crisis.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: they start to such things
+    - role: intermediate_consequence
+      text: It will get worse from here
+    - role: final_consequence
+      text: Could lead to a crisis
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once they start to to such things, it won't stop. It will get worse from here.
+      Could lead to a crisis.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Predicting that the situation will quietly worsen until it
+      triggers a crisis.
+    candidate: Slippery Slope
+    supporting_reason: The argument states that once negative actions are initiated,
+      they will continue, worsen, and ultimately cause a crisis.
+    support_relation: The reason explicitly supports the claim that the situation
+      will deteriorate and culminate in a crisis, depicting a consequential chain
+      from a single event.
+    label_justification: The argument presents a progression from an initial situation
+      to worsening outcomes without providing evidence for each step, fitting the
+      pattern of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once they start to to such things, it won't stop. It will get worse from here.
+      Could lead to a crisis.
+  counterargument:
+    decisive_counterargument: The claim that the introduction of the cyber‑security
+      bill will inevitably spiral into a crisis assumes a chain of inevitable consequences
+      that is not supported by evidence. The bill could be accompanied by safeguards,
+      public pushback, or legal oversight that would halt or dampen further escalation.
+      Without proof that each step—not just the start—will occur, the inference is
+      unwarranted.
+    candidate: Slippery Slope
+    challenged_inference: That once the government implements the bill, the situation
+      will inevitably worsen and culminate in a crisis.
+    label_justification: 'The counterargument directly targets the argumentative leap
+      that one action must inevitably lead to a chain of worsening outcomes. This
+      is the core of the Slippery Slope fallacy: asserting an unsubstantiated causal
+      progression from a single event to a dire outcome.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once they start to to such things, it won't stop. It will get worse from here.
+      Could lead to a crisis.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target text presents a sequential chain of worsening outcomes—’once
+    they start to such things, it won’t stop; it will get worse from here; could lead
+    to a crisis’—without offering evidence for the intermediate steps, matching the
+    structure of a slippery‑slope argument.
+  decision_reason: The target exhibits the required progressive chain of adverse consequences
+    backed by no evidence, fulfilling the structural criteria for a Slippery Slope
+    fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Once they start to to such things, it won't stop. It will get worse from here.
+    Could lead to a crisis.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4143
+  completion_tokens: 2148
+  total_tokens: 6291
+  wall_time_seconds: 104.81299999999464

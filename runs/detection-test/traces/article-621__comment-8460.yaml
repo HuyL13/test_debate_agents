@@ -1,0 +1,178 @@
+sample:
+  id: 621:8460
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: The article claims the snake is rare in Nepal, but given the villagers just
+    randomly came across the snake (no indication they were hunting or search for
+    it), then surely it's more common than is supposed here. In fact, it's probably
+    the case that a massive number of these snakes are living in the region, as that
+    would explain how a random person who isn't even looking for one just happened
+    to come across it.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: villagers randomly came across the snake
+    - role: observed_property
+      text: the snake is more common than claimed
+    - role: target_population
+      text: a massive number of these snakes are living in the region
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The article claims the snake is rare in Nepal, but given the villagers just
+      randomly came across the snake (no indication they were hunting or search for
+      it), then surely
+    - it's more common than is supposed here. In fact, it's probably the case that
+      a massive number of these snakes are living in the region, as that would explain
+      how
+    - a random person who isn't even looking for one just happened to come across
+      it.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The snake is not rare; it is common in Nepal.
+    candidate: Hasty Generalization
+    supporting_reason: The villagers’ random encounter with the snake is used to infer
+      that many such snakes exist in the region.
+    support_relation: The argument treats one anecdotal observation (the random encounter)
+      as sufficient evidence to generalize about the overall population of snakes.
+    label_justification: This reasoning jumps from a minimal sample—the single random
+      sighting—to a broad claim about the entire species’ abundance, meeting the classic
+      definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The article claims the snake is rare in Nepal, but given the villagers just
+      randomly came across the snake (no indication they were hunting or search for
+      it), then surely
+    - it's more common than is supposed here. In fact, it's probably the case that
+      a massive number of these snakes are living in the region, as that would explain
+      how
+    - a random person who isn't even looking for one just happened to come across
+      it.
+  counterargument:
+    decisive_counterargument: One random encounter does not reliably indicate the
+      snake’s overall abundance. A rare species can still be stumbled upon by chance
+      or because a particular village happens to be in a small area where the species
+      occurs, even if it is not widespread.
+    candidate: Appeal to Authority
+    challenged_inference: Because a random villager encountered the snake, it must
+      be common.
+    label_justification: The argument leaps from a single, anecdotal observation to
+      a broad claim about the species’ overall rarity, fitting the definition of a
+      Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The article claims the snake is rare in Nepal, but given the villagers just
+      randomly came across the snake (no indication they were hunting or search for
+      it), then surely
+    - it's more common than is supposed here. In fact, it's probably the case that
+      a massive number of these snakes are living in the region, as that would explain
+      how
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The argument lifts a single, anecdotal encounter (villagers randomly
+      finding the snake) and applies it to the entire population of snakes in the
+      region, thereby fitting the classic definition of a hasty generalization.
+    loser_failure: There is no appeal to an expert, authority, or a claim that knowledge
+      comes from a trusted source; thus Appeal to Authority is not structurally possible.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The article claims the snake is rare in Nepal, but given the villagers just
+      randomly came across the snake (no indication they were hunting or search for
+      it), then surely
+    - it's more common than is supposed here. In fact, it's probably the case that
+      a massive number of these snakes are living in the region, as that would explain
+      how
+    - a random person who isn't even looking for one just happened to come across
+      it.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a broad conclusion about the snake population
+    from a single anecdotal sighting, which is the classic structure of a hasty generalization.
+  decision_reason: The argument treats one anecdotal observation (villagers randomly
+    encountering the snake) as sufficient evidence to generalize about the overall
+    population of snakes.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The article claims the snake is rare in Nepal, but given the villagers just randomly
+    came across the snake (no indication they were hunting or search for it), then
+    surely
+  - it's more common than is supposed here. In fact, it's probably the case that a
+    massive number of these snakes are living in the region, as that would explain
+    how
+  - a random person who isn't even looking for one just happened to come across it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6214
+  completion_tokens: 3423
+  total_tokens: 9637
+  wall_time_seconds: 144.89100000000326

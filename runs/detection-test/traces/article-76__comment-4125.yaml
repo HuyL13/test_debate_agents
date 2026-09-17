@@ -1,0 +1,143 @@
+sample:
+  id: 76:4125
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: You can't really believe the Taliban didn't have a hand in this. Tucker
+    Carlson had a whole segment about it on Fox News where he explained the motive
+    behind the Taliban's surprising condemnation of attacks. He insistes they just
+    want to lull us into complacency. There's so much at stake here, including the
+    future of US/Taliban relations. I guess I need to explore this further; Tucker's
+    been wrong before, so it's actually important to seek out more diverse and expert
+    opinions.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Tucker Carlson
+    - role: endorsed_claim
+      text: The Taliban had a hand in this incident
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - You can't really believe the Taliban didn't have a hand in this. Tucker Carlson
+      had a whole segment about it on Fox News where he explained the motive behind
+      the
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The Taliban had a hand in the discussed incident.
+    candidate: Appeal to Authority
+    supporting_reason: Tucker Carlson’s Fox News segment, where he argues that the
+      Taliban’s condemnation of attacks is a tactic to lull us into complacency and
+      therefore implicates their involvement.
+    support_relation: The argument relies on Tucker Carlson’s claim as authoritative
+      support for the conclusion that the Taliban were complicit.
+    label_justification: Tucker Carlson, a political commentator rather than a subject‑matter
+      expert on Taliban operations, is cited to establish the conclusion, which is
+      a textbook appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You can't really believe the Taliban didn't have a hand in this. Tucker Carlson
+      had a whole segment about it on Fox News where he explained the motive behind
+      the
+    - Taliban's surprising condemnation of attacks. He insistes they just want to
+      lull us into complacency. There's so much at stake here, including the future
+      of US/Taliban relations. I guess I
+  counterargument:
+    decisive_counterargument: The claim that the Taliban had a hand in the incident
+      is supported solely by a statement from Tucker Carlson, a TV commentator, which
+      constitutes an Appeal to Authority.  Carlson’s expertise does not include intelligence
+      on militant motives, and citing him merely because he has a news segment does
+      not provide any substantive evidence.  The argument fails to show how his view
+      is corroborated by reliable sources or data; therefore, the inference that the
+      Taliban is responsible is not justified.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that the Taliban had a hand in the incident
+      rests on Tucker Carlson’s authority and past mistakes rather than on independent
+      evidence.
+    label_justification: The argument commits an appeal to authority by treating a
+      political commentator’s claim as proof of Taliban involvement, without providing
+      any verifiable evidence or expert testimony on the matter.  This reliance on
+      the source’s status rather than on factual support demonstrates a classic appeal
+      to authority fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - You can't really believe the Taliban didn't have a hand in this. Tucker Carlson
+      had a whole segment about it on Fox News where he explained the motive behind
+      the
+    - Taliban's surprising condemnation of attacks. He insistes they just want to
+      lull us into complacency. There's so much at stake here, including the future
+      of US/Taliban relations. I guess I
+    - need to explore this further; Tucker's been wrong before, so it's actually important
+      to seek out more diverse and expert opinions.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument relies solely on Tucker Carlson’s claim—an authority—
+    to assert that the Taliban had a hand in the incident, which satisfies the structural
+    requirement for an appeal to authority. No other fallacy is indicated by the text.
+  decision_reason: The TARGET text states that “Tucker Carlson had a whole segment
+    … where he explained the motive … He insists they just want to lull us into complacency.”
+    and then asserts “You can’t really believe the Taliban didn’t have a hand in this.”
+    The conclusion that the Taliban had a hand is supported only by citing Tucker Carlson’s
+    statement, a political commentator rather than an expert on Taliban operations.
+    This satisfies the definition of an appeal to authority, with no need for additional
+    evidence or reasoning.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - You can't really believe the Taliban didn't have a hand in this. Tucker Carlson
+    had a whole segment about it on Fox News where he explained the motive behind
+    the
+  - Taliban's surprising condemnation of attacks. He insistes they just want to lull
+    us into complacency. There's so much at stake here, including the future of US/Taliban
+    relations. I guess I
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4567
+  completion_tokens: 3613
+  total_tokens: 8180
+  wall_time_seconds: 111.04700000002049

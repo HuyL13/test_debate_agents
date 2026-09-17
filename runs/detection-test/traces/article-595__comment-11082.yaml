@@ -1,0 +1,191 @@
+sample:
+  id: 595:11082
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: It is horrific to see any animal die, when it's thousands of baby flamingoes,
+    it's a pure tragedy. We should spend the time and resources to understand what
+    happened, but there is a catch. While this is a tragedy there are major issues
+    that are happening in Turkey, I don't think we can afford to put all our energy
+    into what happened at Lake Tuz. We have the government of Turkey turning more
+    authoritarian seeming by the day, shouldn't that come first here? Flamingoes and
+    other wildlife matter, but the stability of the country must come first. How about
+    we turn Turkey back into the democracy we all love and then implement changes
+    to restore our beloved environment? If we can do that, we will can have both our
+    freedom AND nature, who could argue against that?
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the tragedy at Lake Tuz involving thousands of baby flamingoes
+    - role: worse_issue
+      text: the Turkish government becoming more authoritarian
+    - role: deprioritizing_conclusion
+      text: stability and democracy must come first; focus on environmental restoration
+        only afterward
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - what happened at Lake Tuz. We have the government of Turkey turning more authoritarian
+      seeming by the day, shouldn't that come first here? Flamingoes and other wildlife
+      matter, but the
+    - stability of the country must come first. How about we turn Turkey back into
+      the democracy we all love and then implement changes to restore our beloved
+      environment? If we
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The argument maintains that the priority should be to restore
+      Turkey’s democracy first, rather than focusing resources on investigating the
+      death of the flamingos.
+    candidate: False Dilemma
+    supporting_reason: The argument presents the investment of limited resources as
+      a choice between addressing the flamingo tragedy and restoring democratic stability,
+      implying that these goals cannot be pursued simultaneously.
+    support_relation: mechanism_supports_goal
+    label_justification: The speaker frames a limited-resource scenario where only
+      one priority can be pursued, thereby committing a false dilemma despite not
+      explicitly stating exclusivity.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - there is a catch. While this is a tragedy there are major issues that are happening
+      in Turkey, I don't think we can afford to put all our energy into
+    - what happened at Lake Tuz. We have the government of Turkey turning more authoritarian
+      seeming by the day, shouldn't that come first here? Flamingoes and other wildlife
+      matter, but the
+    - stability of the country must come first. How about we turn Turkey back into
+      the democracy we all love and then implement changes to restore our beloved
+      environment? If we
+  counterargument:
+    decisive_counterargument: The claim that we must entirely shift our focus from
+      the flamingo tragedy to restoring Turkey’s democracy assumes that these two
+      goals are mutually exclusive. In reality, a country can invest in both environmental
+      investigations and democratic reforms simultaneously. There is no logical necessity
+      that resources allocated to one must preclude allocation to the other, so the
+      argument’s dichotomy is unwarranted.
+    candidate: False Dilemma
+    challenged_inference: The assertion that either we focus on the flamingo tragedy
+      or we must first restore democracy because resources are limited and these goals
+      cannot coexist.
+    label_justification: The objection directly targets the argument that the two
+      issues are mutually exclusive, thereby exposing a false dilemma. No other fallacy
+      type is more specifically applicable, as the reasoning does not fit appeal to
+      authority, tradition, nature, worse problems, or hasty generalization.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - there is a catch. While this is a tragedy there are major issues that are happening
+      in Turkey, I don't think we can afford to put all our energy into
+    - what happened at Lake Tuz. We have the government of Turkey turning more authoritarian
+      seeming by the day, shouldn't that come first here? Flamingoes and other wildlife
+      matter, but the
+    - stability of the country must come first. How about we turn Turkey back into
+      the democracy we all love and then implement changes to restore our beloved
+      environment? If we
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: The target argument does not explicitly frame the situation as
+      a limited-resource choice between two mutually exclusive options. While it implies
+      that greater national stability should precede tackling the flamingo tragedy,
+      it does not declare that only one can be pursued or that one must be abandoned.
+      This failure to establish an exclusive dichotomy means the mandatory structural
+      condition for a False Dilemma is not met.
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - what happened at Lake Tuz. We have the government of Turkey turning more authoritarian
+      seeming by the day, shouldn't that come first here? Flamingoes and other wildlife
+      matter, but the
+    - stability of the country must come first. How about we turn Turkey back into
+      the democracy we all love and then implement changes to restore our beloved
+      environment? If we
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly states prioritizing a more severe issue
+    (Turkey’s increasing authoritarianism) over a focal issue (the flamingo tragedy),
+    presenting a clear worse‑problem→deprioritization structure supported by the cited
+    passages.
+  decision_reason: 'The argument contains the required elements: a focal issue (flamingo
+    deaths), a worse issue (authoritarian government), and a conclusion that the worse
+    issue must take priority and that attention to the focal issue should wait. The
+    evidence from T3 and T4 provides the necessary statements of urgency and prioritization,
+    satisfying the structural requirement for an Appeal to Worse Problems. No other
+    fallacy is necessary, so the surviving candidate is accepted.'
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - what happened at Lake Tuz. We have the government of Turkey turning more authoritarian
+    seeming by the day, shouldn't that come first here? Flamingoes and other wildlife
+    matter, but the
+  - stability of the country must come first. How about we turn Turkey back into the
+    democracy we all love and then implement changes to restore our beloved environment?
+    If we
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6724
+  completion_tokens: 3769
+  total_tokens: 10493
+  wall_time_seconds: 192.14100000000326

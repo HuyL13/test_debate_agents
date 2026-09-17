@@ -1,0 +1,143 @@
+sample:
+  id: 465:7393
+  article_id: 465
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: This issue, particularly on the gender gap, is undeniably a crucial matter
+    that requires effort not only from leaders but from every individual as well.
+    I'm reminded of a great philosopher I once looked up to, Aristotle, who asserted
+    that components of the society ought to be treated on equal grounds. Despite him
+    living eons ago, his ideas are still relevant and insightful to this day. While
+    it can't be ignored that there are inherent biological differences between genders,
+    that ought not to translate into disparities in societal opportunities and treatment.
+    This renders Aristotle's notions even more significant as they underline the need
+    for every individual, irrespective of their gender, to be on equal ground.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Aristotle
+    - role: endorsed_claim
+      text: components of the society ought to be treated on equal grounds
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T4
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+    - treatment. This renders Aristotle's notions even more significant as they underline
+      the need for every individual, irrespective of their gender, to be on equal
+      ground.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The gender gap is a crucial issue that requires everyone's
+      effort, and society should treat all individuals equally regardless of inherent
+      biological differences.
+    candidate: Appeal to Authority
+    supporting_reason: The argument cites Aristotle, a historically renowned philosopher,
+      who asserted that components of society ought to be treated on equal grounds,
+      and claims that this authority supports the modern stance on equal societal
+      opportunities.
+    support_relation: Appeal to Authority
+    label_justification: The target uses Aristotle’s authority to justify the claim
+      that equality is necessary, relying on the historical prestige of the philosopher
+      rather than providing a substantive logical argument for the contemporary issue.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+    - relevant and insightful to this day. While it can't be ignored that there are
+      inherent biological differences between genders, that ought not to translate
+      into disparities in societal opportunities and
+    - treatment. This renders Aristotle's notions even more significant as they underline
+      the need for every individual, irrespective of their gender, to be on equal
+      ground.
+  counterargument:
+    decisive_counterargument: 'Aristotle’s statement about equal treatment is a philosophical
+      claim from the 4th‑century B.C.; it does not constitute empirical evidence that
+      modern efforts to close the gender gap will succeed or that biological differences
+      should be ignored. Relying on his authority alone to justify contemporary policy
+      is a classic appeal to authority: the argument merely cites an esteemed figure
+      instead of presenting relevant data or reasoning.'
+    candidate: Appeal to Authority
+    challenged_inference: The claim that Aristotle’s authority guarantees the necessity
+      of equal treatment in modern society
+    label_justification: The target invokes Aristotle’s historical authority (T2)
+      to support the contemporary claim that gender equality must be pursued, yet
+      provides no direct evidence linking his philosophical assertion to present‑day
+      outcomes, thereby exhibiting the appeal‑to‑authority reasoning error
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+    - relevant and insightful to this day. While it can't be ignored that there are
+      inherent biological differences between genders, that ought not to translate
+      into disparities in societal opportunities and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Citing Aristotle’s claim to support the contemporary message
+    that equal treatment is necessary without providing evidence that his 4th‑century
+    argument applies today.
+  decision_reason: The target relies on Aristotle’s authority to justify the claim
+    about gender equality, presenting the authority’s historical assertion but offering
+    no contemporary evidence or reasoning to back the claim, which is a textbook appeal
+    to authority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - philosopher I once looked up to, Aristotle, who asserted that components of the
+    society ought to be treated on equal grounds. Despite him living eons ago, his
+    ideas are still
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5325
+  completion_tokens: 2410
+  total_tokens: 7735
+  wall_time_seconds: 109.71900000004098

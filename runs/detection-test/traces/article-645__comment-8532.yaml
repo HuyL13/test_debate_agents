@@ -1,0 +1,147 @@
+sample:
+  id: 645:8532
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: Facebook goes too far. Sison means something to a lot of people in the philippines.
+    So they should be allowed to post about him in the philippines. The people respected
+    him, and Facebook should allow people to share. He simply counts as a political
+    figure. Facebook should back down.
+  target: I agree that Facebook monitors things a little too far at times. Think about
+    the alternative of everyone posting whatever they wanted. Without some line in
+    the sand, criminals and anyone else could post whatever illegal images they wanted.
+    Think about actions that not censorship would have on Facebook, and social media
+    in general. It is scary to think about. I am not even saying that all posts would
+    go into the wild west territory and be harmful, but the few cases that I have
+    seen of misuse it's a reasonable fear. Let's not ignore the risks!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that Facebook monitors things a little too far at times. Think about
+      the alternative of everyone posting whatever they wanted. Without some line
+      in the sand, criminals and
+    - anyone else could post whatever illegal images they wanted. Think about actions
+      that not censorship would have on Facebook, and social media in general. It
+      is scary to think about.
+    - I am not even saying that all posts would go into the wild west territory and
+      be harmful, but the few cases that I have seen of misuse it's a
+    candidate: null
+  goal:
+    conclusion_or_goal: Facebook should monitor content to prevent illicit material
+      and protect users.
+    candidate: null
+    supporting_reason: The fear that, without moderation, criminals could post illegal
+      images or content justifies the need for censorship.
+    support_relation: adverse predictions (fears of illegal activity) are used to
+      support the conclusion about moderation.
+    label_justification: The target employs an argument from fear to justify Facebook’s
+      monitoring. Although it is a rhetorical strategy, it is not one of the formally
+      listed logical fallacies (e.g., it is not an appeal to authority, majority,
+      nature, tradition, worse problems, hasty generalization, slippery slope, or
+      false dilemma). Therefore the use of this reason does not constitute a logical
+      fallacy in this context.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that Facebook monitors things a little too far at times. Think about
+      the alternative of everyone posting whatever they wanted. Without some line
+      in the sand, criminals and
+    - anyone else could post whatever illegal images they wanted. Think about actions
+      that not censorship would have on Facebook, and social media in general. It
+      is scary to think about.
+    - I am not even saying that all posts would go into the wild west territory and
+      be harmful, but the few cases that I have seen of misuse it's a
+  counterargument:
+    decisive_counterargument: The claim that any absence of monitoring inevitably
+      leads to widespread illegal content is baseless speculation. The argument presents
+      only two options—unrestricted posting or strict censorship—and ignores any middle‑ground
+      approaches such as targeted moderation or community flagging. Since it treats
+      a spectrum of possible moderation strategies as if no alternatives exist, the
+      inference is a classic false dilemma.
+    candidate: False Dilemma
+    challenged_inference: The premise that without Facebook monitoring, criminals
+      would freely post illegal images, which makes monitoring necessary.
+    label_justification: The objection points out that the argument reduces a complex
+      policy issue to a binary choice, thereby exposing the reasoning to a false dilemma.
+      By showing that the inference ignores other viable options, it specifically
+      supports the False Dilemma label rather than merely criticizing the argument’s
+      lack of evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree that Facebook monitors things a little too far at times. Think about
+      the alternative of everyone posting whatever they wanted. Without some line
+      in the sand, criminals and
+    - anyone else could post whatever illegal images they wanted. Think about actions
+      that not censorship would have on Facebook, and social media in general. It
+      is scary to think about.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a binary choice between unrestricted posting
+    (leading to widespread illegal content) and strict monitoring, implying that no
+    other moderation strategies exist.
+  decision_reason: The argument explicitly frames “the alternative of everyone posting
+    whatever they wanted” as the only other option to strict monitoring, thereby ignoring
+    better‑balanced approaches such as targeted moderation or community flagging.
+    This structure satisfies the false dilemma condition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree that Facebook monitors things a little too far at times. Think about the
+    alternative of everyone posting whatever they wanted. Without some line in the
+    sand, criminals and
+  - anyone else could post whatever illegal images they wanted. Think about actions
+    that not censorship would have on Facebook, and social media in general. It is
+    scary to think about.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4906
+  completion_tokens: 3423
+  total_tokens: 8329
+  wall_time_seconds: 174.68799999999464

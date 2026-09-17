@@ -1,0 +1,143 @@
+sample:
+  id: 427:6677
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: I am much more likely to trust the people in charge of these organizations
+    than the women striking. How do we know what they say is true? If there were real
+    issues, the people in charge would handle it. Feminist protests like this usually
+    blow things out of proportion, let's be honest!
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Feminist protests like this usually blow things out of proportion, let's be
+      honest!
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Feminist protests like this
+    - role: observed_property
+      text: blow things out of proportion
+    - role: target_population
+      text: women striking protests
+    structure_complete: true
+    candidate: Hasty Generalization
+  goal:
+    evidence_spans:
+    - I am much more likely to trust the people in charge of these organizations than
+      the women striking
+    - How do we know what they say is true? If there were real issues, the people
+      in charge would handle it
+    - Feminist protests like this usually blow things out of proportion, let's be
+      honest!
+    conclusion_or_goal: Denying the legitimacy of the women striking by claiming that
+      the protest is exaggerated and that officials are trustworthy
+    candidate: Appeal to Authority
+    supporting_reason: The argument relies on the presumed credibility of the people
+      in charge of the organizations to justify dismissing the protest
+    support_relation: The trust in the authority (people in charge) is used to support
+      the conclusion that the protest is overblown or unfounded
+    label_justification: The argument cites the authority of the people in charge
+      as the sole reason to dismiss the protest, which constitutes an appeal to authority.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - If there were real issues, the people in charge would handle it.
+    decisive_counterargument: The absence of action by those in charge does not prove
+      that the claims of the protesters are false. Throughout history many systemic
+      problems—such as workplace discrimination, wage inequality, and environmental
+      injustice—have persisted even while leaders publicly distance themselves or
+      fail to act. Thus, trusting authority does not provide independent verification
+      of the protesters' allegations.
+    candidate: Appeal to Authority
+    challenged_inference: If there were real issues, the people in charge would handle
+      it.
+    label_justification: The argument relies on the assumption that because people
+      in charge are authorities, they must possess accurate knowledge and address
+      any real issues. This premise is used to dismiss the strikers' claims without
+      evidence, exemplifying an Appeal to Authority fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    evidence_spans:
+    - Feminist protests like this usually blow things out of proportion, let's be
+      honest!
+    decisive_test: 'The target contains a clear sample–population generalization:
+      the sample (‘Feminist protests like this’) is observed to have the property
+      (‘blow things out of proportion’), which the author applies to the broader population
+      of women striking protests. This satisfies the mandatory structural condition
+      of a Hasty Generalization.'
+    loser_failure: The Appeal to Authority claim would require the target to explicitly
+      use the authority of the ‘people in charge’ to justify a conclusion. While the
+      target expresses trust in those authorities, it does not present their authority
+      as the sole justification for dismissing the protest. Instead, the main argumentative
+      move is a generalization about feminist protests, not an appeal to authority.
+arbiter:
+  selected_candidate: Hasty Generalization
+  evidence_spans:
+  - Feminist protests like this usually blow things out of proportion, let's be honest!
+  decisive_condition: The target states that a single instance of a feminist protest
+    (the one being referred to) blew things out of proportion and then directly applies
+    this property to all feminist or women‑striking protests, thereby generalizing
+    from a single sample to the broader population, which satisfies the structure
+    of a hasty generalization.
+  decision_reason: The target contains a claim that uses one specific protest as a
+    sample to assert a property about all feminist/women‑striking protests, fulfilling
+    the necessary structure for a hasty generalization.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4521
+  completion_tokens: 5147
+  total_tokens: 9668
+  wall_time_seconds: 235.03099999995902

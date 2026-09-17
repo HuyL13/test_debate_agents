@@ -1,0 +1,135 @@
+sample:
+  id: 433:6095
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: The police usually do a good job in New York, I believe.  Just because one
+    man was unjustly killed doesn't mean the whole system is out for blacks.  Nor
+    does it mean Cuomo willingly protected a lot of racist actions.  Why must people
+    always jump to negative conclusions? People who love criticizing the system always
+    base their opinions on an isolated incident.  Let's look at a broader set of data
+    first.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: just because one man was unjustly killed
+    - role: observed_property
+      text: people who love criticizing the system always base their opinions on an
+        isolated incident
+    - role: target_population
+      text: people who love criticizing the system
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - it mean Cuomo willingly protected a lot of racist actions.  Why must people
+      always jump to negative conclusions? People who love criticizing the system
+      always base their opinions on an
+    - isolated incident.  Let's look at a broader set of data first.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The police usually perform well in New York, and a single
+      unjustified death does not prove the entire system is biased or that a leader
+      is protecting racist actions. Accordingly, people should examine a broader set
+      of data before forming negative conclusions.
+    candidate: null
+    supporting_reason: The argument explicitly states that one isolated incident cannot
+      justify accusations against the whole police system or a government official’s
+      intentions.
+    support_relation: The reasoning is used directly to justify the conclusion that
+      criticism based on a single event is unwarranted.
+    label_justification: The target makes a legitimate caution against overgeneralization
+      and does not itself commit a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The police usually do a good job in New York, I believe.  Just because one man
+      was unjustly killed doesn't mean the whole system is out for blacks.  Nor does
+    - it mean Cuomo willingly protected a lot of racist actions.  Why must people
+      always jump to negative conclusions? People who love criticizing the system
+      always base their opinions on an
+    - isolated incident.  Let's look at a broader set of data first.
+  counterargument:
+    decisive_counterargument: The target’s claim that *everyone who criticizes the
+      system bases their opinions on a single isolated incident* is a sweeping, unsupported
+      generalization. In reality, many critics rely on extensive data, scholarly research,
+      and documented patterns of systemic behavior to form their conclusions. By asserting
+      that all critics ‘always’ jump to negative conclusions from one case, the target
+      itself commits a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: People who love criticizing the system always base their
+      opinions on an isolated incident
+    label_justification: The counterargument specifically exposes that the target
+      is generalizing about all critics from an unsubstantiated sample (the claim
+      that they always rely on an isolated incident). This is the hallmark of a hasty
+      generalization, where a broad statement is made without sufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - it mean Cuomo willingly protected a lot of racist actions.  Why must people
+      always jump to negative conclusions? People who love criticizing the system
+      always base their opinions on an
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target includes a sweeping claim that all people who criticize
+    the system always base their opinions on a single isolated incident without sufficient
+    evidence, meeting the structure of a hasty generalization.
+  decision_reason: The statement ‘People who love criticizing the system always base
+    their opinions on an isolated incident’ is a generalization from a particular
+    example (an isolated incident) to an entire group (all critics), lacking supporting
+    evidence, which is the hallmark of a hasty generalization.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - it mean Cuomo willingly protected a lot of racist actions.  Why must people always
+    jump to negative conclusions? People who love criticizing the system always base
+    their opinions on an
+  - isolated incident.  Let's look at a broader set of data first.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4554
+  completion_tokens: 5070
+  total_tokens: 9624
+  wall_time_seconds: 263.76600000000326

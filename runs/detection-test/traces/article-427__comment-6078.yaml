@@ -1,0 +1,99 @@
+sample:
+  id: 427:6078
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Once you let them dictate rules against fairness, they will continue the
+    problem. It only gets worse. Rights will be trampled and compromised.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+    slots:
+    - role: initial_event
+      text: let them dictate rules against fairness
+    - role: intermediate_consequence
+      text: they will continue the problem. It only gets worse.
+    - role: final_consequence
+      text: Rights will be trampled and compromised.
+    structure_complete: true
+    structure_type: consequence_chain
+    candidate: Slippery Slope
+  goal:
+    candidate: Slippery Slope
+    conclusion_or_goal: The argument asserts that allowing a certain group to dictate
+      rules that violate fairness will lead to ongoing and escalating problems, ultimately
+      resulting in the trampling and compromising of rights.
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+    label_justification: 'This reasoning exemplifies a classic slippery‑slope pattern:
+      it proposes a series of progressively worse outcomes stemming from a single
+      permissive action, yet it offers no intermediate evidence or justification and
+      thus relies on an unjustified chain of speculation.'
+    mechanism_supports_goal: true
+    support_relation: the premise sets off a chain of negative consequences—the problem
+      continues, gets worse, and rights are trampled.
+    supporting_reason: Once you let them dictate rules against fairness
+  counterargument:
+    candidate: Slippery Slope
+    challenged_inference: Assuming that granting them rule‑making authority will inevitably
+      cause a progressive worsening of fairness and rights.
+    decisive_counterargument: The argument assumes that letting them set rules will
+      automatically lead to a worsening of the situation and the trampling of rights,
+      yet it provides no evidence that such a causal chain actually occurs; it simply
+      predicts a dangerous escalation without justification.
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+    failure_exposed: true
+    label_justification: The objection points out that the claim relies on an unspecified
+      escalation—“it only gets worse”—without evidence, which is the hallmark of a
+      slippery‑slope fallacy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  decisive_condition: consequence_chain
+  evidence_spans:
+  - Once you let them dictate rules against fairness, they will continue the problem.
+    It only gets worse. Rights will be trampled and compromised.
+  rejection_reason: null
+  selected_candidate: Slippery Slope
+  verified: true
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 0
+  cache_hits: 4
+  retries: 0
+  prompt_tokens: 3409
+  completion_tokens: 2443
+  total_tokens: 5852
+  wall_time_seconds: 0.014999999955762178

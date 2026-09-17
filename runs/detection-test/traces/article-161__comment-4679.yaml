@@ -1,0 +1,133 @@
+sample:
+  id: 161:4679
+  article_id: 161
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Things seemed to be working well the way it is without opening pathways
+    for refugees from other countries. This act does not seem like it would be beneficial
+    in any way to Assam or any other part of India. The Assam Accord has been working
+    for over 30 years.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: The Assam Accord has been working for over 30 years.
+    - role: preservation_conclusion
+      text: This act does not seem like it would be beneficial in any way to Assam
+        or any other part of India.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: That opening pathways for refugees from other countries would
+      not be beneficial to Assam or any other part of India.
+    candidate: Appeal to Tradition
+    supporting_reason: The Assam Accord has been working for over 30 years.
+    support_relation: 'appeals to tradition: using the longevity and ongoing effectiveness
+      of the Assam Accord as evidence to argue that a new policy permitting refugee
+      pathways would be detrimental.'
+    label_justification: The argument cites an established and long‑standing agreement
+      (the Assam Accord) that has purportedly been effective for decades as justification
+      for rejecting a policy change, which fits the appeal to tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+  counterargument:
+    decisive_counterargument: The fact that the Assam Accord has been in place for
+      more than 30 years does not prove that any additional measure such as the Citizenship
+      Amendment Act would be harmful or unnecessary. Policy effectiveness must be
+      judged by current evidence and outcomes, not simply by how long a policy has
+      existed.
+    candidate: Appeal to Tradition
+    challenged_inference: Because the current system is working without opening pathways
+      for refugees, adding the Citizenship Amendment Act would not benefit Assam or
+      India.
+    label_justification: The objection shows that the argument relies on the premise
+      that the longevity of the Assam Accord demonstrates the success and necessity
+      of maintaining the status quo. This uses the duration or tradition of a policy
+      as the sole justification for rejecting a new act, which is the hallmark of
+      an Appeal to Tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T1
+    evidence_spans:
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The TARGET presents a tradition premise (“The Assam Accord has
+    been working for over 30 years.”) and a preservation conclusion (“This act does
+    not seem like it would be beneficial …”), fitting the traditional to preservation
+    structure of appeal to tradition.
+  decision_reason: The argument explicitly uses the longevity and ongoing effectiveness
+    of the Assam Accord as justification for rejecting a new policy, which satisfies
+    both the structural requirements and the definition of an appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Things seemed to be working well the way it is without opening pathways for refugees
+    from other countries. This act does not seem like it would be beneficial in any
+  - way to Assam or any other part of India. The Assam Accord has been working for
+    over 30 years.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4417
+  completion_tokens: 2904
+  total_tokens: 7321
+  wall_time_seconds: 146.64100000000326

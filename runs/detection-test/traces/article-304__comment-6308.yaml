@@ -1,0 +1,129 @@
+sample:
+  id: 304:6308
+  article_id: 304
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: I mean, this is good news I guess, but is it really that important? Especially
+    in a place like Pakistan, with all the serious problems they have. Maybe they
+    should be more focused on the abject poverty and commonplace violence that huge
+    swaths of their population have instead of some tiny minority.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: focus on a tiny minority in Pakistan
+    - role: worse_issue
+      text: abject poverty and commonplace violence that huge swaths of the population
+        have
+    - role: deprioritizing_conclusion
+      text: they should be more focused on the abject poverty and commonplace violence
+        instead of the minority
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - be more focused on the abject poverty and commonplace violence that huge swaths
+      of their population have instead of some tiny minority.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Allocate resources and focus attention on the serious problems
+      such as abject poverty and commonplace violence rather than on minority issues
+    candidate: null
+    supporting_reason: The existence of serious, widespread problems in Pakistan provides
+      a basis to prioritize addressing those issues over attention to a tiny minority
+    support_relation: Justification
+    label_justification: No fallacy is present; the argument uses a legitimate logical
+      premise to support its conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I mean, this is good news I guess, but is it really that important? Especially
+      in a place like Pakistan, with all the serious problems they have. Maybe they
+      should
+    - be more focused on the abject poverty and commonplace violence that huge swaths
+      of their population have instead of some tiny minority.
+  counterargument:
+    decisive_counterargument: No, the argument does not obligate one to choose between
+      focusing on a small minority and addressing larger societal problems. It is
+      entirely possible and often desirable to pursue multiple goals simultaneously—improving
+      living conditions for the poor while also protecting minorities. By presenting
+      the situation as if only one objective can be pursued at a time, the argument
+      commits a false dilemma.
+    candidate: False Dilemma
+    challenged_inference: The inference that Pakistani society must choose either
+      to address abject poverty and violence or to focus on the rights of a small
+      minority, implying that those concerns are mutually exclusive.
+    label_justification: The objection directly shows the reasoning equates the issue
+      with a binary choice, ignoring the possibility of addressing both concerns together.
+      This is the hallmark of a false dilemma, not merely a critique of the argument's
+      content or tone.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I mean, this is good news I guess, but is it really that important? Especially
+      in a place like Pakistan, with all the serious problems they have. Maybe they
+      should
+    - be more focused on the abject poverty and commonplace violence that huge swaths
+      of their population have instead of some tiny minority.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly contrasts a serious issue (abject poverty
+    and violence affecting many people) with a smaller concern (“some tiny minority”),
+    implying that the latter should be de-prioritized in favor of the former, which
+    fits the structure of an appeal to worse problems.
+  decision_reason: The passage states that, in Pakistan with its many serious problems,
+    attention should be focused on abject poverty and violence affecting huge swaths
+    of the population rather than on a tiny minority. This directly applies a more
+    serious problem to dismiss or down‑prioritize the minority issue, meeting the
+    structure of an appeal to worse problems. Evidence supporting this is found in
+    passage T2.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - be more focused on the abject poverty and commonplace violence that huge swaths
+    of their population have instead of some tiny minority.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3980
+  completion_tokens: 3033
+  total_tokens: 7013
+  wall_time_seconds: 68.84400000004098

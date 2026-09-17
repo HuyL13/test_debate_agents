@@ -1,0 +1,180 @@
+sample:
+  id: 192:5073
+  article_id: 192
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: It is natural to jump to the conclusion that all censorship is wrong. We
+    have to stop attributing our own culture to totally different countries. What
+    is right in one culture may not necessarily be the same in another.
+  target: I agree that in most cases, you can't compare cultures with other cultures
+    for different countries. Not everything should be compared like that. However,
+    sometimes governments look to how others are ran and get ideas. So censoring for
+    this country might be okay for them, another country will see how well it worked
+    for them and want to do the same. It's important to find the balance and not disregard
+    something as "That's what we do so it's wrong" or "That's what they do so it's
+    up to them to figure out." In the end, something is being influenced. It is a
+    delicate balance.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: censoring in this country
+    - role: intermediate_consequence
+      text: other countries see it as successful and decide to adopt it
+    - role: final_consequence
+      text: the practice spreads, influencing other nations and creating a delicate
+        balance
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - are ran and get ideas. So censoring for this country might be okay for them,
+      another country will see how well it worked for them and want to do the
+    - same. It's important to find the balance and not disregard something as "That's
+      what we do so it's wrong" or "That's what they do so it's up to them to
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The author argues that while cross‑cultural comparison should
+      be approached cautiously, it is permissible for a government to adopt censorship
+      practices learned from other nations, provided a balanced approach is maintained.
+    candidate: null
+    supporting_reason: Governments sometimes observe how other countries manage censorship
+      and may then implement similar policies.
+    support_relation: utilizes observed practice as justifying evidence that such
+      adoption can be acceptable, suggesting that similar measures can work elsewhere.
+    label_justification: The reasoning corresponds to an ordinary argument about policy
+      transfer and does not fall into any of the specified fallacy categories; no
+      evidence of a hasty generalization, slippery slope, false dilemma, appeal to
+      authority, appeal to majority, appeal to nature, appeal to tradition, or appeal
+      to worse problems is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that in most cases, you can't compare cultures with other cultures for
+      different countries. Not everything should be compared like that. However, sometimes
+      governments look to how others
+    - are ran and get ideas. So censoring for this country might be okay for them,
+      another country will see how well it worked for them and want to do the
+    - same. It's important to find the balance and not disregard something as "That's
+      what we do so it's wrong" or "That's what they do so it's up to them to
+  counterargument:
+    decisive_counterargument: Simply pointing out that other governments have implemented
+      censorship does not in itself justify the practice for this country; the fact
+      that a government chooses a policy is not evidence that the policy is effective
+      or morally right. Gov­ernments are not infallible authorities—many flawed policies
+      are justified by citing other governments’ examples. Therefore, the argument
+      that censorship might be acceptable because it has happened elsewhere relies
+      on an unjustified authority rather than on solid evidence, and the inference
+      that such a policy is appropriate is fallacious.
+    candidate: Appeal to Authority
+    challenged_inference: Thus censoring for this country might be okay because other
+      countries have done it.
+    label_justification: 'The objection shows that the Target’s inference uses the
+      policy of other governments as an argument for the policy’s correctness, which
+      is a classic appeal to authority fallacy: it treats the mere fact that some
+      authorities have enacted censorship as evidence that it is justified, without
+      providing independent justification. The counterargument specifically targets
+      this use of authority, making Appeal to Authority the most appropriate label.
+      The instance is directly supported by the passage in T3 that notes governments
+      copying each other’s practices, identifying the reliance on authority rather
+      than empirical rationale.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - same. It's important to find the balance and not disregard something as "That's
+      what we do so it's wrong" or "That's what they do so it's up to them to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: The passage uses the example of other governments practicing censorship
+      as an implicit justification that the same practice is acceptable for ‘this
+      country’. This relies on authority (the actions of other governments) rather
+      than independent evidence or reasoning, which is the defining feature of an
+      appeal to authority. In contrast, a slippery‑slope argument would require a
+      clearly progressive chain of increasingly negative consequences; the passage
+      merely notes that other countries might copy the practice and does not assert
+      a chain of escalating harms. Thus the appeal to authority interpretation satisfies
+      the mandatory structural condition, while the slippery‑slope interpretation
+      does not.
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - same. It's important to find the balance and not disregard something as "That's
+      what we do so it's wrong" or "That's what they do so it's up to them to
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Target uses other governments’ censorship as justification for
+    this country’s practice, thereby committing an appeal to authority.
+  decision_reason: The target states that governments sometimes emulate other countries’
+    censorship policies and implies that because other countries have implemented
+    censorship, it might be acceptable for this country. This reliance on other governments
+    as a basis for justification constitutes an appeal to authority. Evidence is found
+    in passage T2.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - are ran and get ideas. So censoring for this country might be okay for them, another
+    country will see how well it worked for them and want to do the
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6671
+  completion_tokens: 4772
+  total_tokens: 11443
+  wall_time_seconds: 323.625

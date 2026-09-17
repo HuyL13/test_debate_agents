@@ -1,0 +1,129 @@
+sample:
+  id: 192:5074
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: If the judges don't get involved at the beginning of the process isn't it
+    just an open field to make accusations for whatever reason.  What we have here
+    is a divide of two roads to go down.  Either make judging mandatory before taking
+    stuff down or just let the corrupt free for all continue.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: make judging mandatory before taking stuff down
+    - role: alternative_b
+      text: just let the corrupt free for all continue
+    - role: exhaustiveness_commitment
+      text: Either ... or ...
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the judges don't get involved at the beginning of the process isn't it just
+      an open field to make accusations for whatever reason.  What we have here is
+      a
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The process should involve mandatory judging before removal
+      to prevent arbitrary accusations and corruption.
+    candidate: False Dilemma
+    supporting_reason: If judges don't get involved at the beginning of the process,
+      the situation becomes an open field to make accusations for whatever reason.
+    support_relation: This reason justifies the claim that mandatory judging is necessary
+      in order to avoid corrosion, thereby supporting the conclusion.
+    label_justification: The argument presents only two exclusive options – mandatory
+      judging or corruption free-for-all – ignoring other possible alternatives, which
+      constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the judges don't get involved at the beginning of the process isn't it just
+      an open field to make accusations for whatever reason.  What we have here is
+      a
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+  counterargument:
+    decisive_counterargument: 'The claim forces a binary choice: either mandate judicial
+      involvement before removing content or tolerate unchecked corruption. In reality,
+      there are alternatives such as independent arbitration panels, community‑based
+      moderation, or statutory guidelines that can strike a balance without full judicial
+      endorsement. Presenting only two extreme options misrepresents the full set
+      of possible solutions.'
+    candidate: False Dilemma
+    challenged_inference: The only viable responses are mandatory judging or allowing
+      corruption to continue if judges are absent.
+    label_justification: This objection demonstrates that the target argument incorrectly
+      limits the range of options to two mutually exclusive extremes, thereby exposing
+      a False Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target enumerates only two exclusive alternatives – mandatory
+    judging before removal or allowing corruption to continue – and commits to their
+    exhaustiveness with a clear ‘either…or’ construction, thereby imposing a binary
+    choice and excluding all other possibilities.
+  decision_reason: The passage presents a false dilemma by limiting the situation
+    to two mutually exclusive options—mandatory judging or corruption free‑for‑all—while
+    ignoring any other viable solutions. The structure ‘Either … or …’ establishes
+    the fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the judges don't get involved at the beginning of the process isn't it just
+    an open field to make accusations for whatever reason.  What we have here is a
+  - divide of two roads to go down.  Either make judging mandatory before taking stuff
+    down or just let the corrupt free for all continue.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4413
+  completion_tokens: 2663
+  total_tokens: 7076
+  wall_time_seconds: 123.57800000000134

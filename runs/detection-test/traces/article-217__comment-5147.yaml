@@ -1,0 +1,128 @@
+sample:
+  id: 217:5147
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: Women should be more open to the tradition of men governing. In this case
+    there would not be these dilemmas. Civilizations have thrived under this type
+    of system. Let us uphold customs and  achieve stability and continuity.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: the tradition of men governing
+    - role: preservation_conclusion
+      text: let us uphold customs and achieve stability and continuity
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Women should be more open to the tradition of men governing. In this case there
+      would not be these dilemmas. Civilizations have thrived under this type of system.
+      Let us
+    - uphold customs and  achieve stability and continuity.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Encourage women to accept and support the tradition of men
+      governing
+    candidate: Appeal to Tradition
+    supporting_reason: Civilizations have thrived under this type of system; let us
+      uphold customs to achieve stability and continuity
+    support_relation: The argument uses the historical success of the traditional
+      system to justify its ongoing adoption by women
+    label_justification: The claim relies on the fact that the system has worked in
+      the past to argue that it should continue, which is the standard definition
+      of an Appeal to Tradition. No other fallacy is more appropriate for the presented
+      reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Women should be more open to the tradition of men governing. In this case there
+      would not be these dilemmas. Civilizations have thrived under this type of system.
+      Let us
+    - uphold customs and  achieve stability and continuity.
+  counterargument:
+    decisive_counterargument: Past success of a governance system does not prove its
+      suitability or superiority in the present; societies can thrive under a variety
+      of structures, including inclusive ones, and historical precedent may mask harms
+      or overlook more effective modern solutions.
+    candidate: Appeal to Tradition
+    challenged_inference: Because civilizations have thrived under men governing,
+      women should be more open to the tradition of men governing to avoid dilemmas
+      and achieve stability.
+    label_justification: The argument justifies a contemporary political stance by
+      appealing to the fact that the tradition of men governing existed historically,
+      concluding it should be upheld for stability. This is a classic use of past
+      practice as evidence of its inherent merit, i.e., an Appeal to Tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Women should be more open to the tradition of men governing. In this case there
+      would not be these dilemmas. Civilizations have thrived under this type of system.
+      Let us
+    - uphold customs and  achieve stability and continuity.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly states that because “civilizations have
+    thrived under this type of system,” we should “uphold customs and achieve stability
+    and continuity,” thereby using past practice as justification for continued adherence
+    to the tradition of men governing. This satisfies the structural pattern of an
+    Appeal to Tradition, making the candidate correctly identified.
+  decision_reason: The target contains a clear appeal to tradition, with historical
+    success presented as evidence to support continuing the tradition. Evidence is
+    drawn from passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Women should be more open to the tradition of men governing. In this case there
+    would not be these dilemmas. Civilizations have thrived under this type of system.
+    Let us
+  - uphold customs and  achieve stability and continuity.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4299
+  completion_tokens: 3572
+  total_tokens: 7871
+  wall_time_seconds: 177.31199999997625

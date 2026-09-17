@@ -1,0 +1,139 @@
+sample:
+  id: 409:10524
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: I'd be interested in statistics on other Caribbean countries and territories,
+    given the high (and rising) rate of violence against women in Jamaica. Given that
+    the rate is high and rising in that country, you can believe it's also high and
+    rising in most, if not all, of the other Caribbean countries. Let's hope for positive
+    changes, and soon.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Jamaica
+    - role: observed_property
+      text: high and rising rate of violence against women
+    - role: target_population
+      text: most, if not all, of the other Caribbean countries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'd be interested in statistics on other Caribbean countries and territories,
+      given the high (and rising) rate of violence against women in Jamaica. Given
+      that the rate is high and
+    - rising in that country, you can believe it's also high and rising in most, if
+      not all, of the other Caribbean countries. Let's hope for positive changes,
+      and soon.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That the rate of violence against women is also high and rising
+      in most, if not all, of the other Caribbean countries.
+    candidate: Hasty Generalization
+    supporting_reason: The statement that the rate is high and rising in Jamaica.
+    support_relation: The high and rising rate in Jamaica is used to justify the claim
+      about all other Caribbean countries.
+    label_justification: The argument explicitly infers a general population property
+      from a single sample (Jamaica), matching the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'd be interested in statistics on other Caribbean countries and territories,
+      given the high (and rising) rate of violence against women in Jamaica. Given
+      that the rate is high and
+    - rising in that country, you can believe it's also high and rising in most, if
+      not all, of the other Caribbean countries. Let's hope for positive changes,
+      and soon.
+  counterargument:
+    decisive_counterargument: The fact that Jamaica has a high and rising rate of
+      violence against women does not provide any evidence that other Caribbean countries
+      share the same pattern. Each country has its own demographic, legal, and cultural
+      context, and without data from those countries the claim that the rate is also
+      high and rising there is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: Because violence against women is high and rising in Jamaica,
+      it must be high and rising in most or all other Caribbean countries.
+    label_justification: The counterargument directly refutes the unjustified leap
+      from a single data point (Jamaica) to a blanket claim about an entire region.
+      This is the hallmark of a hasty generalization, which occurs when a conclusion
+      about a whole group is drawn from an insufficient or nonrepresentative sample.
+      The target’s inference lacks the supporting evidence needed to generalize safely,
+      fitting the definition of the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'd be interested in statistics on other Caribbean countries and territories,
+      given the high (and rising) rate of violence against women in Jamaica. Given
+      that the rate is high and
+    - rising in that country, you can believe it's also high and rising in most, if
+      not all, of the other Caribbean countries. Let's hope for positive changes,
+      and soon.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that because Jamaica has a high and rising
+    rate of violence against women, it can be believed that this rate is also high
+    and rising in most, if not all, other Caribbean countries. This inference uses
+    Jamaica as a sample to generalize a property to a broader population without additional
+    evidence, satisfying the structural criteria of a hasty generalization.
+  decision_reason: The target explicitly draws a general conclusion about most or
+    all other Caribbean countries from a single example (Jamaica), which is the hallmark
+    of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I'd be interested in statistics on other Caribbean countries and territories,
+    given the high (and rising) rate of violence against women in Jamaica. Given that
+    the rate is high and
+  - rising in that country, you can believe it's also high and rising in most, if
+    not all, of the other Caribbean countries. Let's hope for positive changes, and
+    soon.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4609
+  completion_tokens: 2622
+  total_tokens: 7231
+  wall_time_seconds: 133.34399999998277

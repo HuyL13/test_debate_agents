@@ -1,0 +1,148 @@
+sample:
+  id: 560:8278
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: If the government of Argentina grants the right to an abortion for women
+    and girls who are assaulted, there will be unintended consequences. One right
+    granted will only trigger the demand for another right, and another, and so on,
+    like a kid in a candy shop, and soon they will have countrywide abortions on demand
+    and a plummeting birth rate. Be careful lawmakers of Argentina!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the government of Argentina grants the right to an abortion for women
+        and girls who are assaulted
+    - role: intermediate_consequence
+      text: the demand for another right, and another
+    - role: final_consequence
+      text: countrywide abortions on demand and a plummeting birth rate
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the government of Argentina grants the right to an abortion for women and
+      girls who are assaulted, there will be unintended consequences. One right granted
+      will only trigger the
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The passage argues that allowing abortion for women and girls
+      who are assaulted in Argentina will lead to a chain of unintended consequences,
+      ultimately resulting in widespread on‑demand abortions and a plummeting birth
+      rate, thus urging lawmakers to refrain from such legislation.
+    candidate: Slippery Slope
+    supporting_reason: The passage predicts a progressive chain where granting one
+      right on abortion will trigger the demand for further rights, leading to escalating
+      negative outcomes (countrywide abortions, falling birth rate).
+    support_relation: The stated slippery‑slope chain is presented as evidence that
+      the initial policy decision will inevitably lead to the severe negative consequences
+      mentioned, thereby supporting the conclusion that the policy should be avoided.
+    label_justification: The argument relies on an unsubstantiated causal progression
+      from a single policy change to a series of increasingly adverse outcomes without
+      providing concrete evidence for the steps in the chain, which typifies the slippery‑slope
+      logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+  counterargument:
+    decisive_counterargument: 'The assertion that allowing abortion for assault victims
+      will inevitably trigger an unrestrained, nation‑wide abortion campaign and a
+      dramatic drop in birth rates is a speculative causal chain that lacks supporting
+      evidence. A policy that permits abortion only in specific, legally defined circumstances
+      can be rigorously regulated so that it does not expand to all pregnancies. Historical
+      examples from other countries show that partial abortion laws can exist without
+      causing a runaway decline in fertility. Therefore, the claim rests on a conjectural
+      progression rather than on demonstrated causal linkages. This exposes a logical
+      flaw: the argument commits a slippery‑slope fallacy by presupposing that one
+      policy change will automatically set off a cascade of unrelated and extreme
+      consequences.'
+    candidate: Slippery Slope
+    challenged_inference: Granting abortion rights for assault cases will inevitably
+      lead to unrestricted abortions nationwide and a plummeting birth rate because
+      each new right triggers another rights demand.
+    label_justification: The argument presents a chain of increasingly extreme outcomes
+      stemming from a single policy change without evidence of each link. This is
+      the classic structure of a slippery‑slope fallacy, where the reasoning assumes
+      a causal progression that is unproven and overextends the initial premise.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the government of Argentina grants the right to an abortion for women and
+      girls who are assaulted, there will be unintended consequences. One right granted
+      will only trigger the
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The TARGET presents an unsubstantiated causal progression from
+    the initial policy (granting abortion rights for assault victims) to a series
+    of escalating consequences—first the demand for more rights, then nationwide on‑demand
+    abortions and a plummeting birth rate—without evidence for any of the intermediate
+    links, matching the essential structure of a slippery‑slope fallacy.
+  decision_reason: The passage explicitly outlines a chain of undue consequences (T1,
+    T2) that follow the promise of the policy, with no supporting data, thereby meeting
+    the structural criteria for a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the government of Argentina grants the right to an abortion for women and girls
+    who are assaulted, there will be unintended consequences. One right granted will
+    only trigger the
+  - demand for another right, and another, and so on, like a kid in a candy shop,
+    and soon they will have countrywide abortions on demand and a plummeting birth
+    rate.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4887
+  completion_tokens: 3224
+  total_tokens: 8111
+  wall_time_seconds: 156.60900000005495

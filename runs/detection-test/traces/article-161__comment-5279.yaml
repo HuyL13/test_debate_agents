@@ -1,0 +1,129 @@
+sample:
+  id: 161:5279
+  article_id: 161
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: Another story about Indians not wanting any different people in their country.
+    This whole situation just proves India is full of nationalists who are also racist.
+    Multiculturalism will never work there.
+  target: The actions of a few shouldn't be used to generalize a whole country of
+    citizens. We should focus on the situation and try to find a way to manage all
+    the parties contributing to the drama.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The actions of a few shouldn't be used to generalize a whole country of citizens.
+      We should focus on the situation and try to find a way to manage all
+    - the parties contributing to the drama.
+    candidate: null
+  goal:
+    conclusion_or_goal: The actions of a few shouldn't be used to generalize a whole
+      country of citizens; we should instead focus on the situation and manage all
+      parties involved.
+    candidate: null
+    supporting_reason: The actions of a few shouldn't be used to generalize a whole
+      country of citizens.
+    support_relation: The premise explicitly counters a hasty generalization, justifying
+      the recommendation to focus on specific circumstances and manage all involved
+      parties.
+    label_justification: The argument supplies a legitimate counter to a hasty generalization
+      and does not rely on an invalid premise; hence no fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The actions of a few shouldn't be used to generalize a whole country of citizens.
+      We should focus on the situation and try to find a way to manage all
+    - the parties contributing to the drama.
+  counterargument:
+    decisive_counterargument: While it is true that the actions of a few do not automatically
+      define an entire nation, dismissing the significance of those actions altogether
+      obscures systemic risks. In contexts where nationalist rhetoric and violent
+      incidents are linked to policy frameworks—such as the Citizenship Amendment
+      Act protests—those limited incidents often signal underlying institutional biases
+      and discriminatory practices. Ignoring them can postpone necessary reforms,
+      embolden anti‑minority sentiments, and ultimately harm the very communities
+      the protests aim to protect. Therefore, the claim that any reference to the
+      actions of a few should be entirely rejected is an over‑broad rejection of useful
+      evidence.
+    candidate: Hasty Generalization
+    challenged_inference: The premise that the actions of a few should never be generalized
+      to the whole country.
+    label_justification: The objection demonstrates that the target’s stance amounts
+      to an over‑cautious blanket denial of generalizing from limited evidence—an
+      invalid negative form of the hasty generalization fallacy. It assumes that because
+      a small sample cannot conclusively prove a universal claim, any attempt to extrapolate
+      is unwarranted, thereby rejecting situations where such extrapolations would
+      be warranted.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The actions of a few shouldn't be used to generalize a whole country of citizens.
+      We should focus on the situation and try to find a way to manage all
+    - the parties contributing to the drama.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The TARGET makes a cautionary statement against generalizing
+    from a few cases; it does not itself present a broad generalization based on limited
+    evidence, so it does not satisfy the structural condition of a hasty generalization
+    (or any other fallacy). The target is simply rejecting the erroneous generalization,
+    not committing it.
+  decision_reason: The target does not commit a fallacy; it instructs not to generalize
+    from a few incidents to a whole nation.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The actions of a few shouldn't be used to generalize a whole country of citizens.
+    We should focus on the situation and try to find a way to manage all
+  - the parties contributing to the drama.
+  verified: false
+  rejection_reason: The target does not commit a fallacy; it instructs not to generalize
+    from a few incidents to a whole nation.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4129
+  completion_tokens: 3963
+  total_tokens: 8092
+  wall_time_seconds: 185.98500000000058

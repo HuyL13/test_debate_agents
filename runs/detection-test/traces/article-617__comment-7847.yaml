@@ -1,0 +1,163 @@
+sample:
+  id: 617:7847
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: This just seems to be another typical result of colonialism. Is it ever
+    any different? I feel like all the news I see suggests not. The impacts of colonial
+    rule are always just that of suffering and injustice.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: all the news I see
+    - role: popularity_claim
+      text: suggests not
+    - role: target_claim
+      text: The impacts of colonial rule are always just that of suffering and injustice.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: That colonial rule always results in suffering and injustice.
+    candidate: Hasty Generalization
+    supporting_reason: The speaker states that all the news they see suggests that
+      colonial rule’s impacts are only suffering and injustice.
+    support_relation: The speaker uses the perceived evidence (the news) to justify
+      the blanket claim about colonialism’s effects.
+    label_justification: The conclusion generalizes from a limited observation (the
+      news seen by the speaker) to all colonial rule impacts, which is a classic hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+  counterargument:
+    decisive_counterargument: The claim that colonial rule always leads to suffering
+      and injustice overgeneralizes the evidence presented; it ignores documented
+      instances where colonial influence brought infrastructure, education, or legal
+      reforms that benefited local populations, thereby rendering the universal negative
+      conclusion unsound.
+    candidate: Hasty Generalization
+    challenged_inference: The impacts of colonial rule are always just that of suffering
+      and injustice.
+    label_justification: The objection shows the inference is reached from a limited
+      set of observations (news reports) and applies a universal claim, which is exactly
+      the pattern of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: The TARGET contains the explicit statement “all the news I see”
+      which is a popularity claim used to justify the conclusion that colonial rule’s
+      impacts are always suffering and injustice. This satisfies the mandatory structural
+      condition for an Appeal to Majority (majority evidence used to support a claim).
+      The Hasty Generalization condition — generalizing from a limited sample to a
+      universal claim — is implied but not as directly evidenced as the explicit majority
+      assertion, so the Appeal to Majority is the appropriate choice. The selected
+      evidence supports that popularity claim.
+    loser_failure: The Hasty Generalization claim would require showing that only
+      the news sample is used to generalize to all colonial rule outcomes; while the
+      text does mention news, the primary structural evidence is the explicit popularity
+      claim “all the news I see,” making Appeal to Majority the more directly supported
+      option.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: Appeal to Majority
+  decision_reason: The target asserts that colonial rule always results in suffering
+    and injustice, and it reasons this by claiming that ‘all the news I see suggests
+    not’—i.e., that the majority or popular view (as represented by news) supports
+    the claim. This salience of majority opinion to justify the claim is the defining
+    structure of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This just seems to be another typical result of colonialism. Is it ever any different?
+    I feel like all the news I see suggests not. The impacts of colonial rule
+  - are always just that of suffering and injustice.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5306
+  completion_tokens: 4756
+  total_tokens: 10062
+  wall_time_seconds: 375.67199999999866

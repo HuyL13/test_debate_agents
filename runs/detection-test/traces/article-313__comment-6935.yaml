@@ -1,0 +1,110 @@
+sample:
+  id: 313:6935
+  article_id: 313
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: The government in these countries don't care. They will hide anything bad.
+    They should protest as much as they like.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government in these countries don't care. They will hide anything bad. They
+      should protest as much as they like.
+    candidate: null
+  goal:
+    conclusion_or_goal: People should protest as much as they like.
+    candidate: null
+    supporting_reason: The government will hide anything bad.
+    support_relation: The claim that the government hides wrongdoing is used to argue
+      that protest is justified or necessary.
+    label_justification: The argument does not display a recognized logical fallacy;
+      it merely asserts a cause (government secrecy) to justify an action (protesting).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government in these countries don't care. They will hide anything bad. They
+      should protest as much as they like.
+  counterargument:
+    decisive_counterargument: The claim that *every* government in these countries
+      does not care and will hide any bad back‑story is unsupported – no evidence
+      or specific examples are offered.  Simply asserting a broad truth about all
+      governments is an unsupported generalization.  A reasonable counter‑position
+      would be that many governments, despite problems, do take steps to investigate
+      complaints and publicize findings, and that the absence of verifiable proof
+      of universal concealment invalidates the blanket accusation.
+    candidate: Hasty Generalization
+    challenged_inference: The government in these countries don’t care; they will
+      hide anything bad; therefore people should protest as much as they like.
+    label_justification: The objection highlights that the argument makes a sweeping
+      claim about all such governments without any backing evidence or representative
+      cases, which is precisely the hallmark of a hasty generalization.  Rejecting
+      the premise invalidates the conclusion that protest is justified based on that
+      presumed lack of care.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government in these countries don't care. They will hide anything bad. They
+      should protest as much as they like.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The TARGET presents a sweeping claim about all governments in
+    these countries, but does not include any explicit sample or evidence to support
+    that generalization. Since a hasty generalization requires a sample that is generalized
+    to a broader class, the structural condition is not met. No other fallacy is applicable
+    here, so the claim is not fallacious according to the provided definitions.
+  decision_reason: No survivor meets the required structural criteria for hasty generalization;
+    thus the claim is not categorized as a fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government in these countries don't care. They will hide anything bad. They
+    should protest as much as they like.
+  verified: false
+  rejection_reason: No survivor meets the required structural criteria for hasty generalization;
+    thus the claim is not categorized as a fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3685
+  completion_tokens: 3305
+  total_tokens: 6990
+  wall_time_seconds: 151.06300000000192

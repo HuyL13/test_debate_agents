@@ -1,0 +1,138 @@
+sample:
+  id: 19:3953
+  article_id: 19
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: ''
+  target: I think we all want to see freedom of press. It is important that the government
+    remain transparent and press is an important part of making that happen. The press
+    encourages honesty and transparency. I think we can all agree that the government
+    should be open with the press. Can't we all agree openness with the press is important
+    for the government?
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: we
+    - role: popularity_claim
+      text: we all want to see freedom of press
+    - role: target_claim
+      text: openness with the press is important for the government
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think we all want to see freedom of press. It is important that the government
+      remain transparent and press is an important part of making that happen. The
+      press
+    - encourages honesty and transparency. I think we can all agree that the government
+      should be open with the press. Can't we all agree openness with the press is
+      important for
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The government should be open with the press because openness
+      is important for the government.
+    candidate: null
+    supporting_reason: The press encourages honesty and transparency, which help maintain
+      governmental transparency.
+    support_relation: The reason is employed to justify the conclusion that openness
+      with the press is important for the government.
+    label_justification: The reason genuinely supports the conclusion and does not
+      invoke any of the listed fallacy structures, so no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - encourages honesty and transparency. I think we can all agree that the government
+      should be open with the press. Can't we all agree openness with the press is
+      important for
+    - the government?
+  counterargument:
+    decisive_counterargument: The speaker concludes that openness to the press is
+      important solely because they say 'we all want freedom of press' and ask 'can't
+      we all agree…?' This argument bases its claim on assumed consensus rather than
+      on any empirical evidence or logical proof. It assumes that the mere belief
+      of a majority (or the speaker’s perception of it) validates the proposition,
+      which is an appeal to popularity. Without separate evidence that openness truly
+      enhances government transparency, the argument slips into the fallacy of appealing
+      to the majority.
+    candidate: Appeal to Majority
+    challenged_inference: Because 'we all want freedom of press', government openness
+      to the press is important.
+    label_justification: The objection directly targets the argument’s reliance on
+      a presumed shared belief to establish truth, which is the hallmark of an appeal
+      to the majority. By highlighting that consensus is not evidence, we expose the
+      specific reasoning failure rather than merely criticizing the overall argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think we all want to see freedom of press. It is important that the government
+      remain transparent and press is an important part of making that happen. The
+      press
+    - encourages honesty and transparency. I think we can all agree that the government
+      should be open with the press. Can't we all agree openness with the press is
+      important for
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument asserts that openness to the press is important
+    because “we all want freedom of press” and seeks agreement from the supposed majority
+    (“Can’t we all agree…”), directly basing its conclusion on perceived consensus
+    rather than independent evidence or reasoning. This satisfies the structural criterion
+    for an appeal to the majority.
+  decision_reason: The target uses a presumed shared belief that freedom of press
+    is desired by all as grounds for the claim that the government should be open
+    with the press. This is a classic appeal to majority, evidenced by passages T1
+    and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think we all want to see freedom of press. It is important that the government
+    remain transparent and press is an important part of making that happen. The press
+  - encourages honesty and transparency. I think we can all agree that the government
+    should be open with the press. Can't we all agree openness with the press is important
+    for
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4462
+  completion_tokens: 2798
+  total_tokens: 7260
+  wall_time_seconds: 49.81199999997625

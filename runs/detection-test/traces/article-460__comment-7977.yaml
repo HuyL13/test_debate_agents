@@ -1,0 +1,142 @@
+sample:
+  id: 460:7977
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: This kind of censorship is always only the start. Today it's so-called misinformation
+    related to the pandemic, but what about tomorrow? As the article demonstrates,
+    it's already being stretched to cover some criticism of government behavior. Before
+    you know it, it's not just pandemic related. Anything bad about the government
+    is suddenly 'misinformation'.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: This kind of censorship is always only the start. Today it’s so‑called
+        misinformation related to the pandemic, but what about tomorrow?
+    - role: intermediate_consequence
+      text: As the article demonstrates, it’s already being stretched to cover some
+        criticism of government behavior.
+    - role: final_consequence
+      text: Anything bad about the government is suddenly ‘misinformation’.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: That future censorship will expand beyond pandemic misinformation
+      to label any criticism of the government as misinformation.
+    candidate: Slippery Slope
+    supporting_reason: The passage asserts that the censorship that currently targets
+      pandemic‑related misinformation is only the beginning, and will soon be used
+      to cover criticism of government behaviour, meaning that anything bad about
+      the government will be reclassified as misinformation.
+    support_relation: The reasoning that the censorship is being stretched to cover
+      criticism serves to argue that this trend will inevitably continue, leading
+      to the conclusion that any future criticism will be considered misinformation.
+    label_justification: The argument presents an unlikely escalation—moving from
+      pandemic‑focused censorship to universal suppression of government criticism—without
+      evidence, constituting a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+  counterargument:
+    decisive_counterargument: The target presumes that the current restrictions on
+      pandemic‑related misinformation will automatically evolve into a blanket policy
+      that labels every criticism of the government as misinformation, without any
+      evidence that such a progression will actually occur. This is a speculative
+      escalation rather than a substantiated trend.
+    candidate: Slippery Slope
+    challenged_inference: The claim that all future government criticism will inevitably
+      be declared misinformation.
+    label_justification: The objection points out that the target argument takes an
+      initial restriction (pandemic misinformation) and projects it as an inevitable,
+      broad suppression of any government criticism. This unsubstantiated leap from
+      a specific policy to a universal censorship fits the definition of a slippery‑slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: Presence of an unsubstantiated progression from current pandemic
+    misinformation censorship to the extreme outcome of labeling all government criticism
+    as misinformation, forming a causal chain with an initial event, an intermediate
+    consequence, and a final consequence.
+  decision_reason: The target argument proposes that the current censorship, currently
+    applied to pandemic misinformation, will inevitably evolve to treat any criticism
+    of government as misinformation, lacking evidence for such a trajectory. This
+    unsubstantiated escalation satisfies the structural criterion for a slippery-slope
+    fallacy. The relevant evidence spans T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This kind of censorship is always only the start. Today it's so-called misinformation
+    related to the pandemic, but what about tomorrow? As the article demonstrates,
+    it's already being stretched to
+  - cover some criticism of government behavior. Before you know it, it's not just
+    pandemic related. Anything bad about the government is suddenly 'misinformation'.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4604
+  completion_tokens: 2909
+  total_tokens: 7513
+  wall_time_seconds: 232.18700000000536

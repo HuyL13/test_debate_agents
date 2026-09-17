@@ -1,0 +1,129 @@
+sample:
+  id: 146:9735
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: I don't think people should focus so much on the past. Both Indonesia and
+    China have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both countries, inequality, suffering of all kinds. Is now the time
+    to try to heal the wounds of some 25 year old event that affected some small minority?
+    That is the sort of thing you try to do after you've solved the bigger problems.
+  target: I am struggling to understand why you think that we can only address one
+    issue at a time, this is not the way the world has to work. This brave woman has
+    come forward to share her story and this should not be overlooked or silenced.
+    It does not matter how long ago this event happened, people from that time surely
+    still wear the scars from those days. I think by hearing from these people that
+    we can bring closure to their suffering and hopefully give other people the strength
+    to come forward with their own stories. That is how we can fight current repression
+    around the world, this is how we will show that justice is possible when we recognize
+    problems from any time. I thought she did a great job in this article and I am
+    interested to learn more about her and her story. Anyone else feel this way?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I am struggling to understand why you think that we can only address one issue
+      at a time, this is not the way the world has to work. This brave
+    - woman has come forward to share her story and this should not be overlooked
+      or silenced. It does not matter how long ago this event happened, people from
+      that time
+    - surely still wear the scars from those days. I think by hearing from these people
+      that we can bring closure to their suffering and hopefully give other people
+      the strength
+    candidate: null
+  goal:
+    conclusion_or_goal: T2
+    candidate: null
+    supporting_reason: T3
+    support_relation: supports
+    label_justification: The target’s reasoning merely states that revealing past
+      victim stories can bring closure and empower others, which logically supports
+      the goal that such stories should not be overlooked. No fallacious pattern (hasty
+      generalization, slippery slope, false dilemma, appeal to authority, etc.) is
+      present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - woman has come forward to share her story and this should not be overlooked
+      or silenced. It does not matter how long ago this event happened, people from
+      that time
+    - surely still wear the scars from those days. I think by hearing from these people
+      that we can bring closure to their suffering and hopefully give other people
+      the strength
+  counterargument:
+    decisive_counterargument: The target’s claim that sharing the victim’s story will
+      give closure, empower others, and help fight oppression is merely an optimistic
+      argument about a potential positive chain of effects; it does not commit a recognized
+      logical‑fallacy such as a false dilemma, appeal to authority, or hasty generalization.
+      The reasoning links a past event to current benefits in a straightforward causal
+      way and presents no unfounded or exclusionary logic.
+    candidate: null
+    challenged_inference: The assertion that airing the past story necessarily leads
+      to closure and justice
+    label_justification: Because the argument presents a straightforward causal chain
+      without any of the defined fallacious patterns, no specific fallacy can be identified.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I am struggling to understand why you think that we can only address one issue
+      at a time, this is not the way the world has to work. This brave
+    - woman has come forward to share her story and this should not be overlooked
+      or silenced. It does not matter how long ago this event happened, people from
+      that time
+    - surely still wear the scars from those days. I think by hearing from these people
+      that we can bring closure to their suffering and hopefully give other people
+      the strength
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3987
+  completion_tokens: 2167
+  total_tokens: 6154
+  wall_time_seconds: 107.35899999999674

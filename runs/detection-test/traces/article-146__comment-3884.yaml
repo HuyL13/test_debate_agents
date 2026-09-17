@@ -1,0 +1,150 @@
+sample:
+  id: 146:3884
+  article_id: 146
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: ''
+  target: I don't think people should focus so much on the past. Both Indonesia and
+    China have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both countries, inequality, suffering of all kinds. Is now the time
+    to try to heal the wounds of some 25 year old event that affected some small minority?
+    That is the sort of thing you try to do after you've solved the bigger problems.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: heal the wounds of some 25 year old event that affected some small minority
+    - role: worse_issue
+      text: ever-increasing repression in both countries, inequality, suffering of
+        all kinds
+    - role: deprioritizing_conclusion
+      text: people shouldn't focus so much on the past
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I don't think people should focus so much on the past. Both Indonesia and China
+      have a lot of significant problems they're facing right now. There's ever-increasing
+      repression in both
+    - countries, inequality, suffering of all kinds. Is now the time to try to heal
+      the wounds of some 25 year old event that affected some small minority? That
+      is the
+    - sort of thing you try to do after you've solved the bigger problems.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: People should not focus on the past; instead, priority should
+      be given to solving the larger, current problems in Indonesia and China.
+    candidate: null
+    supporting_reason: The speaker lists urgent contemporary issues—repression, inequality,
+      and widespread suffering—as reasons why addressing the past (the 1998 riots)
+      should be postponed until these bigger problems are resolved.
+    support_relation: Causal justification – the existence of more pressing problems
+      is used to justify de-prioritizing historical wounds.
+    label_justification: No logical fallacy is present; the argument straightforwardly
+      links the presence of current major issues to the recommendation that the past
+      be set aside.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't think people should focus so much on the past. Both Indonesia and China
+      have a lot of significant problems they're facing right now. There's ever-increasing
+      repression in both
+    - countries, inequality, suffering of all kinds. Is now the time to try to heal
+      the wounds of some 25 year old event that affected some small minority? That
+      is the
+  counterargument:
+    decisive_counterargument: Just because Indonesia and China face pressing, large-scale
+      challenges does not mean that addressing the wounds from a 25‑year‑old event
+      is irrelevant or should be abandoned. The past can influence present conditions—unresolved
+      injustices can seed ongoing discrimination, make societies vulnerable to future
+      repression, and undermine the legitimacy of current reforms. Ignoring a specific
+      historical grievance simply because other problems exist ignores the potential
+      for these issues to be interlinked; in many cases, addressing past harms can
+      actually strengthen efforts to tackle contemporary inequality and repression.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Because Indonesia and China have significant and pressing
+      present problems, there is no need to focus on and heal the wounds of a 25‑year‑old
+      event that affected a small minority.
+    label_justification: The argument dismisses the importance of a past event by
+      asserting that it should be neglected in favor of more pressing contemporary
+      issues. This is precisely the structure of the *Appeal to Worse Problems* fallacy,
+      wherein a problem is considered unimportant or irrelevant solely because more
+      pressing problems exist.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I don't think people should focus so much on the past. Both Indonesia and China
+      have a lot of significant problems they're facing right now. There's ever-increasing
+      repression in both
+    - countries, inequality, suffering of all kinds. Is now the time to try to heal
+      the wounds of some 25 year old event that affected some small minority? That
+      is the
+    - sort of thing you try to do after you've solved the bigger problems.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly dismisses focusing on a 25‑year‑old historical
+    grievance by arguing that more pressing present problems (repression, inequality,
+    suffering) exist, matching the structure of an Appeal to Worse Problems fallacy.
+  decision_reason: The target’s reasoning prioritises current issues over past ones
+    solely because the former are deemed more urgent, which is precisely the structure
+    of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I don't think people should focus so much on the past. Both Indonesia and China
+    have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both
+  - countries, inequality, suffering of all kinds. Is now the time to try to heal
+    the wounds of some 25 year old event that affected some small minority? That is
+    the
+  - sort of thing you try to do after you've solved the bigger problems.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4705
+  completion_tokens: 3093
+  total_tokens: 7798
+  wall_time_seconds: 53.28100000001723

@@ -1,0 +1,116 @@
+sample:
+  id: 427:10578
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: I think it's fine for women to demand equal pay and power, but then what?
+    I can see the movement taking more and more, until women hold the power in society
+    and men will go on strike for equal representation. The article suggests this
+    movement is spreading to other areas other than media, so I think it's important
+    to make sure equality is achieved slowly and sensibly and doesn't slide into a
+    negative situation.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - women to demand equal pay and power
+    - movement taking more and more, until women hold the power in society
+    - men will go on strike for equal representation
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: women to demand equal pay and power
+    - role: intermediate_consequence
+      text: movement taking more and more, until women hold the power in society
+    - role: final_consequence
+      text: men will go on strike for equal representation
+    structure_complete: true
+    candidate: Slippery Slope
+  goal:
+    evidence_spans:
+    - the movement taking more and more, until women hold the power in society and
+      men will go on strike for equal representation.
+    conclusion_or_goal: Equality should be achieved slowly and sensibly and avoided
+      sliding into a negative situation.
+    candidate: Slippery Slope
+    supporting_reason: the movement taking more and more, until women hold the power
+      in society and men will go on strike for equal representation.
+    support_relation: provides a causal chain that justifies the cautious approach
+      to equality as a means of preventing a negative outcome.
+    label_justification: The speaker asserts a sequence of events—women’s increasing
+      power leading to men striking—for which no evidence is provided, portraying
+      it as inevitable. This speculation of an escalating problem from a single action
+      qualifies as a slippery slope argument.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - I can see the movement taking more and more, until women hold the power in society
+      and men will go on strike for equal representation.
+    decisive_counterargument: The claim that women demanding equal pay and power will
+      inevitably trigger a cascade in which women dominate society and men protest
+      lacks any evidence for such a causal chain. Equal pay and fair representation
+      can coexist without leading to one group exerting total dominance or the other
+      being compelled to strike. Without data or a proven mechanism linking deeper
+      equity to those extreme outcomes, the argument mere speculates a worsening state
+      that may never arise.
+    candidate: Slippery Slope
+    challenged_inference: Women demanding equality will inevitably result in women
+      gaining full societal power and men reacting by striking for equal representation,
+      creating a negative slide.
+    label_justification: The objection targets the argument’s reliance on an unfounded
+      gradual progression from a reasonable change (equal pay) to an extreme and undesirable
+      consequence (total imbalance and male strikes). This is precisely the structure
+      of a slippery‑slope fallacy—an asserted chain of events with no evidence for
+      each step.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  evidence_spans:
+  - I can see the movement taking more and more, until women hold the power in society
+    and men will go on strike for equal representation
+  decisive_condition: The target explicitly presents a causal chain from women demanding
+    equal pay and power to an extreme negative outcome (men striking) without evidence
+    for each step, satisfying the structural requirements of a slippery‑slope argument.
+  decision_reason: 'The target articulates a progressive claim: equal pay for women
+    → increased momentum of the movement → women attaining societal power → men striking
+    for equal representation, a negative consequence. The chain is asserted without
+    support, matching the definition of a slippery‑slope fallacy.'
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3759
+  completion_tokens: 3556
+  total_tokens: 7315
+  wall_time_seconds: 40.21900000004098

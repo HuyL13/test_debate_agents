@@ -1,0 +1,127 @@
+sample:
+  id: 192:5072
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: Censorship and strong hand ways have always been part of the Turkish way.
+    Nothing to see here. People should expect this to be the way, as it's always been,.
+  target: Just because it's been that way doesn't mean it has to continue being that
+    way. The Turkish people need to stand up to this using what little free speech
+    they have remaining or the consequences will be dire. The repression will only
+    grow further and further if it's not stopped before it's too late.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the repression is not stopped
+    - role: intermediate_consequence
+      text: the repression will only grow further and further
+    - role: final_consequence
+      text: the consequences will be dire
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Just because it's been that way doesn't mean it has to continue being that way.
+      The Turkish people need to stand up to this using what little free speech they
+    - have remaining or the consequences will be dire. The repression will only grow
+      further and further if it's not stopped before it's too late.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The Turkish people must act against ongoing repression to
+      prevent dire consequences.
+    candidate: null
+    supporting_reason: Failure to stop the growing repression will lead to increasingly
+      dire outcomes.
+    support_relation: supports
+    label_justification: The argument relies on a straightforward causal claim that
+      continued inaction will worsen repression, which is a legitimate reason for
+      the conclusion rather than a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Just because it's been that way doesn't mean it has to continue being that way.
+      The Turkish people need to stand up to this using what little free speech they
+    - have remaining or the consequences will be dire. The repression will only grow
+      further and further if it's not stopped before it's too late.
+  counterargument:
+    decisive_counterargument: The claim that not stopping repression will inevitably
+      lead to dire consequences relies on an unsubstantiated prediction. The passage
+      presents no evidence or logical link showing that free‑speech actions would
+      halt repression or that repression will worsen simply because it is not stopped
+      now.
+    candidate: null
+    challenged_inference: The supposed causal link between stopping free‑speech repression
+      and preventing a future escalation of repression.
+    label_justification: This objection exposes the absence of a valid causal argument
+      in the reasoning but does not directly map onto any of the specific fallacy
+      categories listed (e.g., no clear slippery‑slope progression, no appeal to authority
+      or tradition). Therefore a fallacy label cannot be assigned without assuming
+      a fallacy that is not present.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - have remaining or the consequences will be dire. The repression will only grow
+      further and further if it's not stopped before it's too late.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target contains a progressive escalation: refusing to stop
+    repression leads to its further growth and ultimately dire consequences, satisfying
+    the structure of a slippery‑slope argument.'
+  decision_reason: The target text presents an initial condition (repression will
+    be stopped or not), an intermediate consequence (repression will grow further),
+    and a final adverse outcome (dire consequences). This chain meets the required
+    structure of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Just because it's been that way doesn't mean it has to continue being that way.
+    The Turkish people need to stand up to this using what little free speech they
+  - have remaining or the consequences will be dire. The repression will only grow
+    further and further if it's not stopped before it's too late.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4180
+  completion_tokens: 3583
+  total_tokens: 7763
+  wall_time_seconds: 330.79699999999866

@@ -1,0 +1,115 @@
+sample:
+  id: 236:5506
+  article_id: 236
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: This is great to see so much support for the environment. It is necessary
+    that we protect our environment, why wouldn't we want to? Everyone needs the environment
+    to survive. The environment cannot be replaced once it is destroyed. We need to
+    take action now before irreperable damage is done.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is great to see so much support for the environment. It is necessary that
+      we protect our environment, why wouldn't we want to? Everyone needs the environment
+      to survive.
+    - The environment cannot be replaced once it is destroyed. We need to take action
+      now before irreperable damage is done.
+    candidate: null
+  goal:
+    conclusion_or_goal: We must protect the environment and take action now to avoid
+      irreversible damage.
+    candidate: null
+    supporting_reason: Everyone needs the environment to survive, the environment
+      cannot be replaced once destroyed, and irreparable damage will occur if action
+      is not taken.
+    support_relation: mechanism_supports_goal
+    label_justification: The passage provides legitimate reasons (necessary survival,
+      irreplaceability, urgency) to justify the conclusion; no logical fallacy is
+      present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is great to see so much support for the environment. It is necessary that
+      we protect our environment, why wouldn't we want to? Everyone needs the environment
+      to survive.
+    - The environment cannot be replaced once it is destroyed. We need to take action
+      now before irreperable damage is done.
+  counterargument:
+    decisive_counterargument: Even if the environment cannot be replaced once it is
+      destroyed, that does not logically entail that we must act now rather than later.
+      There are many ways communities can delay action and still mitigate harm (e.g.,
+      through adaptation, technology development, or phased policies). The inference
+      that “we need to take action now before irreparable damage is done” assumes
+      the only viable strategy is immediate action, which is not warranted by the
+      facts presented.
+    candidate: null
+    challenged_inference: We need to take action now before irreparable damage is
+      done
+    label_justification: No specific fallacy drawn from the supplied list is conclusively
+      present in the reasoning. The argument lacks an example of a deceptive sample-to-population
+      generalization, a clear chain of escalating consequences, a purely majority-based
+      claim, or a reliance on authority, tradition, nature, or worse problems. Therefore,
+      we cannot assign a fallacy label; the objection simply points out a probable
+      flaw in the logical chain.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is great to see so much support for the environment. It is necessary that
+      we protect our environment, why wouldn't we want to? Everyone needs the environment
+      to survive.
+    - The environment cannot be replaced once it is destroyed. We need to take action
+      now before irreperable damage is done.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2784
+  completion_tokens: 2978
+  total_tokens: 5762
+  wall_time_seconds: 171.125

@@ -1,0 +1,134 @@
+sample:
+  id: 550:8246
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: The UAE intends to get half its energy from renewable sources by 2050? That
+    bodes quite well for the region, as all the other Arab countries will follow suit,
+    of course. Since these countries tend to all be run in roughly the same way, the
+    success of the UAE will parlay easily into similar or even better outcomes among
+    its neighboring countries, which is going to be great for the planet!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the UAE
+    - role: observed_property
+      text: success of getting half its energy from renewable sources by 2050
+    - role: target_population
+      text: the other Arab countries (neighboring countries)
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The UAE intends to get half its energy from renewable sources by 2050? That
+      bodes quite well for the region, as all the other Arab countries will follow
+      suit, of
+    - course. Since these countries tend to all be run in roughly the same way, the
+      success of the UAE will parlay easily into similar or even better outcomes among
+      its
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That the UAE’s decision to aim for half its energy from renewables
+      by 2050 will prompt all neighboring Arab countries to do the same, leading to
+      improved outcomes for the planet.
+    candidate: Hasty Generalization
+    supporting_reason: Because these Arab countries tend to be run in roughly the
+      same way, the success of the UAE will parlay easily into similar or even better
+      outcomes among its neighboring countries.
+    support_relation: The reason is employed to justify the claim that UAE’s success
+      will automatically spread to other Arab nations and benefit the planet.
+    label_justification: The argument generalizes from one example (UAE’s policy)
+      to all Arab countries without providing sufficient evidence that they are indeed
+      similar enough for the success to transfer, which is characteristic of a hasty
+      generalization.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - course. Since these countries tend to all be run in roughly the same way, the
+      success of the UAE will parlay easily into similar or even better outcomes among
+      its
+  counterargument:
+    decisive_counterargument: There is no evidence that the governance, economic circumstances,
+      or energy priorities of other Arab states are identical to the UAE’s. Assuming
+      that because the UAE has set a renewable‑energy target, all neighboring countries
+      will automatically imitate it overlooks the significant political, economic,
+      and social differences among those nations. The claim therefore leaps from one
+      specific case to a sweeping generalization without supporting data.
+    candidate: Hasty Generalization
+    challenged_inference: The success of the UAE’s renewable‑energy plan will automatically
+      lead all other Arab countries to follow suit and achieve similar outcomes.
+    label_justification: The reasoning erroneously extrapolates from a single example
+      (the UAE) to a broad group (all Arab states), with no evidence of shared policy
+      mechanisms or motivations, which constitutes a classic hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The UAE intends to get half its energy from renewable sources by 2050? That
+      bodes quite well for the region, as all the other Arab countries will follow
+      suit, of
+    - course. Since these countries tend to all be run in roughly the same way, the
+      success of the UAE will parlay easily into similar or even better outcomes among
+      its
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target’s inference generalizes from the UAE’s renewable‑energy
+    target to all Arab countries, using the UAE as the lone sample and claiming that
+    all other states will automatically follow suit without evidence, which satisfies
+    the structure of a hasty generalization.
+  decision_reason: The argument incorrectly extrapolates from the UAE’s plan to the
+    entirety of Arab countries, fitting the pattern of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The UAE intends to get half its energy from renewable sources by 2050? That bodes
+    quite well for the region, as all the other Arab countries will follow suit, of
+  - course. Since these countries tend to all be run in roughly the same way, the
+    success of the UAE will parlay easily into similar or even better outcomes among
+    its
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4571
+  completion_tokens: 3491
+  total_tokens: 8062
+  wall_time_seconds: 144.98500000000058

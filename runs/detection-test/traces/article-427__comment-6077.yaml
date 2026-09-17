@@ -1,0 +1,141 @@
+sample:
+  id: 427:6077
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Why can't the higher ups in journalism circles in Spain help these women?
+    How about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+    he help stage an intervention? What year is it again?  It feels like Spain is
+    still in the dark ages.  These men have the power, and they should not ignore
+    the valid complaints of these women who should be treated as equals.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - How about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+      he help stage an intervention?
+    slots:
+    - role: authority
+      text: the former head of the Spanish Press Federation, Arsenio Escolar
+    - role: endorsed_claim
+      text: help stage an intervention
+    structure_complete: true
+    structure_type: authority_to_claim
+    candidate: Appeal to Authority
+  goal:
+    evidence_spans:
+    - These men have the power, and they should not ignore the valid complaints of
+      these women who should be treated as equals
+    conclusion_or_goal: The higher-ups in journalism circles in Spain should intervene
+      to help the women
+    candidate: null
+    supporting_reason: These men have the power, and they should not ignore the valid
+      complaints of these women who should be treated as equals
+    support_relation: direct justification
+    label_justification: The argument uses a straightforward causal relationship (having
+      power → responsibility to act) to justify the conclusion; no fallacy is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - These men have the power, and they should not ignore the valid complaints of
+      these women who should be treated as equals.
+    decisive_counterargument: While it is understandable to want those in authority
+      to act, the argument presumes that all men in journalism power positions automatically
+      possess both the capacity and the moral duty to intervene in every case, without
+      any evidence that they do or do not.  The absence of intervention cannot be
+      taken as proof of deliberate neglect; organizational constraints, ongoing investigations,
+      or alternative support mechanisms may be in place.  Therefore, the claim that
+      they “should not ignore” the complaints is a broad, unsubstantiated generalization
+      about the responsibilities of all higher‑ups in the field.
+    candidate: Hasty Generalization
+    challenged_inference: These men have the power, and they should not ignore the
+      valid complaints of these women who should be treated as equals.
+    label_justification: 'The objection demonstrates that the argument takes a specific
+      set of people (higher‑ups in journalism) and makes a sweeping claim (they must
+      and should intervene in all cases) without any supporting evidence that this
+      is indeed the case.  This is precisely the pattern of a hasty generalization:
+      a general rule about the whole class drawn from insufficient or nonrepresentative
+      evidence.  Since that inference is the core of the TARGET’s reasoning, confirming
+      the fallacy is warranted.'
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    evidence_spans:
+    - How about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+      he help stage an intervention?
+    - These men have the power, and they should not ignore the valid complaints of
+      these women who should be treated as equals.
+    decisive_test: 'The target cites a specific individual (Arsenio Escolar) as a
+      sample, then makes a broader claim that all men in journalism have power and
+      should not ignore complaints. This matches the structural pattern of a hasty
+      generalization: moving from a concrete example to a sweeping assertion about
+      a whole group. The appeal to authority claim is subservient and does not rely
+      on the authority’s credential to justify the claim, so the appeal-to-authority
+      fallacy is not directly supported.'
+    loser_failure: While the target also references an authority figure, it does not
+      use his status to assert the truth of a claim unmediated by evidence. The structure
+      of an appeal to authority fallacy is absent; the text instead supplies the authority
+      as a concrete instance from which a general rule is drawn, satisfying the hasty
+      generalization condition.
+arbiter:
+  selected_candidate: Hasty Generalization
+  verified: true
+  evidence_spans:
+  - These men have the power, and they should not ignore the valid complaints of these
+    women who should be treated as equals.
+  decisive_condition: alternatives_not_exhaustive
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 1
+  retries: 1
+  prompt_tokens: 4712
+  completion_tokens: 4975
+  total_tokens: 9687
+  wall_time_seconds: 268.6570000000065

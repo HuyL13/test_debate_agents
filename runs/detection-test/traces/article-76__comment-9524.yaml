@@ -1,0 +1,116 @@
+sample:
+  id: 76:9524
+  article_id: 76
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: It is educational to learn that the Taliban condemned these attacks along
+    with the Arg. I didn't realize how deep the Shiite/Sunni divide really goes in
+    terms of violent antipathy within Afghanistan.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is educational to learn that the Taliban condemned these attacks along with
+      the Arg. I didn't realize how deep the Shiite/Sunni divide really goes in terms
+      of violent antipathy
+    candidate: null
+  goal:
+    conclusion_or_goal: It is educational to learn that the Taliban condemned these
+      attacks along with the Arg.
+    candidate: Appeal to Authority
+    supporting_reason: I didn't realize how deep the Shiite/Sunni divide really goes
+      in terms of violent antipathy within Afghanistan.
+    support_relation: Using the Taliban’s condemnation as authority to emphasize the
+      depth of sectarian conflict, thereby justifying the statement’s educational
+      value.
+    label_justification: The comment cites the Taliban’s condemnation as a source
+      of authority to argue that learning this fact is educational, which is a typical
+      Appeal to Authority. No other fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is educational to learn that the Taliban condemned these attacks along with
+      the Arg. I didn't realize how deep the Shiite/Sunni divide really goes in terms
+      of violent antipathy
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The target statement makes no inferential claim; it merely
+      expresses that learning about the Taliban’s condemnation is educational. Because
+      no reasoning step is present, there is no logical fallacy to identify or attack,
+      so failure_exposed is false.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is educational to learn that the Taliban condemned these attacks along with
+      the Arg. I didn't realize how deep the Shiite/Sunni divide really goes in terms
+      of violent antipathy
+    - within Afghanistan.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target makes a subjective statement that learning the Taliban’s
+    condemnation is educational; it does not rely on the Taliban’s statement as evidence
+    or authority to support that claim, nor does it present a logical inference that
+    requires an expert endorsement. Therefore the alleged Appeal to Authority structure
+    is not present.
+  decision_reason: The target comment simply expresses a personal realization that
+    the Taliban’s condemnation of the attacks was informative. It does not use the
+    Taliban’s statement as an authoritative basis for justifying the educational value
+    of that knowledge, so no Appeal to Authority is committed.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is educational to learn that the Taliban condemned these attacks along with
+    the Arg. I didn't realize how deep the Shiite/Sunni divide really goes in terms
+    of violent antipathy
+  verified: false
+  rejection_reason: The target comment simply expresses a personal realization that
+    the Taliban’s condemnation of the attacks was informative. It does not use the
+    Taliban’s statement as an authoritative basis for justifying the educational value
+    of that knowledge, so no Appeal to Authority is committed.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3846
+  completion_tokens: 3290
+  total_tokens: 7136
+  wall_time_seconds: 43.09400000004098

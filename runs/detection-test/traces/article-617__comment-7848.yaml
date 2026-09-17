@@ -1,0 +1,141 @@
+sample:
+  id: 617:7848
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: Journalists should not be fearing for their lives just by doing their job.
+    It is unthinkable to consider that reporters are arrested, attacked and murdered
+    routinely in Cameroon. These sorts of threats and violence goes against all of
+    the natural world. It is completely unnatural and is repulsive to our natural
+    instincts. Instead we must protect these journalists as we would our own family.
+    This is what we must do as humans, it is only natural. Do you all agree on this
+    simple notion?
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It goes against all of the natural world. It is completely unnatural and
+        is repulsive to our natural instincts.
+    - role: evaluative_conclusion
+      text: Instead we must protect these journalists as we would our own family.
+        This is what we must do as humans, it is only natural.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - of threats and violence goes against all of the natural world. It is completely
+      unnatural and is repulsive to our natural instincts. Instead we must protect
+      these journalists as we
+    - would our own family. This is what we must do as humans, it is only natural.
+      Do you all agree on this simple notion?
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Journalists should not fear for their lives and therefore
+      must be protected.
+    candidate: Appeal to Nature
+    supporting_reason: Because such threats and violence against journalists go against
+      the natural world, they are completely unnatural and repulsive to natural instincts;
+      hence, as humans it is only natural to protect them as we would our own family.
+    support_relation: explanation
+    label_justification: The argument uses the premise that being threatened or harmed
+      is unnatural to imply that protecting journalists is the natural, correct moral
+      response, which is an appeal to nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - of threats and violence goes against all of the natural world. It is completely
+      unnatural and is repulsive to our natural instincts. Instead we must protect
+      these journalists as we
+    - would our own family. This is what we must do as humans, it is only natural.
+      Do you all agree on this simple notion?
+  counterargument:
+    decisive_counterargument: Saying that something is natural automatically makes
+      it morally required or right to act is a false premise; natural facts do not
+      determine ethical duties. Many natural occurrences—storms, disease, violence—are
+      harmful, yet that does not obligate us to endorse them or reject them. Therefore,
+      using the fact that protecting journalists feels natural to justify the action
+      is a flawed appeal to nature.
+    candidate: Appeal to Nature
+    challenged_inference: Because protecting journalists aligns with natural instincts,
+      we must protect them.
+    label_justification: The argument derives the moral imperative to protect journalists
+      solely from the claim that doing so is 'natural' or that violence against reporters
+      contradicts nature. This is the classic structure of an Appeal to Nature fallacy,
+      where a mere natural/unnatural status is taken as the basis for a normative
+      conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - of threats and violence goes against all of the natural world. It is completely
+      unnatural and is repulsive to our natural instincts. Instead we must protect
+      these journalists as we
+    - would our own family. This is what we must do as humans, it is only natural.
+      Do you all agree on this simple notion?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that threats to journalists are ‘unnatural’
+    and ‘repulsive to our natural instincts,’ and then concludes that protecting them
+    is ‘only natural,’ thereby linking a neutral natural status with a normative claim.
+    This matches the required structure of an appeal to nature (naturalness premise
+    + evaluative conclusion), and the argument uses this link as the basis for moral
+    action. Hence the argument commits an Appeal to Nature fallacy. The supporting
+    evidence is found in passages T2 and T3.
+  decision_reason: 'The target contains the complete nature_to_value structure: «…goes
+    against the natural world… it is completely unnatural…» (naturalness premise)
+    followed by «…protect…as we would our own family…it is only natural» (evaluative
+    conclusion). This is a classic appeal to nature, so the claim is fallacious.'
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - of threats and violence goes against all of the natural world. It is completely
+    unnatural and is repulsive to our natural instincts. Instead we must protect these
+    journalists as we
+  - would our own family. This is what we must do as humans, it is only natural. Do
+    you all agree on this simple notion?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4889
+  completion_tokens: 2589
+  total_tokens: 7478
+  wall_time_seconds: 119.88999999999942

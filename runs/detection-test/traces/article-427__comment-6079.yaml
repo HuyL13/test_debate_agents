@@ -1,0 +1,89 @@
+sample:
+  id: 427:6079
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Hopefully the country of Spain can provide women generalists opportunities
+    after they complete schooling. Currently it looks like their prospects are not
+    so bright. Pedro Sánchez, president of Spain is probably already working on this.
+    They can Institute new legislation in order to balance the field for women.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Pedro Sánchez, president of Spain is probably already working on this. They
+      can Institute new legislation in order to balance the field for women.
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - Pedro Sánchez, president of Spain is probably already working on this.
+    conclusion_or_goal: Spain can provide women generalists opportunities after schooling
+    candidate: null
+    supporting_reason: Pedro Sánchez, president of Spain is probably already working
+      on this.
+    support_relation: It is used to imply that because the president is already working
+      on improving women's opportunities, the country can provide such opportunities.
+    label_justification: The argument merely speculates that current policy activity
+      may lead to better opportunities; it does not employ a fallacy or unsupported
+      claim.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - Pedro Sánchez, president of Spain is probably already working on this
+    decisive_counterargument: There is no evidence that Pedro Sánchez has taken or
+      is taking any action on this matter, and even if he were, mere legislation may
+      not sufficiently address the complex barriers women face in the field.
+    candidate: Appeal to Authority
+    challenged_inference: Pedro Sánchez is probably already working on a legislation
+      to improve prospects for women generalists in Spain.
+    label_justification: The argument relies on the president’s authority to assert
+      that he is already addressing the issue without providing evidence, which is
+      an appeal to authority fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  verified: true
+  evidence_spans:
+  - Pedro Sánchez, president of Spain is probably already working on this.
+  decisive_condition: sample_to_general_claim
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3195
+  completion_tokens: 3874
+  total_tokens: 7069
+  wall_time_seconds: 219.9220000000205

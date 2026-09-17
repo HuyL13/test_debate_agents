@@ -1,0 +1,168 @@
+sample:
+  id: 489:10763
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: The President has said that he will take responsibility for the rape cases
+    of his troops. I am sure that as President, he would know best. However, judging
+    from the macho culture he is cultivating, I highly doubt that any rape victims
+    would see any real justice done under him.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: macho culture he is cultivating
+    - role: observed_property
+      text: any rape victims would not see any real justice done under him
+    - role: target_population
+      text: rape victims under him
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The speaker doubts that rape victims will receive real justice
+      under the President’s administration.
+    candidate: null
+    supporting_reason: Because the President is cultivating a macho culture, which
+      the speaker believes leads to a lack of justice for rape victims.
+    support_relation: The reason is directly used to support the conclusion that victims
+      will not see justice.
+    label_justification: The passage presents an opinion that links the President’s
+      macho culture to a potential failure in delivering justice. This is a straightforward
+      inferential claim; no fallacy is inherently committed, as the argument does
+      not transfer an unsupported premise or misrepresent an alternative. Therefore,
+      no fallacy label is warranted, and the reasoning genuinely supports the stated
+      conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+  counterargument:
+    decisive_counterargument: The argument claims that the President’s position, combined
+      with his macho culture, guarantees that rape victims will receive no justice.
+      This conclusion is drawn without any evidence linking the President’s authority
+      or cultural style to actual policy outcomes. An authority’s status does not,
+      by itself, predict the justice of their actions.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that because the President, as the head of
+      state, claims to take responsibility and cultivates a macho culture, rape victims
+      will not receive justice.
+    label_justification: The reasoning incorrectly uses the President’s role (and
+      related character traits) as a stand‑alone justification for the claim about
+      justice, which is the core of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The argument draws a broad negative conclusion about all rape victims
+      based on the President’s macho culture, which is a single aspect of his behavior.
+      This is a classic case of a hasty generalization—using a limited or peculiar
+      characteristic to make a general claim about a large population (rape victims).
+    loser_failure: The statement does not use the President’s authority as support
+      for the claim; it merely expresses doubt based on his macho culture. Thus it
+      does not exhibit an Appeal to Authority fallacy.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The comment draws a conclusion about all rape victims (the target
+    population) based on a single attribute of the President (macho culture), thereby
+    generalizing from one sample to an entire group without sufficient supporting
+    evidence. This meets the structural requirement of a sample-to-population hasty
+    generalization.
+  decision_reason: The target states that due to the President’s macho culture, any
+    rape victim would not see justice. This applies the President’s single characteristic
+    to all rape victims, forming a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The President has said that he will take responsibility for the rape cases of
+    his troops. I am sure that as President, he would know best. However, judging
+    from the
+  - macho culture he is cultivating, I highly doubt that any rape victims would see
+    any real justice done under him.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5332
+  completion_tokens: 4590
+  total_tokens: 9922
+  wall_time_seconds: 207.31200000003446

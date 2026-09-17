@@ -1,0 +1,198 @@
+sample:
+  id: 146:9734
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: I don't think people should focus so much on the past. Both Indonesia and
+    China have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both countries, inequality, suffering of all kinds. Is now the time
+    to try to heal the wounds of some 25 year old event that affected some small minority?
+    That is the sort of thing you try to do after you've solved the bigger problems.
+  target: I think something you may be missing here, is that by fixing this problem,
+    it helps lead to fixing those other problems you see as important. If people can
+    come to terms with something that harmed a minority several years ago, it can
+    help start healing some of that inequality and suffering. People working together
+    to get past differences is what will bring solutions to the problems you mentioned.
+    Turning a blind eye to the events of the past only drive a larger wedge between
+    the people that were harmed and the damage done by the terrible actions of the
+    Indonesians that perpetrated them. It could lead to the events being repeated,
+    which would be an even greater tragedy. This digital novel does a great job of
+    reminding people exactly what happened and why it should not happen again.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Turning a blind eye to the events of the past
+    - role: intermediate_consequence
+      text: it drives a larger wedge between the people that were harmed and the damage
+        done
+    - role: final_consequence
+      text: events may be repeated, leading to an even greater tragedy
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - what will bring solutions to the problems you mentioned. Turning a blind eye
+      to the events of the past only drive a larger wedge between the people that
+      were harmed
+    - and the damage done by the terrible actions of the Indonesians that perpetrated
+      them. It could lead to the events being repeated, which would be an even greater
+      tragedy. This
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The argument that addressing the past injustice will help
+      resolve current problems such as inequality and suffering.
+    candidate: null
+    supporting_reason: The target claims that fixing the historical injustice allows
+      people to come to terms with harms done to a minority, which in turn helps heal
+      broader social issues; working together to overcome past differences is presented
+      as a catalyst for solving current problems.
+    support_relation: direct causal inference
+    label_justification: The reasoning is used explicitly to support the conclusion
+      that addressing past wrongs will lead to better outcomes for current societal
+      issues; there is no evidence of a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think something you may be missing here, is that by fixing this problem, it
+      helps lead to fixing those other problems you see as important. If people can
+      come
+    - to terms with something that harmed a minority several years ago, it can help
+      start healing some of that inequality and suffering. People working together
+      to get past differences is
+    - what will bring solutions to the problems you mentioned. Turning a blind eye
+      to the events of the past only drive a larger wedge between the people that
+      were harmed
+  counterargument:
+    decisive_counterargument: The premise that ‘fixing this past wrong will automatically
+      help solve the wide‑range modern problems of inequality and suffering’ is an
+      unjustified generalization. No evidence is provided that addressing that specific
+      historical event has a causal link to the current social, economic or political
+      hardships facing Indonesia and China. The claim extrapolates from one isolated
+      case (the 1998 riots) to a broad set of unrelated contemporary issues, which
+      is typified by a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: That addressing the 1998 violence automatically leads to
+      healing inequality and solving current social problems.
+    label_justification: The objection directly contests the unwarranted causal jump
+      from a single historical instance to a wide range of present issues, which is
+      the hallmark of a hasty generalization fallacy. The counterargument shows the
+      lack of evidence and the over‑broad claim, thus supporting the label for a Hasty
+      Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think something you may be missing here, is that by fixing this problem, it
+      helps lead to fixing those other problems you see as important. If people can
+      come
+    - to terms with something that harmed a minority several years ago, it can help
+      start healing some of that inequality and suffering. People working together
+      to get past differences is
+    - what will bring solutions to the problems you mentioned. Turning a blind eye
+      to the events of the past only drive a larger wedge between the people that
+      were harmed
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: Slippery Slope
+    loser_failure: 'Explanation for the opposing fallacy (Hasty Generalization) incorrectly
+      assumes that the failure to address the 1998 violence leads to a continuous,
+      worsening series of consequences. However, the target argument explicitly presents
+      a chain of escalating negative outcomes: ignoring the past creates a larger
+      wedge, which may cause the events to be repeated and result in an even greater
+      tragedy, fitting the slippery‑slope pattern rather than a mere generalisation.'
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - what will bring solutions to the problems you mentioned. Turning a blind eye
+      to the events of the past only drive a larger wedge between the people that
+      were harmed
+    - and the damage done by the terrible actions of the Indonesians that perpetrated
+      them. It could lead to the events being repeated, which would be an even greater
+      tragedy. This
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target states a progression of adverse consequences—ignoring
+    the past widens societal division, which could lead to repeated events and an
+    even greater tragedy—satisfying the structural definition of a slippery-slope
+    argument. This causal chain is supported by evidence T3 and T4. No other fallacy
+    is present.
+  decision_reason: 'Evidence T3 and T4 attest to a stepwise escalation from turning
+    a blind eye to the events of the past to worsening social rifts, culminating in
+    further events that could cause greater tragedy. This outlines a slippery-slope
+    structure: initial action → intermediate consequence → final severe outcome.'
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - what will bring solutions to the problems you mentioned. Turning a blind eye to
+    the events of the past only drive a larger wedge between the people that were
+    harmed
+  - and the damage done by the terrible actions of the Indonesians that perpetrated
+    them. It could lead to the events being repeated, which would be an even greater
+    tragedy. This
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 7214
+  completion_tokens: 4091
+  total_tokens: 11305
+  wall_time_seconds: 165.2029999999795

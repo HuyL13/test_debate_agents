@@ -1,0 +1,179 @@
+sample:
+  id: 645:11231
+  article_id: 645
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: Facebook has always picked certain people or opinions they deem to be unacceptable,
+    and flag posts which contain or promote them. This is Facebook's culture and modus
+    operandi. It has been that way from the beginning. We can't be surprised and dismayed
+    that they are taking such actions now, given this is their long-standing practice,
+    rooted in their corporate culture. I would recommend moving to another platform.
+    But I wouldn't expect Facebook to change any more than an old tree might change
+    its bark. Traditions are very stubborn things.
+  target: And Facebook's culture is wrong.  Its really that simple.  Just because
+    it has always been done doesn't mean that it should be done.    Sometimes a tradition
+    is just stupid.     As Shirley Jackson pointed out in The Lottery.    And this
+    is really hurting people.   It warps history to fit a clean, sanitized narrative.   It
+    removes nuance and subtlety.    Proper representation of history is important.
+    Especially on our new communication platforms that are the main way people share
+    information these days.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Shirley Jackson pointed out in The Lottery.
+    - role: observed_property
+      text: Sometimes a tradition is just stupid.
+    - role: target_population
+      text: traditions
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Shirley Jackson pointed out in The Lottery.    And this is really hurting people.   It
+      warps history to fit a clean, sanitized narrative.   It removes nuance and subtlety.    Proper
+      representation of
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Facebook’s culture is wrong.
+    candidate: null
+    supporting_reason: Just because something has always been done doesn’t mean it
+      should be done; a tradition can be mistaken or harmful.
+    support_relation: The reason directly undermines the justification that tradition
+      alone warrants continued practice, thereby supporting the claim that Facebook’s
+      culture is wrong.
+    label_justification: The argument presents a correct counter to the appeal‑to‑tradition
+      claim, and the reason legitimately supports the conclusion; no fallacy is committed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And Facebook's culture is wrong.  Its really that simple.  Just because it has
+      always been done doesn't mean that it should be done.    Sometimes a tradition
+      is just stupid.     As
+    - Shirley Jackson pointed out in The Lottery.    And this is really hurting people.   It
+      warps history to fit a clean, sanitized narrative.   It removes nuance and subtlety.    Proper
+      representation of
+  counterargument:
+    decisive_counterargument: The target’s argument rests on the idea that “just because
+      it has always been done doesn’t mean it should.”  No evidence is provided that
+      Facebook’s historical practices are inherently harmful or that they distort
+      history.  Therefore the conclusion that Facebook’s culture is wrong relies solely
+      on treating the fact that the practice is traditional as a reason to reject
+      it, which is the classic *appeal to tradition* fallacy.  Without empirical support
+      that the tradition is detrimental, the claim is unjustified.
+    candidate: Appeal to Tradition
+    challenged_inference: Just because Facebook’s culture has always existed means
+      that it is wrong.
+    label_justification: The objection targets the reasoning that treats the mere
+      existence of a tradition as a sufficient reason for dismissal.  This matches
+      the definition of an Appeal to Tradition fallacy, as the target refuses to accept
+      the tradition on arguments of harm without evidence.  The counterargument demonstrates
+      that the reasoning fails because it relies on a blanket assumption rather than
+      on factual support.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - And Facebook's culture is wrong.  Its really that simple.  Just because it has
+      always been done doesn't mean that it should be done.    Sometimes a tradition
+      is just stupid.     As
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Tradition
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: The target explicitly asserts that just because a practice has
+      always existed does not make it correct, which is the hallmark of an Appeal
+      to Tradition.  No component of a Hasty Generalization—namely, a specific sample
+      leading to a blanket conclusion about a population—is present.  Therefore Appeal
+      to Tradition satisfies the mandatory structural condition whereas Hasty Generalization
+      does not.
+    loser_failure: Hasty Generalization requires an explicit sample that is then generalized
+      to an entire population.  In the target text, while a single tradition (“The
+      Lottery”) is mentioned, the argument never uses that example to infer a universal
+      property of all traditions or Facebook’s culture.  The claim “Sometimes a tradition
+      is just stupid” does not function as a sample-to-population inference; the text
+      merely states a general, vague assertion rather than a concrete extrapolation.  Consequently
+      the structure needed for Hasty Generalization is absent, making that label inapplicable.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - And Facebook's culture is wrong.  Its really that simple.  Just because it has
+      always been done doesn't mean that it should be done.    Sometimes a tradition
+      is just stupid.     As
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present the tradition as a reason for accepting
+    a practice; instead, it explicitly rejects tradition by saying it can be stupid
+    or harmful. The structure required for an Appeal to Tradition fallacy—using the
+    mere existence of a tradition as justification—is absent. Therefore no fallacy
+    is committed.
+  decision_reason: The target’s argument states that just because something has always
+    been done does not mean it is right; it does not invoke tradition to justify the
+    conclusion, violating the mandatory structural condition for Appeal to Tradition.
+    Hence the claim that the target commits this fallacy is unsupported.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - And Facebook's culture is wrong.  Its really that simple.  Just because it has
+    always been done doesn't mean that it should be done.    Sometimes a tradition
+    is just stupid.     As
+  verified: false
+  rejection_reason: The target’s argument states that just because something has always
+    been done does not mean it is right; it does not invoke tradition to justify the
+    conclusion, violating the mandatory structural condition for Appeal to Tradition.
+    Hence the claim that the target commits this fallacy is unsupported.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6559
+  completion_tokens: 4633
+  total_tokens: 11192
+  wall_time_seconds: 255.07800000000134

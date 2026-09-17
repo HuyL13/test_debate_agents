@@ -1,0 +1,110 @@
+sample:
+  id: 313:5736
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: The government only lies and covers up. That's why media is crucial to expose
+    things. It's why they always try to silence the free media.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+    candidate: null
+  goal:
+    conclusion_or_goal: Media is crucial to expose the government’s lies and to counter
+      attempts to silence free media.
+    candidate: Hasty Generalization
+    supporting_reason: The government only lies and covers up.
+    support_relation: The reason is presented as evidence that necessitates the existence
+      and function of media.
+    label_justification: The claim that the government “only lies and covers up” is
+      an overgeneralized, unsupported assertion applied to the entire institution,
+      which constitutes a hasty generalization used to justify the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+  counterargument:
+    decisive_counterargument: Your claim that the government only lies and covers
+      up is not supported by evidence and overgeneralizes all government actions as
+      deceitful, which is a hasty over‑generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The government only lies and covers up.
+    label_justification: The objection points out that the claim makes a sweeping
+      generalization about all government actions without supporting evidence. This
+      directly targets the reasoning flaw of Hasty Generalization, where a broad conclusion
+      is drawn from insufficient or no data for that conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: Missing explicit sample/case to support generalization
+  decision_reason: The target statement makes a sweeping claim that the entire government
+    only lies and covers up. However, it contains no explicit sample, case, or instance
+    from which this generalization is derived. Because a hasty generalization requires
+    a specific example or evidence to justify extending a conclusion to a broader
+    class, the structural condition for this fallacy is not met, so the statement
+    is not demonstrably fallacious under the hasty generalization form.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government only lies and covers up. That's why media is crucial to expose
+    things. It's why they always try to silence the free media.
+  verified: false
+  rejection_reason: The target statement makes a sweeping claim that the entire government
+    only lies and covers up. However, it contains no explicit sample, case, or instance
+    from which this generalization is derived. Because a hasty generalization requires
+    a specific example or evidence to justify extending a conclusion to a broader
+    class, the structural condition for this fallacy is not met, so the statement
+    is not demonstrably fallacious under the hasty generalization form.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3840
+  completion_tokens: 3031
+  total_tokens: 6871
+  wall_time_seconds: 206.79699999999866

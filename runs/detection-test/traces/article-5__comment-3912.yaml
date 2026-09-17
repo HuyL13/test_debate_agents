@@ -1,0 +1,109 @@
+sample:
+  id: 5:3912
+  article_id: 5
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: Everyone who knows about Japans criminal justice system knows its insane
+    and should be illegal. Even the tough on crime people in the US would say their
+    process for holding suspects with no bail, indefinitely is absurd. He had every
+    right to escape. I've read about this before and all the commenters agree that
+    their system is BROKEN.
+  target: Even if the system is broken does  that make it okay to just commit a crime
+    and leave the country? He still needs to pay for his crimes. This sets a dangerous
+    precedent. Instead there needs to be justice system reform.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Even if the system is broken does  that make it okay to just commit a crime
+      and leave the country? He still needs to pay for his crimes. This sets
+    - a dangerous precedent. Instead there needs to be justice system reform.
+    candidate: null
+  goal:
+    conclusion_or_goal: Justice system reform is necessary to prevent dangerous precedents,
+      such as criminals escaping without punishment.
+    candidate: null
+    supporting_reason: He still needs to pay for his crimes. This sets a dangerous
+      precedent.
+    support_relation: 'The reason explains why the current system is inadequate: because
+      it allows criminals to escape penalties, creating a dangerous precedent that
+      motivates reform.'
+    label_justification: The target presents a clear argumentative structure without
+      employing a logical fallacy; it identifies a problem (criminals escaping without
+      punishment) and justifies the conclusion (need for reform) through a reason
+      (dangerous precedent).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Even if the system is broken does  that make it okay to just commit a crime
+      and leave the country? He still needs to pay for his crimes. This sets
+    - a dangerous precedent. Instead there needs to be justice system reform.
+  counterargument:
+    decisive_counterargument: The claim that even if a criminal‑justice system is
+      flawed, an individual cannot justify escaping the authorities is a straightforward
+      moral and legal assertion, not a logically defective line of reasoning. It does
+      not rely on an unsupported leap from the state of the system to the permissibility
+      of wrongdoing; rather it asserts that obligations remain regardless of systemic
+      shortcomings. Thus the argument does not exhibit a discernible logical fallacy.
+    candidate: False Dilemma
+    challenged_inference: 'null'
+    label_justification: While the target implies an alternative outcome (system reforms
+      rather than escape), it does not present an exhaustive choice between only two
+      options, so it is not a false dilemma. The core line lacks a clear logical flaw.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Even if the system is broken does  that make it okay to just commit a crime
+      and leave the country? He still needs to pay for his crimes. This sets
+    - a dangerous precedent. Instead there needs to be justice system reform.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 5
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 2939
+  completion_tokens: 1598
+  total_tokens: 4537
+  wall_time_seconds: 63.06300000002375

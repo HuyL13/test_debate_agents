@@ -1,0 +1,140 @@
+sample:
+  id: 411:7231
+  article_id: 411
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Turkmenistan's internet censorship is no different from that of other authoritative
+    state. The reality seems like this is something that has to be tolerated, since
+    it either that or go without access. But, isn't censoring internet and stifling
+    freedom of expression like living without access? Wouldn't it be better to fight
+    for relaxed rules rather than accepting extreme censorship or no access, as if
+    those are the only choices?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: extreme censorship
+    - role: alternative_b
+      text: no access
+    - role: exhaustiveness_commitment
+      text: as if those are the only choices?
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - without access. But, isn't censoring internet and stifling freedom of expression
+      like living without access? Wouldn't it be better to fight for relaxed rules
+      rather than accepting extreme censorship or
+    - no access, as if those are the only choices?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: It would be better to fight for relaxed rules rather than
+      accepting extreme censorship or no access.
+    candidate: False Dilemma
+    supporting_reason: Censoring the internet is likened to living without access,
+      suggesting that extreme censorship or no access are undesirable options.
+    support_relation: The premise that censorship equates to living without access
+      is used to dismiss the only two presented choices (extreme censorship or no
+      access), thereby implying a third, preferable option (relaxed rules).
+    label_justification: The speaker constructs a false dilemma by portraying only
+      two extreme, undesirable options—extreme censorship or lacking access—while
+      tacitly advocating a third choice (relaxed rules). This misleads the reader
+      into thinking no viable alternatives exist beyond the two extremes.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - without access. But, isn't censoring internet and stifling freedom of expression
+      like living without access? Wouldn't it be better to fight for relaxed rules
+      rather than accepting extreme censorship or
+    - no access, as if those are the only choices?
+  counterargument:
+    decisive_counterargument: 'The reasoning incorrectly restricts the situation to
+      only two possibilities—accepting extreme censorship or losing all internet access.
+      In reality, governments can adopt a spectrum of approaches: gradual liberalization,
+      selective opening of certain services, legal challenges, diplomatic pressure,
+      or fostering independent civil society platforms. These alternatives blur the
+      rigid dichotomy presented, undermining the claim that the only viable strategies
+      are the two extreme positions.'
+    candidate: False Dilemma
+    challenged_inference: The assumption that the only options are extreme censorship
+      or complete loss of internet access.
+    label_justification: The objection demonstrates that the inference relies on a
+      false dilemma by presenting a limited set of exclusive choices. The argument
+      fails to recognize other intermediate or alternative strategies, satisfying
+      the criteria for a false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Turkmenistan's internet censorship is no different from that of other authoritative
+      state. The reality seems like this is something that has to be tolerated, since
+      it either that or go
+    - without access. But, isn't censoring internet and stifling freedom of expression
+      like living without access? Wouldn't it be better to fight for relaxed rules
+      rather than accepting extreme censorship or
+    - no access, as if those are the only choices?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents only two alternatives—extreme
+    censorship or no access—and asserts that these are the only choices, thereby creating
+    a false dilemma by excluding other possible options.
+  decision_reason: The argument states that accepting extreme censorship or losing
+    all internet access are the only options, while advocating a third – fighting
+    for relaxed rules – as the preferable alternative. This exclusive framing of only
+    two options and the claim that they are exhaustive satisfies the structural requirements
+    for a false dilemma.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - without access. But, isn't censoring internet and stifling freedom of expression
+    like living without access? Wouldn't it be better to fight for relaxed rules rather
+    than accepting extreme censorship or
+  - no access, as if those are the only choices?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4807
+  completion_tokens: 3387
+  total_tokens: 8194
+  wall_time_seconds: 173.0470000000205

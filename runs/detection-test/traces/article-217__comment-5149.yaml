@@ -1,0 +1,128 @@
+sample:
+  id: 217:5149
+  article_id: 217
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: It seems that you didn't Tobago's election process needs to be overhauled.
+    I'm not sure how far they have to go, but it seems like there are some things
+    that need to be addressed. Every political candidate should have their background
+    apparently inspected. This could lead to a more trustworthy political process
+    for those countries.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that you didn't Tobago's election process needs to be overhauled. I'm
+      not sure how far they have to go, but it seems like there are some things that
+    - need to be addressed. Every political candidate should have their background
+      apparently inspected. This could lead to a more trustworthy political process
+      for those countries.
+    candidate: null
+  goal:
+    conclusion_or_goal: The comment argues that Tobago’s election process should be
+      overhauled, specifically calling for the background inspection of every political
+      candidate to make the process more trustworthy.
+    candidate: null
+    supporting_reason: Every political candidate should have their background inspected.
+      This could lead to a more trustworthy political process for those countries.
+    support_relation: The suggested background inspection is presented as a reason
+      that supports the author’s conclusion that Tobago’s election system needs overhauling.
+    label_justification: The argument does not commit any of the specified logical-fallacy
+      categories (e.g., hasty generalization, slippery slope, false dilemma, etc.).
+      The statement is a normative claim about a policy and its purported outcome,
+      but it does not contain the structure of the given fallacies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that you didn't Tobago's election process needs to be overhauled. I'm
+      not sure how far they have to go, but it seems like there are some things that
+    - need to be addressed. Every political candidate should have their background
+      apparently inspected. This could lead to a more trustworthy political process
+      for those countries.
+  counterargument:
+    decisive_counterargument: The assertion that “Every political candidate should
+      have their background inspected” will automatically make the political process
+      more trustworthy is an unsupported blanket claim.  There is no evidence presented
+      that such inspections actually lower corruption or increase voter confidence,
+      nor is it shown that all candidates’ backgrounds are relevant or that this measure
+      would function uniformly across different contexts.  The argument therefore
+      generalizes from a single observation about the need for overhaul to a universal
+      solution without adequate justification.
+    candidate: Hasty Generalization
+    challenged_inference: that inspecting all candidates’ backgrounds will inherently
+      lead to a more trustworthy political process for all countries
+    label_justification: The objection targets an unsupported universal claim drawn
+      from a limited premise – a classic hasty generalization – where the argument
+      promotes a blanket solution (“every candidate inspected”) based on insufficient
+      evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - need to be addressed. Every political candidate should have their background
+      apparently inspected. This could lead to a more trustworthy political process
+      for those countries.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target text does not contain the requisite structure of
+    a hasty generalization—there is no explicit limited sample or observed cases being
+    generalized to all political candidates. The claim that all candidates’ backgrounds
+    should be inspected is a normative recommendation, not a conclusion drawn from
+    specific evidence. Consequently, the surviving hypothesis of Hasty Generalization
+    is unsupported by the target passage.
+  decision_reason: The mandatory structural condition for a hasty generalization (sample→broader
+    claim) is not met; therefore the hypothesis is rejected.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - need to be addressed. Every political candidate should have their background apparently
+    inspected. This could lead to a more trustworthy political process for those countries.
+  verified: false
+  rejection_reason: The mandatory structural condition for a hasty generalization
+    (sample→broader claim) is not met; therefore the hypothesis is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4092
+  completion_tokens: 2926
+  total_tokens: 7018
+  wall_time_seconds: 134.9529999999795

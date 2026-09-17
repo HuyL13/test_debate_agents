@@ -1,0 +1,138 @@
+sample:
+  id: 470:8606
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: People being allowed to express themselves is vital but not everyone is
+    funny. People need to be able to post funny memes that appeal to the masses and
+    not depressing ones that reflect our reality. There are only two types of memes,
+    funny or depressing.
+  target: I agree. Comics have a long standing rule that states a good joke makes
+    you the target and not the audience. It's sad to see that tradition go away for
+    cheap laughs at someone elses' expense. I am not sure when that was lost in the
+    comedy world, but it had its costs. It could dramatically alter the comic genre
+    and not for the better. Remember the days when comedians would push the boundaries
+    of their imaginations for a creative and non-insulting punchline? Now that was
+    real entertainment! What do you think?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T1
+    - role: preservation_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree. Comics have a long standing rule that states a good joke makes you
+      the target and not the audience. It's sad to see that tradition go away for
+    - cheap laughs at someone elses' expense. I am not sure when that was lost in
+      the comedy world, but it had its costs. It could dramatically alter the comic
+      genre
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The speaker is urging that the comic genre retain its traditional
+      style of humor—where a joke targets the audience rather than resorts to cheap
+      insults—and warns that abandoning this tradition would harm the genre.
+    candidate: Appeal to Tradition
+    supporting_reason: Comics have a long‑standing rule that a good joke makes you
+      the target and not the audience; this tradition should not disappear.
+    support_relation: The long‑standing rule is invoked as a justification for preferring
+      traditional, non‑insulting punchlines and for warning against a shift toward
+      cheap laughs at someone else’s expense.
+    label_justification: The argument appeals to the mere existence of a tradition
+      to claim that the current comedic style is preferable and that its loss would
+      be detrimental, without other substantive evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree. Comics have a long standing rule that states a good joke makes you
+      the target and not the audience. It's sad to see that tradition go away for
+    - cheap laughs at someone elses' expense. I am not sure when that was lost in
+      the comedy world, but it had its costs. It could dramatically alter the comic
+      genre
+    - and not for the better. Remember the days when comedians would push the boundaries
+      of their imaginations for a creative and non-insulting punchline? Now that was
+      real entertainment! What do
+  counterargument:
+    decisive_counterargument: There is no evidence that such a rule existed in comic
+      tradition; many comics successfully target the audience rather than the speaker
+      and have done so for centuries.
+    candidate: Appeal to Tradition
+    challenged_inference: The claim that comics have a long‑standing rule that a good
+      joke should target the speaker rather than the audience.
+    label_justification: The argument rests on an alleged historical rule to justify
+      maintaining a particular comedic style, which is precisely the appeal to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree. Comics have a long standing rule that states a good joke makes you
+      the target and not the audience. It's sad to see that tradition go away for
+    - cheap laughs at someone elses' expense. I am not sure when that was lost in
+      the comedy world, but it had its costs. It could dramatically alter the comic
+      genre
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target presents a traditional rule in comic humor (‘a good
+    joke makes you the target and not the audience’) and concludes that abandoning
+    this tradition would be detrimental (‘it could dramatically alter the comic genre
+    and not for the better’), which fulfills the structural requirement for an appeal
+    to tradition.
+  decision_reason: The argument invokes a presumed long‑existing rule in comedy to
+    argue that the current style should be preserved, without providing other substantive
+    evidence. This matches the definition of an appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree. Comics have a long standing rule that states a good joke makes you the
+    target and not the audience. It's sad to see that tradition go away for
+  - cheap laughs at someone elses' expense. I am not sure when that was lost in the
+    comedy world, but it had its costs. It could dramatically alter the comic genre
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5264
+  completion_tokens: 3561
+  total_tokens: 8825
+  wall_time_seconds: 169.31299999999464

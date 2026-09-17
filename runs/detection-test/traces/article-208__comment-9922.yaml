@@ -1,0 +1,182 @@
+sample:
+  id: 208:9922
+  article_id: 208
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: Staring at slavery feels like people think black people should sit and stare
+    at the past. And relive traumatic events? People used to understand what had happened,
+    and live with it without constantly bringing it up. The people now are not as
+    strong as previous generations. At least not emotionally.
+  target: That is what is neat about art. People can look at it and take different
+    things away from it. I am sure that there may be some people that are not aware
+    of the history of the Caribbean islands and works like this one may be an avenue
+    for people to understand the roads that led to the way the region operates now,
+    and not some fairy tale. It is good to remind the people of the past so bad things
+    that happened do not happen again for instance. Not every culture has a fairy
+    tale history to fall back on and remember fondly. This artist is taking an opportunity
+    to educate and remind people of not only what has happened, but what CAN happen
+    even though hard times came before, without buffering it or softening it to comfort
+    the masses. It is inspirational in my opinion to see this artist take such care
+    to do such a thing that way. It gives people a glimpse into how the Caribbean
+    that we know today got to where it is.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That is what is neat about art. People can look at it and take different things
+      away from it. I am sure that there may be some people that are
+    - not aware of the history of the Caribbean islands and works like this one may
+      be an avenue for people to understand the roads that led to the way the
+    - region operates now, and not some fairy tale. It is good to remind the people
+      of the past so bad things that happened do not happen again for instance. Not
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker claims that art serves to educate and remind people
+      about the Caribbean's history, providing a perspective that goes beyond fairy
+      tales and aids in preventing past mistakes.
+    candidate: Appeal to Authority
+    supporting_reason: The speaker posits that art can educate, reminding people of
+      past events so they do not recur.
+    support_relation: By invoking the educational power of art, the speaker justifies
+      valuing it as a tool for historical awareness.
+    label_justification: The argument lacks a clear appeal to an authority; it is
+      an opinion about art's role rather than a fallacious claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    - T5
+    evidence_spans:
+    - That is what is neat about art. People can look at it and take different things
+      away from it. I am sure that there may be some people that are
+    - region operates now, and not some fairy tale. It is good to remind the people
+      of the past so bad things that happened do not happen again for instance. Not
+    - happened, but what CAN happen even though hard times came before, without buffering
+      it or softening it to comfort the masses. It is inspirational in my opinion
+      to see this
+  counterargument:
+    decisive_counterargument: The argument assumes that a single artwork will universally
+      educate people who are currently unaware of Caribbean history and thus prevent
+      future negative events. It extrapolates from an unstated, limited sample (the
+      artist’s work) to a sweeping claim about the entire population—a classic hasty
+      generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Assumes that one artwork’s educational potential will apply
+      to all people who are currently unaware of the region’s history without providing
+      evidence of its broader reach or efficacy.
+    label_justification: The objection points out that the argument leaps from the
+      idea that a single piece of art could educate a diverse, widespread audience
+      to a universal claim about its impact, which exemplifies a hasty generalization.
+      This demonstrates a specific reasoning failure rather than merely criticism
+      of the argument’s style.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T4
+    evidence_spans:
+    - not aware of the history of the Caribbean islands and works like this one may
+      be an avenue for people to understand the roads that led to the way the
+    - every culture has a fairy tale history to fall back on and remember fondly.
+      This artist is taking an opportunity to educate and remind people of not only
+      what has
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: Appeal to Authority would require an explicit reference to an authority
+      or expert, which the target does not contain.
+    evidence_ids:
+    - T2
+    - T4
+    evidence_spans:
+    - not aware of the history of the Caribbean islands and works like this one may
+      be an avenue for people to understand the roads that led to the way the
+    - every culture has a fairy tale history to fall back on and remember fondly.
+      This artist is taking an opportunity to educate and remind people of not only
+      what has
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage does not contain a clear universal claim
+    extrapolated from a single sample that satisfies the structural requirements of
+    a hasty generalization. It merely suggests that a particular artwork could serve
+    as an educational avenue for some people unaware of Caribbean history, without
+    asserting that the artwork will universally educate the entire group. Therefore,
+    the surviving candidate lacks the mandated structural evidence to be deemed fallacious.
+  decision_reason: The target does not present a sweeping generalization based on
+    a limited sample; it refrains from universally asserting the artwork’s effectiveness
+    for everyone. Consequently, no fallacious reasoning is identified, and no candidate
+    is selected.
+  evidence_ids:
+  - T2
+  - T4
+  evidence_spans:
+  - not aware of the history of the Caribbean islands and works like this one may
+    be an avenue for people to understand the roads that led to the way the
+  - every culture has a fairy tale history to fall back on and remember fondly. This
+    artist is taking an opportunity to educate and remind people of not only what
+    has
+  verified: false
+  rejection_reason: The target does not present a sweeping generalization based on
+    a limited sample; it refrains from universally asserting the artwork’s effectiveness
+    for everyone. Consequently, no fallacious reasoning is identified, and no candidate
+    is selected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 7703
+  completion_tokens: 3037
+  total_tokens: 10740
+  wall_time_seconds: 57.125

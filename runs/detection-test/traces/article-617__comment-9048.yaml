@@ -1,0 +1,152 @@
+sample:
+  id: 617:9048
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: Any sane human being should be horrified by these journalists losing their
+    lives for telling the truth, but we must face a larger problem, that of deaths
+    from poverty in Cameroon. Thousands of people die from not having enough food
+    and clean water in Cameroon every single year. That seems like a much more urgent
+    problem that the admittedly horrific murder of a few journalists, and we must
+    slay the giant before battling the elves.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Any sane human being should be horrified by these journalists losing their
+        lives for telling the truth
+    - role: worse_issue
+      text: Thousands of people die from not having enough food and clean water in
+        Cameroon every single year
+    - role: deprioritizing_conclusion
+      text: and we must slay the giant before battling the elves
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Any sane human being should be horrified by these journalists losing their lives
+      for telling the truth, but we must face a larger problem, that of deaths from
+      poverty in
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+    - murder of a few journalists, and we must slay the giant before battling the
+      elves.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Focus attention on deaths from poverty in Cameroon as more
+      urgent than the murders of journalists.
+    candidate: null
+    supporting_reason: Poverty-related deaths are far more numerous and urgent than
+      the murders of a few journalists, thereby warranting priority.
+    support_relation: The urgency claim is used to justify shifting focus from the
+      journalists’ deaths to the broader issue of poverty-related deaths.
+    label_justification: The TARGET argues that, although journalist deaths are tragic,
+      the larger problem of poverty-related deaths is more urgent and therefore should
+      command greater attention. This is a legitimate comparative claim; no fallacious
+      reasoning is employed. The argument does not commit a false dilemma, hasty generalization,
+      slippery slope, or appeal to authority. Thus no fallacy label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Any sane human being should be horrified by these journalists losing their lives
+      for telling the truth, but we must face a larger problem, that of deaths from
+      poverty in
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+    - murder of a few journalists, and we must slay the giant before battling the
+      elves.
+  counterargument:
+    decisive_counterargument: The argument makes a false comparison, implying that
+      we must choose to address the deaths caused by poverty before protecting journalists,
+      when in reality both are serious and can simultaneously require attention. It
+      presents only two competing priorities and forces a choice of which problem
+      to address first, ignoring the possibility that resources can be mobilized to
+      address both.
+    candidate: False Dilemma
+    challenged_inference: Only a single major problem needs to be addressed; the deaths
+      of journalists can be ignored in favor of the broader issue of poverty-related
+      mortality.
+    label_justification: The reasoning limits the options to two mutually exclusive
+      choices—‘focus on poverty’ or ‘focus on journalist safety’—and forces a selection
+      based on an unsupported urgency claim. This restriction of alternatives without
+      justification is the hallmark of a false dilemma.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Any sane human being should be horrified by these journalists losing their lives
+      for telling the truth, but we must face a larger problem, that of deaths from
+      poverty in
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: Target explicitly contrasts the deaths of journalists with the
+    larger problem of deaths from poverty in Cameroon and concludes the journalist
+    issue is less urgent, thereby presenting a worse‑problem fallacy.
+  decision_reason: The target states that the deaths from poverty are a much more
+    urgent problem than the murders of journalists, and then urges that attention
+    should be focused on the larger issue, matching the structure of an Appeal to
+    Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Any sane human being should be horrified by these journalists losing their lives
+    for telling the truth, but we must face a larger problem, that of deaths from
+    poverty in
+  - Cameroon. Thousands of people die from not having enough food and clean water
+    in Cameroon every single year. That seems like a much more urgent problem that
+    the admittedly horrific
+  - murder of a few journalists, and we must slay the giant before battling the elves.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4348
+  completion_tokens: 3777
+  total_tokens: 8125
+  wall_time_seconds: 173.7809999999954

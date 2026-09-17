@@ -1,0 +1,123 @@
+sample:
+  id: 442:7322
+  article_id: 442
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: This is the perfect example of someone using their fame for good. he is
+    singing about what he believes in and therefore can make change with art.
+  target: Yeah, its a shame more celebs don't use their fame for anything other than
+    enriching themselves. I wonder if this guy will actually make his country enact
+    any significant changes. I hope so. If he brings enough attention to injustice,
+    those people who love him can vote to make a difference. He'd be a hero.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yeah, its a shame more celebs don't use their fame for anything other than enriching
+      themselves. I wonder if this guy will actually make his country enact any significant
+      changes.
+    - I hope so. If he brings enough attention to injustice, those people who love
+      him can vote to make a difference. He'd be a hero.
+    candidate: null
+  goal:
+    conclusion_or_goal: The singer will become a hero by inspiring his fans to take
+      action that leads to significant change in his country.
+    candidate: null
+    supporting_reason: If he brings enough attention to injustice, those people who
+      love him can vote to make a difference.
+    support_relation: 'cutting: the proposed causal chain (attention → voter action
+      → societal change) is used to justify the claim that the singer’s influence
+      will elevate him to hero status.'
+    label_justification: The target comment does not employ a recognisable logical
+      fallacy; it states a hopeful causal chain but does not misuse any logical principle.
+      Therefore the appropriate label is null.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yeah, its a shame more celebs don't use their fame for anything other than enriching
+      themselves. I wonder if this guy will actually make his country enact any significant
+      changes.
+    - I hope so. If he brings enough attention to injustice, those people who love
+      him can vote to make a difference. He'd be a hero.
+  counterargument:
+    decisive_counterargument: The target’s claim that “most celebrities only use their
+      fame to enrich themselves” is asserted without evidence or a representative
+      sample; it assumes a whole population’s behavior based on an unqualified remark.
+      This is precisely a hasty generalization, as it draws a broad conclusion about
+      all celebrities from a single, unsupported statement.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that celebrities’ predominant use of fame
+      is self‑enrichment, as expressed in the sentence “Yeah, its a shame more celebs
+      don’t use their fame for anything other than enriching themselves.”
+    label_justification: The objection shows that this inference lacks supporting
+      evidence and is extrapolated from an unqualified claim, fitting the definition
+      of a Hasty Generalization—an explicit sample or anecdote should back a broader
+      claim, which is missing here.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Yeah, its a shame more celebs don't use their fame for anything other than enriching
+      themselves. I wonder if this guy will actually make his country enact any significant
+      changes.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target’s general statement about all celebrities lacks an
+    explicit sample or anecdote from which to generalize, violating the structural
+    requirement for a hasty generalization. Without such a sample, the claim is an
+    unsupported broad assertion rather than a fallacious inference.
+  decision_reason: The target does not meet the required structure of a hasty generalization,
+    so the candidate is rejected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Yeah, its a shame more celebs don't use their fame for anything other than enriching
+    themselves. I wonder if this guy will actually make his country enact any significant
+    changes.
+  verified: false
+  rejection_reason: The target does not meet the required structure of a hasty generalization,
+    so the candidate is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4233
+  completion_tokens: 4855
+  total_tokens: 9088
+  wall_time_seconds: 201.89000000001397

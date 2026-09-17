@@ -1,0 +1,175 @@
+sample:
+  id: 565:8892
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: While this is an important topic and it deserves some play there are much
+    bigger things going on. We need to make sure that democracy is at the front of
+    the citizens minds. That way freedom of speech and press will prevail. We can't
+    let little things take over our minds, we need the big topics to stay out front.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the important topic
+    - role: worse_issue
+      text: democracy
+    - role: deprioritizing_conclusion
+      text: prioritizing big topics over the small one so that democracy stays at
+        the front of mind, preventing little things from taking over
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The target argues that people should prioritize thinking about
+      democracy—placing it at the front of their minds—so that freedom of speech and
+      press will prevail, implying that focusing on less important topics will allow
+      them to be eclipsed.
+    candidate: null
+    supporting_reason: 'The target presents a causal claim: if democracy is prioritized
+      cognitively, freedom of speech and press will succeed; if not, less important
+      topics will dominate and undermine democratic outcomes.'
+    support_relation: The causal reasoning is intended to justify the priority of
+      democratic thought over other concerns. No fallacious reasoning structure (e.g.,
+      false dilemma, appeal to authority, etc.) is evident. The argument is a straightforward
+      value-based causal claim rather than a logical fallacy.
+    label_justification: The argument does not employ a recognized logical fallacy;
+      it merely asserts a cause‑effect premise and a corresponding policy stance.
+      Therefore, no fallacy label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+  counterargument:
+    decisive_counterargument: 'The author’s claim reduces the spectrum of how we can
+      arrange our civic concerns into only two options: either we give priority to
+      the broad aims of democracy so that freedom of speech and press prevail, or
+      we allow lesser issues to dominate our thinking. This is a classic false dilemma
+      because it ignores many possible ways of balancing concerns—such as addressing
+      several important topics simultaneously or giving modest attention to smaller
+      issues while still preserving democratic values.'
+    candidate: False Dilemma
+    challenged_inference: The claim that only focusing on big topics can prevent little
+      issues from taking over the public mind, implying a binary choice between democracy
+      dominance and ignorance of smaller matters.
+    label_justification: The counterargument demonstrates that the target’s reasoning
+      presents a false dilemma by restricting the set of acceptable options to a binary,
+      whereas in reality multiple balanced approaches exist, hence the inference is
+      flawed.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: False Dilemma fails because the target does not present an explicit
+      binary choice between two mutually exclusive options; it merely suggests that
+      bigger issues like democracy should be prioritized over smaller ones, without
+      claiming that this is the only permissible way of thinking. Therefore the mandatory
+      structural condition of a false dilemma—claiming a finite set of mutually exclusive
+      options—is not satisfied by the target passage. The target lacks the restrictive
+      “either/or” framing required for a false dilemma, whereas it does exhibit the
+      key structure of an appeal to worse problems by highlighting a larger matter
+      (democracy, freedom of speech) to justify deprioritizing smaller concerns.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly claims that because a more serious issue
+    (democracy and the protection of freedom of speech and press) exists, a smaller
+    topic should be given less priority, satisfying the structure of using a worse
+    problem to dismiss another.
+  decision_reason: The passage uses the existence of the larger, more crucial issue
+    of democracy to argue that a lesser topic should be deprioritized, which matches
+    the definition of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - While this is an important topic and it deserves some play there are much bigger
+    things going on. We need to make sure that democracy is at the front of
+  - the citizens minds. That way freedom of speech and press will prevail. We can't
+    let little things take over our minds, we need the big topics to stay out front.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5520
+  completion_tokens: 5218
+  total_tokens: 10738
+  wall_time_seconds: 260.06299999999464

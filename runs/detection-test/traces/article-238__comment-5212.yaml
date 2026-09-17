@@ -1,0 +1,124 @@
+sample:
+  id: 238:5212
+  article_id: 238
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: Why are there so many Iranians focused on a war in a foreign country? I
+    think they have enough problems at home to worry about. I guess they need a distraction
+    from all the human rights abuses and protests that are going on.
+  target: I agree with you. Seems that there must be more going on then what we know
+    about otherwise it really makes no sense that they are getting involved in yet
+    another hot situation. I think they feel they can get involved in whatever they
+    want due to the fact they are nuclear armed.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you. Seems that there must be more going on then what we know about
+      otherwise it really makes no sense that they are getting involved in yet
+    - another hot situation. I think they feel they can get involved in whatever they
+      want due to the fact they are nuclear armed.
+    candidate: null
+  goal:
+    conclusion_or_goal: Iranians feel they can involve themselves in foreign conflicts
+      because Iran is nuclear armed.
+    candidate: null
+    supporting_reason: Iran’s possession of nuclear weapons justifies involvement
+    support_relation: mechanism_supports_goal
+    label_justification: The argument presents a causal claim (nuclear status enables
+      involvement) that serves the conclusion; no recognized fallacy pattern is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - another hot situation. I think they feel they can get involved in whatever they
+      want due to the fact they are nuclear armed.
+  counterargument:
+    decisive_counterargument: The conclusion that Iran can intervene in any conflict
+      simply because it is nuclear‑armed is unsupported by any real evidence. Nuclear
+      possession does not automatically endow a state with the political will, diplomatic
+      means, or international legitimacy to act as it wishes abroad; Iran faces sanctions,
+      regional rivalries, internal opposition, and international law that constrain
+      it. Thus the leap from one fact (nuclear status) to a sweeping claim (unrestricted
+      intervention) is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: They can get involved in whatever they want due to the fact
+      they are nuclear armed.
+    label_justification: 'The objection demonstrates that the argument generalizes
+      from the single fact that Iran is nuclear‑armed to a broad claim about its abilities,
+      without considering other limits. This is a classic hasty generalization: drawing
+      a universal conclusion about a state''s actions from one characteristic.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you. Seems that there must be more going on then what we know about
+      otherwise it really makes no sense that they are getting involved in yet
+    - another hot situation. I think they feel they can get involved in whatever they
+      want due to the fact they are nuclear armed.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target includes an inference that Iran can intervene in
+    any conflict simply because it is nuclear‑armed, which is a broad claim drawn
+    from a single characteristic (nuclear possession) without evidence of causal connection
+    or other factors. This fits the structural form of a hasty generalization (from
+    a single observed fact to a universal conclusion).
+  decision_reason: The Claim that nuclear status alone gives Iran unlimited ability
+    to intervene is a hasty generalization. The target’s argument makes a sweeping
+    generalization based on one fact (being nuclear armed) without considering other
+    relevant constraints or evidence. This matches the required structure for the
+    Hasty Generalization fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree with you. Seems that there must be more going on then what we know about
+    otherwise it really makes no sense that they are getting involved in yet
+  - another hot situation. I think they feel they can get involved in whatever they
+    want due to the fact they are nuclear armed.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4279
+  completion_tokens: 2930
+  total_tokens: 7209
+  wall_time_seconds: 179.51500000001397

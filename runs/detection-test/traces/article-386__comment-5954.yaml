@@ -1,0 +1,97 @@
+sample:
+  id: 386:5954
+  article_id: 386
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: These are a serious matter and must be treated as such. The government must
+    be transparent.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - These are a serious matter and must be treated as such. The government must
+      be transparent.
+    candidate: null
+  goal:
+    conclusion_or_goal: The government must be transparent regarding the serious matter.
+    candidate: null
+    supporting_reason: These are a serious matter and must be treated as such.
+    support_relation: provides justification for
+    label_justification: The statement presents a straightforward claim and a supporting
+      reason that the seriousness of the matter warrants governmental transparency.
+      No fallacious reasoning or invalid inference is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - These are a serious matter and must be treated as such. The government must
+      be transparent.
+  counterargument:
+    decisive_counterargument: 'The claim that seriousness of events automatically
+      mandates government transparency commits a non‑sequitur: the premise that ‘these
+      matters are serious’ does not logically entail that the government must be transparent.
+      Seriousness merely indicates importance; it says nothing about how information
+      should be disclosed. The inference attaches a value judgment (use transparency)
+      without any supporting linkage, rendering the argument fallacious.'
+    candidate: Appeal to Authority
+    challenged_inference: The premise that ‘these matters are serious’ is treated
+      as justification for the conclusion that the government must be transparent.
+    label_justification: The objection demonstrates that the inference relies on an
+      unstated link between seriousness and transparency; this is a classic case of
+      an Argument from Consequence, which is a form of non‑sequitur. By flagging the
+      fallacy as an Appeal to Authority, we highlight the improper use of governmental
+      status to justify transparency without evidence, thereby illustrating a misuse
+      of authority rather than a genuine logical step.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - These are a serious matter and must be treated as such. The government must
+      be transparent.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2478
+  completion_tokens: 1614
+  total_tokens: 4092
+  wall_time_seconds: 33.796999999904074

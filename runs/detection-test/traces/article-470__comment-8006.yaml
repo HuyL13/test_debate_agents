@@ -1,0 +1,147 @@
+sample:
+  id: 470:8006
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: People being allowed to express themselves is vital but not everyone is
+    funny. People need to be able to post funny memes that appeal to the masses and
+    not depressing ones that reflect our reality. There are only two types of memes,
+    funny or depressing.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: funny
+    - role: alternative_b
+      text: depressing
+    - role: exhaustiveness_commitment
+      text: There are only two types of memes, funny or depressing.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: People need to be allowed to express themselves by posting
+      funny memes that appeal to the masses.
+    candidate: False Dilemma
+    supporting_reason: There are only two types of memes, funny or depressing.
+    support_relation: The claim that memes are strictly divided into funny or depressing
+      categories is used to argue that only funny memes should be posted, implying
+      that other types are unacceptable.
+    label_justification: The argument presents a false dichotomy by asserting only
+      two meme categories exist, thereby limiting permissible expression to just 'funny'
+      memes and excluding any other kinds of memes.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People being allowed to express themselves is vital but not everyone is funny.
+      People need to be able to post funny memes that appeal to the masses and not
+      depressing
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+  counterargument:
+    decisive_counterargument: The claim that memes fall into only two categories—funny
+      or depressing—is an unwarranted leap from an anecdotal observation to an absolute
+      statement about all memes. In actuality, memes occupy a wide spectrum, ranging
+      from satirical, political, educational, emotional, and purely aesthetic forms
+      that neither fit neatly into 'funny' nor 'depressing.' By asserting a binary
+      classification without evidence, the target’s reasoning overreaches and incorrectly
+      excludes other legitimate meme types.
+    candidate: Hasty Generalization
+    challenged_inference: Memes can be categorized solely as either funny or depressing.
+    label_justification: The argument takes a limited observation (that some memes
+      are either funny or depressing) and generalizes it to the entire universe of
+      memes with no supporting evidence or acknowledgement of other categories. This
+      is the classic pattern of hasty generalization, where a broad claim is made
+      from an insufficient sample.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: false-dilemma__vs__hasty-generalization
+    loser_failure: The Hasty Generalization structural condition requires that a broad
+      claim be drawn from a specific, limited set of cases or examples. The target
+      sentence merely asserts that all memes are either funny or depressing, with
+      no concrete sample of particular memes presented to justify this sweeping statement.
+      Consequently, it fails to meet the necessary condition of a hasty generalization.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target asserts that memes can only be either funny or depressing
+    and then promotes only the funny type, presenting an exhaustive binary and implicitly
+    excluding any other category.
+  decision_reason: The passage claims “There are only two types of memes, funny or
+    depressing,” which offers two mutually exclusive alternatives and claims they
+    exhaust all possibilities, while simultaneously advocating only the funny type.
+    This satisfies the structural requirement of a false dilemma.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - ones that reflect our reality. There are only two types of memes, funny or depressing.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5572
+  completion_tokens: 4450
+  total_tokens: 10022
+  wall_time_seconds: 145.125

@@ -1,0 +1,119 @@
+sample:
+  id: 409:6623
+  article_id: 409
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: Its clear that something must be done, but no one is doing it. We have a
+    government, we must hold them accountable and force them to act. Everyone must
+    speak up, it could be someone you love next.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Its clear that something must be done, but no one is doing it. We have a government,
+      we must hold them accountable and force them to act. Everyone must speak
+    candidate: null
+  goal:
+    conclusion_or_goal: We must act to hold the government accountable and prevent
+      further killings.
+    candidate: null
+    supporting_reason: The argument states that something must be done, that the government
+      should be held accountable and forced to act, and that everyone must speak up
+      because the next victim could be someone you love.
+    support_relation: The reason establishes the need to hold the government accountable
+      and to mobilize public action, which directly serves the goal of preventing
+      future acts of violence.
+    label_justification: No fallacy is present; the reasoning straightforwardly supports
+      the goal without exhibiting any of the listed logical fallacies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Its clear that something must be done, but no one is doing it. We have a government,
+      we must hold them accountable and force them to act. Everyone must speak
+    - up, it could be someone you love next.
+  counterargument:
+    decisive_counterargument: 'The claim that the only viable way to resolve the problem
+      is to hold the government accountable and force it to act ignores a wide range
+      of other possible measures—such as community organizing, legal reform, or international
+      advocacy. By presenting only this single route as necessary, the argument sets
+      up a false dilemma: it implies there is no other reasonable solution, even though
+      it offers no evidence that other actions are ineffective or impossible.'
+    candidate: False Dilemma
+    challenged_inference: holding the government accountable is the sole required
+      action to address the issue
+    label_justification: The inference narrows the set of legitimate responses to
+      a single option, without acknowledging or evaluating alternatives, which is
+      a textbook case of the False Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Its clear that something must be done, but no one is doing it. We have a government,
+      we must hold them accountable and force them to act. Everyone must speak
+    - up, it could be someone you love next.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target statement presents only one specific action—holding
+    the government accountable—to address the problem, implicitly denying the possibility
+    of alternative solutions. This narrow presentation of a single viable response
+    without acknowledging or evaluating other options satisfies the structural requirement
+    for a False Dilemma fallacy.
+  decision_reason: The target narrows the legitimate responses to one action and does
+    not consider other possible measures, meeting the structural condition for False
+    Dilemma. The evidence supporting this inference is the entire target passage (T1
+    and T2).
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Its clear that something must be done, but no one is doing it. We have a government,
+    we must hold them accountable and force them to act. Everyone must speak
+  - up, it could be someone you love next.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3948
+  completion_tokens: 3896
+  total_tokens: 7844
+  wall_time_seconds: 168.28099999995902

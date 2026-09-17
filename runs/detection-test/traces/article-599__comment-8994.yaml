@@ -1,0 +1,108 @@
+sample:
+  id: 599:8994
+  article_id: 599
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is absurd! The person charged was in a position of power. Authority
+    is always right!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the person charged was in a position of power
+    - role: endorsed_claim
+      text: Authority is always right!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker argues that the charged individual was always
+      right because they were in a position of power.
+    candidate: Appeal to Authority
+    supporting_reason: The person charged was in a position of power.
+    support_relation: used to justify the claim that authority is infallible
+    label_justification: The reasoning cites the person’s status as authority to support
+      the conclusion that this authority is always right, which fits the definition
+      of an Appeal to Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+  counterargument:
+    decisive_counterargument: The claim that authority is always right is unjustified;
+      those in power can act unjustly or be influenced by corrupt motives, so status
+      alone does not guarantee correctness.
+    candidate: Appeal to Authority
+    challenged_inference: Authority is always right
+    label_justification: The argument attempts to prove a point solely because the
+      subject holds power, utilizing the authority of status as a stand‑alone justification—an
+      Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target statement directly asserts that authority is always
+    right solely because the person charged holds power, which is a classic appeal
+    to authority. The evidence (T1) shows the premises (person’s power) are used to
+    justify the conclusion (authority is infallible), satisfying the required structural
+    condition.
+  decision_reason: The TARGET contains a premise linking power with infallibility
+    and the conclusion that authority is always right. This matches the definition
+    of an Appeal to Authority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is absurd! The person charged was in a position of power. Authority is always
+    right!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3823
+  completion_tokens: 1671
+  total_tokens: 5494
+  wall_time_seconds: 53.625

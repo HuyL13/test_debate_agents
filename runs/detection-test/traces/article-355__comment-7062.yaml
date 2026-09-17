@@ -1,0 +1,124 @@
+sample:
+  id: 355:7062
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: While everyone obviously opposes plain rape and the like, a lot of people
+    try to downplay and dismiss the root causes of these things, saying that it's
+    natural for men to have some power over women. It is not. What's truly natural
+    is these people's desires to be free and secure, regardless of their gender. That
+    is the real fundamental part of humanity, and we should focus on that and respect
+    those rights.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: What's truly natural is these people's desires to be free and secure,
+        regardless of their gender.
+    - role: evaluative_conclusion
+      text: That is the real fundamental part of humanity, and we should focus on
+        that and respect those rights.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to have some power over women. It is not. What's truly natural is these people's
+      desires to be free and secure, regardless of their gender. That is the real
+      fundamental
+    - part of humanity, and we should focus on that and respect those rights.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: We should focus on human desires to be free and secure, regardless
+      of gender, and respect those rights.
+    candidate: Appeal to Nature
+    supporting_reason: The claim that the desire for freedom and security is natural.
+    support_relation: The naturalness claim is used to justify the conclusion that
+      these rights deserve focus and respect.
+    label_justification: By presenting a natural condition (the desire for freedom)
+      as evidence that this is the right or fundamental aspect of humanity, the argument
+      appeals to nature to support its normative conclusion, which is the typical
+      structure of an appeal-to-nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - to have some power over women. It is not. What's truly natural is these people's
+      desires to be free and secure, regardless of their gender. That is the real
+      fundamental
+  counterargument:
+    decisive_counterargument: Appealing to nature does not prove moral worth; many
+      natural phenomena are harmful. Thus concluding that the natural desire for freedom
+      and security is the fundamental part of humanity and should be the focus of
+      rights is unsupported.
+    candidate: Appeal to Nature
+    challenged_inference: The claim that what is 'natural' (desire for freedom and
+      security) justifies moral priority and reliance on rights.
+    label_justification: The objection targets the appeal to nature fallacy, showing
+      that naturalness is not a sufficient condition for moral legitimacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - to have some power over women. It is not. What's truly natural is these people's
+      desires to be free and secure, regardless of their gender. That is the real
+      fundamental
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states a naturalness premise—‘what’s truly natural
+    is people’s desire to be free and secure, regardless of gender’—and uses that
+    to justify the normative conclusion that this desire is the fundamental part of
+    humanity that must be respected, meeting the structure of an appeal‑to‑nature
+    fallacy.
+  decision_reason: The target’s argument relies on what is natural to endorse a moral
+    claim, matching the natural‑to‑value structure characteristic of an appeal to
+    nature.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - to have some power over women. It is not. What's truly natural is these people's
+    desires to be free and secure, regardless of their gender. That is the real fundamental
+  - part of humanity, and we should focus on that and respect those rights.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4693
+  completion_tokens: 4060
+  total_tokens: 8753
+  wall_time_seconds: 273.25

@@ -1,0 +1,159 @@
+sample:
+  id: 460:8577
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: The road to totalitarianism begins here, with a clamping down on independent
+    journalism. Once freedom of the press is stamped out, then comes freedom of speech,
+    then the freedom to assemble, to protest, etc., etc. Soon a state of crushing
+    authority will dominate the people in all areas of their lives. That is why the
+    road must be destroyed here, at the start, so the people have a shot at remaining
+    free.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: clamping down on independent journalism
+    - role: intermediate_consequence
+      text: freedom of the press is stamped out, then comes freedom of speech, then
+        the freedom to assemble
+    - role: final_consequence
+      text: a state of crushing authority will dominate the people in all areas of
+        their lives
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    - at the start, so the people have a shot at remaining free.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The road to totalitarianism begins with a clampdown on independent
+      journalism, so it must be thwarted early to keep people free.
+    candidate: Slippery Slope
+    supporting_reason: The argument claims that suppressing independent journalism
+      will inevitably lead to the suppression of speech, assembly, and ultimately
+      to a crushing authoritarian state.
+    support_relation: It uses the stated chain of causes and effects to justify the
+      urgency of stopping journalism suppression at the outset.
+    label_justification: The claim presents a sequence of progressively harmful outcomes
+      (press → speech → assembly → totalitarianism) without evidence for each transition,
+      matching the slippery‑slope fallacy definition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    - at the start, so the people have a shot at remaining free.
+  counterargument:
+    decisive_counterargument: The assertion that a clamp‑down on independent journalism
+      inevitably leads to a totalitarian state is not supported by evidence. Countries
+      that have enacted press restrictions, such as Turkey or the United Kingdom,
+      have maintained democratic institutions and protected other civil liberties;
+      therefore, a single policy on journalism does not automatically trigger the
+      chain of severe restrictions the argument claims. The claim assumes a causal
+      link without demonstrating it, making the argument a classic slippery‑slope
+      claim that projects an extreme outcome from a single initial action. In other
+      words, it predicts an ordered, escalating series of negative consequences without
+      any backing, which is the very hallmark of a slippery‑slope fallacy.
+    candidate: Slippery Slope
+    challenged_inference: A clampdown on independent journalism inevitably leads to
+      totalitarianism
+    label_justification: The objection directly exposes the reasoning flaw, namely
+      the unsupported claim that a single initial restriction on press freedom will
+      inexorably trigger a sequence of further authoritarian measures. That pattern—one
+      step leading to an exaggerated chain of adverse outcomes—is precisely the definition
+      of a slippery‑slope fallacy, rather than a general critique of political argument
+      structure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    - at the start, so the people have a shot at remaining free.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target claims a causal chain—clamping down on independent
+    journalism → loss of press freedom → loss of speech freedom → loss of assembly
+    rights → emergence of a crushing authoritarian regime—without providing evidence
+    or demonstrating that each step inevitably follows the previous one. This progression
+    of increasingly harmful outcomes stemming from a single initial action satisfies
+    the structural criteria of a slippery‑slope fallacy.
+  decision_reason: The argument asserts an inevitable escalation from press suppression
+    to totalitarianism, proposing a complete consequence chain that lacks support
+    for each link, thereby meeting the definition of Slippery Slope.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The road to totalitarianism begins here, with a clamping down on independent journalism.
+    Once freedom of the press is stamped out, then comes freedom of speech, then the
+    freedom to
+  - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+    the people in all areas of their lives. That is why the road must be destroyed
+    here,
+  - at the start, so the people have a shot at remaining free.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5014
+  completion_tokens: 4371
+  total_tokens: 9385
+  wall_time_seconds: 312.0619999999908

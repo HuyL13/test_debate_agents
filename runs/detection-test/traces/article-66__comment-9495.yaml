@@ -1,0 +1,108 @@
+sample:
+  id: 66:9495
+  article_id: 66
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: How can anybody be this stupid? Randomly shooting in celebration will lead
+    to deaths from stray bullets. I'm glad they are doing something about this!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - How can anybody be this stupid? Randomly shooting in celebration will lead to
+      deaths from stray bullets. I'm glad they are doing something about this!
+    candidate: null
+  goal:
+    conclusion_or_goal: The comment argues that random shooting in celebration is
+      harmful and should be addressed, praising efforts to do so.
+    candidate: Appeal to Authority
+    supporting_reason: Randomly shooting in celebration will lead to deaths from stray
+      bullets.
+    support_relation: The causal claim is used to justify the opinion that action
+      is needed and to support the speaker’s approval of measures being taken.
+    label_justification: The statement makes a causal claim and expresses approval
+      of efforts to address the problem; no fallacy is present. The reason directly
+      supports the conclusion, so the argument is technically sound.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - How can anybody be this stupid? Randomly shooting in celebration will lead to
+      deaths from stray bullets. I'm glad they are doing something about this!
+  counterargument:
+    decisive_counterargument: The argument assumes that every instance of random celebratory
+      shooting will inevitably result in fatalities, yet this causal link is not substantiated
+      by evidence; many such incidents may conclude without injury.
+    candidate: null
+    challenged_inference: Randomly shooting in celebration will lead to deaths from
+      stray bullets.
+    label_justification: The objection focuses on an unsupported causal claim rather
+      than on any of the formal fallacies enumerated. Since no specific fallacy category
+      applies, the failure is simply an unjustified inference.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - How can anybody be this stupid? Randomly shooting in celebration will lead to
+      deaths from stray bullets. I'm glad they are doing something about this!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target contains no reference to an authority, so the structure
+    required for Appeal to Authority is absent. The conjectures in the comment are
+    causal claims and expressions of approval, not appeals to authority, and thus
+    they do not support the candidate fallacy. Therefore the survival of ‘Appeal to
+    Authority’ is rejected.
+  decision_reason: The claim lacks the necessary element of citing or relying on an
+    authority figure. The overall argument is a causal statement and an expression
+    of approval, not an appeal to authority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - How can anybody be this stupid? Randomly shooting in celebration will lead to
+    deaths from stray bullets. I'm glad they are doing something about this!
+  verified: false
+  rejection_reason: The claim lacks the necessary element of citing or relying on
+    an authority figure. The overall argument is a causal statement and an expression
+    of approval, not an appeal to authority.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3668
+  completion_tokens: 2995
+  total_tokens: 6663
+  wall_time_seconds: 67.35999999998603

@@ -1,0 +1,143 @@
+sample:
+  id: 595:8381
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: It's really sad that this is happening at Lake Tzu but it also happens all
+    over the world in other areas. Either we come together to help solve these problems,
+    or we just continue to till every animal slowly dies out. Should we do stricter
+    regulations? Frankly, I think we should rehome every single animal on the planet
+    to a different one! That's obviously impractical, right? This is a huge dilemma!
+    There's nothing else that we can do at this point!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: we come together to help solve these problems
+    - role: alternative_b
+      text: we just continue to till every animal slowly dies out
+    - role: exhaustiveness_commitment
+      text: Either we come together to help solve these problems, or we just continue
+        to till every animal slowly dies out
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's really sad that this is happening at Lake Tzu but it also happens all over
+      the world in other areas. Either we come together to help solve these problems,
+    - or we just continue to till every animal slowly dies out. Should we do stricter
+      regulations? Frankly, I think we should rehome every single animal on the planet
+      to a
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: There is no viable solution; we should do nothing else at
+      this point.
+    candidate: False Dilemma
+    supporting_reason: Rehome every single animal on the planet as an impractical
+      alternative, implying only a few options are available for resolving the problem.
+    support_relation: The reason is used to argue that since the suggested alternatives
+      are impractical, no other workable solutions exist.
+    label_justification: The speaker presents a limited set of options—unite to solve
+      the problem, continue to kill, or (implausibly) rehome every animal—and concludes
+      that none are viable, thereby creating a false dilemma that exhausts the possibilities.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's really sad that this is happening at Lake Tzu but it also happens all over
+      the world in other areas. Either we come together to help solve these problems,
+    - or we just continue to till every animal slowly dies out. Should we do stricter
+      regulations? Frankly, I think we should rehome every single animal on the planet
+      to a
+    - different one! That's obviously impractical, right? This is a huge dilemma!
+      There's nothing else that we can do at this point!
+  counterargument:
+    decisive_counterargument: The passage presents only two possibilities—either everyone
+      gathers to act, or every animal gradually perishes—implying that no other strategies
+      exist. In reality, many intermediate measures are viable, such as localized
+      conservation efforts, stricter hunting regulations, habitat restoration projects,
+      and public education campaigns; these can mitigate the crisis without resorting
+      to the extreme, impractical solution of rehoming every animal. Therefore, the
+      argument unfairly limits the range of options, committing a False Dilemma.
+    candidate: False Dilemma
+    challenged_inference: 'The claim that the situation presents a single dichotomy:
+      either unified action, or complete extinction, with no other feasible alternatives.'
+    label_justification: The objection shows that the inference reduces a complex
+      environmental problem to only two extreme outcomes, thereby overlooking numerous
+      plausible interventions—a textbook False Dilemma. The counterargument directly
+      addresses the inference by enumerating alternative actions, demonstrating that
+      the premise of exclusivity is invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's really sad that this is happening at Lake Tzu but it also happens all over
+      the world in other areas. Either we come together to help solve these problems,
+    - or we just continue to till every animal slowly dies out. Should we do stricter
+      regulations? Frankly, I think we should rehome every single animal on the planet
+      to a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: 'The target explicitly presents two mutually exclusive options—either
+    collective action or total animal extinction—and asserts that no other alternatives
+    exist (claiming exhaustiveness). This fits the False Dilemma structure. Evidence
+    IDs: [T1, T2]'
+  decision_reason: The passage states “Either we come together to help solve these
+    problems, or we just continue to till every animal slowly dies out,” coupled with
+    “There's nothing else that we can do at this point!” This establishes an exclusive,
+    exhaustive set of options, meeting the structural criteria for a False Dilemma.
+    Therefore the candidate is a valid fallacy judgment.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's really sad that this is happening at Lake Tzu but it also happens all over
+    the world in other areas. Either we come together to help solve these problems,
+  - or we just continue to till every animal slowly dies out. Should we do stricter
+    regulations? Frankly, I think we should rehome every single animal on the planet
+    to a
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4706
+  completion_tokens: 3795
+  total_tokens: 8501
+  wall_time_seconds: 128.0460000000021

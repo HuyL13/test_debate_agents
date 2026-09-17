@@ -1,0 +1,133 @@
+sample:
+  id: 174:9820
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: This makes me think that muslim countries are finally coming around when
+    it comes to gay rights. I bet the next thing is gay marriage being legalized!
+    Any other Muslim country would have banned the radio station, but this one did
+    not. I think that proves they're progressing.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Tunisia didn't ban the online LGBTQ radio station
+    - role: observed_property
+      text: didn’t ban the radio station
+    - role: target_population
+      text: Muslim countries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This makes me think that muslim countries are finally coming around when it
+      comes to gay rights. I bet the next thing is gay marriage being legalized! Any
+      other Muslim
+    - country would have banned the radio station, but this one did not. I think that
+      proves they're progressing.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Muslim countries are finally coming around to gay rights,
+      i.e., they are progressing.
+    candidate: Hasty Generalization
+    supporting_reason: The fact that one Muslim country did not ban the radio station
+      is taken as evidence that all Muslim countries are progressing.
+    support_relation: The speaker uses a single example of a Muslim country’s permissive
+      action to generalize about the entire set of Muslim countries.
+    label_justification: The argument draws a conclusion about all Muslim countries’
+      stance on gay rights from a single instance, which is an instance of Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This makes me think that muslim countries are finally coming around when it
+      comes to gay rights. I bet the next thing is gay marriage being legalized! Any
+      other Muslim
+    - country would have banned the radio station, but this one did not. I think that
+      proves they're progressing.
+  counterargument:
+    decisive_counterargument: The claim that because one Muslim country (Tunisia)
+      refused to ban a specific LGBTQ radio station, all Muslim countries are now
+      ‘progressing’ on gay rights and that gay marriage will soon be legalized, extrapolates
+      a sweeping conclusion from a single, isolated instance. This single example
+      (regarding a radio station) is not sufficient to establish a nationwide trend
+      or policy shift regarding gay marriage or broader LGBTQ rights. Therefore the
+      inference is not warranted.
+    candidate: Hasty Generalization
+    challenged_inference: All Muslim countries are progressing on gay rights and gay
+      marriage will soon be legalized
+    label_justification: The objection directly targets the argument’s leap from one
+      specific case (Tunisia’s decision on a radio station) to a blanket statement
+      about the entire group of Muslim countries. This is the hallmark of a hasty
+      generalization fallacy, which involves drawing a broad conclusion from an insufficient
+      sample.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This makes me think that muslim countries are finally coming around when it
+      comes to gay rights. I bet the next thing is gay marriage being legalized! Any
+      other Muslim
+    - country would have banned the radio station, but this one did not. I think that
+      proves they're progressing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument uses a single example (Tunisia’s decision to allow
+    an LGBT radio station) to generalize about all Muslim countries’ stance on gay
+    rights, fulfilling the structural requirements of a Hasty Generalization.
+  decision_reason: The target explicitly concludes that all Muslim countries are progressing
+    on gay rights based on one instance, which matches the sample-to-population structure
+    required for a Hasty Generalization. Evidence T1 and T2 support this claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This makes me think that muslim countries are finally coming around when it comes
+    to gay rights. I bet the next thing is gay marriage being legalized! Any other
+    Muslim
+  - country would have banned the radio station, but this one did not. I think that
+    proves they're progressing.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4438
+  completion_tokens: 2578
+  total_tokens: 7016
+  wall_time_seconds: 97.65599999998813

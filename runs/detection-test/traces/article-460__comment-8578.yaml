@@ -1,0 +1,136 @@
+sample:
+  id: 460:8578
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: When you allow the government to take control of freedom of speech it will
+    lead to much worse problems. Who is to decide what is fake news about Covid or
+    any other issue? Regardless, it is up to the people to determine if it is true
+    or not. If the authorities are allowed to punish people for freely speaking online
+    where does it go? How much worse will it get?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: allow the government to take control of freedom of speech
+    - role: intermediate_consequence
+      text: it will lead to much worse problems
+    - role: final_consequence
+      text: the authorities are allowed to punish people for freely speaking online,
+        and how much worse will it get?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - When you allow the government to take control of freedom of speech it will lead
+      to much worse problems. Who is to decide what is fake news about Covid or
+    - any other issue? Regardless, it is up to the people to determine if it is true
+      or not. If the authorities are allowed to punish people for freely speaking
+      online
+    - where does it go? How much worse will it get?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Prevent allowing the government to take control of freedom
+      of speech.
+    candidate: Slippery Slope
+    supporting_reason: If the government controls freedom of speech, it will lead
+      to much worse problems.
+    support_relation: This statement is presented as evidence that granting governmental
+      control over free speech will inevitably produce negative consequences, thereby
+      supporting the goal of avoiding such control.
+    label_justification: The argument asserts that allowing government control of
+      free speech will automatically result in much worse problems, a classic slippery-slope
+      claim that posits an inevitable, escalating chain of adverse outcomes without
+      providing evidence for each step.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - When you allow the government to take control of freedom of speech it will lead
+      to much worse problems. Who is to decide what is fake news about Covid or
+  counterargument:
+    decisive_counterargument: There is no evidence that allowing the government to
+      control freedom of speech inevitably leads to worse problems; responsible regulation
+      can reduce misinformation and protect public health without resulting in catastrophic
+      consequences.
+    candidate: Slippery Slope
+    challenged_inference: Letting the government control freedom of speech will lead
+      to much worse problems.
+    label_justification: The objection targets the unsubstantiated claim that a single
+      action (government control) will inevitably trigger a chain of increasingly
+      negative outcomes. This is exactly the slippery‑slope fallacy, which assumes
+      causal escalation without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - When you allow the government to take control of freedom of speech it will lead
+      to much worse problems. Who is to decide what is fake news about Covid or
+    - any other issue? Regardless, it is up to the people to determine if it is true
+      or not. If the authorities are allowed to punish people for freely speaking
+      online
+    - where does it go? How much worse will it get?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: the target claim asserts an unsubstantiated, escalating chain
+    of adverse outcomes resulting from allowing government control of free speech
+  decision_reason: The argument states that permitting government control of free
+    speech will inevitably lead to progressively worse problems, a classic slippery‑slope
+    claim that identifies a chain of negative consequences without providing evidence
+    for each step
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - When you allow the government to take control of freedom of speech it will lead
+    to much worse problems. Who is to decide what is fake news about Covid or
+  - any other issue? Regardless, it is up to the people to determine if it is true
+    or not. If the authorities are allowed to punish people for freely speaking online
+  - where does it go? How much worse will it get?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4702
+  completion_tokens: 3499
+  total_tokens: 8201
+  wall_time_seconds: 274.7189999999973

@@ -1,0 +1,124 @@
+sample:
+  id: 595:11081
+  article_id: 595
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: That's so sad to think about all of those beautiful birds suffering. Its
+    even sadder to think about how stories like this will become more common as climate
+    change gets worse. At this point, though, I think its unavoidable. We can't undo
+    decades and decades of harm to the environment. But the politicians can make it
+    harder for companies to abuse the environment now.
+  target: We shouldn't adopt such a defeatist attitude. On the contrary, terrible
+    stories like this should spur us into action. Keeping our natural resources and
+    wildlife safe is everyone's responsibility. This needs to be a wake up call against
+    poor environmental stewardship.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We shouldn't adopt such a defeatist attitude. On the contrary, terrible stories
+      like this should spur us into action. Keeping our natural resources and wildlife
+      safe is everyone's responsibility. This
+    - needs to be a wake up call against poor environmental stewardship.
+    candidate: null
+  goal:
+    conclusion_or_goal: Don't adopt a defeatist attitude; instead, let terrible stories
+      spur action to protect natural resources and wildlife.
+    candidate: null
+    supporting_reason: The assertion that terrible stories should spur us into action
+      serves as the justification for rejecting a defeatist stance.
+    support_relation: This reason is used to claim that the only viable response to
+      such stories is proactive engagement, thereby supporting the conclusion that
+      a defeatist attitude is unacceptable.
+    label_justification: The argument contains no instance of Hasty Generalization,
+      Slippery Slope, False Dilemma, Appeal to Authority, Appeal to Majority, Appeal
+      to Nature, Appeal to Tradition, or Appeal to Worse Problems. Therefore, no logical
+      fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We shouldn't adopt such a defeatist attitude. On the contrary, terrible stories
+      like this should spur us into action. Keeping our natural resources and wildlife
+      safe is everyone's responsibility. This
+    - needs to be a wake up call against poor environmental stewardship.
+  counterargument:
+    decisive_counterargument: The speaker misrepresents the parent’s view as “defeatist”;
+      the parent merely acknowledges the difficulty and calls for stricter regulation.
+      By portraying only two options—being defeatist or taking action—the target creates
+      a false dichotomy that ignores a possible middle ground of recognition plus
+      proactive measures.
+    candidate: False Dilemma
+    challenged_inference: defeatist misrepresentation
+    label_justification: The objection shows that the target constructs a binary alternative
+      (defeatist vs action) that excludes the parent’s nuanced stance, illustrating
+      a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We shouldn't adopt such a defeatist attitude. On the contrary, terrible stories
+      like this should spur us into action. Keeping our natural resources and wildlife
+      safe is everyone's responsibility. This
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not explicitly present a mutually exclusive
+    binary choice between only two alternatives; thus it does not satisfy the mandatory
+    structural condition for a False Dilemma. The claim that one must avoid a “defeatist
+    attitude” versus must “spur into action” is too vague to constitute a deliberate
+    false dichotomy, so the fallacy is not demonstrably present. Therefore no fallacy
+    is confirmed.
+  decision_reason: The target fails to establish an explicit binary alternative list,
+    so the False Dilemma structure is not met.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - We shouldn't adopt such a defeatist attitude. On the contrary, terrible stories
+    like this should spur us into action. Keeping our natural resources and wildlife
+    safe is everyone's responsibility. This
+  verified: false
+  rejection_reason: The target fails to establish an explicit binary alternative list,
+    so the False Dilemma structure is not met.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4212
+  completion_tokens: 2579
+  total_tokens: 6791
+  wall_time_seconds: 147.60899999999674

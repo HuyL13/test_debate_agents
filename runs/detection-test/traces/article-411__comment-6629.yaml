@@ -1,0 +1,143 @@
+sample:
+  id: 411:6629
+  article_id: 411
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: I think that we need to focus on the worst countries first, such as Syria
+    and North Korea. I think that the only way to address the issue of freedom is
+    to tackle the worst instances first. Turkmenistan may be low on the list of freedom
+    in the world, but we need to systematically address countries at the bottom of
+    the list first, to solve this issue.
+  target: Those countries are too far gone. I think Turkmenistan is a more reasonable
+    one to start with in terms of bringing attention to it at least. Most people already
+    know about Syria and NK. Not many know about Turkmenistan. This study should hopefully
+    bring more attention to what the people there go through.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: Most people already know about Syria and NK. Not many know about Turkmenistan.
+    - role: target_claim
+      text: Turkmenistan is a more reasonable one to start with in terms of bringing
+        attention to it at least.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Those countries are too far gone. I think Turkmenistan is a more reasonable
+      one to start with in terms of bringing attention to it at least. Most people
+      already know
+    - about Syria and NK. Not many know about Turkmenistan. This study should hopefully
+      bring more attention to what the people there go through.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The TARGET argues that attention and study should be directed
+      toward Turkmenistan rather than the already well‑known worst countries such
+      as Syria and North Korea.
+    candidate: Appeal to Majority
+    supporting_reason: The majority’s lack of awareness about Turkmenistan (most people
+      already know about Syria and North Korea, but not many know about Turkmenistan)
+      is cited as the justification for choosing Turkmenistan as the focus of attention.
+    support_relation: The reasoning about the population’s knowledge level is directly
+      used to support the decision to prioritize Turkmenistan.
+    label_justification: The argument employs the fact that a majority of people are
+      unaware of Turkmenistan’s situation to justify shifting attention to it, thereby
+      using popularity (or lack thereof) as justificatory evidence—a textbook case
+      of Appeal to Majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Those countries are too far gone. I think Turkmenistan is a more reasonable
+      one to start with in terms of bringing attention to it at least. Most people
+      already know
+    - about Syria and NK. Not many know about Turkmenistan. This study should hopefully
+      bring more attention to what the people there go through.
+  counterargument:
+    decisive_counterargument: Prioritizing a country solely because it is less known
+      ignores objective criteria such as the severity of censorship, the scale of
+      human rights violations, and the likelihood of driving meaningful change. Both
+      Syria and North Korea experience extreme abuses that warrant urgent attention;
+      the mere lack of widespread public awareness about Turkmenistan does not increase
+      the urgency or the potential impact of focusing resources there. The decision
+      should be grounded in evidence about the situation’s gravity, not in how many
+      people are aware of it.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that Turkmenistan should be prioritized for
+      study because it is less known and more 'reasonable', while Syria and North
+      Korea are too far gone.
+    label_justification: 'The target’s reasoning uses the popularity of knowledge
+      (or lack thereof) as a justification for prioritization, which is an Appeal
+      to Majority fallacy: it assumes that what is known by most (or unknown by few)
+      determines the proper focus, rather than objective evidence about the situation’s
+      severity or impact.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Those countries are too far gone. I think Turkmenistan is a more reasonable
+      one to start with in terms of bringing attention to it at least. Most people
+      already know
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: Target uses the popularity (or lack thereof) of public awareness
+    to justify prioritizing Turkmenistan for study, which directly applies the appeal
+    to majority reasoning pattern.
+  decision_reason: The TARGET argues that because most people already know about Syria
+    and North Korea but not many know about Turkmenistan, the study should focus on
+    Turkmenistan to bring attention to it. This relies on the popularity of knowledge
+    as evidence for the decision, fitting the Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Those countries are too far gone. I think Turkmenistan is a more reasonable one
+    to start with in terms of bringing attention to it at least. Most people already
+    know
+  - about Syria and NK. Not many know about Turkmenistan. This study should hopefully
+    bring more attention to what the people there go through.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4915
+  completion_tokens: 4303
+  total_tokens: 9218
+  wall_time_seconds: 340.75

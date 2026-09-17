@@ -1,0 +1,137 @@
+sample:
+  id: 58:4070
+  article_id: 58
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: Medical experimentation has always been done on the less fortunate. It's
+    almost tradition at this point. And for good reason. It's just mutually beneficial.
+    We can eliminate the more exploitative factors while still pushing forward research
+    and compensating people who need it most.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Medical experimentation has always been done on the less fortunate. It's
+        almost tradition at this point.
+    - role: preservation_conclusion
+      text: We can eliminate the more exploitative factors while still pushing forward
+        research and compensating people who need it most.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Medical experimentation has always been done on the less fortunate. It's almost
+      tradition at this point. And for good reason. It's just mutually beneficial.
+      We can eliminate the more exploitative
+    - factors while still pushing forward research and compensating people who need
+      it most.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Justifying the continued use of medical experimentation on
+      less fortunate populations.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument claims that because this practice has always been
+      done on the less fortunate and is almost a tradition, it is mutually beneficial
+      and can be conducted without exploitative factors.
+    support_relation: provides the justificatory claim that underpins the conclusion
+      about the acceptability of the practice.
+    label_justification: The use of a historical or traditional precedent to argue
+      for the present action is characteristic of the Appeal to Tradition fallacy.
+      The tradition assertion is presented as justification, despite the presence
+      of additional rhetorical points, it remains a premise that the argument relies
+      on to legitimize the continued practice.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Medical experimentation has always been done on the less fortunate. It's almost
+      tradition at this point. And for good reason. It's just mutually beneficial.
+      We can eliminate the more exploitative
+  counterargument:
+    decisive_counterargument: The fact that medical experimentation on the less fortunate
+      has historically taken place does not provide moral justification for its continued
+      use; past precedent alone does not prove a practice is beneficial, ethical,
+      or acceptable. Exploiting vulnerable populations can still lead to harm and
+      inequality, and the mere tradition of doing so is not a sufficient reason to
+      maintain it.
+    candidate: Appeal to Tradition
+    challenged_inference: Medical experimentation on the less fortunate is mutually
+      beneficial
+    label_justification: This argument explicitly treats the long‑standing practice
+      as a reason it is acceptable, using historical tradition to justify the continued
+      exploitation. That appeal to tradition is the hallmark of an Appeal‑to‑Tradition
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Medical experimentation has always been done on the less fortunate. It's almost
+      tradition at this point. And for good reason. It's just mutually beneficial.
+      We can eliminate the more exploitative
+    - factors while still pushing forward research and compensating people who need
+      it most.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument furnishes a tradition premise—medical experimentation
+    has always been performed on the less fortunate—followed by a conclusion that
+    extends this practice under the justification of traditional practice, thereby
+    embodying the classic structure of an Appeal to Tradition fallacy. The premise
+    and the conclusion are not merely related; the premise is explicitly used to substantiate
+    the conclusion.
+  decision_reason: 'The target states that medical experimentation on less fortunate
+    populations has always been done and is almost a tradition, and then argues that
+    this makes it mutually beneficial and acceptable to continue. This is a classic
+    appeal to tradition: historical or customary practice is cited as a reason to
+    maintain or justify the practice, which is a fallacious inference.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Medical experimentation has always been done on the less fortunate. It's almost
+    tradition at this point. And for good reason. It's just mutually beneficial. We
+    can eliminate the more exploitative
+  - factors while still pushing forward research and compensating people who need
+    it most.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4369
+  completion_tokens: 3444
+  total_tokens: 7813
+  wall_time_seconds: 168.29699999999866

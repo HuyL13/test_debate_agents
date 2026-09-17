@@ -1,0 +1,120 @@
+sample:
+  id: 217:5448
+  article_id: 217
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: Everyone knows men who have a history of sexual violence can not be trusted,
+    and that goes double for if they are politicians. Its absurd to let a man like
+    that become one. It goes against the tradition of being able to trust your public
+    officials. Politicians have always been supposed to meet higher moral standards
+    than the rest of us. Being a woman abuser is disqualifying.
+  target: This type of law does not allow the legal court process to decide the issue.
+    These political candidates have not been found guilty of a crime. These candidates
+    are innocent of any allegations, unless proven guilty. It is unfair to political
+    candidates to bypass the courts, and punish them.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This type of law does not allow the legal court process to decide the issue.
+      These political candidates have not been found guilty of a crime. These candidates
+      are innocent
+    - of any allegations, unless proven guilty. It is unfair to political candidates
+      to bypass the courts, and punish them.
+    candidate: null
+  goal:
+    conclusion_or_goal: The law being discussed is unfair to political candidates
+      who have not been found guilty of a crime.
+    candidate: null
+    supporting_reason: These political candidates have not been found guilty of a
+      crime; they are innocent of any allegations unless proven guilty, yet the law
+      bypasses the court process.
+    support_relation: The reason that the candidates are innocent and that the law
+      bypasses courts is used to justify the claim that the law is unfair to them.
+    label_justification: The reasoning correctly establishes the conclusion without
+      invoking a logical fallacy; it simply presents factual claims (non‑guilty status,
+      innocence, court bypass) that underpin the objection to the law.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This type of law does not allow the legal court process to decide the issue.
+      These political candidates have not been found guilty of a crime. These candidates
+      are innocent
+    - of any allegations, unless proven guilty. It is unfair to political candidates
+      to bypass the courts, and punish them.
+  counterargument:
+    decisive_counterargument: The claim that the law is unfair simply because political
+      candidates ‘have not been found guilty’ ignores the legal principle of presumption
+      of innocence and the fact that the law’s purpose may be to avoid premature punitive
+      measures. Assuming candidates are innocent before any adjudication is a factual
+      presumption, not a logical basis for rejecting legal mechanisms designed to
+      enforce accountability. The argument therefore rests on an unjustified assumption
+      rather than on a sound inference from the information presented.
+    candidate: null
+    challenged_inference: Assuming candidates are innocent until proven guilty to
+      support the conclusion that the law is unfair if it bypasses the court process.
+    label_justification: The objection points out that the reasoning relies on an
+      unproven assumption rather than on a logical link between the law’s procedure
+      and the candidates’ innocence. This does not neatly map onto any of the predefined
+      fallacy categories, so the most appropriate stance is that no specific fallacy
+      is evident.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This type of law does not allow the legal court process to decide the issue.
+      These political candidates have not been found guilty of a crime. These candidates
+      are innocent
+    - of any allegations, unless proven guilty. It is unfair to political candidates
+      to bypass the courts, and punish them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3041
+  completion_tokens: 2451
+  total_tokens: 5492
+  wall_time_seconds: 183.5

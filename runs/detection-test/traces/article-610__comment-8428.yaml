@@ -1,0 +1,114 @@
+sample:
+  id: 610:8428
+  article_id: 610
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: I don't understand, why doesn't the government put some recovery policies
+    in place? Surely most people would be in support of that, right? The government
+    should take a vote, or at least run some polling. If the majority wants change,
+    which I think they definitely would, then they should implement that change rapidly.
+  target: The Burundi people should listen to their government. Obey the laws set
+    forth and only good things should happen. Respect for laws leads to peace which
+    helps everyone.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The Burundi people should listen to their government. Obey the laws set forth
+      and only good things should happen. Respect for laws leads to peace which helps
+      everyone.
+    candidate: null
+  goal:
+    conclusion_or_goal: The Burundi people should listen to their government and obey
+      the laws set forth.
+    candidate: null
+    supporting_reason: Respect for laws leads to peace which helps everyone.
+    support_relation: The stated reason is employed to justify the conclusion; it
+      claims that obedience to laws results in peace and benefits for all, thus motivating
+      the audience to comply with governmental directives.
+    label_justification: No recognized logical fallacy is evident. The argument presents
+      a straightforward cause‑effect claim to support its normative conclusion, which
+      is a legitimate form of reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The Burundi people should listen to their government. Obey the laws set forth
+      and only good things should happen. Respect for laws leads to peace which helps
+      everyone.
+  counterargument:
+    decisive_counterargument: Just because the government prescribes obedience does
+      not make that obedience guaranteed to produce good outcomes or peace; the claim
+      relies solely on the status of the government as an authority without providing
+      empirical evidence that its laws actually lead to the stated benefits.
+    candidate: Appeal to Authority
+    challenged_inference: Obedience to the government is justified because it is an
+      authoritative body.
+    label_justification: The objection targets the logic that authority alone is sufficient
+      for moral or practical correctness, which is the hallmark of an Appeal to Authority
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The Burundi people should listen to their government. Obey the laws set forth
+      and only good things should happen. Respect for laws leads to peace which helps
+      everyone.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target statement justifies obedience to the government solely
+    by highlighting the government as an authority, without providing empirical or
+    other supporting evidence that obedience leads to the claimed benefits. This matches
+    the structural form of an Appeal to Authority fallacy.
+  decision_reason: The claim that people should obey the government because it is
+    an authoritative body is supported only by the authority’s status, not by evidence
+    of the outcomes. This is the hallmark structure of an Appeal to Authority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The Burundi people should listen to their government. Obey the laws set forth
+    and only good things should happen. Respect for laws leads to peace which helps
+    everyone.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3933
+  completion_tokens: 3197
+  total_tokens: 7130
+  wall_time_seconds: 119.07799999999406

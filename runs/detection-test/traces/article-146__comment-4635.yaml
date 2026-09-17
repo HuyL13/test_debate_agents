@@ -1,0 +1,119 @@
+sample:
+  id: 146:4635
+  article_id: 146
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: ''
+  target: There is a standardized pattern of government bullying. They will use proxy
+    elements to carry this out. They try to hide behind street urchins and such to
+    destabilize their own society and the people in it.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is a standardized pattern of government bullying. They will use proxy
+      elements to carry this out. They try to hide behind street urchins and such
+      to destabilize their own
+    - society and the people in it.
+    candidate: null
+  goal:
+    conclusion_or_goal: That government bullying follows a standardized pattern, using
+      proxy elements to destabilize society.
+    candidate: null
+    supporting_reason: They will use proxy elements to carry this out.
+    support_relation: The reason explains the mechanism by which the alleged government
+      bullying pattern is carried out.
+    label_justification: No discernible fallacy from the provided options is committed;
+      the argument simply states a claim and offers a causal explanation without any
+      of the defined erroneous patterns.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is a standardized pattern of government bullying. They will use proxy
+      elements to carry this out. They try to hide behind street urchins and such
+      to destabilize their own
+    - society and the people in it.
+  counterargument:
+    decisive_counterargument: The statement generalizes that all governments employ
+      proxies to bully and destabilize by hiding behind street urchins, yet the passage
+      gives no concrete instances, evidence, or examples of such practices. Without
+      any cited case or data, the claim cannot be verified and amounts to an unsupported
+      blanket assertion.
+    candidate: Hasty Generalization
+    challenged_inference: Assumption that every government follows a standardized
+      bullying pattern via proxies and street agents.
+    label_justification: The objection points to the lack of specific evidence for
+      the claimed universal pattern, a hallmark of a hasty generalization wherein
+      a broad conclusion is drawn without supporting instances.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is a standardized pattern of government bullying. They will use proxy
+      elements to carry this out. They try to hide behind street urchins and such
+      to destabilize their own
+    - society and the people in it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a universal claim that all governments follow
+    a standardized bullying pattern involving proxies and street urchins, without
+    providing any specific examples or evidence, satisfying the structural criterion
+    of a hasty generalization.
+  decision_reason: The passage claims that every government employs proxies to bully
+    and destabilize society, a blanket assertion lacking any supporting cases or data.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There is a standardized pattern of government bullying. They will use proxy elements
+    to carry this out. They try to hide behind street urchins and such to destabilize
+    their own
+  - society and the people in it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3923
+  completion_tokens: 3264
+  total_tokens: 7187
+  wall_time_seconds: 149.75

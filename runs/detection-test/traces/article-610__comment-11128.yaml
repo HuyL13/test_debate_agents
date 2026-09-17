@@ -1,0 +1,146 @@
+sample:
+  id: 610:11128
+  article_id: 610
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: Plastic recycling is very important, they got to get the example from some
+    other countries that emphasize on recycling. This is also a wake-up call to business
+    which should follow in MERU investments' footsteps and implement effective bottle
+    management policies. Stricter enforcement of littering fines could also work wonders.
+    While appreciating the efforts by state and NGOs in providing trash cans in Bujumbura
+    city center, it would be ideal to have these extended to the provinces. Raising
+    an environmentally aware citizenry through education programs could also go a
+    long way. Turnaround is possible!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: MERU investments
+    - role: endorsed_claim
+      text: implement effective bottle management policies
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - in MERU investments' footsteps and implement effective bottle management policies.
+      Stricter enforcement of littering fines could also work wonders. While appreciating
+      the efforts by state and NGOs in providing trash
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Encourage the implementation of more effective plastic bottle
+      recycling and waste management policies in Burundi.
+    candidate: null
+    supporting_reason: Plastic recycling is very important, businesses should follow
+      examples from other countries, and stricter enforcement of littering fines and
+      educational programs can improve waste management.
+    support_relation: directly establishes the necessity and feasibility of improved
+      recycling practices as the goal of the argument.
+    label_justification: The target presents a straightforward case for why and how
+      to improve plastic recycling; it does not employ any logical fallacy such as
+      a false dilemma, appeal to authority, or hasty generalization. Therefore, no
+      fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Plastic recycling is very important, they got to get the example from some other
+      countries that emphasize on recycling. This is also a wake-up call to business
+      which should follow
+    - in MERU investments' footsteps and implement effective bottle management policies.
+      Stricter enforcement of littering fines could also work wonders. While appreciating
+      the efforts by state and NGOs in providing trash
+    - cans in Bujumbura city center, it would be ideal to have these extended to the
+      provinces. Raising an environmentally aware citizenry through education programs
+      could also go a long way.
+  counterargument:
+    decisive_counterargument: The passage makes a number of claims—such as that plastic
+      recycling is very important, that stricter enforcement of littering fines would
+      work wonders, and that raising environmental awareness will help—without providing
+      any evidence, examples, or empirical data to substantiate those claims.  This
+      lack of supporting evidence renders the argument unsupported rather than logically
+      fallacious.
+    candidate: Hasty Generalization
+    challenged_inference: The passage assumes that because some other countries emphasize
+      recycling, plastic recycling is crucial everywhere and that the suggested measures
+      will automatically lead to a turnaround.
+    label_justification: The objection points to the fact that the passage generalizes
+      from an implied sample (other countries) to a universal claim about the importance
+      of plastic recycling and the effectiveness of proposed measures.  While the
+      argument could be considered a hasty generalization, no explicit progression
+      or escalation is present, so the claim does not meet the strict criteria for
+      the other listed fallacies.  Therefore the strongest identified flaw is an unsubstantiated
+      generalization, warranting a label of 'Hasty Generalization' with evidence ids
+      T1–T4.  The passage does not otherwise fit the definition of any other fallacy
+      in the given list.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Plastic recycling is very important, they got to get the example from some other
+      countries that emphasize on recycling. This is also a wake-up call to business
+      which should follow
+    - in MERU investments' footsteps and implement effective bottle management policies.
+      Stricter enforcement of littering fines could also work wonders. While appreciating
+      the efforts by state and NGOs in providing trash
+    - cans in Bujumbura city center, it would be ideal to have these extended to the
+      provinces. Raising an environmentally aware citizenry through education programs
+      could also go a long way.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly cites MERU investments as an authority
+    and recommends that businesses follow its example to implement bottle‑management
+    policies, satisfying the structure of an appeal to authority.
+  decision_reason: The target contains a statement that business should follow in
+    MERU investments' footsteps and implement effective bottle management policies,
+    which is a fallacious appeal to authority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - in MERU investments' footsteps and implement effective bottle management policies.
+    Stricter enforcement of littering fines could also work wonders. While appreciating
+    the efforts by state and NGOs in providing trash
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4553
+  completion_tokens: 3099
+  total_tokens: 7652
+  wall_time_seconds: 121.29700000000594

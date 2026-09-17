@@ -1,0 +1,133 @@
+sample:
+  id: 133:9696
+  article_id: 133
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: I feel like I take a lot of my rights in America for granted. Emin wasn't
+    even allowed to see a lawyer, which in America would be a considerable problem
+    for the prosecution. Azerbaijan has a long way to go before the people can enjoy
+    the same freedoms I enjoy every day without thinking about it. Let's all hope
+    for a more free and just Azerbaijan.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I feel like I take a lot of my rights in America for granted. Emin wasn't even
+      allowed to see a lawyer, which in America would be a considerable problem
+    - for the prosecution. Azerbaijan has a long way to go before the people can enjoy
+      the same freedoms I enjoy every day without thinking about it. Let's all hope
+      for
+    - a more free and just Azerbaijan.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker hopes that Azerbaijan becomes more free and just.
+    candidate: null
+    supporting_reason: The speaker points out that in America a person denied the
+      right to see a lawyer would face a serious procedural issue, implying that the
+      lack of such a right in Azerbaijan reveals a serious violation of rights.
+    support_relation: The fact that a denied right that is protected in America indicates
+      a deficiency in Azerbaijan’s legal system, justifying the desire for reforms
+      and greater freedom.
+    label_justification: The argument does not rely on an unjustified premise or misapplied
+      authority; it merely compares a known standard in another country to demonstrate
+      a deficiency. Hence no logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like I take a lot of my rights in America for granted. Emin wasn't even
+      allowed to see a lawyer, which in America would be a considerable problem
+    - for the prosecution. Azerbaijan has a long way to go before the people can enjoy
+      the same freedoms I enjoy every day without thinking about it. Let's all hope
+      for
+  counterargument:
+    decisive_counterargument: The argument leaps from a single allegation that one
+      prisoner—Emin—was denied legal counsel to the blanket claim that all citizens
+      in Azerbaijan lack basic freedoms. A lone case is not sufficient evidence that
+      the entire country operates with the same deficiencies; different individuals
+      may experience very different conditions. This hasty extrapolation to the whole
+      population weakens the argument.
+    candidate: Hasty Generalization
+    challenged_inference: Azerbaijan has a long way to go before the people can enjoy
+      the same freedoms I enjoy every day without thinking about it.
+    label_justification: The objection shows that the conclusion about Azerbaijan's
+      general state of freedoms is based solely on Emin’s individual case, a classic
+      example of drawing a broad conclusion from an insufficient sample—i.e., a hasty
+      generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like I take a lot of my rights in America for granted. Emin wasn't even
+      allowed to see a lawyer, which in America would be a considerable problem
+    - for the prosecution. Azerbaijan has a long way to go before the people can enjoy
+      the same freedoms I enjoy every day without thinking about it. Let's all hope
+      for
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument infers that all Azerbaijani people lack freedoms
+    based solely on a single case (Emin’s denial of legal counsel), fulfilling the
+    structural requirement of a hasty generalization.
+  decision_reason: The target text explicitly states that because Emin was denied
+    legal counsel, Azerbaijan as a whole has a long way to go before its people enjoy
+    the same freedoms as the speaker, i.e., it draws a broad conclusion about the
+    entire population from one isolated incident. The claim is supported by evidence
+    in passages T1 and T2, meeting the canonical structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I feel like I take a lot of my rights in America for granted. Emin wasn't even
+    allowed to see a lawyer, which in America would be a considerable problem
+  - for the prosecution. Azerbaijan has a long way to go before the people can enjoy
+    the same freedoms I enjoy every day without thinking about it. Let's all hope
+    for
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4302
+  completion_tokens: 3041
+  total_tokens: 7343
+  wall_time_seconds: 93.48400000005495

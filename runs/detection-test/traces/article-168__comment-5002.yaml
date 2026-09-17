@@ -1,0 +1,129 @@
+sample:
+  id: 168:5002
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: If a presidential candidate is going to be voted on just by people of their
+    ethnicity that means that Macedonia is a divided country susceptible to bias.
+    Perhaps this is something they should work on so that they can choose candidates
+    based on merit rather than their genes. Racial bias is something that should be
+    addressed all over the world so that we can move forward as a human race.
+  target: Perhaps it screams racial bias but we will have to dig deeper to truly find
+    out. I don know if we can make that assumption off of one election. There is obviously
+    distrust of government and we don't know what platforms these candidates are presenting.
+    Maybe it just happens to be that they are putting forth legislation that will
+    benefit people of their ethnicity. Or perhaps giving them a voice that has been
+    silent for a long time. I'm sure all minority candidates campaign in a similar
+    way when it comes to their constituents.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: one election
+    - role: observed_property
+      text: minority candidates campaign in a similar way
+    - role: target_population
+      text: all minority candidates
+    structure_complete: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - comes to their constituents.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The speaker maintains that one election is insufficient to
+      conclusively infer racial bias; more investigation is needed.
+    candidate: Hasty Generalization
+    supporting_reason: The statement that 'all minority candidates campaign in a similar
+      way when it comes to their constituents' asserts a universal behavior based
+      on insufficient evidence.
+    support_relation: mechanism_supports_goal
+    label_justification: The claim generalizes from an implied limited observation
+      (the current election) to all minority candidates without evidence, fitting
+      the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - Perhaps it screams racial bias but we will have to dig deeper to truly find
+      out. I don know if we can make that assumption off of one election. There
+    - comes to their constituents.
+  counterargument:
+    decisive_counterargument: The target statement *‘I’m sure all minority candidates
+      campaign in a similar way when it comes to constituents’* asserts a universal
+      property of an entire class (all minority candidates) without providing sufficient
+      evidence beyond a single context. This is an example of a hasty generalization,
+      where a broad claim is made from an inadequate sample.
+    candidate: Hasty Generalization
+    challenged_inference: All minority candidates campaign similarly to their constituents
+    label_justification: The criticism specifically targets the target’s assumption
+      that a single observation about one group of minority candidates can be extrapolated
+      to all such candidates, which is the classic structure of a hasty generalization
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - people of their ethnicity. Or perhaps giving them a voice that has been silent
+      for a long time. I'm sure all minority candidates campaign in a similar way
+      when it
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Target contains a universal claim that all minority candidates
+    campaign in a similar way to their constituents based on observation of only one
+    election, meeting the hasty‑generalization structure.
+  decision_reason: The target asserts that “all minority candidates campaign in a
+    similar way when it comes to their constituents,” a broad conclusion drawn from
+    a single election context (“one election”). This satisfies the mandatory structure
+    of a hasty generalization, and the claim itself is unsupported by evidence beyond
+    that single observation.
+  evidence_ids:
+  - T3
+  - T1
+  evidence_spans:
+  - people of their ethnicity. Or perhaps giving them a voice that has been silent
+    for a long time. I'm sure all minority candidates campaign in a similar way when
+    it
+  - Perhaps it screams racial bias but we will have to dig deeper to truly find out.
+    I don know if we can make that assumption off of one election. There
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5122
+  completion_tokens: 2963
+  total_tokens: 8085
+  wall_time_seconds: 109.84400000001187

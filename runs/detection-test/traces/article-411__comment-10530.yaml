@@ -1,0 +1,153 @@
+sample:
+  id: 411:10530
+  article_id: 411
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: Turkmenistan is censoring the internet and slowing the internet down for
+    its citizens. Who is going to be the next country to do this? And how long before
+    it reaches us here in the United states? If it happens in the united states, it
+    could happen in any country in the west.
+  target: 'While Turkmenistan censoring the internet is wrong and should be stopped
+    immediately for many valid reasons, I don''t think it''s likely at all that it
+    will start happening in the west. Western governments tend to have checks and
+    balances that prevent them from crossing certain lines that detract from citizens
+    freedoms. Turkmenistan is one of the least free countries in the world. We should
+    always be vigilant and protect our freedoms as  much as possible, but we don''t
+    need to cause an undue amount of concern either. That level of balance is important
+    so we do not go too far or become too complacent. It is true as well that we must
+    not be complacent in allowing Turkmenistan to censor its people, we must stand
+    up to this bully and encourage them to open up their internet. It will be a good
+    first step. #Freedom4Turkmenistan'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While Turkmenistan censoring the internet is wrong and should be stopped immediately
+      for many valid reasons, I don't think it's likely at all that it will start
+      happening in the
+    - west. Western governments tend to have checks and balances that prevent them
+      from crossing certain lines that detract from citizens freedoms. Turkmenistan
+      is one of the least free countries in
+    - the world. We should always be vigilant and protect our freedoms as  much as
+      possible, but we don't need to cause an undue amount of concern either. That
+      level of
+    candidate: null
+  goal:
+    conclusion_or_goal: The argument concludes that widespread internet censorship
+      similar to that in Turkmenistan is unlikely to occur in Western countries.
+    candidate: null
+    supporting_reason: Western governments tend to have checks and balances that prevent
+      them from crossing certain lines that detract from citizens' freedoms.
+    support_relation: provides a causal explanation linking the presence of checks
+      and balances to the improbability of censorship in the West.
+    label_justification: The argument does not present any of the recognized fallacies;
+      the cited reason is a standard causal claim that legitimately supports the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - west. Western governments tend to have checks and balances that prevent them
+      from crossing certain lines that detract from citizens freedoms. Turkmenistan
+      is one of the least free countries in
+  counterargument:
+    decisive_counterargument: Your argument relies on the statement that Western governments
+      have checks and balances to conclude that internet censorship cannot happen
+      there. But the existence of checks and balances does not guarantee that such
+      censorship will never be enacted; governments can and do pass laws that override
+      those safeguards or use technical measures to surveil and restrict access. Therefore,
+      the inference that censorship is unlikely in the West is not supported by the
+      premise and commits an appeal to tradition—using the traditional existence of
+      checks and balances as a reason to dismiss any possibility of future censorship.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that Western governments cannot censor the
+      internet because they have checks and balances that prevent them from crossing
+      certain lines.
+    label_justification: The argument treats the historical presence of checks and
+      balances as an inherent safeguard against censorship, effectively appealing
+      to the tradition of liberal governance as proof that such censorship will not
+      occur. This does not account for evidence that safeguards can be circumvented
+      or overridden, and so constitutes an Appeal to Tradition rather than a logically
+      sound inference.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While Turkmenistan censoring the internet is wrong and should be stopped immediately
+      for many valid reasons, I don't think it's likely at all that it will start
+      happening in the
+    - west. Western governments tend to have checks and balances that prevent them
+      from crossing certain lines that detract from citizens freedoms. Turkmenistan
+      is one of the least free countries in
+    - the world. We should always be vigilant and protect our freedoms as  much as
+      possible, but we don't need to cause an undue amount of concern either. That
+      level of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument uses the historical existence of checks and balances
+    (“Western governments tend to have checks and balances”) as a reason that censorship
+    cannot occur, which is a typical appeal to tradition fallacy.
+  decision_reason: The sentence “Western governments tend to have checks and balances
+    that prevent them from crossing certain lines that detract from citizens freedoms”
+    presents the traditional presence of checks and balances as a guarantee against
+    future censorship, satisfying the structural condition for an Appeal to Tradition.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - While Turkmenistan censoring the internet is wrong and should be stopped immediately
+    for many valid reasons, I don't think it's likely at all that it will start happening
+    in the
+  - west. Western governments tend to have checks and balances that prevent them from
+    crossing certain lines that detract from citizens freedoms. Turkmenistan is one
+    of the least free countries in
+  - the world. We should always be vigilant and protect our freedoms as  much as possible,
+    but we don't need to cause an undue amount of concern either. That level of
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5651
+  completion_tokens: 3351
+  total_tokens: 9002
+  wall_time_seconds: 244.76500000001397

@@ -1,0 +1,137 @@
+sample:
+  id: 76:4124
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: Funny how journalists, a group of professionals, equate themselves with
+    an entire group in terms of victimhood. Not surprising some journalist would write
+    such an idea in an article. Maybe there shouldn't be so much focus on these journalists,
+    and a lot more on the millions of Shia Muslims who are at risk. It cheapens their
+    plight to lump them in with journalists, like all their enemies hate both equally.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    - there shouldn't be so much focus on these journalists, and a lot more on the
+      millions of Shia Muslims who are at risk. It cheapens their plight to lump them
+    - in with journalists, like all their enemies hate both equally.
+    candidate: null
+  goal:
+    conclusion_or_goal: Journalists should not receive as much focus for their own
+      victimhood; more attention should be given to the millions of Shia Muslims who
+      are at risk.
+    candidate: null
+    supporting_reason: Journalists equate themselves with an entire group in terms
+      of victimhood, thereby lumping their plight with that of Shia Muslims, which
+      cheapens the latter’s suffering.
+    support_relation: The supporting reason is used to argue that the focus should
+      shift from journalists to Shia Muslims.
+    label_justification: No fallacy from the defined list applies; the reason is directly
+      relevant to the stated conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    - there shouldn't be so much focus on these journalists, and a lot more on the
+      millions of Shia Muslims who are at risk. It cheapens their plight to lump them
+  counterargument:
+    decisive_counterargument: The argument assumes that because a few journalists
+      might write about feeling victimized alongside Shia Muslims, this must represent
+      a broader collective position of the entire journalistic profession. No evidence
+      is provided that every or even most journalists share this stance, nor that
+      such a shared stance actually exists. Hence, the claim that ‘journalists equate
+      themselves with an entire group’ is a leap from a few instances to a universal
+      conclusion.
+    candidate: Hasty Generalization
+    challenged_inference: All journalists collectively equate themselves with the
+      Shia Muslim group in terms of victimhood.
+    label_justification: The counterargument exposes that the reasoning takes a limited
+      sample of journalists’ statements and applies the conclusion to the entire profession,
+      which is exactly the hallmark of a hasty generalization fallacy. It does not
+      merely criticize the argument; it demonstrates that the inference is unsupported
+      by the evidence and therefore fails to meet the required logical standard.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    - there shouldn't be so much focus on these journalists, and a lot more on the
+      millions of Shia Muslims who are at risk. It cheapens their plight to lump them
+    - in with journalists, like all their enemies hate both equally.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that all journalists collectively equate themselves
+    with Shia Muslims, based on the observation that some individual journalists have
+    expressed such a view. This inference generalizes from a limited sample to a universal
+    claim about the entire profession, satisfying the structure of a hasty generalization.
+  decision_reason: The RAW TARGET asserts a sweeping conclusion about journalists
+    as a whole from the limited evidence of a few statements. This is a classic hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Funny how journalists, a group of professionals, equate themselves with an entire
+    group in terms of victimhood. Not surprising some journalist would write such
+    an idea in an article. Maybe
+  - there shouldn't be so much focus on these journalists, and a lot more on the millions
+    of Shia Muslims who are at risk. It cheapens their plight to lump them
+  - in with journalists, like all their enemies hate both equally.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4417
+  completion_tokens: 4101
+  total_tokens: 8518
+  wall_time_seconds: 183.98499999998603

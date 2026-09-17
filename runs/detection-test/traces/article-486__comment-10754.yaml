@@ -1,0 +1,138 @@
+sample:
+  id: 486:10754
+  article_id: 486
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: It is natural that the government would deny that the cyberattacks have
+    been successful. I wouldn't trust what they say, to be honest. If the attacks
+    had been successful, it would have been perfectly natural for the government to
+    refute it, in order to cover up their own incompetence in the matter. Self preservation
+    at its best.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is natural that the government would deny that the cyberattacks have
+        been successful.
+    - role: evaluative_conclusion
+      text: Self preservation at its best.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is natural that the government would deny that the cyberattacks have been
+      successful. I wouldn't trust what they say, to be honest. If the attacks had
+      been successful, it
+    - would have been perfectly natural for the government to refute it, in order
+      to cover up their own incompetence in the matter. Self preservation at its best.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The speaker concludes that the government’s statements about
+      the cyberattacks should not be trusted because the government would naturally
+      deny success.
+    candidate: Appeal to Nature
+    supporting_reason: The assertion that it is natural for governments to deny successful
+      attacks, and that such denial would serve to cover up incompetence.
+    support_relation: Appeal‑to‑Nature (using naturalness as the justification for
+      distrusting the government)
+    label_justification: The argument claims that because it is natural for the government
+      to deny the attacks, this naturalness suffices to prove the government’s untrustworthiness,
+      which is an appeal to nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is natural that the government would deny that the cyberattacks have been
+      successful. I wouldn't trust what they say, to be honest. If the attacks had
+      been successful, it
+    - would have been perfectly natural for the government to refute it, in order
+      to cover up their own incompetence in the matter. Self preservation at its best.
+  counterargument:
+    decisive_counterargument: The claim that it is ‘natural’ for the government to
+      deny successful cyber‑attacks does not provide any factual evidence that such
+      a denial is warranted or that the attacks actually occurred. Whether the government's
+      denial is natural or not has no bearing on the truth of their statements. In
+      reality, many governments admit to failures and carry out investigations publicly;
+      the fact that some might conceal missteps does not automatically invalidate
+      their words. Therefore, the conclusion that one should distrust the government
+      solely because denying attacks is supposedly natural is unjustified.
+    candidate: Appeal to Nature
+    challenged_inference: It is natural for the government to deny the success of
+      the cyberattacks, so we should not trust what the government says about the
+      attacks.
+    label_justification: The argument relies on the assertion that a particular behavior
+      (‘denying success’) is natural; from this claim it infers that the government’s
+      statements should be rejected. This is precisely the structure of an Appeal
+      to Nature, where the naturalness of a stance is used to draw a normative conclusion.
+      The reasoning incorrectly substitutes a value judgment about naturalness for
+      empirical evidence about the attacks, making the inference fallacious.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is natural that the government would deny that the cyberattacks have been
+      successful. I wouldn't trust what they say, to be honest. If the attacks had
+      been successful, it
+    - would have been perfectly natural for the government to refute it, in order
+      to cover up their own incompetence in the matter. Self preservation at its best.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument explicitly uses a naturalness premise (“It is natural
+    that the government would deny that the cyberattacks have been successful.”) to
+    support an evaluative conclusion (“Self preservation at its best.”), which fits
+    the appeal‑to‑nature structure of using naturalness to justify a value judgment.
+  decision_reason: The argument relies on a naturalness premise to support an evaluative
+    conclusion, matching the appeal‑to‑nature structural pattern.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is natural that the government would deny that the cyberattacks have been successful.
+    I wouldn't trust what they say, to be honest. If the attacks had been successful,
+    it
+  - would have been perfectly natural for the government to refute it, in order to
+    cover up their own incompetence in the matter. Self preservation at its best.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4646
+  completion_tokens: 3929
+  total_tokens: 8575
+  wall_time_seconds: 67.56300000002375

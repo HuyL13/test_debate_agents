@@ -1,0 +1,100 @@
+sample:
+  id: 161:4680
+  article_id: 161
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Taking away speech from the public will only lead to more false information.
+    People need to communicate. Keep conversations alive.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Taking away speech from the public will only lead to more false information.
+      People need to communicate. Keep conversations alive.
+    candidate: null
+  goal:
+    conclusion_or_goal: Preserve public speech to avoid increased false information.
+    candidate: null
+    supporting_reason: Taking away speech from the public will only lead to more false
+      information.
+    support_relation: mechanism_supports_goal
+    label_justification: No fallacy from the provided set applies to the argument;
+      the reasoning is an unsupported claim that restricting speech causes more false
+      info, but it does not match Hasty Generalization, Slippery Slope, False Dilemma,
+      Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition,
+      or Appeal to Worse Problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Taking away speech from the public will only lead to more false information.
+      People need to communicate. Keep conversations alive.
+  counterargument:
+    decisive_counterargument: The claim that removing public speech will *only* produce
+      more false information assumes that two extreme options—total suppression or
+      total freedom—are the only outcomes. In reality, restricting certain harmful
+      content while preserving broader free expression could reduce misinformation
+      without outright banning speech. Therefore, the argument commits the False Dilemma
+      fallacy by presenting a binary choice that ignores viable middle‑ground solutions.
+    candidate: False Dilemma
+    challenged_inference: Removing speech will inevitably and exclusively result in
+      an increase of false information.
+    label_justification: The objection demonstrates that the reasoning improperly
+      limits the set of possible outcomes to a dichotomy, thereby exhibiting a False
+      Dilemma. The passage presents only one side of the trade‑off (removal → more
+      false info) without acknowledging alternative approaches such as targeted regulation
+      or media literacy interventions.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Taking away speech from the public will only lead to more false information.
+      People need to communicate. Keep conversations alive.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2520
+  completion_tokens: 3051
+  total_tokens: 5571
+  wall_time_seconds: 160.03199999999924

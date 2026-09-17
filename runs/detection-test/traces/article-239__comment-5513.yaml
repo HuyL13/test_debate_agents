@@ -1,0 +1,133 @@
+sample:
+  id: 239:5513
+  article_id: 239
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: Once you get youth active in doing something they may never cease. They
+    may do things they should take no part in. Society's road to anarchy is possibly
+    paved.
+  target: I see you are using the dubious words of the infamous Dr Fred Smith. I never
+    knew he was such an expert in what it means to let the youth be passionate about
+    something and start a movement. I wonder what kind of movements he got into in
+    order to end up like he is today. Instead of giving him a platform to spew his
+    ignorance, we need to listen to the people who are actual experts in the field.
+    The ones that are an the ground at these events trying to save our planet. Including
+    the youth that you don't want to get into any movements.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the ones that are on the ground at these events
+    - role: endorsed_claim
+      text: listen to the people who are actual experts in the field
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - a platform to spew his ignorance, we need to listen to the people who are actual
+      experts in the field. The ones that are an the ground at these events
+    - trying to save our planet. Including the youth that you don't want to get into
+      any movements.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Deny Dr. Fred Smith's authority and advocate listening to
+      genuine experts instead; don’t give Dr. Fred Smith a platform.
+    candidate: Appeal to Authority
+    supporting_reason: He dismisses Dr. Fred Smith by labeling him dubious and infamous,
+      implying the speaker lacks genuine expertise, and urges reliance on “actual
+      experts” and the youth at the ground instead.
+    support_relation: Chronological
+    label_justification: The speaker attacks Dr. Fred Smith’s character and alleged
+      credibility (ad hominem) to undermine his arguments, using authority appeal
+      to justify excluding him, which is a logical fallacy of appeal to authority
+      without proper justification.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I see you are using the dubious words of the infamous Dr Fred Smith. I never
+      knew he was such an expert in what it means to let the youth
+    - be passionate about something and start a movement. I wonder what kind of movements
+      he got into in order to end up like he is today. Instead of giving him
+  counterargument:
+    decisive_counterargument: The claim that the youth present at events are ‘actual
+      experts’ is unsubstantiated; mere participation or enthusiasm does not confer
+      expertise, and no evidence is offered to support their credentials. Thus, the
+      inference that their views are superior to those of Dr. Fred Smith is logically
+      invalid.
+    candidate: Appeal to Authority
+    challenged_inference: The youth present at these events are actual experts whose
+      opinions should be preferred over Dr. Fred Smith’s.
+    label_justification: 'The objection targets the reasoning step that treats the
+      group’s presence as evidence of expertise and thereby elevates their authority.
+      This is a classic Appeal to Authority fallacy: the argument assumes that the
+      persons’ status (being on the ground, youth, etc.) constitutes expertise, which
+      is not demonstrated.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - a platform to spew his ignorance, we need to listen to the people who are actual
+      experts in the field. The ones that are an the ground at these events
+    - trying to save our planet. Including the youth that you don't want to get into
+      any movements.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument assumes the people on the ground possess expertise
+    and uses that assumption to override Dr. Fred Smith, without providing evidence
+    that they are genuinely qualified.
+  decision_reason: The testimony of the ‘people on the ground’ is presented as authoritative
+    support for the claim that they should be listened to over Dr. Fred Smith. Because
+    the claim of expertise is unsubstantiated, the argument commits an appeal to authority
+    fallacy.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - a platform to spew his ignorance, we need to listen to the people who are actual
+    experts in the field. The ones that are an the ground at these events
+  - trying to save our planet. Including the youth that you don't want to get into
+    any movements.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5243
+  completion_tokens: 3074
+  total_tokens: 8317
+  wall_time_seconds: 267.375

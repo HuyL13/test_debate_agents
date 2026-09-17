@@ -1,0 +1,145 @@
+sample:
+  id: 589:8965
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: These countries are so far behind the majority of the world. Surely they
+    see the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+    make them think about the way they act and make them want to be like us? Its so
+    sad. So many countries have made gay marriage legal and more over the past 10
+    years, and they continue to ignore that and act like this??
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of the world
+    - role: popularity_claim
+      text: many countries have made gay marriage legal and more over the past 10
+        years
+    - role: target_claim
+      text: these countries should act like that / be like us
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+    - 10 years, and they continue to ignore that and act like this??
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Encourage these countries to adopt LGBT progress, such as
+      legalizing gay marriage, to align with the majority of the world.
+    candidate: Appeal to Majority
+    supporting_reason: The majority of the world has made progress on LGBT issues.
+    support_relation: The reason is used to justify the expectation that countries
+      behind the majority ought to follow suit.
+    label_justification: The argument simply invokes the fact that many other countries
+      have progressed to persuade the target countries to adopt similar policies,
+      relying on the popularity or prevalence of the practice rather than any logical
+      connection; this is a classic appeal to majority (argumentum ad populum).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+  counterargument:
+    decisive_counterargument: 'The fact that a majority of countries have legalized
+      gay marriage does not logically compel or even strongly suggest that these particular
+      countries should adopt the same policy. Moral or legal choices are contingent
+      on a variety of cultural, historical, and legal factors, not on how many other
+      nations happen to follow a specific path. Using the sheer number of other countries
+      as a reason for action is a non‑sequitur: it treats a descriptive fact (“most
+      countries are progressive”) as a prescriptive obligation (“they must be progressive
+      too”).'
+    candidate: Appeal to Majority
+    challenged_inference: Because most countries have adopted LGBT rights, these specific
+      countries should also adopt them
+    label_justification: The objection directly challenges the inference that a majority’s
+      precedent confers a moral or practical obligation on other countries, which
+      is the defining feature of the Appeal to Majority fallacy. The reasoning tries
+      to equate majority status with justification, a classic appeal to majority,
+      and not merely a criticism of surface content. No other fallacy category applies
+      more precisely.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+    - 10 years, and they continue to ignore that and act like this??
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that because a majority of the world has
+    adopted LGBT progress (many countries made gay marriage legal), the countries
+    in question should emulate that majority, thereby using the widespread acceptance
+    of the practice to justify the demand that they follow suit.
+  decision_reason: The argument invokes the fact that many countries have legalized
+    gay marriage to persuade the target countries to do the same, which matches the
+    structural form of an appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - These countries are so far behind the majority of the world. Surely they see the
+    progress the rest of us have made with LGBT issues, yes? Shouldn't that make them
+  - think about the way they act and make them want to be like us? Its so sad. So
+    many countries have made gay marriage legal and more over the past
+  - 10 years, and they continue to ignore that and act like this??
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4891
+  completion_tokens: 3327
+  total_tokens: 8218
+  wall_time_seconds: 145.90600000000268

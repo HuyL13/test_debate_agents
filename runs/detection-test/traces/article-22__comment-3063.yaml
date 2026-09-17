@@ -1,0 +1,137 @@
+sample:
+  id: 22:3063
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: There is too much emotional pleasing in this article simply because most
+    people allegedly believe in it. This isn't even true butt the article tries to
+    frame it that way in a soft manner. Ot tries to act as though the majority are
+    for it but this is merely the case at best with the tiny minority of people involved.
+    This is a problem with all special interests. The average person doesn't care
+    enough to be this involved.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people allegedly believe in it
+    - role: target_claim
+      text: article tries to frame it that way in a soft manner
+    structure_complete: true
+    structure_type: popularity_to_claim
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+    candidate: Appeal to Majority
+  goal:
+    candidate: Appeal to Majority
+    conclusion_or_goal: The article relies on emotional pleading because it claims
+      most people believe in it.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: '"most people allegedly believe in it" is used to justify
+      the emotional nature of the article, a classic appeal to popularity.'
+    mechanism_supports_goal: false
+    support_relation: Appeal to Majority
+    supporting_reason: most people allegedly believe in it
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+  counterargument:
+    candidate: Appeal to Majority
+    challenged_inference: A purported claim that because most people allegedly believe
+      in an idea, an article can rely on emotional pleasing to persuade readers.
+    decisive_counterargument: 'The argument claims that the article’s emotional tone
+      is justified by the statement that most people believe in it, assuming that
+      an assertion of majority support is sufficient evidence for its persuasive power.
+      This is an appeal to the supposed majority: the claim is treated as proof of
+      its emotional effectiveness purely because it appeals to a large group, without
+      substantiating that the majority actually exists or that majority support causes
+      the emotional framing. The reasoning therefore commits an Appeal to Majority
+      fallacy.'
+    evidence_ids:
+    - T1
+    - T2
+    failure_exposed: true
+    label_justification: The inference treats the existence of a majority (or the
+      claim that one exists) as legitimate justification for the article’s emotional
+      content, which is the classic structure of an Appeal to Majority. The argument
+      fails to demonstrate that the majority actually exists or that such a majority
+      would give credence to the emotional framing, thus the fallacy is exposed.
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that the article’s emotional framing is justified
+    by citing that ‘most people allegedly believe in it’, thereby treating the perceived
+    majority as evidence for the claim. This satisfies the structural requirement
+    for an Appeal to Majority, wherein a majority’s alleged support is used as a basis
+    for justification, even though the majority’s existence or relevance is not substantiated.
+  decision_reason: The argument rests on the claim that because most people allegedly
+    believe in it, the article’s emotional tone is warranted, which is a classic Appeal
+    to Majority structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There is too much emotional pleasing in this article simply because most people
+    allegedly believe in it. This isn't even true butt the article tries to frame
+    it that way
+  - in a soft manner. Ot tries to act as though the majority are for it but this is
+    merely the case at best with the tiny minority of people involved.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 1
+  cache_hits: 3
+  retries: 0
+  prompt_tokens: 4624
+  completion_tokens: 3581
+  total_tokens: 8205
+  wall_time_seconds: 27.766000000061467

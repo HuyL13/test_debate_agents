@@ -1,0 +1,120 @@
+sample:
+  id: 350:6447
+  article_id: 350
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: How much deeper are we going to dig into relying on artificial technologies
+    for every little thing? Applications of these sorts of unnatural things really
+    dehumanize people. These people are right to be worried, because they're being
+    turned from real individuals into some digital statistic in a machine.
+  target: You can either join the new technology or get left behind. There is to middle
+    ground with tech. There is not as much balance as many think.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: join the new technology
+    - role: alternative_b
+      text: get left behind
+    - role: exhaustiveness_commitment
+      text: implying that these two options are the only possible outcomes, with no
+        middle ground
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - You can either join the new technology or get left behind. There is to middle
+      ground with tech. There is not as much balance as many think.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: You can either join the new technology or get left behind
+      – there is no middle ground.
+    candidate: False Dilemma
+    supporting_reason: There is not as much balance as many think.
+    support_relation: 'The assertion that balance is lacking serves as the justificatory
+      premise that there are only two outcomes: joining technology or being left behind.'
+    label_justification: The argument frames the situation as having only two mutually
+      exclusive options and claims there is no reasonable middle position, which is
+      the definition of a False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - You can either join the new technology or get left behind. There is to middle
+      ground with tech. There is not as much balance as many think.
+  counterargument:
+    decisive_counterargument: The claim that we must either embrace technology or
+      be left behind ignores the many possible ways people can engage with technology—such
+      as selective use, moderate adoption, or blended approaches that preserve human
+      agency. The world is full of nuanced positions, so presenting only two options
+      is a false dichotomy.
+    candidate: False Dilemma
+    challenged_inference: The assertion that there is only a binary choice between
+      joining new technology or being left behind, and that no middle ground exists,
+      fails to account for any alternative or partial adoption strategies.
+    label_justification: 'The objection directly contests the binary framing implied
+      in the target, showing that the argument assumes an exclusionary dichotomy.
+      This is the hallmark of a False Dilemma: the speaker restricts the options to
+      two mutually exclusive extremes while overlooking viable intermediate alternatives.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - You can either join the new technology or get left behind. There is to middle
+      ground with tech. There is not as much balance as many think.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: Target presents only two mutually exclusive alternatives—join
+    the new technology or get left behind—and asserts that no middle ground exists,
+    thereby failing to acknowledge any intermediate options.
+  decision_reason: The target explicitly states a binary choice and claims that there
+    is no balance or middle ground, satisfying the structural conditions of a False
+    Dilemma. Evidence T1 supports both the presentation of the two options and the
+    claim that they are exhaustive. Therefore the argument commits a False Dilemma
+    fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - You can either join the new technology or get left behind. There is to middle
+    ground with tech. There is not as much balance as many think.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4284
+  completion_tokens: 2388
+  total_tokens: 6672
+  wall_time_seconds: 113.96800000000076

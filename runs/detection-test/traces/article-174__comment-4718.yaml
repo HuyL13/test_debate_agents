@@ -1,0 +1,145 @@
+sample:
+  id: 174:4718
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: Most world citizens will be so relieved at this progress so this is a welcomed
+    step to the future. This is great news in the struggle for lgbtq rights.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most world citizens
+    - role: popularity_claim
+      text: will be so relieved at this progress
+    - role: target_claim
+      text: this is a welcomed step to the future
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most world citizens will be so relieved at this progress so this is a welcomed
+      step to the future. This is great news in the struggle for lgbtq rights.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker claims that most world citizens will be relieved
+      at the progress, labeling it a welcomed step for LGBTQ rights.
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: The target makes an unsupported assertion about the majority’s
+      feelings but does not present a logical reason, evidence, or fallacious structure.
+      No fallacious reasoning is identifiable, thus the claim is not a fallacy under
+      the given categories.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most world citizens will be so relieved at this progress so this is a welcomed
+      step to the future. This is great news in the struggle for lgbtq rights.
+  counterargument:
+    decisive_counterargument: The claim that *most* world citizens will feel relieved
+      and that therefore the advancement is a welcomed step presumes a majority response
+      without any evidence. The statement offers no data, anecdotes, or representative
+      sample to support the assertion that the global population shares that sentiment.
+      Consequently the conclusion that the progress is universally welcomed is unjustified
+      and rests on an unwarranted generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Most world citizens will be so relieved at this progress
+      so this is a welcomed step to the future.
+    label_justification: The objection demonstrates that the TARGET’s inference leaps
+      from an unstated, unsupported observation to a blanket claim about the global
+      population’s feelings. This is precisely the hallmark of a hasty generalization,
+      where a conclusion about a larger group is drawn from insufficient or nonexistent
+      evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most world citizens will be so relieved at this progress so this is a welcomed
+      step to the future. This is great news in the struggle for lgbtq rights.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The target statement does not provide any specific cases, anecdotes,
+      or representative samples that would justify generalizing about the entire global
+      population. A hasty generalization requires a leap from limited evidence to
+      a universal claim; here the claim that 'most world citizens will be so relieved'
+      is asserted without support. Therefore, the target fits the appeal-to-majority
+      pattern but fails to meet the structural requirement of a hasty generalization.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most world citizens will be so relieved at this progress so this is a welcomed
+      step to the future. This is great news in the struggle for lgbtq rights.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: Target asserts a claim (“this is a welcomed step to the future”)
+    based on the popularity of the sentiment (“most world citizens will be so relieved”),
+    satisfying the structure of an Appeal to Majority fallacy.
+  decision_reason: The target explicitly appeals to the perceived majority attitude
+    of world citizens to justify that the progress is welcomed, matching the Appeal
+    to Majority structural form identified in the evidence.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most world citizens will be so relieved at this progress so this is a welcomed
+    step to the future. This is great news in the struggle for lgbtq rights.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4941
+  completion_tokens: 2673
+  total_tokens: 7614
+  wall_time_seconds: 163.9539999999979

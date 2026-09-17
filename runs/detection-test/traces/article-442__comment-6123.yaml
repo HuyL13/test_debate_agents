@@ -1,0 +1,115 @@
+sample:
+  id: 442:6123
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: Why do we take the word and opinions of artists so seriously? If people
+    keep listening to them and basing their opinions off theirs, none of us will have
+    our own way of thinking. Plus, they are all rich and the rich don't have our interests
+    in mind. Why rely on what this one guy says?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the artists
+    - role: observed_property
+      text: are all rich
+    - role: target_population
+      text: artists
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: We should not rely on artists' opinions.
+    candidate: null
+    supporting_reason: Artists are rich and don't share our interests.
+    support_relation: The claim that artists are wealthy is presented as the justification
+      for dismissing their opinions and advising against relying on them.
+    label_justification: The argument uses an ad hominem circumstantial in which artists
+      are deemed unreliable because of their wealth; this fallacy type is not included
+      in the provided list, so no fallacy label can be assigned.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+  counterargument:
+    decisive_counterargument: Not all artists are wealthy; many are ordinary people
+      just like you and your partner. The claim that every artist is rich and that
+      their wealth automatically means they have no interest in ordinary folks is
+      an overgeneralization without evidence. Even wealthy artists often express empathy
+      for the struggles of common people and offer valuable inspiration that can enrich,
+      rather than suppress, independent thought.
+    candidate: null
+    challenged_inference: Claim that artists’ opinions should be disregarded because
+      (1) artists are all rich and (2) listening to them suppresses individual thinking.
+    label_justification: The denial rests on a blanket statement—‘they are all rich’
+      and ‘the rich don’t care for us’—applied to an entire group (artists) based
+      on no sample or evidence. This is precisely a hasty generalization, as it extends
+      a specific claim about wealthy artists to the entire profession.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage makes a sample-to-population inference by taking
+    the single artist referenced as 'this one guy' (who is rich and self‑interested)
+    and generalizing that all artists are rich and lack the public’s interests, which
+    is a classic hasty generalization.
+  decision_reason: The target contrasts an individual artist’s mere wealth with the
+    broader group of all artists, inferring that because this one artist is rich,
+    therefore all artists are rich.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - own way of thinking. Plus, they are all rich and the rich don't have our interests
+    in mind. Why rely on what this one guy says?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3984
+  completion_tokens: 5441
+  total_tokens: 9425
+  wall_time_seconds: 272.0

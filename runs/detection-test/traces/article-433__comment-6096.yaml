@@ -1,0 +1,154 @@
+sample:
+  id: 433:6096
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: So true! Police brutality has really taken a huge jump in recent years.
+    I just wonder would is going to happen in the future if the police keep on the
+    track they are on now? Will it get worse? I can't imagine it being better. Aggressive
+    policing continues to go unchecked and if it keeps happening, we might see a huge
+    increase in conflicts, not only with minorities but with other groups too. It
+    is so scary to think that if we don't do something now, we can be witnessing the
+    deterioration of societal peace. Police should be respect, but they make it hard
+    to do that when they continue to use brutality toward people, especially minorities.
+    Right?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: police keep on the track they are on now, continuing brutality toward
+        people, especially minorities
+    - role: intermediate_consequence
+      text: a huge increase in conflicts, not only with minorities but with other
+        groups too
+    - role: final_consequence
+      text: the deterioration of societal peace
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - track they are on now? Will it get worse? I can't imagine it being better. Aggressive
+      policing continues to go unchecked and if it keeps happening, we might see a
+    - huge increase in conflicts, not only with minorities but with other groups too.
+      It is so scary to think that if we don't do something now, we can be witnessing
+    - the deterioration of societal peace. Police should be respect, but they make
+      it hard to do that when they continue to use brutality toward people, especially
+      minorities. Right?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The argument is concerned that if police brutality remains
+      unchecked, it will result in a significant rise in conflicts—especially involving
+      minorities—and a deterioration of societal peace.
+    candidate: null
+    supporting_reason: Aggressive policing continues unchecked, leading to the potential
+      for increased conflicts and societal deterioration.
+    support_relation: Thus the continuation of brutality is presented as a cause that
+      will produce worsening social outcomes.
+    label_justification: The argument does not commit a logical fallacy; it presents
+      a causal link between unchecked brutality and future conflict. No fallacy is
+      warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - track they are on now? Will it get worse? I can't imagine it being better. Aggressive
+      policing continues to go unchecked and if it keeps happening, we might see a
+    - huge increase in conflicts, not only with minorities but with other groups too.
+      It is so scary to think that if we don't do something now, we can be witnessing
+    - the deterioration of societal peace. Police should be respect, but they make
+      it hard to do that when they continue to use brutality toward people, especially
+      minorities. Right?
+  counterargument:
+    decisive_counterargument: 'The claim that current police brutality will automatically
+      trigger a large‑scale deterioration of societal peace is a classic slippery‑slope
+      inference: it assumes a chain of events (more brutality → more conflict → societal
+      dissolution) without providing evidence that each link necessarily follows.
+      You posit an inevitable, catastrophic outcome that follows from the present
+      trend, but you offer no empirical basis or causal mechanism connecting the present
+      level of aggression to the extreme future consequences you describe.'
+    candidate: Slippery Slope
+    challenged_inference: The inference that police keeping on their current aggressive
+      track will inevitably result in a huge increase in conflicts and societal deterioration
+    label_justification: The objection directly confronts the reasoning that a single
+      unverified trend will cause a chain of progressively worse outcomes. This is
+      the defining feature of a slippery‑slope fallacy, which involves asserting an
+      inevitable, severe consequence without evidence of the intermediate steps. The
+      counterargument therefore specifically targets that fallacy rather than merely
+      criticizing the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - track they are on now? Will it get worse? I can't imagine it being better. Aggressive
+      policing continues to go unchecked and if it keeps happening, we might see a
+    - huge increase in conflicts, not only with minorities but with other groups too.
+      It is so scary to think that if we don't do something now, we can be witnessing
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: Target contains a conditional chain of escalating negative consequences—police
+    brutality → increased conflicts → deterioration of societal peace—without any
+    evidence supporting the linkage between each step, which meets the structural
+    definition of a slippery‑slope fallacy.
+  decision_reason: The comment predicts that if police keep their current aggressive
+    track, there will inevitably be a huge rise in conflicts and a deterioration of
+    societal peace, presenting a chain of worsening outcomes without providing evidence
+    that each link is inevitable. This satisfies the definition of a slippery‑slope
+    inference.  Therefore the surviving candidate “Slippery Slope” is accepted.
+  evidence_ids:
+  - T2
+  - T3
+  - T4
+  evidence_spans:
+  - track they are on now? Will it get worse? I can't imagine it being better. Aggressive
+    policing continues to go unchecked and if it keeps happening, we might see a
+  - huge increase in conflicts, not only with minorities but with other groups too.
+    It is so scary to think that if we don't do something now, we can be witnessing
+  - the deterioration of societal peace. Police should be respect, but they make it
+    hard to do that when they continue to use brutality toward people, especially
+    minorities. Right?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5175
+  completion_tokens: 2494
+  total_tokens: 7669
+  wall_time_seconds: 90.75

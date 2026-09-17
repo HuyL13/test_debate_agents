@@ -1,0 +1,146 @@
+sample:
+  id: 409:6624
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: It's pretty clear that the vast majority of people feel that abusing women
+    is wrong. These types of stories are very sad because mostly everyone agrees that
+    the violence against women needs to stop. When will all stand up and raises our
+    voices against this senseless abuse? We also must talk seriously with the few
+    people that oppose this for whatever misguided reason they have. It's only with
+    efforts like these will women be safe again.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: vast majority of people
+    - role: popularity_claim
+      text: abuse of women is wrong and violence against women needs to stop
+    - role: target_claim
+      text: women will be safe again if we stand up and raise our voices
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's pretty clear that the vast majority of people feel that abusing women is
+      wrong. These types of stories are very sad because mostly everyone agrees that
+      the violence against
+    - women needs to stop. When will all stand up and raises our voices against this
+      senseless abuse? We also must talk seriously with the few people that oppose
+      this for
+    - whatever misguided reason they have. It's only with efforts like these will
+      women be safe again.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Encourage people to stand up and raise their voices against
+      abuse of women, so that women will be safe again.
+    candidate: Appeal to Majority
+    supporting_reason: It cites that the vast majority of people feel that abusing
+      women is wrong and that most people agree that violence against women needs
+      to stop as justification for the call to action.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument relies on the majority’s stance as moral authority
+      to justify the speaker’s position that action is necessary, which is characteristic
+      of an appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's pretty clear that the vast majority of people feel that abusing women is
+      wrong. These types of stories are very sad because mostly everyone agrees that
+      the violence against
+    - women needs to stop. When will all stand up and raises our voices against this
+      senseless abuse? We also must talk seriously with the few people that oppose
+      this for
+  counterargument:
+    decisive_counterargument: 'The conclusion that we must raise our voices simply
+      because a vast majority feel that abusing women is wrong relies on the belief
+      that the popularity of a view determines its truth or necessity. This is an
+      argument from popularity: the fact that most people hold a particular belief
+      is taken to justify actions based on that belief. The moral truth that abuse
+      is wrong and that action is warranted does not depend on how many people think
+      so; it stands on its own justification. Therefore the claim that “it’s only
+      with efforts like these that women will be safe again” is premised on a flawed
+      appeal to majority rather than on a sound evidence‑based argument.'
+    candidate: Appeal to Majority
+    challenged_inference: Because the majority think abusing women is wrong, we should
+      raise our voices and act to stop it.
+    label_justification: The objection shows that the reasoning incorrectly uses the
+      majority opinion as support for the moral conclusion, which is precisely the
+      hallmark of the Appeal to Majority fallacy. It does not merely criticize the
+      argument; it targets the faulty inference that majority sentiment itself validates
+      the proposed action.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's pretty clear that the vast majority of people feel that abusing women is
+      wrong. These types of stories are very sad because mostly everyone agrees that
+      the violence against
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that the vast majority of people
+    believe that abusing women is wrong and then uses that majority opinion to motivate
+    the claim that raising voices will make women safe again, thereby relying on popularity
+    as a basis for the action—characteristics of an appeal to majority fallacy.
+  decision_reason: The target’s argument takes the popularity claim (“vast majority
+    of people feel abuse is wrong”) as moral authority to justify the action (“stand
+    up and raise voices”), fitting the structure of an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's pretty clear that the vast majority of people feel that abusing women is
+    wrong. These types of stories are very sad because mostly everyone agrees that
+    the violence against
+  - women needs to stop. When will all stand up and raises our voices against this
+    senseless abuse? We also must talk seriously with the few people that oppose this
+    for
+  - whatever misguided reason they have. It's only with efforts like these will women
+    be safe again.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4827
+  completion_tokens: 3463
+  total_tokens: 8290
+  wall_time_seconds: 154.81300000002375

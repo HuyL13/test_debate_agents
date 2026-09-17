@@ -1,0 +1,133 @@
+sample:
+  id: 313:6337
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: It seems to me that Bangladesh must either shut down its universities or
+    ban the internet on those campuses in order to maintain public safety for students.
+    I don't see how students can feel safe unless immediate action is taken. Let's
+    talk solutions, not merely options.
+  target: I agree completely. It's obvious that decisive action must be taken, even
+    if viewed as extreme by some. It's either ban the internet for student safety
+    or shut down completely. Safety comes before everything. Perhaps it's time for
+    stricter regulation and zero-tolerance policies towards bullying. Even if it restricts
+    some freedom, it's worth saving the lives of students.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: ban the internet for student safety
+    - role: alternative_b
+      text: shut down completely
+    - role: exhaustiveness_commitment
+      text: It's either ban the internet for student safety or shut down completely
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The target asserts that decisive action must be taken in Bangladesh—specifically
+      that the only viable options are to ban internet access on campuses or shut
+      down universities entirely in order to ensure student safety.
+    candidate: False Dilemma
+    supporting_reason: 'The target presents the decision as a binary: either ban internet
+      access or shut down universities, implying these are the sole options.'
+    support_relation: The reasoning of presenting only two extreme options is used
+      to justify the claim that decisive action (ban or shutdown) is necessary for
+      safety.
+    label_justification: 'The argument commits a False Dilemma fallacy because it
+      limits the choices to two mutually exclusive extremes while ignoring potentially
+      viable alternatives such as targeted regulation, online safety measures, or
+      campus security improvements. Evidence IDs: T1, T2'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+    - Safety comes before everything. Perhaps it's time for stricter regulation and
+      zero-tolerance policies towards bullying. Even if it restricts some freedom,
+      it's worth saving the lives of students.
+  counterargument:
+    decisive_counterargument: The claim that the only viable options for ensuring
+      student safety are an outright ban on campus internet access or a complete shutdown
+      overlooks a range of feasible alternatives—such as targeted content filtering,
+      enhanced campus security measures, mental‑health support programs, or collaborative
+      safety protocols—that could address concerns without resorting to extreme measures.
+    candidate: null
+    challenged_inference: The assertion that students can only feel safe by either
+      banning the internet or shutting down the campus, implying a binary, all‑or‑nothing
+      decision that neglects intermediate or hybrid solutions.
+    label_justification: This objection directly targets the reasoning pattern that
+      limits possible responses to two extreme endpoints, thereby exposing a False
+      Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents two mutually exclusive options—ban
+    the internet for student safety or shut down the universities—while implying that
+    these are the only viable choices, satisfying the structure and exhaustiveness
+    required for a false dilemma.
+  decision_reason: The target contains the definitive statement “It’s either ban the
+    internet for student safety or shut down completely,” which presents a binary
+    alternative and assumes exhaustiveness, thus meeting the structural criteria for
+    a False Dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I agree completely. It's obvious that decisive action must be taken, even if viewed
+    as extreme by some. It's either ban the internet for student safety or shut down
+    completely.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4521
+  completion_tokens: 2204
+  total_tokens: 6725
+  wall_time_seconds: 110.8440000000046

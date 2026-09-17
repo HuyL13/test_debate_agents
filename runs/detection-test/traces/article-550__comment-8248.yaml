@@ -1,0 +1,123 @@
+sample:
+  id: 550:8248
+  article_id: 550
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: This is pretty surprising. I would have thought those countries would be
+    the last ones to invest in reneweables! When your whole economies are based off
+    fossil fuels, you would think they would be opposed to solar or electric!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is pretty surprising. I would have thought those countries would be the
+      last ones to invest in reneweables! When your whole economies are based off
+      fossil fuels, you would
+    - think they would be opposed to solar or electric!
+    candidate: null
+  goal:
+    conclusion_or_goal: The commentator is surprised that countries whose economies
+      rely heavily on fossil fuels are investing in renewable energy.
+    candidate: Hasty Generalization
+    supporting_reason: Because their whole economies are based off fossil fuels, you
+      would think they would be opposed to solar or electric.
+    support_relation: mechanism_supports_goal
+    label_justification: The reason rests on an unsupported broad assertion that any
+      fossil‑fuel–based economy opposes renewable energy, which is a generalization
+      without evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is pretty surprising. I would have thought those countries would be the
+      last ones to invest in reneweables! When your whole economies are based off
+      fossil fuels, you would
+    - think they would be opposed to solar or electric!
+  counterargument:
+    decisive_counterargument: The assertion that economies built on fossil fuels must
+      automatically resist renewable investment is an unwarranted leap. Countries
+      such as Norway and Norway-based African regions have diversified into renewables
+      precisely because they anticipate long‑term economic benefits, political stability,
+      and compliance with international agreements, despite their fossil‑fuel roots.
+    candidate: Hasty Generalization
+    challenged_inference: Because these economies rely heavily on fossil fuels, they
+      would oppose or avoid investing in renewable energy.
+    label_justification: 'The counterargument exposes a wide‑sweeping assumption that
+      is drawn from a limited observation—countries’ fossil‑fuel dependence—without
+      citing specific data. This is characteristic of a hasty generalization: a broad
+      claim about a class of economies is made from insufficient evidence about the
+      class’s behavior.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is pretty surprising. I would have thought those countries would be the
+      last ones to invest in reneweables! When your whole economies are based off
+      fossil fuels, you would
+    - think they would be opposed to solar or electric!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes an unsupported broad assertion that all economies
+    based on fossil fuels would oppose renewable energy, generalizing from the limited
+    observation of a few countries. This illustrates the structural pattern of a hasty
+    generalization.
+  decision_reason: The target sentence explicitly states, “When your whole economies
+    are based off fossil fuels, you would think they would be opposed to solar or
+    electric!” which generalizes from a specific circumstance to all fossil‑fuel–dependent
+    economies without evidence. The evidence passages (T1, T2) directly support this
+    conclusion.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is pretty surprising. I would have thought those countries would be the last
+    ones to invest in reneweables! When your whole economies are based off fossil
+    fuels, you would
+  - think they would be opposed to solar or electric!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4187
+  completion_tokens: 3516
+  total_tokens: 7703
+  wall_time_seconds: 200.40699999999197

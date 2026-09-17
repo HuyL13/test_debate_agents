@@ -1,0 +1,135 @@
+sample:
+  id: 350:7046
+  article_id: 350
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: Refugees have more to worry about than privacy. They are running from home,
+    and don't want their host to know who they are? There are worst issues for the
+    host, if they can't identify refugees.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: privacy of refugees
+    - role: worse_issue
+      text: issues for the host if they can't identify refugees
+    - role: deprioritizing_conclusion
+      text: refugees have more to worry about than privacy and do not want their host
+        to know who they are
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Refugees have more to worry about than privacy.
+    candidate: null
+    supporting_reason: They are running from home and therefore prefer that their
+      host does not know their identities, which indicates that privacy is a lesser
+      concern for them.
+    support_relation: The reason is used to justify the conclusion by pointing to
+      refugees’ primary concern (security and anonymity) over privacy.
+    label_justification: The passage merely states a claim with a supporting premise;
+      it does not exhibit a logical fallacy such as hopping from specific cases to
+      a broad generalization or misusing an authority. Therefore no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+  counterargument:
+    decisive_counterargument: 'The argument that refugees’ privacy concerns are less
+      crucial because host authorities may have more pressing problems (i.e. the inability
+      to identify refugees) is unjustified. The claim merely contrasts two unrelated
+      issues and assumes that one problem’s severity automatically negates the other,
+      without providing evidence that host concerns are actually greater or that addressing
+      them would truly mitigate refugee discomfort. The argument’s logical leap—deducing
+      that privacy can be dismissed because being unidentified is a worse threat—constitutes
+      a classic appeal to a worse problem.
+
+
+      **Evidence**: The target passages T1 and T2 assert the comparison without support.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that refugees’ privacy concerns are minimal
+      or irrelevant because the host cannot identify refugees leading to worst issues.
+    label_justification: 'Minimizing refugee privacy by pointing to a presumably more
+      severe host issue is a direct use of the ‘appeal to worse problems’ fallacy:
+      it dismisses an important concern simply by claiming another issue is harsher,
+      without evidence of comparative severity or relevance. This fully explains the
+      defect in the argument’s reasoning rather than just critiquing its content. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target states that refugees’ privacy concerns are deemed
+    less important because the host faces supposedly worse issues if refugees cannot
+    be identified, which is a classic comparison of severity without supporting evidence.
+  decision_reason: The argument dismisses refugees’ privacy concerns by asserting
+    that the host’s inability to identify refugees represents a more severe problem,
+    constituting an appeal to a worse problem fallacy. Evidence supporting this claim
+    is found in passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Refugees have more to worry about than privacy. They are running from home, and
+    don't want their host to know who they are? There are worst issues for the host,
+  - if they can't identify refugees.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4206
+  completion_tokens: 3542
+  total_tokens: 7748
+  wall_time_seconds: 180.17199999999866

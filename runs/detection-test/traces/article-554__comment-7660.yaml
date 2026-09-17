@@ -1,0 +1,135 @@
+sample:
+  id: 554:7660
+  article_id: 554
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: There seems to be no doubt as to the wish of the people, who have tweeted
+    and protested and made their will known. And the numbers don't lie. Isn't this
+    a democracy? Doesn't a democracy thrive on the will of the people? It's time for
+    Rajapaksa to bow to the will of the majority, which is the only right thing to
+    do.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots:
+    - role: population_group
+      text: the people
+    - role: popularity_claim
+      text: the will of the majority
+    - role: target_claim
+      text: Rajapaksa should bow to the will of the majority
+    structure_complete: true
+    structure_type: popularity_to_claim
+    evidence_spans:
+    - There seems to be no doubt as to the wish of the people, who have tweeted and
+      protested and made their will known. And the numbers don't lie. Isn't this
+    - a democracy? Doesn't a democracy thrive on the will of the people? It's time
+      for Rajapaksa to bow to the will of the majority, which is the only right thing
+    - to do.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Rajapaksa should bow to the will of the majority
+    candidate: Appeal to Majority
+    supporting_reason: Appeal to Majority
+    support_relation: Justifies
+    label_justification: The target uses the statement that the majority’s wishes
+      are the right thing to do as direct justification for Rajapaksa’s action, thus
+      committing an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There seems to be no doubt as to the wish of the people, who have tweeted and
+      protested and made their will known. And the numbers don't lie. Isn't this
+    - a democracy? Doesn't a democracy thrive on the will of the people? It's time
+      for Rajapaksa to bow to the will of the majority, which is the only right thing
+    - to do.
+  counterargument:
+    decisive_counterargument: The fact that a large number of people have written
+      tweets or shouted slogans does not automatically make their collective wish
+      the only legitimate basis for governing. In a democracy, legitimacy is derived
+      not merely from a majority opinion but from a system of representative institutions,
+      constitutional safeguards, and protections for minority rights. Assuming that
+      the majority’s will is inherently correct ignores the possibility that it may
+      be misinformed, coerced, or outright wrong about the best course of action.
+      Thus, the claim that “the will of the majority is the only right thing” is unfounded.
+    candidate: Appeal to Majority
+    challenged_inference: The majority's will is the sole correct basis for political
+      action.
+    label_justification: This objection directly targets the inference that the majority’s
+      desire automatically confers moral or political legitimacy, which is the defining
+      error in an appeal to majority fallacy. It rejects the argument’s claim that
+      simply citing popular support suffices for a valid decision, thereby exposing
+      the fallacious reasoning.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There seems to be no doubt as to the wish of the people, who have tweeted and
+      protested and made their will known. And the numbers don't lie. Isn't this
+    - a democracy? Doesn't a democracy thrive on the will of the people? It's time
+      for Rajapaksa to bow to the will of the majority, which is the only right thing
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The passage states that the will of the majority is the only
+    right thing to do, which serves to justify Rajapaksa’s action based solely on
+    the majority’s preference, constituting an appeal to majority.
+  decision_reason: 'Appeal to majority: the text claims that the will of the majority
+    is the correct basis for Rajapaksa to act.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - There seems to be no doubt as to the wish of the people, who have tweeted and
+    protested and made their will known. And the numbers don't lie. Isn't this
+  - a democracy? Doesn't a democracy thrive on the will of the people? It's time for
+    Rajapaksa to bow to the will of the majority, which is the only right thing
+  - to do.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 3
+  cache_hits: 1
+  retries: 0
+  prompt_tokens: 4392
+  completion_tokens: 3492
+  total_tokens: 7884
+  wall_time_seconds: 103.01499999999942

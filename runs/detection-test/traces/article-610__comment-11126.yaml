@@ -1,0 +1,163 @@
+sample:
+  id: 610:11126
+  article_id: 610
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: This failure clearly shows that waste reduction policies don't work and
+    shouldn't be implemented anywhere else in the world. Maybe with some modifications
+    it could work better, but overall there is likely no point to banning plastic
+    or trying to reduce its use, given these results.
+  target: I think this is clearly untrue given that in a lot of other places, for
+    example in parts of America, these bans have been very effective. It's not fair
+    to judge a policy solely based on how it plays out in one particular place. If
+    anything, we should be trying to figure out why it didn't work here and learn
+    from that, so that these important policies are more and more effective in the
+    future.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think this is clearly untrue given that in a lot of other places, for example
+      in parts of America, these bans have been very effective. It's not fair to
+    - judge a policy solely based on how it plays out in one particular place. If
+      anything, we should be trying to figure out why it didn't work here and learn
+    - from that, so that these important policies are more and more effective in the
+      future.
+    candidate: null
+  goal:
+    conclusion_or_goal: The statement that waste‑reduction policies do not work is
+      false; they can be effective elsewhere and should be refined.
+    candidate: Appeal to Nature
+    supporting_reason: I think this is clearly untrue given that in a lot of other
+      places, for example in parts of America, these bans have been very effective.
+    support_relation: the evidence of success elsewhere is used to rebut the universal
+      claim made in the parent passage. There is no logical fallacy in this use.
+    label_justification: The target presents a specific counterexample and argues
+      that a single failed instance should not invalidate policies that have succeeded
+      elsewhere. This is a legitimate argumentative strategy and does not contain
+      a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is clearly untrue given that in a lot of other places, for example
+      in parts of America, these bans have been very effective. It's not fair to
+  counterargument:
+    decisive_counterargument: The claim that a ban’s success in some American states
+      guarantees or proves its effectiveness elsewhere (e.g., Burundi) is a logical
+      leap from limited evidence. The argument treats a single successful instance—or
+      a handful of them—as representative of all contexts, ignoring local conditions
+      that can reverse the outcome. Thus, the conclusion that the policy will work
+      universally is a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Because the policy succeeded elsewhere, it must automatically
+      be effective everywhere, including Burundi.
+    label_justification: The objection shows the inference pulls a general rule (policy
+      works everywhere) from a few specific cases with potentially different circumstances.
+      This is a classic hasty generalization rather than a valid general principle.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is clearly untrue given that in a lot of other places, for example
+      in parts of America, these bans have been very effective. It's not fair to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: The Target passage does not invoke nature or claim that something
+      is good solely because it is natural. It merely cites evidence of effectiveness
+      in other places to counter the universal claim made in the parent. Thus the
+      structural condition of Appeal to Nature is not satisfied. Hasty Generalization
+      would require drawing a sweeping conclusion about all contexts based on a small
+      sample, which the Target does not do; it explicitly opposes that kind of sweeping
+      claim. Consequently, neither structural condition is directly supported by the
+      Target, but given the options, the best fit is Appeal to Nature.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is clearly untrue given that in a lot of other places, for example
+      in parts of America, these bans have been very effective. It's not fair to
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target argument merely cites counterexamples of success
+    elsewhere and urges learning from failures, without appealing to naturalness or
+    any other logical deficit. Accordingly, the alleged 'Appeal to Nature' fallacy
+    is not present in the target.
+  decision_reason: The target provides evidence that the policy can be effective in
+    other contexts; it does not rely on the notion that something is good or correct
+    because it is natural. Therefore no fallacy is detected.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I think this is clearly untrue given that in a lot of other places, for example
+    in parts of America, these bans have been very effective. It's not fair to
+  - judge a policy solely based on how it plays out in one particular place. If anything,
+    we should be trying to figure out why it didn't work here and learn
+  - from that, so that these important policies are more and more effective in the
+    future.
+  verified: false
+  rejection_reason: The target provides evidence that the policy can be effective
+    in other contexts; it does not rely on the notion that something is good or correct
+    because it is natural. Therefore no fallacy is detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 6054
+  completion_tokens: 4649
+  total_tokens: 10703
+  wall_time_seconds: 437.4070000000065

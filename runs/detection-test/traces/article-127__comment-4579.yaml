@@ -1,0 +1,132 @@
+sample:
+  id: 127:4579
+  article_id: 127
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: If there is no internet people will not be able to learn or work. It will
+    be like they are back in the dark ages. We have to choose, do we want to be in
+    the stone age or the digital age? The internet is a crucial part of our global
+    society. Bring back the internet for Myanmar!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: stone age
+    - role: alternative_b
+      text: digital age
+    - role: exhaustiveness_commitment
+      text: do we want to be in the stone age or the digital age?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there is no internet people will not be able to learn or work. It will be
+      like they are back in the dark ages. We have to choose, do
+    - we want to be in the stone age or the digital age? The internet is a crucial
+      part of our global society. Bring back the internet for Myanmar!
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Bring back the internet for Myanmar
+    candidate: False Dilemma
+    supporting_reason: The passage states, 'We have to choose, do we want to be in
+      the stone age or the digital age?' which frames the situation as only two mutually
+      exclusive outcomes, leaving no room for alternatives such as a partial or managed
+      internet presence.
+    support_relation: This reasoning creates a false dilemma—presenting only two alternatives
+      to justify the need to restore internet access.
+    label_justification: Because the argument assumes the only possible outcomes are
+      a stone age mentality or a digital age, thereby forcing the conclusion that
+      the internet must be reinstated, it commits the false dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If there is no internet people will not be able to learn or work. It will be
+      like they are back in the dark ages. We have to choose, do
+  counterargument:
+    decisive_counterargument: The statement treats the situation as if only two impossible
+      outcomes exist—either a global return to a stone‑age society or a continuation
+      of the fully digital era—ignoring any intermediate possibilities such as partial
+      connectivity, offline education, or local information systems. This artificial
+      binary neglects realistic alternatives and overstates the consequences of losing
+      internet access.
+    candidate: False Dilemma
+    challenged_inference: If there is no internet people will not be able to learn
+      or work => society will return to the dark ages/stone age.
+    label_justification: The argument commits a False Dilemma fallacy by presenting
+      only two extreme options and implying that they exhaust all possible outcomes.
+      By ignoring intermediate possibilities, the reasoning unjustifiably narrows
+      the range of options, weakening the claim that the internet must be restored
+      at all costs.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there is no internet people will not be able to learn or work. It will be
+      like they are back in the dark ages. We have to choose, do
+    - we want to be in the stone age or the digital age? The internet is a crucial
+      part of our global society. Bring back the internet for Myanmar!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The TARGET contains an explicit binary framing—“do we want to
+    be in the stone age or the digital age?”—with a clause that commits to exhaustiveness
+    (“We have to choose”), satisfying the structural requirement for a false dilemma.
+    The argument thus presents only these two mutually exclusive outcomes while implying
+    all other possibilities are excluded, which is the hallmark of a false‑dilemma
+    fallacy.
+  decision_reason: 'The TARGET text shows a classic false dilemma structure: two alternatives
+    (stone age vs. digital age) are presented as the only options, and the speaker
+    commits to choosing between them, thereby creating an artificial binary. This
+    aligns with the supplied evidence and meets the structural condition.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If there is no internet people will not be able to learn or work. It will be like
+    they are back in the dark ages. We have to choose, do
+  - we want to be in the stone age or the digital age? The internet is a crucial part
+    of our global society. Bring back the internet for Myanmar!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4538
+  completion_tokens: 2782
+  total_tokens: 7320
+  wall_time_seconds: 182.92199999999139

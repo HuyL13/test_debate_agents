@@ -1,0 +1,132 @@
+sample:
+  id: 20:9358
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: The leaders of Armenia are being cowardly here, as are the people. They
+    need to speak out against Russia or things with them won't change. It seems they
+    either don't care or are to cowardly! They are obviously reliant on them, but
+    that shouldn't be much of an excuse. Speaking out could get them in good with
+    the rest of the world!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The leaders of Armenia are being cowardly here, as are the people. They need
+      to speak out against Russia or things with them won't change. It seems they
+      either don't
+    - care or are to cowardly! They are obviously reliant on them, but that shouldn't
+      be much of an excuse. Speaking out could get them in good with the rest of
+    - the world!
+    candidate: null
+  goal:
+    conclusion_or_goal: The leaders of Armenia and the Armenian people are being cowardly
+      in their response to Russia.
+    candidate: Hasty Generalization
+    supporting_reason: They are evidently reliant on Russia, which the author claims
+      should not excuse cowardice.
+    support_relation: used to justify the claim that the leaders and people are cowardly.
+    label_justification: The argument makes a sweeping assertion about the entire
+      group of leaders and the population without offering specific evidence, thereby
+      generalizing from an implied sample to the whole group.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The leaders of Armenia are being cowardly here, as are the people. They need
+      to speak out against Russia or things with them won't change. It seems they
+      either don't
+    - care or are to cowardly! They are obviously reliant on them, but that shouldn't
+      be much of an excuse. Speaking out could get them in good with the rest of
+  counterargument:
+    decisive_counterargument: The assertion that ‘the leaders of Armenia and the people
+      are all cowards’ is made without any evidence, yet it is used as the basis for
+      concluding that they must speak out. Drawing a universal moral judgment about
+      an entire population from no data constitutes a hasty generalization. The claim
+      is unsupported and its use to justify a specific policy recommendation (speaking
+      out against Russia) therefore relies on an invalid inference.
+    candidate: Hasty Generalization
+    challenged_inference: The leaders and the populace of Armenia are universally
+      cowardly, requiring that they speak out against Russia to effect change.
+    label_justification: The counterargument shows that the claim about all leaders
+      and people being cowardly is unsubstantiated, i.e., the argument generalizes
+      from no sample to a universal statement. This is a classic instance of hasty
+      generalization, as defined in the task’s fallacy list.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The leaders of Armenia are being cowardly here, as are the people. They need
+      to speak out against Russia or things with them won't change. It seems they
+      either don't
+    - care or are to cowardly! They are obviously reliant on them, but that shouldn't
+      be much of an excuse. Speaking out could get them in good with the rest of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target asserts that all Armenian leaders and the entire
+    population are cowardly, a sweeping moral judgment made without any specific supporting
+    evidence, thereby generalizing from an implied sample (the few leaders or observed
+    behavior) to the entire group. This satisfies the structural requirement of a
+    hasty generalization: an unqualified, universal claim derived from insufficient
+    or absent data. The premise that “they need to speak out” hinges on this unsupported
+    conclusion. Evidence for the unsupported claim is found in T1 and T2, where the
+    assertion is made but no evidence is provided.'
+  decision_reason: The target contains an unsupported universal claim about cowardice
+    among Armenian leaders and people, thus a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The leaders of Armenia are being cowardly here, as are the people. They need to
+    speak out against Russia or things with them won't change. It seems they either
+    don't
+  - care or are to cowardly! They are obviously reliant on them, but that shouldn't
+    be much of an excuse. Speaking out could get them in good with the rest of
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4520
+  completion_tokens: 3178
+  total_tokens: 7698
+  wall_time_seconds: 167.98399999993853

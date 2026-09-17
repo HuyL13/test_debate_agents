@@ -1,0 +1,136 @@
+sample:
+  id: 442:10623
+  article_id: 442
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: Music has always been a vehicle for change. For long before recorded history,
+    all arts were a means for people to express what they think of the world they
+    live in and the world they'd like to live in. It's unfortunate that so many governments
+    are trying so hard to kill that tradition.
+  target: I agree that music has been important for many cultural changes through
+    history. I am thinking of how protest music like "We Shall Overcome" emboldened
+    the Civil Rights movement in the USA. Authorities fear musicians like Elias Atayi
+    because they provide inspiration and boost morale to important causes that threaten
+    the status quo.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree that music has been important for many cultural changes through history.
+      I am thinking of how protest music like "We Shall Overcome" emboldened the Civil
+      Rights movement in
+    - the USA. Authorities fear musicians like Elias Atayi because they provide inspiration
+      and boost morale to important causes that threaten the status quo.
+    candidate: null
+  goal:
+    conclusion_or_goal: Authorities fear musicians such as Elias Atayi because they
+      inspire and boost morale for causes that threaten the status quo.
+    candidate: Hasty Generalization
+    supporting_reason: Historical example of protest music (e.g., ‘We Shall Overcome’)
+      emboldening movements is cited to justify the broader claim about authorities
+      fearing musicians currently.
+    support_relation: The limited historical instance is generalized to all authorities
+      and all musicians, making an unsupported leap from a few cases to a universal
+      conclusion.
+    label_justification: The argument draws a universal conclusion about authorities’
+      attitudes toward musicians based on only two specific instances (civil‑rights
+      music and one contemporary activist). This fits the pattern of a hasty generalization,
+      where a small sample is used to justify a sweeping claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree that music has been important for many cultural changes through history.
+      I am thinking of how protest music like "We Shall Overcome" emboldened the Civil
+      Rights movement in
+    - the USA. Authorities fear musicians like Elias Atayi because they provide inspiration
+      and boost morale to important causes that threaten the status quo.
+  counterargument:
+    decisive_counterargument: The target claims that authorities fear musicians such
+      as Elias Atayi simply because they inspire people to support causes that threaten
+      the status quo. This inference is not backed by any evidence whatsoever; it
+      assumes a causal link between inspiration and fear without demonstrating that
+      authorities actually perceive these musicians as a threat, thereby committing
+      a classic non‑sequential claim. In other words, the conclusion that authorities
+      fear him does not logically follow from the stated premise and rests on an unstated
+      assumption, making this a non‑sequitur.
+    candidate: null
+    challenged_inference: Authorities fear musicians like Elias Atayi because they
+      provide inspiration and boost morale to important causes that threaten the status
+      quo.
+    label_justification: The counterargument explicitly points out that the proposed
+      causal chain – from inspirational impact to authorities’ fear – lacks evidence
+      or logical support, which is characteristic of a non‑sequitur. By showing that
+      the conclusion does not logically follow from the premise, the objection directly
+      exposes this specific reasoning failure rather than merely critiquing the argument’s
+      content.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the USA. Authorities fear musicians like Elias Atayi because they provide inspiration
+      and boost morale to important causes that threaten the status quo.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: A narrow sample of examples is used to draw a sweeping conclusion
+    about all authorities’ attitudes toward musicians.
+  decision_reason: The target asserts that authorities fear musicians like Elias Atayi
+    because they inspire and boost morale for causes that threaten the status quo,
+    drawing on only two specific cases—the historical example of “We Shall Overcome”
+    influencing the Civil Rights movement and the contemporary musician. This uses
+    limited evidence to generalize about all authorities’ feelings toward all such
+    musicians, which satisfies the structural requirements of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree that music has been important for many cultural changes through history.
+    I am thinking of how protest music like "We Shall Overcome" emboldened the Civil
+    Rights movement in
+  - the USA. Authorities fear musicians like Elias Atayi because they provide inspiration
+    and boost morale to important causes that threaten the status quo.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4370
+  completion_tokens: 3839
+  total_tokens: 8209
+  wall_time_seconds: 73.93799999996554

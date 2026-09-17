@@ -1,0 +1,135 @@
+sample:
+  id: 560:10977
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: This is insane! Will they have post-birth abortions next? Abortion should
+    be outlawed in any circumstance.
+  target: How is asking to save a woman's life insane? Is it reasonable to ask a woman
+    to carry a pregnancy resulting from rape to term? Causing her further trauma?
+    I think most people would agree that abortion is necessary in some cases like
+    rape or the woman's life being in danger. Someone else's religion or beliefs should
+    not affect another person's life, future and health. We need to focus on empathy
+    and compassion. Maybe focus your energy on punishing those who hurt the women
+    in the first place.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: would agree that abortion is necessary in some cases like rape or the
+        woman's life being in danger
+    - role: target_claim
+      text: abortion is necessary in those cases
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The argument asserts that abortion is legitimate and necessary
+      in circumstances such as rape or when a woman's life is in danger, rejecting
+      the blanket claim that it should be outlawed in all cases.
+    candidate: Appeal to Majority
+    supporting_reason: The speaker claims “most people would agree that abortion is
+      necessary in some cases like rape or the woman’s life being in danger,” using
+      perceived public consensus as a justification for permitting abortion.
+    support_relation: The majority‑agreement claim is presented as evidence supporting
+      the position that abortion should be allowed in these specific scenarios.
+    label_justification: Appeal to Majority is a fallacious reliance on what most
+      people believe as a reason for the conclusion; the argument therefore contains
+      this fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+  counterargument:
+    decisive_counterargument: 'The target argument relies on the claim that ‘most
+      people would agree that abortion is necessary in some cases’ as evidence that
+      abortion should be allowed. This is a classic Appeal to Majority: it assumes
+      that because a majority holds a view, the view is objectively right or should
+      be adopted. The target offers no empirical data or logical reasoning linking
+      popular opinion to moral or factual correctness. Thus the inference that abortion
+      must be permitted in such cases is unsupported by any argument other than the
+      popularity of the opinion. This exposes an *Appeal to Popularity* fallacy.'
+    candidate: Appeal to Majority
+    challenged_inference: most people would agree that abortion is necessary in some
+      cases like rape or the woman's life being in danger
+    label_justification: By critiquing the target’s use of majority opinion as proof,
+      we demonstrate that the argument’s inference variable depends on a faulty reasoning
+      strategy. No other fallacy more precisely describes this misuse, so we correctly
+      identify the Appeal to Majority. The counterargument directly addresses the
+      target’s inference and shows why it is logically invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+    - person's life, future and health. We need to focus on empathy and compassion.
+      Maybe focus your energy on punishing those who hurt the women in the first place.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target statement uses a majority agreement claim—“most people
+    would agree that abortion is necessary in some cases”—as evidence to support the
+    conclusion that abortion is necessary, thereby exhibiting an Appeal to Majority
+    fallacy.
+  decision_reason: The target explicitly states that the majority would support abortion
+    in certain circumstances and presents this popular belief as justification for
+    allowing abortion, which meets the structural requirements for an Appeal to Majority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - think most people would agree that abortion is necessary in some cases like rape
+    or the woman's life being in danger. Someone else's religion or beliefs should
+    not affect another
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5016
+  completion_tokens: 2676
+  total_tokens: 7692
+  wall_time_seconds: 123.125

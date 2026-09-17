@@ -1,0 +1,134 @@
+sample:
+  id: 550:8848
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: The more people there are the more energy will be needed. Fossil fuels will
+    eventually run out and its only natural that people will lean toward other resources.
+    Nature shows us that those who don't adapt end up suffering. Nature can guide
+    us into the future with wind and solar energy.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+    - us that those who don't adapt end up suffering. Nature can guide us into the
+      future with wind and solar energy.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Adopt wind and solar energy as the future energy sources.
+    candidate: Appeal to Nature
+    supporting_reason: Nature can guide us into the future with wind and solar energy,
+      implying that natural processes justify the shift.
+    support_relation: The appeal to nature is used as the primary justification for
+      recommending wind and solar energy.
+    label_justification: The argument claims that because something is natural (wind
+      and solar), it should be pursued, which is a classic Appeal to Nature fallacy—using
+      nature itself as a value prescription.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+    - us that those who don't adapt end up suffering. Nature can guide us into the
+      future with wind and solar energy.
+  counterargument:
+    decisive_counterargument: Although the environment may have experienced transitions,
+      the fact that some groups failed to adapt does *not* entail that all humans
+      should adopt wind and solar simply because it is ‘natural’ to do so. The observation
+      that a particular outcome follows a historical pattern is an empirical fact,
+      not a moral prescription.  Thus, the argument inappropriately elevates a natural
+      occurrence to a basis for policy, assuming that what nature does about resource
+      scarcity is what society ought to emulate.
+    candidate: null
+    challenged_inference: Because nature demonstrates that groups who fail to adapt
+      suffer, it is natural—and therefore appropriate—that humans should adopt wind
+      and solar energy.
+    label_justification: 'The inference relies on nature as a normative standard,
+      claiming that because nature favors renewable resources the same applies to
+      human policy. This is an Appeal to Nature fallacy: it treats natural facts as
+      justification for what humans ought to do.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+    - us that those who don't adapt end up suffering. Nature can guide us into the
+      future with wind and solar energy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that wind and solar are natural and therefore
+    can guide future energy solutions, matching the classic structure of an Appeal
+    to Nature fallacy (naturalness claimed as justification for valuing or adopting
+    a solution). The evidence supports the existence of a naturalness premise and
+    an evaluative conclusion that wind and solar are desirable, satisfying the mandatory
+    structural condition.
+  decision_reason: The argument advances wind and solar energy solely because they
+    are natural sources, asserting that nature’s guidance justifies their adoption,
+    which is a textbook Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The more people there are the more energy will be needed. Fossil fuels will eventually
+    run out and its only natural that people will lean toward other resources. Nature
+    shows
+  - us that those who don't adapt end up suffering. Nature can guide us into the future
+    with wind and solar energy.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4157
+  completion_tokens: 3323
+  total_tokens: 7480
+  wall_time_seconds: 130.54700000000594

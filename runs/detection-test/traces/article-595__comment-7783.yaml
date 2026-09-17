@@ -1,0 +1,125 @@
+sample:
+  id: 595:7783
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: These poor baby flamingos in Anatolia are just the beginning. The drought
+    that they are experiencing is being experienced in Parts the US too. The water
+    in parts of the US is needed for animals, and humans. This is very serious. Climate
+    change is creating a lot of trouble for a lot of people all over the world.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These poor baby flamingos in Anatolia are just the beginning. The drought that
+      they are experiencing is being experienced in Parts the US too. The water in
+      parts of the
+    - US is needed for animals, and humans. This is very serious. Climate change is
+      creating a lot of trouble for a lot of people all over the world.
+    candidate: null
+  goal:
+    conclusion_or_goal: Climate change is causing serious trouble worldwide.
+    candidate: Hasty Generalization
+    supporting_reason: The argument cites baby flamingos in Anatolia experiencing
+      drought as evidence to support a broader claim about climate change’s global
+      impact.
+    support_relation: The specific example (phoenix flamingos) is used to justify
+      the general conclusion.
+    label_justification: Relying on a single, localized observation to generalize
+      about the global effects of climate change exemplifies a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These poor baby flamingos in Anatolia are just the beginning. The drought that
+      they are experiencing is being experienced in Parts the US too. The water in
+      parts of the
+    - US is needed for animals, and humans. This is very serious. Climate change is
+      creating a lot of trouble for a lot of people all over the world.
+  counterargument:
+    decisive_counterargument: The claim that climate change is creating a lot of trouble
+      for people all over the world follows from only two specific observations—the
+      plight of baby flamingos in Anatolia and a drought in part of the United States.
+      These isolated events do not provide sufficient evidence to justify a sweeping
+      generalisation that climate change is at fault for widespread global hardship.
+    candidate: Hasty Generalization
+    challenged_inference: Climate change is causing significant trouble for many people
+      worldwide.
+    label_justification: The inference draws a broad, global conclusion from a very
+      limited set of examples (baby flamingos in Anatolia and drought in parts of
+      the US). This is a classic case of extrapolating from a small sample to the
+      entire population, thereby exhibiting a hasty generalisation.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These poor baby flamingos in Anatolia are just the beginning. The drought that
+      they are experiencing is being experienced in Parts the US too. The water in
+      parts of the
+    - US is needed for animals, and humans. This is very serious. Climate change is
+      creating a lot of trouble for a lot of people all over the world.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument uses the specific example of baby flamingos in
+    Anatolia experiencing drought to support a blanket claim that climate change is
+    causing widespread trouble worldwide, thereby moving from a single localized instance
+    to a broad generalization.
+  decision_reason: The argument presents a specific observation (baby flamingos drought)
+    and immediately concludes that climate change is creating problems for many people
+    globally, fitting the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These poor baby flamingos in Anatolia are just the beginning. The drought that
+    they are experiencing is being experienced in Parts the US too. The water in parts
+    of the
+  - US is needed for animals, and humans. This is very serious. Climate change is
+    creating a lot of trouble for a lot of people all over the world.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4077
+  completion_tokens: 3669
+  total_tokens: 7746
+  wall_time_seconds: 142.82799999999406

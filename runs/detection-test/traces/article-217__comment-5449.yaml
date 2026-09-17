@@ -1,0 +1,139 @@
+sample:
+  id: 217:5449
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: It is one of the oldest traditions in the world to elect people to office
+    who the public can trust. If you are someone who has sexual assault allegations,
+    you are not trustworthy and electing you would break that tradition. If they think
+    its okay to run with these allegations, which other traditions would they break/
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: It is one of the oldest traditions in the world to elect people to office
+        who the public can trust.
+    - role: preservation_conclusion
+      text: Electing you would break that tradition.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is one of the oldest traditions in the world to elect people to office who
+      the public can trust. If you are someone who has sexual assault allegations,
+      you
+    - are not trustworthy and electing you would break that tradition. If they think
+      its okay to run with these allegations, which other traditions would they break/
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The speaker argues that individuals with sexual assault allegations
+      should not be elected because doing so would break the longstanding tradition
+      of entrusting public office to trustworthy people.
+    candidate: Appeal to Tradition
+    supporting_reason: It is one of the oldest traditions in the world to elect people
+      to office who the public can trust.
+    support_relation: The tradition is cited as the rationale for rejecting candidates
+      with such allegations.
+    label_justification: The argument applies the appeal to tradition fallacy by asserting
+      that because something has historically been done a certain way, it must continue
+      to be done that way, thereby disqualifying the candidate.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is one of the oldest traditions in the world to elect people to office who
+      the public can trust. If you are someone who has sexual assault allegations,
+      you
+    - are not trustworthy and electing you would break that tradition. If they think
+      its okay to run with these allegations, which other traditions would they break/
+  counterargument:
+    decisive_counterargument: The argument assumes that the possession of any sexual‑assault
+      allegation automatically proves a person is untrustworthy, yet it offers no
+      evidence that the allegations are substantiated or that the individual actually
+      committed wrongdoing.  Many people face allegations that later turn out to be
+      unfounded, and a single allegation is not a reliable indicator of overall character
+      or competence.  Therefore the inference that “sexual‑assault allegations ⇒ untrustworthy”
+      is unjustified.
+    candidate: Appeal to Tradition
+    challenged_inference: The claim that electing someone with sexual‑assault allegations
+      breaks the tradition of electing trustworthy officials because the allegations
+      alone prove untrustworthiness.
+    label_justification: The argument relies on a historical tradition (‘one of the
+      oldest traditions is to elect trustworthy people’) to justify a claim about
+      current individuals’ trustworthiness.  The tradition is invoked as a moral authority
+      rather than as empirical evidence, which is the hallmark of an Appeal to Tradition.  The
+      objection focuses on the unjustified leap from an unverified allegation to a
+      categorical judgment of trustworthiness, exposing the fallacy in the reasoning
+      chain.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is one of the oldest traditions in the world to elect people to office who
+      the public can trust. If you are someone who has sexual assault allegations,
+      you
+    - are not trustworthy and electing you would break that tradition. If they think
+      its okay to run with these allegations, which other traditions would they break/
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The passage explicitly states a tradition—‘the oldest tradition
+    in the world to elect people to office who the public can trust’—and then concludes
+    that electing a candidate with sexual assault allegations would break that tradition.
+    This structure (tradition premise + conclusion that a current action would violate
+    the tradition) meets the mandatory form for an appeal to tradition.
+  decision_reason: The target argues that because a long‑standing tradition dictates
+    electing trustworthy people, a candidate with sexual assault allegations cannot
+    be elected, thereby invoking the appeal to tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is one of the oldest traditions in the world to elect people to office who
+    the public can trust. If you are someone who has sexual assault allegations, you
+  - are not trustworthy and electing you would break that tradition. If they think
+    its okay to run with these allegations, which other traditions would they break/
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 4305
+  completion_tokens: 2551
+  total_tokens: 6856
+  wall_time_seconds: 307.48399999999674

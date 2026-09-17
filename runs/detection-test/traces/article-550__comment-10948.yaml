@@ -1,0 +1,143 @@
+sample:
+  id: 550:10948
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: It's great that they're making this transition, although they are doing
+    it rather slowly.   At the same time I have to think that maybe they could do
+    something about their human rights abuses instead.  Or maybe their problems with
+    religious extremists.   I mean,   improving energy technology isn't really going
+    to help in those areas.   There are more important things to worry about than
+    energy infrastructure.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: energy infrastructure
+    - role: worse_issue
+      text: human rights abuses and religious extremist problems
+    - role: deprioritizing_conclusion
+      text: There are more important things to worry about than energy infrastructure
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that they're making this transition, although they are doing it rather
+      slowly.   At the same time I have to think that maybe they could do something
+      about their
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Energy infrastructure concerns are less important than human
+      rights abuses and religious extremist problems.
+    candidate: Appeal to Worse Problems
+    supporting_reason: improving energy technology is unlikely to address human rights
+      abuses or religious extremist issues, so those issues deserve higher priority
+    support_relation: The reason is used to justify down‑playing energy infrastructure
+      by asserting that other problems are more urgent
+    label_justification: The argument dismisses one issue (energy infrastructure)
+      because a seemingly more important issue exists—this fits the Appeal to Worse
+      Problems fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+  counterargument:
+    decisive_counterargument: The claim that improving energy technology will not
+      help human‑rights abuses or religious extremism is an unsupported dismissal
+      that ignores how reliable, affordable energy can reduce poverty, strengthen
+      governance, and lessen grievances that fuel conflict. Therefore, the argument
+      that energy infrastructure is less important than these other problems confuses
+      correlation with causation, and it falsely assumes a zero‑sum relationship between
+      energy investment and social issues.
+    candidate: Appeal to Worse Problems
+    challenged_inference: improving energy technology isn’t really going to help in
+      those areas, so there are more important things to worry about than energy infrastructure
+    label_justification: The objection shows that the speaker uses the existence of
+      apparently bigger problems (human rights abuses, religious extremism) to downplay
+      or deprioritize energy infrastructure, which is a textbook example of an 'Appeal
+      to Worse Problems' fallacy. The rebuttal specifically targets the reasoning
+      that elevates other issues to the exclusion of energy investment, thereby exposing
+      the logical flaw.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target asserts that human rights abuses and religious extremist
+    problems are “more important things to worry about than energy infrastructure,”
+    thereby prioritizing the former over the latter—an exemplification of the Appeal
+    to Worse Problems fallacy.
+  decision_reason: The text explicitly states that improving energy technology will
+    not address other pressing issues, and concludes that energy infrastructure is
+    less important, which satisfies the structural pattern of appealing to worse problems
+    to dismiss a relevant concern.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's great that they're making this transition, although they are doing it rather
+    slowly.   At the same time I have to think that maybe they could do something
+    about their
+  - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+    mean,   improving energy technology isn't really going to help in those areas.   There
+    are more important things to
+  - worry about than energy infrastructure.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4763
+  completion_tokens: 3372
+  total_tokens: 8135
+  wall_time_seconds: 102.32799999999406

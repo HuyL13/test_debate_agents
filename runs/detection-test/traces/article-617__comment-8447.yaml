@@ -1,0 +1,116 @@
+sample:
+  id: 617:8447
+  article_id: 617
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: Because we are not animals you bootlicker. If you need to suppress the truth
+    to remain in power, then you need to be removed. We have the ability to be better,
+    and we should be held as such.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Because we are not animals
+    - role: evaluative_conclusion
+      text: We have the ability to be better, and we should be held as such.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Because we are not animals you bootlicker. If you need to suppress the truth
+      to remain in power, then you need to be removed. We have the ability to be
+    - better, and we should be held as such.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The target argues that those who suppress the truth to stay
+      in power should be removed.
+    candidate: null
+    supporting_reason: If you need to suppress the truth to remain in power, then
+      you need to be removed.
+    support_relation: premise
+    label_justification: None of the specified fallacies are present in the argument;
+      it merely makes a conditional claim to justify removal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because we are not animals you bootlicker. If you need to suppress the truth
+      to remain in power, then you need to be removed. We have the ability to be
+  counterargument:
+    decisive_counterargument: Saying that humans are not animals in order to claim
+      that a person should be removed for supposedly suppressing the truth is a weak,
+      irrelevant appeal to biology. The mere fact that a being is a human (i.e., not
+      an animal in the sense of non‑human species) offers no logical support for the
+      claim of undeserved removal. It simply mixes a trivial biological fact with
+      a moral judgment that is not justified by that fact, so the reasoning is fallacious.
+    candidate: Appeal to Nature
+    challenged_inference: Because we are not animals you bootlicker. If you need to
+      suppress the truth to remain in power, then you need to be removed.
+    label_justification: 'The argument uses a biological characteristic (being a human
+      rather than an animal) as supporting evidence for a moral/humanistic conclusion
+      (removal of a power holder). This is a textbook appeal to nature: claiming something
+      is better or wrong because it is ‘natural’ (or lacks a certain nature).'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because we are not animals you bootlicker. If you need to suppress the truth
+      to remain in power, then you need to be removed. We have the ability to be
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: the target contains a naturalness premise (“we are not animals”)
+    used to support a value judgment (“we can be better and should be upheld”), matching
+    the appeal‑to‑nature structure
+  decision_reason: The argument explicitly states a biological classification as a
+    natural truth and then infers that because of this nature, the speakers have an
+    ability to be better and ought to be upheld, which is the classic pattern of an
+    appeal‑to‑nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Because we are not animals you bootlicker. If you need to suppress the truth to
+    remain in power, then you need to be removed. We have the ability to be
+  - better, and we should be held as such.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4121
+  completion_tokens: 3915
+  total_tokens: 8036
+  wall_time_seconds: 194.0

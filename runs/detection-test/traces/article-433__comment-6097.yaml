@@ -1,0 +1,92 @@
+sample:
+  id: 433:6097
+  article_id: 433
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: This has been going on for as long as I've been alive. I'm not sure what
+    is needed to stop it, especially in big cities. I feel for their families. Will
+    the BLM movement help with this? I doubt it, but who knows?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This has been going on for as long as I've been alive. I'm not sure what is
+      needed to stop it, especially in big cities. I feel for their families.
+    - Will the BLM movement help with this? I doubt it, but who knows?
+    candidate: null
+  goal:
+    conclusion_or_goal: I doubt the BLM movement will help with stopping the problem
+    candidate: null
+    supporting_reason: I doubt it, but who knows?
+    support_relation: expresses uncertainty rather than a justification for the conclusion
+    label_justification: No logical fallacy is present; the speaker merely expresses
+      doubt without relying on erroneous reasoning or unjustified premises.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Will the BLM movement help with this? I doubt it, but who knows?
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The target statement contains no logical inference or argumentation
+      that can be critiqued. It merely expresses uncertainty about the efficacy of
+      the BLM movement. As such, there is no logical fallacy present to expose, and
+      no concrete counterargument can be formulated that targets a faulty inference.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This has been going on for as long as I've been alive. I'm not sure what is
+      needed to stop it, especially in big cities. I feel for their families.
+    - Will the BLM movement help with this? I doubt it, but who knows?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2772
+  completion_tokens: 1486
+  total_tokens: 4258
+  wall_time_seconds: 58.90600000000268

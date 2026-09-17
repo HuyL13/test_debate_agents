@@ -1,0 +1,109 @@
+sample:
+  id: 238:4910
+  article_id: 238
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Their overall safety is more important. It is very dangerous in the middle
+    east and this is less of an issue. Worries should be put in perspective.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: this
+    - role: worse_issue
+      text: overall safety
+    - role: deprioritizing_conclusion
+      text: Worries should be put in perspective.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Overall safety is the priority
+    candidate: null
+    supporting_reason: The dangers in the Middle East are significant, so concerns
+      elsewhere are comparatively less pressing
+    support_relation: Reason justifies why overall safety should be prioritized by
+      highlighting a relative level of danger
+    label_justification: The argument does not exhibit any of the identified fallacies;
+      it simply compares risks to motivate placing safety concerns in perspective.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+  counterargument:
+    decisive_counterargument: The magnitude of one threat does not logically invalidate
+      or reduce the importance of another independent threat. Each danger must be
+      assessed on its own likelihood and impact; dismissing concerns because another
+      problem is larger is an invalid inference.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Because the Middle East is very dangerous, therefore worries
+      about this issue should be put in perspective and are less important.
+    label_justification: The argument explicitly uses a larger, more dangerous problem
+      to downplay a smaller one, which is the hallmark of an appeal to worse problems.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The argument compares a larger, more dangerous problem (overall
+    safety) with a smaller one (“this”), and dismisses the smaller by claiming it
+    should be put in perspective, matching the Appeal to Worse Problems structure.
+  decision_reason: The target explicitly prioritizes overall safety over another issue
+    and suggests downplaying worries about the latter, which is the hallmark of an
+    appeal to worse problems.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Their overall safety is more important. It is very dangerous in the middle east
+    and this is less of an issue. Worries should be put in perspective.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 3874
+  completion_tokens: 4425
+  total_tokens: 8299
+  wall_time_seconds: 410.9679999999935

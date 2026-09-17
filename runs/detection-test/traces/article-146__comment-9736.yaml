@@ -1,0 +1,201 @@
+sample:
+  id: 146:9736
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: This was an isolated event in response to a 30 year old rule of one autocrat.  It
+    was not reflective of a cultural value of racial prejudice against Chinese in
+    Indonesia.  This should not happen in a functioning democracy and the problems
+    should not lead to this. For example it has not happened again since then and
+    the problem has not come up before.  So no need to bring it up and push the issue.
+  target: 'I disagree. As they say, those who do not learn from history are doomed
+    to repeat it. This is a powerful story that is both a testament to a horrible
+    episode in history, and a warning to readers about what can happen to vulnerable
+    groups when the power structure of a society is in flux. It''s not just dwelling
+    on a past event in one country--it''s a lesson for all societies to help them
+    not repeat such mistakes. I''m happy it''s available digitally so it can reach
+    a global audience. You should check it out: www.thechinesewhispers.com/en/'
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: a past event in one country (the 1998 Indonesian riots)
+    - role: observed_property
+      text: a powerful story that serves as a warning of what can happen to vulnerable
+        groups when the power structure of a society is in flux
+    - role: target_population
+      text: all societies
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I disagree. As they say, those who do not learn from history are doomed to repeat
+      it. This is a powerful story that is both a testament to a horrible
+    - episode in history, and a warning to readers about what can happen to vulnerable
+      groups when the power structure of a society is in flux. It's not just dwelling
+      on
+    - a past event in one country--it's a lesson for all societies to help them not
+      repeat such mistakes. I'm happy it's available digitally so it can reach a global
+      audience.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The commenter wants the reader to recognize the importance
+      of learning from historical events, specifically the 1998 Indonesian riots involving
+      ethnic Chinese, and to apply that lesson to prevent similar atrocities in the
+      future.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument uses the traditional saying “those who do not
+      learn from history are doomed to repeat it” as the primary justification for
+      urging caution and learning from the past.
+    support_relation: The traditional proverb is presented as evidence that cautioning
+      about repeating past mistakes is worthwhile, thereby directly supporting the
+      goal of encouraging learning from history.
+    label_justification: Appeal to Tradition is appropriate because the reasoning
+      relies on an age‑old saying to argue that preserving its implication (learn
+      from history) is desirable, meeting the formal criteria for this fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I disagree. As they say, those who do not learn from history are doomed to repeat
+      it. This is a powerful story that is both a testament to a horrible
+    - episode in history, and a warning to readers about what can happen to vulnerable
+      groups when the power structure of a society is in flux. It's not just dwelling
+      on
+    - a past event in one country--it's a lesson for all societies to help them not
+      repeat such mistakes. I'm happy it's available digitally so it can reach a global
+      audience.
+  counterargument:
+    decisive_counterargument: The target draws a sweeping conclusion about all societies
+      based solely on one isolated incident, assuming that every society faces an
+      identical risk of repeating the same mistakes. This leap from a single case
+      to a universal moral lesson lacks supporting evidence and therefore is unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: That a single historical episode can serve as a universal
+      lesson applicable to all societies, preventing them from repeating similar mistakes.
+    label_justification: The target’s argument takes one specific event and extends
+      it to blanket all societies, without evidence that the conditions, actors, or
+      dynamics are common across different contexts. This is a textbook example of
+      a hasty generalization, where a single sample (the 1998 riots) is used to make
+      a broad claim about all societies.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I disagree. As they say, those who do not learn from history are doomed to repeat
+      it. This is a powerful story that is both a testament to a horrible
+    - episode in history, and a warning to readers about what can happen to vulnerable
+      groups when the power structure of a society is in flux. It's not just dwelling
+      on
+    - a past event in one country--it's a lesson for all societies to help them not
+      repeat such mistakes. I'm happy it's available digitally so it can reach a global
+      audience.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Tradition
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: Appeal to Tradition lacks a clear, direct step in which a long‑standing
+      rule or saying is invoked as the sole justification for the claim; it only mentions
+      the proverb after the conclusion. In contrast, the target explicitly uses one
+      specific episode (“a past event in one country”) as the sample from which it
+      draws a sweeping claim (“all societies must learn”); this satisfies the mandatory
+      structural condition of Hasty Generalization.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I disagree. As they say, those who do not learn from history are doomed to repeat
+      it. This is a powerful story that is both a testament to a horrible
+    - episode in history, and a warning to readers about what can happen to vulnerable
+      groups when the power structure of a society is in flux. It's not just dwelling
+      on
+    - a past event in one country--it's a lesson for all societies to help them not
+      repeat such mistakes. I'm happy it's available digitally so it can reach a global
+      audience.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a sweeping claim that all societies should
+    learn from a single, isolated historical event (the 1998 Indonesian riots) to
+    avoid repeating similar mistakes, thereby generalizing from one sample to a broad
+    population without sufficient evidence.
+  decision_reason: 'The target states that the story serves as a lesson for all societies,
+    which is a claim about the entire group ''all societies'' based on a single instance.
+    This matches the structure of a hasty generalization: a single sample leading
+    to a universal conclusion. Evidence IDs supporting this: T1, T2, T3.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I disagree. As they say, those who do not learn from history are doomed to repeat
+    it. This is a powerful story that is both a testament to a horrible
+  - episode in history, and a warning to readers about what can happen to vulnerable
+    groups when the power structure of a society is in flux. It's not just dwelling
+    on
+  - a past event in one country--it's a lesson for all societies to help them not
+    repeat such mistakes. I'm happy it's available digitally so it can reach a global
+    audience.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 7395
+  completion_tokens: 4765
+  total_tokens: 12160
+  wall_time_seconds: 225.4529999999795

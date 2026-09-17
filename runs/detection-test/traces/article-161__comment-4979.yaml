@@ -1,0 +1,125 @@
+sample:
+  id: 161:4979
+  article_id: 161
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: Things seemed to be working well the way it is without opening pathways
+    for refugees from other countries. This act does not seem like it would be beneficial
+    in any way to Assam or any other part of India. The Assam Accord has been working
+    for over 30 years.
+  target: I agree.  If it's not broke, don't fix it. And the people protesting show
+    that they are not open to the idea.  If its because of lack of understanding,
+    they need to work on educating their people before pushing any Acts through.   If
+    the Assam was failing somewhere, they should explain to the people to curve the
+    confusion.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree.  If it's not broke, don't fix it. And the people protesting show that
+      they are not open to the idea.  If its because of lack of understanding, they
+    - need to work on educating their people before pushing any Acts through.   If
+      the Assam was failing somewhere, they should explain to the people to curve
+      the confusion.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker argues that pathways for refugees should not be
+      opened in Assam, asserting that the current arrangement should remain unchanged.
+    candidate: Hasty Generalization
+    supporting_reason: the people protesting show that they are not open to the idea
+    support_relation: derived from the limited sample of protesters to the entire
+      population to justify maintaining the status quo
+    label_justification: The argument uses the views of the protesting group—an unrepresentative
+      sample—to generalize about the attitudes of the whole community. This leap from
+      a small subset to a universal claim constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree.  If it's not broke, don't fix it. And the people protesting show that
+      they are not open to the idea.  If its because of lack of understanding, they
+  counterargument:
+    decisive_counterargument: Just because a portion of the population is protesting
+      does not mean that the entire populace is against the act or lacks understanding.
+      Protesters are a self‑selecting group; many others may support the amendment
+      or simply be undecided. Therefore, the assertion that 'the people protesting
+      show that they are not open to the idea' overgeneralises from a limited sample
+      to the whole population.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that because some people are protesting, all people
+      are not open to the idea.
+    label_justification: The objection directly addresses the inference that a subset
+      of protesters represents the entire population. By pointing out that this is
+      an unjustified leap from a limited group to a universal claim, it demonstrates
+      the fallacy of Hasty Generalization—drawing a conclusion about everyone from
+      merely a few examples.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree.  If it's not broke, don't fix it. And the people protesting show that
+      they are not open to the idea.  If its because of lack of understanding, they
+    - need to work on educating their people before pushing any Acts through.   If
+      the Assam was failing somewhere, they should explain to the people to curve
+      the confusion.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target text does not present a universal claim based on
+    a limited sample; it only states that the protesters are not open to the idea,
+    which does not generalize to the entire population.
+  decision_reason: The passage describes the protesters’ position, not an inference
+    about all people, so it fails to satisfy the mandatory structural condition of
+    a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I agree.  If it's not broke, don't fix it. And the people protesting show that
+    they are not open to the idea.  If its because of lack of understanding, they
+  verified: false
+  rejection_reason: The passage describes the protesters’ position, not an inference
+    about all people, so it fails to satisfy the mandatory structural condition of
+    a hasty generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4593
+  completion_tokens: 3457
+  total_tokens: 8050
+  wall_time_seconds: 170.84399999999732

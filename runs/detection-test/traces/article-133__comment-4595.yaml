@@ -1,0 +1,118 @@
+sample:
+  id: 133:4595
+  article_id: 133
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: I think this article is jumping to conclusions for too fast. The details
+    of what led to the arrests are really glossed over here. The report clearly hasn't
+    biased where it wants to reach the conclusion it reaches and it's honestly not
+    going to be very hard to do given the situation. It's very hard to get any contradictory
+    details out of there since the only people going in tend to be leftist media members.
+    Cherry picking certain people getting arrested for certain actions, you can pretty
+    much do that anywhere at any given point.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think this article is jumping to conclusions for too fast. The details of
+      what led to the arrests are really glossed over here. The report clearly hasn't
+      biased where
+    - it wants to reach the conclusion it reaches and it's honestly not going to be
+      very hard to do given the situation. It's very hard to get any contradictory
+      details
+    - out of there since the only people going in tend to be leftist media members.
+      Cherry picking certain people getting arrested for certain actions, you can
+      pretty much do that
+    candidate: null
+  goal:
+    conclusion_or_goal: The article is biased (jumping to conclusions too quickly
+      and cherry‑picking; not trustworthy).
+    candidate: null
+    supporting_reason: Because only left‑leaning media members have access to details,
+      it is difficult to obtain contradictory evidence, implying that the article
+      cherry‑picks information and therefore is biased.
+    support_relation: The reason is used to justify the conclusion that the article
+      is hurriedly and selectively presenting facts.
+    label_justification: The argument merely states the premise that the author believes
+      the article is biased; no logical fallacy structure (e.g., hasty generalization,
+      slippery slope, etc.) is present beyond the declarative claim. Thus no fallacy
+      label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - I think this article is jumping to conclusions for too fast. The details of
+      what led to the arrests are really glossed over here. The report clearly hasn't
+      biased where
+    - out of there since the only people going in tend to be leftist media members.
+      Cherry picking certain people getting arrested for certain actions, you can
+      pretty much do that
+  counterargument:
+    decisive_counterargument: You have not presented any evidence that the article
+      omitted contradictory details or that the left‑ist media members are selectively
+      reporting.  Without such evidence, the claim that the article is biased and
+      cherry‑picking cannot be supported.
+    candidate: null
+    challenged_inference: The inference that the article is biased and cherry‑picking,
+    label_justification: The objection shows that the argument relies on a single
+      observation (left‑ist media involvement) to conclude bias, which is the hallmark
+      of a hasty generalization.  It exposes a specific reasoning defect rather than
+      merely critiquing the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - out of there since the only people going in tend to be leftist media members.
+      Cherry picking certain people getting arrested for certain actions, you can
+      pretty much do that
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3254
+  completion_tokens: 2536
+  total_tokens: 5790
+  wall_time_seconds: 177.4220000000205

@@ -1,0 +1,153 @@
+sample:
+  id: 409:7223
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: It's the norm for people to blame songs. While ignoring self-blame. Lyrics
+    are only as powerful as the weakness of who is listening. So it's not the song's
+    fault.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: people blame songs
+    - role: target_claim
+      text: the song is not at fault
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: It is not the song’s fault.
+    candidate: Appeal to Nature
+    supporting_reason: Lyrics are only as powerful as the weakness of who is listening.
+    support_relation: The speaker claims that because the power of lyrics depends
+      on the listener’s weakness, the blame should not fall on the song.
+    label_justification: The argument invokes the idea that the natural state of musical
+      content is harmless unless acted upon by weak individuals—an appeal to the intrinsic
+      worth of songs being neutral—though the reasoning is not a classic logical fallacy,
+      it leans on an implicit belief that only the listener’s weakness matters. This
+      stance resembles an appeal to nature where the song’s natural characteristics
+      (innocence) are used to dismiss blame.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+  counterargument:
+    decisive_counterargument: Saying that a song cannot be blamed because it is 'normal'
+      for people to blame songs conflates the frequency of blame with the absence
+      of wrongdoing. Even if many people blame songs, that does not prove the song
+      is innocent; it merely indicates that people often look for external explanations.
+      The argument therefore fails by using the popularity of a belief as evidence
+      for its truth, rather than assessing the causal role of the song itself.
+    candidate: Appeal to Majority
+    challenged_inference: Because people commonly blame songs, the songs themselves
+      are not at fault.
+    label_justification: The target exploits the fact that blaming songs is a common
+      practice to justify the absence of blame. This is a classic instance of an Appeal
+      to Majority, where the widespread nature of a claim is treated as evidence of
+      its validity. The argument does not examine the actual causal mechanism linking
+      the song to behavior, only the prevalence of the belief.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Nature
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Nature
+    conflict: appeal-to-majority__vs__appeal-to-nature
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__appeal-to-nature
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Nature
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The target does not explicitly claim that songs are intrinsically
+      natural or harmless; it only uses the frequency of blame to conclude innocence,
+      which satisfies the structure of an Appeal to Majority rather than an Appeal
+      to Nature.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that blaming songs is a common
+    practice (“It's the norm for people to blame songs”) and then concludes that therefore
+    the song itself is not at fault. This satisfies the structural requirement of
+    an Appeal to Majority (population group=people, popularity claim=people blame
+    songs, target claim=song not at fault).
+  decision_reason: The target meets the mandatory structural conditions for an Appeal
+    to Majority fallacy and the argument is that the prevalence of blaming is used
+    as evidence of the song’s innocence.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+    only as powerful as the weakness of who is listening. So it's not the song's fault.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5436
+  completion_tokens: 3856
+  total_tokens: 9292
+  wall_time_seconds: 232.10899999999674

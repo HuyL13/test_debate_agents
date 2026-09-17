@@ -1,0 +1,131 @@
+sample:
+  id: 399:7195
+  article_id: 399
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: I hope that digital reform can be put in place for the people soon. Unreliable
+    internet access can lead to further losses in productivity and expression, setting
+    the nation further behind. A nation lagging behind in the digital race can turn
+    towards more questionable methods to accelerate development. This can lead to
+    greater data breaches, restrictions, and widespread distrust in the government.
+    Action must be taken quickly.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: nation lagging behind in the digital race
+    - role: intermediate_consequence
+      text: turn towards more questionable methods to accelerate development
+    - role: final_consequence
+      text: greater data breaches, restrictions, and widespread distrust in the government
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - behind. A nation lagging behind in the digital race can turn towards more questionable
+      methods to accelerate development. This can lead to greater data breaches, restrictions,
+      and widespread distrust in
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Action must be taken quickly to implement digital reform
+    candidate: Slippery Slope
+    supporting_reason: Unreliable internet leads to loss of productivity, which causes
+      the nation to lag behind; lagging behind prompts the nation to adopt questionable
+      methods for rapid development, thereby increasing the likelihood of data breaches,
+      restrictions, and widespread distrust
+    support_relation: The argument presents a chain of progressively worse consequences
+      (unreliable internet → lagging behind → questionable development methods → data
+      breaches/restrictions/distrust) to justify urgent action
+    label_justification: The passage sketches a causal sequence where an initial problem
+      (unreliable internet) is claimed to inevitably lead to a series of increasingly
+      adverse outcomes, without providing evidence for each step, which is characteristic
+      of a slippery‑slope reasoning
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - behind. A nation lagging behind in the digital race can turn towards more questionable
+      methods to accelerate development. This can lead to greater data breaches, restrictions,
+      and widespread distrust in
+  counterargument:
+    decisive_counterargument: The claim that unreliable internet automatically causes
+      a country to adopt questionable methods, leading to data breaches, is unsupported
+      and relies on an unjustified causal chain. A lack of connectivity alone does
+      not necessarily force governments to compromise security; many low‑connectivity
+      nations actively invest in cyber‑defense. Thus the inference is not logically
+      warranted.
+    candidate: Slippery Slope
+    challenged_inference: Unreliable internet access inevitably results in data breaches
+      and mistrust through the use of questionable methods.
+    label_justification: The argument presents a chain of consequences that an initial
+      condition (poor internet) will inevitably lead to extreme outcomes (data breaches,
+      distrust). This is a classic slippery‑slope fallacy because the inference assumes
+      a dire progression without evidence and treats the initial situation as an irreversible
+      stepping‑stone to inevitable disaster.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - behind. A nation lagging behind in the digital race can turn towards more questionable
+      methods to accelerate development. This can lead to greater data breaches, restrictions,
+      and widespread distrust in
+    - the government. Action must be taken quickly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target text presents an unsubstantiated chain of causally
+    linked negative outcomes—from unreliable internet to data breaches and distrust—without
+    evidence, satisfying the structural form of a slippery‑slope argument.
+  decision_reason: The passage states that poor internet access leads to productivity
+    loss, causing the nation to lag, which then prompts the adoption of questionable
+    development methods, resulting in data breaches, restrictions, and widespread
+    distrust. This sequence lacks supporting evidence for each intermediate step,
+    matching the definition of a slippery‑slope fallacy.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - behind. A nation lagging behind in the digital race can turn towards more questionable
+    methods to accelerate development. This can lead to greater data breaches, restrictions,
+    and widespread distrust in
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4726
+  completion_tokens: 2934
+  total_tokens: 7660
+  wall_time_seconds: 122.07800000000861

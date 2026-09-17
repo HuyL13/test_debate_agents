@@ -1,0 +1,142 @@
+sample:
+  id: 15:3041
+  article_id: 15
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: There seems to be too much first world perspective in this argument. Life
+    is rough on the third world and blindly applying child rights from our perspective
+    will lead to worse problems for them. I understand the emotional appeal to things
+    such as beating children and making them work for low pay but you can't just wave
+    a wand from an economic standpoint and make this better like that
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T2
+    structure_complete: false
+    structure_type: consequence_chain
+    evidence_spans:
+    - There seems to be too much first world perspective in this argument. Life is
+      rough on the third world and blindly applying child rights from our perspective
+      will lead to
+    - worse problems for them. I understand the emotional appeal to things such as
+      beating children and making them work for low pay but you can't just wave a
+      wand from
+    candidate: Slippery Slope
+  goal:
+    candidate: null
+    conclusion_or_goal: Blindly applying child rights from a first world perspective
+      will lead to worse problems for third world societies.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The reasoning is used as a causal explanation for the claim;
+      no fallacy is present.
+    mechanism_supports_goal: true
+    support_relation: supports
+    supporting_reason: The argument claims that because the first world perspective
+      ignores the harsh realities of the third world, such blind application of child
+      rights will exacerbate existing issues rather than ameliorate them.
+    evidence_spans:
+    - There seems to be too much first world perspective in this argument. Life is
+      rough on the third world and blindly applying child rights from our perspective
+      will lead to
+    - worse problems for them. I understand the emotional appeal to things such as
+      beating children and making them work for low pay but you can't just wave a
+      wand from
+  counterargument:
+    decisive_counterargument: The claim that “blindly applying child rights from a
+      first‑world perspective will lead to worse problems for people in the Third
+      World” makes a blanket statement without any supporting evidence. It assumes
+      that a single set of rights, if imposed hastily, will automatically produce
+      harmful effects, but it does not provide data, case studies, or logical reasoning
+      to back up this causal link. Historical examples across many developing countries
+      show that well‑designed child‑rights legislation—alongside appropriate economic
+      and cultural considerations—has generally improved health, education, and protection
+      outcomes for children. Therefore, the assertion is an unjustified generalization
+      that jumps from a vague premise to a universal conclusion, failing to establish
+      a real causal connection.
+    candidate: Hasty Generalization
+    challenged_inference: blindly applying child rights leads to worse problems
+    label_justification: The objection points out that the statement generalizes from
+      an unsubstantiated premise (that imposing first‑world child rights inevitably
+      harms Third‑world societies) to a universal claim about all such societies,
+      which is precisely the hallmark of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There seems to be too much first world perspective in this argument. Life is
+      rough on the third world and blindly applying child rights from our perspective
+      will lead to
+    - worse problems for them. I understand the emotional appeal to things such as
+      beating children and making them work for low pay but you can't just wave a
+      wand from
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The Target asserts that blindly applying child rights from
+    a first‑world perspective will inevitably lead to worse problems for all Third‑World
+    societies, a blanket claim made without presenting any evidence, case studies,
+    or specific examples. This satisfies the structural requirement for a Hasty Generalization:
+    a single unsubstantiated premise is generalized to a universal conclusion.'
+  decision_reason: The Target makes a universal claim that applying child rights will
+    worsen conditions in third world contexts, without providing supporting evidence
+    or examples. This unqualified generalization fits the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There seems to be too much first world perspective in this argument. Life is rough
+    on the third world and blindly applying child rights from our perspective will
+    lead to
+  - worse problems for them. I understand the emotional appeal to things such as beating
+    children and making them work for low pay but you can't just wave a wand from
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 4360
+  completion_tokens: 3379
+  total_tokens: 7739
+  wall_time_seconds: 33.64100000000326

@@ -1,0 +1,138 @@
+sample:
+  id: 20:9356
+  article_id: 20
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: It''s not easy being in such a delicate and precarious situation like that
+    of Armenia. I hope they are able to find better support from Western democratic
+    nations, but I doubt it. Unfortunately, Armenia is just the kind of country which
+    gets lost among all the competing anxieties which perplex busy nations like the
+    United States and those of western Europe. Let's hope for better days for Armenia,
+    and perhaps even independence from Russia's influence.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It''s not easy being in such a delicate and precarious situation like that of
+      Armenia. I hope they are able to find better support from Western democratic
+      nations, but I
+    - doubt it. Unfortunately, Armenia is just the kind of country which gets lost
+      among all the competing anxieties which perplex busy nations like the United
+      States and those of western
+    - Europe. Let's hope for better days for Armenia, and perhaps even independence
+      from Russia's influence.
+    candidate: null
+  goal:
+    conclusion_or_goal: Express skepticism that Armenia will receive significant Western
+      democratic support and call for better days and independence from Russian influence
+    candidate: null
+    supporting_reason: Armenia is just the kind of country which gets lost among all
+      the competing anxieties which perplex busy nations like the United States and
+      those of western Europe
+    support_relation: The speaker uses the notion that Armenia is overlooked by major
+      powers to justify their doubt about Western support for Armenia
+    label_justification: The argument does not exhibit any recognized logical fallacy;
+      the reasoning simply links Armenia’s peripheral status to a lack of support,
+      which is a legitimate but unsubstantiated claim. Therefore no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - doubt it. Unfortunately, Armenia is just the kind of country which gets lost
+      among all the competing anxieties which perplex busy nations like the United
+      States and those of western
+  counterargument:
+    decisive_counterargument: There is no factual basis showing that the United States,
+      the United Kingdom, or other Western democracies have chosen to ignore Armenia’s
+      plight because they are too busy with other issues. In fact, many Western governments
+      have already pledged humanitarian assistance, diplomatic backing, and financial
+      aid to Armenia. The claim that these nations “get lost among all the competing
+      anxieties” is therefore an unsupported generalization about their priorities.
+    candidate: Hasty Generalization
+    challenged_inference: Western democratic nations are unlikely to provide meaningful
+      support to Armenia because they are preoccupied with other anxieties.
+    label_justification: The objection demonstrates that the inference rests on an
+      unsubstantiated generalization about the priorities of Western nations. By pointing
+      out the lack of evidence that such nations are preoccupied, the counterargument
+      exposes a hasty generalization, which is one of the specified fallacies.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It''s not easy being in such a delicate and precarious situation like that of
+      Armenia. I hope they are able to find better support from Western democratic
+      nations, but I
+    - doubt it. Unfortunately, Armenia is just the kind of country which gets lost
+      among all the competing anxieties which perplex busy nations like the United
+      States and those of western
+    - Europe. Let's hope for better days for Armenia, and perhaps even independence
+      from Russia's influence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The inference generalizes about all Western democratic nations’
+    willingness to help based on mentioning a few such nations; this extrapolation
+    is a hasty generalization.
+  decision_reason: The target claims Western democracies will be unable to support
+    Armenia because they are preoccupied with other anxieties, a broad conclusion
+    drawn from a limited sample. This fits the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It''s not easy being in such a delicate and precarious situation like that of
+    Armenia. I hope they are able to find better support from Western democratic nations,
+    but I
+  - doubt it. Unfortunately, Armenia is just the kind of country which gets lost among
+    all the competing anxieties which perplex busy nations like the United States
+    and those of western
+  - Europe. Let's hope for better days for Armenia, and perhaps even independence
+    from Russia's influence.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4460
+  completion_tokens: 4031
+  total_tokens: 8491
+  wall_time_seconds: 179.4529999999795

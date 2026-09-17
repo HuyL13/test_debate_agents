@@ -1,0 +1,159 @@
+sample:
+  id: 296:6285
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: The fact that there are members of the Srikrishna Committee who didn't help
+    with the Aadhaar Act implies the committee is unbiased. These members are proof
+    that the committee is focused on safeguarding privacy rights and that all members
+    of the committee are on board. If they members who helped draft the Aadhaar Act
+    were against ensuring privacy rights are protected, they wouldn't allow neutral
+    members on the board, would they? Since they did, we can safely say that every
+    member is a die-hard protector of citizens' privacy rights even if they don't
+    say it outright. Their actions speak for themselves.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: members who didn't help with the Aadhaar Act
+    - role: observed_property
+      text: are proof that the committee is unbiased and focused on safeguarding privacy
+        rights
+    - role: target_population
+      text: every member of the committee is a die-hard protector of citizens' privacy
+        rights
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - The fact that there are members of the Srikrishna Committee who didn't help
+      with the Aadhaar Act implies the committee is unbiased. These members are proof
+      that the committee is
+    - protected, they wouldn't allow neutral members on the board, would they? Since
+      they did, we can safely say that every member is a die-hard protector of citizens'
+      privacy rights even
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The argument concludes that the Srikrishna Committee is unbiased
+      and that every member is a devoted protector of citizens' privacy rights.
+    candidate: Hasty Generalization
+    supporting_reason: The reasoning takes the fact that some members did not help
+      draft the Aadhaar Act (a limited sample) as evidence that the entire committee
+      is unbiased and that all members safeguard privacy rights.
+    support_relation: The sample of neutral members is generalized to the whole committee,
+      asserting a universal property based on insufficient evidence.
+    label_justification: 'This is a classic hasty generalization: the argument moves
+      from a particular observation (members who didn''t help) to a sweeping claim
+      about all committee members without providing sufficient evidence to support
+      that universal claim.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The fact that there are members of the Srikrishna Committee who didn't help
+      with the Aadhaar Act implies the committee is unbiased. These members are proof
+      that the committee is
+    - focused on safeguarding privacy rights and that all members of the committee
+      are on board. If they members who helped draft the Aadhaar Act were against
+      ensuring privacy rights are
+    - protected, they wouldn't allow neutral members on the board, would they? Since
+      they did, we can safely say that every member is a die-hard protector of citizens'
+      privacy rights even
+  counterargument:
+    decisive_counterargument: The argument conflates having a few members who did
+      not draft the Aadhaar Act with the claim that the entire committee is unbiased
+      and that all its members are dedicated privacy defenders. Whether or not a few
+      individuals were involved in drafting the Act or were selected to provide a
+      ‘neutral’ perspective does not logically entail that every person on the committee
+      shares the same commitment to privacy or that their selection alone guarantees
+      unbiased deliberations. The presence of some neutral members is an insufficient
+      basis for concluding that the committee as a whole has a uniform stance or that
+      every member is a die‑hard protector of privacy rights.
+    candidate: Hasty Generalization
+    challenged_inference: The fact that some members did not help draft the Aadhaar
+      Act implies the committee is unbiased, and therefore every member is a die‑hard
+      protector of citizens' privacy rights.
+    label_justification: The objection explicitly shows that the argument makes a
+      conclusion about the entire committee based on the actions or characteristics
+      of only a subset of its members. This is the classic pattern of a hasty generalization—jumping
+      from a limited sample to a universal claim about a population.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - The fact that there are members of the Srikrishna Committee who didn't help
+      with the Aadhaar Act implies the committee is unbiased. These members are proof
+      that the committee is
+    - protected, they wouldn't allow neutral members on the board, would they? Since
+      they did, we can safely say that every member is a die-hard protector of citizens'
+      privacy rights even
+    - if they don't say it outright. Their actions speak for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a universal conclusion that all members of
+    the committee are die‑hard privacy protectors based solely on the fact that a
+    subset of members did not help draft the Aadhaar Act. This is a classic sample‑to‑population
+    generalization, satisfying the structural criterion for a hasty generalization.
+    The relevant evidence is captured in passages T1 (identifying the sample) and
+    T3 (asserting the universal claim).
+  decision_reason: The target presents a generalization from the limited observation
+    that some members were neutral to the blanket assertion that every member protects
+    privacy rights. This satisfies the structural requirement for a hasty generalization,
+    making the hypothesis justified.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - The fact that there are members of the Srikrishna Committee who didn't help with
+    the Aadhaar Act implies the committee is unbiased. These members are proof that
+    the committee is
+  - protected, they wouldn't allow neutral members on the board, would they? Since
+    they did, we can safely say that every member is a die-hard protector of citizens'
+    privacy rights even
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5324
+  completion_tokens: 2887
+  total_tokens: 8211
+  wall_time_seconds: 150.56300000000192

@@ -1,0 +1,116 @@
+sample:
+  id: 22:3962
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: It is obvious the environmental impacts were most important here. We cannot
+    argue that anything else is more important. Can anyone tell me anything that matters
+    more?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker asserts that environmental impacts were the most
+      important factor in the decision, and no other consideration can be more important.
+    candidate: null
+    supporting_reason: It is obvious the environmental impacts were most important
+      here.
+    support_relation: The speaker provides this statement as justification for the
+      claim that nothing else matters more.
+    label_justification: The reasoning simply states a conclusion and does not exhibit
+      any erroneous logical structure; hence no logical fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+  counterargument:
+    decisive_counterargument: Other considerations such as public health, economic
+      stability, or social equity could be argued to be more important than environmental
+      impacts. The claim that the environment is objectively the single most important
+      factor ignores these plausible alternatives, thereby overreaching and presenting
+      a false exclusivity.
+    candidate: False Dilemma
+    challenged_inference: The assertion that environmental impacts were most important
+      and that nothing else could be more important.
+    label_justification: The argument offers the reader a limited perspective—environmental
+      impacts are the highest priority, and nothing else can surpass this. By presenting
+      an implicit dichotomy between environmental factors and all other considerations
+      (while asserting the impossibility of the latter outweighing the former), the
+      reasoning falls into a false dilemma. This undermines the claim that environmental
+      impacts are definitively paramount.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target asserts that environmental impacts are unequivocally
+    the most important consideration and that nothing else can be more important,
+    implicitly presenting an exclusive either/or choice between environmental impacts
+    and all other factors. This satisfies the structural requirement for a false dilemma.
+  decision_reason: The statement creates an exclusive dichotomy—environmental impacts
+    versus other possible priorities—claiming the former as the only possible supreme
+    importance, which establishes a false dilemma. Evidence supporting this is contained
+    in passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is obvious the environmental impacts were most important here. We cannot argue
+    that anything else is more important. Can anyone tell me anything that matters
+    more?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3734
+  completion_tokens: 2154
+  total_tokens: 5888
+  wall_time_seconds: 175.920999999973

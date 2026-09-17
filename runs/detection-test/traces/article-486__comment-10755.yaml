@@ -1,0 +1,194 @@
+sample:
+  id: 486:10755
+  article_id: 486
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: 'This incident, innocuous as it is, does raise awareness regarding the importance
+    of the simplest aspects of cyber security, like solid passwords, etc. However,
+    the national economy, COVID, and other factors seem like much more urgent foci
+    for the government''s attention. Sure, shore up your passwords and do what should
+    be done to keep the network secure, but let''s direct time and energy to the more
+    central things: economy, healthcare, geopolitical issues, etc.'
+  target: It seems like the government is addressing bigger problems. The hack wasn't
+    serious, they took some steps to bolster security anyway, and then went about
+    doing the government's business. I understand why the opposition party and others
+    may want to inflate the importance of the event, but the government at least realizes
+    that there are more pressing issues.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the hack
+    - role: worse_issue
+      text: bigger national issues such as the economy, healthcare, and geopolitical
+        concerns
+    - role: deprioritizing_conclusion
+      text: the hack is less serious and less pressing compared to these larger problems
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The government is prioritizing larger, more urgent issues
+      over the relatively minor cyber‑security incident.
+    candidate: null
+    supporting_reason: The passage states that the hack was not serious, steps were
+      taken to bolster security, and subsequently government operations continued
+      on larger priorities (economy, healthcare, geopolitics).
+    support_relation: The statement provides evidence of the government's perceived
+      importance hierarchy, thereby supporting the conclusion that the government
+      focuses on more pressing matters.
+    label_justification: 'No logical fallacy is evident: the argument does not overgeneralize,
+      shift conditions, misattribute authority, or present a false dilemma; it merely
+      reports the government''s perceived priorities.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+  counterargument:
+    decisive_counterargument: 'The claim that the government is addressing only larger
+      issues relies on an unjustified jump from ‘they took some security steps’ to
+      ‘the hack was unimportant and therefore neglected’. Taking security measures
+      does not mean the incident was trivial; it can be a direct response to a serious
+      breach. Concluding that the government prioritizes bigger problems because it
+      also bolstered password security is an over‐generalization from one action.
+      This is a classic hasty generalization: a single example (the taken steps) is
+      used to claim a matter of overall priority.
+
+      '
+    candidate: Hasty Generalization
+    challenged_inference: That the government is focusing on the bigger problems because
+      the hack was not serious and they took some steps to bolster security.
+    label_justification: The objection demonstrates that the inference extends a single
+      observation—limited security measures—to a general statement about government
+      priorities. This precisely matches the definition of a hasty generalization,
+      where a conclusion about a broader category is drawn from too few examples.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: 'The target explicitly states that the hack was not serious and
+      that the government is focusing on larger issues such as the economy, healthcare,
+      and geopolitical concerns. This satisfies the mandatory condition of an appeal
+      to worse problems: using a more significant problem to diminish the importance
+      of a smaller one. While the target also alludes to a generalization about government
+      priorities from a single example, the strongest structural evidence is the direct
+      comparison between the minor hack and the larger national problems, which is
+      the hallmark structure of an appeal to worse problems. Hence, “Appeal to Worse
+      Problems” is the correct classification.'
+    loser_failure: The target does not make a broad claim that relies on a single
+      observation to generalize about all of the government's actions; it merely points
+      out an instance where the government seemed to prioritize bigger issues. Therefore,
+      the structural criteria for a hasty generalization—drawing a sweeping conclusion
+      from an inadequate sample—are not directly satisfied by the text.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly contrasts the hack with larger national
+    issues and concludes that the hack is less serious, thereby downplaying it in
+    favor of the bigger problems, which matches the structure of an Appeal to Worse
+    Problems.
+  decision_reason: The target states that the hack is not serious and that the government
+    is focusing on more pressing issues like the economy and healthcare. This is a
+    direct argument that the larger problems make the hack less significant, satisfying
+    the pattern of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems like the government is addressing bigger problems. The hack wasn't serious,
+    they took some steps to bolster security anyway, and then went about doing the
+    government's business. I
+  - understand why the opposition party and others may want to inflate the importance
+    of the event, but the government at least realizes that there are more pressing
+    issues.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5970
+  completion_tokens: 3187
+  total_tokens: 9157
+  wall_time_seconds: 88.375

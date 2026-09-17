@@ -1,0 +1,144 @@
+sample:
+  id: 296:10184
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: It's natural to question the status quo. So people will need better definitions
+    of data sensitivity. Privacy is always paramount in protecting individual liberties.
+  target: I completely agree with you. Privacy is one of the most fundamental rights
+    and it's really a time-honored tradition that people of all cultures have adopted.
+    Digital space should not be treated differently as the private physical spaces
+    we've respected for so many generations. Whatever laws these committees come up
+    with, hopefully, they should respect that.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Privacy is one of the most fundamental rights and it's really a time-honored
+        tradition that people of all cultures have adopted.
+    - role: preservation_conclusion
+      text: Digital space should not be treated differently as the private physical
+        spaces we've respected for so many generations. Whatever laws these committees
+        come up with, hopefully, they should respect that.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I completely agree with you. Privacy is one of the most fundamental rights and
+      it's really a time-honored tradition that people of all cultures have adopted.
+      Digital space should not
+    - be treated differently as the private physical spaces we've respected for so
+      many generations. Whatever laws these committees come up with, hopefully, they
+      should respect that.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Digital space should be treated no differently than private
+      physical spaces, so laws imposed on digital privacy should respect that principle.
+    candidate: null
+    supporting_reason: Privacy is one of the most fundamental rights and a time-honored
+      tradition that people of all cultures have adopted.
+    support_relation: The reason is used to justify the conclusion that digital privacy
+      warrants the same protection and respect as physical privacy.
+    label_justification: The target states a premise (privacy’s fundamental status
+      and tradition) to support its claim about digital privacy; this is a legitimate
+      argumentative effort, not a fallacious appeal or unsupported generalization.
+      No fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I completely agree with you. Privacy is one of the most fundamental rights and
+      it's really a time-honored tradition that people of all cultures have adopted.
+      Digital space should not
+    - be treated differently as the private physical spaces we've respected for so
+      many generations. Whatever laws these committees come up with, hopefully, they
+      should respect that.
+  counterargument:
+    decisive_counterargument: The argument that digital space should not be treated
+      differently merely because privacy is a time‑honored tradition treats the existence
+      of long‑standing practices as evidence that the same rules must continue to
+      apply to digitized contexts. This ignores the fundamental differences between
+      physical and digital realms—such as scale, speed, and the nature of data sharing—and
+      does not provide any causal link between the traditional preference for private
+      spaces and the necessity for identical legal treatment in cyberspace.
+    candidate: Appeal to Tradition
+    challenged_inference: Digital space should not be treated differently because
+      privacy has been a time‑honored tradition.
+    label_justification: The objection targets the fallacy that a practice is justified
+      by its historical continuity. By arguing that tradition alone is insufficient
+      to dictate modern legal treatment, we expose the Appeal to Tradition reasoning
+      failure, which misuses historical acceptance as a basis for current policy validity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I completely agree with you. Privacy is one of the most fundamental rights and
+      it's really a time-honored tradition that people of all cultures have adopted.
+      Digital space should not
+    - be treated differently as the private physical spaces we've respected for so
+      many generations. Whatever laws these committees come up with, hopefully, they
+      should respect that.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument infers that because privacy is a time‑honored tradition,
+    digital space should receive the same traditional treatment, ignoring contextual
+    differences and lacking a causal link.
+  decision_reason: 'The target literally states that digital space should be treated
+    like physical private spaces because privacy is a time‑honored tradition. This
+    is an Appeal to Tradition: it uses the long‑standing acceptance of privacy as
+    evidence that identical rules must apply today, without justifying the relevance
+    of tradition to the new context.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I completely agree with you. Privacy is one of the most fundamental rights and
+    it's really a time-honored tradition that people of all cultures have adopted.
+    Digital space should not
+  - be treated differently as the private physical spaces we've respected for so many
+    generations. Whatever laws these committees come up with, hopefully, they should
+    respect that.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4472
+  completion_tokens: 3067
+  total_tokens: 7539
+  wall_time_seconds: 132.75

@@ -1,0 +1,129 @@
+sample:
+  id: 5:3161
+  article_id: 5
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: Everyone who knows about Japans criminal justice system knows its insane
+    and should be illegal. Even the tough on crime people in the US would say their
+    process for holding suspects with no bail, indefinitely is absurd. He had every
+    right to escape. I've read about this before and all the commenters agree that
+    their system is BROKEN.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: all the commenters
+    - role: observed_property
+      text: agree that their system is BROKEN
+    - role: target_population
+      text: Japanese criminal justice system
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The Japanese criminal justice system is insane and should
+      be illegal.
+    candidate: Hasty Generalization
+    supporting_reason: Everyone who knows about Japan's criminal justice system knows
+      it's insane.
+    support_relation: the speaker uses the claim that ‘everyone who knows’ the system
+      finds it insane as justification for concluding that the system is insane and
+      therefore should be illegal.
+    label_justification: The argument draws a universal conclusion from a narrow,
+      non-representative sample (‘everyone who knows…’), which constitutes a hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+  counterargument:
+    decisive_counterargument: 'The assertion that every person who is aware of Japan’s
+      criminal justice system deems it insane and should be illegal assumes a universal
+      viewpoint without evidence—it relies on an anecdotal sample of commenters and
+      the perceived opinion of a vague ''tough‑on‑crime'' faction. This is a classic
+      hasty generalization: a conclusion about the entire population of informed individuals
+      is drawn from an unrepresentative sample.'
+    candidate: Hasty Generalization
+    challenged_inference: Everyone who knows about Japans criminal justice system
+      knows it's insane and should be illegal; all commenters agree the system is
+      broken.
+    label_justification: The objection points out that the claim extrapolates from
+      a limited set of observations (a few commenters and a presumed group in the
+      US) to a universal statement about all knowledgeable people. This faulty leap
+      from specific cases to a blanket assertion is the hallmark of the Hasty Generalization
+      fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes that the Japanese criminal justice
+    system is insane and should be illegal based on the claims that “all the commenters
+    agree that their system is BROKEN,” a small, non‑representative sample that does
+    not capture the entire population of those who know about the system. This satisfies
+    the structural requirement for a hasty generalization.
+  decision_reason: The target cites a limited group—‘all the commenters’—to assert
+    a universal property of the Japanese criminal justice system, a classic case of
+    deriving a conclusion about a whole population from an inadequate sample.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - suspects with no bail, indefinitely is absurd. He had every right to escape. I've
+    read about this before and all the commenters agree that their system is BROKEN.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4172
+  completion_tokens: 3746
+  total_tokens: 7918
+  wall_time_seconds: 90.625

@@ -1,0 +1,144 @@
+sample:
+  id: 550:8247
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: It's a good sign that the Middle East seems to be finally looking seriously
+    at renewable energy. Too often they have seem to be stuck with using oil and other
+    polluting fuels. When I look at the issue I think about my neighbor Paul, he says
+    he knows a lot bout energy technologies. He says that the Middle East should focus
+    entirely on solar power. He does seem to know what he is talking about, so who
+    am I to argue? I can see some people arguing that he doesn't have a degree or
+    is even an expert, but that seems snobbish to me. He uses a lot of words that
+    sound like they could be about energy and he said he watched a tv show about it
+    once. I think that is pretty impressive and his opinion should be respected.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Paul
+    - role: endorsed_claim
+      text: the Middle East should focus entirely on solar power
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T5
+    evidence_spans:
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - focus entirely on solar power. He does seem to know what he is talking about,
+      so who am I to argue? I can see some people arguing that he doesn't
+    - said he watched a tv show about it once. I think that is pretty impressive and
+      his opinion should be respected.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Paul’s opinion that the Middle East should focus entirely
+      on solar power should be respected.
+    candidate: Appeal to Authority
+    supporting_reason: Paul’s comment that he ‘knows a lot’ about energy, his use
+      of jargon that sounds technical, and his claim of watching a TV show about the
+      topic are presented as evidence of his expertise.
+    support_relation: Appeal to Authority
+    label_justification: The argument relies on Paul’s status as an authority to validate
+      his claim, even though he lacks formal credentials or demonstrable expertise.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T5
+    - T2
+    - T4
+    evidence_spans:
+    - said he watched a tv show about it once. I think that is pretty impressive and
+      his opinion should be respected.
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - have a degree or is even an expert, but that seems snobbish to me. He uses a
+      lot of words that sound like they could be about energy and he
+  counterargument:
+    decisive_counterargument: Paul’s self‑claimed knowledge, casual use of technical‑sounding
+      words, and a single television viewing do not provide any evidence that he actually
+      possesses expert insight into energy technologies. Without formal credentials,
+      relevant experience or corroborated evidence, treating him as an authority is
+      unjustified and the conclusion that his opinion must be respected therefore
+      lacks a rational basis.
+    candidate: Appeal to Authority
+    challenged_inference: The argument treats Paul’s self‑claimed expertise and informal
+      exposure as sufficient reason to accept his recommendations on renewable energy.
+    label_justification: The objection demonstrates that the reasoning incorrectly
+      relies on a presumed authority—Paul’s self‑assertion and lack of substantive
+      qualification—to justify his opinion, which is the hallmark of an Appeal to
+      Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - focus entirely on solar power. He does seem to know what he is talking about,
+      so who am I to argue? I can see some people arguing that he doesn't
+    - have a degree or is even an expert, but that seems snobbish to me. He uses a
+      lot of words that sound like they could be about energy and he
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument relies on Paul’s self‑claimed knowledge and informal
+    exposure as sufficient justification for accepting his claim, an instance of an
+    appeal to authority without real expertise.
+  decision_reason: The target text presents Paul’s self‑admitted knowledge and casual
+    references to technical language and a TV show as his authority, and then concludes
+    that his opinion on solar power should be respected. This is a classic appeal
+    to an unverified authority, meeting the structural condition of authority‑to‑claim
+    and thus constituting a fallacious inference.
+  evidence_ids:
+  - T2
+  - T3
+  - T5
+  evidence_spans:
+  - polluting fuels. When I look at the issue I think about my neighbor Paul, he says
+    he knows a lot bout energy technologies. He says that the Middle East should
+  - focus entirely on solar power. He does seem to know what he is talking about,
+    so who am I to argue? I can see some people arguing that he doesn't
+  - said he watched a tv show about it once. I think that is pretty impressive and
+    his opinion should be respected.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5621
+  completion_tokens: 3795
+  total_tokens: 9416
+  wall_time_seconds: 140.38999999999942

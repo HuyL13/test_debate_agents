@@ -1,0 +1,141 @@
+sample:
+  id: 19:9354
+  article_id: 19
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: I've seen this reduction in press transparency in other countries, and it
+    is concerning, but I don't want to assume anything. While it is true that some
+    governments that restrict press access have corruption issues, I don't want to
+    automatically assume that the PNG government is corrupt. Perhaps they have something
+    to hide, but perhaps not. Hopefully, as time goes on, they will show that they
+    are on the level.
+  target: I appreciate your optimism, and I suppose the government hasn't done anything
+    "wrong" yet, but it's also true that governments that are secure in their position
+    do not limit press freedoms. The only reason to worry about the press is if one
+    is concerned about what the press will write. But it's also historically true
+    that these measures are not popular and are self-defeating for the governments,
+    so I can see a brighter day ahead.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - I appreciate your optimism, and I suppose the government hasn't done anything
+      "wrong" yet, but it's also true that governments that are secure in their position
+      do not limit press
+    - freedoms. The only reason to worry about the press is if one is concerned about
+      what the press will write. But it's also historically true that these measures
+      are not
+    - popular and are self-defeating for the governments, so I can see a brighter
+      day ahead.
+    candidate: null
+  goal:
+    candidate: Hasty Generalization
+    conclusion_or_goal: I can see a brighter day ahead.
+    evidence_ids:
+    - T1
+    - T3
+    label_justification: The argument draws a broad conclusion about the PNG government’s
+      likely behavior from an unstated, general pattern that applies to all secure
+      governments, which is a classic case of hasty generalization.
+    mechanism_supports_goal: true
+    support_relation: Uses the generalized claim that all secure governments avoid
+      press restrictions, along with historical precedent, to support optimism about
+      a future where the new media rules will not suppress journalism.
+    supporting_reason: Governments that are secure in their position do not limit
+      press and historically such measures are unpopular and self‑defeating for governments.
+    evidence_spans:
+    - I appreciate your optimism, and I suppose the government hasn't done anything
+      "wrong" yet, but it's also true that governments that are secure in their position
+      do not limit press
+    - popular and are self-defeating for the governments, so I can see a brighter
+      day ahead.
+  counterargument:
+    decisive_counterargument: The text assumes that because historically press‑restriction
+      measures were unpopular and self‑defeating in other governments, the same will
+      happen in Papua New Guinea, and therefore a brighter future is assured. This
+      ignores the specific political, economic and cultural context of PNG and leans
+      on a broad historical pattern without evidence that it applies here.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that the new media rules will ultimately be
+      unpopular and self‑defeating, leading to optimism for PNG's future, rests on
+      a generalized historical pattern rather than evidence from this particular case.
+    label_justification: The objection shows that the argument treats historical instances
+      of press restrictions as a representative sample for all governments, inflating
+      confidence in a general outcome and thereby committing a Hasty Generalization
+      fallacy. It does not merely criticize the argument but directly exposes the
+      faulty inference that the broad trend applies unconditionally to PNG’s situation.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - freedoms. The only reason to worry about the press is if one is concerned about
+      what the press will write. But it's also historically true that these measures
+      are not
+    - popular and are self-defeating for the governments, so I can see a brighter
+      day ahead.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: the target asserts that all governments secure in their position
+    do not limit press, using unsubstantiated generalizations from an insufficient
+    sample (the PNG case) to support optimism about a brighter future, which satisfies
+    the structural criteria for hasty generalization
+  decision_reason: The target makes a blanket claim about secure governments based
+    on the lack of observed wrongdoing in PNG and the historical pattern that press
+    restrictions are unpopular, but provides no evidence that this pattern holds in
+    the present situation. This generalization is drawn from insufficient evidence
+    and is therefore a hasty generalization.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - I appreciate your optimism, and I suppose the government hasn't done anything
+    "wrong" yet, but it's also true that governments that are secure in their position
+    do not limit press
+  - popular and are self-defeating for the governments, so I can see a brighter day
+    ahead.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 4976
+  completion_tokens: 3614
+  total_tokens: 8590
+  wall_time_seconds: 63.14100000000326

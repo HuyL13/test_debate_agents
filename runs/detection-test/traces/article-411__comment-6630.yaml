@@ -1,0 +1,117 @@
+sample:
+  id: 411:6630
+  article_id: 411
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: It's only natural for a country with a history such as theirs would try
+    to limit internet access with censorship.  They won't let their people be free,
+    no matter how much attention is brought to this problem.  The internet is about
+    freedom personified so trying to control it is futile.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: The internet is about freedom personified
+    - role: evaluative_conclusion
+      text: trying to control it is futile
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - much attention is brought to this problem.  The internet is about freedom personified
+      so trying to control it is futile.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The country will limit internet access with censorship.
+    candidate: Appeal to Nature
+    supporting_reason: It's only natural for a country with a history such as theirs
+      would try to limit internet access with censorship.
+    support_relation: The reason claims that because it is 'natural' for such a country,
+      censorship is justified, thereby supporting the conclusion that the country
+      will censor.
+    label_justification: The argument uses the claim of naturalness as the sole justification
+      for censorship, which is the textbook definition of an appeal to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's only natural for a country with a history such as theirs would try to limit
+      internet access with censorship.  They won't let their people be free, no matter
+      how
+  counterargument:
+    decisive_counterargument: A practice being natural or historically common does
+      not mean it is morally justified or correct. Just because a country has a history
+      of censoring the internet does not prove that censorship is appropriate or effective,
+      nor does it demand that the country limit online access. Naturalness is irrelevant
+      to the ethical or practical merits of censorship.
+    candidate: Appeal to Nature
+    challenged_inference: The argument states that because it is natural for the country
+      to censor, censorship is an appropriate or inevitable response.
+    label_justification: The reasoning relies on naturalness as a justification for
+      policy, which is the hallmark of an Appeal to Nature fallacy. The fallacy is
+      exposed by showing that naturalness does not equate to correctness or necessity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's only natural for a country with a history such as theirs would try to limit
+      internet access with censorship.  They won't let their people be free, no matter
+      how
+    - much attention is brought to this problem.  The internet is about freedom personified
+      so trying to control it is futile.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: presence of a naturalness premise and an evaluative conclusion
+    in the target, meeting the definition of an Appeal to Nature fallacy
+  decision_reason: The target says the internet is 'about freedom personified', which
+    serves as a naturalness premise, and concludes that trying to control it is futile,
+    thus using naturalness to justify the evaluation—precisely the structure of an
+    Appeal to Nature fallacy.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - much attention is brought to this problem.  The internet is about freedom personified
+    so trying to control it is futile.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4375
+  completion_tokens: 2941
+  total_tokens: 7316
+  wall_time_seconds: 201.71900000004098

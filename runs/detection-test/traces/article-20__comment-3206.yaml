@@ -1,0 +1,186 @@
+sample:
+  id: 20:3206
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: This article really tries to ignore the historic, fraternal relations between
+    the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+    That relationship has weathered a lot of outside interference, like the people
+    in this article are trying to push, and has proven mutually beneficial. I hope
+    this war that has no direct connection to Armenia doesn't force its government
+    to abandon that tradition.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: This article really tries to ignore the historic, fraternal relations
+        between the peoples of Armenia and Russia. They have been allies traditionally
+        for centuries. That relationship has weathered a lot of outside interference,
+        like the …
+    - role: preservation_conclusion
+      text: …war that has no direct connection to Armenia doesn’t force its government
+        to abandon that tradition.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+    - force its government to abandon that tradition.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Maintain Armenia’s historical alliance with Russia and avoid
+      abandoning this tradition amid the war
+    candidate: Appeal to Tradition
+    supporting_reason: They have been allies traditionally for centuries, and this
+      relationship has weathered outside interference and proven mutually beneficial
+    support_relation: Uses the longevity and past benefits of the alliance as justification
+      for continuing the tradition and opposing abandonment
+    label_justification: The argument relies on the mere fact that the relationship
+      has existed for centuries and has been beneficial to support the claim that
+      it should be preserved, instead of addressing specific contemporary factors.
+      This is a classic appeal to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+  counterargument:
+    decisive_counterargument: The claim that a war unrelated to Armenia could force
+      its government to abandon a long‑standing tradition of alliance is an unsubstantiated
+      causal leap. The passage gives no evidence that the conflict will alter Armenia’s
+      foreign policy or that it depends on Russia for its security; it merely asserts
+      a possibility. Without a premise linking the war to a change in Armenia’s alignment,
+      the inference is unsupported. This failure is best described as a slippery‑slope
+      fallacy—there is a one‑step progression from a distant conflict to a fundamentally
+      different foreign‑policy stance without justification.
+    candidate: Slippery Slope
+    challenged_inference: The assertion that the war could force Armenia to abandon
+      its fraternal tradition with Russia.
+    label_justification: The objection demonstrates that the Target’s inference makes
+      an unconnected causal jump (war -> policy shift). This is precisely the mechanism
+      of a slippery‑slope fallacy—propagating from an initial event to a detrimental
+      outcome without evidence of intermediary steps. No other fallacy category adequately
+      captures this failure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Slippery Slope
+    conflict: appeal-to-tradition__vs__slippery-slope
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: The target does not present a chain of escalating consequences;
+      instead it merely invokes the longevity of a relationship as justification for
+      continuation, satisfying the Appeal to Tradition structure.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+    - force its government to abandon that tradition.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target argument relies on the fact that Armenia and Russia
+    have been allies for centuries and that this historical relationship has weathered
+    interference and proven beneficial, to justify that the current war should not
+    cause Armenia to abandon that tradition. This is a classic appeal to tradition,
+    satisfying the structural requirement of using longevity and past benefit to support
+    the conclusion.
+  decision_reason: The argument takes the longevity and past benefits of the alliance
+    as evidence that the tradition should be preserved, with no consideration of current
+    contextual factors, which is a classic appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This article really tries to ignore the historic, fraternal relations between
+    the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+    That relationship has weathered a lot
+  - of outside interference, like the people in this article are trying to push, and
+    has proven mutually beneficial. I hope this war that has no direct connection
+    to Armenia doesn't
+  - force its government to abandon that tradition.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6324
+  completion_tokens: 4156
+  total_tokens: 10480
+  wall_time_seconds: 265.8429999999935

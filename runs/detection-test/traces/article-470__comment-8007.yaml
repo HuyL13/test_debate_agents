@@ -1,0 +1,147 @@
+sample:
+  id: 470:8007
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: Does anyone else think we're going too far with making everything a joke
+    and a meme and all that? Serious issues get made fun of constantly. Where will
+    it end? I feel like if 9/11 happened today, the internet would be flooded with
+    'funny' memes about it by the end of the day. Eventually, nobody will take anything
+    seriously and we'll all suffer from poor governments because we'll be treating
+    everything like a joke.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Does anyone else think we're going too far with making everything a joke and
+      a meme and all that? Serious issues get made fun of constantly. Where will it
+      end?
+    - I feel like if 9/11 happened today, the internet would be flooded with 'funny'
+      memes about it by the end of the day. Eventually, nobody will take anything
+      seriously and
+    - we'll all suffer from poor governments because we'll be treating everything
+      like a joke.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The author believes that the practice of treating everything
+      as a joke or meme is excessive and harmful.
+    candidate: Slippery Slope
+    supporting_reason: The argument predicts that an increase in meme culture will
+      lead, in a chain of events, to widespread irreverence and ultimately to poor
+      governance.
+    support_relation: The proposed causal chain from meme culture to governmental
+      failure is used to justify the claim that we are going too far with jokes and
+      memes.
+    label_justification: The reasoning involves a stepwise escalation from an everyday
+      practice (memes) to a distant, undesirable outcome (poor governments) with no
+      intermediate evidence, fitting the slippery‑slope pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - I feel like if 9/11 happened today, the internet would be flooded with 'funny'
+      memes about it by the end of the day. Eventually, nobody will take anything
+      seriously and
+    - we'll all suffer from poor governments because we'll be treating everything
+      like a joke.
+  counterargument:
+    decisive_counterargument: 'The passage asserts that if memes continue to proliferate—even
+      on sensitive events like 9/11—public seriousness will collapse, inevitably causing
+      governments to fail.  This claim jumps from a hypothetical meme surge to a dire,
+      unproven outcome without intermediate evidence that (1) the meme trend actually
+      erodes societal respect for serious topics or (2) that such erosion would directly
+      lead to weak governance.  Since the argument relies on an unsupported chain
+      of consequences, it commits a **slippery‑slope** fallacy.  The objection exposes
+      a failure in reasoning: the conclusion that governments will suffer is not supported
+      by any step that links meme culture to governmental performance, merely an unverified
+      prediction of disaster.'
+    candidate: Slippery Slope
+    challenged_inference: If the internet floods with memes about 9/11, everyone will
+      stop taking things seriously, leading to poor governments.
+    label_justification: The target displays a classic slippery‑slope structure—moving
+      from a single potential action (memes about a tragedy) to an extreme, undesired
+      outcome (government failure) without intermediate, substantiated steps.  The
+      counterargument points out the missing link, directly challenging the inference
+      and thereby supporting the Slippery‑Slope label.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - I feel like if 9/11 happened today, the internet would be flooded with 'funny'
+      memes about it by the end of the day. Eventually, nobody will take anything
+      seriously and
+    - we'll all suffer from poor governments because we'll be treating everything
+      like a joke.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target poses a sequence of unsubstantiated escalating consequences—starting
+    with a surge of memes about 9/11, then claiming that this will lead people to
+    stop taking things seriously, and concluding that governments will become poor—without
+    providing intermediate evidence. This fits the slippery‑slope pattern.
+  decision_reason: The argument explicitly moves from a single speculative action
+    (memes on a tragedy) to a far‑reaching negative outcome (government failure) through
+    a chain of steps that lack supporting evidence for each link, meeting the structural
+    criteria for a slippery‑slope fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - I feel like if 9/11 happened today, the internet would be flooded with 'funny'
+    memes about it by the end of the day. Eventually, nobody will take anything seriously
+    and
+  - we'll all suffer from poor governments because we'll be treating everything like
+    a joke.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4914
+  completion_tokens: 2396
+  total_tokens: 7310
+  wall_time_seconds: 78.79699999999139

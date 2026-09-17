@@ -1,0 +1,121 @@
+sample:
+  id: 217:5447
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: There are only two reasons for this. Women want control, not equality. The
+    aggressive demands like a change in constitution is a bit odd. Sure, they should
+    do something, but maybe a bit down to earth.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Women
+    - role: observed_property
+      text: want control, not equality, aggressive demands odd
+    - role: target_population
+      text: women
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Women want control, not equality.
+    candidate: null
+    supporting_reason: Women want control, not equality.
+    support_relation: the statement itself is presented as the claim and is used to
+      affirm that claim
+    label_justification: The text simply states an assertion about women without attempting
+      to justify a broader conclusion or presenting an invalid deduction; no logical
+      fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+    - maybe a bit down to earth.
+  counterargument:
+    decisive_counterargument: The statement “Women want control, not equality” unfairly
+      treats all women as having the same motive, yet it provides no evidence to support
+      this sweeping claim. A single observation (or assuming a particular group’s
+      motives from one instance) cannot justify a blanket assertion about an entire
+      group, thereby committing a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that women’s primary motivation is control
+      rather than equality
+    label_justification: The objection points out that the target’s claim generalizes
+      from an unspecified, likely unrepresentative observation to a universal statement
+      about all women, which violates the requirement that a generalization must be
+      based on a representative sample; thus it exemplifies a Hasty Generalization
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts a universal claim—‘Women want control, not
+    equality’—with 'Women' serving as an unrepresentative sample and no evidence beyond
+    the statement itself, fitting the Hasty Generalization structure.
+  decision_reason: The target makes a blanket claim that all women desire control
+    instead of equality, a definitive broad statement drawn from an insufficient premise.
+    This aligns with the definition of a Hasty Generalization, satisfying the required
+    structure of sample, observed property, and target population.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There are only two reasons for this. Women want control, not equality. The aggressive
+    demands like a change in constitution is a bit odd. Sure, they should do something,
+    but
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4054
+  completion_tokens: 3342
+  total_tokens: 7396
+  wall_time_seconds: 161.32800000003772

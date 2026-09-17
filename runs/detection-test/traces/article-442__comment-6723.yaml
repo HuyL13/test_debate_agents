@@ -1,0 +1,133 @@
+sample:
+  id: 442:6723
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: We should listen to artists like this man.  Artists throughout history have
+    made it a habit to bring attention to social causes.  It has a long history and
+    tradition that I am glad to see still in place.  Artists like Picasso made art
+    that spurred societal change.  Let's continue to allow this and embrace it.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T1
+    - role: preservation_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: We should listen to artists like this man
+    candidate: Appeal to Tradition
+    supporting_reason: Artists throughout history have made it a habit to bring attention
+      to social causes. It has a long history and tradition. Artists like Picasso
+      made art that spurred societal change.
+    support_relation: The argument uses the historical precedence of artists addressing
+      social causes as justification for presently listening to artists, thereby appealing
+      to tradition to support the conclusion.
+    label_justification: The reasoning relies on the fact that artists have traditionally
+      been involved in social advocacy to argue that we should continue listening
+      to them now.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+  counterargument:
+    decisive_counterargument: A long‑standing tradition does not guarantee that continuing
+      to listen to artists will produce social change or that it is the best way to
+      address social causes. The mere fact that past artists like Picasso have used
+      art for activism does not prove that the practice is effective or necessary
+      today.
+    candidate: Appeal to Tradition
+    challenged_inference: Because artists historically have brought attention to social
+      causes and this has long been a tradition, we should continue to allow and embrace
+      this practice.
+    label_justification: The objection shows that the argument depends on the longevity
+      of the practice as its main reason for persisting, rather than on any evidence
+      that the practice is beneficial. This is precisely the textbook definition of
+      an appeal to tradition, where the tradition itself is used as a justification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The conclusion directly depends on the claimed long‑standing
+    tradition of artists addressing social causes, using that tradition alone as justification
+    for continuing to listen to and embrace such artists.
+  decision_reason: The argument states that artists throughout history have a habit
+    of bringing attention to social causes and that this has a long tradition. It
+    then concludes that we should continue to listen to and embrace this practice.
+    The justification relies solely on the tradition, which matches the structure
+    of an appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We should listen to artists like this man.  Artists throughout history have made
+    it a habit to bring attention to social causes.  It has a long history and tradition
+    that
+  - I am glad to see still in place.  Artists like Picasso made art that spurred societal
+    change.  Let's continue to allow this and embrace it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4520
+  completion_tokens: 2659
+  total_tokens: 7179
+  wall_time_seconds: 65.10900000005495

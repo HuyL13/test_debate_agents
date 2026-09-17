@@ -1,0 +1,126 @@
+sample:
+  id: 386:10454
+  article_id: 386
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: It seems like these sorts of conflicts are just eternal. Tribalism just
+    seems too innate and natural in people for it to ever truly be defeated. Peaceful
+    coexistence really seems like the rare exception to the rule, when you look at
+    human history as a whole.
+  target: Over generalizing a situation can lead to conclusions that are a bit off
+    mark. Letting go of a situation and giving up on finding solutions is an easy
+    way out. Action must take place, and effort to rectify situations should be always
+    done.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Over generalizing a situation can lead to conclusions that are a bit off mark.
+      Letting go of a situation and giving up on finding solutions is an easy way
+      out.
+    - Action must take place, and effort to rectify situations should be always done.
+    candidate: null
+  goal:
+    conclusion_or_goal: Encourage proactive action to rectify situations rather than
+      overgeneralizing or giving up.
+    candidate: null
+    supporting_reason: Overgeneralization leads to off‑mark conclusions, and giving
+      up is an easy way out; therefore, action should always be taken.
+    support_relation: The claim that overgeneralization and inaction produce negative
+      outcomes is used to justify the imperative for action.
+    label_justification: The argument does not rely on an unsupported or fallacious
+      premise; it presents a normative claim (action is necessary) supported by a
+      general observation about overgeneralization. No logical fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Over generalizing a situation can lead to conclusions that are a bit off mark.
+      Letting go of a situation and giving up on finding solutions is an easy way
+      out.
+    - Action must take place, and effort to rectify situations should be always done.
+  counterargument:
+    decisive_counterargument: Generalizing in a controlled, methodologically sound
+      way—such as using statistical sampling or theoretical modeling—can yield accurate
+      conclusions. The claim that all over‑generalizations are ‘a bit off mark’ is
+      an unjustified blanket statement that ignores legitimate use cases of generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Over generalizing a situation can lead to conclusions that
+      are a bit off mark.
+    label_justification: Target’s claim that any act of over‑generalization inevitably
+      produces inaccurate conclusions is a broad, unqualified assertion made without
+      supporting evidence. It presumes the invalidity of all generalizations, which
+      is a classic hasty‑generalization error.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Over generalizing a situation can lead to conclusions that are a bit off mark.
+      Letting go of a situation and giving up on finding solutions is an easy way
+      out.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target claims that over‐generalizing can lead to off‑mark
+    conclusions and that action must be taken, but it does not provide any specific
+    examples or limited cases from which a general conclusion is drawn. Therefore
+    the target lacks the structural evidence (sample → generalization) required for
+    a hasty generalization, and no fallacy is present.
+  decision_reason: The target’s statements are general remarks about over‑generalisation
+    and the importance of action; they do not meet the necessary structure of presenting
+    a specific instance and then generalising from it, so the Hasty Generalization
+    label is not justified.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Over generalizing a situation can lead to conclusions that are a bit off mark.
+    Letting go of a situation and giving up on finding solutions is an easy way out.
+  - Action must take place, and effort to rectify situations should be always done.
+  verified: false
+  rejection_reason: The target’s statements are general remarks about over‑generalisation
+    and the importance of action; they do not meet the necessary structure of presenting
+    a specific instance and then generalising from it, so the Hasty Generalization
+    label is not justified.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4153
+  completion_tokens: 2828
+  total_tokens: 6981
+  wall_time_seconds: 79.54700000002049

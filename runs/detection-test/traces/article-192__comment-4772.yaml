@@ -1,0 +1,121 @@
+sample:
+  id: 192:4772
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: It is natural to jump to the conclusion that all censorship is wrong. We
+    have to stop attributing our own culture to totally different countries. What
+    is right in one culture may not necessarily be the same in another.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is natural to jump to the conclusion that all censorship is wrong.
+    - role: evaluative_conclusion
+      text: all censorship is wrong.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Avoid overgeneralizing that all censorship is wrong by recognizing
+      cultural differences
+    candidate: null
+    supporting_reason: The passage highlights that making a blanket condemnation of
+      censorship is a natural but flawed intuition (a hasty generalization), and urges
+      consideration of cultural context to prevent such overgeneralization.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument does not employ a fallacy; rather, it acknowledges
+      the tendency for a hasty generalization and uses that recognition to caution
+      against drawing a universal condemnation of censorship.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+    - culture may not necessarily be the same in another.
+  counterargument:
+    decisive_counterargument: The claim relies on the idea that what is natural is
+      inherently wrong—i.e., that it is ‘natural to jump to the conclusion that all
+      censorship is wrong’. But the fact that a practice is natural (or not natural)
+      does not logically entail that it is morally right or wrong; that is a classic
+      naturalistic fallacy. Thus the conclusion that all censorship is wrong cannot
+      be justified merely by invoking its non‑naturalness.
+    candidate: Appeal to Nature
+    challenged_inference: (From the sentence that it is natural to conclude that all
+      censorship is wrong)
+    label_justification: The objection targets an argument that derives a moral verdict
+      (censorship is wrong) solely from a claim about naturalness, which is precisely
+      the fallacy of Appeal to Nature (naturalistic fallacy).
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise—‘It is natural to
+    jump to the conclusion that all censorship is wrong’—and a moral evaluative conclusion—‘all
+    censorship is wrong’—which satisfies the structure of an Appeal to Nature (naturalistic)
+    fallacy.
+  decision_reason: The statement explicitly claims it is natural to arrive at the
+    moral judgment that all censorship is wrong and then concludes that censorship
+    is indeed wrong. This aligns with the characteristic pattern of an Appeal to Nature,
+    where a claim about naturalness is used to justify a value judgment.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is natural to jump to the conclusion that all censorship is wrong. We have
+    to stop attributing our own culture to totally different countries. What is right
+    in one
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4089
+  completion_tokens: 2670
+  total_tokens: 6759
+  wall_time_seconds: 310.92200000000594

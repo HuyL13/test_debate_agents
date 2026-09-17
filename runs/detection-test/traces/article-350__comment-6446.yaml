@@ -1,0 +1,124 @@
+sample:
+  id: 350:6446
+  article_id: 350
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: Refugees do not have inherent rights, other than human rights. They are
+    not entitled to anything. So there are more crucial things to worry about in the
+    society.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Refugees do not have inherent rights, other than human rights
+    - role: worse_issue
+      text: There are more crucial things to worry about in society
+    - role: deprioritizing_conclusion
+      text: They are not entitled to anything
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Refugees do not have inherent rights, other than human rights. They are not
+      entitled to anything. So there are more crucial things to worry about in the
+      society.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Refugees should not be given special consideration; society
+      should prioritize other more crucial issues.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Refugees do not have inherent rights, other than human rights.
+      They are not entitled to anything.
+    support_relation: The asserted lack of rights is presented as the justification
+      for downplaying refugee concerns, thereby shifting attention to other pressing
+      societal matters.
+    label_justification: 'The argument dismisses refugees'' rights by claiming they
+      are not entitled to anything, and instead argues that due to this absence of
+      entitlement society must instead focus on more ''crucial'' problems. This is
+      a classic appeal to a worse problem: a less important issue is minimized in
+      favor of a perceived greater issue.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Refugees do not have inherent rights, other than human rights. They are not
+      entitled to anything. So there are more crucial things to worry about in the
+      society.
+  counterargument:
+    decisive_counterargument: The claim that refugees have no inherent rights and
+      therefore society should focus elsewhere ignores their legal and human‑rights
+      entitlements, which are protected under international conventions and domestic
+      laws. Dismissing them because other problems exist is an irrelevant comparison
+      that unfairly deprioritises refugee rights.
+    candidate: Appeal to Worse Problems
+    challenged_inference: So there are more crucial things to worry about in the society.
+    label_justification: The objection points out that the argument uses the presence
+      of other societal problems to dismiss the importance of refugees’ rights. This
+      reflects an appeal to worse problems, because the claim is based on an irrelevant
+      comparison of matter‑of‑importance rather than on the merits of refugee rights
+      themselves.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Refugees do not have inherent rights, other than human rights. They are not
+      entitled to anything. So there are more crucial things to worry about in the
+      society.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target text explicitly states that refugees lack inherent
+    rights and are therefore not entitled to anything, followed by the claim that
+    society should focus on more crucial issues. This matches the structural prerequisites
+    of an appeal to worse problems (focal issue, worse issue, and deprioritizing conclusion)
+    as evidenced in the single passage.
+  decision_reason: The argument presents refugees’ rights as the focal issue and argues
+    that because other issues are more important, refugee concerns can be neglected.
+    This structure satisfies the definition of an appeal to a worse problem and is
+    directly supported by the target text.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Refugees do not have inherent rights, other than human rights. They are not entitled
+    to anything. So there are more crucial things to worry about in the society.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4143
+  completion_tokens: 5008
+  total_tokens: 9151
+  wall_time_seconds: 268.4689999999973

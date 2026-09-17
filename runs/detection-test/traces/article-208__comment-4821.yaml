@@ -1,0 +1,119 @@
+sample:
+  id: 208:4821
+  article_id: 208
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: I like the fact that the artist is able to take both the good and bad from
+    her homelands history and turn it into beautiful and meaningful artwork. I think
+    this is a way to engage the audience in a way that will be profound. I think that
+    we can all agree that art can help us confront and heal from our past.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I like the fact that the artist is able to take both the good and bad from her
+      homelands history and turn it into beautiful and meaningful artwork. I think
+    - this is a way to engage the audience in a way that will be profound. I think
+      that we can all agree that art can help us confront and heal
+    - from our past.
+    candidate: null
+  goal:
+    conclusion_or_goal: art can help us confront and heal from our past
+    candidate: Appeal to Majority
+    supporting_reason: we can all agree that art can help us confront and heal from
+      our past
+    support_relation: the claim that the artist’s work helps audience heal is justified
+      by asserting a universal agreement on art’s therapeutic value
+    label_justification: The argument relies on an unverified assertion of a universal
+      consensus to support the claim that art can help confront and heal, which is
+      a classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - this is a way to engage the audience in a way that will be profound. I think
+      that we can all agree that art can help us confront and heal
+    - from our past.
+  counterargument:
+    decisive_counterargument: The target assumes everyone shares the view that art
+      can confront and heal our past, yet it provides no evidence of such a broad
+      consensus—any one could disagree. This unstated claim of universal agreement
+      is an appeal to the majority, i.e. a fallacious assumption that mere popularity
+      or presumed consensus justifies the claim.
+    candidate: Appeal to Majority
+    challenged_inference: We can all agree that art can help us confront and heal
+      from our past.
+    label_justification: By calling for broad agreement without supporting evidence,
+      the target exhibits the Appeal to Majority fallacy—claiming that because many
+      (or all) people might agree, the claim is justified. The objection defeats this
+      reasoning by noting the lack of actual consensus.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - this is a way to engage the audience in a way that will be profound. I think
+      that we can all agree that art can help us confront and heal
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that “we can all agree that art can help
+    us confront and heal from our past” without providing evidence of such consensus,
+    thereby relying on presumed popularity to justify the claim about art’s therapeutic
+    value, which is an Appeal to Majority.
+  decision_reason: The target contains an unverified assertion of universal agreement
+    used to support its claim, satisfying the structural requirement of an Appeal
+    to Majority.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - this is a way to engage the audience in a way that will be profound. I think that
+    we can all agree that art can help us confront and heal
+  - from our past.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4410
+  completion_tokens: 2911
+  total_tokens: 7321
+  wall_time_seconds: 57.32799999997951

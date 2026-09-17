@@ -1,0 +1,157 @@
+sample:
+  id: 599:11095
+  article_id: 599
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: If the people and journalists aren't even being allowed to get the specific
+    details of the case or attend the press conferences and whatnot, eventually this'll
+    just lead to the government never telling the people anything. They will first
+    just give the bare minimum info and then nothing at all. Once a government feels
+    comfortable leaving their people in the dark, they will never give up that power.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: People and journalists not being allowed to get the specific details of
+        the case or attend the press conferences
+    - role: intermediate_consequence
+      text: The government giving only the bare minimum information and then nothing
+        at all
+    - role: final_consequence
+      text: The government never telling the people anything, never giving up that
+        power
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the people and journalists aren't even being allowed to get the specific
+      details of the case or attend the press conferences and whatnot, eventually
+      this'll just lead to the
+    - government never telling the people anything. They will first just give the
+      bare minimum info and then nothing at all. Once a government feels comfortable
+      leaving their people in the
+    - dark, they will never give up that power.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The government will eventually never tell the people anything
+      and will never give up power.
+    candidate: Slippery Slope
+    supporting_reason: If people and journalists are not allowed the specific details,
+      the argument claims this will lead to a progression from minimal information
+      to no information at all, culminating in the government never revealing anything.
+    support_relation: The reason is used to justify the conclusion that continued
+      suppression will ultimately result in complete opacity.
+    label_justification: The argument posits a chain of consequences—starting with
+      restricted access to details, moving to minimal disclosure, then to full secrecy—without
+      providing evidence for each step. This pattern fits the definition of a slippery‑slope
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the people and journalists aren't even being allowed to get the specific
+      details of the case or attend the press conferences and whatnot, eventually
+      this'll just lead to the
+    - government never telling the people anything. They will first just give the
+      bare minimum info and then nothing at all. Once a government feels comfortable
+      leaving their people in the
+    - dark, they will never give up that power.
+  counterargument:
+    decisive_counterargument: The argument presumes that merely withholding details
+      inevitably sends a government toward total secrecy and perpetual power. This
+      causal leap is unsupported; governments can limit details yet continue to provide
+      sufficient information, and histories show that power is not automatically lost
+      just because transparency is reduced. The claim relies on an unproven progression
+      rather than evidence.
+    candidate: Slippery Slope
+    challenged_inference: If the people and journalists aren't even being allowed
+      to get the specific details of the case or attend press conferences, inevitably
+      the government will eventually never tell the people anything and will never
+      give up that power.
+    label_justification: The inference asserts a linear, inevitably‑negative chain
+      of events (limited information → eventual total secrecy → loss of power) without
+      evidence, exemplifying a slippery‑slope fallacy. It presents escalating consequences
+      from a single premise, thereby matching the definition of this fallacy. The
+      objection specifically targets the unsupported causal progression rather than
+      merely criticizing the content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the people and journalists aren't even being allowed to get the specific
+      details of the case or attend the press conferences and whatnot, eventually
+      this'll just lead to the
+    - government never telling the people anything. They will first just give the
+      bare minimum info and then nothing at all. Once a government feels comfortable
+      leaving their people in the
+    - dark, they will never give up that power.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The claim establishes an inevitable causal chain—initial lack
+    of access to details leads to minimal disclosure, then to no disclosure, culminating
+    in the government never revealing information and retaining power—without presenting
+    supporting evidence for each transition. This structure satisfies the definition
+    and necessary evidence for a slippery‑slope fallacy.
+  decision_reason: The target text delineates a progressive sequence of negative outcomes
+    that supposedly follow automatically from the initial premise, matching the standard
+    form of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - If the people and journalists aren't even being allowed to get the specific details
+    of the case or attend the press conferences and whatnot, eventually this'll just
+    lead to the
+  - government never telling the people anything. They will first just give the bare
+    minimum info and then nothing at all. Once a government feels comfortable leaving
+    their people in the
+  - dark, they will never give up that power.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4866
+  completion_tokens: 2480
+  total_tokens: 7346
+  wall_time_seconds: 64.20299999997951

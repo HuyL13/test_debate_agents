@@ -1,0 +1,145 @@
+sample:
+  id: 489:8064
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: This is tough since you need a tough police force in order to run a country
+    and keep law and order. Duterte can either continue to encourage coarseness and
+    brio among his policemen, seeing these cases of rape as an unfortunate byproduct
+    of tough policing by tough cops, or he can cleanse the police departments and
+    rebuild the force de novo. I don't think a third way, that of reform, will be
+    very effective.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: continue to encourage coarseness and brio among his policemen
+    - role: alternative_b
+      text: cleanse the police departments and rebuild the force de novo
+    - role: exhaustiveness_commitment
+      text: I don't think a third way, that of reform, will be very effective
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is tough since you need a tough police force in order to run a country
+      and keep law and order. Duterte can either continue to encourage coarseness
+      and brio
+    - among his policemen, seeing these cases of rape as an unfortunate byproduct
+      of tough policing by tough cops, or he can cleanse the police departments and
+      rebuild the force de
+    - novo. I don't think a third way, that of reform, will be very effective.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Duterte can only either continue encouraging coarseness and
+      brio among his policemen, viewing rapes as an unfortunate byproduct of tough
+      policing, or cleanse the police departments and rebuild the force de novo; a
+      third way of reform is dismissed as ineffective.
+    candidate: False Dilemma
+    supporting_reason: The argument presents the decision as an either…or choice,
+      explicitly stating that Duterte has only the two alternatives while claiming
+      that a third option (reform) will not be effective.
+    support_relation: The either–or construction functions as the justificatory premise
+      that restricts the set of acceptable options to the two presented, thereby establishing
+      the conclusion that only these options are viable.
+    label_justification: The reasoning attempts to reduce the spectrum of policy choices
+      to two mutually exclusive alternatives and argues that a third possibility is
+      ineffective, which is the classic pattern of a false dilemma fallacy. The evidence
+      supporting this diagnostic comes from passages T1 and T2 (the two options) and
+      T3 (dismissal of reform).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is tough since you need a tough police force in order to run a country
+      and keep law and order. Duterte can either continue to encourage coarseness
+      and brio
+    - among his policemen, seeing these cases of rape as an unfortunate byproduct
+      of tough policing by tough cops, or he can cleanse the police departments and
+      rebuild the force de
+    - novo. I don't think a third way, that of reform, will be very effective.
+  counterargument:
+    decisive_counterargument: The author presents a binary choice—either maintain
+      coarseness and accept rape as an unfortunate side‑effect or completely cleanse
+      the police—while dismissing reforms as ineffective. This neglects the possibility
+      of a reform that strengthens accountability while preserving operational effectiveness,
+      thereby forcing a false dichotomy.
+    candidate: False Dilemma
+    challenged_inference: The only viable tactics are hard policing or complete overhaul;
+      reform is inherently ineffective.
+    label_justification: The objection directly targets a forced binary choice that
+      ignores a third viable option. By revealing that the argument limits the options
+      unrealistically, it exposes a false dilemma, not merely a critique of the merits
+      of the alternatives.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - novo. I don't think a third way, that of reform, will be very effective.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target outlines only two mutually exclusive alternatives
+    for Duterte—continuing a coarse, brash policing style or cleansing and rebuilding
+    the police force—while explicitly dismissing a third, reform-based option as ineffective.
+    This construction fulfills the structural criteria of an exhaustive alternative
+    argument, thereby constituting a false dilemma.
+  decision_reason: The argument claims that only two options exist and that a third
+    is ineffective, which is the classic pattern of a false dilemma, supported by
+    passages T1, T2, and T3.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This is tough since you need a tough police force in order to run a country and
+    keep law and order. Duterte can either continue to encourage coarseness and brio
+  - among his policemen, seeing these cases of rape as an unfortunate byproduct of
+    tough policing by tough cops, or he can cleanse the police departments and rebuild
+    the force de
+  - novo. I don't think a third way, that of reform, will be very effective.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4906
+  completion_tokens: 2981
+  total_tokens: 7887
+  wall_time_seconds: 152.48399999999674

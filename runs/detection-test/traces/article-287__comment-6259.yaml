@@ -1,0 +1,162 @@
+sample:
+  id: 287:6259
+  article_id: 287
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: It's about time the international community and citizens of El Salvador
+    demanded more. This kind of unchecked power is dangerous and the focus should
+    be on creating a democratic state where power is balanced, not hogged by a few.
+    When there is justice and equity, only then can true peace prevail. And for this
+    to happen, international pressure plays a key role, don't you all agree?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's about time the international community and citizens of El Salvador demanded
+      more. This kind of unchecked power is dangerous and the focus should be on creating
+      a democratic state
+    - where power is balanced, not hogged by a few. When there is justice and equity,
+      only then can true peace prevail. And for this to happen, international pressure
+      plays a
+    - key role, don't you all agree?
+    candidate: null
+  goal:
+    conclusion_or_goal: The international community and citizens of El Salvador should
+      demand more to create a democratic state where power is balanced, thereby achieving
+      justice, equity, and true peace.
+    candidate: Appeal to Majority
+    supporting_reason: International pressure plays a key role in achieving justice,
+      equity, and peace.
+    support_relation: supports
+    label_justification: The argument ends with the question, “don’t you all agree?”
+      which relies on the appeal to the audience’s perceived consensus to bolster
+      the claim. This use of audience agreement as proof constitutes an appeal to
+      majority (ad populum) fallacy, since it attempts to establish the claim’s validity
+      based on assumed widespread agreement rather than evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's about time the international community and citizens of El Salvador demanded
+      more. This kind of unchecked power is dangerous and the focus should be on creating
+      a democratic state
+    - where power is balanced, not hogged by a few. When there is justice and equity,
+      only then can true peace prevail. And for this to happen, international pressure
+      plays a
+    - key role, don't you all agree?
+  counterargument:
+    decisive_counterargument: The argument claims that all unchecked power is dangerous
+      and that international pressure must be used to create a balanced democratic
+      state, but it provides no specific examples or evidence for this blanket assertion.
+      By generalizing from an unverified premise to a universal conclusion, the reasoning
+      commits a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Unchecked power is inherently dangerous and requires international
+      pressure to achieve a balanced democracy.
+    label_justification: The objection demonstrates that the inference draws a universal
+      claim from an unsupported claim, fitting the definition of a hasty generalization
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's about time the international community and citizens of El Salvador demanded
+      more. This kind of unchecked power is dangerous and the focus should be on creating
+      a democratic state
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The claim that ‘unchecked power is dangerous’ is not a hasty generalization,
+      because no preliminary sample or specific case is presented from which a universal
+      conclusion is drawn; rather, the argument concludes by supposing the audience’s
+      unanimous agreement, which is a classic appeal to majority.
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - key role, don't you all agree?
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target concludes with the rhetorical question “don’t you
+    all agree?” which relies on the implied consensus or majority opinion of the audience
+    to support the claim that international pressure is necessary. This use of presumed
+    widespread agreement, without providing evidence for the claim, satisfies the
+    criterion for an Appeal to Majority (ad populum) fallacy.
+  decision_reason: The target contains an appeal to audience agreement, meeting the
+    structural condition for Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's about time the international community and citizens of El Salvador demanded
+    more. This kind of unchecked power is dangerous and the focus should be on creating
+    a democratic state
+  - where power is balanced, not hogged by a few. When there is justice and equity,
+    only then can true peace prevail. And for this to happen, international pressure
+    plays a
+  - key role, don't you all agree?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5725
+  completion_tokens: 4109
+  total_tokens: 9834
+  wall_time_seconds: 161.26600000000326

@@ -1,0 +1,127 @@
+sample:
+  id: 621:11161
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: While the main subject is interesting, I'm more concerned with the threat
+    to the snakes in general. More must be done to protect them, for the sake of the
+    ecosystem. If we don't ramp up protection efforts, they'll surely slip into extinction.
+    And then that will just lead to greater collapse in the ecosystem as a whole.
+  target: It seems that they are already working to protect the snakes. The article
+    states there are many benefits to having snakes around, especially for farmers.
+    It seems snakes already have a tradition of helping the people and will continue
+    to do so for a long time.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: a tradition of helping the people
+    - role: preservation_conclusion
+      text: will continue to do so for a long time
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - a tradition of helping the people and will continue to do so for a long time.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The target argues that snakes should continue to be protected
+      because they have historically helped people.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument invokes the long‑standing tradition that snakes
+      aid humans.
+    support_relation: By citing this tradition, the speaker justifies ongoing protection
+      efforts.
+    label_justification: The reasoning relies on the premise that because a practice
+      has been carried out historically (snakes helping people), it should be maintained.
+      This is the classic structure of an Appeal to Tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that they are already working to protect the snakes. The article states
+      there are many benefits to having snakes around, especially for farmers. It
+      seems snakes already have
+    - a tradition of helping the people and will continue to do so for a long time.
+  counterargument:
+    decisive_counterargument: The claim that snakes will continue to help people merely
+      because they already have a *tradition* of doing so rests on an assumption that
+      past custom guarantees future fidelity. The article merely reports benefits
+      for farmers; it does not establish an ongoing tradition or any continuity of
+      that beneficence. Relying on an unsubstantiated tradition as evidence for future
+      outcomes is a classic Appeal to Tradition fallacy. The target therefore draws
+      a conclusion (snakes will keep helping) that is not logically warranted by the
+      stated facts.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that snakes will continue to help people because
+      they already have a tradition of doing so.
+    label_justification: 'The counterargument directly exposes the reasoning that
+      the target’s inference depends on an unproven tradition to justify future behavior.
+      By demonstrating that the claim of a ‘tradition’ is not supported by evidence
+      and is used as a premise for the conclusion, the objection fits the definition
+      of an Appeal to Tradition. Identifying this fallacy is not merely a critique;
+      it shows a specific failure in logical dependence between premises and conclusion. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that they are already working to protect the snakes. The article states
+      there are many benefits to having snakes around, especially for farmers. It
+      seems snakes already have
+    - a tradition of helping the people and will continue to do so for a long time.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target claims that snakes ‘have a tradition of helping the
+    people and will continue to do so for a long time’, using this traditional benefit
+    as justification for continued protection; this meets the structural definition
+    of an Appeal to Tradition fallacy.
+  decision_reason: The target’s conclusion relies on the premise that a historical
+    tradition guarantees future outcomes, which is a classic Appeal to Tradition structure.
+    Evidence T2 contains the claim of tradition and future continuation, satisfying
+    the mandatory structural condition.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - a tradition of helping the people and will continue to do so for a long time.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4628
+  completion_tokens: 3087
+  total_tokens: 7715
+  wall_time_seconds: 120.04700000002049

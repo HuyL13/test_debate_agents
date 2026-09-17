@@ -1,0 +1,131 @@
+sample:
+  id: 238:5510
+  article_id: 238
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: We need to get away from these traditions that are causing hate and rising
+    tensions between nations. This Azeri and Armenian conflict dates back a long time.
+    Tradition has it that their citizens hate one another. There is no way to move
+    forward with any sort of peace if we are stuck with a hate filled tradition. We
+    need to challenge these traditions and not cling to them. Easier said than done,
+    but we must have hope for a better tomorrow.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We need to get away from these traditions that are causing hate and rising tensions
+      between nations. This Azeri and Armenian conflict dates back a long time. Tradition
+      has it
+    - that their citizens hate one another. There is no way to move forward with any
+      sort of peace if we are stuck with a hate filled tradition. We need to
+    - challenge these traditions and not cling to them. Easier said than done, but
+      we must have hope for a better tomorrow.
+    candidate: null
+  goal:
+    conclusion_or_goal: We need to get away from these traditions that are causing
+      hate and rising tensions between nations.
+    candidate: null
+    supporting_reason: Traditions are allegedly causing hate, leading to conflict
+      over the Azeri–Armenian issue, and therefore they must be challenged.
+    support_relation: The stated reason—traditions cause hate and impede peace—is
+      used to justify abandoning those traditions to achieve a better future.
+    label_justification: The argument presents a plausible causal relation (traditions
+      → conflict) that legitimately supports the conclusion; no fallacious reasoning
+      is employed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We need to get away from these traditions that are causing hate and rising tensions
+      between nations. This Azeri and Armenian conflict dates back a long time. Tradition
+      has it
+    - that their citizens hate one another. There is no way to move forward with any
+      sort of peace if we are stuck with a hate filled tradition. We need to
+  counterargument:
+    decisive_counterargument: The passage says that tradition ‘has it’ that Azeri
+      and Armenian citizens hate each other and that this total hate prevents any
+      peace. It makes a sweeping claim about an entire population with no specific
+      examples or evidence, simply repeating the tradition itself. By asserting that
+      all citizens feel mutual hatred, the argument ignores the diversity of opinions
+      and the fact that many individuals in both communities seek coexistence. This
+      unsupported generalization amounts to a hasty sweeping claim rather than a well‑founded
+      conclusion.
+    candidate: Hasty Generalization
+    challenged_inference: ‘Tradition has it that their citizens hate one another.’
+    label_justification: The objection shows that the conclusion rests on an unsubstantiated
+      blanket claim about an entire population, which is the hallmark of a hasty generalization.
+      The argument lacks evidence and fails to support the broad inference it makes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We need to get away from these traditions that are causing hate and rising tensions
+      between nations. This Azeri and Armenian conflict dates back a long time. Tradition
+      has it
+    - that their citizens hate one another. There is no way to move forward with any
+      sort of peace if we are stuck with a hate filled tradition. We need to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states a blanket claim that ‘all citizens hate one
+    another’ with no evidence or specific examples, exemplifying a hasty generalization.
+  decision_reason: The passage repeats a tradition asserting that every Azeri and
+    Armenian citizen feels mutual hatred, thereby generalizing about the whole population
+    without support, which meets the structural requirement of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We need to get away from these traditions that are causing hate and rising tensions
+    between nations. This Azeri and Armenian conflict dates back a long time. Tradition
+    has it
+  - that their citizens hate one another. There is no way to move forward with any
+    sort of peace if we are stuck with a hate filled tradition. We need to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4507
+  completion_tokens: 2853
+  total_tokens: 7360
+  wall_time_seconds: 315.969000000041

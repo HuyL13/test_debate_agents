@@ -1,0 +1,132 @@
+sample:
+  id: 565:8293
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: If they want a true democratic transition, then the media has to be free.
+    That is one of the main traditions of a democratic country and this one doesn't
+    seem like its ready for it. Without a free media and press, a true democracy is
+    not possible. Every democracy has and needs one.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: That is one of the main traditions of a democratic country
+    - role: preservation_conclusion
+      text: Without a free media and press, a true democracy is not possible
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If they want a true democratic transition, then the media has to be free. That
+      is one of the main traditions of a democratic country and this one doesn't seem
+    - like its ready for it. Without a free media and press, a true democracy is not
+      possible. Every democracy has and needs one.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: A true democratic transition requires a free and independent
+      media.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument relies on the claim that free media is “one of
+      the main traditions of a democratic country,” using this traditional status
+      to justify the necessity for democracy.
+    support_relation: provides a justification based on tradition rather than evidential
+      or logical basis
+    label_justification: The conclusion is derived solely from the fact that free
+      media has historically characterized democracies, ignoring other essential conditions.  This
+      usage of a historical tradition to assert a causal necessity constitutes an
+      appeal to tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If they want a true democratic transition, then the media has to be free. That
+      is one of the main traditions of a democratic country and this one doesn't seem
+    - like its ready for it. Without a free media and press, a true democracy is not
+      possible. Every democracy has and needs one.
+  counterargument:
+    decisive_counterargument: 'The claim that a democracy can only exist when media
+      is free relies on a sweeping assumption: every democratic state necessarily
+      has free and independent media. This is an untested premise, as many governments
+      labeled democratic somewhere on the spectrum have imposed significant restrictions
+      on journalism while still conducting elections and maintaining civil liberties.
+      The assertion conflates the idealized definition of democracy with a specific
+      institutional feature, thereby disregarding legitimate democratic variants.'
+    candidate: Appeal to Tradition
+    challenged_inference: The argument assumes that because traditional democracies
+      historically feature free media, the presence of free media is universally required
+      for a true democratic transition.
+    label_justification: The objection points out that the reasoning depends on a
+      traditional exemplar of democracy—free media—to justify the necessity of that
+      feature in all cases, which is precisely the structure of an appeal to tradition.
+      By showing that democracies can exist under different media conditions, the
+      counterargument removes the appeal and reveals the fallacious reliance on tradition
+      rather than logical necessity.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - like its ready for it. Without a free media and press, a true democracy is not
+      possible. Every democracy has and needs one.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument treats the fact that a free media is a historical
+    tradition of democracies as sufficient evidence that freedom of media is a necessary
+    condition for a true democratic transition. This reliance on a traditional characteristic
+    to justify a causal necessity is an appeal to tradition, supported by passages
+    T1 and T2.
+  decision_reason: The claim that a democratic transition requires free media rests
+    solely on the historical tradition of free press, presenting the tradition as
+    authoritative proof of necessity.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If they want a true democratic transition, then the media has to be free. That
+    is one of the main traditions of a democratic country and this one doesn't seem
+  - like its ready for it. Without a free media and press, a true democracy is not
+    possible. Every democracy has and needs one.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4234
+  completion_tokens: 2988
+  total_tokens: 7222
+  wall_time_seconds: 275.51600000000326

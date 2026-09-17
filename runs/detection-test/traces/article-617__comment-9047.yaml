@@ -1,0 +1,144 @@
+sample:
+  id: 617:9047
+  article_id: 617
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: It seems normal for any person or group in power to protect that power.
+    We see this behavior across the animal kingdom, so why are we surprised when it
+    occurs within our own species? In some parts of the world there have been more
+    successful attempts at taming this tendency. But perhaps rule by might has more
+    going for it than people think. Look at Rome and the worldwide peace its rule
+    by might established. And there is more than historical examples, as one can also
+    include the United States in such a list.
+  target: Just because something is normal or happened in the past doesn't mean it's
+    something we should encourage or tolerate. We worked hard to move away from systems
+    like these. And Rome doesn't seem like the greatest example. The millions of bodies
+    it took to create it and the fact that it's no longer around says more than whatever
+    peace it maintained.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Just because something is normal or happened in the past doesn't mean it's something
+      we should encourage or tolerate. We worked hard to move away from systems like
+      these. And
+    - Rome doesn't seem like the greatest example. The millions of bodies it took
+      to create it and the fact that it's no longer around says more than whatever
+      peace it
+    - maintained.
+    candidate: null
+  goal:
+    conclusion_or_goal: That the fact that something is normal or historic does not
+      justify encouraging or tolerating it, and Rome is not a strong example of the
+      supposed benefits of rule by might.
+    candidate: null
+    supporting_reason: Rome’s history of massive bloodshed and its eventual demise
+      shows that a system may be normal and historic yet not desirable.
+    support_relation: This reason is used to counter the parent’s claim that historical
+      examples, like Rome, validate rule by might.
+    label_justification: The target presents a legitimate counter‑argument rather
+      than committing a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Just because something is normal or happened in the past doesn't mean it's something
+      we should encourage or tolerate. We worked hard to move away from systems like
+      these. And
+    - Rome doesn't seem like the greatest example. The millions of bodies it took
+      to create it and the fact that it's no longer around says more than whatever
+      peace it
+    - maintained.
+  counterargument:
+    decisive_counterargument: 'The target’s claim that ‘Rome doesn’t seem like the
+      greatest example’ relies on the idea that because Rome was built by mass violence
+      and no longer exists, it is a poor model for any governance. This reasoning
+      treats the negative consequences of Rome as the sole measure of its value and
+      ignores that Rome also contributed lasting legal, architectural, and cultural
+      foundations that many modern societies still benefit from. By focusing only
+      on its downsides, the target commits the *appeal to consequences* fallacy: it
+      assumes that the undesirable outcomes alone negate any potential merits of the
+      system being evaluated.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that Rome’s historical violence and demise
+      invalidate it as a advisable example of rule by might.
+    label_justification: The objection demonstrates that the target’s reasoning depends
+      on the premise that negative outcomes inherently disqualify a policy, which
+      is a classic appeal to consequences fallacy. It does not simply criticize the
+      argument but exposes the logical defect that counts only consequences, not overall
+      worth, as decisive logic.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - Rome doesn't seem like the greatest example. The millions of bodies it took
+      to create it and the fact that it's no longer around says more than whatever
+      peace it
+    - maintained.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not invoke a more serious or larger
+    problem to downplay or dismiss rule‑by‑might; it merely critiques Rome on its
+    own negative aspects, failing to satisfy the structural condition of an Appeal
+    to Worse Problems fallacy. Thus no fallacy is detected.
+  decision_reason: Target lacks the comparative structure required for 'Appeal to
+    Worse Problems' – it does not reference a greater issue to justify overlooking
+    rule by might, only a criticism of Rome’s negatives.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - Rome doesn't seem like the greatest example. The millions of bodies it took to
+    create it and the fact that it's no longer around says more than whatever peace
+    it
+  - maintained.
+  verified: false
+  rejection_reason: Target lacks the comparative structure required for 'Appeal to
+    Worse Problems' – it does not reference a greater issue to justify overlooking
+    rule by might, only a criticism of Rome’s negatives.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4666
+  completion_tokens: 3555
+  total_tokens: 8221
+  wall_time_seconds: 155.46899999999732

@@ -1,0 +1,136 @@
+sample:
+  id: 460:7978
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Those in power have always been punitive towards those who criticize them.
+    And in that part of the world, such an approach is the settled, long-standing
+    way of doing things. We can't expect them to turn on a dime, can we? Let's be
+    patient while we encourage them to embrace a different tradition, one which protects
+    the freedom of the press as much as the power held by the central authority. Changing
+    inherited practices takes time and effort, after all.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: such an approach is the settled, long-standing way of doing things.
+    - role: preservation_conclusion
+      text: Changing inherited practices takes time and effort, after all.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Those in power have always been punitive towards those who criticize them. And
+      in that part of the world, such an approach is the settled, long-standing way
+      of doing things.
+    - press as much as the power held by the central authority. Changing inherited
+      practices takes time and effort, after all.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Encourage the authorities to adopt a tradition that protects
+      press freedom while recognizing that change will be slow.
+    candidate: null
+    supporting_reason: Those in power have always been punitive towards critics and
+      that approach is long‑standing.
+    support_relation: T1 supports the goal.
+    label_justification: The premise is used legitimately to justify patience in encouraging
+      change; it does not constitute a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Those in power have always been punitive towards those who criticize them. And
+      in that part of the world, such an approach is the settled, long-standing way
+      of doing things.
+  counterargument:
+    decisive_counterargument: The fact that a government has historically persecuted
+      critics does not mean it is bound to continue that way or that change is impossible;
+      many regimes have reformed their press‑freedom practices despite entrenched
+      punitive traditions. Therefore the argument’s appeal to the long‑standing practice
+      is a faulty appeal to tradition.
+    candidate: null
+    challenged_inference: Because those in power have always punished critics, change
+      cannot happen rapidly and must be approached with patience.
+    label_justification: This inference depends solely on the existence of a long‑standing
+      punitive tradition to justify the belief that reform is inevitable and slow,
+      which is a classic appeal to tradition fallacy. The argument treats the tradition
+      as the necessary basis for the claim, ignoring alternative evidence of possible
+      change.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Those in power have always been punitive towards those who criticize them. And
+      in that part of the world, such an approach is the settled, long-standing way
+      of doing things.
+    - We can't expect them to turn on a dime, can we? Let's be patient while we encourage
+      them to embrace a different tradition, one which protects the freedom of the
+    - press as much as the power held by the central authority. Changing inherited
+      practices takes time and effort, after all.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: presence of a tradition premise followed by a preservation conclusion
+    on the same target, supported by evidence T1 and T3
+  decision_reason: The target asserts that the punitive approach is a long‑standing
+    tradition and therefore should not be expected to change immediately. The statement
+    that “Changing inherited practices takes time and effort, after all” directly
+    supports a preservation conclusion. This forms the classic Appeal to Tradition
+    structure—using the fact that something has been done for a long time to argue
+    that it ought to continue or that change should be slowed. The evidence in T1
+    establishes the tradition premise, and the evidence in T3 supplies the preservation
+    conclusion, satisfying the required structural condition. Therefore the surviving
+    hypothesis “Appeal to Tradition” is affirmed.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - Those in power have always been punitive towards those who criticize them. And
+    in that part of the world, such an approach is the settled, long-standing way
+    of doing things.
+  - press as much as the power held by the central authority. Changing inherited practices
+    takes time and effort, after all.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 4377
+  completion_tokens: 3475
+  total_tokens: 7852
+  wall_time_seconds: 635.5

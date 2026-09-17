@@ -1,0 +1,168 @@
+sample:
+  id: 433:10597
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: I think most cops are honest and try to help people.  Sure, there are some
+    bad apples in the bunch, but we can't say there all bad because of the actions
+    of a few.  However, the violence against black Americans should be stopped.  I
+    hope the court systems and judges, with their given authority, will prosecute
+    some of the cops who harm blacks without reason. Such scrutiny is needed.  As
+    Professor Benjamin Marshall said, "A just society stems from an impartial judiciary
+    that hold everyone to account, irrespective of their profession."
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Professor Benjamin Marshall
+    - role: endorsed_claim
+      text: A just society stems from an impartial judiciary that hold everyone to
+        account, irrespective of their profession.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - who harm blacks without reason. Such scrutiny is needed.  As Professor Benjamin
+      Marshall said, "A just society stems from an impartial judiciary that hold everyone
+      to account, irrespective of their
+    - profession."
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The violence against black Americans should be stopped (and
+      police officers who harm blacks without reason should be prosecuted).
+    candidate: null
+    supporting_reason: Most cops are honest and try to help people; only a few bad
+      ones exist, so we cannot say all are bad.
+    support_relation: The claim about most cops being honest is presented as justification
+      to argue that not all police should be blamed, yet it is not logically connected
+      to the conclusion that violence must be stopped.
+    label_justification: The provided reason does not support the conclusion; it is
+      irrelevant to the argument about stopping violence. The relation is a non‑sequitur,
+      so no fallacy label is warranted.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think most cops are honest and try to help people.  Sure, there are some bad
+      apples in the bunch, but we can't say there all bad because of the
+    - actions of a few.  However, the violence against black Americans should be stopped.  I
+      hope the court systems and judges, with their given authority, will prosecute
+      some of the cops
+    - who harm blacks without reason. Such scrutiny is needed.  As Professor Benjamin
+      Marshall said, "A just society stems from an impartial judiciary that hold everyone
+      to account, irrespective of their
+  counterargument:
+    decisive_counterargument: The author offers no empirical evidence to support the
+      sweeping statement that most cops are honest and try to help people; the claim
+      rests solely on personal opinion. Because this generalization is presented without
+      a representative sample or supporting data, it exemplifies a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that most cops are honest and try to help people.
+    label_justification: The objection demonstrates that the author infers a broad
+      truth about the entire police profession from insufficient evidence, which satisfies
+      the definition of a hasty generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think most cops are honest and try to help people.  Sure, there are some bad
+      apples in the bunch, but we can't say there all bad because of the
+    - actions of a few.  However, the violence against black Americans should be stopped.  I
+      hope the court systems and judges, with their given authority, will prosecute
+      some of the cops
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: The target contains a direct appeal to an authority figure—Professor
+      Benjamin Marshall—to support the claim that an impartial judiciary is needed.
+      This satisfies the mandatory structural condition of the appeal‑to‑authority
+      fallacy by providing an authority whose endorsement is used as justification.
+    loser_failure: The claim that most cops are honest is a broad statement lacking
+      empirical support, which could be construed as a hasty generalization. However,
+      the target’s most salient structural element is the explicit authority citation,
+      making Appeal to Authority more directly supported by the supplied text.
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - who harm blacks without reason. Such scrutiny is needed.  As Professor Benjamin
+      Marshall said, "A just society stems from an impartial judiciary that hold everyone
+      to account, irrespective of their
+    - profession."
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target cites Professor Benjamin Marshall’s statement as
+    evidence that a just society requires an impartial judiciary holding all accountable,
+    thereby justifying the call to prosecute cops harming black people. The structure
+    includes an authority and endorsed claim, matching Appeal to Authority.
+  decision_reason: The target employs the authority’s quotation to support policy
+    claims, without additional substantive evidence, constituting an appeal to authority.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - who harm blacks without reason. Such scrutiny is needed.  As Professor Benjamin
+    Marshall said, "A just society stems from an impartial judiciary that hold everyone
+    to account, irrespective of their
+  - profession."
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6077
+  completion_tokens: 5491
+  total_tokens: 11568
+  wall_time_seconds: 342.64100000000326

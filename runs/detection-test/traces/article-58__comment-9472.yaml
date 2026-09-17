@@ -1,0 +1,125 @@
+sample:
+  id: 58:9472
+  article_id: 58
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: Just because something has always been done, doesn't make it right. Why
+    are the less fortunate or those in Africa the only ones we can use as test subjects?
+    We should not use tradtion/history as an excuse to do wrong.
+  target: If there are going to be human test subjects at all, why not those who don't
+    typically have access to good health care? There should be a balance between West
+    and Africa, but I don't see a problem with underprivileged people worldwide consenting
+    to a trial. The problem of past exploitation is a serious one, and informed consent
+    should be a top priority, so I agree that just because something was done in the
+    past doesn't make it right, but I can see how a testing program could be designed
+    to be as humanitarian as possible for those who otherwise lack access to quality
+    health care.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If there are going to be human test subjects at all, why not those who don't
+      typically have access to good health care? There should be a balance between
+      West
+    - and Africa, but I don't see a problem with underprivileged people worldwide
+      consenting to a trial. The problem of past exploitation is a serious one, and
+      informed consent should be
+    - a top priority, so I agree that just because something was done in the past
+      doesn't make it right, but I can see how a testing program could be designed
+    candidate: null
+  goal:
+    conclusion_or_goal: Underprivileged people can be used as human test subjects
+      if informed consent is prioritized and the program is designed to be humane.
+    candidate: null
+    supporting_reason: Informed consent should be a top priority and a humanitarian
+      design is possible.
+    support_relation: The argument relies on the principle of informed consent and
+      ethical design to justify using underprivileged populations as test subjects.
+    label_justification: The target does not commit a logical fallacy; it presents
+      a legitimate ethical justification that informed consent and humane program
+      design support the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - and Africa, but I don't see a problem with underprivileged people worldwide
+      consenting to a trial. The problem of past exploitation is a serious one, and
+      informed consent should be
+    - a top priority, so I agree that just because something was done in the past
+      doesn't make it right, but I can see how a testing program could be designed
+    - to be as humanitarian as possible for those who otherwise lack access to quality
+      health care.
+  counterargument:
+    decisive_counterargument: The claim that it is fine to recruit under‑privileged
+      people worldwide as human test subjects rests on a tiny, unrepresentative assumption
+      that all such individuals will consent freely and that their lack of healthcare
+      access automatically makes them ideal participants, which is a loose generalization
+      from limited observations.
+    candidate: Hasty Generalization
+    challenged_inference: Using under‑privileged people worldwide as human test subjects
+      is acceptable.
+    label_justification: 'The conclusion about the acceptability of testing on all
+      under‑privileged individuals is drawn from the limited observation that some
+      under‑privileged people might consent, without evidence that this holds generally.
+      This is the classic set‑up of a hasty generalization: extrapolating from a small
+      or non‑representative sample to a universal claim.'
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and Africa, but I don't see a problem with underprivileged people worldwide
+      consenting to a trial. The problem of past exploitation is a serious one, and
+      informed consent should be
+    - a top priority, so I agree that just because something was done in the past
+      doesn't make it right, but I can see how a testing program could be designed
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3426
+  completion_tokens: 2089
+  total_tokens: 5515
+  wall_time_seconds: 94.68800000000192

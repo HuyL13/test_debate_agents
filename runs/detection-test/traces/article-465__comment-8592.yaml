@@ -1,0 +1,125 @@
+sample:
+  id: 465:8592
+  article_id: 465
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: If women are not able to leave their homes due to the pandemic then the
+    authorities and the governments need to work together to make sure that children
+    and families are safe. There needs to be resources available to these people and
+    also help for men that think abuse is common and normal. There are large problems
+    in the world but its okay to start with issues at home.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: issues at home
+    - role: worse_issue
+      text: large problems in the world
+    - role: deprioritizing_conclusion
+      text: it's okay to start with issues at home
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - are safe. There needs to be resources available to these people and also help
+      for men that think abuse is common and normal. There are large problems in the
+      world
+    - but its okay to start with issues at home.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Prioritize addressing domestic issues over larger global problems.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Acknowledging that there are large world problems but asserting
+      it is acceptable to start with issues at home.
+    support_relation: The reasoning dismisses bigger issues to legitimize focusing
+      on domestic concerns.
+    label_justification: The speaker uses an appeal to worse problems to justify that
+      large global issues do not preclude focusing on household safety.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - are safe. There needs to be resources available to these people and also help
+      for men that think abuse is common and normal. There are large problems in the
+      world
+    - but its okay to start with issues at home.
+  counterargument:
+    decisive_counterargument: 'The assertion that it is acceptable to focus on home‑level
+      issues while large global problems exist is unsupported: it simply treats bigger
+      concerns as a justification for neglecting them. This reasoning fails to show
+      that the larger issues are less urgent or that addressing them would be impossible,
+      thereby invalidating the claim. The logic collapses on an *Appeal to Worse Problems*:
+      presenting a bigger problem as a reason to downplay or ignore a smaller, but
+      still real, problem without evidence that the larger problem is the only or
+      most pressing one.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that because large global problems exist,
+      it is acceptable to begin by addressing smaller, home‑based issues.
+    label_justification: The objection specifically attacks the claim that larger
+      problems can justify ignoring or deprioritizing smaller ones, which is the hallmark
+      of the Appeal to Worse Problems fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - but its okay to start with issues at home.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target includes an explicit statement that because large
+    global problems exist, it is acceptable to prioritize issues at home, which is
+    the hallmark structure of an appeal to worse problems.
+  decision_reason: The target makes a direct comparison between large world problems
+    and smaller domestic issues, concluding that it is acceptable to focus on the
+    latter. This satisfies the structural definition of an Appeal to Worse Problems.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - are safe. There needs to be resources available to these people and also help
+    for men that think abuse is common and normal. There are large problems in the
+    world
+  - but its okay to start with issues at home.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4646
+  completion_tokens: 3510
+  total_tokens: 8156
+  wall_time_seconds: 277.09399999998277

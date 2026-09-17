@@ -1,0 +1,140 @@
+sample:
+  id: 560:7678
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: It seems clear that abortion is a medical development, an innovation of
+    human beings. It's not something you find among any other animal groups. And why
+    not? Because it's not natural. Surely this means that it can't really be right.
+    You can't go so directly against nature and think what you're doing is right.
+    Cases like this one are sad, but nature has always been red in tooth and claw.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It seems clear that abortion is a medical development, an innovation of
+        human beings. It's not something you find among any other animal groups. And
+        why not? Because it's not natural.
+    - role: evaluative_conclusion
+      text: Surely this means that it can't really be right. You can't go so directly
+        against nature and think what you're doing is right.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems clear that abortion is a medical development, an innovation of human
+      beings. It's not something you find among any other animal groups. And why not?
+      Because it's not
+    - natural. Surely this means that it can't really be right. You can't go so directly
+      against nature and think what you're doing is right. Cases like this one are
+      sad,
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Abortion is morally wrong because it is not natural.
+    candidate: Appeal to Nature
+    supporting_reason: It is not natural.
+    support_relation: The reason that abortion is not natural is used to conclude
+      that it cannot be right.
+    label_justification: The authority of ‘nature’ is invoked to ascribe moral wrongness
+      to abortion, which is a classic appeal to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems clear that abortion is a medical development, an innovation of human
+      beings. It's not something you find among any other animal groups. And why not?
+      Because it's not
+    - natural. Surely this means that it can't really be right. You can't go so directly
+      against nature and think what you're doing is right. Cases like this one are
+      sad,
+  counterargument:
+    decisive_counterargument: The argument that abortion is morally wrong merely because
+      it is not a natural occurrence commits a classic *appeal to nature* fallacy.  Naturalness
+      does not establish moral correctness; many beneficial medical practices—organ
+      transplants, vaccines, contraceptives—were invented by humans and are decidedly
+      non‑natural, yet they are widely regarded as ethically right.  Morality cannot
+      be reduced to whether something aligns with the patterns found in the natural
+      world.  Therefore the inference that abortion is morally impermissible simply
+      because it is non‑natural is logically flawed and unsupported by any moral principle.
+    candidate: Appeal to Nature
+    challenged_inference: Abortion is morally wrong because it is not a natural occurrence
+    label_justification: The objection directly attacks the premise that ‘naturalness’
+      is a sufficient moral yardstick, exposing the Target’s reliance on the Appeal
+      to Nature fallacy.  The Target uses “Because it’s not natural” as the sole justification
+      for abortion’s immorality, which is the hallmark of an appeal‑to‑nature argument.  The
+      counterargument shows that morally acceptable practices can be artificial, thus
+      the inference is unsound.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems clear that abortion is a medical development, an innovation of human
+      beings. It's not something you find among any other animal groups. And why not?
+      Because it's not
+    - natural. Surely this means that it can't really be right. You can't go so directly
+      against nature and think what you're doing is right. Cases like this one are
+      sad,
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents an argument that abortion is morally wrong
+    simply because it is not natural, exemplifying the classic appeal to nature fallacy.
+    The claim follows the structure of a naturalness premise (“it is not natural”)
+    leading to a value conclusion (“it can’t be right”), as evidenced in passages
+    T1 and T2.
+  decision_reason: The target’s argument equates naturalness with moral correctness,
+    using the lack of naturalness as the sole reason abortion is wrong, which is the
+    hallmark of an appeal to nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems clear that abortion is a medical development, an innovation of human
+    beings. It's not something you find among any other animal groups. And why not?
+    Because it's not
+  - natural. Surely this means that it can't really be right. You can't go so directly
+    against nature and think what you're doing is right. Cases like this one are sad,
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4836
+  completion_tokens: 2511
+  total_tokens: 7347
+  wall_time_seconds: 170.125

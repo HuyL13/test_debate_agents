@@ -1,0 +1,120 @@
+sample:
+  id: 470:7407
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: It’s funny how America is a joke to many people trying to come over here
+    and live. The World seems to center around the United States, doesn’t it? Maybe
+    we are like reality television so bad it’s good?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+    - are like reality television so bad it’s good?
+    candidate: null
+  goal:
+    conclusion_or_goal: No clear argumentative goal; the statement expresses a humorous
+      observation about America's perception abroad.
+    candidate: null
+    supporting_reason: The text treats America as a joke and likens it to reality
+      television, treating these as explanatory remarks yet they do not support a
+      specific conclusion.
+    support_relation: The statements do not function as a reason for a conclusion;
+      they are merely illustrative or descriptive.
+    label_justification: The target contains no structured argument presenting a premise
+      to justify a conclusion; therefore no logical fallacy is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+    - are like reality television so bad it’s good?
+  counterargument:
+    decisive_counterargument: 'Your claim that “America is a joke to many people”
+      is unsupported: you offer no evidence or specification of who the many are,
+      how many, or why they would view America this way. By taking presumably a small
+      or unrepresentative set of comments and treating it as if it reflects a broad,
+      generalized attitude, you commit an unjustified generalization.'
+    candidate: Hasty Generalization
+    challenged_inference: America is a joke to many people
+    label_justification: The objection points out that the inference is drawn from
+      an unspecified, unspecified‑sized sample without evidence, which is precisely
+      the reasoning flaw of Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+    - are like reality television so bad it’s good?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: Hasty Generalization requires an explicit sample or cases that
+    are then generalized to a broader group; the target statement merely asserts that
+    “America is a joke to many people” without presenting or citing any sample, so
+    the structural condition for Hasty Generalization is not met.
+  decision_reason: The target does not provide an explicit or identifiable sample
+    from which a generalization is drawn. The claim is an unsupported broad assertion,
+    not a hasty generalization, therefore the surviving hypothesis is not a fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It’s funny how America is a joke to many people trying to come over here and live.
+    The World seems to center around the United States, doesn’t it? Maybe we
+  - are like reality television so bad it’s good?
+  verified: false
+  rejection_reason: The target does not provide an explicit or identifiable sample
+    from which a generalization is drawn. The claim is an unsupported broad assertion,
+    not a hasty generalization, therefore the surviving hypothesis is not a fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3927
+  completion_tokens: 2775
+  total_tokens: 6702
+  wall_time_seconds: 80.46800000000803

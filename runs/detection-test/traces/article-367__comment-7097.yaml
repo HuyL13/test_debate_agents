@@ -1,0 +1,152 @@
+sample:
+  id: 367:7097
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: Up until the past 15 years or so, pride marches were not a thing and the
+    churches had the support of most everyone. They probably don't like the fact that
+    things are changing and our values are going away, so they are fighting for their
+    beliefs! Society was much better, safer, and more kind before our traditional
+    values were being threatened.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Before our traditional values were being threatened
+    - role: preservation_conclusion
+      text: Society was much better, safer, and more kind
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Up until the past 15 years or so, pride marches were not a thing and the churches
+      had the support of most everyone. They probably don't like the fact that
+    - things are changing and our values are going away, so they are fighting for
+      their beliefs! Society was much better, safer, and more kind before our traditional
+      values were being
+    - threatened.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The passage argues that society was inherently better—safer,
+      kinder, and more secure—before contemporary values (such as those promoted by
+      pride marches) began to threaten traditional values, implying that traditional
+      values are preferable and should be preserved.
+    candidate: Appeal to Tradition
+    supporting_reason: Because society was better in the past, current deviations
+      from traditional values are inherently harmful and should be resisted.
+    support_relation: The speaker uses a historical comparison to assert that the
+      past state of society, characterized by traditional values, was superior, thereby
+      justifying the present opposition to modern movements.
+    label_justification: 'The argument relies on the fact that society was better
+      in the earlier era to claim that traditional values are inherently better. This
+      demonstrates a classic appeal to tradition: basing a preference for the present
+      on the fact that it existed before, with no critical examination of why the
+      past was better.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - things are changing and our values are going away, so they are fighting for
+      their beliefs! Society was much better, safer, and more kind before our traditional
+      values were being
+    - threatened.
+  counterargument:
+    decisive_counterargument: The claim that society was inherently ‘better, safer,
+      and kinder’ because of traditional values is unsupported; it presumes a causal
+      link without evidence, merely equating older practices with moral superiority.
+    candidate: Appeal to Tradition
+    challenged_inference: 'The assertion that because traditional values predated
+      modern changes, society was superior.
+
+      label_justification":"This objection directly targets the logical step that
+      equates the longevity of a value system with its inherent worth, an explicit
+      instance of the Appeal to Tradition fallacy.
+
+      '
+    label_justification: 'The counterargument attacks the inference that traditional
+      values are intrinsically better because they have been around longer. That inference
+      relies on the notion that what has lasted over time must be valuable—a classic
+      Appeal to Tradition.
+
+      '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Up until the past 15 years or so, pride marches were not a thing and the churches
+      had the support of most everyone. They probably don't like the fact that
+    - things are changing and our values are going away, so they are fighting for
+      their beliefs! Society was much better, safer, and more kind before our traditional
+      values were being
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The target statement compares the past era—when traditional
+    values were unthreatened—with the present, claiming society was “much better,
+    safer, and more kind” before those values were challenged, thereby implying that
+    the traditional values are inherently superior and should be preserved. This is
+    the classic structure of an Appeal to Tradition: a preference for the present
+    is legitimised solely by the existence of the tradition in the past, without any
+    substantive justification. The selected evidence IDs (T1, T2, T3) contain the
+    necessary elements to demonstrate this pattern. The argument does not provide
+    independent support for the superiority of traditional values; it merely equates
+    longevity with worth, satisfying the structural condition for the fallacy.'
+  decision_reason: Appeal to Tradition is supported by the premise that society was
+    better in the past when traditional values stood firm, leading to the conclusion
+    that those values should be maintained.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Up until the past 15 years or so, pride marches were not a thing and the churches
+    had the support of most everyone. They probably don't like the fact that
+  - things are changing and our values are going away, so they are fighting for their
+    beliefs! Society was much better, safer, and more kind before our traditional
+    values were being
+  - threatened.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4715
+  completion_tokens: 2995
+  total_tokens: 7710
+  wall_time_seconds: 109.20400000000154

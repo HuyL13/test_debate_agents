@@ -1,0 +1,116 @@
+sample:
+  id: 304:10208
+  article_id: 304
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: The people can be patient or protest. These changes take time. A conservative
+    place like Pakistan won't just cave in to all trans issues at once.
+  target: While that's true, that doesn't mean they have to sit back silently and
+    wait for things to happen without their input. They are just trying to get what
+    they deserve, as fast as possible. Even if protests like this only slightly increase
+    the rates at which they get what they want, that's still better than nothing.
+    Any progress, however slow, restores some faith and brings hope for a better future.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While that's true, that doesn't mean they have to sit back silently and wait
+      for things to happen without their input. They are just trying to get what they
+      deserve,
+    - as fast as possible. Even if protests like this only slightly increase the rates
+      at which they get what they want, that's still better than nothing. Any progress,
+      however slow,
+    - restores some faith and brings hope for a better future.
+    candidate: null
+  goal:
+    conclusion_or_goal: Protests are justified and worthwhile.
+    candidate: null
+    supporting_reason: Even if protests only slightly increase the rates at which
+      they achieve their goals, that increase is still better than nothing; any progress
+      restores faith and hope for a better future.
+    support_relation: The reason is used to justify the conclusion that protesting
+      is valuable, by arguing that incremental gains are preferable to no gains at
+      all.
+    label_justification: The supporting reasoning directly backs the conclusion and
+      does not rely on a fallacious form of argument. Therefore, the argument does
+      not exhibit any of the specified logical fallacies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - as fast as possible. Even if protests like this only slightly increase the rates
+      at which they get what they want, that's still better than nothing. Any progress,
+      however slow,
+  counterargument:
+    decisive_counterargument: The argument in TARGET merely states that any degree
+      of progress is preferable to none, which is a straightforward normative claim
+      and does not embody a recognized logical fallacy. It does not generalize from
+      a sample to a population, present a false dilemma, misuse authority, appeal
+      to majority, tradition, nature, or worse problems, nor does it predict an inevitable
+      chain of negative outcomes. Therefore no fallacy is evident.
+    candidate: null
+    challenged_inference: null
+    label_justification: Because the objection demonstrates that Target's reasoning
+      does not fit any of the fallacy schemas, the correct conclusion is that no fallacy
+      is present; the argument is simply a stance on the value of incremental progress.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While that's true, that doesn't mean they have to sit back silently and wait
+      for things to happen without their input. They are just trying to get what they
+      deserve,
+    - as fast as possible. Even if protests like this only slightly increase the rates
+      at which they get what they want, that's still better than nothing. Any progress,
+      however slow,
+    - restores some faith and brings hope for a better future.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3104
+  completion_tokens: 1840
+  total_tokens: 4944
+  wall_time_seconds: 193.09299999999348

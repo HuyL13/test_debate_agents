@@ -1,0 +1,139 @@
+sample:
+  id: 146:4335
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: ''
+  target: This was an isolated event in response to a 30 year old rule of one autocrat.  It
+    was not reflective of a cultural value of racial prejudice against Chinese in
+    Indonesia.  This should not happen in a functioning democracy and the problems
+    should not lead to this. For example it has not happened again since then and
+    the problem has not come up before.  So no need to bring it up and push the issue.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: This was an isolated event
+    - role: observed_property
+      text: not reflective of a cultural value of racial prejudice against Chinese
+        in Indonesia
+    - role: target_population
+      text: cultural value of racial prejudice against Chinese in Indonesia
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This was an isolated event in response to a 30 year old rule of one autocrat.  It
+      was not reflective of a cultural value of racial prejudice against Chinese in
+    - Indonesia.  This should not happen in a functioning democracy and the problems
+      should not lead to this. For example it has not happened again since then and
+      the problem has
+    - not come up before.  So no need to bring it up and push the issue.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: No need to bring up and push the issue.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that the event was isolated and has not recurred
+      is used to justify concluding that the issue should not be further addressed.
+    support_relation: The isolated‑incident reasoning is the primary justification
+      for dismissing the issue.
+    label_justification: The argument appeals to a limited set of instances (one past
+      event, no recurrence) to generalize about the broader problem, constituting
+      a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This was an isolated event in response to a 30 year old rule of one autocrat.  It
+      was not reflective of a cultural value of racial prejudice against Chinese in
+    - Indonesia.  This should not happen in a functioning democracy and the problems
+      should not lead to this. For example it has not happened again since then and
+      the problem has
+    - not come up before.  So no need to bring it up and push the issue.
+  counterargument:
+    decisive_counterargument: The reasoning that a single isolated incident proves
+      the absence of any cultural prejudice fails to consider that one event is insufficient
+      evidence to rule out systematic or institutional bias. Absence of evidence is
+      not evidence of absence, and historical patterns or unreported incidents may
+      reveal a different reality.
+    candidate: Hasty Generalization
+    challenged_inference: The isolated event in 1998 is enough evidence that there
+      is no underlying cultural value of racial prejudice against Chinese in Indonesia.
+    label_justification: The objection targets the inference that a lone case can
+      be used to generalize about the entire culture. This is a classic example of
+      drawing a broad conclusion from an overly limited sample, which is precisely
+      what the Hasty Generalization fallacy describes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This was an isolated event in response to a 30 year old rule of one autocrat.  It
+      was not reflective of a cultural value of racial prejudice against Chinese in
+    - Indonesia.  This should not happen in a functioning democracy and the problems
+      should not lead to this. For example it has not happened again since then and
+      the problem has
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Target states that a single isolated incident, which did not
+    recur, proves that there is no cultural value of racial prejudice against Chinese
+    in Indonesia, thereby drawing a broad conclusion from a limited sample.
+  decision_reason: The argument explicitly uses one isolated event as evidence to
+    generalize that the entire culture lacks prejudice, satisfying the sample‑to‑population
+    structure typical of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This was an isolated event in response to a 30 year old rule of one autocrat.  It
+    was not reflective of a cultural value of racial prejudice against Chinese in
+  - Indonesia.  This should not happen in a functioning democracy and the problems
+    should not lead to this. For example it has not happened again since then and
+    the problem has
+  - not come up before.  So no need to bring it up and push the issue.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4846
+  completion_tokens: 2662
+  total_tokens: 7508
+  wall_time_seconds: 99.78100000001723

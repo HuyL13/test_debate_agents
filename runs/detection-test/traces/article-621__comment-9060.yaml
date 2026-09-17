@@ -1,0 +1,135 @@
+sample:
+  id: 621:9060
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: While the main subject is interesting, I'm more concerned with the threat
+    to the snakes in general. More must be done to protect them, for the sake of the
+    ecosystem. If we don't ramp up protection efforts, they'll surely slip into extinction.
+    And then that will just lead to greater collapse in the ecosystem as a whole.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If we don't ramp up protection efforts
+    - role: intermediate_consequence
+      text: they’ll surely slip into extinction
+    - role: final_consequence
+      text: that will just lead to greater collapse in the ecosystem as a whole
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While the main subject is interesting, I'm more concerned with the threat to
+      the snakes in general. More must be done to protect them, for the sake of the
+      ecosystem.
+    - If we don't ramp up protection efforts, they'll surely slip into extinction.
+      And then that will just lead to greater collapse in the ecosystem as a whole.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Advocate for increased protection efforts for snakes to preserve
+      the ecosystem
+    candidate: null
+    supporting_reason: If we don't ramp up protection efforts, they'll surely slip
+      into extinction. And then that will just lead to greater collapse in the ecosystem
+      as a whole.
+    support_relation: causal
+    label_justification: The argument presents a plausible causal link—insufficient
+      protection leads to extinction, which in turn causes ecosystem collapse. This
+      reasoning is structurally sound and does not exhibit a recognized logical fallacy
+      such as slippery slope, hasty generalization, or appeal to nature. Therefore,
+      no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While the main subject is interesting, I'm more concerned with the threat to
+      the snakes in general. More must be done to protect them, for the sake of the
+      ecosystem.
+    - If we don't ramp up protection efforts, they'll surely slip into extinction.
+      And then that will just lead to greater collapse in the ecosystem as a whole.
+  counterargument:
+    decisive_counterargument: There is no evidence that simply not increasing protection
+      will inevitably bring all snakes to extinction, nor that such extinction would
+      automatically collapse the ecosystem. The claim treats an unproven chain of
+      causal events as inevitable, which is precisely the slippery‑slope error of
+      assuming that one harmless or plausible step will cause a cascade of severe
+      outcomes.
+    candidate: Slippery Slope
+    challenged_inference: If we don't ramp up protection efforts, they’ll surely slip
+      into extinction, and then that will just lead to greater collapse in the ecosystem
+      as a whole.
+    label_justification: The argument connects an initial lack of action to a series
+      of progressively worse outcomes without any supporting evidence for either link,
+      fitting the definition of a slippery‑slope fallacy. The counterargument directly
+      attacks the unsupported causal chain.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While the main subject is interesting, I'm more concerned with the threat to
+      the snakes in general. More must be done to protect them, for the sake of the
+      ecosystem.
+    - If we don't ramp up protection efforts, they'll surely slip into extinction.
+      And then that will just lead to greater collapse in the ecosystem as a whole.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents an unsubstantiated causal chain: if protection
+    is not ramped up, snakes will slip into extinction, which then will lead to greater
+    collapse of the ecosystem. This sequence of escalating adverse outcomes satisfies
+    the structural definition of a slippery‑slope argument.'
+  decision_reason: The target explicitly states a progression -- from insufficient
+    protection to extinction to ecosystem collapse -- with no evidence to support
+    the causal links, meeting the criteria for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - While the main subject is interesting, I'm more concerned with the threat to the
+    snakes in general. More must be done to protect them, for the sake of the ecosystem.
+  - If we don't ramp up protection efforts, they'll surely slip into extinction. And
+    then that will just lead to greater collapse in the ecosystem as a whole.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4343
+  completion_tokens: 2976
+  total_tokens: 7319
+  wall_time_seconds: 171.43699999997625

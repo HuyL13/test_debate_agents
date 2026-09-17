@@ -1,0 +1,133 @@
+sample:
+  id: 565:8893
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: It's fascinating to read that Myanmar is trending towards a media climate
+    that is more free and open. That gives me optimism that all repressive countries
+    are on the fast track to giving the media vast amounts of freedom. Yes is only
+    one country, but it does show that this is possible and on the rise. Who would
+    not find that exciting and a push towards a greater future? I can see this becoming
+    a popular trend and all of us becoming accustomed to freedom reigning supreme.
+    What an amazing time that will be!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Myanmar
+    - role: observed_property
+      text: trending towards a media climate that is more free and open
+    - role: target_population
+      text: all repressive countries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's fascinating to read that Myanmar is trending towards a media climate that
+      is more free and open. That gives me optimism that all repressive countries
+      are on the fast
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: All repressive countries will soon adopt a media climate that
+      is vast and free for all.
+    candidate: Hasty Generalization
+    supporting_reason: The observation that Myanmar is trending toward a free and
+      open media climate is used to justify optimism that all repressive countries
+      are on the track to giving the media vast amounts of freedom.
+    support_relation: The statement about Myanmar is taken as representative evidence
+      for the entire class of repressive countries, thereby underpinning the conclusion.
+    label_justification: The argument generalizes from a single example (Myanmar)
+      to all repressive countries, a classic hasty generalization, as the reasoning
+      does not establish a broader pattern beyond this isolated case.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's fascinating to read that Myanmar is trending towards a media climate that
+      is more free and open. That gives me optimism that all repressive countries
+      are on the fast
+    - track to giving the media vast amounts of freedom. Yes is only one country,
+      but it does show that this is possible and on the rise. Who would not find
+  counterargument:
+    decisive_counterargument: The claim that all repressive countries are rapidly
+      moving toward media freedom follows from the single example of Myanmar’s situation,
+      which is not enough evidence to establish a universal trend. A single case cannot
+      support a broad conclusion about all repressive regimes.
+    candidate: Hasty Generalization
+    challenged_inference: All repressive countries are on the fast track to giving
+      the media vast amounts of freedom.
+    label_justification: This objection directly challenges the broad generalization
+      drawn from a single instance, exposing the hasty generalization fallacy. The
+      evidence (T1, T2) shows they note Myanmar as the sole example and then extend
+      the conclusion to all repressive countries.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's fascinating to read that Myanmar is trending towards a media climate that
+      is more free and open. That gives me optimism that all repressive countries
+      are on the fast
+    - track to giving the media vast amounts of freedom. Yes is only one country,
+      but it does show that this is possible and on the rise. Who would not find
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target includes an argument that uses the single example
+    of Myanmar’s media climate trend (sample) to claim that all repressive countries
+    are on a fast track to widespread media freedom (population). This satisfies the
+    sample‑to‑population structure characteristic of a hasty generalization.
+  decision_reason: The target states, “That gives me optimism that all repressive
+    countries are on the fast track to giving the media vast amounts of freedom” after
+    noting that Myanmar is trending toward a free and open media climate. This translates
+    a property observed in one country (Myanmar) into a universal claim about all
+    repressive countries, matching the classic hasty generalization form. Evidence
+    T1 contains this statement, establishing the required structure and inference.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's fascinating to read that Myanmar is trending towards a media climate that
+    is more free and open. That gives me optimism that all repressive countries are
+    on the fast
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4975
+  completion_tokens: 2163
+  total_tokens: 7138
+  wall_time_seconds: 100.375

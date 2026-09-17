@@ -1,0 +1,120 @@
+sample:
+  id: 236:4904
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Not become one with mother nature is no way to go in the world. Everyone
+    should be for nature and keeping the environment great. Lets protect what we have
+    in this world as nature intended.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: nature intended
+    - role: evaluative_conclusion
+      text: Lets protect what we have in this world as nature intended.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+    - this world as nature intended.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Everyone should be for nature and keep the environment great.
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: The target states a normative claim but provides no reason
+      or justification for it. Consequently, there is no evidence of a logical fallacy
+      or of a reasoned support for the conclusion.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+    - this world as nature intended.
+  counterargument:
+    decisive_counterargument: Just because something is described as 'nature intended'
+      does not make it the best or the only correct choice; practical, technological,
+      and ethical considerations may contradict such a primordial assumption. Moreover,
+      people can improve the environment through engineered solutions that do not
+      rely on some mystical union with nature.
+    candidate: Appeal to Nature
+    challenged_inference: The argument assumes that aligning oneself with nature is
+      inherently the only viable path or that anything not aligned is worthless, by
+      equating naturalness with moral goodness.
+    label_justification: The objection specifically undermines the premise that naturalness
+      itself validates a course of action, which is the hallmark of an Appeal to Nature
+      fallacy. It shows that the claim relies solely on nature’s supposed goodness
+      rather than on rational evidence or practical benefit.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+    - this world as nature intended.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents a naturalness premise (“nature intended”)
+    and an evaluative conclusion (“Let’s protect what we have … as nature intended”),
+    fitting the nature‑to‑value structure of an Appeal to Nature by equating nature
+    with moral goodness.
+  decision_reason: The argument relies on the idea that nature’s intended state is
+    inherently good, so protecting the environment is justified solely because it
+    is what nature intended, which fits the Appeal to Nature fallacy structure and
+    matches evidence T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Not become one with mother nature is no way to go in the world. Everyone should
+    be for nature and keeping the environment great. Lets protect what we have in
+  - this world as nature intended.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4001
+  completion_tokens: 3363
+  total_tokens: 7364
+  wall_time_seconds: 297.0779999999795

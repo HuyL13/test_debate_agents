@@ -1,0 +1,147 @@
+sample:
+  id: 645:7932
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: So true! It is hard to believe that this censorship that Facebook is doing
+    is still happening.  What happens next? Do they censor all political names so
+    when anyone talks about any figure they get censored? This is going to lead to
+    mass hysteria when no one can get any truthful information. Chaos will reign!
+    Everyone being blindsided by what is and isn't true, the government wants to confuse
+    people to have total control over them. Let's not let this happen! We have to
+    fight this!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Facebook is doing censorship
+    - role: intermediate_consequence
+      text: lead to mass hysteria due to lack of truthful information
+    - role: final_consequence
+      text: government wants to confuse people to have total control over them
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So true! It is hard to believe that this censorship that Facebook is doing is
+      still happening.  What happens next? Do they censor all political names so when
+      anyone talks
+    - about any figure they get censored? This is going to lead to mass hysteria when
+      no one can get any truthful information. Chaos will reign! Everyone being blindsided
+      by what
+    - is and isn't true, the government wants to confuse people to have total control
+      over them. Let's not let this happen! We have to fight this!
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Facebook’s censorship will inevitably lead to mass hysteria,
+      chaos, and government control, so we must fight it.
+    candidate: Slippery Slope
+    supporting_reason: Facebook is still censoring content, which will cause mass
+      hysteria, chaos, and the government will use this to confuse and control people.
+    support_relation: The reason establishes a causal chain (censorship → hysteria
+      → chaos → control) that is presented as inevitable.
+    label_justification: The argument asserts that the initial censorship will inevitably
+      produce an escalating series of adverse outcomes—mass hysteria, chaos, and government
+      control—without demonstrating a necessary causal connection. This is a classic
+      slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So true! It is hard to believe that this censorship that Facebook is doing is
+      still happening.  What happens next? Do they censor all political names so when
+      anyone talks
+    - about any figure they get censored? This is going to lead to mass hysteria when
+      no one can get any truthful information. Chaos will reign! Everyone being blindsided
+      by what
+    - is and isn't true, the government wants to confuse people to have total control
+      over them. Let's not let this happen! We have to fight this!
+  counterargument:
+    decisive_counterargument: The assertion that Facebook’s censorship of political
+      names will inevitably spark mass hysteria, chaos, and a takeover of public discourse
+      is an unsubstantiated causal leap—there is no evidence that such a restrictive
+      policy would produce those extreme, unrelated outcomes.
+    candidate: Slippery Slope
+    challenged_inference: Censorship of political names on Facebook will lead to mass
+      hysteria, chaos, and government control over society.
+    label_justification: The objection points out that the target’s claim assumes
+      a chain of radical consequences (censorship → hysteria → chaos → total control)
+      without providing evidence or outlining a plausible causal mechanism. This lack
+      of support for the purported escalation exemplifies a classic slippery‑slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - about any figure they get censored? This is going to lead to mass hysteria when
+      no one can get any truthful information. Chaos will reign! Everyone being blindsided
+      by what
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents an unsubstantiated progression from the
+    initial censorship to multiple escalating negative outcomes (mass hysteria, chaos,
+    and governmental control) without providing supporting evidence, satisfying the
+    slippery‑slope structure.
+  decision_reason: The claim asserts that Facebook’s censorship of political names
+    will inevitably lead to mass hysteria, chaos, and government control over society—a
+    classic slippery‑slope fallacy. The evidence supporting this argument is limited
+    to the target text itself, lacking causal proof; thus the inference violates the
+    necessary link between the initial event and the final outcomes.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - So true! It is hard to believe that this censorship that Facebook is doing is
+    still happening.  What happens next? Do they censor all political names so when
+    anyone talks
+  - about any figure they get censored? This is going to lead to mass hysteria when
+    no one can get any truthful information. Chaos will reign! Everyone being blindsided
+    by what
+  - is and isn't true, the government wants to confuse people to have total control
+    over them. Let's not let this happen! We have to fight this!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5002
+  completion_tokens: 3517
+  total_tokens: 8519
+  wall_time_seconds: 251.0309999999954

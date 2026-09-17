@@ -1,0 +1,150 @@
+sample:
+  id: 538:8212
+  article_id: 538
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: I get that the author/s of this article conducted their surveys, but something
+    important is missing here. There is no certification of these findings (and more
+    importantly, their meaning) by an expert on the local politics of the region.
+    Without that it's difficult to onboard these "results" with anything more than
+    skepticism. If they had recruited someone like Professor Z, who is actually from
+    the region himself, into the project, then I would more readily accept these findings.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: an expert on the local politics of the region (e.g., Professor Z)
+    - role: endorsed_claim
+      text: that the findings should be accepted as credible
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get that the author/s of this article conducted their surveys, but something
+      important is missing here. There is no certification of these findings (and
+      more importantly, their meaning) by
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The author expresses that, because the surveyed results lack
+      certification by an expert on local politics, they are difficult to accept or
+      are met with skepticism.
+    candidate: null
+    supporting_reason: The passage states that without expert certification the findings
+      are hard to believe and more readily rejected.
+    support_relation: The absence of an expert’s validation is presented as a reason
+      for skepticism toward the findings.
+    label_justification: The reasoning is a legitimate appeal to the credibility of
+      evidence, not a fallacious argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get that the author/s of this article conducted their surveys, but something
+      important is missing here. There is no certification of these findings (and
+      more importantly, their meaning) by
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+  counterargument:
+    decisive_counterargument: The claim that only a local expert’s certification can
+      justify the survey results is an appeal to authority. A finding’s validity depends
+      on its methodology, sampling, statistical analysis, and independent verification,
+      not on the presence of a single expert. Continuous, well‑designed research can
+      stand on its own merits; an additional local expert can only supplement, not
+      replace, rigorous evaluation.
+    candidate: Appeal to Authority
+    challenged_inference: If a local expert does not certify the findings, the results
+      are meaningless and should be dismissed.
+    label_justification: The objection directly targets the inference that authority
+      is required to validate scientific conclusions. It rejects the premise that
+      expertise alone can certify data, highlighting that methodological soundness
+      is the proper basis for acceptance. Thus, the claim rests on an appeal to authority
+      rather than on empirical evidence or logical necessity.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get that the author/s of this article conducted their surveys, but something
+      important is missing here. There is no certification of these findings (and
+      more importantly, their meaning) by
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target contains an explicit appeal to an expert authority
+    (an expert on local politics, e.g., Professor Z) as the basis for believing the
+    findings; the speaker states that without such endorsement they remain skeptical
+    and would accept only if the authority endorsed it. This meets the structural
+    condition of Appeal to Authority (authority endorsement → claim acceptance).
+  decision_reason: The comment’s argument relies on the endorsement of an expert authority
+    to validate the findings, making it an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I get that the author/s of this article conducted their surveys, but something
+    important is missing here. There is no certification of these findings (and more
+    importantly, their meaning) by
+  - an expert on the local politics of the region. Without that it's difficult to
+    onboard these "results" with anything more than skepticism. If they had recruited
+    someone like Professor Z,
+  - who is actually from the region himself, into the project, then I would more readily
+    accept these findings.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4391
+  completion_tokens: 2574
+  total_tokens: 6965
+  wall_time_seconds: 120.5

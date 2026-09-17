@@ -1,0 +1,154 @@
+sample:
+  id: 355:5862
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: It's great to see that these people are creating truly meaningful art. Expressing
+    meaningful opinions in the hopes of changing hearts and minds is one of the most
+    innate, natural and human things there is. Hopefully the leaders of these lagging
+    governments will also tap into the natural desire to help people around them and
+    make their surroundings better, for the sake of themselves if not the well-being
+    of all the women being harmed.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Expressing meaningful opinions in the hopes of changing hearts and minds
+        is one of the most innate, natural and human things there is.
+    - role: evaluative_conclusion
+      text: Hopefully the leaders of these lagging governments will also tap into
+        the natural desire to help people around them and make their surroundings
+        better, for the sake of themselves if not the well-being of all the women
+        being harmed.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great to see that these people are creating truly meaningful art. Expressing
+      meaningful opinions in the hopes of changing hearts and minds is one of the
+      most innate, natural
+    - and human things there is. Hopefully the leaders of these lagging governments
+      will also tap into the natural desire to help people around them and make their
+      surroundings better, for
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: That the leaders of these lagging governments will tap into
+      people’s natural desire to help others, thereby improving their surroundings
+      for their own benefit or the well‑being of the harmed women.
+    candidate: Appeal to Nature
+    supporting_reason: The text argues that expressing meaningful opinions is one
+      of the most innate, natural and human things, and hopes that leaders will tap
+      into that natural desire to help people.
+    support_relation: Using the claim that a natural desire is intrinsically good
+      as the basis for recommending the leaders’ action, i.e. an Appeal to Nature.
+    label_justification: The argument appeals to the inherent naturalness of the desire
+      to help as a justification for the conclusion that leaders should adopt this
+      desire, which fits the definition of an Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great to see that these people are creating truly meaningful art. Expressing
+      meaningful opinions in the hopes of changing hearts and minds is one of the
+      most innate, natural
+    - and human things there is. Hopefully the leaders of these lagging governments
+      will also tap into the natural desire to help people around them and make their
+      surroundings better, for
+  counterargument:
+    decisive_counterargument: 'The text assumes that because people have a natural,
+      innate wish to help others, governments will automatically respond by acting
+      to protect women.  This is an *appeal to nature* fallacy: it lists a characteristic
+      of something (the natural desire to help) and treats that being natural as evidence
+      that it ought to or will be acted upon.  Naturalness provides no logical link
+      to state behavior, and history shows many governments act contrary to natural
+      inclinations.  Therefore the inference that leaders will tap into that desire
+      and improve conditions for women is unsupportable just from the fact that helping
+      is ‘natural’.'
+    candidate: Appeal to Nature
+    challenged_inference: The claim that leaders will act to help women because people
+      have a natural desire to help others.
+    label_justification: The objection shows that the inference relies solely on the
+      claim that a behavior is ‘natural’ to justify that a particular policy outcome
+      will follow, which is precisely the structure of an Appeal to Nature fallacy.  It
+      does not merely criticize the argument but demonstrates that the reasoning falls
+      into that particular error.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great to see that these people are creating truly meaningful art. Expressing
+      meaningful opinions in the hopes of changing hearts and minds is one of the
+      most innate, natural
+    - and human things there is. Hopefully the leaders of these lagging governments
+      will also tap into the natural desire to help people around them and make their
+      surroundings better, for
+    - the sake of themselves if not the well-being of all the women being harmed.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target statement contains a premise that expressing meaningful
+    opinions and the desire to help others are innate, natural, and human, and it
+    draws a conclusion that leaders should act on that natural desire. This structure
+    maps to an appeal to nature, where a natural characteristic is treated as a reason
+    for a particular action or outcome. The evidence T1 and T2 provide the naturalness
+    claim and the resulting conclusion, satisfying the structural requirement for
+    an appeal to nature.
+  decision_reason: The target explicitly links a natural desire to help with the expected
+    behavior of lagging governments. The naturalness premise is used as justification
+    for the conclusion, forming an appeal to nature. Thus the surviving candidate
+    ‘Appeal to Nature’ is supported by the provided evidence.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's great to see that these people are creating truly meaningful art. Expressing
+    meaningful opinions in the hopes of changing hearts and minds is one of the most
+    innate, natural
+  - and human things there is. Hopefully the leaders of these lagging governments
+    will also tap into the natural desire to help people around them and make their
+    surroundings better, for
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4957
+  completion_tokens: 3642
+  total_tokens: 8599
+  wall_time_seconds: 188.65600000001723

@@ -1,0 +1,143 @@
+sample:
+  id: 550:10947
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: This is good news and I'm hopeful for the future, in the region and everywhere
+    else. Imagine how much worse it could get if we just keep focusing on fossil fuels,
+    like some advocate for. If we stick to such an archaic energy source, all it will
+    lead to is climate change getting worse and worse until eventually, humanity and
+    likely all other life on earth very simply goes extinct. This isn't just about
+    economics, but life and death.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: keep focusing on fossil fuels
+    - role: intermediate_consequence
+      text: climate change getting worse and worse
+    - role: final_consequence
+      text: humanity and likely all other life on earth going extinct
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is good news and I'm hopeful for the future, in the region and everywhere
+      else. Imagine how much worse it could get if we just keep focusing on fossil
+    - fuels, like some advocate for. If we stick to such an archaic energy source,
+      all it will lead to is climate change getting worse and worse until eventually,
+      humanity and
+    - likely all other life on earth very simply goes extinct. This isn't just about
+      economics, but life and death.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The target asserts that continued focus on fossil fuels will
+      inevitably lead to worsening climate change and ultimately to humanity and life
+      on Earth going extinct, implying that we should not support the continued use
+      of fossil fuels.
+    candidate: Slippery Slope
+    supporting_reason: If we keep focusing on fossil fuels, it will lead to climate
+      change getting worse and eventually humanity and all other life will go extinct.
+    support_relation: The reason is used as a causal justification for the conclusion
+      that continuing fossil fuel use is dangerous and must be avoided.
+    label_justification: The argument presents a chain of escalating consequences—from
+      fossil fuel usage to worsening climate change to extinction—making it a classic
+      slippery slope claim. The progression is explicit and directed toward increasingly
+      adverse outcomes; thus it satisfies the definition of a slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - fuels, like some advocate for. If we stick to such an archaic energy source,
+      all it will lead to is climate change getting worse and worse until eventually,
+      humanity and
+    - likely all other life on earth very simply goes extinct. This isn't just about
+      economics, but life and death.
+  counterargument:
+    decisive_counterargument: The claim that merely continuing to focus on fossil
+      fuels will unavoidably culminate in humanity and other life’s extinction is
+      an over‑extreme conclusion made without any evidence of the intermediate steps.
+      It presents a single, catastrophic outcome as if the initial action guarantees
+      that outcome, ignoring any mitigating actions or uncertainties. The argument
+      therefore exaggerates the danger of the status quo by projecting an inevitable
+      and drastic end state without establishing a logical chain of consequences.
+    candidate: Slippery Slope
+    challenged_inference: Keeping fossil fuels will inevitably lead to humanity’s
+      extinction.
+    label_justification: The counterargument attacks the reasoning that an initial,
+      ordinary policy choice (continued fossil‑fuel focus) directly leads to an extreme,
+      future catastrophe (human extinction). This is the classic slippery‑slope structure—an
+      exaggerated escalation from a single action to a devastating outcome—therefore
+      the fallacy label is appropriate.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - fuels, like some advocate for. If we stick to such an archaic energy source,
+      all it will lead to is climate change getting worse and worse until eventually,
+      humanity and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target explicitly asserts that continued focus on fossil
+    fuels inevitably leads to climate change worsening and ultimately to humanity’s
+    extinction—a chain of consequences presented as unavoidable, fitting the slippery‑slope
+    structure.
+  decision_reason: The statement claims a progression from fossil‑fuel use to worsening
+    climate change to extinction without intermediate evidence, characteristic of
+    a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This is good news and I'm hopeful for the future, in the region and everywhere
+    else. Imagine how much worse it could get if we just keep focusing on fossil
+  - fuels, like some advocate for. If we stick to such an archaic energy source, all
+    it will lead to is climate change getting worse and worse until eventually, humanity
+    and
+  - likely all other life on earth very simply goes extinct. This isn't just about
+    economics, but life and death.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4923
+  completion_tokens: 3464
+  total_tokens: 8387
+  wall_time_seconds: 209.03199999999197

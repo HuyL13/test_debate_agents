@@ -1,0 +1,157 @@
+sample:
+  id: 127:4577
+  article_id: 127
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: Almost everybody has been affected by the shutdowns. And everyone says it
+    is terrible. Having a junta shutting down the internet does not bode well for
+    the citizens, so the people need to revolt, like most countries do
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: almost everybody
+    - role: popularity_claim
+      text: almost everybody has been affected by the shutdowns and everyone says
+        it is terrible
+    - role: target_claim
+      text: people need to revolt
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Almost everybody has been affected by the shutdowns. And everyone says it is
+      terrible. Having a junta shutting down the internet does not bode well for the
+      citizens, so the
+    - people need to revolt, like most countries do
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: People need to revolt due to the internet shutdowns
+    candidate: null
+    supporting_reason: T1
+    support_relation: T1 states that almost everybody has been affected by the shutdowns
+      and everyone says it is terrible, providing evidence of the harms caused by
+      the junta’s actions and justifying the conclusion that revolt is necessary
+    label_justification: The target argument presents a causal link and descriptive
+      evidence without employing a recognized logical fallacy; therefore no fallacy
+      label applies
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Almost everybody has been affected by the shutdowns. And everyone says it is
+      terrible. Having a junta shutting down the internet does not bode well for the
+      citizens, so the
+  counterargument:
+    decisive_counterargument: Even though a large number of people are affected by
+      the shutdown, that alone does not prove that revolution is the necessary or
+      most effective response. Other options—such as diplomatic pressure, targeted
+      sanctions, or negotiated dialogue—could address the issue without immediate
+      revolt, and the fact that a majority are upset does not compel everyone to act
+      the same way.
+    candidate: Hasty Generalization
+    challenged_inference: Having a junta shut down the internet does not bode well
+      for the citizens, so the people need to revolt, like most countries do.
+    label_justification: The argument takes the observation that many people experience
+      the shutdown and that the majority view it negatively and uses it to claim that
+      revolt is necessary for all. This jumps from a limited sample (those affected)
+      to a universal normative conclusion without evidence that this conclusion follows
+      from the premise, exemplifying a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Almost everybody has been affected by the shutdowns. And everyone says it is
+      terrible. Having a junta shutting down the internet does not bode well for the
+      citizens, so the
+    - people need to revolt, like most countries do
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: hasty_generalization_appeal_to_majority
+    loser_failure: appeal_to_majority
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Almost everybody has been affected by the shutdowns. And everyone says it is
+      terrible. Having a junta shutting down the internet does not bode well for the
+      citizens, so the
+    - people need to revolt, like most countries do
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target uses observations about a large but specific group—‘almost
+    everybody’ and ‘everyone’—to assert a universal normative conclusion that all
+    people need to revolt. This jump from the sample to all constituting a hasty generalization.
+  decision_reason: The reasoning infers that because the majority of citizens are
+    upset and are affected negatively by the shutdown, the entire populace must, by
+    inference, revolt. That conclusion over-extends the premises and demonstrates
+    the structural pattern of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Almost everybody has been affected by the shutdowns. And everyone says it is terrible.
+    Having a junta shutting down the internet does not bode well for the citizens,
+    so the
+  - people need to revolt, like most countries do
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5340
+  completion_tokens: 4829
+  total_tokens: 10169
+  wall_time_seconds: 280.26600000000326

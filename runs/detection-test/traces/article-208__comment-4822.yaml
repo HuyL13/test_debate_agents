@@ -1,0 +1,139 @@
+sample:
+  id: 208:4822
+  article_id: 208
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: Staring at slavery feels like people think black people should sit and stare
+    at the past. And relive traumatic events? People used to understand what had happened,
+    and live with it without constantly bringing it up. The people now are not as
+    strong as previous generations. At least not emotionally.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: The people now
+    - role: observed_property
+      text: not as emotionally strong
+    - role: target_population
+      text: previous generations
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The present generation of Black people is not as emotionally
+      strong as previous generations.
+    candidate: Hasty Generalization
+    supporting_reason: People used to understand what had happened and live with it
+      without constantly bringing it up.
+    support_relation: The argument uses the past generation’s emotional resilience
+      as evidence to claim that the current generation lacks a similar emotional strength.
+    label_justification: 'The claim generalizes from a specific past experience (the
+      way people used to cope with slavery) to a broad statement about all current
+      Black people, without sufficient evidence that the past and present groups are
+      comparable; this constitutes a hasty generalization. '
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+  counterargument:
+    decisive_counterargument: The claim that the current generation of Black people
+      is less emotionally resilient than previous ones is unfounded because it extrapolates
+      from a few anecdotal observations to an entire generation. Emotional strength
+      varies across individuals, communities, and contexts; many contemporary Black
+      individuals actively confront, process, and heal from the trauma of slavery’s
+      legacy with robust support systems, therapy, community networks, and cultural
+      practices. Generalizing a generation’s emotional capacity from vague or limited
+      evidence amounts to a hasty generalization, which is logically unsound.
+    candidate: Hasty Generalization
+    challenged_inference: The people now are not as strong as previous generations
+      (in terms of emotional resilience).
+    label_justification: The target comment treats observations about the past and
+      a vicarious sense of weakness in contemporary Black people as indicative of
+      an entire generation’s emotional ability. This abductive leap lacks supporting
+      evidence and therefore commits a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The comment generalizes from the limited observation that past
+    generations could internalize trauma to the broad claim that all current Black
+    people lack that emotional strength, without sufficient evidence—meeting the structure
+    of a hasty generalization. Evidence supporting this inference are passages T1
+    and T2.
+  decision_reason: Target states “The people now are not as strong as previous generations.
+    At least not emotionally.” which is a blanket claim about a whole group derived
+    from a single anecdotal point about the past. This satisfies the sample‑to‑population
+    generalization fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Staring at slavery feels like people think black people should sit and stare at
+    the past. And relive traumatic events? People used to understand what had happened,
+    and live with
+  - it without constantly bringing it up. The people now are not as strong as previous
+    generations. At least not emotionally.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4524
+  completion_tokens: 3904
+  total_tokens: 8428
+  wall_time_seconds: 192.59299999999348

@@ -1,0 +1,151 @@
+sample:
+  id: 554:10960
+  article_id: 554
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: I'm confused. If there were two rejected no-confidence motions for him,
+    why does the court think its okay to not allow him to be PM? Seems political to
+    me. If you let the courts get political, you eventually get countries like Russia
+    and Nazi Germany. Before it gets that bad, it could lead to the opposition being
+    barred from holding office ever again, or political prisoners being taken.
+  target: The court doesn't seem to have a strong reason to hear the case, so I agree
+    that the Sri Lankan court seem to be politicized. This is distressing because
+    people will loose faith in their institutions and the government's ability to
+    function properly. Once that happens, civil unrest and chaos will ensue. It's
+    important to stop early signs of institutional failures before they destroy the
+    society.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: The court doesn't seem to have a strong reason to hear the case, so I
+        agree that the Sri Lankan court seem to be politicized.
+    - role: intermediate_consequence
+      text: people will loose faith in their institutions and the government's ability
+        to function properly.
+    - role: final_consequence
+      text: civil unrest and chaos will ensue, before they destroy the society.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+    - will loose faith in their institutions and the government's ability to function
+      properly. Once that happens, civil unrest and chaos will ensue. It's important
+      to stop early signs of institutional
+    - failures before they destroy the society.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The Sri Lankan court appears to be politicized because it
+      lacks a strong reason to hear the case.
+    candidate: null
+    supporting_reason: The court doesn't seem to have a strong reason to hear the
+      case.
+    support_relation: The argument infers that the absence of a strong justification
+      for proceeding equates to political motivation for the court’s decision.
+    label_justification: No logical‑fallacy is present; the reasoning is straightforward
+      causal inference.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+  counterargument:
+    decisive_counterargument: The argument that the court’s lack of a strong reason
+      to hear the case proves it was politicized—and that this will inevitably produce
+      civil unrest and chaos—ignores essential facts. Courts may decline cases for
+      strategic, procedural, or judicial integrity reasons; absence of a compelling
+      reasoning does not automatically signal political bias. Moreover, a society’s
+      erosion of trust in its institutions does not automatically trigger widespread
+      civil unrest or societal collapse; many societies have faced significant public
+      distrust without descending into chaos. Therefore, the causal chain laid out
+      by the argument is unsupported by evidence.
+    candidate: Slippery Slope
+    challenged_inference: Because the court lacks a strong reason to hear a case,
+      it is politicized, which will inevitably lead to civil unrest and chaos.
+    label_justification: The counterargument directly refutes the presumed inevitable
+      progression from a single judicial decision to catastrophic societal outcomes.
+      By showing the absence of a proven causal link, it exposes the fallacious reasoning
+      that the initial condition (absence of a strong reason) necessarily leads to
+      extreme consequences (civil unrest and chaos). This captures the hallmark of
+      a *slippery slope* argument where an initial event is claimed to trigger a cascade
+      of negative events without substantiating those links.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+    - will loose faith in their institutions and the government's ability to function
+      properly. Once that happens, civil unrest and chaos will ensue. It's important
+      to stop early signs of institutional
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target explicitly presents a causal chain in which the court’s
+    lack of a strong reason to hear a case leads to perceived politicization, which
+    then causes people to lose faith in institutions, and ultimately claims that this
+    will inevitably result in civil unrest and chaos—a classic slippery‑slope structure
+    without evidence of inevitability.
+  decision_reason: The target states that the initial judicial decision will inevitably
+    lead to extreme societal consequences (civil unrest and chaos), demonstrating
+    the slippery‑slope reasoning.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The court doesn't seem to have a strong reason to hear the case, so I agree that
+    the Sri Lankan court seem to be politicized. This is distressing because people
+  - will loose faith in their institutions and the government's ability to function
+    properly. Once that happens, civil unrest and chaos will ensue. It's important
+    to stop early signs of institutional
+  - failures before they destroy the society.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4972
+  completion_tokens: 3310
+  total_tokens: 8282
+  wall_time_seconds: 215.40600000000268

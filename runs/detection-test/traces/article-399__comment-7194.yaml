@@ -1,0 +1,128 @@
+sample:
+  id: 399:7194
+  article_id: 399
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: The country really needs to prioritize internet access. Nearly the whole
+    world considers it a basic necessity these days, and for good reason. Surely most
+    of the people in the country also understand this and demand functioning infrastructure
+    for the net. Give the people what they want!
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the world
+    - role: popularity_claim
+      text: Nearly the whole world considers it a basic necessity these days
+    - role: target_claim
+      text: The country really needs to prioritize internet access
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The country needs to prioritize internet access.
+    candidate: Appeal to Majority
+    supporting_reason: The description that nearly the whole world considers internet
+      a basic necessity is used to support the claim that the country should provide
+      it.
+    support_relation: The popularity of the view is presented as justification for
+      the policy need.
+    label_justification: The argument relies on the widespread acceptance of internet
+      as a basic necessity to justify the conclusion, constituting an appeal to majority
+      (popular) opinion rather than a factual, technical, or ethical basis.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+    - country also understand this and demand functioning infrastructure for the net.
+      Give the people what they want!
+  counterargument:
+    decisive_counterargument: The fact that most people worldwide consider internet
+      access a basic necessity does not prove that people in this country demand it—there
+      is no local evidence or data to support that claim.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that most people in the country demand functioning
+      internet infrastructure because it is considered a basic necessity worldwide.
+    label_justification: The argument depends on the widespread view that the internet
+      is essential to justify local priorities, which is a classic appeal to popularity
+      (majority) fallacy, as it treats global consensus as evidence of local demand.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+    - country also understand this and demand functioning infrastructure for the net.
+      Give the people what they want!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument uses the widespread claim that nearly the whole
+    world considers internet a basic necessity to justify the country's need to prioritize
+    internet access, fulfilling the structural elements of an appeal to majority without
+    providing local evidence.
+  decision_reason: 'Appeal to Majority: the reliability of the majority view worldwide
+    is invoked directly to support the country‑wide policy conclusion, presenting
+    the popular claim as sufficient justification for the target claim, which meets
+    the structural condition for the fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The country really needs to prioritize internet access. Nearly the whole world
+    considers it a basic necessity these days, and for good reason. Surely most of
+    the people in the
+  - country also understand this and demand functioning infrastructure for the net.
+    Give the people what they want!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4362
+  completion_tokens: 3182
+  total_tokens: 7544
+  wall_time_seconds: 210.14100000000326

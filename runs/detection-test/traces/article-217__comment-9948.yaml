@@ -1,0 +1,179 @@
+sample:
+  id: 217:9948
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: It seems like this area of the world has had years and years where this
+    kind of behavior was tolerated and things ran smoothly. I see no reason why anyone
+    would want to make drastic changes just to suit some special interest group. Even
+    if people may question them due to their accusations that does not necessarily
+    mean that they would make bad leaders and that is what past elections have allowed
+    people to decide about the character of leader they want. Look at the success
+    of Bill Clinton in the US. He is hailed a great American president that served
+    two terms after having multiple charges of improper relationships with women.
+    "If the wagon runs fine, why change the wheels?", like my grandfather used to
+    say.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Bill Clinton
+    - role: endorsed_claim
+      text: The success of Bill Clinton, despite accusations of improper relationships,
+        demonstrates that leaders with such accusations can still serve effectively;
+        therefore behavior of this type can continue without drastic changes.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The current system is adequate; drastic changes to protect
+      women or modify leadership selection are unnecessary.
+    candidate: Hasty Generalization
+    supporting_reason: Bill Clinton served two terms in the US presidency after facing
+      multiple charges of improper relationships with women, demonstrating that such
+      accusations do not necessarily result in a poor leader.
+    support_relation: The argument uses the single example of Bill Clinton to generalise
+      about all leaders and the broader policy context, thereby justifying failure
+      to change the system. This selective anecdotal evidence leads to a hasty generalization.
+    label_justification: The reasoning bases the conclusion on one specific case (Bill
+      Clinton), generalising that accusations of misconduct never harm leadership
+      effectiveness, which is an instance of a Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+  counterargument:
+    decisive_counterargument: Bill Clinton’s electoral success is only one isolated
+      instance and does not prove that personal misconduct is irrelevant to leadership
+      quality. Many other leaders with similar accusations have failed or faced severe
+      political consequences. Therefore, using Clinton as evidence to claim that all
+      such leaders can function effectively ignores the broader evidence and the many
+      variables that influence electoral outcomes.
+    candidate: Hasty Generalization
+    challenged_inference: Because Bill Clinton was successful despite serious personal
+      misconduct, leaders with similar accusations can also succeed without negative
+      consequences.
+    label_justification: 'The argument draws a general rule about all leaders from
+      a single example (Bill Clinton). This is precisely the structure of a Hasty
+      Generalization: it leans on one isolated and exceptional case to establish a
+      blanket claim.'
+    failure_exposed: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: hasty_generalization_consistency
+    loser_failure: Appeal to Authority lacks an authoritative source whose testimony
+      is used to substantiate the claim; the argument merely cites Bill Clinton’s
+      success as an anecdote, not relying on an expert’s statement. This does not
+      satisfy the Appeal to Authority structure, which requires a claim of expertise
+      or authority to justify a conclusion.
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes from the single example of Bill Clinton’s
+    success to assert that leaders with accusations of misconduct will not become
+    bad leaders, thereby formulating a blanket claim from an isolated case.
+  decision_reason: The claim that drastic changes are unnecessary because accusations
+    do not necessarily make leaders bad is predicated on Bill Clinton serving two
+    terms after accusations. This places one specific case (Bill Clinton) at the basis
+    for a general conclusion about all leaders, which is the defining structure of
+    a Hasty Generalization.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - would make bad leaders and that is what past elections have allowed people to
+    decide about the character of leader they want. Look at the success of Bill Clinton
+    in
+  - the US. He is hailed a great American president that served two terms after having
+    multiple charges of improper relationships with women. "If the wagon runs fine,
+    why change the
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 7040
+  completion_tokens: 3947
+  total_tokens: 10987
+  wall_time_seconds: 208.98399999999674

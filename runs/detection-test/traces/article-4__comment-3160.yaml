@@ -1,0 +1,173 @@
+sample:
+  id: 4:3160
+  article_id: 4
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: I think it's pretty clear the government simply couldn't do more and those
+    complaints are not really reasonable. It's easy for armchair experts with no understanding
+    of the actual issue to make those kinds of comments, but it's not fair. Either
+    they did what they did, which probably saved millions, or they did nothing and
+    many more would have died. It's hard to see any other options.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: They did what they did, which probably saved millions.
+    - role: alternative_b
+      text: They did nothing and many more would have died.
+    - role: exhaustiveness_commitment
+      text: It is hard to see any other options.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+    - It's hard to see any other options.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Defend that the government’s actions were adequate and complaints
+      are unreasonable
+    candidate: False Dilemma
+    supporting_reason: Either they did what they did, which probably saved millions,
+      or they did nothing and many more would have died.
+    support_relation: presents only two possibilities for the government’s response,
+      thereby supporting the conclusion that the government’s chosen action was the
+      only reasonable option, and dismissing any intermediate or alternative actions.
+    label_justification: The argument restricts the options to a binary choice—action
+      or inaction—excluding other reasonable possibilities, which is a classic false
+      dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+  counterargument:
+    decisive_counterargument: In reality, the government had a spectrum of possible
+      actions—ranging from partial lockdowns to targeted testing, contact tracing,
+      and resource allocation—that were available and could have altered outcomes,
+      yet the claim ignores these alternatives.
+    candidate: Slippery Slope
+    challenged_inference: 'The claim that there were only two viable options for the
+      government: act as they did versus do nothing.'
+    label_justification: The argument presents a binary choice for governmental response—either
+      take decisive action that saved millions or take no action and cause many more
+      deaths—without acknowledging any intermediate or alternative strategies. This
+      restriction of options exemplifies the False Dilemma fallacy, as it forces a
+      limited set of outcomes and dismisses other potential courses of action.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+    - It's hard to see any other options.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Slippery Slope
+  transitions:
+  - before:
+    - False Dilemma
+    - Slippery Slope
+    conflict: false-dilemma__vs__slippery-slope
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: 'This target explicitly limits the government''s choices to two
+      alternatives: either they did what they did and saved millions, or they did
+      nothing and more people would have died. The statement that it is hard to see
+      any other options commits that these two alternatives exhaust all possibilities.
+      This is the structural requirement for a false dilemma.
+
+
+      In contrast, a slippery‑slope argument would describe a progression from an
+      initial action to increasingly adverse consequences, which is not present in
+      the target. The target contains no claim that an action would inevitably lead
+      to a chain of negative outcomes, only a binary choice.
+
+
+      Therefore "False Dilemma" is the location where the mandatory structural condition
+      is directly supported by the target.'
+    loser_failure: The target does not contain the progression or escalation needed
+      for a slippery slope. The argument does not assert that the government's action
+      will cause a series of inevitable, worsening problems; it only presents a two‑option
+      framework. Hence the slippery‑slope claim cannot be justified.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+    - It's hard to see any other options.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states an exclusive binary choice between the government’s
+    action and inaction, and explicitly claims no other alternatives exist, fulfilling
+    the structure required for a false dilemma.
+  decision_reason: The argument presents two mutually exclusive alternatives—government
+    did what they did (saving millions) or did nothing (more deaths)—and asserts that
+    there are no other options, which is the textbook form of a false dilemma.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - to make those kinds of comments, but it's not fair. Either they did what they
+    did, which probably saved millions, or they did nothing and many more would have
+    died.
+  - It's hard to see any other options.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6003
+  completion_tokens: 3683
+  total_tokens: 9686
+  wall_time_seconds: 197.25

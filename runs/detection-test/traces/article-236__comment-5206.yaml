@@ -1,0 +1,152 @@
+sample:
+  id: 236:5206
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: Not become one with mother nature is no way to go in the world. Everyone
+    should be for nature and keeping the environment great. Lets protect what we have
+    in this world as nature intended.
+  target: I think the majority of people are getting on board with climate action.  Everyone
+    is seeing the changes as they happen.  Even older folks, the most anti-climate
+    group are seeing this and starting to think they should support it.  They are
+    the ones that remember when it was colder.  For example my state is very conservative
+    but even older people know that is not snowing anymore like it was when they were
+    kids.  I think that it the key and the younger people are leading the way with
+    this.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of people
+    - role: popularity_claim
+      text: are getting on board with climate action
+    - role: target_claim
+      text: support climate action
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    - this and starting to think they should support it.  They are the ones that remember
+      when it was colder.  For example my state is very conservative but even older
+      people
+    - know that is not snowing anymore like it was when they were kids.  I think that
+      it the key and the younger people are leading the way with this.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: I think the majority of people are getting on board with climate
+      action.
+    candidate: Appeal to Majority
+    supporting_reason: The speaker claims that the majority of people are adopting
+      climate action and uses this claim to justify the conclusion that climate action
+      is correct or should be supported.
+    support_relation: supports
+    label_justification: The argument’s justification is the claim that the majority
+      supports climate action, which is an appeal to the number of supporters as evidence
+      for the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    - this and starting to think they should support it.  They are the ones that remember
+      when it was colder.  For example my state is very conservative but even older
+      people
+  counterargument:
+    decisive_counterargument: The assertion that “the majority of people are getting
+      on board with climate action” is unsupported; it is used merely as a reason
+      to assume climate action is correct.  This is an Appeal to Majority—presenting
+      the popularity of a view as a warrant for its correctness, without providing
+      empirical evidence of the actually observed majority. The claim recounts anecdotal
+      observations (“older folks…seeing the changes”) but does not establish that
+      the majority actually supports climate action, nor does it justify adopting
+      it simply because many appear to be leaning that way.
+    candidate: Appeal to Majority
+    challenged_inference: That the majority’s apparent support for climate action
+      constitutes sufficient justification for further climate action.
+    label_justification: The objection directly addresses the logical inadequacy of
+      using a purported majority view as evidence for the truth or desirability of
+      climate action.  It shows that the reasoning hinges on popularity rather than
+      on independent verification, which is the hallmark of an Appeal to Majority
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    - this and starting to think they should support it.  They are the ones that remember
+      when it was colder.  For example my state is very conservative but even older
+      people
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that “the majority of people are getting on
+    board with climate action” and uses this claim as a reason for supporting climate
+    action, which matches the structure of an Appeal to Majority fallacy. The supporting
+    evidence is found in passages T1, T2, and T3.
+  decision_reason: The target uses a claim of majority support for climate action
+    as evidence that it should be supported, fulfilling the required structure of
+    an Appeal to Majority. The evidence from T1, T2, and T3 provides the population
+    group and popularity claim. This demonstrates the fallacious inference.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I think the majority of people are getting on board with climate action.  Everyone
+    is seeing the changes as they happen.  Even older folks, the most anti-climate
+    group are seeing
+  - this and starting to think they should support it.  They are the ones that remember
+    when it was colder.  For example my state is very conservative but even older
+    people
+  - know that is not snowing anymore like it was when they were kids.  I think that
+    it the key and the younger people are leading the way with this.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5165
+  completion_tokens: 2438
+  total_tokens: 7603
+  wall_time_seconds: 246.0470000000205

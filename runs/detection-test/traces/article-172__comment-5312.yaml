@@ -1,0 +1,110 @@
+sample:
+  id: 172:5312
+  article_id: 172
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: I think this is a shame. So many jobs were lost because we continue to listen
+    to the bias opinions of activists who are guided by politics. Hopefully other
+    establishments don't follow these actions.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think this is a shame. So many jobs were lost because we continue to listen
+      to the bias opinions of activists who are guided by politics. Hopefully other
+      establishments
+    - don't follow these actions.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker expresses regret that many jobs were lost, attributing
+      this to listening to activist opinions guided by politics, and wishes other
+      establishments not to repeat the same actions.
+    candidate: null
+    supporting_reason: We continue to listen to the bias opinions of activists who
+      are guided by politics.
+    support_relation: The reason claims that listening to activist opinions caused
+      job losses, thus justifying the speaker’s regret and hope that others will avoid
+      following similar actions.
+    label_justification: No specific logical fallacy is invoked; the statement offers
+      an unsupported causal claim, but it does not fit the defined fallacy categories.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is a shame. So many jobs were lost because we continue to listen
+      to the bias opinions of activists who are guided by politics. Hopefully other
+      establishments
+  counterargument:
+    decisive_counterargument: The target asserts that ‘jobs were lost because we continue
+      to listen to the biased opinions of activists guided by politics,’ yet it offers
+      no evidence linking the activists’ viewpoints to the economic outcome. The claim
+      is a causal inference made without justification, relying on a personal judgment
+      rather than demonstrable data. Therefore, the conclusion that activist bias
+      directly caused job losses is unsupported and fallacious, as it assumes causality
+      solely from the act of listening without showing any causal mechanism or empirical
+      corroboration.
+    candidate: null
+    challenged_inference: Job losses were caused by listening to biased activists.
+    label_justification: The objection shows that the reasoning fails to establish
+      a causal connection; however, none of the specific fallacy labels listed (Hasty
+      Generalization, Slippery Slope, etc.) exactly captures this form of unsupported
+      causation, so the appropriate label is null. The objection nonetheless exposes
+      a clear flaw in the argument’s reasoning.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think this is a shame. So many jobs were lost because we continue to listen
+      to the bias opinions of activists who are guided by politics. Hopefully other
+      establishments
+    - don't follow these actions.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2676
+  completion_tokens: 2174
+  total_tokens: 4850
+  wall_time_seconds: 130.65600000007544

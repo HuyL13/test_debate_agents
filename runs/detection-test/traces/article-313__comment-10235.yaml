@@ -1,0 +1,149 @@
+sample:
+  id: 313:10235
+  article_id: 313
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: These kids are in college and they think its a good use of their time to
+    harass other kids due to politics? They have tests and whatnot to worry about.
+    Politics is for when you're older. Idiots! There are many more problems to worry
+    about at your age. Your future, climate change, etc.
+  target: That does not seem like a very reasonable reaction here. These students
+    are the ones who will have to live with the world politics creates longer than
+    any of the older adults who engage in politics. If anything, they should be the
+    ones most passionate and interested in the processes that will be shaping their
+    future. We should ensure they have a safe environment to express themselves without
+    any fear of retribution.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - That does not seem like a very reasonable reaction here. These students are
+      the ones who will have to live with the world politics creates longer than any
+      of the
+    - older adults who engage in politics. If anything, they should be the ones most
+      passionate and interested in the processes that will be shaping their future.
+      We should ensure they
+    - have a safe environment to express themselves without any fear of retribution.
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: Students deserve a safe environment to express themselves
+      politically.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    label_justification: The argument presents a plausible causal link between students’
+      future stake in politics and the need for safe expression; it does not employ
+      a recognized fallacy.
+    mechanism_supports_goal: true
+    support_relation: causal justification
+    supporting_reason: Students will have to live with the consequences of politics
+      for a longer time than older adults, so they should be the ones most passionate
+      and interested in shaping their future.
+    evidence_spans:
+    - That does not seem like a very reasonable reaction here. These students are
+      the ones who will have to live with the world politics creates longer than any
+      of the
+    - older adults who engage in politics. If anything, they should be the ones most
+      passionate and interested in the processes that will be shaping their future.
+      We should ensure they
+    - have a safe environment to express themselves without any fear of retribution.
+  counterargument:
+    decisive_counterargument: While it is conceivable that many students will be affected
+      by politics later in life, the target statement assumes that all students are
+      the most passionate and that every student deserves a protected environment
+      to express political views. The claim that *‘they should be the ones most passionate
+      and interested in the processes that will be shaping their future’* is a sweeping
+      generalization from an unstated sample (perhaps a few outspoken students) to
+      the entire student population. Without evidence that every student cares about
+      politics or that such an environment is needed for all, the argument over‑extends
+      and misrepresents the diversity of student interests and motivations.
+    candidate: Hasty Generalization
+    challenged_inference: These students are the ones most passionate about politics
+      and deserve a safe environment to express themselves
+    label_justification: The statement generalizes from the implicit premise that
+      some students are passionate and active in politics to the claim that *every*
+      student shares this passion and therefore warrants special protection. This
+      broad extrapolation from limited or no evidence exemplifies Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That does not seem like a very reasonable reaction here. These students are
+      the ones who will have to live with the world politics creates longer than any
+      of the
+    - older adults who engage in politics. If anything, they should be the ones most
+      passionate and interested in the processes that will be shaping their future.
+      We should ensure they
+    - have a safe environment to express themselves without any fear of retribution.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that all students are the ones most passionate
+    about politics and deserve a safe environment to express their views, a sweeping
+    claim made without evidence that the entire student population shares that passion
+    or requires protection. This overgeneralization from an implicit sample to the
+    whole group meets the structural criteria for a Hasty Generalization.
+  decision_reason: The target contains a broad claim about the entire student population’s
+    political passion and safety needs without supporting evidence, indicating a hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - That does not seem like a very reasonable reaction here. These students are the
+    ones who will have to live with the world politics creates longer than any of
+    the
+  - older adults who engage in politics. If anything, they should be the ones most
+    passionate and interested in the processes that will be shaping their future.
+    We should ensure they
+  - have a safe environment to express themselves without any fear of retribution.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 2
+  retries: 2
+  prompt_tokens: 4683
+  completion_tokens: 3347
+  total_tokens: 8030
+  wall_time_seconds: 252.82799999999406

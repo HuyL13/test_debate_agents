@@ -1,0 +1,110 @@
+sample:
+  id: 386:7154
+  article_id: 386
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: They can call a bluff on the threats. Or they can take precautions. Either
+    way they choose to handle it, there will be risks to deal with.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can call a bluff on the threats. Or they can take precautions. Either way
+      they choose to handle it, there will be risks to deal with.
+    candidate: null
+  goal:
+    conclusion_or_goal: No matter how they respond to the threats—whether by calling
+      a bluff or by taking precautions—there will be risks to deal with.
+    candidate: null
+    supporting_reason: Either way they choose to handle it, there will be risks to
+      deal with.
+    support_relation: It states that regardless of the chosen action, risks inevitably
+      arise, providing the rationale for the conclusion.
+    label_justification: The target makes a straightforward claim about the inevitability
+      of risk; it does not misapply a reasoning pattern or falsely restrict alternatives
+      beyond what is presented, so no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can call a bluff on the threats. Or they can take precautions. Either way
+      they choose to handle it, there will be risks to deal with.
+  counterargument:
+    decisive_counterargument: The statement that *any* way of handling the threats
+      –whether calling a bluff or taking precautions– will inevitably produce risks
+      is an unsupported blanket claim. In practice, a well‑designed risk‑management
+      plan can mitigate or even eliminate many of those risks, so the inevitability
+      claim is not justified. By presenting the assertion as fact, the reasoning employs
+      a sweeping, unsubstantiated generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Risk inevitability regardless of selected action
+    label_justification: The target provides a general claim that every possible response
+      will lead to risk, yet supplies no evidence or sample. This over‑broad assertion
+      fits the pattern of a Hasty Generalization, an unsupported broad claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can call a bluff on the threats. Or they can take precautions. Either way
+      they choose to handle it, there will be risks to deal with.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement presents a blanket claim that any admissible
+    response will produce risk, but it does not include any specific example or sample
+    from which a general conclusion is drawn.  Because a Hasty Generalization requires
+    a concrete instance or set of instances to be generalized from, the mandatory
+    structural condition is not met, so no fallacy can be confirmed.
+  decision_reason: The target lacks a specific sample to justify a sweeping generalization;
+    thus the claim does not satisfy the necessary structure for a Hasty Generalization
+    and is not labeled as fallacious.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - They can call a bluff on the threats. Or they can take precautions. Either way
+    they choose to handle it, there will be risks to deal with.
+  verified: false
+  rejection_reason: The target lacks a specific sample to justify a sweeping generalization;
+    thus the claim does not satisfy the necessary structure for a Hasty Generalization
+    and is not labeled as fallacious.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3731
+  completion_tokens: 3303
+  total_tokens: 7034
+  wall_time_seconds: 131.85999999998603

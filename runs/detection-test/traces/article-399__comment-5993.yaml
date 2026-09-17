@@ -1,0 +1,110 @@
+sample:
+  id: 399:5993
+  article_id: 399
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: It is at the point where the internet is a human need. Others need to be
+    connected for information and education, as well as economic reasons.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is at the point where the internet is a human need. Others need to be connected
+      for information and education, as well as economic reasons.
+    candidate: null
+  goal:
+    conclusion_or_goal: the internet is a human need
+    candidate: null
+    supporting_reason: others need to be connected for information and education,
+      as well as economic reasons
+    support_relation: the stated need of others for information, education, and economic
+      purposes serves as a justification for the claim that the internet is a human
+      need
+    label_justification: 'The passage uses a direct factual claim to support its conclusion;
+      there is no evidence of a fallacious reasoning pattern such as an appeal to
+      authority, majority, or nature. Thus no fallacy is warranted. '
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is at the point where the internet is a human need. Others need to be connected
+      for information and education, as well as economic reasons.
+  counterargument:
+    decisive_counterargument: While some users rely on the internet for information,
+      education, and economic opportunities, this does not entail that the internet
+      itself is an essential human need for everyone. The conclusion generalizes from
+      a limited set of cases to an absolute claim without evidence that all or most
+      people depend on it in the same fundamental way.
+    candidate: Hasty Generalization
+    challenged_inference: Internet is a human need
+    label_justification: 'The objection exposes that the argument leaps from the experiences
+      of certain users (a subset of people) to a universal claim about all humans.
+      This is a classic hasty generalization: concluding that a property (being a
+      human need) applies to the entire population based on insufficient or unrepresentative
+      evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is at the point where the internet is a human need. Others need to be connected
+      for information and education, as well as economic reasons.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target asserts a universal claim—‘the internet is a human
+    need’—based solely on an unspecified partial sample (‘others need to be connected
+    for information and education, as well as economic reasons’). This leap from limited
+    evidence to a blanket statement satisfies the structural requirement for a hasty
+    generalization. Evidence: [T1]'
+  decision_reason: The inference that the internet constitutes a human need is drawn
+    from a vague reference to some users, lacking evidence that all or even most people
+    depend on it in that fundamental way. This qualifies as a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is at the point where the internet is a human need. Others need to be connected
+    for information and education, as well as economic reasons.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3724
+  completion_tokens: 2384
+  total_tokens: 6108
+  wall_time_seconds: 96.43799999999464

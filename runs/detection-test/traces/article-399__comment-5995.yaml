@@ -1,0 +1,111 @@
+sample:
+  id: 399:5995
+  article_id: 399
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: Everyone in Gambia should just listen to the leaders. Things will go smoother
+    for everyone. Some may argue, but trust is important.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: leaders
+    - role: endorsed_claim
+      text: Things will go smoother for everyone.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Everyone in Gambia should just listen to the leaders. Things will go smoother
+      for everyone. Some may argue, but trust is important.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Everyone in Gambia should just listen to the leaders.
+    candidate: Appeal to Authority
+    supporting_reason: Trust is important
+    support_relation: the request for listeners uses the argument that trust in leaders
+      justifies obedience, an appeal to authority
+    label_justification: The reasoning relies on the authority and trust of leaders
+      to legitimize the command, which is an appeal to authority fallacy because it
+      does not provide independent evidence that following the leaders will actually
+      improve outcomes. It merely asserts that trust makes following them right, thereby
+      justifying the conclusion without substantive support.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Everyone in Gambia should just listen to the leaders. Things will go smoother
+      for everyone. Some may argue, but trust is important.
+  counterargument:
+    decisive_counterargument: Just because leaders are in positions of authority does
+      not guarantee that obeying them will necessarily make things smoother or better;
+      leaders can act wrongly, with bias, or incompetently, so without evidence that
+      they will improve outcomes, the claim is unsupported.
+    candidate: Appeal to Authority
+    challenged_inference: Following leaders without question will automatically result
+      in smoother outcomes.
+    label_justification: 'The TARGET argument justifies obedience solely on the basis
+      that leaders hold authority and that trust is important, omitting any empirical
+      support that such obedience will lead to better results. This is precisely an
+      Appeal to Authority: the argument appeals to the leaders’ position rather than
+      to evidence or reasoning about the expected outcome.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Everyone in Gambia should just listen to the leaders. Things will go smoother
+      for everyone. Some may argue, but trust is important.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Appeal to Authority
+  decision_reason: The argument appeals to the leaders’ authority and the notion that
+    trust in them justifies obedience, without presenting independent evidence that
+    following the leaders will actually lead to smoother outcomes. This meets the
+    structural condition for an Appeal to Authority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Everyone in Gambia should just listen to the leaders. Things will go smoother
+    for everyone. Some may argue, but trust is important.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3999
+  completion_tokens: 2909
+  total_tokens: 6908
+  wall_time_seconds: 193.20300000000861

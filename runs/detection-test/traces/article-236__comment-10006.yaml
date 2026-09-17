@@ -1,0 +1,132 @@
+sample:
+  id: 236:10006
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: The majority of the people who were in the protests were young people, but
+    I think that most people would agree that large corporations and governments need
+    to consider the environmental impacts of their actions. It's not getting better
+    quickly. We all need this planet. So let's take care of it. And they're just not
+    moving quickly.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people would agree that large corporations and governments need to
+        consider the environmental impacts of their actions.
+    - role: target_claim
+      text: large corporations and governments need to consider the environmental
+        impacts of their actions.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The majority of the people who were in the protests were young people, but I
+      think that most people would agree that large corporations and governments need
+      to consider the
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Large corporations and governments should consider the environmental
+      impacts of their actions and act more swiftly
+    candidate: Appeal to Majority
+    supporting_reason: The argument relies on the unsubstantiated claim that 'most
+      people would agree' that corporations and governments need to consider environmental
+      impacts, using this supposed popularity as justification
+    support_relation: appeal to majority
+    label_justification: The speaker appeals to the presumed widespread agreement
+      without providing evidence, which is an appeals-to-majority argument
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The majority of the people who were in the protests were young people, but I
+      think that most people would agree that large corporations and governments need
+      to consider the
+  counterargument:
+    decisive_counterargument: The claim that "most people would agree that large corporations
+      and governments need to consider environmental impacts" is used as a reason
+      for believing this stance is correct, but no evidence is offered that the broader
+      population actually holds that view. The author simply cites that the majority
+      of protestors were young – a specific, limited sample – and then extends that
+      to an implicit majority opinion about all people. This is a classic "appeal
+      to majority" (ad populum) because the argument treats a supposed popular belief
+      as a justification for a claim, even though the existence of that belief has
+      not been established.
+    candidate: Appeal to Majority
+    challenged_inference: most people would agree that large corporations and governments
+      need to consider environmental impacts
+    label_justification: The objection directly addresses the use of an unverified
+      majority opinion as a form of support; this undermines the argument's reliance
+      on popular sentiment, a hallmark of the Appeal to Majority fallacy. It is not
+      merely a general critique but pinpointing that the inference depends on an unsupported
+      claim about public opinion, fitting this label.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The majority of the people who were in the protests were young people, but I
+      think that most people would agree that large corporations and governments need
+      to consider the
+    - environmental impacts of their actions. It's not getting better quickly. We
+      all need this planet. So let's take care of it. And they're just not moving
+      quickly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states an unverified claim that most people would
+    agree corporations and governments should consider environmental impacts, using
+    this purported majority opinion as support for the claim, which satisfies the
+    structure of an appeal to majority (popularity_to_claim).
+  decision_reason: The argument derives its justification from an asserted widespread
+    agreement—‘most people would agree’—without providing evidence that such majority
+    exists. This satisfies the mandatory structural condition for an Appeal to Majority,
+    so the fallacy is detected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The majority of the people who were in the protests were young people, but I think
+    that most people would agree that large corporations and governments need to consider
+    the
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4473
+  completion_tokens: 3472
+  total_tokens: 7945
+  wall_time_seconds: 596.9529999999795

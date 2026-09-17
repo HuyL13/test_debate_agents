@@ -1,0 +1,131 @@
+sample:
+  id: 359:6475
+  article_id: 359
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: 'Well I hate to see Asia and the Middle East in such turmoil. I''m sure
+    the surrounding countries in that part of the world are suffering as well: since
+    Kashmir is going though such a time it seems obvious that that part of the world
+    is dealing with the same or similar problems. (I recently read about similar things
+    going on in Syria too!) Let''s hope they make it through to better times.'
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Kashmir
+    - role: observed_property
+      text: going through such a time
+    - role: target_population
+      text: surrounding countries in that part of the world
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'Well I hate to see Asia and the Middle East in such turmoil. I''m sure the
+      surrounding countries in that part of the world are suffering as well: since
+      Kashmir'
+    - is going though such a time it seems obvious that that part of the world is
+      dealing with the same or similar problems. (I recently read about similar things
+      going
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That the surrounding countries in Asia and the Middle East
+      are also suffering similar problems as Kashmir
+    candidate: Hasty Generalization
+    supporting_reason: Since Kashmir is experiencing turmoil, it is obvious that the
+      rest of the region is facing similar problems
+    support_relation: The reasoning treats a single example (Kashmir) as evidence
+      for an entire region, thereby generalizing beyond the available data
+    label_justification: The argument uses one instance to make a sweeping claim about
+      many other countries, which is the classic form of a hasty generalization
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'Well I hate to see Asia and the Middle East in such turmoil. I''m sure the
+      surrounding countries in that part of the world are suffering as well: since
+      Kashmir'
+    - is going though such a time it seems obvious that that part of the world is
+      dealing with the same or similar problems. (I recently read about similar things
+      going
+  counterargument:
+    decisive_counterargument: Just because Kashmir is experiencing turmoil does not
+      guarantee that every neighboring country is facing identical or similar issues;
+      regional differences often mean that circumstances vary widely.
+    candidate: Hasty Generalization
+    challenged_inference: All surrounding countries in Asia and the Middle East are
+      suffering from the same or similar problems simply because Kashmir is in turmoil.
+    label_justification: The inference extends a claim from a single example (Kashmir)
+      to an entire group of neighboring countries without sufficient evidence, which
+      is the defining trait of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'Well I hate to see Asia and the Middle East in such turmoil. I''m sure the
+      surrounding countries in that part of the world are suffering as well: since
+      Kashmir'
+    - is going though such a time it seems obvious that that part of the world is
+      dealing with the same or similar problems. (I recently read about similar things
+      going
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target presents a single example (Kashmir experiencing turmoil)
+    and then generalizes that the entire surrounding region in Asia and the Middle
+    East is suffering similar problems, thus satisfying the structural condition of
+    a hasty generalization (sample-to-population inference).
+  decision_reason: The argument explicitly uses one specific instance (Kashmir) to
+    make a sweeping claim about many other countries in the region without sufficient
+    evidence, which is the hallmark of the hasty generalization fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - 'Well I hate to see Asia and the Middle East in such turmoil. I''m sure the surrounding
+    countries in that part of the world are suffering as well: since Kashmir'
+  - is going though such a time it seems obvious that that part of the world is dealing
+    with the same or similar problems. (I recently read about similar things going
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4659
+  completion_tokens: 2555
+  total_tokens: 7214
+  wall_time_seconds: 125.0460000000021

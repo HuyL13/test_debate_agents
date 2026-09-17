@@ -1,0 +1,167 @@
+sample:
+  id: 645:8531
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: Facebook has always picked certain people or opinions they deem to be unacceptable,
+    and flag posts which contain or promote them. This is Facebook's culture and modus
+    operandi. It has been that way from the beginning. We can't be surprised and dismayed
+    that they are taking such actions now, given this is their long-standing practice,
+    rooted in their corporate culture. I would recommend moving to another platform.
+    But I wouldn't expect Facebook to change any more than an old tree might change
+    its bark. Traditions are very stubborn things.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Facebook has always picked certain people or opinions they deem to be
+        unacceptable, and flag posts which contain or promote them. This is Facebook's
+        culture and modus operandi. It has been that way from the beginning. We can't
+        be surprised…
+    - role: preservation_conclusion
+      text: I wouldn't expect Facebook to change any more than an old tree might change
+        its bark. Traditions are very stubborn things.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Facebook has always picked certain people or opinions they deem to be unacceptable,
+      and flag posts which contain or promote them. This is Facebook's culture and
+      modus operandi. It has
+    - been that way from the beginning. We can't be surprised and dismayed that they
+      are taking such actions now, given this is their long-standing practice, rooted
+      in their corporate culture.
+    - I would recommend moving to another platform. But I wouldn't expect Facebook
+      to change any more than an old tree might change its bark. Traditions are very
+      stubborn things.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Recommend moving to another platform because Facebook’s longstanding
+      culture of censorship will not change.
+    candidate: Appeal to Tradition
+    supporting_reason: T1,T2,T3
+    support_relation: The argument cites Facebook’s persistent history of flagging
+      posts that it deems unacceptable as evidence that this practice will continue,
+      thereby justifying the recommendation to leave Facebook.
+    label_justification: The core reasoning relies on the fact that Facebook has historically
+      acted in a particular way (tradition) to argue that it will not change, equating
+      past behavior with future inevitability. This is a classic Appeal to Tradition
+      fallacy, since the repetition/history is used as the sole justification for
+      the prediction and recommendation without addressing whether future change is
+      possible.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Facebook has always picked certain people or opinions they deem to be unacceptable,
+      and flag posts which contain or promote them. This is Facebook's culture and
+      modus operandi. It has
+    - been that way from the beginning. We can't be surprised and dismayed that they
+      are taking such actions now, given this is their long-standing practice, rooted
+      in their corporate culture.
+    - I would recommend moving to another platform. But I wouldn't expect Facebook
+      to change any more than an old tree might change its bark. Traditions are very
+      stubborn things.
+  counterargument:
+    decisive_counterargument: Facebook’s history of content moderation does not prove
+      that its future policies will stay unchanged or that such policies are justified.
+      Social media companies routinely revise their moderation guidelines, adopt new
+      algorithms, and respond to public criticism; the fact that a practice has existed
+      for years neither guarantees its permanence nor automatically renders it correct.
+      Using tradition to argue that Facebook will always act the same way misses the
+      possibility—and indeed the evidence—that corporate culture and policy evolve
+      when new information or pressure dictates it.
+    candidate: Appeal to Tradition
+    challenged_inference: Because Facebook has historically censored content, it should
+      continue to do so, and its policies will never change; tradition dictates the
+      status quo.
+    label_justification: 'The objection points out that the argument improperly relies
+      on Facebook’s longstanding practice as a reason for its remaining unaltered,
+      which is precisely the structure of an Appeal to Tradition fallacy: asserting
+      that because something has been done for a long time, it should continue to
+      be done. The counterargument refutes this by noting that tradition does not
+      determine future actions or justify continued practice without supporting evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Facebook has always picked certain people or opinions they deem to be unacceptable,
+      and flag posts which contain or promote them. This is Facebook's culture and
+      modus operandi. It has
+    - been that way from the beginning. We can't be surprised and dismayed that they
+      are taking such actions now, given this is their long-standing practice, rooted
+      in their corporate culture.
+    - I would recommend moving to another platform. But I wouldn't expect Facebook
+      to change any more than an old tree might change its bark. Traditions are very
+      stubborn things.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The argument references Facebook’s historical practice of flagging
+    content as a tradition and uses it to claim the practice will never change, thereby
+    supporting the recommendation to leave the platform. This fits the definition
+    of an Appeal to Tradition: relying on a long-standing practice as the sole justification
+    for an ongoing or future position.'
+  decision_reason: The target explicitly states that Facebook’s long-standing culture
+    of censorship will not change and uses that to recommend leaving the platform,
+    a classic appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Facebook has always picked certain people or opinions they deem to be unacceptable,
+    and flag posts which contain or promote them. This is Facebook's culture and modus
+    operandi. It has
+  - been that way from the beginning. We can't be surprised and dismayed that they
+    are taking such actions now, given this is their long-standing practice, rooted
+    in their corporate culture.
+  - I would recommend moving to another platform. But I wouldn't expect Facebook to
+    change any more than an old tree might change its bark. Traditions are very stubborn
+    things.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5218
+  completion_tokens: 2143
+  total_tokens: 7361
+  wall_time_seconds: 102.78199999999924

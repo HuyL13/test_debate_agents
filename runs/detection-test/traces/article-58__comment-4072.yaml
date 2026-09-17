@@ -1,0 +1,127 @@
+sample:
+  id: 58:4072
+  article_id: 58
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: It's pretty simple. Testing is either done in Africa or it's not. Do we
+    really have the whole picture? Are things transparent or is there more to this?
+    It's either done secretively or openly.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: Testing is done in Africa
+    - role: alternative_b
+      text: Testing is not done in Africa
+    - role: exhaustiveness_commitment
+      text: Testing is either done in Africa or it is not
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's pretty simple. Testing is either done in Africa or it's not. Do we really
+      have the whole picture? Are things transparent or is there more to this? It's
+      either
+    - done secretively or openly.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: null
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: The target contains only rhetorical questions and a declarative
+      statement but no explicit argument that establishes a conclusion using a reason.
+      Hence no logical fallacy is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's pretty simple. Testing is either done in Africa or it's not. Do we really
+      have the whole picture? Are things transparent or is there more to this? It's
+      either
+    - done secretively or openly.
+  counterargument:
+    decisive_counterargument: The passage collapses a complex reality into only two
+      mutually exclusive choices—testing is either done in Africa or not, and it is
+      either secretive or open. In truth, testing could be conducted partially in
+      Africa, partially elsewhere, or with varying degrees of transparency that fall
+      between secrecy and openness. By presenting only two stark options, the argument
+      ignores legitimate middle-ground possibilities and misleads the reader into
+      a false sense of dichotomy.
+    candidate: False Dilemma
+    challenged_inference: It asserts that testing must be either done in Africa or
+      not, and must be either conducted secretly or openly, implying no other plausible
+      modes of operation exist.
+    label_justification: The objection shows that the inference forces only two options
+      (Africa/no Africa; secretive/open) and excludes any intermediate or alternative
+      scenarios, which is the hallmark of a false dilemma. The claim therefore commits
+      a false dilemma fallacy by oversimplifying the available possibilities.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's pretty simple. Testing is either done in Africa or it's not. Do we really
+      have the whole picture? Are things transparent or is there more to this? It's
+      either
+    - done secretively or openly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly asserts that testing is either done in
+    Africa or not, and that it is either done secretively or openly, leaving no room
+    for other possibilities, thereby meeting the structural requirement for a false
+    dilemma.
+  decision_reason: 'The argument sets up a dichotomy for both location and transparency
+    and commits to exhaustiveness, constituting a false dilemma. Evidence: T1 and
+    T2.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's pretty simple. Testing is either done in Africa or it's not. Do we really
+    have the whole picture? Are things transparent or is there more to this? It's
+    either
+  - done secretively or openly.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4091
+  completion_tokens: 3370
+  total_tokens: 7461
+  wall_time_seconds: 163.0

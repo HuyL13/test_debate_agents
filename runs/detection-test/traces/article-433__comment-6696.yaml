@@ -1,0 +1,115 @@
+sample:
+  id: 433:6696
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: The killing of Amadou Diallo was tragic it is not isolated. We need to look
+    at police brutality and profiling on a larger scale. These men George Floyd and
+    Amadou Diallo did not deserve what they received from police. But neither do the
+    hundreds of thousands of black Americans who to deal with police brutality on
+    a daily basis. This was all horrible. None of this should have happened.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The killing of Amadou Diallo was tragic it is not isolated. We need to look
+      at police brutality and profiling on a larger scale. These men George Floyd
+      and Amadou
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+    - was all horrible. None of this should have happened.
+    candidate: null
+  goal:
+    conclusion_or_goal: Highlight that police brutality and profiling are widespread
+      and not limited to isolated incidents, urging broader scrutiny of systemic issues.
+    candidate: Hasty Generalization
+    supporting_reason: Because these specific men (George Floyd and Amadou Diallo)
+      did not deserve the treatment they received, it follows that the hundreds of
+      thousands of black Americans who face police brutality daily also do not deserve
+      it.
+    support_relation: The reason is used to generalize from a small sample of cases
+      to all black Americans, thereby strengthening the claim that police brutality
+      is a systemic problem.
+    label_justification: The argument infers a universal claim about all black Americans
+      about deserving or not deriving from only two specific victims, which is a classic
+      hasty generalization.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+  counterargument:
+    decisive_counterargument: While it is tragic that Amadou Diallo and George Floyd
+      were harmed, the fact that they were harmed does not provide evidence that all
+      black Americans are subjected to daily police brutality. Drawing a sweeping
+      conclusion about a whole population from only a few isolated cases is unwarranted.
+    candidate: null
+    challenged_inference: Because specific incidents involving Amadou Diallo and George
+      Floyd did not justify police actions, the same applies to the entire population
+      of black Americans who supposedly face police brutality every day.
+    label_justification: The argument assumes that evidence from two individual cases
+      can be generalized to an entire demographic group without supporting data, which
+      is precisely a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The killing of Amadou Diallo was tragic it is not isolated. We need to look
+      at police brutality and profiling on a larger scale. These men George Floyd
+      and Amadou
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3035
+  completion_tokens: 3449
+  total_tokens: 6484
+  wall_time_seconds: 219.61000000000058

@@ -1,0 +1,216 @@
+sample:
+  id: 172:9814
+  article_id: 172
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: It seems like most of the people in Australia are on board with the phasing
+    out of coal as an energy source. I think this has been the prevailing attitude
+    across a big part of the world as well. It does not surprise me that the courts
+    are starting to see the science behind the reliance on fossil fuels to further
+    our industriousness. Most scientists agree that renewables are better for the
+    environment than coal burning plants are. Time marches on as does innovation.
+    The radio gave way to Television and newspapers to the internet. These are things
+    that people all have adapted to and accepted for the most part. Coal mining and
+    oil drilling are going that same route. Most people would agree that losing a
+    few thousand coal mining jobs in an effort to leave a livable planet for our children
+    and grandchildren is a worthy sacrifice. There are many other mining jobs that
+    these coal miners could transition to and not have to learn any kind of "new"
+    line of work.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: scientists
+    - role: endorsed_claim
+      text: renewables are better for the environment than coal burning plants are
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - further our industriousness. Most scientists agree that renewables are better
+      for the environment than coal burning plants are. Time marches on as does innovation.
+      The radio gave way to Television
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The argument seeks to justify the phasing out of coal as an
+      energy source.
+    candidate: Appeal to Majority
+    supporting_reason: Most people support the phasing out of coal; this demographic
+      majority is presented as proof that the course is correct.
+    support_relation: justifies the proposed phase‑out
+    label_justification: The argument uses the large public support as the sole basis
+      for its conclusion, fitting the definition of an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T5
+    evidence_spans:
+    - It seems like most of the people in Australia are on board with the phasing
+      out of coal as an energy source. I think this has been the prevailing attitude
+    - Most people would agree that losing a few thousand coal mining jobs in an effort
+      to leave a livable planet for our children and grandchildren is a worthy sacrifice.
+      There
+  counterargument:
+    decisive_counterargument: 'The argument relies on an analogy between past consumer‑technology
+      transitions (radio → television → internet) and the imminent shift away from
+      coal and oil. Treating the two scenarios as comparable ignores fundamental differences:
+      energy infrastructure demands large capital, is subject to geopolitical pressures,
+      and has significant economic and social consequences. The assumed smooth adaptation
+      seen with radios and TVs gives no reliable basis for predicting how workplace
+      displacement, supply‑chain disruptions, or environmental policies will unfold
+      in the energy sector. Therefore, the reasoning falls apart by using a false
+      analogy.'
+    candidate: False Dilemma
+    challenged_inference: The inference that because society successfully adopted
+      past consumer‑technology changes, it will likewise accept and smoothly transition
+      away from coal and oil.
+    label_justification: The objection directly targets the argumentative structure
+      that substitutes a historical technological case (radio, TV, internet) for a
+      fundamentally different domain (energy) to justify the policy conclusion. This
+      is the classic form of a false analogy, not merely an unsupported claim or a
+      bandwagon move.
+    failure_exposed: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - and newspapers to the internet. These are things that people all have adapted
+      to and accepted for the most part. Coal mining and oil drilling are going that
+      same route.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Appeal to Majority
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Appeal to Majority
+    - False Dilemma
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - False Dilemma
+    - Appeal to Majority
+  - before:
+    - False Dilemma
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__false-dilemma
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority uses widespread support as the sole justification
+      for the phase‑out of coal, explicitly stating that most people in Australia
+      (and elsewhere) are on board and that, consequently, losing some jobs is a worthy
+      sacrifice.  This fits the fallacy’s definition of relying purely on the number
+      or perceived popularity of supporters to argue that a position is correct.  By
+      contrast, Appeal to Authority requires an expert’s endorsement to justify a
+      claim; while the text does mention that “most scientists agree…” (T3), the argument’s
+      main thrust is the public’s majority viewpoint rather than the scientist’s expertise.  Therefore,
+      the Appeal to Majority satisfies its structural condition exclusively, whereas
+      the Appeal to Authority’s endorsement is secondary and therefore non‑definitive
+      here.
+    loser_failure: Appeal to Authority does not alone account for the justification
+      of the coal phase‑out; the claim is not solely supported by expert endorsement.  The
+      text’s key argument relies on majority sentiment—from T1 and T5—rather than
+      on authority, so the discipline of Appeal to Authority does not exhaust the
+      reasoning.
+    evidence_ids:
+    - T1
+    - T5
+    evidence_spans:
+    - It seems like most of the people in Australia are on board with the phasing
+      out of coal as an energy source. I think this has been the prevailing attitude
+    - Most people would agree that losing a few thousand coal mining jobs in an effort
+      to leave a livable planet for our children and grandchildren is a worthy sacrifice.
+      There
+- id: appeal-to-majority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The argument employs public support as the sole basis for a conclusion,
+      showing a bandwagon premise rather than presenting a dichotomous choice. The
+      given text does not provide a two‑option scenario that excludes all other possibilities,
+      hence it does not satisfy the structural requirement of a False Dilemma.
+    evidence_ids:
+    - T1
+    - T5
+    evidence_spans:
+    - It seems like most of the people in Australia are on board with the phasing
+      out of coal as an energy source. I think this has been the prevailing attitude
+    - Most people would agree that losing a few thousand coal mining jobs in an effort
+      to leave a livable planet for our children and grandchildren is a worthy sacrifice.
+      There
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that 'most people...' and uses
+    that population support as the justification for phasing out coal, meeting the
+    structural requirements of an appeal to majority.
+  decision_reason: The target relies on the claim that a majority of people support
+    phasing out coal to justify the action, which is the defining structure of an
+    appeal to majority argument.
+  evidence_ids:
+  - T1
+  - T5
+  evidence_spans:
+  - It seems like most of the people in Australia are on board with the phasing out
+    of coal as an energy source. I think this has been the prevailing attitude
+  - Most people would agree that losing a few thousand coal mining jobs in an effort
+    to leave a livable planet for our children and grandchildren is a worthy sacrifice.
+    There
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 6
+  provider_calls: 6
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 8866
+  completion_tokens: 4469
+  total_tokens: 13335
+  wall_time_seconds: 222.875

@@ -1,0 +1,172 @@
+sample:
+  id: 323:6966
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: This seems like a waste of time for a talented engineer working with AI.
+    The people who speak this language probably speak a more common language as well,
+    so they don't need to rely on their native one. Spend your time using AI to help
+    cure real problems like diseases or something! Its a nice idea, but at the end
+    of the day, a language used by only 10 million people, many of whom probably don't
+    even use computers, isn't that big of a deal.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Developing a Shona-language version of AI/social media
+    - role: worse_issue
+      text: Using AI to cure diseases or solve real problems
+    - role: deprioritizing_conclusion
+      text: A language used by only 10 million people isn’t that big of a deal
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This seems like a waste of time for a talented engineer working with AI. The
+      people who speak this language probably speak a more common language as well,
+      so they
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: maintaining that building Shona-language versions of AI tools
+      and social media is a waste of effort and should be abandoned
+    candidate: Hasty Generalization
+    supporting_reason: The claim that because the language has only 10 million speakers,
+      many of whom probably don’t use computers, it is not “that big of a deal” and
+      therefore not worth the investment
+    support_relation: direct inference
+    label_justification: The argument generalizes from a limited observation about
+      the size of the speaker population and their presumed technology use to dismiss
+      the worth of the language altogether, an instance of hasty generalization
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+  counterargument:
+    decisive_counterargument: Even if a language is spoken by a modest number of people,
+      that number can still be significant and the lack of digital resources disproportionately
+      hurts those communities. The size of the problem does not determine its worth;
+      the cost of inaction and the principle of equitable access make a language‑specific
+      AI effort valuable. Thus dismissing the effort because the language is smaller
+      is misplaced.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The target concludes that because the language is spoken
+      by only 10 million people, the work on it is a waste of time.
+    label_justification: The objection shows the target’s reasoning deflects a comparatively
+      small problem by pointing to larger problems (e.g., curing diseases). This is
+      a textbook example of an Appeal to Worse Problems tactic – arguing that a lesser
+      concern is irrelevant because bigger ones exist. Our counterargument directly
+      challenges that dismissal, proving the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: The Hasty Generalization claim is unsupported because the target
+      does not use a specific sample or limited observation to generalize about a
+      larger population. It simply dismisses the language’s value based on its size—a
+      direct conclusion rather than a generalization from a subset. Consequently,
+      the mandatory structural condition for a hasty generalization is not satisfied.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This seems like a waste of time for a talented engineer working with AI. The
+      people who speak this language probably speak a more common language as well,
+      so they
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly references a larger problem (curing diseases)
+    and concludes that the smaller problem (developing a Shona-language AI/social
+    media platform for 10 million speakers) is insignificant, which meets the required
+    two‑part structure of an Appeal to Worse Problems fallacy.
+  decision_reason: The comment dismisses work on a smaller linguistic community because
+    more important problems exist (e.g., curing diseases). This directly matches the
+    definition of an Appeal to Worse Problems, where a lesser concern is deemed unimportant
+    in light of a greater one.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - don't need to rely on their native one. Spend your time using AI to help cure
+    real problems like diseases or something! Its a nice idea, but at the end
+  - of the day, a language used by only 10 million people, many of whom probably don't
+    even use computers, isn't that big of a deal.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 6567
+  completion_tokens: 5936
+  total_tokens: 12503
+  wall_time_seconds: 577.8280000000086

@@ -1,0 +1,196 @@
+sample:
+  id: 164:9790
+  article_id: 164
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: "Considering how severe both Ebola and Covid diseases can be, I’m actually\
+    \ not sure DR Congo is doing enough to fully address these major public health\
+    \ crises.  People who might have these diseases may need to be very carefully\
+    \ monitored and significant steps need to be taken that they don’t give these\
+    \ diseases to uninfected people.  \n\nTrue, the government is responding to these\
+    \ diseases with some public health requirements. This is not enough, however.\
+    \ Citizens themselves need to be proactive about their health, ensuring they stay\
+    \ well hydrated, sleep adequately each night, and consume enough nutritious foods\
+    \ with vitamins and minerals. Avoiding junk foods and focusing on high quality\
+    \ ingredients like fresh fruits and vegetables and whole grains will help the\
+    \ population boost its potential immunity levels and be in a state of less overall\
+    \ inflammation. This will let people take personal ownership of their health and\
+    \ have a better chance of recovering quickly should they be unlucky enough to\
+    \ get one of these viruses."
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Avoiding junk foods and focusing on high quality ingredients like fresh
+        fruits and vegetables and whole grains
+    - role: evaluative_conclusion
+      text: will help the population boost its potential immunity levels and be in
+        a state of less overall inflammation, letting people take personal ownership
+        of their health and have a better chance of recovering quickly
+    structure_complete: true
+    evidence_ids:
+    - T4
+    - T5
+    evidence_spans:
+    - each night, and consume enough nutritious foods with vitamins and minerals.
+      Avoiding junk foods and focusing on high quality ingredients like fresh fruits
+      and vegetables and whole grains will help
+    - the population boost its potential immunity levels and be in a state of less
+      overall inflammation. This will let people take personal ownership of their
+      health and have a better
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Citizens themselves need to be proactive about their health
+      (e.g., staying hydrated, sleeping well, and eating nutritious foods) to improve
+      immunity and recover more quickly from Ebola or Covid.
+    candidate: null
+    supporting_reason: A healthier lifestyle will boost the population’s potential
+      immunity levels, reduce overall inflammation, and empower people to recover
+      more quickly should they become ill.
+    support_relation: The reason provides a causal justification for why personal
+      health measures are necessary to address the public health crises.
+    label_justification: The argument presents a legitimate causal link between healthy
+      behaviors and better immunity/recovery; it does not rely on any logical fallacies
+      such as hasty generalization, false dilemma, or appeal to authority. Therefore,
+      no fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    - T5
+    evidence_spans:
+    - responding to these diseases with some public health requirements. This is not
+      enough, however. Citizens themselves need to be proactive about their health,
+      ensuring they stay well hydrated, sleep adequately
+    - each night, and consume enough nutritious foods with vitamins and minerals.
+      Avoiding junk foods and focusing on high quality ingredients like fresh fruits
+      and vegetables and whole grains will help
+    - the population boost its potential immunity levels and be in a state of less
+      overall inflammation. This will let people take personal ownership of their
+      health and have a better
+  counterargument:
+    decisive_counterargument: The claim that simply staying hydrated, getting enough
+      sleep, and eating a diet of fresh fruits, vegetables and whole grains will substantially
+      boost immunity and give people a better chance of recovering quickly from Ebola
+      or COVID‑19 is not supported by evidence. While good overall nutrition and sleep
+      are important for general health, there is no reliable data proving that these
+      lifestyle changes meaningfully reduce infection severity or improve recovery
+      outcomes for these particular viral diseases. Therefore the inference that such
+      personal health behaviors can effectively address the public‑health crises is
+      unfounded.
+    candidate: Hasty Generalization
+    challenged_inference: Citizens' proactive health behaviors (e.g., hydration, sleep,
+      nutrition) will substantially improve immunity and increase chances of rapid
+      recovery from Ebola and COVID‑19.
+    label_justification: 'The objection exposes an unsupported generalization: the
+      author infers a broad causal effect of general lifestyle factors on disease
+      outcomes without providing supporting evidence. This fits the definition of
+      a hasty generalization, which involves extending a claim to a wider population
+      or outcome without adequate empirical support.'
+    failure_exposed: true
+    evidence_ids:
+    - T4
+    - T5
+    evidence_spans:
+    - each night, and consume enough nutritious foods with vitamins and minerals.
+      Avoiding junk foods and focusing on high quality ingredients like fresh fruits
+      and vegetables and whole grains will help
+    - the population boost its potential immunity levels and be in a state of less
+      overall inflammation. This will let people take personal ownership of their
+      health and have a better
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: Hasty Generalization does not meet its mandatory structural condition
+      because the target provides no specific sample or case from which a broad conclusion
+      is drawn; it merely states a general claim about dietary habits improving immunity,
+      lacking the explicit leap from a particular observation to a general rule. Thus
+      its structural criterion (sample → generalization) is not satisfied.
+    evidence_ids:
+    - T4
+    - T5
+    evidence_spans:
+    - each night, and consume enough nutritious foods with vitamins and minerals.
+      Avoiding junk foods and focusing on high quality ingredients like fresh fruits
+      and vegetables and whole grains will help
+    - the population boost its potential immunity levels and be in a state of less
+      overall inflammation. This will let people take personal ownership of their
+      health and have a better
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains an argument presenting natural, wholesome
+    foods as inherently better for health and immunity, embodying a nature-to-value
+    structure (naturalness premise—avoiding junk foods and focusing on fresh fruits,
+    vegetables, whole grains; evaluative conclusion—boosts immunity and reduces inflammation).
+    This matches the Appeal to Nature fallacy pattern based on the supplied evidence
+    T4 and T5.
+  decision_reason: The target explicitly claims that natural diets provide intrinsically
+    beneficial health effects, which is the core of an Appeal to Nature argument.
+  evidence_ids:
+  - T4
+  - T5
+  evidence_spans:
+  - each night, and consume enough nutritious foods with vitamins and minerals. Avoiding
+    junk foods and focusing on high quality ingredients like fresh fruits and vegetables
+    and whole grains will help
+  - the population boost its potential immunity levels and be in a state of less overall
+    inflammation. This will let people take personal ownership of their health and
+    have a better
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 7234
+  completion_tokens: 3757
+  total_tokens: 10991
+  wall_time_seconds: 189.7960000000021

@@ -1,0 +1,126 @@
+sample:
+  id: 313:10236
+  article_id: 313
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: Any culture which tolerates "ragging" is one in which something as horrific
+    as this can happen. There really has to be a zero tolerance policy with regard
+    to violence. Universities are places of learning, not of barbarism. Reforms of
+    the university system there must get underway, and as soon as possible.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: any culture which tolerates "ragging"
+    - role: observed_property
+      text: something as horrific as this can happen
+    - role: target_population
+      text: all cultures
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Any culture which tolerates "ragging" is one in which something as horrific
+      as this can happen. There really has to be a zero tolerance policy with regard
+      to violence. Universities
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Implement a zero‑tolerance policy toward violence in universities
+    candidate: Hasty Generalization
+    supporting_reason: Any culture which tolerates 'ragging' is one in which something
+      as horrific as this can happen.
+    support_relation: The generalized statement is used to justify the need for a
+      zero‑tolerance policy.
+    label_justification: The claim draws a conclusion about all cultures that tolerate
+      ragging based on a single, unspecified incident, which fits the pattern of a
+      hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Any culture which tolerates "ragging" is one in which something as horrific
+      as this can happen. There really has to be a zero tolerance policy with regard
+      to violence. Universities
+  counterargument:
+    decisive_counterargument: The argument claims that because a culture tolerates
+      ragging, it must inevitably produce violent incidents like the one described.
+      This presumes a causal link from a single observed case to all similar cultures,
+      without any evidence that ragging actually causes such extreme violence or that
+      violence occurs in all cultures that tolerate ragging. The leap from one instance
+      to a universal claim is unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: Any culture which tolerates ragging is a culture in which
+      horrific violence can occur, therefore all such cultures should have zero tolerance
+      policies.
+    label_justification: 'The objection exposes a hasty generalization: the claim
+      extrapolates from one isolated incident to all cultures that tolerate ragging,
+      presenting a sweeping conclusion without sufficient supporting evidence. This
+      directly violates the definition of a hasty generalization, thereby justifying
+      the fallacy label.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Any culture which tolerates "ragging" is one in which something as horrific
+      as this can happen. There really has to be a zero tolerance policy with regard
+      to violence. Universities
+    - are places of learning, not of barbarism. Reforms of the university system there
+      must get underway, and as soon as possible.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage draws a universal conclusion that any culture tolerating
+    ragging will inevitably experience horrific violence, based on a single incident,
+    satisfying the structure of a sample-to-population generalization without sufficient
+    evidence.
+  decision_reason: The claim generalizes from a single observed case of ragging-related
+    violence to all cultures that tolerate ragging, without additional evidence, which
+    meets the structural definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Any culture which tolerates "ragging" is one in which something as horrific as
+    this can happen. There really has to be a zero tolerance policy with regard to
+    violence. Universities
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4440
+  completion_tokens: 3454
+  total_tokens: 7894
+  wall_time_seconds: 180.875

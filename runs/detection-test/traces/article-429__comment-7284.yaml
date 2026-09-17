@@ -1,0 +1,175 @@
+sample:
+  id: 429:7284
+  article_id: 429
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: Governments that attempt to support human rights are a model for the rest
+    of the world. As a certain peace ambassador I admire once put it, it requires
+    immense strength to prioritize the needs of others. Kudos to Tunisia for not only
+    fostering such strength, but also for their unwavering commitment to equality
+    and justice. Their administration exemplifies dedication to human rights. If the
+    rest of the world took a leaf out of their book, imagine the progress we could
+    achieve?
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    slots:
+    - role: authority
+      text: a certain peace ambassador I admire
+    - role: endorsed_claim
+      text: Governments that attempt to support human rights are a model for the rest
+        of the world
+    structure_complete: true
+    structure_type: authority_to_claim
+    evidence_spans:
+    - Governments that attempt to support human rights are a model for the rest of
+      the world. As a certain peace ambassador I admire once put it, it requires immense
+      strength
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Governments that attempt to support human rights serve as
+      models for the rest of the world.
+    candidate: null
+    supporting_reason: The post cites the example of the Tunisian administration as
+      demonstrating strong commitment to equality and justice.
+    support_relation: The example is used explicitly to illustrate and substantiate
+      the claim that such governments are exemplary.
+    label_justification: The statement relies on a single example (Tunisia) to support
+      a general claim that all governments which support human rights are models.
+      This does not constitute a logical fallacy; it is a legitimate use of an illustrative
+      instance to argue for the conclusion, though the evidence is limited. No fallacious
+      reasoning technique (e.g., appeal to authority, hasty generalization) is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governments that attempt to support human rights are a model for the rest of
+      the world. As a certain peace ambassador I admire once put it, it requires immense
+      strength
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+  counterargument:
+    decisive_counterargument: The statement that every government that supports human
+      rights automatically becomes a model for the rest of the world is unsupported
+      by evidence; it relies on a single example—Tunisia—to extrapolate a universal
+      truth. This leaps from one observation to a sweeping generalization without
+      demonstrating that the conditions in Tunisia are representative or that other
+      governments would achieve the same outcomes. Such reasoning is invalid, as it
+      assumes a proven conclusion based only on an insufficient sample.
+    candidate: Hasty Generalization
+    challenged_inference: Governments that attempt to support human rights are a model
+      for the rest of the world.
+    label_justification: The objection points out that the conclusion is based on
+      a single instance—Tunisia—while claiming a universal principle. This makes the
+      inference a clear case of hasty generalization, where a broad statement is drawn
+      from an inadequately representational sample.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The TARGET statement asserts that *all* governments that attempt
+      to support human rights are models for the rest of the world, yet the only concrete
+      example provided is Tunisia. The claim generalizes from a single instance—Tunisia—to
+      a universal rule. This directly satisfies the mandatory structural condition
+      for Hasty Generalization. In contrast, the only authority cited in the text
+      (“a certain peace ambassador I admire”) is quoted explaining the strength needed
+      to prioritize others, not endorsing the blanket claim that governments are models.
+      Therefore the claim is not supported by an authority’s testimony, so the Appeal
+      to Authority condition is not met. The failure is that the authority’s statement
+      does not serve to justify or support the generalized claim about all governments.
+    loser_failure: The Appeal to Authority condition is not fulfilled because the
+      authority cited (“a certain peace ambassador I admire”) merely comments on the
+      strength required to prioritize others, without endorsing or providing evidence
+      for the claim that all governments that support human rights serve as models
+      for the world. Thus the authority is not used to justify the generalized claim,
+      making Appeal to Authority an invalid interpretation here.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governments that attempt to support human rights are a model for the rest of
+      the world. As a certain peace ambassador I admire once put it, it requires immense
+      strength
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target makes a universal claim that all governments supporting
+    human rights are models, based solely on the single example of Tunisia. This meets
+    the structure of a hasty generalization: an insufficient sample (Tunisia) is used
+    to draw a sweeping conclusion about a broader class of governments.'
+  decision_reason: The inference that all such governments are exemplary is unsupported
+    by sufficient evidence, relying on a single case. Therefore it is a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+    strength, but also for their unwavering commitment to equality and justice. Their
+    administration exemplifies dedication to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 1
+  retries: 1
+  prompt_tokens: 5868
+  completion_tokens: 4139
+  total_tokens: 10007
+  wall_time_seconds: 287.35899999999674

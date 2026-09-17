@@ -1,0 +1,122 @@
+sample:
+  id: 489:8663
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: This is just one more case that proves that police are all pretty awful
+    people. The politicians who support them are almost worse. They allow these crimes
+    against women and children to go unchecked. This is such a troubling case and
+    you have to wonder how many more there have been that have gone unreported.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: one more case
+    - role: observed_property
+      text: police are all pretty awful people
+    - role: target_population
+      text: police
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is just one more case that proves that police are all pretty awful people.
+      The politicians who support them are almost worse. They allow these crimes against
+      women and
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Police (and the politicians who support them) are awful and
+      allow crimes against women and children to go unchecked.
+    candidate: Hasty Generalization
+    supporting_reason: '"This is just one more case that proves that police are all
+      pretty awful people."'
+    support_relation: The single case is used as evidence to establish the broad claim
+      that all police are awful.
+    label_justification: The speaker takes a single case and applies it to the entire
+      police force (and the politicians who support them), thus committing a hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is just one more case that proves that police are all pretty awful people.
+      The politicians who support them are almost worse. They allow these crimes against
+      women and
+    - children to go unchecked. This is such a troubling case and you have to wonder
+      how many more there have been that have gone unreported.
+  counterargument:
+    decisive_counterargument: The single incident does not prove that all police are
+      uniformly bad; without evidence of a pattern across the profession, one isolated
+      case cannot justify a blanket judgment.
+    candidate: Hasty Generalization
+    challenged_inference: All police are awful because of this single case.
+    label_justification: The objection illustrates that the argument draws a sweeping
+      conclusion about an entire group (all police) from a single, unrepresentative
+      example, which is the defining trait of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is just one more case that proves that police are all pretty awful people.
+      The politicians who support them are almost worse. They allow these crimes against
+      women and
+    - children to go unchecked. This is such a troubling case and you have to wonder
+      how many more there have been that have gone unreported.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target contains a statement that a single case (“one more
+    case”) is used to infer that all police are awful, which satisfies the sample‑to‑population
+    structure of a hasty generalization.
+  decision_reason: The sentence “This is just one more case that proves that police
+    are all pretty awful people” explicitly applies an isolated example to the entire
+    police force, which is the textbook form of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is just one more case that proves that police are all pretty awful people.
+    The politicians who support them are almost worse. They allow these crimes against
+    women and
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4404
+  completion_tokens: 2586
+  total_tokens: 6990
+  wall_time_seconds: 235.5779999999795

@@ -1,0 +1,141 @@
+sample:
+  id: 76:4425
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: When you look at these terrible situation, it is important to keep in mind
+    the long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+    can move past their differences. Remember, different Christian groups such as
+    the Catholics and Protestants have managed to peacefully coexist despite having
+    a difficult history with each other. Hopefully adopted a similar pathway of reconciliation
+    will be possible.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: different Christian groups such as the Catholics and Protestants
+    - role: observed_property
+      text: have managed to peacefully coexist
+    - role: target_population
+      text: Sunni and Shia Muslims
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you look at these terrible situation, it is important to keep in mind the
+      long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+      can move past
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Sunni and Shia Muslims can move past their differences and
+      reconcile, mirroring how Catholics and Protestants have coexisted peacefully.
+    candidate: null
+    supporting_reason: '"Different Christian groups such as the Catholics and Protestants
+      have managed to peacefully coexist despite having a difficult history with each
+      other"'
+    support_relation: The example of Christian coexistence is invoked to justify the
+      possibility that Sunni and Shia could similarly reconcile.
+    label_justification: The argument presents an analogy between Christian and Muslim
+      groups to support a conclusion. It falls within permissible comparative reasoning
+      and does not commit a recognizable formal fallacy such as a false dilemma, appeal
+      to authority, or hasty generalization within the scope provided.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you look at these terrible situation, it is important to keep in mind the
+      long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+      can move past
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+  counterargument:
+    decisive_counterargument: The fact that Catholics and Protestants have managed
+      to coexist does not prove that Sunni and Shia can follow the same path. The
+      Christian case is a single, highly specific example that differs greatly in
+      political, theological, and historical complexity from the Sunni‑Shia conflict.
+      Drawing a broad conclusion about Sunni‑Shia reconciliation from one Christian
+      instance is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: Sunni and Shia Muslims can peacefully coexist in a manner
+      analogous to how Catholic and Protestant groups have reconciled.
+    label_justification: The argument takes a few instances (Catholic–Protestant coexistence)
+      and extrapolates them to all inter‑religious conflicts, specifically the Sunni/Shia
+      case, without sufficient evidence that the same conditions apply. This is a
+      classic hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you look at these terrible situation, it is important to keep in mind the
+      long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+      can move past
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument takes a single example (Catholic–Protestant coexistence)
+    and generalizes it to the entire Sunni‑Shia conflict without sufficient evidence,
+    satisfying the sample‑to‑population structure.
+  decision_reason: The target comment generalizes from the peaceful coexistence of
+    Catholic and Protestant groups to the expectation that Sunni and Shia Muslims
+    can similarly reconcile, an inference that rests on an insufficiently representative
+    sample.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you look at these terrible situation, it is important to keep in mind the
+    long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+    can move past
+  - their differences. Remember, different Christian groups such as the Catholics
+    and Protestants have managed to peacefully coexist despite having a difficult
+    history with each other. Hopefully adopted a similar pathway
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4501
+  completion_tokens: 3675
+  total_tokens: 8176
+  wall_time_seconds: 228.78099999995902

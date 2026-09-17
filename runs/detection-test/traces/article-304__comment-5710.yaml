@@ -1,0 +1,150 @@
+sample:
+  id: 304:5710
+  article_id: 304
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: Most people know gay rights will not happen in Pakistan. That place is too
+    conservative. Eventually, maybe, but not now, as the socio-economic situation
+    improves, it might be more liberal .
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: Most people know gay rights will not happen in Pakistan
+    - role: target_claim
+      text: gay rights will not happen
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Gay rights will not occur in Pakistan now, but could happen
+      eventually if the socio-economic situation improves.
+    candidate: Hasty Generalization
+    supporting_reason: Pakistan is too conservative to allow gay rights now.
+    support_relation: Provides a causal justification for the conclusion
+    label_justification: The conclusion is drawn from a general claim that conservatism
+      alone prevents gay rights, without evidence or specific cases, making it a hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+  counterargument:
+    decisive_counterargument: The fact that Pakistan is currently perceived as conservative
+      doesn’t logically guarantee that gay rights will never materialise; civil‑rights
+      advances have historically occurred in contexts once deemed too conservative,
+      simply because social attitudes can change independently of a country’s general
+      conservatism. Assuming the outcome based solely on that single trait is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: Conservatism directly determines the absence of gay rights
+      in Pakistan.
+    label_justification: The objection shows that the argument relies on an over‑broad
+      inference—taking a single characteristic (conservatism) and concluding a specific
+      outcome (no gay rights). This illustrates a hasty generalization, since the
+      argument extrapolates a general societal trend to a definitive conclusion without
+      sufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The claim relies on a single population-based assertion, which
+      directly fulfills the mandatory structure of an Appeal to Majority, whereas
+      the Hasty Generalization claim lacks an explicit sample-to-general inference.
+      The target explicitly states “Most people know gay rights will not happen in
+      Pakistan,” matching the popularity-to-claim format required for an Appeal to
+      Majority.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target states: ''Most people know gay rights will not happen
+    in Pakistan.'' This is a classic use of an appeal to majority: arguing that because
+    most people hold a belief, the belief is true. The evidence T1 provides the exact
+    claim of majority opinion and its conclusion, satisfying the structural condition
+    for Appeal to Majority.'
+  decision_reason: Appeal to Majority is present because the argument uses a majority
+    opinion to affirm a claim about gay rights without other justification.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+    Eventually, maybe, but not now, as the socio-economic situation improves, it might
+    be more liberal
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5207
+  completion_tokens: 3492
+  total_tokens: 8699
+  wall_time_seconds: 151.96900000004098

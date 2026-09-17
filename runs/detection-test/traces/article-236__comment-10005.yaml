@@ -1,0 +1,132 @@
+sample:
+  id: 236:10005
+  article_id: 236
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: Most people in the world want positive action to combat climate change -
+    79% to be exact as surveys have shown. There is a cry for robust action on this
+    issue from the collective voice. Such an overwhelming consensus signifies the
+    magnitude and urgency we are facing. It's just too big and widespread to ignore
+    anymore. Because of this, we must act to ensure the future of the planet is a
+    good one for humanity. With so many united in this belief, doesn't this prove
+    that imminent action is a necessity for preserving the world for future generations?
+  target: I am one of those people who want to see immediate action on the issue of
+    climate change, it is a very serious problem that will effect the whole world.
+    That being said, I want this done because it is a real problem, not because so
+    many people are in agreement with me. Your argument seems to be mostly based on
+    the fact that most people are worried about climate change, that is probably true
+    but it shouldn't be such a focus. The focus should be on the core issue, the planet
+    is in trouble and we must help prevent any more damage. We must make people understand
+    that this is important and must be done quickly if we are to make a true difference.
+    Like those young people who protested around the world, they are seeing the problem
+    and trying to fix it. Can we work together and find a solution here to get more
+    action and less words?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - That being said, I want this done because it is a real problem, not because
+      so many people are in agreement with me. Your argument seems to be mostly based
+    - on the fact that most people are worried about climate change, that is probably
+      true but it shouldn't be such a focus. The focus should be on the core issue,
+    candidate: null
+  goal:
+    conclusion_or_goal: I want to see immediate action on the issue of climate change.
+    candidate: null
+    supporting_reason: The planet is in trouble and it is a real problem that requires
+      urgent action.
+    support_relation: mechanism_supports_goal
+    label_justification: The target statement does not employ an argument based on
+      an invalid or misleading premise; it directly states the goal and supporting
+      reason without any logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - I am one of those people who want to see immediate action on the issue of climate
+      change, it is a very serious problem that will effect the whole world.
+    - the planet is in trouble and we must help prevent any more damage. We must make
+      people understand that this is important and must be done quickly if we are
+  counterargument:
+    decisive_counterargument: The target’s argument wrongly dismisses the influence
+      of large public concern as irrelevant, yet large consensus is precisely what
+      can mobilize political and societal resources to address climate change—ignoring
+      it limits potential impact.
+    candidate: False Dilemma
+    challenged_inference: That focusing on the seriousness of the problem alone suffices
+      and the majority’s concern is irrelevant.
+    label_justification: 'The objection points to a false dilemma: the arguer presents
+      only two mutually exclusive options—either prioritize the severity of climate
+      change or rely on public consensus—while the truth is that both can coexist
+      and reinforce action.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - That being said, I want this done because it is a real problem, not because
+      so many people are in agreement with me. Your argument seems to be mostly based
+    - on the fact that most people are worried about climate change, that is probably
+      true but it shouldn't be such a focus. The focus should be on the core issue,
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not present a binary choice or mutually
+    exclusive alternatives; it merely dismisses reliance on public agreement as a
+    sole focus while asserting importance of the issue. Therefore, the structure required
+    for a false dilemma is absent, and the claim is not fallacious.
+  decision_reason: The target does not contain a false dilemma; it lacks the two-option
+    framing necessary for that fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - That being said, I want this done because it is a real problem, not because so
+    many people are in agreement with me. Your argument seems to be mostly based
+  - on the fact that most people are worried about climate change, that is probably
+    true but it shouldn't be such a focus. The focus should be on the core issue,
+  verified: false
+  rejection_reason: The target does not contain a false dilemma; it lacks the two-option
+    framing necessary for that fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5785
+  completion_tokens: 2594
+  total_tokens: 8379
+  wall_time_seconds: 263.23399999993853

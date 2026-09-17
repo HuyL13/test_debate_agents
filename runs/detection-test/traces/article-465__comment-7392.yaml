@@ -1,0 +1,155 @@
+sample:
+  id: 465:7392
+  article_id: 465
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: I wouldn’t be surprised if the suicide rates of women in those countries
+    was at an all time high too. It’s either live in fear or risk even more violence
+    if you try to get help. We need to be addressing the issue of violence against
+    women that was already there long before COVID.#Itstimeforachange
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: live in fear
+    - role: alternative_b
+      text: risk even more violence if you try to get help
+    - role: exhaustiveness_commitment
+      text: It’s either live in fear or risk even more violence if you try to get
+        help
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The speaker wishes to call attention to the need for addressing
+      violence against women, implying that increased fear and risk of further violence
+      may drive up women’s suicide rates in these countries.
+    candidate: null
+    supporting_reason: The target makes a speculative claim about suicide rates and
+      expounds that women either live in fear or risk greater violence when seeking
+      help, concluding that violence against women must be addressed. It does not
+      employ any of the specified fallacious strategies (false dilemma, hasty generalization,
+      slippery slope, appeal to authority, appeal to majority, appeal to nature, appeal
+      to tradition, appeal to worse problems). The reasoning is a causal suggestion
+      rather than a fallacious reasoning form.
+    support_relation: Plays a support role by linking the perceived threat of violence
+      to the urgency of addressing that violence, thereby substantiating the conclusion
+      without relying on any of the listed fallacies.
+    label_justification: The argument neither commits a formal fallacy nor misuses
+      the reasoning form. The evidence used is speculative and lacks supporting data,
+      but it does not fit any formal fallacy type provided. Therefore, the appropriate
+      decision is to return null for a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+    - if you try to get help. We need to be addressing the issue of violence against
+      women that was already there long before COVID.#Itstimeforachange
+  counterargument:
+    decisive_counterargument: No data or evidence is provided to support the claim
+      that women in those countries have suicide rates at an all‑time high; the argument
+      relies solely on speculation.
+    candidate: Hasty Generalization
+    challenged_inference: Women in those countries have suicide rates at an all‑time
+      high.
+    label_justification: The argument concludes a broad, population‑wide statement
+      about suicide rates solely from an unsupported assumption, meeting the definition
+      of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: Hasty Generalization does not satisfy its mandatory structural
+      condition because the claim about suicide rates is not derived from an explicit
+      sample or case; it is merely a speculative statement about a whole population,
+      thus it lacks the required ‘sample → generalization’ link.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The TARGET contains an explicit binary choice—“live in fear”
+    versus “risk even more violence if you try to get help”—presented as the only
+    alternatives, which matches the definition of a false dilemma, satisfying the
+    mandatory structural condition.
+  decision_reason: The statement provides two alternatives and claims exhaustion,
+    fulfilling the False Dilemma criteria. Evidence supporting this is in passage
+    T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I wouldn’t be surprised if the suicide rates of women in those countries was at
+    an all time high too. It’s either live in fear or risk even more violence
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5303
+  completion_tokens: 3994
+  total_tokens: 9297
+  wall_time_seconds: 169.38999999995576

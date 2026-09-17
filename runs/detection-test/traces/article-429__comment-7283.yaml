@@ -1,0 +1,124 @@
+sample:
+  id: 429:7283
+  article_id: 429
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: This is proof that if the people speak up, they can get things done! The
+    power of social media and the internet has made all this possible. If this were
+    20-30 years or so ago, most probably wouldn't have even known about the bill.
+    More like this needs to happen in other countries!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is proof that if the people speak up, they can get things done! The power
+      of social media and the internet has made all this possible. If this were
+    - 20-30 years or so ago, most probably wouldn't have even known about the bill.
+      More like this needs to happen in other countries!
+    candidate: null
+  goal:
+    conclusion_or_goal: People speaking up can get things done, especially thanks
+      to social media and the internet.
+    candidate: null
+    supporting_reason: The power of social media and the internet makes it possible
+      for people to become aware of a bill and mobilize, thereby influencing its outcome.
+    support_relation: reason supports goal
+    label_justification: The argument directly links the use of social media/internet
+      to successful public action, which is a reasonable causal claim without any
+      evident fallacy. The text does not present any argumentative error such as hasty
+      generalization, slippery slope, or false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is proof that if the people speak up, they can get things done! The power
+      of social media and the internet has made all this possible. If this were
+    - 20-30 years or so ago, most probably wouldn't have even known about the bill.
+      More like this needs to happen in other countries!
+  counterargument:
+    decisive_counterargument: The author uses one particular success story—people
+      using social media to influence a bill—to claim that speaking up *in general*
+      guarantees that people can get things done. Yet this single anecdote does not
+      establish a universal rule; in many other cases, public outcry or online campaigns
+      fail to achieve legislative or societal change. Therefore the inference that
+      public mobilization always works is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that speaking up guarantees action is based on
+      a single example; it generalizes from one case to all cases.
+    label_justification: The objection directly identifies that the argument leans
+      on a single instance to support a universal claim, which is the hallmark of
+      a Hasty Generalization. The critique shows the inference fails by overgeneralizing
+      from an isolated anecdote. This demonstrates a specific logical fallacy rather
+      than merely a weak argument, so the label is appropriate.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is proof that if the people speak up, they can get things done! The power
+      of social media and the internet has made all this possible. If this were
+    - 20-30 years or so ago, most probably wouldn't have even known about the bill.
+      More like this needs to happen in other countries!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument makes a universal claim that speaking up always
+    results in action, based on a single example of public mobilization influencing
+    a bill.
+  decision_reason: The text presents one specific instance (the influence of social
+    media on a bill) as conclusive proof that speaking up always works, thereby overgeneralizing
+    from an isolated case.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is proof that if the people speak up, they can get things done! The power
+    of social media and the internet has made all this possible. If this were
+  - 20-30 years or so ago, most probably wouldn't have even known about the bill.
+    More like this needs to happen in other countries!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4158
+  completion_tokens: 3277
+  total_tokens: 7435
+  wall_time_seconds: 156.625

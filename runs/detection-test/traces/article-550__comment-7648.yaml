@@ -1,0 +1,127 @@
+sample:
+  id: 550:7648
+  article_id: 550
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: It's only natural that countries will gravitate to processes that work for
+    them. If they find using renewable energy sources saves them money, that's what
+    they will use.  Running a nation, is a lot like running a company. The leaders
+    want to show something for their efforts.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's only natural that countries will gravitate to processes that work
+        for them.
+    - role: evaluative_conclusion
+      text: If they find using renewable energy sources saves them money, that's what
+        they will use.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's only natural that countries will gravitate to processes that work for them.
+      If they find using renewable energy sources saves them money, that's what they
+      will use.  Running a
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Countries will adopt renewable energy if it saves them money.
+    candidate: Appeal to Nature
+    supporting_reason: It’s only natural that countries will gravitate to processes
+      that work for them.
+    support_relation: The argument uses the natural tendency of countries to adopt
+      efficient practices as justification that they will choose renewable energy
+      when it is economical.
+    label_justification: The reasoning invokes naturalness (countries naturally gravitate
+      to work‑for‑them processes) to support the conclusion, constituting an Appeal
+      to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's only natural that countries will gravitate to processes that work for them.
+      If they find using renewable energy sources saves them money, that's what they
+      will use.  Running a
+  counterargument:
+    decisive_counterargument: The claim that countries will naturally choose renewable
+      energy iff it saves money treats naturalness as a normative justification. Just
+      because a behaviour ‘works’ or is common does not automatically render it desirable
+      or inevitable; economic, political, technological, and social constraints can
+      all alter decisions. The argument therefore relies on an appeal to nature—equating
+      what is natural with what should happen—without addressing those other factors.
+    candidate: Appeal to Nature
+    challenged_inference: the premise that it is natural for a country to gravitate
+      towards processes that work for it, together with the observation that if renewables
+      save money then they will be chosen
+    label_justification: The objection shows that the reasoning takes a descriptive
+      claim about natural behaviour and treats it as a justificatory premise, which
+      is precisely the core of an Appeal to Nature fallacy. It does not merely criticize
+      the argument; it points out the logical misstep of equating naturalness with
+      desirability or inevitability.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's only natural that countries will gravitate to processes that work for them.
+      If they find using renewable energy sources saves them money, that's what they
+      will use.  Running a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target explicitly states a naturalness premise (“It’s only
+    natural that countries will gravitate …”) and draws the conclusion that they will
+    adopt renewable energy if it saves them money, coordinating a naturalness claim
+    with a value‑bearing outcome, which matches the Appeal to Nature structure.
+  decision_reason: The target directly assigns the naturalness premise and the conclusion
+    about renewable adoption, fulfilling the required structure for an Appeal to Nature
+    fallacy. The logical inference relies on the naturalness claim as justification
+    for the outcome, which is precisely the fallacious pattern. The evidence passage
+    T1 contains the full naturalness claim and conclusion, establishing the fallacy.
+    No other fallacious structures are applicable, and the mandatory structural condition
+    is satisfied.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's only natural that countries will gravitate to processes that work for them.
+    If they find using renewable energy sources saves them money, that's what they
+    will use.  Running a
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4385
+  completion_tokens: 2938
+  total_tokens: 7323
+  wall_time_seconds: 143.57799999999406

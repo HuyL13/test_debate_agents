@@ -1,0 +1,130 @@
+sample:
+  id: 238:10010
+  article_id: 238
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: If a group of people take up a quarter of your population, you should take
+    their opinions seriously, even if you're not a Democracy. Upsetting so many people
+    will obviously lead to no good. The government has to do something to calm the
+    tensions between these two groups of people. Keep the peace.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: a group of people taking up a quarter of your population
+    - role: popularity_claim
+      text: take their opinions seriously
+    - role: target_claim
+      text: even if you're not a Democracy
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If a group of people take up a quarter of your population, you should take their
+      opinions seriously, even if you're not a Democracy. Upsetting so many people
+      will obviously
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: keep the peace
+    candidate: null
+    supporting_reason: If a group of people take up a quarter of your population,
+      you should take their opinions seriously, even if you're not a Democracy. Upsetting
+      so many people will obviously lead to no good. The government has to do something
+      to calm the tensions between these two groups of people.
+    support_relation: supports
+    label_justification: No fallacy is evident; the assertion about the group's size
+      and the expected negative consequence of upsetting many people merely serve
+      as a justification for the conclusion, not a false or erroneous line of reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If a group of people take up a quarter of your population, you should take their
+      opinions seriously, even if you're not a Democracy. Upsetting so many people
+      will obviously
+    - lead to no good. The government has to do something to calm the tensions between
+      these two groups of people. Keep the peace.
+  counterargument:
+    decisive_counterargument: The claim relies on the misleading idea that a group
+      making up a quarter of the population must be given special weight, simply because
+      it is large. The size of a demographic segment does not confer expertise, representativeness,
+      or moral authority. Without evidence that the group’s views are better informed
+      or more accurate, simply giving them greater consideration is unjustified. The
+      argument therefore commits the **Appeal to Majority** fallacy, assuming that
+      mere numerical strength is sufficient grounds for decision‑making.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that you should take the opinions of a group
+      that represents 25% of the population seriously, even if the state is not a
+      democracy, based solely on the fact of their numerical strength.
+    label_justification: This objection directly contests the inference that numerical
+      size justifies special consideration. It shows that the argument confuses majority
+      or large size with inherent validity of opinion, which is exactly the definition
+      of an Appeal to Majority fallacy. The counterargument does not merely criticize
+      style; it reveals the specific reasoning flaw the target statement contains.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If a group of people take up a quarter of your population, you should take their
+      opinions seriously, even if you're not a Democracy. Upsetting so many people
+      will obviously
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that a group making up a quarter of the population
+    deserves special consideration solely based on its numerical size, which is a
+    classical appeal to the large number of individuals as evidence of the group’s
+    weight or authority. This satisfies the structural requirement of an Appeal to
+    Majority fallacy (sample/group → broader claim).
+  decision_reason: The message treats the sizeable demographic group as inherently
+    authoritative just because of its numbers, which is precisely the definition of
+    an Appeal to Majority. The reasoning violates the necessary condition that numerical
+    size confers validity or moral authority, establishing the fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If a group of people take up a quarter of your population, you should take their
+    opinions seriously, even if you're not a Democracy. Upsetting so many people will
+    obviously
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4270
+  completion_tokens: 3841
+  total_tokens: 8111
+  wall_time_seconds: 160.23399999993853

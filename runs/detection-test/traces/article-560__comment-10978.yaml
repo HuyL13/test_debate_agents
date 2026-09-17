@@ -1,0 +1,129 @@
+sample:
+  id: 560:10978
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: Most people agree that abortion should be legal,  so I don't see why Argentina
+    has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+    what democracy is about.  In this case, the majority believe that abortion should
+    be legal.   This should be simple.  Give the people what they want,  give women
+    what they want.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people/the majority
+    - role: popularity_claim
+      text: agree that abortion should be legal
+    - role: target_claim
+      text: the law should permit abortion, following majority opinion
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Abortion should be legal in Argentina.
+    candidate: Appeal to Majority
+    supporting_reason: '[T1,T2]'
+    support_relation: The argument cites that most people agree abortion should be
+      legal and claims that the majority’s opinion should guide lawmakers, thereby
+      justifying the call for legal abortion.
+    label_justification: It relies on the majority’s preference as the sole justification
+      for policy change, which is the definition of an Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+  counterargument:
+    decisive_counterargument: Believing that a majority opinion should automatically
+      dictate law ignores the necessity of protecting minority rights and the principle
+      that legal decisions must be made through deliberation, not simply by popularity.
+      A democratic system requires that laws not only reflect majority preferences
+      but also safeguard constitutional protections and respect those who dissent.
+    candidate: Appeal to Majority
+    challenged_inference: The majority's opinion should be the guiding light for lawmakers.
+    label_justification: The objection undermines the appeal to majority by showing
+      that majority preference alone is an insufficient basis for legislation, revealing
+      a fallacious reliance on popularity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that “the majority’s voice should
+    be the guiding light for lawmakers” and claims that abortion should be legal because
+    most people agree, which meets the structural requirement of an Appeal to Majority
+    fallacy.
+  decision_reason: The argument hinges solely on the majority’s preference to justify
+    a legal policy, matching the definition of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most people agree that abortion should be legal,  so I don't see why Argentina
+    has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+    what democracy
+  - is about.  In this case, the majority believe that abortion should be legal.   This
+    should be simple.  Give the people what they want,  give women what they want.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4588
+  completion_tokens: 2573
+  total_tokens: 7161
+  wall_time_seconds: 115.04700000002049

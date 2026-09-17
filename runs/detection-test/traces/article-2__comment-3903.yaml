@@ -1,0 +1,122 @@
+sample:
+  id: 2:3903
+  article_id: 2
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: I don't think these protesters understand what's going on here. Either those
+    so-called extremists get the Muslims out of their country, or it will just become
+    a den of terrorists. Surely that's not what they want. It's not as if there are
+    any real alternatives. This isn't a situation with a middle ground.
+  target: Do you really thick that the 100's of millions of Muslims in the world are
+    all violent terrorists?  The actions of a few do not represent the values of the
+    vast majority.  Your perspective is incredibly ignorant.  You are clearly stereotyping
+    an entire religion based on the actions of extremists.  Terrorism is rarely simply
+    the result of one thing such as religion.  Even those who commit terrorist acts
+    in the name of religion are misguided individuals, and in some cases, religion
+    is used as a tool to groom or coerce these individuals to commit terrible acts.  In
+    fact, the same binary, black-or-white thinking that is used to coerce people into
+    castigating an entire religion is the exact same black-or-white logic that you
+    are using.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Do you really thick that the 100's of millions of Muslims in the world are all
+      violent terrorists?  The actions of a few do not represent the values of the
+    - vast majority.  Your perspective is incredibly ignorant.  You are clearly stereotyping
+      an entire religion based on the actions of extremists.  Terrorism is rarely
+      simply the result of one thing such
+    - as religion.  Even those who commit terrorist acts in the name of religion are
+      misguided individuals, and in some cases, religion is used as a tool to groom
+      or coerce
+    candidate: null
+  goal:
+    conclusion_or_goal: The target aims to refute the claim that all Muslims are violent
+      terrorists, arguing that the generalization is false and based on a stereotype.
+    candidate: null
+    supporting_reason: The actions of a few do not represent the values of the vast
+      majority.
+    support_relation: Miss information about the minority is used to counter the asserted
+      universal claim, directly undermining the parent's argument.
+    label_justification: The target does not commit a logical fallacy; it simply presents
+      a legitimate refutation employing examples that invalidate the generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Do you really thick that the 100's of millions of Muslims in the world are all
+      violent terrorists?  The actions of a few do not represent the values of the
+    - as religion.  Even those who commit terrorist acts in the name of religion are
+      misguided individuals, and in some cases, religion is used as a tool to groom
+      or coerce
+  counterargument:
+    decisive_counterargument: No credible evidence shows that the vast majority of
+      Muslims engage in terrorism; the majority of Muslims worldwide openly condemn
+      extremist acts and the proportion of people who commit terrorism is minuscule
+      relative to the Muslim population.
+    candidate: null
+    challenged_inference: The assertion that all or most Muslims are violent terrorists
+      and that extremist actions justify mass expulsion of Muslims.
+    label_justification: The target explicitly refutes the blanket claim about Muslims
+      by citing the minority of terrorist acts and highlighting diverse Muslim values,
+      thereby addressing the logical mistake of overgeneralization. No specific logical
+      fallacy in the target’s reasoning is evident.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you really thick that the 100's of millions of Muslims in the world are all
+      violent terrorists?  The actions of a few do not represent the values of the
+    - vast majority.  Your perspective is incredibly ignorant.  You are clearly stereotyping
+      an entire religion based on the actions of extremists.  Terrorism is rarely
+      simply the result of one thing such
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3779
+  completion_tokens: 2516
+  total_tokens: 6295
+  wall_time_seconds: 152.79700000000594

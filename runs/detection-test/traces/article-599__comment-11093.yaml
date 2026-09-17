@@ -1,0 +1,175 @@
+sample:
+  id: 599:11093
+  article_id: 599
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: It is good to see that an unsolved murder seems to be closer to being solved.
+    I am concerned with all the jubilation over someone being charged in this case.
+    Everyone seems to be acting as this person is guilty when it is just a charge.
+    It is very frightening when we are immediately assumed to be guilty on just an
+    accusation. What comes next after this? Will we just put people in jail for life
+    upon being accused? After that seems to be accepted, will we just execute them
+    before any trial? I understand people wanting justice but we must be careful when
+    throwing out systems that protect the innocent. I hope we will all think about
+    this and have discussion with others to make sure we don't lead ourselves down
+    this dark path.
+  target: I think it's more that they're celebrating the fact that someone so powerful
+    is actually being held accountable. Whether they're ultimately found to be guilty
+    or not is one thing, but the mere fact that they've been arrested is progress.
+    It reassures the public that the rich and powerful aren't above the law, and justice
+    reaches everyone.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it's more that they're celebrating the fact that someone so powerful
+      is actually being held accountable. Whether they're ultimately found to be guilty
+      or not is one thing,
+    - but the mere fact that they've been arrested is progress. It reassures the public
+      that the rich and powerful aren't above the law, and justice reaches everyone.
+    candidate: null
+  goal:
+    conclusion_or_goal: The ARGUMENT asserts that arresting a powerful person is progress
+      and reassures the public that the rich and powerful are not above the law.
+    candidate: Hasty Generalization
+    supporting_reason: Whether they're ultimately found to be guilty or not is one
+      thing, but the mere fact that they've been arrested is progress.
+    support_relation: mechanism_supports_goal
+    label_justification: The target’s reasoning simply asserts that the arrest itself
+      constitutes progress; there is no evidence of a fallacy being committed. The
+      claim is theoretically valid although it amounts to a simplistic view of legal
+      progress.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it's more that they're celebrating the fact that someone so powerful
+      is actually being held accountable. Whether they're ultimately found to be guilty
+      or not is one thing,
+    - but the mere fact that they've been arrested is progress. It reassures the public
+      that the rich and powerful aren't above the law, and justice reaches everyone.
+  counterargument:
+    decisive_counterargument: 'The target assumes that a single arrest of a powerful
+      figure automatically confirms that ‘justice reaches everyone,’ treating one
+      event as proof that all rich or powerful people are held accountable. This leaps
+      from a single case to a universal claim without any evidence that other cases
+      will follow suit or that the arrest itself guarantees fair outcomes. Thus the
+      argument is a hasty generalization: it over‑extends the significance of one
+      instance to an entire class of people and to the entire justice system.'
+    candidate: Slippery Slope
+    challenged_inference: It reassures public that rich and powerful are not above
+      the law, so justice must reach everyone
+    label_justification: The objection shows that the target’s reasoning relies on
+      an unjustified leap from one sample (the single arrest) to a blanket conclusion
+      about all powerful individuals, which is the hallmark of a hasty generalization.
+      The counterargument directly targets that inferential flaw.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it's more that they're celebrating the fact that someone so powerful
+      is actually being held accountable. Whether they're ultimately found to be guilty
+      or not is one thing,
+    - but the mere fact that they've been arrested is progress. It reassures the public
+      that the rich and powerful aren't above the law, and justice reaches everyone.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The target asserts that because one powerful individual has been
+      arrested, justice reaches everyone. This jumps from a single example to a blanket
+      claim about all rich and powerful people, which is exactly the pattern of a
+      hasty generalization. There is no implied chain of progressively worse consequences,
+      so it does not qualify as a slippery slope.
+    loser_failure: A slippery slope requires an initial action to lead to a series
+      of progressively adverse outcomes. The target merely states a positive result
+      of an arrest and does not predict further negative events, so the slippery slope
+      condition is unmet.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it's more that they're celebrating the fact that someone so powerful
+      is actually being held accountable. Whether they're ultimately found to be guilty
+      or not is one thing,
+    - but the mere fact that they've been arrested is progress. It reassures the public
+      that the rich and powerful aren't above the law, and justice reaches everyone.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a general conclusion that justice reaches everyone
+    and the rich and powerful are not above law based on a single instance—the arrest
+    of one powerful individual.
+  decision_reason: The target asserts that the arrest of this one powerful person
+    demonstrates that the law applies equally to all rich and powerful people, a general
+    claim made from only this single case, fitting the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think it's more that they're celebrating the fact that someone so powerful is
+    actually being held accountable. Whether they're ultimately found to be guilty
+    or not is one thing,
+  - but the mere fact that they've been arrested is progress. It reassures the public
+    that the rich and powerful aren't above the law, and justice reaches everyone.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6316
+  completion_tokens: 2458
+  total_tokens: 8774
+  wall_time_seconds: 122.03100000001723

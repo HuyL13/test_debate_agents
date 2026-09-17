@@ -1,0 +1,143 @@
+sample:
+  id: 554:8260
+  article_id: 554
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: Reading the facts of the article I always love when people use the law to
+    protest or overturn something that they think is wrong in government. I do find
+    it hasty to jump on the band wagon because the article doesn’t have enough information
+    on why the newly appointed Prime Minister is unfit. There is nothing said about
+    his education, experience or public approval ratings just the feeling that he
+    is unpopular among some of the people. If you look around the world nobody in
+    office holds a 100 percent approval rate.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Reading the facts of the article I always love when people use the law to protest
+      or overturn something that they think is wrong in government. I do find it
+    - hasty to jump on the band wagon because the article doesn’t have enough information
+      on why the newly appointed Prime Minister is unfit. There is nothing said about
+      his education,
+    - experience or public approval ratings just the feeling that he is unpopular
+      among some of the people. If you look around the world nobody in office holds
+      a 100 percent
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker believes it is hasty to jump on the bandwagon
+      because the article lacks sufficient information about the newly appointed Prime
+      Minister’s fitness.
+    candidate: null
+    supporting_reason: The article does not mention the Prime Minister’s education,
+      experience, or public approval ratings, only that he is unpopular among some
+      people.
+    support_relation: The lack of concrete evidence is used to justify the conclusion
+      that bandwagon support is hasty.
+    label_justification: The argument makes a straightforward inference from missing
+      information; it does not exhibit any of the specified fallacies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - hasty to jump on the band wagon because the article doesn’t have enough information
+      on why the newly appointed Prime Minister is unfit. There is nothing said about
+      his education,
+    - experience or public approval ratings just the feeling that he is unpopular
+      among some of the people. If you look around the world nobody in office holds
+      a 100 percent
+  counterargument:
+    decisive_counterargument: The lack of explicit facts in the article does not by
+      itself render the argument about the Prime Minister’s fitness hasty; a critique
+      can be justified by other indicators, norms, or implicit evidence. Therefore
+      the target’s claim that the criticism is premature solely because the article
+      omits education, experience, or approval data is an unfair dismissal of a potentially
+      valid argument.
+    candidate: Appeal to Authority
+    challenged_inference: The target asserts that citing a missing set of facts makes
+      the criticism untimely and hasty.
+    label_justification: The objection shows the target’s inference is based on an
+      appeal‑to‑authority fallacy—i.e., it assumes that a claim must be fully supported
+      by all conceivable evidence before it deserves consideration. This singling
+      out of complete data disproportionately undermines arguments and constitutes
+      a flawed appeal to ignorance.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - hasty to jump on the band wagon because the article doesn’t have enough information
+      on why the newly appointed Prime Minister is unfit. There is nothing said about
+      his education,
+    - experience or public approval ratings just the feeling that he is unpopular
+      among some of the people. If you look around the world nobody in office holds
+      a 100 percent
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement makes no reference to an authority, expert,
+    or source of authority to justify its claim, which is the mandatory structural
+    element of an Appeal to Authority fallacy. Consequently, the surviving candidate
+    cannot be supported.
+  decision_reason: The target does not contain an appeal to authority; it merely points
+    out a lack of evidence, so the fallacy is not present.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Reading the facts of the article I always love when people use the law to protest
+    or overturn something that they think is wrong in government. I do find it
+  - hasty to jump on the band wagon because the article doesn’t have enough information
+    on why the newly appointed Prime Minister is unfit. There is nothing said about
+    his education,
+  - experience or public approval ratings just the feeling that he is unpopular among
+    some of the people. If you look around the world nobody in office holds a 100
+    percent
+  verified: false
+  rejection_reason: The target does not contain an appeal to authority; it merely
+    points out a lack of evidence, so the fallacy is not present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4653
+  completion_tokens: 4477
+  total_tokens: 9130
+  wall_time_seconds: 342.75

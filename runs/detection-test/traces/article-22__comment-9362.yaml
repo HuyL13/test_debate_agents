@@ -1,0 +1,129 @@
+sample:
+  id: 22:9362
+  article_id: 22
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: It is obvious the environmental impacts were most important here. We cannot
+    argue that anything else is more important. Can anyone tell me anything that matters
+    more?
+  target: I'm sure for a lot of other people, the economic benefits would have been
+    more important. Just because they lost doesn't mean other things don't matter,
+    or that other people with other interests weren't truly right. We have to take
+    a balanced approach and consider everyone's positions.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: a lot of other people
+    - role: observed_property
+      text: the economic benefits would have been more important
+    - role: target_population
+      text: other people
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm sure for a lot of other people, the economic benefits would have been more
+      important. Just because they lost doesn't mean other things don't matter, or
+      that other people
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Take a balanced approach that considers everyone's positions.
+    candidate: null
+    supporting_reason: Many other people would have considered the economic benefits
+      more important.
+    support_relation: The reason is used to justify a balanced approach.
+    label_justification: No logical fallacy is present; the reasoning legitimately
+      supports the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm sure for a lot of other people, the economic benefits would have been more
+      important. Just because they lost doesn't mean other things don't matter, or
+      that other people
+    - with other interests weren't truly right. We have to take a balanced approach
+      and consider everyone's positions.
+  counterargument:
+    decisive_counterargument: The target assumes that if a significant number of other
+      people value economic benefits more than environmental impacts, then the environmental
+      impacts cannot be the most important consideration. This is an unsupported leap
+      from a broad, unspecified claim about other people's preferences to a conclusion
+      that objectively weighs environmental damage. The argument therefore equivocates
+      between *subjective* importance (someone’s preference) and *objective* importance
+      (the actual environmental harm), unjustifiably treating the former as evidence
+      that the latter is outweighed. The inference fails because an aggregate of individual
+      preferences—about which the target says nothing beyond “a lot of other people”—does
+      not logically establish that environmental impacts are not the most important
+      factor in this case.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that the environmental impacts cannot be the most
+      important because many other people might consider economic benefits more important.
+    label_justification: The objection shows that the target’s reasoning depends on
+      a generalized claim about a broad but unspecified group (“a lot of other people”)
+      to justify dismissing the environmental impact as paramount. This is a classic
+      hasty generalization—drawing a definitive conclusion about the relative importance
+      of environmental effects from an unsupported and undemonstrated sample of opinions.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm sure for a lot of other people, the economic benefits would have been more
+      important. Just because they lost doesn't mean other things don't matter, or
+      that other people
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not use a specific sample to generalize
+    to a broader group; it merely posits that many people might prioritize economic
+    benefits, which is not a hasty generalization.
+  decision_reason: The TARGET lacks the structural evidence of a hasty generalization
+    (no limited sample leading to a universal claim).
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I'm sure for a lot of other people, the economic benefits would have been more
+    important. Just because they lost doesn't mean other things don't matter, or that
+    other people
+  verified: false
+  rejection_reason: The TARGET lacks the structural evidence of a hasty generalization
+    (no limited sample leading to a universal claim).
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4051
+  completion_tokens: 3742
+  total_tokens: 7793
+  wall_time_seconds: 251.7970000000205

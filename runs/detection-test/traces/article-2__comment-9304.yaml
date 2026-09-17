@@ -1,0 +1,196 @@
+sample:
+  id: 2:9304
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: The root of the actual issue cannot be climate change. That is another subject
+    that should be discussed but it has nothing to due with the White Rose campaign
+    or the need for it in Myanmar. The root cause is more than likely due to ignorance
+    and religious intolerance by Buddhist extremist in the country.
+  target: Actually, I wouldn't be surprised if global climate change was really the
+    root cause. Yes, there's always been religious conflicts, but it is much more
+    common for groups to fight over shrinking resources, which can be a result of
+    global climate change. A well-run country with citizens who have easy access to
+    basic necessities isn't likely to have internal religious conflicts, but if global
+    climate change makes it more difficult to find water, food and other needs, conflicts
+    lurking under the surface will emerge. Yes, let's quell the current unrest, but
+    let's also focus on the bigger issue of climate change or these other problems
+    will recur.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: religious conflicts
+    - role: worse_issue
+      text: global climate change
+    - role: deprioritizing_conclusion
+      text: focus on climate change to prevent the recurrence of other problems
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+    - but let's also focus on the bigger issue of climate change or these other problems
+      will recur.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Climate change is a root cause of religious conflict in Myanmar,
+      and efforts should also focus on addressing climate change to prevent future
+      unrest.
+    candidate: null
+    supporting_reason: Global climate change can lead to resource scarcity (water,
+      food, etc.), which historically fuels intergroup conflicts.
+    support_relation: The reasoning about resource scarcity caused by climate change
+      is directly invoked to substantiate the claim that climate change is a root
+      cause of the unrest.
+    label_justification: The passage does not employ any identified logical fallacies
+      such as hasty generalization, slippery slope, false dilemma, appeal to authority,
+      majority, nature, tradition, or worse problems. It presents a causal claim based
+      on a general observation, which is allowed within the scope of a legitimate
+      argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - over shrinking resources, which can be a result of global climate change. A
+      well-run country with citizens who have easy access to basic necessities isn't
+      likely to have internal religious
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+    - but let's also focus on the bigger issue of climate change or these other problems
+      will recur.
+  counterargument:
+    decisive_counterargument: The argument leaps from a generic observation that resource
+      scarcity can fuel conflict to concluding that climate‑change‑driven scarcity
+      is the cause of Myanmar’s unrest, without any evidence that such scarcity exists
+      there or that climate change is driving it. Other social, political or economic
+      factors could be responsible, so the inference is unfounded.
+    candidate: Hasty Generalization
+    challenged_inference: Climate change is the root cause of Myanmar’s religious
+      conflict because it leads to resource scarcity, which in turn fuels conflict.
+    label_justification: The objection shows that the claim applies a broad causal
+      pattern (resource scarcity→conflict) to this specific situation without any
+      supporting evidence, a classic hasty‑generalization abuse.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: The target statement does not make a universal claim based on a
+      limited observation or sample; it merely proposes a possible cause. Therefore
+      it lacks the key premise of a hasty‑generalization, which requires an extension
+      of specific evidence to all instances. This failure of mandatory structure disqualifies
+      the hasty‑generalization label while the appeal‑to‑worse‑problem structure is
+      present in the target.
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - but let's also focus on the bigger issue of climate change or these other problems
+      will recur.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: 'The target text explicitly cites global climate change as a
+    larger problem and recommends focusing on it to prevent the recurrence of other
+    issues (religious conflicts). This matches the structural definition of an Appeal
+    to Worse Problems, where a more severe issue is invoked to divert attention or
+    resources away from the original problem. The evidence passages T1, T3, and T4
+    provide the necessary elements for the structure: (1) original issue – religious
+    conflicts; (2) worse issue – climate change; (3) conclusion – prioritize climate
+    change to address the original problem. Therefore, the claim meets the required
+    structure and represents the fallacy.'
+  decision_reason: Evidence supports that the argument shifts focus from religious
+    conflicts to climate change, a more serious issue, fitting the Appeal to Worse
+    Problems fallacy.
+  evidence_ids:
+  - T1
+  - T3
+  - T4
+  evidence_spans:
+  - Actually, I wouldn't be surprised if global climate change was really the root
+    cause. Yes, there's always been religious conflicts, but it is much more common
+    for groups to fight
+  - conflicts, but if global climate change makes it more difficult to find water,
+    food and other needs, conflicts lurking under the surface will emerge. Yes, let's
+    quell the current unrest,
+  - but let's also focus on the bigger issue of climate change or these other problems
+    will recur.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6636
+  completion_tokens: 5405
+  total_tokens: 12041
+  wall_time_seconds: 250.7960000000021

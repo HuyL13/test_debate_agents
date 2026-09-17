@@ -1,0 +1,147 @@
+sample:
+  id: 599:7793
+  article_id: 599
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is a great step in the right direction. Imagine how bad it could get
+    if nothing ever came of these killings and these corrupt figures just found out
+    they could get away with this kind of behavior. What eventually comes is practically
+    a mafia state. Corruption and violence at every level.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: nothing ever came of these killings and these corrupt figures found out
+        they could get away with this kind of behavior
+    - role: intermediate_consequence
+      text: corrupt figures begin to believe they can continue their misconduct without
+        consequence
+    - role: final_consequence
+      text: the situation devolves into a mafia state with corruption and violence
+        at every level
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: 'The speaker claims that the killings are a beneficial action
+      that moves society in the right direction and will deter future corruption.
+
+      '
+    candidate: Slippery Slope
+    supporting_reason: 'The argument contends that if the killings are ignored, the
+      resulting lack of accountability will evolve into widespread corruption and
+      a mafia‑state‑like environment, implying a rapid, escalating series of negative
+      outcomes.
+
+      '
+    support_relation: supports
+    label_justification: 'The claim presents a single preventive action (the killings)
+      as leading, via a brief causal chain, to a dramatically worse condition (mafia
+      state with corruption at every level), which is a textbook illustration of a
+      slippery‑slope fallacy.
+
+      '
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+  counterargument:
+    decisive_counterargument: 'The target’s claim that “nothing ever came of these
+      killings … will eventually become a mafia state” relies on an unjustified leap:
+      it presumes that the absence of punishment automatically leads to widespread
+      institutional collapse. This is an *unfounded escalation* from a single event
+      (the killings) to a drastic societal end‑state (a mafia state) without evidencing
+      that intermediate steps—such as effective legal reforms, strengthened law enforcement,
+      or public pressure—cannot intervene. Because the argument treats a single failure
+      as a guaranteed progression to extreme corruption, it presents a classic Slippery
+      Slope error, overstating the causal chain without justification.'
+    candidate: Slippery Slope
+    challenged_inference: If nothing ever comes of these killings, then a mafia state
+      will eventually form, leading to corruption and violence at every level.
+    label_justification: The objection directly targets the unjustified claim that
+      a lack of justice inevitably causes societal collapse, an assumption that constitutes
+      a Slippery Slope fallacy. There is no evidence that the steps described in the
+      claim are inevitable, thus the fallacy is appropriately labeled.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target asserts that if the killings go unpunished, corrupt
+    figures will believe they can act without consequence, leading inevitably to a
+    mafia‑state with widespread corruption and violence, fulfilling the required causal
+    chain and escalation characteristic of a slippery‑slope fallacy.
+  decision_reason: The target expresses an unsubstantiated chain of consequences from
+    a single event (killings) to a catastrophic end state (mafia state), matching
+    the slippery‑slope structure. Evidence ids T1 and T2 support this claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is a great step in the right direction. Imagine how bad it could get if nothing
+    ever came of these killings and these corrupt figures just found out they
+  - could get away with this kind of behavior. What eventually comes is practically
+    a mafia state. Corruption and violence at every level.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4592
+  completion_tokens: 2209
+  total_tokens: 6801
+  wall_time_seconds: 63.46900000004098

@@ -1,0 +1,152 @@
+sample:
+  id: 367:7098
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: It wasn't really a good idea to call off the march because of the violent
+    protesters.  Allowing intimidation to dictate whether others can show their disapproval
+    of suppression of human rights, sets a dangerous precedent. Imagine if violent
+    protestors decided men should no longer be allowed to drive because statistics
+    show they are responsible for most accidents. Those that disapprove of such a
+    restriction, would not be able to protest against it which may signal to officials
+    most citizens approve of it.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: violent protesters intimidating to dictate the outcome of the march
+    - role: intermediate_consequence
+      text: violent protestors deciding men should no longer be allowed to drive
+    - role: final_consequence
+      text: citizens who disapprove cannot protest, leading officials to believe most
+        citizens approve
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Calling off the march because of violent protesters was not
+      a good idea.
+    candidate: Slippery Slope
+    supporting_reason: Allowing intimidation to dictate whether others can show their
+      disapproval of suppression of human rights sets a dangerous precedent.
+    support_relation: The reason is used to illustrate how permitting violent protest
+      to influence policy could lead to further restrictive measures, implying an
+      escalating negative consequence.
+    label_justification: The argument presents a chain from violent protest to policy
+      restriction, suggesting a slippery-slope scenario.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+  counterargument:
+    decisive_counterargument: The argument jumps from the idea that violent protest
+      might lead to cancelling a march to the claim that this will inevitably trigger
+      a broad government restriction (such as banning men from driving). No evidence
+      is offered that violent protestors actually hold or will exert such policy‑shaping
+      power, nor that such extreme outcomes are likely; the link between the two events
+      is purely speculative.
+    candidate: Slippery Slope
+    challenged_inference: Stopping the march because of violent protesters will set
+      a dangerous precedent that leads to serious societal restrictions.
+    label_justification: The reasoning presents an unsubstantiated chain from a single
+      event to a series of increasingly adverse outcomes, which is the hallmark of
+      a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains a clear progression from the initial event
+    of violent protest to increasingly restrictive consequences (e.g., banning men
+    from driving, suppressing dissent), fitting the slippery‑slope structural form.
+  decision_reason: The claim that allowing intimidation to dictate protest outcomes
+    could lead to a chain of escalating restrictions satisfies the structural requirement
+    of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+    intimidation to dictate whether others can show their disapproval of suppression
+    of human
+  - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+    should no longer be allowed to drive because statistics show they are responsible
+    for most accidents. Those that disapprove
+  - of such a restriction, would not be able to protest against it which may signal
+    to officials most citizens approve of it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4954
+  completion_tokens: 4030
+  total_tokens: 8984
+  wall_time_seconds: 183.78099999999904

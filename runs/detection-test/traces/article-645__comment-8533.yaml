@@ -1,0 +1,129 @@
+sample:
+  id: 645:8533
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: So true! It is hard to believe that this censorship that Facebook is doing
+    is still happening.  What happens next? Do they censor all political names so
+    when anyone talks about any figure they get censored? This is going to lead to
+    mass hysteria when no one can get any truthful information. Chaos will reign!
+    Everyone being blindsided by what is and isn't true, the government wants to confuse
+    people to have total control over them. Let's not let this happen! We have to
+    fight this!
+  target: Totally agree. If it happened here, it is undoubtedly happening everywhere
+    across the world. Maybe Facebook should do away with any form of moderation or
+    censorship. We should of course consider the consequences, but in this case the
+    pros may outweigh the cons.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: here
+    - role: observed_property
+      text: it happened here
+    - role: target_population
+      text: everywhere across the world
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Facebook should do away with any form of moderation or censorship.
+    candidate: Hasty Generalization
+    supporting_reason: If it happened here, it is undoubtedly happening everywhere
+      across the world.
+    support_relation: The speaker uses the claim that a local instance of censorship
+      implies a universal problem to justify removing all moderation.
+    label_justification: The argument generalizes from a single observed case to a
+      blanket statement about the whole world, which is the hallmark of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+  counterargument:
+    decisive_counterargument: The claim that 'If it happened here, it is undoubtedly
+      happening everywhere across the world' leaps from a single instance (censorship
+      on Facebook in one region) to a universal conclusion without evidence that the
+      same conditions exist everywhere. No data or broader observations are provided
+      to support the sweeping assertion that Facebook’s moderation practices are consistently
+      applied worldwide and that this leads to mass hysteria. Therefore, the inference
+      that censorship globally is inevitable based solely on the local observation
+      is logically tenuous and unsubstantiated.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that censorship observed in one instance implies
+      the same level of censorship worldwide and that it will lead to mass hysteria
+      everywhere.
+    label_justification: The counterargument highlights that the target’s conclusion
+      rests on a single anecdotal observation (censorship at Facebook in the local
+      context) and extrapolates it to all of the world without supporting evidence.
+      This is a classic case of a hasty generalization, where a specific case is incorrectly
+      used to justify a broad, universal claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target contains a statement that generalizes from a single
+    instance – “If it happened here” – to a universal claim that it is happening everywhere
+    “across the world,” which meets the structural criterion of a hasty generalization.
+  decision_reason: The target explicitly states that a local observation of Facebook
+    censorship implies worldwide censorship, with no supporting broader evidence.
+    This constitutes a classic hasty generalization, violating the requirement for
+    sufficient evidence when extending a conclusion from a sample to a population.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+    the world. Maybe Facebook should do away with any form of moderation or censorship.
+    We should of course
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4750
+  completion_tokens: 3273
+  total_tokens: 8023
+  wall_time_seconds: 222.54699999999866

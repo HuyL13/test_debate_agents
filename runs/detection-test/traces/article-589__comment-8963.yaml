@@ -1,0 +1,139 @@
+sample:
+  id: 589:8963
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: If people in the LGBTQ community are not protected then what is next? You
+    cannot discriminate against one group of people and not expect that discrimination
+    to one day be directed at you for something. People need to get out of others
+    private lives and focus on real world problems like war and climate change.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If people in the LGBTQ community are not protected
+    - role: intermediate_consequence
+      text: you cannot discriminate against one group of people and not expect that
+        discrimination
+    - role: final_consequence
+      text: to be directed at you
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If people in the LGBTQ community are not protected then what is next? You cannot
+      discriminate against one group of people and not expect that discrimination
+      to one day be
+    - directed at you for something. People need to get out of others private lives
+      and focus on real world problems like war and climate change.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Discriminating against LGBTQ people is wrong and people should
+      focus on real‑world problems rather than on the private lives of others.
+    candidate: null
+    supporting_reason: You cannot discriminate against one group and not expect that
+      discrimination to one day be directed at you for something.
+    support_relation: supports
+    label_justification: The provided argument uses a deterrence premise to justify
+      the conclusion that discrimination against LGBTQ people is undesirable; it does
+      not violate any of the defined fallacy templates (no sixth‑slope progression,
+      no invalid appeals to authority, majority, nature, tradition, or worse problems).
+      The reasoning is legitimate albeit possibly weak, so no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If people in the LGBTQ community are not protected then what is next? You cannot
+      discriminate against one group of people and not expect that discrimination
+      to one day be
+    - directed at you for something. People need to get out of others private lives
+      and focus on real world problems like war and climate change.
+  counterargument:
+    decisive_counterargument: The argument assumes that because LGBTQ people are not
+      protected, a generalized pattern of discrimination will inevitably follow, but
+      it provides no evidence of how the loss of protection for one group would trigger
+      discrimination against other groups. The leap from a single legal safeguard
+      to a sweeping social backlash is unsupported; it merely posits a potential,
+      not a guaranteed, escalation.
+    candidate: Slippery Slope
+    challenged_inference: The inference that lack of protection for LGBTQ individuals
+      necessarily leads to a broader wave of discrimination against other groups is
+      unsupported; no causal link is established.
+    label_justification: This omission of a causal chain for the projected escalation
+      illustrates a classic slippery‑slope fallacy, where a single change is presented
+      as a prelude to an adverse cascade. The counterargument directly challenges
+      the core claim that the absence of specific protections will inevitably result
+      in further discrimination, thereby exposing the fallacy’s lack of evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If people in the LGBTQ community are not protected then what is next? You cannot
+      discriminate against one group of people and not expect that discrimination
+      to one day be
+    - directed at you for something. People need to get out of others private lives
+      and focus on real world problems like war and climate change.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target outlines a causal sequence—lack of protection for
+    LGBTQ individuals leads to increased discrimination that will ultimately target
+    the speaker—without providing evidence for such escalation, satisfying the structural
+    pattern of a slippery‑slope fallacy.
+  decision_reason: The passage sets up a progression from an initial change (LGBTQ
+    not protected) to a final adverse outcome (discrimination directed at the speaker),
+    lacking an established causal link, which meets the definition of a slippery‑slope
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If people in the LGBTQ community are not protected then what is next? You cannot
+    discriminate against one group of people and not expect that discrimination to
+    one day be
+  - directed at you for something. People need to get out of others private lives
+    and focus on real world problems like war and climate change.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4295
+  completion_tokens: 3778
+  total_tokens: 8073
+  wall_time_seconds: 179.03199999999924

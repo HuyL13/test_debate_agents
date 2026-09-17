@@ -1,0 +1,138 @@
+sample:
+  id: 20:3956
+  article_id: 20
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: We can't form an opinion of one country based on the opinions of a few citizens.
+    If we do this we can make huge errors in judgement, leading to further problems.
+    What if we make trade or economic decisions that are miscalculated? This could
+    lead to mistrust or even war. Global trade or the global economy could collapse.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: forming an opinion of a country based on the opinions of a few citizens
+    - role: intermediate_consequence
+      text: huge errors in judgement leading to miscalculated trade decisions
+    - role: final_consequence
+      text: global trade or the global economy could collapse
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We should not form an opinion of a country based on the opinions
+      of a few citizens.
+    candidate: Slippery Slope
+    supporting_reason: It asserts that doing so will inevitably lead to huge errors
+      in judgment, miscalculated trade or economic decisions, mistrust or even war,
+      and ultimately the collapse of global trade or the global economy.
+    support_relation: The reason serves to justify the conclusion by implying the
+      negative outcomes that would result from forming such an opinion.
+    label_justification: 'The argument sketches a single action—forming an opinion
+      from a small sample—that escalates directly (without intermediate steps) to
+      increasingly serious consequences (miscalculated decisions → mistrust or war
+      → collapse of global trade). This is the classic pattern of a slippery‑slope
+      argument: an initial step is presented as the unavoidable trigger for a chain
+      of adverse outcomes.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+  counterargument:
+    decisive_counterargument: Even if a few misguided opinions influence trade policy,
+      this does not inevitably trigger mistrust, war, or a global economic collapse.
+      The link between a single miscalculation and the entire global system falling
+      apart lacks evidence and ignores standard risk‑management, diplomatic redress,
+      and market checks that normally prevent such catastrophic outcomes.
+    candidate: Slippery Slope
+    challenged_inference: Making trade decisions based on a few opinions will inevitably
+      lead to mistrust, war, and global economic collapse.
+    label_justification: The argument presents a rapid progression from a single mistake
+      to a series of severe, unrelated outcomes (trade miscalculations → mistrust
+      → war → collapse) without supporting evidence that each step will occur. This
+      is the textbook form of a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The TARGET explicitly states that forming an opinion of a country
+    based on the opinions of a few citizens would inevitably lead to huge errors in
+    judgment, miscalculated trade decisions, mistrust or war, and ultimately the collapse
+    of global trade or the global economy—an unsubstantiated, escalating chain of
+    negative outcomes fitting the slippery‑slope structure.
+  decision_reason: The target presents a single action (forming an opinion from a
+    small sample) that is claimed to inevitably trigger a series of increasingly severe
+    consequences (miscalc. trade ➜ mistrust/war ➜ global collapse) without evidentiary
+    support, satisfying the definition of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We can't form an opinion of one country based on the opinions of a few citizens.
+    If we do this we can make huge errors in judgement, leading to further
+  - problems. What if we make trade or economic decisions that are miscalculated?
+    This could lead to mistrust or even war. Global trade or the global economy could
+    collapse.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4635
+  completion_tokens: 3189
+  total_tokens: 7824
+  wall_time_seconds: 169.98399999999674

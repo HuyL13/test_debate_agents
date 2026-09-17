@@ -1,0 +1,148 @@
+sample:
+  id: 174:4719
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: Having religious and free speech is natural need of people all over the
+    world. We need to stop government censorship. Government censorship is never a
+    good thing, it leads to discontent in many other areas as well.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Having religious and free speech is natural need of people all over the
+        world.
+    - role: evaluative_conclusion
+      text: Government censorship is never a good thing, it leads to discontent in
+        many other areas as well.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: we need to stop government censorship
+    candidate: Hasty Generalization
+    supporting_reason: Government censorship is never a good thing, it leads to discontent
+      in many other areas as well
+    support_relation: supports
+    label_justification: The reason generalizes the negative effects of all government
+      censorship to the universal claim that it is never good, without sufficient
+      evidence, constituting a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+    - discontent in many other areas as well.
+  counterargument:
+    decisive_counterargument: The claim that governmental censorship is never beneficial
+      ignores many well‑documented cases where limiting speech—such as banning extremist
+      propaganda, preventing defamation, or curbing the spread of medical misinformation—protects
+      society and the public good.
+    candidate: Hasty Generalization
+    challenged_inference: Government censorship is never a good thing
+    label_justification: The argument asserts a universal negative outcome from all
+      censorship based on no evidence and ignores contrary instances. This over‑generalization
+      from an incomplete set of observations fits the pattern of a hasty generalization
+      rather than merely a stylistic critique.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: The argument fails to satisfy the structural conditions of a Hasty
+      Generalization because it does not provide any specific sample, case, or evidence
+      that is then generalized to a universal claim. The text states a blanket negative
+      about all government censorship without mentioning or demonstrating particular
+      instances from which to extrapolate, whereas an appeal to nature immediately
+      follows the structure of a naturalness premise (
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target expresses a naturalness premise—‘Having religious
+    and free speech is a natural need’—and directly concludes that government censorship
+    is bad, which matches the structure of an Appeal to Nature argument.
+  decision_reason: Appeal to Nature is present because the argument ties the naturalness
+    of religion/free speech to the disapproval of censorship, satisfying the required
+    structure.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Having religious and free speech is natural need of people all over the world.
+    We need to stop government censorship. Government censorship is never a good thing,
+    it leads to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5245
+  completion_tokens: 4345
+  total_tokens: 9590
+  wall_time_seconds: 175.17199999999139

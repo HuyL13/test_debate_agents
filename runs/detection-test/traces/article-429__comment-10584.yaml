@@ -1,0 +1,146 @@
+sample:
+  id: 429:10584
+  article_id: 429
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: I'm relieved there was significant pushback on this proposed legislation.
+    It's not unreasonable to predict that if the law had passed without controversy,
+    other countries will be inspired to enact similar legislation in order to suppress
+    dissident voices. Then what? A world where free expression is limited in the name
+    of stopping fake news? Let's keep pushing for freedom of speech.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: if the law had passed without controversy
+    - role: intermediate_consequence
+      text: other countries will be inspired to enact similar legislation in order
+        to suppress dissident voices
+    - role: final_consequence
+      text: a world where free expression is limited in the name of stopping fake
+        news
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Continue advocating for freedom of speech (keep pushing for
+      freedom of speech).
+    candidate: Slippery Slope
+    supporting_reason: If the proposed legislation had passed without controversy,
+      other countries would be inspired to enact similar laws suppressing dissident
+      voices, ultimately limiting free expression worldwide.
+    support_relation: The speculative prediction is employed to rationalize the conclusion
+      that ongoing advocacy for free speech is necessary.
+    label_justification: The argument links the initial legislative action to a chain
+      of increasingly severe outcomes (other nations copying the law, suppression
+      of dissent, global restriction of free speech) without sufficient evidence,
+      thereby presenting an exaggerated, non‑substantial causal progression typical
+      of the slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+  counterargument:
+    decisive_counterargument: The argument assumes that the mere existence of a single
+      law will automatically trigger a worldwide domino effect of similar laws, ultimately
+      eroding free expression everywhere. This leap overlooks countless political,
+      cultural, economic, and legal factors that govern a country’s legislative agenda
+      and has no empirical support. Each nation’s policies are shaped by its unique
+      context, and the idea of a universal descend into censorship is an unsubstantiated
+      claim.
+    candidate: Slippery Slope
+    challenged_inference: The claim that if this law had passed, other countries would
+      enact similar legislation, leading to a universal restriction of free expression.
+    label_justification: 'This is a classic slippery‑slope argument: the speaker presents
+      a single event (the passage of the law) and claims, without evidence or intermediate
+      steps, that it will inevitably lead to a cascade of further restrictive measures
+      worldwide. The fallacy lies in the unsupported escalation from one policy to
+      a global outcome.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a clear progression from an initial event
+    (the law passing) through intermediate steps (other countries adopting similar
+    suppression laws) to a final adverse outcome (global restriction of free expression),
+    satisfying the structural requirement of a slippery‑slope argument and lacking
+    supporting evidence for the chain.
+  decision_reason: The target contains a speculative chain of escalating consequences
+    that is structurally characteristic of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I'm relieved there was significant pushback on this proposed legislation. It's
+    not unreasonable to predict that if the law had passed without controversy, other
+    countries will be inspired to enact
+  - similar legislation in order to suppress dissident voices. Then what? A world
+    where free expression is limited in the name of stopping fake news? Let's keep
+    pushing for freedom of
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4765
+  completion_tokens: 3194
+  total_tokens: 7959
+  wall_time_seconds: 274.0

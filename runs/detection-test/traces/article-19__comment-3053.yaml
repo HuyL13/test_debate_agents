@@ -1,0 +1,150 @@
+sample:
+  id: 19:3053
+  article_id: 19
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: ''
+  target: It seems like the prime minister of Papua New Guinea no longer wants to
+    discuss issues plaguing his country with the press. Couldn't this just hinder
+    the public from knowing what's happening in the political arena? Why must they
+    add all these new Hoops for journalists to go through in order to contact them?
+    I'm all for government transparency. Unless your president is tweeting at 3:00
+    in the morning. But this seems to be an extreme example of the opposite.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It seems like the prime minister of Papua New Guinea no longer wants to discuss
+      issues plaguing his country with the press. Couldn't this just hinder the public
+      from knowing
+    - what's happening in the political arena? Why must they add all these new Hoops
+      for journalists to go through in order to contact them? I'm all for government
+      transparency. Unless
+    - your president is tweeting at 3:00 in the morning. But this seems to be an extreme
+      example of the opposite.
+    candidate: null
+  goal:
+    conclusion_or_goal: The new media hoops implemented by the Papua New Guinea government
+      hinder public transparency and prevent the public from knowing what is happening
+      in the political arena.
+    candidate: null
+    supporting_reason: Because the prime minister appears to have withdrawn from press
+      engagement and the government has added new hoops for journalists, this is likely
+      to limit information flow.
+    support_relation: central premise
+    label_justification: The TARGET comment does not present a fallacious argument;
+      it merely states a concern about potential reduced transparency. No logical
+      fallacy is evident in the formulation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It seems like the prime minister of Papua New Guinea no longer wants to discuss
+      issues plaguing his country with the press. Couldn't this just hinder the public
+      from knowing
+    - what's happening in the political arena? Why must they add all these new Hoops
+      for journalists to go through in order to contact them? I'm all for government
+      transparency. Unless
+    - your president is tweeting at 3:00 in the morning. But this seems to be an extreme
+      example of the opposite.
+  counterargument:
+    decisive_counterargument: The claim that adding new “hoops” for journalists will
+      necessarily hinder the public’s knowledge of political events is unsupported
+      and overgeneralizes from a single observation of the prime minister’s behavior.
+      Without evidence indicating that these hoops actually reduce press coverage
+      or public awareness, the argument simply assumes a negative outcome a priori,
+      treating one change as proof that it will inevitably undermine transparency.
+    candidate: Hasty Generalization
+    challenged_inference: The target asserts that because the prime minister presently
+      may be avoiding press contact and new procedural hurdles are introduced, this
+      will unavoidably hinder public access to information, generalizing a specific
+      situation to a universal effect on all journalism activity.
+    label_justification: The objection demonstrates that the reasoning conflates a
+      single instance (the prime minister’s apparent reluctance and the introduction
+      of new procedures) with an inevitable systemic consequence for all journalists,
+      fitting the definition of a hasty generalization. By pointing out the absence
+      of evidence for the alleged widespread impact, the counterargument directly
+      exposes this logical shortcut.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It seems like the prime minister of Papua New Guinea no longer wants to discuss
+      issues plaguing his country with the press. Couldn't this just hinder the public
+      from knowing
+    - what's happening in the political arena? Why must they add all these new Hoops
+      for journalists to go through in order to contact them? I'm all for government
+      transparency. Unless
+    - your president is tweeting at 3:00 in the morning. But this seems to be an extreme
+      example of the opposite.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target assumes that the prime minister’s reluctance to speak
+    with the press and the introduction of new “hoops” for journalists necessarily
+    hinder public access to information, extrapolating from a single observation to
+    a universal impact on all journalism activity.
+  decision_reason: The inference is based on one specific instance (the prime minister’s
+    behavior) and projects that it will inevitably undermine transparency for everyone,
+    without evidence of a broader effect—meeting the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It seems like the prime minister of Papua New Guinea no longer wants to discuss
+    issues plaguing his country with the press. Couldn't this just hinder the public
+    from knowing
+  - what's happening in the political arena? Why must they add all these new Hoops
+    for journalists to go through in order to contact them? I'm all for government
+    transparency. Unless
+  - your president is tweeting at 3:00 in the morning. But this seems to be an extreme
+    example of the opposite.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4539
+  completion_tokens: 3333
+  total_tokens: 7872
+  wall_time_seconds: 69.35899999999674

@@ -1,0 +1,131 @@
+sample:
+  id: 287:5657
+  article_id: 287
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: This article seems wildly biased, to the point of revulsion. I mean, they
+    describe this man as having never gotten a degree and leave it at that, like he's
+    a lesser person with no place in his position. How about pointing out that he
+    dropped out of college to lead some successful businesses? Or that he spent years
+    in successful years as a mayor, in two different municipalities?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This article seems wildly biased, to the point of revulsion. I mean, they describe
+      this man as having never gotten a degree and leave it at that, like he's a
+    - lesser person with no place in his position. How about pointing out that he
+      dropped out of college to lead some successful businesses? Or that he spent
+      years in successful
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker argues that the article is biased in portraying
+      the subject negatively because it omitted positive information about his achievements.
+    candidate: Hasty Generalization
+    supporting_reason: The omission of facts about the subject’s successful businesses
+      and mayoral service is presented as evidence that the article is biased.
+    support_relation: The omitted facts are used to support the conclusion that the
+      article is biased.
+    label_justification: The argument selectively cites omitted facts to establish
+      bias, which is an example of a hasty generalization fallacy—drawing a conclusion
+      about the entire article from a limited missing piece of information.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This article seems wildly biased, to the point of revulsion. I mean, they describe
+      this man as having never gotten a degree and leave it at that, like he's a
+    - lesser person with no place in his position. How about pointing out that he
+      dropped out of college to lead some successful businesses? Or that he spent
+      years in successful
+    - years as a mayor, in two different municipalities?
+  counterargument:
+    decisive_counterargument: The claim that the article is wildly biased is premature
+      – it relies on a single observation (the mention of a missing degree) and immediately
+      dismisses the piece without supporting evidence that it constitutes systematic
+      bias.  The target’s reasoning jumps from focusing on one fact to asserting the
+      entire article is biased, a classic hasty generalization.  A single omission,
+      or a particular emphasis, does not prove bias unless it is shown that the article
+      systematically misrepresents the subject or purposely slants the narrative.
+    candidate: Hasty Generalization
+    challenged_inference: This article is wildly biased, solely because it mentions
+      that the subject never obtained a degree.
+    label_justification: 'The objection pinpoints that the target’s reasoning infers
+      a global claim (the article is biased) from an isolated case (mention of a degree).  This
+      is the hallmark of a hasty generalization: drawing a conclusion about the whole
+      based on a single aspect.)'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This article seems wildly biased, to the point of revulsion. I mean, they describe
+      this man as having never gotten a degree and leave it at that, like he's a
+    - lesser person with no place in his position. How about pointing out that he
+      dropped out of college to lead some successful businesses? Or that he spent
+      years in successful
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a conclusion that the entire article is wildly
+    biased solely from the observation that it mentions the subject’s lack of a degree
+    and omits positive information, thus generalizing a single instance to the whole
+    article.
+  decision_reason: The argument uses one specific omission (no degree) as the basis
+    for claiming systematic bias, meeting the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This article seems wildly biased, to the point of revulsion. I mean, they describe
+    this man as having never gotten a degree and leave it at that, like he's a
+  - lesser person with no place in his position. How about pointing out that he dropped
+    out of college to lead some successful businesses? Or that he spent years in successful
+  - years as a mayor, in two different municipalities?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4620
+  completion_tokens: 2495
+  total_tokens: 7115
+  wall_time_seconds: 194.67200000000594

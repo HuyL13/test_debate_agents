@@ -1,0 +1,133 @@
+sample:
+  id: 236:4906
+  article_id: 236
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: I feel that there is a need for climate protests yes but not everyone can
+    be on board with it or on the time table that the protestors want. The picture
+    is bigger than the issues they have made the centerpiece of their argument. That
+    being said, most people do not have the time or ability to protest for changes
+    no matter how much they want it or agree with it. In fact, most people believe
+    that climate change is real and happening. The masses want change without a doubt
+    and there are individuals fighting for climate change but support for the cause
+    is limited because people have real lives they are trying to lead, no matter how
+    much they believe in the issue.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I feel that there is a need for climate protests yes but not everyone can be
+      on board with it or on the time table that the protestors want. The
+    - picture is bigger than the issues they have made the centerpiece of their argument.
+      That being said, most people do not have the time or ability to protest for
+      changes
+    - no matter how much they want it or agree with it. In fact, most people believe
+      that climate change is real and happening. The masses want change without a
+      doubt
+    candidate: null
+  goal:
+    conclusion_or_goal: There is a need for climate protests, but not everyone can
+      be on board or have the time to participate, so support for the cause is limited.
+    candidate: null
+    supporting_reason: Most people do not have the time or ability to protest for
+      changes, and many have real lives that constrain participation.
+    support_relation: The reason is used to explain why practical constraints limit
+      the extent of protest support, thereby framing the earlier statement about the
+      need for protests as realistic.
+    label_justification: The passage does not employ any of the defined fallacious
+      patterns. It simply states a claim about the necessity of protests and acknowledges
+      practical limitations, presenting these as descriptive facts rather than argumentative
+      fallacies. Therefore, no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - I feel that there is a need for climate protests yes but not everyone can be
+      on board with it or on the time table that the protestors want. The
+    - picture is bigger than the issues they have made the centerpiece of their argument.
+      That being said, most people do not have the time or ability to protest for
+      changes
+    - and there are individuals fighting for climate change but support for the cause
+      is limited because people have real lives they are trying to lead, no matter
+      how much they
+  counterargument:
+    decisive_counterargument: The conclusion that climate change is real simply because
+      most people believe it relies on an Appeal to Majority — equating widespread
+      acceptance with truth. Majority opinion is not a reliable proof; a group can
+      be collectively mistaken or misinformed. The argument therefore commits the
+      appeal‑to‑majority fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: infer that the claim that ‘most people believe climate change
+      is real’ validates the reality of climate change
+    label_justification: The objection directly exposes the fallacious use of popular
+      belief to establish truth, which is the defining feature of the Appeal to Majority
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - no matter how much they want it or agree with it. In fact, most people believe
+      that climate change is real and happening. The masses want change without a
+      doubt
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target merely reports that most people believe climate change
+    is real, without using that majority belief to establish the truth of the claim.
+    The fallacy requires an inference that majority opinion validates the proposition;
+    such an inference is absent, so the Appeal to Majority structure is not present.
+  decision_reason: The target does not contain an inference based on majority belief;
+    it only states the belief, so the required fallacious reasoning is missing.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - no matter how much they want it or agree with it. In fact, most people believe
+    that climate change is real and happening. The masses want change without a doubt
+  verified: false
+  rejection_reason: The target does not contain an inference based on majority belief;
+    it only states the belief, so the required fallacious reasoning is missing.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4885
+  completion_tokens: 2836
+  total_tokens: 7721
+  wall_time_seconds: 262.56199999991804

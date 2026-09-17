@@ -1,0 +1,140 @@
+sample:
+  id: 287:6258
+  article_id: 287
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: The country had been so peaceful throughout the years, wonder what changed?
+    Could be the uptick of crime and violence that have to be stopped. I had an old
+    co-worker that came from El Salvador and he would tell me how great it was to
+    live there before he moved. In 1985, he came to America for a better life. It
+    was much more calm then. His cousin, although he isn't an expert officially, has
+    been in law enforcement there for years. He claims that the crime rates are unbelievably
+    high. I think his views on the situation really lend weight on my belief of what
+    is happening.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: his cousin, although he isn't an expert officially, has been in law enforcement
+        there for years.
+    - role: endorsed_claim
+      text: the crime rates are unbelievably high.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The author believes that crime rates in the country have risen,
+      making it less peaceful.
+    candidate: Appeal to Authority
+    supporting_reason: The author cites a cousin who is involved in law enforcement
+      but not an official expert, claiming crime rates are high and stating that this
+      opinion lends weight to the author’s belief.
+    support_relation: The cousin’s claim is used as an authoritative endorsement that
+      bolsters the author’s conclusion.
+    label_justification: The argument relies on the status of a non-expert law‑enforcement
+      officer to justify the conclusion about crime rates, which is a classic appeal
+      to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    - high. I think his views on the situation really lend weight on my belief of
+      what is happening.
+  counterargument:
+    decisive_counterargument: The argument relies solely on the personal observations
+      of a coworker and his cousin—neither of whom are formally recognized experts
+      in crime statistics—to assert that El Salvador’s crime rates are high. These
+      are anecdotal statements from non‑qualified sources; without systematic data
+      or corroboration from legitimate authorities, the claim lacks a reliable evidential
+      basis. Therefore, the inference that the country’s crime environment has deteriorated
+      cannot be justified on the given statements alone.
+    candidate: Appeal to Authority
+    challenged_inference: The country’s crime rates are high because an informal coworker’s
+      recollection and his cousin’s unqualified law‑enforcement background attest
+      to them.
+    label_justification: The objection targets the use of testimony from individuals
+      who are not recognized experts to endorse a broad, statistical claim about national
+      crime levels. This is precisely the hallmark of an appeal to authority—presenting
+      an authority’s or expert’s statement as sufficient proof—rather than a mere
+      critique of the argument’s emotional or rhetorical appeal.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - The country had been so peaceful throughout the years, wonder what changed?
+      Could be the uptick of crime and violence that have to be stopped. I had an
+      old co-worker
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    - high. I think his views on the situation really lend weight on my belief of
+      what is happening.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Using a cousin’s non‑officially recognized law‑enforcement statement
+    to support the claim that crime rates have risen, matching the appeal to authority
+    structure.
+  decision_reason: The target cites the cousin—who is not an official expert—as authority
+    to lend weight to a broad claim about national crime rates, a classic appeal to
+    authority.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - It was much more calm then. His cousin, although he isn't an expert officially,
+    has been in law enforcement there for years. He claims that the crime rates are
+    unbelievably
+  - high. I think his views on the situation really lend weight on my belief of what
+    is happening.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5229
+  completion_tokens: 3374
+  total_tokens: 8603
+  wall_time_seconds: 298.4070000000065

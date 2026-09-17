@@ -1,0 +1,109 @@
+sample:
+  id: 287:6858
+  article_id: 287
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: Most experts think he is not so bad. So he is probably not as extreme as
+    that. He is just a bitcoin shiller and focuses on that online.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Most experts
+    - role: endorsed_claim
+      text: he is not as extreme as that
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: He is not as extreme as people think; he is just a bitcoin
+      shiller.
+    candidate: Appeal to Authority
+    supporting_reason: Most experts think he is not so bad.
+    support_relation: The claim that experts do not view him as bad is presented as
+      evidence to justify the conclusion that he is not extreme.
+    label_justification: The argument uses the purported consensus of experts to establish
+      the conclusion without further evidence, which is an appeal to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+  counterargument:
+    decisive_counterargument: The claim that he is 'probably not as extreme as that'
+      rests solely on the fact that most experts think he is not so bad. Even if a
+      majority of experts hold that view, expert opinion is not incontrovertible proof;
+      experts can be wrong, biased, or lack full information. Thus the conclusion
+      that he is not extreme follows from an inadequate basis, not from solid evidence.
+    candidate: Appeal to Authority
+    challenged_inference: Based on expert consensus, it is concluded that he is not
+      extreme.
+    label_justification: The objection demonstrates that the reasoning merely relies
+      on authority claims without independent evidence, which is the hallmark of an
+      Appeal to Authority fallacy. The inference is therefore unsupported by the premise
+      apart from the experts’ opinion itself.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument rests solely on expert consensus—‘most experts
+    think he is not so bad’—to assert a conclusion (‘he is not as extreme’), with
+    no independent evidence provided. This satisfies the structural condition of an
+    appeal to authority and constitutes a fallacious inference.
+  decision_reason: The conclusion that he is not extreme is justified only by citing
+    experts’ opinions, meeting the criteria for an Appeal to Authority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most experts think he is not so bad. So he is probably not as extreme as that.
+    He is just a bitcoin shiller and focuses on that online.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3986
+  completion_tokens: 2479
+  total_tokens: 6465
+  wall_time_seconds: 117.57799999999406

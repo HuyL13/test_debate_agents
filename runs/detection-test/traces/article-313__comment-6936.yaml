@@ -1,0 +1,134 @@
+sample:
+  id: 313:6936
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: Having students protest nationwide, it's pretty clear Bangladesh issue is
+    serious issue and needs addressing. And it's hard to ignore when the majority
+    are echoing the same sentiment - their numbers surely can't be wrong, right? It's
+    high time to adhere to the protesters' demands in order to bring back peace.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of students or protesters
+    - role: popularity_claim
+      text: echoing the same sentiment – their numbers surely can’t be wrong
+    - role: target_claim
+      text: the Bangladesh issue is serious and needs addressing; protesters’ demands
+        should be adhered to
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The issue in Bangladesh is serious and must be addressed;
+      it is high time to adhere to protesters' demands to restore peace.
+    candidate: Appeal to Majority
+    supporting_reason: Evoking the fact that the majority of students are protesting
+      and echoing the same sentiment, implying their numbers cannot be wrong.
+    support_relation: Uses the popularity of the protestors' view as justification
+      for the seriousness of the issue and the necessity of responding to their demands.
+    label_justification: The argument relies on the fact that most people share a
+      particular view to claim the issue is true and warrants action, rather than
+      presenting independent evidence. This is the hallmark of an Appeal to Majority
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+  counterargument:
+    decisive_counterargument: Just because many people agree with the protesters’
+      demands does not mean those demands are correct or the only solution. The majority
+      can be misguided, infected by misinformation, or driven by emotional pressure,
+      especially in a highly politicized environment. Truth cannot be established
+      simply by how many people think something is right.
+    candidate: null
+    challenged_inference: The claim that the protesters’ numbers surely can’t be wrong
+      and that the majority’s sentiment proves the seriousness of the issue.
+    label_justification: This argument relies on the majority’s agreement as the primary
+      evidence for the correctness of the protesters’ position, satisfying the definition
+      of an Appeal to Majority fallacy. The counterargument demonstrates that majority
+      opinion does not necessarily establish factual validity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument cites the majority of protesters as proof that
+    the issue is serious and demands should be met, which fulfills the Appeal to Majority
+    structure.
+  decision_reason: The target explicitly states that the majority of students protesting
+    nationwide makes the issue serious and that their demands should be followed,
+    using popularity as justification – the hallmarks of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+    issue and needs addressing. And it's hard to ignore when the majority are echoing
+    the same sentiment - their
+  - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+    demands in order to bring back peace.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4255
+  completion_tokens: 3294
+  total_tokens: 7549
+  wall_time_seconds: 245.82800000000134

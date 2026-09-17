@@ -1,0 +1,171 @@
+sample:
+  id: 460:7377
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Combating fake news is important, but this happened during covid, when thousands
+    of people were dying. The government was focused on punishing journalists and
+    not spending all their time and effort on helping control the virus and save the
+    people? Absurd. Shows they don't care for their own people!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: punishing journalists and not spending all their time and effort on helping
+        control the virus
+    - role: alternative_b
+      text: helping control the virus and saving the people
+    - role: exhaustiveness_commitment
+      text: the government was focused on punishing journalists and not spending all
+        their time and effort on helping control the virus
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The author argues that the government does not care for its
+      people because it focused on punishing journalists instead of combating COVID‑19.
+    candidate: null
+    supporting_reason: The claim that the government was engaged in punishing journalists
+      during a time when thousands were dying is presented as evidence that it was
+      neglectful and uncaring.
+    support_relation: The reasoning links the government's punitive actions against
+      journalists with the purported neglect of public health needs, implying that
+      this focus demonstrates indifference toward the populace.
+    label_justification: No fallacious reasoning is identifiable within the supplied
+      list of fallacies (e.g., no hasty generalization, slippery slope, false dilemma,
+      or appeal‑to‑authority/tradition/nature/multiple). The argument is a straightforward
+      causal inference without violating the given fallacy categories.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+  counterargument:
+    decisive_counterargument: The argument leaps from the government’s decision to
+      punish certain journalists during a pandemic to the universal claim that it
+      does not care for its citizens. Punishing false‑reporting can be a legitimate
+      public‑health measure, so the reported action alone cannot serve as evidence
+      that the government lacks concern for its people.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that punishing journalists indicates the government
+      does not care for its own people.
+    label_justification: The reasoning draws a broad conclusion about government care
+      from a single specific action (punishing journalists). This inference exemplifies
+      a hasty generalization, as it extrapolates without sufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: 'The target statement draws a broad conclusion—that the government
+      does not care for its people—based solely on the observation that it punished
+      journalists during a pandemic. This inference is a classic hasty generalization:
+      it extrapolates a general claim about the government’s care from a single specific
+      action without sufficient evidence.  It does not present an exhaustive set of
+      mutually exclusive alternatives as required for a False Dilemma.'
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target concludes that the government “doesn’t care for their
+    own people” based solely on the specific action of punishing journalists during
+    the COVID‑19 pandemic, thereby making an overbroad claim from a single instance.
+  decision_reason: The statement draws a sweeping generalization about the government's
+    care for its citizens from the singular act of punishing journalists, satisfying
+    the structural definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Combating fake news is important, but this happened during covid, when thousands
+    of people were dying. The government was focused on punishing journalists and
+    not spending all their time and
+  - effort on helping control the virus and save the people? Absurd. Shows they don't
+    care for their own people!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5441
+  completion_tokens: 3545
+  total_tokens: 8986
+  wall_time_seconds: 366.5780000000086

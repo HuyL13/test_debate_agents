@@ -1,0 +1,122 @@
+sample:
+  id: 162:9783
+  article_id: 162
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: This is unsurprising. Any group wishing to seize control over a vast population,
+    as this one has by means of a coup, must exert a death grip on the flow of information.
+    It's tragic but unsurprising. It's encouraging to see local organizations standing
+    up against the potential cyber law.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: this one (the group that seized control by a coup)
+    - role: observed_property
+      text: must exert a death grip on the flow of information
+    - role: target_population
+      text: any group wishing to seize control over a vast population
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is unsurprising. Any group wishing to seize control over a vast population,
+      as this one has by means of a coup, must exert a death grip on the flow
+    - of information. It's tragic but unsurprising. It's encouraging to see local
+      organizations standing up against the potential cyber law.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The surge of information suppression by the new regime is
+      unsurprising.
+    candidate: Hasty Generalization
+    supporting_reason: Any group wishing to seize control over a vast population must
+      exert a death grip on the flow of information.
+    support_relation: supports
+    label_justification: The statement generalizes from the single example of the
+      Myanmar coup to all groups seeking to seize control, treating one case as representative
+      of all such groups. This meets the definition of a hasty generalization, as
+      it applies a broad conclusion based on a limited sample.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is unsurprising. Any group wishing to seize control over a vast population,
+      as this one has by means of a coup, must exert a death grip on the flow
+  counterargument:
+    decisive_counterargument: The claim that 'any group wishing to seize control over
+      a vast population must exert a death grip on the flow of information' is based
+      on a single example and projects that necessity onto all similar groups. No
+      evidence is provided that every force mounting a coup will clamp down on information;
+      some may allow free information or adopt a different strategy. Thus the inference
+      is an unsupported, overly broad generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Any group wishing to seize control over a vast population,
+      as this one has by means of a coup, must exert a death grip on the flow of information.
+    label_justification: The target extrapolates a universal rule from the observation
+      of a single group. This sample-to-population inference lacks adequate support
+      and fits the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is unsurprising. Any group wishing to seize control over a vast population,
+      as this one has by means of a coup, must exert a death grip on the flow
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement generalizes from a single instance (“this
+    one” that seized control by coup) to all groups wishing to seize control of a
+    vast population, concluding that all such groups must exert a death grip on information.
+    This explicit sample‑to‑population inference satisfies the structural requirements
+    of a hasty generalization.
+  decision_reason: The target contains a sample of a single group and applies a property
+    (exerting a death grip on information) to all groups in that category, thereby
+    making a broad conclusion based on an insufficient sample. Hence it meets the
+    definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is unsurprising. Any group wishing to seize control over a vast population,
+    as this one has by means of a coup, must exert a death grip on the flow
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4410
+  completion_tokens: 3601
+  total_tokens: 8011
+  wall_time_seconds: 139.84399999999732

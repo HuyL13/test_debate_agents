@@ -1,0 +1,137 @@
+sample:
+  id: 287:10157
+  article_id: 287
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: The man seems to know what he's doing. Populism is taking over in so many
+    countries recently because people are fed up with the status quo. I would trust
+    Bukele over whomever was in power prior to this. I've read about what he's done
+    to lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+  target: That's fine to say at the early stages. Wait until the authoritarianism
+    only grows and grows, as this article describes. When has a rise in authoritarianism
+    ever ultimately led to good results? It's a disturbing trend and people need to
+    be aware of the threats posed by these sorts of modern populists.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: rise in authoritarianism
+    - role: observed_property
+      text: has never ultimately led to good results
+    - role: target_population
+      text: authoritarianism as a political approach
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's fine to say at the early stages. Wait until the authoritarianism only
+      grows and grows, as this article describes. When has a rise in authoritarianism
+      ever ultimately led to
+    - good results? It's a disturbing trend and people need to be aware of the threats
+      posed by these sorts of modern populists.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Warn the audience that an increase in authoritarianism is
+      a dangerous trend that must be monitored and resisted, because it has never
+      led to positive outcomes.
+    candidate: null
+    supporting_reason: A rhetorical question asserting that no rise in authoritarianism
+      has ever resulted in good results, implying that all such rises inevitably produce
+      harmful effects.
+    support_relation: The reason is used to justify the warning by suggesting that,
+      historically, authoritarianism has only produced negative consequences; therefore
+      people should remain vigilant.
+    label_justification: The target’s statement makes an unsubstantiated claim but
+      does not employ a recognized logical fallacy; it simply asserts a generalization
+      without evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's fine to say at the early stages. Wait until the authoritarianism only
+      grows and grows, as this article describes. When has a rise in authoritarianism
+      ever ultimately led to
+    - good results? It's a disturbing trend and people need to be aware of the threats
+      posed by these sorts of modern populists.
+  counterargument:
+    decisive_counterargument: The claim that ‘no rise in authoritarianism has ever
+      ultimately led to good results’ is made without any supporting evidence or specific
+      examples. It generalizes about all instances of authoritarianism without providing
+      data, thereby presenting an unsupported blanket assertion.
+    candidate: Hasty Generalization
+    challenged_inference: The target’s rhetorical question implies that all rises
+      in authoritarianism have no positive outcomes.
+    label_justification: This is a hasty generalization because it assumes a universal
+      conclusion—no rise in authoritarianism ever leads to good results—without any
+      empirical backing or reference to particular cases, thereby violating the logical
+      requirement for evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's fine to say at the early stages. Wait until the authoritarianism only
+      grows and grows, as this article describes. When has a rise in authoritarianism
+      ever ultimately led to
+    - good results? It's a disturbing trend and people need to be aware of the threats
+      posed by these sorts of modern populists.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target’s rhetorical question “When has a rise in authoritarianism
+    ever ultimately led to good results?” expresses a universal negative claim that
+    no instance of authoritarianism has produced a positive outcome, without providing
+    any supporting evidence or specific examples. This meets the structural criteria
+    of a hasty generalization.
+  decision_reason: The claim generalizes the absence of good results for all rises
+    in authoritarianism without substantiation, as evidenced in passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - That's fine to say at the early stages. Wait until the authoritarianism only grows
+    and grows, as this article describes. When has a rise in authoritarianism ever
+    ultimately led to
+  - good results? It's a disturbing trend and people need to be aware of the threats
+    posed by these sorts of modern populists.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4505
+  completion_tokens: 3772
+  total_tokens: 8277
+  wall_time_seconds: 203.73500000000058

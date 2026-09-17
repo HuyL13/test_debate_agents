@@ -1,0 +1,128 @@
+sample:
+  id: 2:9303
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: If there are 100 extremists so comfortable with the kind of bad behavior
+    described here, that probably points to a much deeper rooted problem. There are
+    probably plenty of people who support their actions. After all, extremists never
+    simply represent themselves. They require support from a lot of layers beneath
+    them to be able to take actions like this. Regardless, it's heartening that things
+    like the White Rose campaign spring up to confront these kind of problems.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: 100 extremists
+    - role: observed_property
+      text: comfortable with the kind of bad behavior described here
+    - role: target_population
+      text: deeper rooted problem
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: There is a deeper rooted problem in society that supports
+      the existence of many extremists.
+    candidate: Hasty Generalization
+    supporting_reason: The observation that 100 extremists can comfortably engage
+      in violent behavior indicates a systemic issue beyond isolated actors.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument generalizes from a limited group of extremists
+      to a broad claim about society, making an unsupported leap, which is a classic
+      Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+    - who support their actions. After all, extremists never simply represent themselves.
+      They require support from a lot of layers beneath them to be able to take actions
+      like this. Regardless,
+  counterargument:
+    decisive_counterargument: 'The claim that a specific number of extremists (e.g.,
+      100) guarantees a deeper-rooted problem commits a hasty generalization: it takes
+      an isolated observation—here, the existence and comfort of 100 extremists—and
+      leaps to a sweeping conclusion about systemic forces without any evidence that
+      this numeral reflects the broader reality or mechanisms involved.'
+    candidate: Hasty Generalization
+    challenged_inference: That the presence of 100 extremists comfortable with bad
+      behavior necessarily points to a deep‑rooted problem requiring multilayered
+      support.
+    label_justification: 'The counterargument demonstrates that Target’s inference
+      moves from a single, unspecified instance (100 extremists) to a broad claim
+      about systemic causes. This violates the logical structure required for a justified
+      generalization, fitting the definition of a hasty generalization: an explicit
+      or implicit sample is generalized to a wider population or underlying system
+      without sufficient evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target explicitly uses a specific sample—’100 extremists’—and
+    generalizes from it to a broad claim that this indicates a deeper rooted problem
+    in society, satisfying the sample‑to‑population structure required for a hasty
+    generalization.
+  decision_reason: The passage draws a sweeping conclusion about systemic issues from
+    the limited observation of a small group of extremists, fitting the definition
+    of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If there are 100 extremists so comfortable with the kind of bad behavior described
+    here, that probably points to a much deeper rooted problem. There are probably
+    plenty of people
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4719
+  completion_tokens: 4106
+  total_tokens: 8825
+  wall_time_seconds: 133.39100000000326

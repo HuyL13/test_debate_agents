@@ -1,0 +1,133 @@
+sample:
+  id: 5:9312
+  article_id: 5
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: He wasn't a saviour but I also like to see sometimes that people can work
+    around the system to get their freedom. Reminds me of the stories my granddad
+    told me about people outsmarting the man during prohibition. The good thing is
+    the holes he used for deception will be plugged so the system should be better
+    in the end.
+  target: There's no justification for his escape; by doing so, it makes his guilt
+    more apparent.  It is obvious that Japan's justice system needs significant reform
+    but he wasn't Robin Hood. He committed serious crimes and needs to face the consequences.
+    His position as a 'corporate titan' does not excuse his actions nor allow him
+    to get away with what he has done.  Taking advantage of Japan's two-tiered justice
+    system doesn't show any sort of superiority or 'right' - it's just another crime
+    he needs to answer for.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There's no justification for his escape; by doing so, it makes his guilt more
+      apparent.  It is obvious that Japan's justice system needs significant reform
+      but he wasn't Robin Hood.
+    - He committed serious crimes and needs to face the consequences. His position
+      as a 'corporate titan' does not excuse his actions nor allow him to get away
+      with what he
+    - has done.  Taking advantage of Japan's two-tiered justice system doesn't show
+      any sort of superiority or 'right' - it's just another crime he needs to answer
+      for.
+    candidate: null
+  goal:
+    conclusion_or_goal: His escape is unjustified; he committed serious crimes and
+      should face the consequences.
+    candidate: null
+    supporting_reason: Escaping makes his guilt more apparent.
+    support_relation: The reason that the escape increases perceived guilt is used
+      to justify the conclusion that the escape is unjust.
+    label_justification: The supporting reason is appropriately employed to establish
+      the conclusion; no fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There's no justification for his escape; by doing so, it makes his guilt more
+      apparent.  It is obvious that Japan's justice system needs significant reform
+      but he wasn't Robin Hood.
+    - He committed serious crimes and needs to face the consequences. His position
+      as a 'corporate titan' does not excuse his actions nor allow him to get away
+      with what he
+    - has done.  Taking advantage of Japan's two-tiered justice system doesn't show
+      any sort of superiority or 'right' - it's just another crime he needs to answer
+      for.
+  counterargument:
+    decisive_counterargument: The claim that Japan's justice system needs significant
+      reform relies on a single incident—Ghosn's escape—to generalize about an entire
+      system.  Without evidence from multiple cases or systematic analysis, this inference
+      is an overgeneralization; the escape alone does not prove systemic failure.
+    candidate: Hasty Generalization
+    challenged_inference: Japan's justice system requires reform because of Ghosn’s
+      escape
+    label_justification: The argument draws a sweeping conclusion about the entire
+      justice system from a single case, which meets the definition of a hasty generalization.
+      It assumes the escape demonstrates systemic flaws without broader evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There's no justification for his escape; by doing so, it makes his guilt more
+      apparent.  It is obvious that Japan's justice system needs significant reform
+      but he wasn't Robin Hood.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that Japan’s justice system “needs significant
+    reform” based solely on the single incident of Ghosn’s escape, thus drawing a
+    sweeping conclusion about the entire system from a single case, which satisfies
+    the structural requirement for a hasty generalization.
+  decision_reason: The target makes a general claim about the whole justice system
+    grounded only on one example (Ghosn’s escape), satisfying the definition of a
+    hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There's no justification for his escape; by doing so, it makes his guilt more
+    apparent.  It is obvious that Japan's justice system needs significant reform
+    but he wasn't Robin Hood.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4778
+  completion_tokens: 2272
+  total_tokens: 7050
+  wall_time_seconds: 122.48399999999674

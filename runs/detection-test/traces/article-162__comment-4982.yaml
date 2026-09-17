@@ -1,0 +1,133 @@
+sample:
+  id: 162:4982
+  article_id: 162
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: We have to understand though that people in Myanmar might not want the same
+    cyber freedoms as we do. Perhaps most people are okay with this . I have a friend
+    who lives there and said he is not concerned with internet restrictions. It is
+    possible that with their unique culture, most of Myanmars  population might not
+    view cyber restrictions in a negative manner.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: I have a friend who lives there and said he is not concerned with internet
+        restrictions
+    - role: observed_property
+      text: not concerned with internet restrictions
+    - role: target_population
+      text: most of Myanmar's population
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We have to understand though that people in Myanmar might not want the same
+      cyber freedoms as we do. Perhaps most people are okay with this . I have a
+    - friend who lives there and said he is not concerned with internet restrictions.
+      It is possible that with their unique culture, most of Myanmars  population
+      might not view cyber restrictions
+    - in a negative manner.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Most people in Myanmar might not view cyber restrictions negatively.
+    candidate: Hasty Generalization
+    supporting_reason: A single friend who lives in Myanmar reports not being concerned
+      about internet restrictions, leading to the claim that most of Myanmar’s population
+      shares this view.
+    support_relation: The friend’s solitary experience is used to generalize about
+      the entire population.”} 1. TOY
+    label_justification: The argument generalizes from a single anecdotal example
+      (the friend) to a broad population claim (most Myanmar people).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - friend who lives there and said he is not concerned with internet restrictions.
+      It is possible that with their unique culture, most of Myanmars  population
+      might not view cyber restrictions
+  counterargument:
+    decisive_counterargument: A single friend’s opinion cannot prove that a majority
+      of Myanmar’s population shares that view; the argument relies on an insufficient
+      sample and offers no statistical or broader evidential support.
+    candidate: Hasty Generalization
+    challenged_inference: most of Myanmars population might not view cyber restrictions
+      in a negative manner
+    label_justification: The rebuttal shows the reasoning over‑extends from one anecdotal
+      case to an entire population, which is the hallmark of a hasty generalization
+      fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We have to understand though that people in Myanmar might not want the same
+      cyber freedoms as we do. Perhaps most people are okay with this . I have a
+    - friend who lives there and said he is not concerned with internet restrictions.
+      It is possible that with their unique culture, most of Myanmars  population
+      might not view cyber restrictions
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The TARGET statement generalizes from a single anecdotal example
+    (“I have a friend who lives there and said he is not concerned with internet restrictions”)
+    to a broad claim about the Myanmar population (“most of Myanmars population might
+    not view cyber restrictions in a negative manner”), satisfying the sample‑to‑population
+    structure. Evidence ids: [T1, T2, T3]'
+  decision_reason: The target explicitly draws a population-wide conclusion based
+    on one individual's testimony, which aligns with the classic hasty generalization
+    pattern.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - We have to understand though that people in Myanmar might not want the same cyber
+    freedoms as we do. Perhaps most people are okay with this . I have a
+  - friend who lives there and said he is not concerned with internet restrictions.
+    It is possible that with their unique culture, most of Myanmars  population might
+    not view cyber restrictions
+  - in a negative manner.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4397
+  completion_tokens: 2401
+  total_tokens: 6798
+  wall_time_seconds: 107.85899999999674

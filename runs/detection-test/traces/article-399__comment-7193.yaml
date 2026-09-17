@@ -1,0 +1,119 @@
+sample:
+  id: 399:7193
+  article_id: 399
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: Internet should be accessible to all. Governments should make it a basic
+    amenity. Otherwise, things just get bad. The pandemic showed just how crucial
+    internet access is.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Internet should be accessible to all. Governments should make it a basic amenity.
+      Otherwise, things just get bad. The pandemic showed just how crucial internet
+      access is.
+    candidate: null
+  goal:
+    conclusion_or_goal: Internet should be accessible to all and governments should
+      treat it as a basic amenity.
+    candidate: null
+    supporting_reason: The statement that the pandemic demonstrated the crucial nature
+      of internet access provides empirical support for the claim that universal access
+      is necessary.
+    support_relation: Evidence (pandemic impact) justifies the normative conclusion
+      that universal internet access is essential.
+    label_justification: The argument uses factual evidence (pandemic impact) to support
+      its normative claim; it does not commit a logical fallacy such as false dilemma,
+      slippery slope, or hasty generalization. Therefore no fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Internet should be accessible to all. Governments should make it a basic amenity.
+      Otherwise, things just get bad. The pandemic showed just how crucial internet
+      access is.
+  counterargument:
+    decisive_counterargument: The claim that internet should be made a basic amenity
+      because lack of it inevitably causes bad outcomes is based on a single instance—the
+      pandemic—to justify a universal conclusion. It assumes that the hardships experienced
+      during that specific crisis will always occur when internet access is missing,
+      without considering other factors or contexts that could mitigate those effects.
+      This leap from one sample to a general rule is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: Internet should be accessible to all, because the pandemic
+      showed internet access is crucial and therefore its absence inevitably leads
+      to bad outcomes.
+    label_justification: The argument generalizes from the one specific circumstance
+      of the pandemic to all possible situations, claiming that lacking internet will
+      always result in negative consequences. This is a classic example of drawing
+      a broad conclusion from a limited set of evidence, which is the hallmark of
+      a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Internet should be accessible to all. Governments should make it a basic amenity.
+      Otherwise, things just get bad. The pandemic showed just how crucial internet
+      access is.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The argument draws a universal conclusion—''Internet should
+    be accessible to all''—from a single instance (the pandemic) that demonstrates
+    the importance of internet access. This fits the structural definition of a hasty
+    generalization: a leap from a limited sample to a broad claim without sufficient
+    evidence.'
+  decision_reason: The target relies on one event (the pandemic) as evidence to assert
+    that lack of internet inevitably leads to negative outcomes in all situations,
+    which constitutes a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Internet should be accessible to all. Governments should make it a basic amenity.
+    Otherwise, things just get bad. The pandemic showed just how crucial internet
+    access is.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3789
+  completion_tokens: 4048
+  total_tokens: 7837
+  wall_time_seconds: 188.57799999999406

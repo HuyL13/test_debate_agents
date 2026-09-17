@@ -1,0 +1,130 @@
+sample:
+  id: 538:8812
+  article_id: 538
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: Governments as a whole cannot be trusted to do the right thing by the people
+    but for themselves to stay in power. If you live in a war zone it must be hard
+    to believe that your government cares about your safety and wellbeing. Governments
+    are self serving and people need to take care of themselves.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: you live in a war zone
+    - role: observed_property
+      text: it must be hard to believe that your government cares about your safety
+        and wellbeing
+    - role: target_population
+      text: governments
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governments as a whole cannot be trusted to do the right thing by the people
+      but for themselves to stay in power. If you live in a war zone it
+    - must be hard to believe that your government cares about your safety and wellbeing.
+      Governments are self serving and people need to take care of themselves.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Governments as a whole cannot be trusted to do the right thing
+      by the people but for themselves to stay in power.
+    candidate: Hasty Generalization
+    supporting_reason: Governments are self‑serving and focus on maintaining power.
+    support_relation: The reason (government self‑service) is used to justify the
+      blanket distrust of all governments.
+    label_justification: The argument generalizes about all governments based on an
+      insufficiently representative sample (e.g., living in a war zone), lacking broader
+      evidence, thus constituting a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governments as a whole cannot be trusted to do the right thing by the people
+      but for themselves to stay in power. If you live in a war zone it
+    - must be hard to believe that your government cares about your safety and wellbeing.
+      Governments are self serving and people need to take care of themselves.
+  counterargument:
+    decisive_counterargument: The claim that *all governments* are self‑serving and
+      cannot be trusted follows from a single situation—governments in a war zone—without
+      any evidence that the same behavior holds for other administrations or for the
+      general population of political entities. One example of a government acting
+      in its own interests during wartime does not establish a universal truth about
+      every government worldwide, nor does it account for governments that act in
+      citizens’ best interests in peacetime or in other contexts.
+    candidate: null
+    challenged_inference: All governments are self‑serving and cannot be trusted to
+      protect citizens’ safety and wellbeing.
+    label_justification: The argument generalizes from one specific circumstance (a
+      government in a war zone) to all governments, which is a classic hasty generalization.
+      It fails to provide sufficient evidence that the observed behavior applies across
+      the entire class of governments.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governments as a whole cannot be trusted to do the right thing by the people
+      but for themselves to stay in power. If you live in a war zone it
+    - must be hard to believe that your government cares about your safety and wellbeing.
+      Governments are self serving and people need to take care of themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a universal claim that all governments are
+    self‑serving and untrustworthy based on the single example of a war‑zone government,
+    meeting the structural requirement of sample → observed property → target population.
+    The argument therefore commits a hasty generalization.
+  decision_reason: The argument uses the observation that a government in a war zone
+    behaves self‑interestingly to generalize about all governments, illustrating the
+    classic sample‑to‑population error.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Governments as a whole cannot be trusted to do the right thing by the people but
+    for themselves to stay in power. If you live in a war zone it
+  - must be hard to believe that your government cares about your safety and wellbeing.
+    Governments are self serving and people need to take care of themselves.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4231
+  completion_tokens: 3733
+  total_tokens: 7964
+  wall_time_seconds: 168.01600000000326

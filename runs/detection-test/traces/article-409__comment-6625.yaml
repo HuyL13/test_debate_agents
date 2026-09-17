@@ -1,0 +1,123 @@
+sample:
+  id: 409:6625
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: This is the result of an extremely sexist culture. I doubt many of the men
+    and boys there were ever taught how to respect women. Is there really any other
+    explanation considering these women are all being killed by men?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: these women
+    - role: observed_property
+      text: killed by men
+    - role: target_population
+      text: the culture
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: the killings are caused by an extremely sexist culture
+    candidate: null
+    supporting_reason: The author claims many men and boys were never taught respect
+      for women, leading to the murders
+    support_relation: mechanism_supports_goal
+    label_justification: This reasoning uses a causal explanation but does not match
+      any of the specified fallacy patterns; therefore no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+  counterargument:
+    decisive_counterargument: No, attributing all murders of women to an “extremely
+      sexist culture” ignores other possible causes such as poverty, mental illness,
+      substance abuse, or inadequate law‑enforcement. The evidence presented does
+      not prove that sexism alone explains the killings, so the claim is a false dilemma
+      that excludes other plausible explanations.
+    candidate: null
+    challenged_inference: The inference that the murders of women in Jamaica can be
+      explained solely by an extremely sexist culture and that no other explanations
+      exist.
+    label_justification: The objection shows that the target’s reasoning frames the
+      complex phenomenon of female homicide as a binary choice—either sexism or other
+      causes—which is impossible. This is a classic false dilemma; the argument limits
+      the spectrum of explanations to one cause, thereby invalidating any alternative
+      perspective.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target proposes that because a sample of women in the described
+    context are all being killed by men, the entire culture is sexist and men are
+    generally disrespectful toward women, constituting a hasty generalization from
+    a specific sample to a broad conclusion. Evidence IDs: [''T1'',''T2'']'
+  decision_reason: The target contains a general claim about an entire culture (and
+    the men within it) based on the isolated fact that all reported women are being
+    killed by men, which matches the structural requirement for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is the result of an extremely sexist culture. I doubt many of the men and
+    boys there were ever taught how to respect women. Is there really any other
+  - explanation considering these women are all being killed by men?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3846
+  completion_tokens: 3385
+  total_tokens: 7231
+  wall_time_seconds: 139.51600000000326

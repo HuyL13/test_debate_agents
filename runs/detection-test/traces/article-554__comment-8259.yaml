@@ -1,0 +1,164 @@
+sample:
+  id: 554:8259
+  article_id: 554
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: There seems to be no doubt as to the wish of the people, who have tweeted
+    and protested and made their will known. And the numbers don't lie. Isn't this
+    a democracy? Doesn't a democracy thrive on the will of the people? It's time for
+    Rajapaksa to bow to the will of the majority, which is the only right thing to
+    do.
+  target: What numbers are you referring to? Activists and people who tweet don't
+    constitute democracy. The will of the people can only be represented by elections,
+    not social media campaigns. It should say a lot that the people you're describing
+    are the ones just telling him to quit and stop calling for elections.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What numbers are you referring to? Activists and people who tweet don't constitute
+      democracy. The will of the people can only be represented by elections, not
+      social media campaigns. It
+    - should say a lot that the people you're describing are the ones just telling
+      him to quit and stop calling for elections.
+    candidate: null
+  goal:
+    conclusion_or_goal: Reject the claim that the protests and tweets represent the
+      will of the people.
+    candidate: Appeal to Tradition
+    supporting_reason: Only elections represent the will of the people; activists
+      and social media campaigns do not constitute democracy.
+    support_relation: mechanism_supports_goal
+    label_justification: The target appeals to the traditional understanding of democracy
+      as a system that expresses public will solely through elections, thereby treating
+      other forms of expression as illegitimate.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - What numbers are you referring to? Activists and people who tweet don't constitute
+      democracy. The will of the people can only be represented by elections, not
+      social media campaigns. It
+  counterargument:
+    decisive_counterargument: The target mistakenly assumes that only elections can
+      legitimately represent the people's will, treating social‑media campaigns as
+      an entirely separate and invalid means. In reality, online activism often shapes
+      public opinion and influences the eventual outcome of elections, and other forms
+      of civic engagement (e.g., protests, petitions, town‑hall meetings) also contribute
+      to democratic expression. By presenting only two options—elections or social
+      media—the target commits a false dilemma, dismissing any other legitimate expressions
+      of popular will.
+    candidate: False Dilemma
+    challenged_inference: Will of the people can only be represented by elections,
+      not social media campaigns.
+    label_justification: By limiting the valid means of representing public will to
+      elections alone, the target ignores other legitimate channels such as activism,
+      petitions, or protests, thereby presenting a false dichotomy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What numbers are you referring to? Activists and people who tweet don't constitute
+      democracy. The will of the people can only be represented by elections, not
+      social media campaigns. It
+    - should say a lot that the people you're describing are the ones just telling
+      him to quit and stop calling for elections.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - False Dilemma
+    conflict: appeal-to-tradition__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: 'Target explicitly restricts the means of representing the will
+      of the people to elections, implicitly excluding social media campaigns as an
+      alternative, which establishes the false dichotomy required for a false dilemma.
+      The appeal to tradition premise is not directly asserted. '
+    loser_failure: 'The target does not invoke the long‑standing nature of elections
+      or the tradition of democracy to justify that exclusivity, hence it does not
+      satisfy the mandatory structural condition of an appeal to tradition. '
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What numbers are you referring to? Activists and people who tweet don't constitute
+      democracy. The will of the people can only be represented by elections, not
+      social media campaigns. It
+    - should say a lot that the people you're describing are the ones just telling
+      him to quit and stop calling for elections.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: 'The target explicitly contends that the will of the people
+    can only be represented by elections, thereby presenting a binary of elections
+    versus social‑media campaigns and implicitly dismissing all other legitimate expressions
+    of democratic will. This is a classic false dilemma, as it limits the valid options
+    to only two mutually exclusive choices. Evidence IDs: [T1, T2]'
+  decision_reason: Target limits valid representation to elections and negates social
+    media, treating them as the only other option. This constitutes a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What numbers are you referring to? Activists and people who tweet don't constitute
+    democracy. The will of the people can only be represented by elections, not social
+    media campaigns. It
+  - should say a lot that the people you're describing are the ones just telling him
+    to quit and stop calling for elections.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5850
+  completion_tokens: 4859
+  total_tokens: 10709
+  wall_time_seconds: 412.96900000000096

@@ -1,0 +1,183 @@
+sample:
+  id: 433:7295
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: The fact that these cops were acquitted means that more cops are going to
+    think they can get away with murder and end up killing innocents just because
+    they think they can! If you don't punish people, obviously others will feel emboldened!
+    Soon the cops will be the criminals! Who will stop them at that point?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: these cops were acquitted
+    - role: observed_property
+      text: more cops are going to think they can get away with murder
+    - role: target_population
+      text: cops
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That because some police officers were acquitted, more cops
+      will believe they can commit murder without consequence, leading to increased
+      violence against innocents and eventually turning the police into criminals.
+    candidate: Hasty Generalization
+    supporting_reason: The argument asserts that a single instance of acquittal justifies
+      widespread emboldening among all cops, implying that if you don't punish people,
+      others will feel emboldened and will commit further wrongdoing.
+    support_relation: The reason uses the causal claim that lack of punishment leads
+      to emboldening, which is applied to explain the general outcome of increased
+      police violence.
+    label_justification: The reasoning extends a conclusion drawn from a single example
+      (the acquitted officers) to an entire population (all police officers), which
+      typifies a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+  counterargument:
+    decisive_counterargument: The premise that a single acquittal of cops will inevitably
+      embolden all police to kill innocents is an unfounded claim. It assumes a direct
+      causal chain from a single legal outcome to the future behavior of all officers,
+      without any evidence that such a link exists or that police culture could shift
+      in that manner. Policies, training, accountability mechanisms, and public scrutiny
+      all influence officer conduct, and these factors are not addressed. Therefore
+      the conclusion that the cops will become criminals is unsupported and implausible.
+    candidate: Slippery Slope
+    challenged_inference: The inference that ‘the fact that these cops were acquitted
+      means that more cops are going to think they can get away with murder and end
+      up killing innocents’ leads to an inevitable cascade of violence, implying that
+      the lack of punishment necessarily breeds a wave of criminal police behavior.
+    label_justification: The argument presents a progression of increasingly adverse
+      consequences (from a single acquittal to widespread killings) without any evidence
+      of inevitability or causal link. This is a textbook example of the Slippery
+      Slope fallacy—claiming that one event will inevitably trigger a chain of negative
+      outcomes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: 'The argument explicitly borrows from a single case—‘these cops
+      were acquitted’—to make a claim that applies to the entire class of police officers
+      (“more cops are going to think they can get away with murder and end up killing
+      innocents”). That is the hallmark of a hasty generalization: an explicit sample
+      is used to generalize to a broader population. While the statement also contains
+      a casual progression (“if you don’t punish, they’ll feel emboldened, soon they’ll
+      be criminals”), the progression is not a full-fledged slippery-slope argument;
+      it is essentially the consequence of the generalized claim. Therefore the primary
+      structural feature is a hasty generalization, and the slippery-slope characterization
+      is not warranted in this instance.'
+    loser_failure: The slippery-slope claim would require a clear sequence of increasingly
+      adverse consequences stemming from a specific action or condition. The text
+      jumps directly from a single acquittal to a generalized threat of police violence,
+      presenting the latter as a direct inference rather than a chain of causal steps.
+      Thus, it does not satisfy the explicit progression needed for a slippery-slope
+      fallacy. The evidence for the claim that all cops will act violently is a clear
+      generalization from an example, which fits the schema for a hasty generalization
+      first and foremost.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage draws a conclusion about all police officers (“more
+    cops are going to think they can get away with murder”) from the single example
+    of a few cops who were acquitted, which satisfies the structural definition of
+    a hasty generalization.
+  decision_reason: The target sentence generalizes from the acquitted officers to
+    the entire police population, meeting the sample-to-population structure and providing
+    the claim that all cops will act similarly. This aligns with the accepted Hasty
+    Generalization fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that these cops were acquitted means that more cops are going to think
+    they can get away with murder and end up killing innocents just because they think
+  - they can! If you don't punish people, obviously others will feel emboldened! Soon
+    the cops will be the criminals! Who will stop them at that point?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6018
+  completion_tokens: 5150
+  total_tokens: 11168
+  wall_time_seconds: 277.9060000000027

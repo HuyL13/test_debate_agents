@@ -1,0 +1,159 @@
+sample:
+  id: 409:6023
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: The legalization of pepper spray for use by women for self-protection sounds
+    like a good idea, sure, but Jamaica must be careful. Taking this line can lead
+    to unforeseen consequences, as things can get out of control very quickly. First,
+    they will be given the right to use pepper spray, but what comes after that? Perhaps
+    blackjacks. And then? Maybe tasers. And after that? Probably guns. And then there
+    would be a troubling new layer of violence in Jamaica. This kind of approach to
+    solving problems can evolve rapidly and get away from you, eventually creating
+    a whole new set of problems. I'm not saying pepper spray is a bad idea, just that
+    caution is highly advised.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Legalization of pepper spray for use by women for self-protection
+    - role: intermediate_consequence
+      text: Use of blackjacks, tasers, and guns
+    - role: final_consequence
+      text: a troubling new layer of violence in Jamaica
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The legalization of pepper spray for use by women for self-protection sounds
+      like a good idea, sure, but Jamaica must be careful. Taking this line can lead
+      to unforeseen consequences,
+    - as things can get out of control very quickly. First, they will be given the
+      right to use pepper spray, but what comes after that? Perhaps blackjacks. And
+      then? Maybe
+    - tasers. And after that? Probably guns. And then there would be a troubling new
+      layer of violence in Jamaica. This kind of approach to solving problems can
+      evolve rapidly and
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Caution is warranted regarding the legalization of pepper
+      spray for women in Jamaica, as it may lead to unforeseen and escalating violence.
+    candidate: Slippery Slope
+    supporting_reason: The argument contends that allowing pepper spray will inevitably
+      lead to the use of more lethal weapons (blackjacks, tasers, guns), thereby increasing
+      overall violence.
+    support_relation: The supporting reason (slippery‑slope claim) is used to justify
+      the conclusion that caution is necessary.
+    label_justification: The argument explicitly predicts a chain of increasingly
+      extreme outcomes (pepper spray → blackjacks → tasers → guns → violence) without
+      evidential basis, fitting the slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The legalization of pepper spray for use by women for self-protection sounds
+      like a good idea, sure, but Jamaica must be careful. Taking this line can lead
+      to unforeseen consequences,
+    - as things can get out of control very quickly. First, they will be given the
+      right to use pepper spray, but what comes after that? Perhaps blackjacks. And
+      then? Maybe
+    - tasers. And after that? Probably guns. And then there would be a troubling new
+      layer of violence in Jamaica. This kind of approach to solving problems can
+      evolve rapidly and
+  counterargument:
+    decisive_counterargument: There is no evidence that allowing women to legally
+      carry pepper spray will trigger a cascade of further weaponization or a surge
+      in overall violence. Many countries have already legalized pepper spray with
+      safeguards and have not seen a move toward blackjacks, tasers or guns as a direct
+      consequence.
+    candidate: Slippery Slope
+    challenged_inference: Legalizing pepper spray for women will inevitably lead to
+      greater violence, progressing from pepper spray to blackjacks to tasers to guns.
+    label_justification: The inference claims that one policy will automatically produce
+      a chain of increasingly severe outcomes without providing any empirical or logical
+      support. This is the hallmark of the slippery slope fallacy, which assumes inevitability
+      of escalation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The legalization of pepper spray for use by women for self-protection sounds
+      like a good idea, sure, but Jamaica must be careful. Taking this line can lead
+      to unforeseen consequences,
+    - as things can get out of control very quickly. First, they will be given the
+      right to use pepper spray, but what comes after that? Perhaps blackjacks. And
+      then? Maybe
+    - tasers. And after that? Probably guns. And then there would be a troubling new
+      layer of violence in Jamaica. This kind of approach to solving problems can
+      evolve rapidly and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The TARGET text explicitly lists a chain of escalating outcomes
+    (pepper spray → blackjacks → tasers → guns → increased violence) without providing
+    evidence, satisfying the structural requirement of a slippery‑slope argument and
+    indicating a fallacious inference.
+  decision_reason: The argument predicts a sequence of increasingly severe consequences
+    from the legalization of pepper spray without empirical support, fitting the definition
+    of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The legalization of pepper spray for use by women for self-protection sounds like
+    a good idea, sure, but Jamaica must be careful. Taking this line can lead to unforeseen
+    consequences,
+  - as things can get out of control very quickly. First, they will be given the right
+    to use pepper spray, but what comes after that? Perhaps blackjacks. And then?
+    Maybe
+  - tasers. And after that? Probably guns. And then there would be a troubling new
+    layer of violence in Jamaica. This kind of approach to solving problems can evolve
+    rapidly and
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5505
+  completion_tokens: 2104
+  total_tokens: 7609
+  wall_time_seconds: 88.40600000001723

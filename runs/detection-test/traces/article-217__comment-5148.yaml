@@ -1,0 +1,122 @@
+sample:
+  id: 217:5148
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: Most can agree sexual harassment is bad. So most will agree it is right
+    to ban them from office. This is a way to keep the majority of society safe from
+    predatory people being in positions of power.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most
+    - role: popularity_claim
+      text: sexual harassment is bad
+    - role: target_claim
+      text: ban them from office
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Ban people who sexually harass from office
+    candidate: Appeal to Majority
+    supporting_reason: Most can agree sexual harassment is bad
+    support_relation: The argument uses majority agreement as the justification for
+      banning sexual harassers from office
+    label_justification: The reasoning relies on the fact that most people agree sexual
+      harassment is bad to say it is right to ban them from office, appealing to majority
+      sentiment rather than substantive evidence
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+  counterargument:
+    decisive_counterargument: Even if a majority view sexual harassment as bad, that
+      does not automatically justify a blanket ban of all involved individuals from
+      office. The argument assumes that the majority’s opinion alone is sufficient
+      grounds for such a sweeping restriction, ignoring the need for due process,
+      individual assessment, evidence of wrongdoing, and the potential for unjustly
+      penalizing many who never commit harassment. The appeal to the majority’s consensus
+      is therefore used to substitute for a properly reasoned policy decision.
+    candidate: Appeal to Majority
+    challenged_inference: That the majority’s agreement with banning will automatically
+      keep society safe from predatory people
+    label_justification: The TARGET reasoning relies on the claim that because most
+      people agree that sexual harassment is bad, most will also agree that banning
+      the perpetrators from office is the right solution. This is a classic appeal
+      to majority (ad populum) fallacy, where the argument substitutes a numerical
+      majority for a valid justification of the policy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+    - from predatory people being in positions of power.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The RAW TARGET states that because “most” people agree sexual
+    harassment is bad, it follows that “most” will also agree it is right to ban perpetrators
+    from office. This explicitly uses the size of the majority’s agreement as the
+    sole basis for endorsing a policy, matching the structure of an Appeal to Majority
+    fallacy. Evidence supporting this conclusion is found in passage T1.
+  decision_reason: 'This passage demonstrates the logical pattern of an appeal to
+    majority: the argument (most think it is wrong) is used as the justification for
+    (ban them from office). The structure is present and the justification relies
+    on popularity rather than substantive arguments, satisfying the definition of
+    an Appeal to Majority.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most can agree sexual harassment is bad. So most will agree it is right to ban
+    them from office. This is a way to keep the majority of society safe
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4248
+  completion_tokens: 3216
+  total_tokens: 7464
+  wall_time_seconds: 117.65600000001723

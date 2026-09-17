@@ -1,0 +1,136 @@
+sample:
+  id: 538:7611
+  article_id: 538
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: In the Donbas area of Ukraine as in many areas of the world where there
+    is conflict, there is little trust in the government and more interest in personal
+    survival than there is in politics. Foment is often the result when government
+    does not respond to the needs of the people it governs. Basically people are much
+    more interested in personal survival rather than politics. If things are bad,
+    there is distrust in the government.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - In the Donbas area of Ukraine as in many areas of the world where there is conflict,
+      there is little trust in the government and more interest in personal survival
+    - than there is in politics. Foment is often the result when government does not
+      respond to the needs of the people it governs. Basically people are much more
+      interested in
+    - personal survival rather than politics. If things are bad, there is distrust
+      in the government.
+    candidate: null
+  goal:
+    conclusion_or_goal: People in conflict zones, such as the Donbas, tend to prioritise
+      personal survival over political engagement because of low trust in government.
+    candidate: null
+    supporting_reason: When governments fail to meet citizens' needs, trust erodes
+      and individuals focus on immediate survival needs rather than politics.
+    support_relation: explanatory
+    label_justification: The statement presents an observation supported by implied
+      evidence and does not make an ill‑reasoned or logically fallacious inference,
+      so no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - In the Donbas area of Ukraine as in many areas of the world where there is conflict,
+      there is little trust in the government and more interest in personal survival
+    - than there is in politics. Foment is often the result when government does not
+      respond to the needs of the people it governs. Basically people are much more
+      interested in
+    - personal survival rather than politics. If things are bad, there is distrust
+      in the government.
+  counterargument:
+    decisive_counterargument: There is no evidence presented that government unresponsiveness
+      always leads to foment or widespread distrust; the claim extrapolates from a
+      single conflict area to all conflict zones without supporting data, making it
+      an overgeneralization.
+    candidate: Hasty Generalization
+    challenged_inference: The failure of governments to respond to people's needs
+      directly causes widespread distrust and foment in all conflict areas.
+    label_justification: The target’s statement lifts observations from Donbas—and
+      the unsubstantiated assertion that this applies to many conflict regions—to
+      a universal claim, a classic illustration of generalizing from insufficient
+      evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - than there is in politics. Foment is often the result when government does not
+      respond to the needs of the people it governs. Basically people are much more
+      interested in
+    - personal survival rather than politics. If things are bad, there is distrust
+      in the government.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states a specific observation from Donbas and then
+    generalizes that the same conditions apply to many or all conflict areas, without
+    providing evidence from those other contexts. This satisfies the structural requirement
+    for a hasty generalization. The claim is not limited to a narrow, specific case
+    and is presented as a universal or widely applicable rule.
+  decision_reason: 'The target exemplifies the classic pattern of a hasty generalization:
+    it extrapolates from the specific situation in Donbas to a broad assertion about
+    many conflict areas, invoking a universal causal link (“government unresponsiveness
+    leads to foment”) based on a single example. The provided evidence passages (T1
+    and T2) support this inference, and no counter‑evidence or qualifiers are offered,
+    confirming the fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - In the Donbas area of Ukraine as in many areas of the world where there is conflict,
+    there is little trust in the government and more interest in personal survival
+  - than there is in politics. Foment is often the result when government does not
+    respond to the needs of the people it governs. Basically people are much more
+    interested in
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4336
+  completion_tokens: 5398
+  total_tokens: 9734
+  wall_time_seconds: 255.15700000000652

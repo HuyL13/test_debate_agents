@@ -1,0 +1,131 @@
+sample:
+  id: 489:7465
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: This situation is absolutely appalling. Swift action must be taken against
+    those in power before the entire society breaks down. Changes in law enforcement
+    and public punishments should be enacted quickly. It makes one wonder if it would
+    be preferable to completely abolish the law enforcement agencies and let everyone
+    fend for themselves.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This situation is absolutely appalling. Swift action must be taken against those
+      in power before the entire society breaks down. Changes in law enforcement and
+      public punishments should be enacted
+    - quickly. It makes one wonder if it would be preferable to completely abolish
+      the law enforcement agencies and let everyone fend for themselves.
+    candidate: null
+  goal:
+    conclusion_or_goal: To argue that swift reforms to law enforcement are urgently
+      needed and that abolishing law enforcement agencies might be preferable for
+      preventing societal breakdown.
+    candidate: null
+    supporting_reason: The target presents a claim that immediate action is required,
+      but it does not employ a logical fallacy within the specified categories. The
+      argument is based on a notion of urgency and speculation about abolition but
+      does not exhibit a false dilemma, hasty generalization, slippery slope, or appeal
+      to authority/tradition/nature/worse problems.
+    support_relation: The arguments are meant to persuade the reader to support rapid
+      reforms or consider abolition without providing reasons that violate the enumerated
+      fallacy types.
+    label_justification: No fallacy identified; the reasoning aligns with the goal
+      of urging action. The argument may contain persuasive tactics (e.g., fear of
+      societal collapse) but those are not included in the list of logical-fallacy
+      categories.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This situation is absolutely appalling. Swift action must be taken against those
+      in power before the entire society breaks down. Changes in law enforcement and
+      public punishments should be enacted
+    - quickly. It makes one wonder if it would be preferable to completely abolish
+      the law enforcement agencies and let everyone fend for themselves.
+  counterargument:
+    decisive_counterargument: The argument assumes that if law‑enforcement agencies
+      were shut down, society would immediately collapse, and therefore that abolition
+      is a viable alternative to swift reforms. This leap from removing a public institution
+      to an inevitable catastrophe is unsupported and relies on an exaggerated causal
+      link. No evidence is offered that ablation of law‑enforcement would prevent
+      breakdown or that it would even improve conditions. The claim of an unavoidable
+      decline after abolition is a classic slippery‐slope fallacy.
+    candidate: Slippery Slope
+    challenged_inference: The conclusion that abolishing law‑enforcement agencies
+      is preferable or even necessary to avoid societal breakdown.
+    label_justification: The objection directly confronts the argument’s failure to
+      establish a causal chain linking abolition of law‑enforcement to societal collapse,
+      a hallmark of the slippery‑slope fallacy. It does not merely criticize the point,
+      but shows that the reasoning step is unsubstantiated, thereby justifying the
+      Slippery Slope label.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - quickly. It makes one wonder if it would be preferable to completely abolish
+      the law enforcement agencies and let everyone fend for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present the required causal chain from an
+    initial action (abolishing law‑enforcement agencies) through a series of intermediate
+    steps to an undesirable outcome. The statement merely speculates about an alternative
+    measure without elaborating a progression toward societal collapse or other adverse
+    consequences. Hence, the evidence is insufficient to constitute a slippery‑slope
+    argument.
+  decision_reason: The target fails to satisfy the hallmark structure of a slippery‑slope
+    claim, so the proposed fallacy is not justified.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - quickly. It makes one wonder if it would be preferable to completely abolish the
+    law enforcement agencies and let everyone fend for themselves.
+  verified: false
+  rejection_reason: The target fails to satisfy the hallmark structure of a slippery‑slope
+    claim, so the proposed fallacy is not justified.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4115
+  completion_tokens: 2955
+  total_tokens: 7070
+  wall_time_seconds: 167.06299999996554

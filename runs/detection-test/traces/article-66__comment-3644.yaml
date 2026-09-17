@@ -1,0 +1,125 @@
+sample:
+  id: 66:3644
+  article_id: 66
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: The rate of death from celebratory gunfire is so low that little attention
+    should be done. There are much worse things going on in the country. Poverty and
+    homelessness are bigger issues.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the rate of death from celebratory gunfire
+    - role: worse_issue
+      text: poverty and homelessness
+    - role: deprioritizing_conclusion
+      text: little attention should be done
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The rate of death from celebratory gunfire is so low that little attention should
+      be done. There are much worse things going on in the country. Poverty and homelessness
+      are
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Little attention should be done to celebratory gunfire deaths.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Poverty and homelessness are bigger issues.
+    support_relation: Appeal to worse problems
+    label_justification: The argument uses the relative importance of a larger problem
+      (poverty and homelessness) to dismiss a smaller problem (celebratory gunfire
+      deaths), which is characteristic of the appeal to worse problems fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The rate of death from celebratory gunfire is so low that little attention should
+      be done. There are much worse things going on in the country. Poverty and homelessness
+      are
+    - bigger issues.
+  counterargument:
+    decisive_counterargument: Because the rate of death from celebratory gunfire is
+      low does not mean it is harmless or unimportant. Even a small number of fatalities
+      can represent a significant public health hazard, can have unreported or indirect
+      effects, and may be avoidable with targeted interventions. Moreover, a policy
+      decision should consider both the immediate severity and the potential for prevention,
+      not simply weigh one problem against another by size alone. The existence of
+      larger issues such as poverty and homelessness does not legally or ethically
+      preclude allocating resources to reduce gunfire deaths.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that the low death rate means the issue can
+      be ignored because larger problems exist.
+    label_justification: 'The target’s reasoning exemplifies an Appeal to Worse Problems
+      fallacy: it dismisses a smaller problem on the grounds that there are bigger
+      issues without demonstrating that addressing the smaller problem would be impossible
+      or unjustified. The counterargument shows that the inference ignores the relevance
+      of prevention, cumulative harm, and the possibility of simultaneous resource
+      allocation, thereby exposing the reasoning defect.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The rate of death from celebratory gunfire is so low that little attention should
+      be done. There are much worse things going on in the country. Poverty and homelessness
+      are
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly states that because the death rate from
+    celebratory gunfire is low, little attention should be given to it while pointing
+    out that poverty and homelessness are larger issues—a classic structure where
+    a smaller problem is de‑prioritized by referencing a larger problem—meeting the
+    required elements of an Appeal to Worse Problems fallacy.
+  decision_reason: The passage contains the focal issue (low death rate from celebratory
+    gunfire), the worse issue (poverty and homelessness), and a conclusion that little
+    attention should be given to the focal issue, satisfying the structural criteria
+    for Appeal to Worse Problems. Evidence is supported by passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The rate of death from celebratory gunfire is so low that little attention should
+    be done. There are much worse things going on in the country. Poverty and homelessness
+    are
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4267
+  completion_tokens: 2808
+  total_tokens: 7075
+  wall_time_seconds: 97.40600000007544

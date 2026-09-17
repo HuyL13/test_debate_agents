@@ -1,0 +1,194 @@
+sample:
+  id: 19:3054
+  article_id: 19
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: ''
+  target: To me this just seems to want to placate a blind belief that more press
+    access equals good. I find it perfectly acceptable that Papua New Guinea doesn't
+    want to blindly open the floodgates to journalists given their situation. Western
+    countries know very little about Papua New Guinea and anything happening there.
+    This results in journalists almost entirely framing the debate of what to think.
+    Lots of journalists are simply going to exacerbate anything they find to drum
+    up interest
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: more press access equals good
+    - role: worse_issue
+      text: journalists will exacerbate anything they find to drum up interest
+    - role: deprioritizing_conclusion
+      text: I find it perfectly acceptable that Papua New Guinea doesn’t want to blindly
+        open the floodgates to journalists
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - To me this just seems to want to placate a blind belief that more press access
+      equals good. I find it perfectly acceptable that Papua New Guinea doesn't want
+      to
+    - blindly open the floodgates to journalists given their situation. Western countries
+      know very little about Papua New Guinea and anything happening there. This results
+      in journalists almost entirely framing the
+    - debate of what to think. Lots of journalists are simply going to exacerbate
+      anything they find to drum up interest
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The commenter believes that restricting press access in Papua
+      New Guinea is acceptable and necessary, because Western journalists may provide
+      poor or misleading coverage that could exacerbate problems.
+    candidate: null
+    supporting_reason: Western journalists tend to frame discussions poorly, focusing
+      on sensational matters that may exacerbate local issues, especially given that
+      Western countries have limited knowledge about Papua New Guinea.
+    support_relation: This reason is used to justify the conclusion that it is acceptable
+      for Papua New Guinea to limit press access.
+    label_justification: The argument does not exhibit a recognized logical fallacy;
+      it presents a legitimate argumentative stance connecting a specific concern
+      about journalistic framing to the policy conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - To me this just seems to want to placate a blind belief that more press access
+      equals good. I find it perfectly acceptable that Papua New Guinea doesn't want
+      to
+    - blindly open the floodgates to journalists given their situation. Western countries
+      know very little about Papua New Guinea and anything happening there. This results
+      in journalists almost entirely framing the
+    - debate of what to think. Lots of journalists are simply going to exacerbate
+      anything they find to drum up interest
+  counterargument:
+    decisive_counterargument: The claim that many journalists will inevitably exaggerate
+      events in Papua New Guinea is presented without any supporting evidence or examples.
+      It merely generalizes about the behavior of a large group based on an unsubstantiated
+      assertion. To sustain such a conclusion, specific instances or data showing
+      a pattern of exaggeration would be necessary. In the absence of this, the argument
+      rests on a broad generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that a large number of journalists in Papua
+      New Guinea will automatically exaggerate anything they find to attract interest
+      is made without supporting evidence, thereby generalizing beyond what is justified.
+    label_justification: 'The objection directly targets the claim that many journalists
+      will exaggerate, revealing that the argument lacks empirical support or specific
+      examples. This demonstrates a classic hasty generalization: a broad conclusion
+      drawn from insufficient or no evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - debate of what to think. Lots of journalists are simply going to exacerbate
+      anything they find to drum up interest
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: structure_complete
+    loser_failure: Hasty Generalization does not satisfy its mandated structural requirement,
+      which requires that a specific sample or limited set of cases be explicitly
+      referenced and then extended to a broader population. In the target passage,
+      the claim that “Lots of journalists are simply going to exacerbate anything
+      they find to drum up interest” is a blanket statement made without any concrete
+      examples, data, or instances demonstrating such exaggeration. Because no specific
+      sample or case is supplied to justify extending the claim to a larger group,
+      the inference fails to meet the necessary structure for a hasty generalization.
+      Consequently, the target does not qualify as a hasty generalization, whereas
+      the Appeal to Worse Problems structure is fully supported.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - To me this just seems to want to placate a blind belief that more press access
+      equals good. I find it perfectly acceptable that Papua New Guinea doesn't want
+      to
+    - blindly open the floodgates to journalists given their situation. Western countries
+      know very little about Papua New Guinea and anything happening there. This results
+      in journalists almost entirely framing the
+    - debate of what to think. Lots of journalists are simply going to exacerbate
+      anything they find to drum up interest
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: 'The target presents a clear structure in which a supposed worse
+    problem—journalists exaggerating events to drum up interest—is used to justify
+    limiting press access. This meets the structural requirement for an Appeal to
+    Worse Problems: a better issue (more press access being good) is negated by citing
+    a worse problem to reject or de‑prioritize it. The evidence IDs T1, T2, and T3
+    provide the necessary support for this inference.'
+  decision_reason: The target explicitly states that allowing journalists unrestricted
+    access will lead to exaggeration and framing of the debate, and then concludes
+    that it is acceptable to restrict access. This conforms to an appeal to worse
+    problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - To me this just seems to want to placate a blind belief that more press access
+    equals good. I find it perfectly acceptable that Papua New Guinea doesn't want
+    to
+  - blindly open the floodgates to journalists given their situation. Western countries
+    know very little about Papua New Guinea and anything happening there. This results
+    in journalists almost entirely framing the
+  - debate of what to think. Lots of journalists are simply going to exacerbate anything
+    they find to drum up interest
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5948
+  completion_tokens: 4414
+  total_tokens: 10362
+  wall_time_seconds: 147.375

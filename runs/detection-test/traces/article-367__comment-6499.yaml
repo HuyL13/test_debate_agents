@@ -1,0 +1,153 @@
+sample:
+  id: 367:6499
+  article_id: 367
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: There is a conflict of tradition and progressiveness. The people have to
+    be on either side. Not everyone will be on board with the pride parades, and that's
+    fine.
+  target: I think that they should make up their mind weather then need to be on the
+    side of tradition or progressiveness.  I really don't think there is any other
+    way.  They need to make a hard choice and stick with it.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: tradition
+    - role: alternative_b
+      text: progressiveness
+    - role: exhaustiveness_commitment
+      text: no other way
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that they should make up their mind weather then need to be on the side
+      of tradition or progressiveness.  I really don't think there is any other way.
+    - They need to make a hard choice and stick with it.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: People must choose between tradition and progressiveness and
+      commit to one side.
+    candidate: False Dilemma
+    supporting_reason: There is no other way; only those two options exist.
+    support_relation: mechanism_supports_goal
+    label_justification: The statement limits the possibilities to two mutually exclusive
+      options and claims them to be the only ones, which is a classic false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that they should make up their mind weather then need to be on the side
+      of tradition or progressiveness.  I really don't think there is any other way.
+    - They need to make a hard choice and stick with it.
+  counterargument:
+    decisive_counterargument: The assertion that people must choose only between tradition
+      and progressiveness ignores that many can endorse aspects of both views or adopt
+      a nuanced stance that blends them. Recognizing a spectrum of beliefs reveals
+      that the dual‑choice assumption is too restrictive.
+    candidate: Appeal to Authority
+    challenged_inference: Claims that there are only two possible sides—tradition
+      or progressiveness—without acknowledging other viable positions.
+    label_justification: 'The target’s reasoning presents a false dilemma: it frames
+      the situation as an either/or choice while ignoring alternative options, thereby
+      committing the False Dilemma fallacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that they should make up their mind weather then need to be on the side
+      of tradition or progressiveness.  I really don't think there is any other way.
+    - They need to make a hard choice and stick with it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Authority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: The target explicitly presents only two options—tradition or progressiveness—and
+      asserts that there is no other way, satisfying the false dilemma structure.
+      There is no reference to an authority, so the appeal-to-authority candidate
+      lacks its required structure.
+    loser_failure: The appeal‑to‑authority claim cannot be substantiated because the
+      target contains no authority citation or credential-based justification, so
+      it does not meet its mandatory structural condition.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that they should make up their mind weather then need to be on the side
+      of tradition or progressiveness.  I really don't think there is any other way.
+    - They need to make a hard choice and stick with it.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly offers only two mutually exclusive options—tradition
+    or progressiveness—and asserts that no other choice is possible, satisfying the
+    structural criteria for a False Dilemma.
+  decision_reason: The target sentences present the two alternatives (tradition vs.
+    progressiveness) and explicitly claim that no other option exists. This meets
+    the exhaustive alternatives structure required for a False Dilemma fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think that they should make up their mind weather then need to be on the side
+    of tradition or progressiveness.  I really don't think there is any other way.
+  - They need to make a hard choice and stick with it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5648
+  completion_tokens: 3872
+  total_tokens: 9520
+  wall_time_seconds: 180.60900000000038

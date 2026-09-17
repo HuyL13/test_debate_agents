@@ -1,0 +1,138 @@
+sample:
+  id: 560:8276
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: It's a shame that this is still something up for debate in so many places.
+    Even if you don't want abortions to happen, all the evidence and experts show
+    that restricting access doesn't really reduce abortions. It just increases how
+    many people get hurt. That is unacceptable. In the words of Dr. Jaydeep Tank,
+    any one girl or woman dying or becoming disabled from an unsafe abortion is one
+    too many.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Dr. Jaydeep Tank
+    - role: endorsed_claim
+      text: any one girl or woman dying or becoming disabled from an unsafe abortion
+        is one too many
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - restricting access doesn't really reduce abortions. It just increases how many
+      people get hurt. That is unacceptable. In the words of Dr. Jaydeep Tank, any
+      one girl or woman dying
+    - or becoming disabled from an unsafe abortion is one too many.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: It argues that restricting abortion access does not reduce
+      the number of abortions and only increases harm, and therefore should not be
+      pursued.
+    candidate: null
+    supporting_reason: The passage states that evidence and experts show that restricting
+      access doesn’t reduce abortions but increases harm, and it cites Dr. Jaydeep
+      Tank’s statement that any woman’s death or disability from unsafe abortion is
+      unacceptable.
+    support_relation: The reason is used to justify the conclusion that restrictive
+      abortion policies are ineffective and harmful.
+    label_justification: The argument employs cited evidence and an expert opinion
+      to support its claim; no logical fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's a shame that this is still something up for debate in so many places. Even
+      if you don't want abortions to happen, all the evidence and experts show that
+    - restricting access doesn't really reduce abortions. It just increases how many
+      people get hurt. That is unacceptable. In the words of Dr. Jaydeep Tank, any
+      one girl or woman dying
+    - or becoming disabled from an unsafe abortion is one too many.
+  counterargument:
+    decisive_counterargument: 'The claim that any restriction ‘doesn’t reduce abortions
+      and just increases harm’ is made without citing concrete evidence or clarifying
+      which restrictions are in question. Because the argument relies on the vague
+      phrase ‘all the evidence and experts show’ without specifying the data or studies,
+      it rests solely on the presumed credibility of unnamed authorities. This is
+      a classic appeal to authority: the reasoning is justified solely by the reputation
+      of experts rather than by demonstrable evidence supporting the conclusion.'
+    candidate: Appeal to Authority
+    challenged_inference: Restricting access to abortions neither reduces abortion
+      rates nor avoids harm, and it simply increases the number of people who get
+      hurt.
+    label_justification: The counterargument highlights that the inference is supported
+      only by an unspecified appeal to expert authority rather than by detailed evidence,
+      thereby revealing the fallacy of appealing to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's a shame that this is still something up for debate in so many places. Even
+      if you don't want abortions to happen, all the evidence and experts show that
+    - restricting access doesn't really reduce abortions. It just increases how many
+      people get hurt. That is unacceptable. In the words of Dr. Jaydeep Tank, any
+      one girl or woman dying
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target uses Dr. Jaydeep Tank’s statement to support the
+    claim that any deaths from unsafe abortions are unacceptable, yet no specific
+    evidence or data is provided to substantiate that claim, satisfying the structural
+    condition of an appeal to authority.
+  decision_reason: The argument relies solely on the authority of Dr. Jaydeep Tank
+    and a vague reference to experts, with no concrete evidence presented, constituting
+    an appeal to authority.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - restricting access doesn't really reduce abortions. It just increases how many
+    people get hurt. That is unacceptable. In the words of Dr. Jaydeep Tank, any one
+    girl or woman dying
+  - or becoming disabled from an unsafe abortion is one too many.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4529
+  completion_tokens: 2999
+  total_tokens: 7528
+  wall_time_seconds: 141.81299999996554

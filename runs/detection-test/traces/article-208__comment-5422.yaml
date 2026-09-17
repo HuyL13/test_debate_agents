@@ -1,0 +1,156 @@
+sample:
+  id: 208:5422
+  article_id: 208
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: For too long many have tried to avoid the ugly truth of the past. I am glad
+    that someone is exploring it through their art and reminding us about some dark
+    sides of history. This is the best way to get us to acknowledge and learn from
+    it. Artistic exploration has always been a powerful tool that we can use to discuss
+    our past.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - For too long many have tried to avoid the ugly truth of the past. I am glad
+      that someone is exploring it through their art and reminding us about some
+    - dark sides of history. This is the best way to get us to acknowledge and learn
+      from it. Artistic exploration has always been a powerful tool that we can use
+    - to discuss our past.
+    candidate: null
+  goal:
+    conclusion_or_goal: Artistic exploration is the best way to get us to acknowledge
+      and learn from the dark sides of history.
+    candidate: Appeal to Authority
+    supporting_reason: Because many have avoided facing the ugly truth of the past,
+      so artistic exploration, by reminding us, fulfills this urgent need.
+    support_relation: employed
+    label_justification: The argument presents a claim that artistic exploration is
+      the optimal method for acknowledging and learning from history, based on the
+      premise that people have long avoided confronting the truth.  This reasoning
+      serves the conclusion but does not fall into any of the defined fallacies; it
+      is a legitimate, non‑fallacious argument stance.  Therefore the label is null
+      with justification that no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - For too long many have tried to avoid the ugly truth of the past. I am glad
+      that someone is exploring it through their art and reminding us about some
+    - dark sides of history. This is the best way to get us to acknowledge and learn
+      from it. Artistic exploration has always been a powerful tool that we can use
+  counterargument:
+    decisive_counterargument: The assertion that artistic exploration is “the best
+      way” to acknowledge and learn from the dark sides of history rests on unsubstantiated
+      authority and an over‑generalized claim.  Other methods—formal education, public
+      discourse, critical media studies, policy reform—have also proven effective
+      in confronting historical truths.  Without empirical comparison, there is no
+      basis for elevating art above all other approaches.  The statement leans on
+      the fact that art has long been used as a tool, yet uses that historical continuity
+      as proof of its superiority, which is a classic appeal to tradition.
+    candidate: Appeal to Tradition
+    challenged_inference: Artistic exploration is the best method for recognizing
+      and learning from the past’s dark aspects.
+    label_justification: The objection targets the reasoning that the passage uses
+      the fact that art has always been employed as a powerful tool to justify it
+      being ‘the best’ way.  This reliance on a long‑standing practice to claim superiority
+      exemplifies an appeal to tradition, a fallacy where tradition itself is treated
+      as evidence of merit.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - dark sides of history. This is the best way to get us to acknowledge and learn
+      from it. Artistic exploration has always been a powerful tool that we can use
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Appeal to Tradition
+    conflict: appeal-to-authority__vs__appeal-to-tradition
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: appeal-to-tradition
+    loser_failure: The target does not invoke any external authority or expert testimony
+      to justify that artistic exploration is the best approach; it merely states
+      the fact that art has historically been used to discuss the past, which is precisely
+      the claim required for an appeal to tradition. Therefore, the appeal to authority
+      candidate fails.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - dark sides of history. This is the best way to get us to acknowledge and learn
+      from it. Artistic exploration has always been a powerful tool that we can use
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target asserts that artistic exploration is the best method
+    for acknowledging and learning from history’s dark sides, and justifies this claim
+    by noting that artistic exploration has always been a powerful tool—using the
+    historical tradition of art to support its superiority.
+  decision_reason: The passage relies on a tradition alone to establish the claim
+    that art is the best means of learning from the past, which satisfies the appeal‑to‑tradition
+    structure.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - dark sides of history. This is the best way to get us to acknowledge and learn
+    from it. Artistic exploration has always been a powerful tool that we can use
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5820
+  completion_tokens: 3692
+  total_tokens: 9512
+  wall_time_seconds: 54.70299999997951

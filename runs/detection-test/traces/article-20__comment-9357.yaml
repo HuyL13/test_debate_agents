@@ -1,0 +1,130 @@
+sample:
+  id: 20:9357
+  article_id: 20
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: Stating Armenia simply refuses to take a stance on the Russian invasion
+    of Ukraine is because of their economic dependence on Russia may not be entirely
+    true. It may be a bit premature to say that. Perhaps Armenia simply doesn't have
+    an opinion on the invasion. Perhaps they for support simply don't want the backlash
+    of the rest of the International Community. Perhaps Armenia doesn't feel they
+    need to make a statement since everyone should know where they stand. Do you think
+    Armenia can afford to lose russia, can they afford to keep them?
+  target: Well, isn't the statement of the article pretty obvious? I mean, those alternatives
+    you provide don't really seem plausible. I mean, how can they simply have no opinion
+    on the matter? On the other hand, the economy is a real and significant thing
+    and that sort of rationale makes sense.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, isn't the statement of the article pretty obvious? I mean, those alternatives
+      you provide don't really seem plausible. I mean, how can they simply have no
+      opinion on the
+    - matter? On the other hand, the economy is a real and significant thing and that
+      sort of rationale makes sense.
+    candidate: null
+  goal:
+    conclusion_or_goal: The economy is a valid reason for Armenia's silence on the
+      Russian invasion, and the alternative explanations are less plausible.
+    candidate: null
+    supporting_reason: On the other hand, the economy is a real and significant thing
+      and that sort of rationale makes sense.
+    support_relation: direct_justification
+    label_justification: The target explicitly acknowledges the economic rationale
+      as a legitimate explanation, using it to bolster the conclusion that this is
+      a plausible basis for Armenia’s silence. No argumentative fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - matter? On the other hand, the economy is a real and significant thing and that
+      sort of rationale makes sense.
+  counterargument:
+    decisive_counterargument: The target concludes that the only logical explanation
+      for Armenia’s silence is its economic dependence on Russia by dismissing the
+      other alternatives as implausible. However, the alternatives—such as Armenia
+      choosing not to voice an opinion because it wishes to avoid international backlash
+      or to maintain neutrality—are equally plausible strategies that a country might
+      adopt. The target’s dismissal of these options is an unfounded assumption, not
+      evidence. Therefore, the inference that economic dependence is the sole reason
+      is invalid.
+    candidate: False Dilemma
+    challenged_inference: Only economic dependence explains Armenia’s silence; alternative
+      explanations are impossible.
+    label_justification: The target implicitly presents two mutually exclusive explanations
+      (economic dependence vs. no opinion) and rules the second out, treating the
+      first as the only valid one. This truncates the spectrum of possible reasons
+      and therefore commits the false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, isn't the statement of the article pretty obvious? I mean, those alternatives
+      you provide don't really seem plausible. I mean, how can they simply have no
+      opinion on the
+    - matter? On the other hand, the economy is a real and significant thing and that
+      sort of rationale makes sense.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target rejects all alternative explanations (no opinion,
+    avoiding backlash, neutrality) as implausible, thereby presenting only economic
+    dependence as the sole explanation for Armenia’s silence. This truncation of the
+    possible reasons constitutes a false dilemma.
+  decision_reason: The target’s language explicitly dismisses the other proposed explanations
+    and treats economic dependence as the sole feasible reason, forming a false dilemma.
+    Evidence supporting this is found in passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Well, isn't the statement of the article pretty obvious? I mean, those alternatives
+    you provide don't really seem plausible. I mean, how can they simply have no opinion
+    on the
+  - matter? On the other hand, the economy is a real and significant thing and that
+    sort of rationale makes sense.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4503
+  completion_tokens: 3301
+  total_tokens: 7804
+  wall_time_seconds: 163.51599999994505

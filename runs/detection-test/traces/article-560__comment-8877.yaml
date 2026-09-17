@@ -1,0 +1,143 @@
+sample:
+  id: 560:8877
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: That story is awful, but its something that probably happens extremely rarely.
+    This doesn't mean the authorities are wrong or immoral when it comes to this issue.
+    They know what is best for their people and society. If its the law now, its the
+    law. Religious leaders might not be doctors, but they know what's best when it
+    comes to aboriton as that is a moral and spiritual matter.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the authorities, religious leaders
+    - role: endorsed_claim
+      text: they know what is best for their people and society
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - That story is awful, but its something that probably happens extremely rarely.
+      This doesn't mean the authorities are wrong or immoral when it comes to this
+      issue. They know what
+    - aboriton as that is a moral and spiritual matter.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The authorities are not wrong or immoral in this issue and
+      religion provides legitimate moral guidance on abortion.
+    candidate: Appeal to Authority
+    supporting_reason: The target claims that authorities and religious leaders “know
+      what is best for their people and society” (T1–T3), thereby relying solely on
+      their status to validate the authorities’ positions.
+    support_relation: Appeal to Authority is used to justify the conclusion that the
+      authorities’ stance is correct and morally valid
+    label_justification: The argument depends on the assumed expertise of authorities
+      and religious leaders without presenting supporting evidence for their specific
+      competence on the issue, which constitutes an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That story is awful, but its something that probably happens extremely rarely.
+      This doesn't mean the authorities are wrong or immoral when it comes to this
+      issue. They know what
+    - is best for their people and society. If its the law now, its the law. Religious
+      leaders might not be doctors, but they know what's best when it comes to
+    - aboriton as that is a moral and spiritual matter.
+  counterargument:
+    decisive_counterargument: 'The claim that authorities “know what is best for their
+      people and society” merely invites an *appeal to authority*: the moral correctness
+      of a law or policy is taken for granted because it comes from a government or
+      religious leader, not because it has been justified on its own merits or subjected
+      to independent scrutiny.  Who is the authority?  Law makers have sometimes promulgated
+      statutes that systematically violated human rights (e.g., segregation laws,
+      repressive regimes), and religious leaders are not universally recognized as
+      masters of medical or ethical knowledge.  The rarity of the bad incident does
+      not prove that the law is morally sound; it only points to the possibility of
+      wrongful judgment.  Consequently, accepting the legality or the authority of
+      the decision as a substitute for a genuine moral argument is a fallacious reliance
+      on authority.  A better defense would require evidence that the law accomplishes
+      a legitimate public interest or protects the rights of the vulnerable, not simply
+      that it is enacted by an authority.'
+    candidate: Appeal to Authority
+    challenged_inference: The inference that the law’s authority and the self‑claimed
+      expertise of government or religious leaders automatically make the policy morally
+      correct
+    label_justification: The objection targets the reasoning step that equates an
+      authority’s claim with moral truth, exposing the classic appeal‑to‑authority
+      fallacy.  It does not merely criticize the argument but demonstrates that authority
+      alone cannot justify a moral or legal stance, showing the logical flaw in the
+      target’s reasoning.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - is best for their people and society. If its the law now, its the law. Religious
+      leaders might not be doctors, but they know what's best when it comes to
+    - aboriton as that is a moral and spiritual matter.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target contains a belief that authorities and religious
+    leaders know what is best and that their position is correct (e.g., “They know
+    what is best for their people and society,” “Religious leaders … know what's best”),
+    which matches the authority‑to‑claim structure without further justification,
+    satisfying the structural condition for an appeal to authority fallacy.
+  decision_reason: The passage explicitly appeals to the authority of government officials
+    and religious leaders to justify the stance on abortion, without providing independent
+    evidence or reasoning for why that authority’s view is correct.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - That story is awful, but its something that probably happens extremely rarely.
+    This doesn't mean the authorities are wrong or immoral when it comes to this issue.
+    They know what
+  - aboriton as that is a moral and spiritual matter.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4863
+  completion_tokens: 3390
+  total_tokens: 8253
+  wall_time_seconds: 149.2970000000205
