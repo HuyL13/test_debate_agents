@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -10,7 +11,7 @@ from src.data.loader import load_split, select_task
 from src.engine import Engine
 from src.evaluate import score
 from src.io_utils import append_jsonl, read_jsonl, write_json
-from src.labels import labels_for
+from src.labels import ANALYSTS, labels_for
 from src.llm.client import Client
 from src.llm.config import ModelConfig
 from src.trace import append_samples_csv, build_sample_trace, sample_trace_filename, write_sample_trace
@@ -80,13 +81,21 @@ def _run_name(config, output=None):
     return f"{config['task']}__{config['split']}__conflict-guided__{model}__{stamp}"
 
 
+def _run_dir(config, output=None):
+    output_root = Path(config["output_root"]).resolve()
+    run_dir = (output_root / _run_name(config, output)).resolve()
+    if run_dir == output_root or output_root not in run_dir.parents:
+        raise ValueError("Output name must stay inside output_root")
+    return run_dir
+
+
 def _prediction_row(trace):
     sample = trace["sample"]
     return {
         "sample_id": sample["id"],
         "task": sample["task"],
         "gold": sample["gold"],
-        "prediction": trace["arbiter"]["prediction"],
+        "prediction": trace["result"]["prediction"],
         "status": "ok",
     }
 
@@ -107,9 +116,10 @@ def execute(config, *, limit=None, resume=False, output=None):
     samples = select_task(load_split(Path(config["data_dir"]) / f"{config['split']}.json"), config["task"])
     if limit:
         samples = samples[:limit]
-    run_dir = Path(config["output_root"]) / _run_name(config, output)
+    run_dir = _run_dir(config, output)
     if run_dir.exists() and any(run_dir.iterdir()) and not resume:
-        raise ValueError("Output exists; use --resume or choose --output")
+        print(f"Overwriting existing output: {run_dir}", flush=True)
+        shutil.rmtree(run_dir)
     run_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "task": config["task"],
@@ -151,13 +161,20 @@ def execute(config, *, limit=None, resume=False, output=None):
             print(f"[{index}/{len(samples)}] {sample.sample_id} start", flush=True)
             print(f"TARGET: {_shorten(model_input.comment)}", flush=True)
             result = engine.run(model_input, {"sample_id": sample.sample_id, "split": config["split"]})
+            gold = sample.gold(config["task"])
+            final_result = {
+                "selected_candidate": result["selected_candidate"],
+                "prediction": result["prediction"],
+                "correct": result["prediction"] == gold,
+            }
+
             trace = build_sample_trace(
                 sample={
                     "id": sample.sample_id,
                     "article_id": sample.article_id,
                     "task": config["task"],
                     "split": config["split"],
-                    "gold": sample.gold(config["task"]),
+                    "gold": gold,
                 },
                 model_input={
                     "title": model_input.title,
@@ -165,8 +182,10 @@ def execute(config, *, limit=None, resume=False, output=None):
                     "target": model_input.comment,
                 },
                 initial_analysis=result["initial_analysis"],
+                candidate_state=result["candidate_state"],
                 conflicts=result["conflicts"],
                 arbiter=result["arbiter"],
+                result=final_result,
                 stats=result["stats"],
             )
             write_sample_trace(run_dir / "traces", trace)
@@ -177,14 +196,14 @@ def execute(config, *, limit=None, resume=False, output=None):
                 "gold": row["gold"],
                 "prediction": row["prediction"],
                 "correct": str(row["gold"] == row["prediction"]).lower(),
-                "initial_candidates": "|".join(str(result["initial_analysis"][role]["candidate"]) for role in ("scheme", "enthymeme", "critical")),
+                "initial_candidates": "|".join(str(result["initial_analysis"][role]["candidate"]) for role in ANALYSTS),
                 "conflict_count": len(result["conflicts"]),
                 "logical_calls": result["stats"]["logical_calls"],
                 "provider_calls": result["stats"]["provider_calls"],
                 "total_tokens": result["stats"]["total_tokens"],
                 "wall_time_seconds": result["stats"]["wall_time_seconds"],
             })
-            for role in ("scheme", "enthymeme", "critical"):
+            for role in ANALYSTS:
                 _log_json(f"  {role}", result["initial_analysis"][role])
             if result["conflicts"]:
                 for conflict in result["conflicts"]:
@@ -196,7 +215,10 @@ def execute(config, *, limit=None, resume=False, output=None):
                 f"[{index}/{len(samples)}] {sample.sample_id} done "
                 f"prediction={row['prediction']} "
                 f"gold={row['gold']} "
-                f"calls={result['stats']['provider_calls']} "
+                f"logical_calls={result['stats']['logical_calls']} "
+                f"provider_calls={result['stats']['provider_calls']} "
+                f"cache_hits={result['stats']['cache_hits']} "
+                f"retries={result['stats']['retries']} "
                 f"tokens={result['stats']['total_tokens']} "
                 f"seconds={result['stats']['wall_time_seconds']:.2f}",
                 flush=True,
@@ -238,6 +260,11 @@ def freeze(config, path):
 
 
 def cli():
+    import sys
+
+    # Preserve log output even on Windows terminals with a legacy encoding.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
     parser = argparse.ArgumentParser(description="Run the conflict-guided CoCoLoFa flow.")
     parser.add_argument("--config", required=True)
     parser.add_argument("--split", choices=("dev", "test"))

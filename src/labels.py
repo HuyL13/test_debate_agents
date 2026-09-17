@@ -4,7 +4,7 @@ FALLACIES = (
     'Hasty Generalization', 'Slippery Slope',
 )
 DETECTION = ('Non-Fallacious', 'Fallacious')
-ANALYSTS = ('scheme', 'enthymeme', 'critical')
+ANALYSTS = ('structure', 'goal', 'counterargument')
 
 
 def labels_for(task):

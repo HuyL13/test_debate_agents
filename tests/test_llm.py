@@ -24,7 +24,14 @@ class Transport:
 
 
 def test_client_returns_output_with_call_stats_and_cache_hit(tmp_path):
-    transport = Transport([envelope(json.dumps({"prediction": "Fallacious", "evidence_spans": ["x"]}))])
+    output = {
+        "selected_candidate": "Slippery Slope",
+
+        "evidence_spans": ["x"],
+        "decisive_condition": "consequence_chain",
+        "decision_reason": "The target supports the stated escalation hypothesis.",
+    }
+    transport = Transport([envelope(json.dumps(output))])
     client = Client(
         ModelConfig(name="fixture-model", provider="mock"),
         tmp_path / "cache.sqlite",
@@ -35,18 +42,18 @@ def test_client_returns_output_with_call_stats_and_cache_hit(tmp_path):
     first = client.generate(
         system_prompt="Analyze.",
         user_prompt=json.dumps({"input": {"comment": "x"}}),
-        schema=arbiter_schema("detection"),
+        schema=arbiter_schema("detection", ["Slippery Slope"]),
         metadata={"stage": "arbiter"},
     )
     second = client.generate(
         system_prompt="Analyze.",
         user_prompt=json.dumps({"input": {"comment": "x"}}),
-        schema=arbiter_schema("detection"),
+        schema=arbiter_schema("detection", ["Slippery Slope"]),
         metadata={"stage": "arbiter"},
     )
 
     assert isinstance(first, GenerationResult)
-    assert first.output["prediction"] == "Fallacious"
+    assert first.output["selected_candidate"] == "Slippery Slope"
     assert first.stats.provider_calls == 1
     assert first.stats.total_tokens == 15
     assert second.stats.cache_hit is True

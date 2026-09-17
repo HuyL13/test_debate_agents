@@ -1,32 +1,94 @@
+import re
+
 from src.labels import FALLACIES, labels_for
 
 
-RELATIONS = (
-    "sample_to_population",
-    "event_to_consequence",
-    "consequence_progression",
-    "alternatives_to_choice",
+STRUCTURE_TYPES = (
     "authority_to_claim",
     "popularity_to_claim",
     "nature_to_value",
     "tradition_to_preservation",
     "worse_problem_to_deprioritization",
+    "exhaustive_alternatives",
+    "sample_to_population",
+    "consequence_chain",
+    "none",
+)
+
+SLOT_ROLES = (
+    "authority",
+    "endorsed_claim",
+    "population_group",
+    "popularity_claim",
+    "target_claim",
+    "naturalness_premise",
+    "evaluative_conclusion",
+    "tradition_premise",
+    "preservation_conclusion",
+    "focal_issue",
+    "worse_issue",
+    "deprioritizing_conclusion",
+    "alternative_a",
+    "alternative_b",
+    "exhaustiveness_commitment",
+    "sample",
+    "observed_property",
+    "target_population",
+    "initial_event",
+    "intermediate_consequence",
+    "final_consequence",
+)
+
+SUPPORT_MECHANISMS = (
+    "authority_support",
+    "popularity_support",
+    "naturalness_support",
+    "tradition_support",
+    "worse_problem_downplay",
+    "exhaustive_choice_pressure",
+    "sample_to_general_claim",
+    "escalating_consequence_warning",
     "other",
     "none",
 )
 
-CRITERIA = (
-    "sample_to_population",
-    "consequence_progression",
-    "exhaustiveness_commitment",
-    "authority_justification",
-    "popularity_justification",
-    "nature_to_value",
-    "tradition_to_preservation",
-    "worse_problem_deprioritization",
-    "target_fallacy_condition",
+FAILURE_MODES = (
+    "authority_not_sufficient",
+    "popularity_not_evidence",
+    "naturalness_not_normative",
+    "tradition_not_justification",
+    "worse_problem_irrelevant",
+    "alternatives_not_exhaustive",
+    "sample_not_representative",
+    "escalation_not_established",
+    "other",
     "none",
 )
+
+DECISIVE_CONDITIONS = STRUCTURE_TYPES + SUPPORT_MECHANISMS + FAILURE_MODES
+
+STRUCTURE_BY_CANDIDATE = {
+    "Appeal to Authority": "authority_to_claim",
+    "Appeal to Majority": "popularity_to_claim",
+    "Appeal to Nature": "nature_to_value",
+    "Appeal to Tradition": "tradition_to_preservation",
+    "Appeal to Worse Problems": "worse_problem_to_deprioritization",
+    "False Dilemma": "exhaustive_alternatives",
+    "Hasty Generalization": "sample_to_population",
+    "Slippery Slope": "consequence_chain",
+}
+
+REQUIRED_SLOTS = {
+    "Appeal to Authority": {"authority", "endorsed_claim"},
+    "Appeal to Majority": {"population_group", "popularity_claim", "target_claim"},
+    "Appeal to Nature": {"naturalness_premise", "evaluative_conclusion"},
+    "Appeal to Tradition": {"tradition_premise", "preservation_conclusion"},
+    "Appeal to Worse Problems": {"focal_issue", "worse_issue", "deprioritizing_conclusion"},
+    "False Dilemma": {"alternative_a", "alternative_b", "exhaustiveness_commitment"},
+    "Hasty Generalization": {"sample", "observed_property", "target_population"},
+    "Slippery Slope": {"initial_event", "intermediate_consequence", "final_consequence"},
+}
+
 
 
 def object_schema(properties, required=None):
@@ -51,31 +113,50 @@ def _candidate(task):
     return {"anyOf": [{"enum": list(FALLACIES)}, {"type": "null"}]}
 
 
-def scheme_schema(task):
+def _slots():
+    return {
+        "type": "array",
+        "items": object_schema({
+            "role": {"enum": list(SLOT_ROLES)},
+            "text": _string(240),
+        }),
+        "minItems": 0,
+        "maxItems": 5,
+    }
+
+
+def structure_schema(task):
+    labels_for(task)
     return object_schema({
-        "candidate": _candidate(task),
         "evidence_spans": _spans(),
-        "relation": {"enum": list(RELATIONS)},
+        "structure_type": {"enum": list(STRUCTURE_TYPES)},
+        "slots": _slots(),
         "structure_complete": {"type": "boolean"},
     })
 
 
-def enthymeme_schema(task):
+def goal_schema(task):
+    labels_for(task)
     return object_schema({
-        "candidate": _candidate(task),
         "evidence_spans": _spans(),
-        "required_assumption": {"anyOf": [_string(), {"type": "null"}]},
-        "assumption_licensed": {"type": "boolean"},
+        "conclusion_or_goal": {"anyOf": [_string(), {"type": "null"}]},
+        "candidate": _candidate(task),
+        "supporting_reason": {"anyOf": [_string(), {"type": "null"}]},
+        "support_relation": {"anyOf": [_string(), {"type": "null"}]},
+        "label_justification": _string(),
+        "mechanism_supports_goal": {"type": "boolean"},
     })
 
 
-def critical_schema(task):
+def counterargument_schema(task):
+    labels_for(task)
     return object_schema({
-        "candidate": _candidate(task),
         "evidence_spans": _spans(),
-        "criterion": {"enum": list(CRITERIA)},
-        "criterion_met": {"type": "boolean"},
-        "alternative_reading": {"anyOf": [_string(), {"type": "null"}]},
+        "decisive_counterargument": {"anyOf": [_string(), {"type": "null"}]},
+        "candidate": _candidate(task),
+        "challenged_inference": {"anyOf": [_string(), {"type": "null"}]},
+        "label_justification": _string(),
+        "failure_exposed": {"type": "boolean"},
     })
 
 
@@ -93,11 +174,93 @@ def conflict_resolution_schema(task, allowed_candidates):
     })
 
 
-def arbiter_schema(task):
+def arbiter_schema(task, allowed_candidates):
+    labels_for(task)
+    allowed = [candidate for candidate in allowed_candidates if candidate is not None]
+
+    if allowed:
+        selected = {
+            "anyOf": [
+                {"enum": allowed},
+                {"type": "null"},
+            ]
+        }
+    else:
+        selected = {"type": "null"}
+
     return object_schema({
-        "prediction": {"enum": list(labels_for(task))},
+        "selected_candidate": selected,
         "evidence_spans": _spans(),
+        "decisive_condition": _string(),
+        "decision_reason": _string(),
     })
+
+
+def derive_candidate(role, value):
+    if role != "structure":
+        return value["candidate"]
+    return next((label for label, kind in STRUCTURE_BY_CANDIDATE.items()
+                 if kind == value["structure_type"]), None)
+
+
+def validate_structure_semantics(value):
+    candidate = derive_candidate("structure", value)
+    structure_type = value["structure_type"]
+    complete = value["structure_complete"]
+
+    if candidate is None:
+        if complete is not False or value["slots"]:
+            raise ValueError("structure_type=none requires slots=[] and structure_complete=false")
+        return value
+
+    if complete:
+        present = {slot["role"] for slot in value["slots"]}
+        missing = REQUIRED_SLOTS[candidate] - present
+        if missing:
+            raise ValueError(f"structure_complete=true missing required slots: {sorted(missing)}")
+    return value
+
+
+def _require_text(value, fields):
+    for field in fields:
+        if not (value[field] or "").strip():
+            raise ValueError(f"{field} must contain a concrete explanation")
+
+
+def validate_goal_semantics(value):
+    _require_text(value, ("label_justification",))
+    if value["candidate"] is not None or value["mechanism_supports_goal"]:
+        _require_text(value, ("conclusion_or_goal", "supporting_reason", "support_relation"))
+    return value
+
+
+def validate_counterargument_semantics(value):
+    _require_text(value, ("label_justification",))
+    if value["candidate"] is not None or value["failure_exposed"]:
+        _require_text(value, ("challenged_inference", "decisive_counterargument"))
+    return value
+
+
+def validate_conflict_resolution_semantics(value, candidates):
+    if value["loser_failure"] in candidates:
+        raise ValueError(
+            "loser_failure must explain the failure, not merely repeat a candidate label"
+        )
+    if len(value["loser_failure"].strip()) < 8:
+        raise ValueError("loser_failure is too short to be explanatory")
+    if len(value["decisive_test"].strip()) < 8:
+        raise ValueError("decisive_test is too short")
+    return value
+
+
+def validate_arbiter_semantics(value, allowed_candidates):
+    selected = value["selected_candidate"]
+
+    if selected is not None and selected not in allowed_candidates:
+        raise ValueError("Arbiter selected a non-surviving candidate")
+
+    _require_text(value, ("decision_reason", "decisive_condition"))
+    return value
 
 
 def validate_output(value, schema):
@@ -153,7 +316,20 @@ def _validate(value, schema, path):
 
 
 def validate_evidence_spans(value, target):
+    canonical = []
     for span in value.get("evidence_spans", []):
-        if span not in target:
-            raise ValueError(f"Evidence span not found in TARGET: {span}")
+        if span.strip() and span in target:
+            canonical.append(span)
+            continue
+        # Recover literal TARGET text when copying changed only whitespace.
+        tokens = span.split()
+        match = re.search(r"\s+".join(re.escape(token) for token in tokens), target) if tokens else None
+        if match is None:
+            raise ValueError(
+                f"Evidence span not found in TARGET: {span!r}. "
+                "Copy a short verbatim substring from input.target, not parent or a paraphrase."
+            )
+        canonical.append(match.group(0))
+    if "evidence_spans" in value:
+        value["evidence_spans"] = canonical
     return value

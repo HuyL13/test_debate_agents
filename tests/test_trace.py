@@ -18,28 +18,36 @@ def test_trace_has_meaningful_filename_stats_and_no_legacy_blobs(tmp_path):
             "target": "I think this election is about good and evil.",
         },
         initial_analysis={
-            "scheme": {
-                "candidate": "False Dilemma",
-                "evidence_spans": ["good and evil"],
-                "relation": "alternatives_to_choice",
-                "structure_complete": False,
-            },
-            "enthymeme": {
-                "candidate": "False Dilemma",
-                "evidence_spans": ["good and evil"],
-                "required_assumption": "the options are exhaustive",
-                "assumption_licensed": False,
-            },
-            "critical": {
+            "structure": {
                 "candidate": None,
                 "evidence_spans": ["good and evil"],
-                "criterion": "exhaustiveness_commitment",
-                "criterion_met": False,
-                "alternative_reading": "moral rhetoric",
+                "structure_type": "none",
+                "slots": [],
+                "structure_complete": False,
+            },
+            "goal": {
+                "candidate": None,
+                "evidence_spans": ["good and evil"],
+                "conclusion_or_goal": "make a moral contrast",
+                "support_mechanism": "none",
+                "mechanism_supports_goal": False,
+            },
+            "counterargument": {
+                "candidate": None,
+                "evidence_spans": ["good and evil"],
+                "decisive_counterargument": None,
+                "failure_mode": "none",
+                "failure_exposed": False,
             },
         },
         conflicts=[],
-        arbiter={"prediction": "Non-Fallacious", "evidence_spans": ["good and evil"]},
+        arbiter={
+            "selected_candidate": None,
+            "verified": False,
+            "evidence_spans": [],
+            "decisive_condition": "none",
+            "rejection_reason": "No candidate survived.",
+        },
         stats={
             "logical_calls": 4,
             "provider_calls": 4,

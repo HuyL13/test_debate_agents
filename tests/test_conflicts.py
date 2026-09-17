@@ -1,101 +1,29 @@
-from src.conflicts import build_conflicts
+from src.conflicts import choose_next_conflict
 
 
-def test_detects_candidate_disagreement_pair():
-    reports = {
-        "scheme": {"candidate": "Slippery Slope", "evidence_spans": ["A leads to B"]},
-        "enthymeme": {"candidate": "Hasty Generalization", "evidence_spans": ["these cases prove it"]},
-        "critical": {"candidate": "Slippery Slope", "evidence_spans": ["B then C"]},
-    }
+def test_detects_known_candidate_disagreement_pair():
+    conflict = choose_next_conflict(["Slippery Slope", "Hasty Generalization"])
 
-    conflicts = build_conflicts(reports)
-
-    assert conflicts[0]["id"] == "hasty-generalization__vs__slippery-slope"
-    assert conflicts[0]["candidates"] == ["Hasty Generalization", "Slippery Slope"]
+    assert conflict["id"] == "hasty-generalization__vs__slippery-slope"
+    assert conflict["candidates"] == ["Hasty Generalization", "Slippery Slope"]
+    assert conflict["type"] == "candidate_disagreement"
 
 
-def test_detects_candidate_vs_none_and_structural_conflict():
-    reports = {
-        "scheme": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["good and evil"],
-            "structure_complete": False,
-        },
-        "enthymeme": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["good and evil"],
-            "required_assumption": "the options are exhaustive",
-            "assumption_licensed": False,
-        },
-        "critical": {
-            "candidate": None,
-            "evidence_spans": ["good and evil"],
-            "criterion": "exhaustiveness commitment",
-            "criterion_met": False,
-        },
-    }
-
-    conflicts = build_conflicts(reports)
-
-    assert conflicts[0]["id"] == "false-dilemma__vs__non-fallacious"
-    assert conflicts[0]["type"] == "structural_conflict"
-    assert "scheme.structure_complete=false" in conflicts[0]["triggered_by"]
-    assert "enthymeme.assumption_licensed=false" in conflicts[0]["triggered_by"]
-    assert "critical.criterion_met=false" in conflicts[0]["triggered_by"]
+def test_dynamic_conflict_returns_none_for_zero_or_one_survivor():
+    assert choose_next_conflict([]) is None
+    assert choose_next_conflict(["Slippery Slope"]) is None
 
 
-def test_structural_conflict_with_same_candidate_resolves_against_non_fallacious():
-    reports = {
-        "scheme": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["good and evil"],
-            "structure_complete": False,
-        },
-        "enthymeme": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["good and evil"],
-            "required_assumption": "the options are exhaustive",
-            "assumption_licensed": False,
-        },
-        "critical": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["good and evil"],
-            "criterion": "exhaustiveness commitment",
-            "criterion_met": False,
-            "alternative_reading": "moral rhetoric",
-        },
-    }
+def test_unknown_pair_is_bounded_to_two_surviving_candidates():
+    conflict = choose_next_conflict([
+        "False Dilemma",
+        "Appeal to Authority",
+        "Slippery Slope",
+    ])
 
-    conflicts = build_conflicts(reports)
-
-    assert conflicts[0]["id"] == "false-dilemma__vs__non-fallacious"
-    assert conflicts[0]["candidates"] == ["False Dilemma", None]
-
-
-def test_three_unique_candidates_routes_two_conflicts_and_keeps_third_candidate():
-    reports = {
-        "scheme": {
-            "candidate": "False Dilemma",
-            "evidence_spans": ["x"],
-            "structure_complete": False,
-        },
-        "enthymeme": {
-            "candidate": "Appeal to Authority",
-            "evidence_spans": ["x"],
-            "required_assumption": "authority justifies claim",
-            "assumption_licensed": False,
-        },
-        "critical": {
-            "candidate": "Slippery Slope",
-            "evidence_spans": ["x"],
-            "criterion": "escalating consequence progression",
-            "criterion_met": True,
-            "alternative_reading": "prediction",
-        },
-    }
-
-    conflicts = build_conflicts(reports)
-
-    assert len(conflicts) == 2
-    routed = {candidate for conflict in conflicts for candidate in conflict["candidates"]}
-    assert routed == {"False Dilemma", "Appeal to Authority", "Slippery Slope"}
+    assert len(conflict["candidates"]) == 2
+    assert set(conflict["candidates"]).issubset({
+        "False Dilemma",
+        "Appeal to Authority",
+        "Slippery Slope",
+    })

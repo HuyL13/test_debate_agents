@@ -83,9 +83,21 @@ class Client:
                 "cache_hit": True,
                 "valid": True,
             })
+            cached_usage = _usage(cached.get("response") or {})
             return GenerationResult(
                 cached["parsed"],
-                CallStats(stage, 1, 0, True, 0, 0, 0, 0, time.monotonic() - started, cached.get("model", self.config.name)),
+                CallStats(
+                    stage=stage,
+                    logical_calls=1,
+                    provider_calls=0,
+                    cache_hit=True,
+                    retries=0,
+                    prompt_tokens=cached_usage["prompt_tokens"],
+                    completion_tokens=cached_usage["completion_tokens"],
+                    total_tokens=cached_usage["total_tokens"],
+                    latency_seconds=time.monotonic() - started,
+                    model=cached.get("model", self.config.name),
+                ),
             )
 
         last_error = None

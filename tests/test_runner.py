@@ -64,7 +64,7 @@ def test_runner_writes_yaml_traces_samples_csv_and_audit(tmp_path):
     traces = list((run / "traces").glob("article-*__comment-*.yaml"))
     assert len(traces) == 1
     trace = yaml.safe_load(traces[0].read_text(encoding="utf-8"))
-    assert trace["stats"]["logical_calls"] >= 4
+    assert trace["stats"]["logical_calls"] >= 3
     assert (run / "audit" / "api_calls.jsonl").exists()
     assert not (run / "debug").exists()
     assert read_jsonl(run / "predictions.jsonl")[0]["sample_id"] == "2:21"
@@ -79,10 +79,9 @@ def test_runner_prints_progress_while_samples_run(tmp_path, capsys):
     assert "Run directory:" in out
     assert "[1/1] 2:21 start" in out
     assert "TARGET: I think this election is about good and evil." in out
-    assert "scheme:" in out
-    assert "enthymeme:" in out
-    assert "critical:" in out
-    assert "arbiter:" in out
+    assert "structure:" in out
+    assert "goal:" in out
+    assert "counterargument:" in out
     assert "[1/1] 2:21 done prediction=Non-Fallacious gold=Non-Fallacious" in out
     assert "logical_calls=" in out
     assert "provider_calls=" in out
@@ -101,6 +100,19 @@ def test_resume_keeps_manifest_and_does_not_duplicate_completed_sample(tmp_path)
 
     assert (run / "manifest.json").read_text(encoding="utf-8") == manifest_before
     assert (run / "samples.csv").read_text(encoding="utf-8") == samples_before
+    assert len(read_jsonl(run / "predictions.jsonl")) == 1
+
+
+def test_existing_output_is_overwritten_without_resume(tmp_path):
+    cfg = config(tmp_path)
+    execute(cfg, limit=1)
+    run = Path(cfg["output_root"]) / "smoke"
+    marker = run / "stale.txt"
+    marker.write_text("old", encoding="utf-8")
+
+    execute(cfg, limit=1)
+
+    assert not marker.exists()
     assert len(read_jsonl(run / "predictions.jsonl")) == 1
 
 

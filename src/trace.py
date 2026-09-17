@@ -23,18 +23,33 @@ def sample_trace_filename(sample_id):
     return f"article-{article}__comment-{comment}.yaml"
 
 
-def build_sample_trace(*, sample, model_input, initial_analysis, conflicts, arbiter, stats):
+def build_sample_trace(
+    *,
+    sample,
+    model_input,
+    initial_analysis,
+    conflicts,
+    arbiter,
+    stats,
+    candidate_state=None,
+    result=None,
+):
     missing = [field for field in STAT_FIELDS if field not in stats]
     if missing:
         raise ValueError(f"Trace stats missing fields: {missing}")
-    return {
+
+    trace = {
         "sample": sample,
         "input": model_input,
         "initial_analysis": initial_analysis,
+        "candidate_state": candidate_state or {},
         "conflicts": conflicts,
         "arbiter": arbiter,
+        "result": result or {},
         "stats": {field: stats[field] for field in STAT_FIELDS},
     }
+
+    return trace
 
 
 def write_sample_trace(directory, trace):
