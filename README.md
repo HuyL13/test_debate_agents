@@ -107,6 +107,26 @@ nhưng validator nội bộ vẫn kiểm tra schema đầy đủ sau khi nhận 
 [Gemini generateContent](https://ai.google.dev/api/generate-content) và
 [Gemini structured output](https://ai.google.dev/gemini-api/docs/structured-output?lang=rest).
 
+### Chạy thử nhiều OpenAI-compatible provider
+
+`scripts/provider_smoke.py` tự đọc model từ `/models` nếu chưa đặt biến model,
+chạy ARS trên cùng một số mẫu và tạo output/cache riêng cho từng provider. Key
+chỉ được đọc từ environment, không được ghi hoặc in ra:
+
+```powershell
+python scripts/provider_smoke.py `
+  --providers market,9router,minimax,nvidia_1,nvidia_2,nvidia_3 `
+  --limit 1 `
+  --output-root outputs/provider-smoke-live `
+  --cache-root cache/provider-smoke-live
+```
+
+Đặt `MARKET_MODEL`, `ROUTER_MODEL`, `MINIMAX_MODEL` hoặc `NVIDIA_MODEL` nếu
+provider trả về model đầu tiên không phù hợp. Mỗi mẫu ARS no-debate cần 5 API
+calls; dùng `--config configs/detection.ars.yaml` để kiểm tra policy review,
+với 8 calls/mẫu. Kết quả tổng hợp nằm ở
+`outputs/provider-smoke-live/summary.json`.
+
 ### Endpoint OpenAI hoặc nhà cung cấp khác
 
 Sửa `model.name: SET_MODEL_SNAPSHOT` trong **cả hai** file `configs/detection.yaml`, `configs/classification.yaml` thành cùng một model/snapshot mà tài khoản của bạn truy cập được. Cấu hình mặc định dùng OpenAI Chat Completions; endpoint tương thích có thể dùng `provider: openai_compatible` và đổi `base_url`, `api_key_env`.
