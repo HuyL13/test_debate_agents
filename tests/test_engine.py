@@ -182,3 +182,86 @@ def test_engine_prunes_nonviable_candidates_before_conflicts_and_binds_arbiter()
     assert '"surviving_candidates": ["Slippery Slope"]' in arbiter_payload
     assert "False Dilemma" not in arbiter_payload
     assert "Appeal to Majority" not in arbiter_payload
+
+
+class EmptyClassificationClient:
+    def __init__(self):
+        self.calls = []
+
+    def generate(self, *, system_prompt, user_prompt, schema, metadata, validator=None):
+        self.calls.append({
+            "system_prompt": system_prompt,
+            "user_prompt": user_prompt,
+            "metadata": metadata,
+            "schema": schema,
+        })
+        stage = metadata["stage"]
+        if stage == "structure":
+            output = {
+                "evidence_ids": ["T1"],
+                "structure_type": "none",
+                "slots": [],
+                "structure_complete": False,
+            }
+        elif stage == "goal":
+            output = {
+                "evidence_ids": ["T1"],
+                "conclusion_or_goal": None,
+                "candidate": None,
+                "supporting_reason": None,
+                "support_relation": None,
+                "label_justification": "No single mechanism was confidently identified.",
+                "mechanism_supports_goal": False,
+            }
+        elif stage == "counterargument":
+            output = {
+                "evidence_ids": ["T1"],
+                "decisive_counterargument": None,
+                "candidate": None,
+                "challenged_inference": None,
+                "label_justification": "No single failure mode was confidently identified.",
+                "failure_exposed": False,
+            }
+        elif stage == "classification_recovery":
+            output = {
+                "evidence_ids": ["T1"],
+                "selected_candidate": "Slippery Slope",
+                "decisive_condition": "The best fit among the required labels is an escalating consequence warning.",
+                "decision_reason": "Classification requires one of the eight labels, and this label best matches the target.",
+            }
+        else:
+            raise AssertionError(f"unexpected stage: {stage}")
+
+        validate_output(output, schema)
+        if validator:
+            validator(output)
+        return Result(output=output, stats=Stats(stage=stage))
+
+
+def test_classification_recovers_when_all_initial_candidates_abstain():
+    client = EmptyClassificationClient()
+    trace = Engine(client, task="classification").run(
+        sample(),
+        {"sample_id": "347:6437", "split": "test"},
+    )
+
+    assert [call["metadata"]["stage"] for call in client.calls] == [
+        "structure",
+        "goal",
+        "counterargument",
+        "classification_recovery",
+    ]
+    assert trace["prediction"] == "Slippery Slope"
+    assert trace["selected_candidate"] == "Slippery Slope"
+    assert trace["candidate_state"]["after_viability"] == []
+    assert trace["candidate_state"]["after_conflicts"] == []
+    recovery = trace["candidate_state"]["recovery"]
+    assert recovery["triggered"] is True
+    assert recovery["reason"] == "no_viable_survivor"
+    assert recovery["mode"] == "full_label_space"
+    assert len(recovery["candidates"]) == 8
+
+    payload = json.loads(client.calls[-1]["user_prompt"])
+    assert payload["recovery_mode"] == "full_label_space"
+    assert len(payload["allowed_candidates"]) == 8
+    assert "gold" not in client.calls[-1]["user_prompt"]
