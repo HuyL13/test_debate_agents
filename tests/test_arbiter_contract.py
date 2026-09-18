@@ -18,3 +18,39 @@ def test_arbiter_has_one_decision_with_explanation(candidate):
 def test_arbiter_still_rejects_non_surviving_candidate():
     with pytest.raises(ValueError, match="non-surviving"):
         validate_arbiter_semantics({"selected_candidate": "False Dilemma"}, ["Slippery Slope"])
+
+
+def test_classification_arbiter_requires_one_allowed_label():
+    schema = arbiter_schema("classification", ["Slippery Slope", "False Dilemma"])
+
+    validate_output(
+        {
+            "selected_candidate": "Slippery Slope",
+            "evidence_spans": ["It gets worse"],
+            "decisive_condition": "The consequence chain is the better fit.",
+            "decision_reason": "The target uses escalating consequences.",
+        },
+        schema,
+    )
+
+    with pytest.raises(ValueError):
+        validate_output(
+            {
+                "selected_candidate": None,
+                "evidence_spans": ["It gets worse"],
+                "decisive_condition": "No condition.",
+                "decision_reason": "Abstain.",
+            },
+            schema,
+        )
+
+    with pytest.raises(ValueError, match="must select"):
+        validate_arbiter_semantics(
+            {
+                "selected_candidate": None,
+                "decisive_condition": "No condition.",
+                "decision_reason": "Abstain.",
+            },
+            ["Slippery Slope", "False Dilemma"],
+            require_selection=True,
+        )
