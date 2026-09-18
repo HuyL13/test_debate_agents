@@ -179,12 +179,18 @@ def arbiter_schema(task, allowed_candidates):
     allowed = [candidate for candidate in allowed_candidates if candidate is not None]
 
     if allowed:
-        selected = {
-            "anyOf": [
-                {"enum": allowed},
-                {"type": "null"},
-            ]
-        }
+        # Detection may reject all surviving hypotheses and map that to
+        # Non-Fallacious. Classification is a forced-choice task over the
+        # eight CoCoLoFa labels, so null is not a valid final decision.
+        if task == "classification":
+            selected = {"enum": allowed}
+        else:
+            selected = {
+                "anyOf": [
+                    {"enum": allowed},
+                    {"type": "null"},
+                ]
+            }
     else:
         selected = {"type": "null"}
 
@@ -253,11 +259,13 @@ def validate_conflict_resolution_semantics(value, candidates):
     return value
 
 
-def validate_arbiter_semantics(value, allowed_candidates):
+def validate_arbiter_semantics(value, allowed_candidates, *, require_selection=False):
     selected = value["selected_candidate"]
 
     if selected is not None and selected not in allowed_candidates:
         raise ValueError("Arbiter selected a non-surviving candidate")
+    if require_selection and selected is None:
+        raise ValueError("Classification adjudicator must select one allowed candidate")
 
     _require_text(value, ("decision_reason", "decisive_condition"))
     return value
