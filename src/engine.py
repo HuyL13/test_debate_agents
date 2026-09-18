@@ -100,7 +100,14 @@ def _candidate_state(reports):
     return entries, active
 
 
-def _survivor_support(reports, candidate_state, survivors):
+def _proposed_candidates(reports):
+    return _unique(
+        reports[role].get("candidate")
+        for role in ANALYSTS
+    )
+
+
+def _survivor_support(reports, candidate_state, survivors, *, viable_only=True):
     survivors = set(survivors)
     support = {candidate: [] for candidate in survivors}
     state_by_source = {
@@ -113,7 +120,7 @@ def _survivor_support(reports, candidate_state, survivors):
         state = state_by_source[role]
         candidate = report.get("candidate")
 
-        if not state["viable"] or candidate not in survivors:
+        if (viable_only and not state["viable"]) or candidate not in survivors:
             continue
 
         item = {
@@ -265,6 +272,14 @@ class Engine:
         # Final adjudication
         # ----------------------------------------------------
 
+        post_conflict_survivors = list(survivors)
+        recovery = {
+            "triggered": False,
+            "reason": None,
+            "mode": None,
+            "candidates": [],
+        }
+
         if self.task == "detection" and not survivors:
             adjudication = {
                 "selected_candidate": None,
@@ -279,38 +294,71 @@ class Engine:
             selected_candidate = None
 
         else:
-            if not survivors:
-                raise ValueError(
-                    "No surviving candidate for classification; "
-                    "do not silently invent a classification label."
-                )
+            arbiter_role = "arbiter"
+            arbiter_stage = "arbiter"
+            support_viable_only = True
+            arbiter_payload = {
+                "stage": arbiter_stage,
+                "task": self.task,
+            }
+
+            if self.task == "classification" and not survivors:
+                proposed = _proposed_candidates(reports)
+                if proposed:
+                    survivors = list(proposed)
+                    recovery_mode = "proposed_candidates"
+                else:
+                    survivors = list(labels_for("classification"))
+                    recovery_mode = "full_label_space"
+
+                recovery = {
+                    "triggered": True,
+                    "reason": "no_viable_survivor",
+                    "mode": recovery_mode,
+                    "candidates": list(survivors),
+                }
+                arbiter_role = "recovery_arbiter"
+                arbiter_stage = "classification_recovery"
+                support_viable_only = False
+                arbiter_payload = {
+                    "stage": arbiter_stage,
+                    "task": self.task,
+                    "recovery_mode": recovery_mode,
+                    "allowed_candidates": list(survivors),
+                    "initial_analysis": reports,
+                }
 
             support = _survivor_support(
                 reports,
                 initial_state,
                 survivors,
+                viable_only=support_viable_only,
             )
 
-            # IMPORTANT:
-            # Arbiter gets ONLY surviving hypotheses/support.
-            # Dead candidates are not sent.
+            if recovery["triggered"]:
+                arbiter_payload["candidate_support"] = support
+            else:
+                # Normal adjudication sees only hypotheses that survived the
+                # task-specific viability checks and conflict resolution.
+                arbiter_payload["surviving_candidates"] = list(survivors)
+                arbiter_payload["survivor_support"] = support
+
             arbiter = self._call(
-                role="arbiter",
-                stage="arbiter",
+                role=arbiter_role,
+                stage=arbiter_stage,
                 model_input=model_input,
                 metadata=safe_metadata,
                 schema=arbiter_schema(
                     self.task,
                     survivors,
                 ),
-                payload={
-                    "stage": "arbiter",
-                    "task": self.task,
-                    "surviving_candidates": survivors,
-                    "survivor_support": support,
-                },
-                extra_validator=lambda output, s=list(survivors): (
-                    validate_arbiter_semantics(output, s)
+                payload=arbiter_payload,
+                extra_validator=lambda output, s=list(survivors), t=self.task: (
+                    validate_arbiter_semantics(
+                        output,
+                        s,
+                        require_selection=(t == "classification"),
+                    )
                 ),
             )
 
@@ -321,6 +369,11 @@ class Engine:
                 "verified": selected_candidate is not None,
                 "rejection_reason": (
                     arbiter.output["decision_reason"] if selected_candidate is None else None
+                ),
+                "status": (
+                    "classification_recovery"
+                    if recovery["triggered"]
+                    else "adjudicated"
                 ),
             }
 
@@ -335,10 +388,8 @@ class Engine:
                 else "Non-Fallacious"
             )
         else:
-            if selected_candidate is None:
-                raise ValueError(
-                    "Classification adjudicator rejected all survivors."
-                )
+            # Classification is a forced-choice task. The schema and semantic
+            # validator above guarantee that this is one of the eight labels.
             prediction = selected_candidate
 
         stats = aggregate_call_stats(
@@ -350,7 +401,8 @@ class Engine:
             "initial": initial_state,
             "after_viability": active_candidates,
             "transitions": transitions,
-            "after_conflicts": survivors,
+            "after_conflicts": post_conflict_survivors,
+            "recovery": recovery,
             "final_survivors": survivors,
         }
 
