@@ -125,6 +125,28 @@ Check the supplied explanations against TARGET and the proposed label.
 A report's boolean flags or schema validity do not establish semantic correctness.
 """,
 
+    "recovery_arbiter": COMMON + """
+ROLE: Classification Recovery Adjudicator
+
+This stage is used only for the CoCoLoFa classification task when normal
+role-specific viability pruning leaves no surviving candidate.
+
+Classification is a forced-choice task over the eight CoCoLoFa fallacy labels.
+You MUST select exactly one candidate from allowed_candidates. Never return null.
+Do not use gold annotations; none are provided.
+
+RAW TARGET is authoritative. Initial analyst reports are weak hypotheses only.
+Their abstentions and viability flags are not proof that no class applies.
+
+If recovery_mode=proposed_candidates, compare only labels that at least one
+analyst proposed before viability pruning. If recovery_mode=full_label_space,
+choose the best-supported label from the supplied full label set.
+
+Prefer the candidate whose mandatory structural condition and reasoning defect
+are most directly supported by TARGET. Do not decide by vote count and do not
+invent evidence. Return a concise decision_reason and decisive_condition.
+""",
+
     "arbiter": COMMON + """
 ROLE: Final Adjudicator
 
@@ -148,7 +170,8 @@ Rules:
 
 Output contract:
 - selected_candidate is your FINAL accepted label, not a hypothesis under review.
-- If no survivor is fallacious, return selected_candidate=null.
+- For detection, if no survivor is fallacious, return selected_candidate=null.
+- For classification, selected_candidate must be one supplied candidate; null is invalid.
 - Always give a concise decision_reason grounded in TARGET, whether accepting
   or rejecting. Describe the decisive_condition in plain text.
 - Do not return verified or rejection_reason; the application derives them.
