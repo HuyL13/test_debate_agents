@@ -13,7 +13,12 @@ The conflict-guided interaction topology is the system design.
 3. `counterargument` independently states the strongest concise objection and exposed failure mode.
 4. Candidate synthesis deterministically prunes role-specific non-viable hypotheses.
 5. Targeted resolvers compare only surviving conflicting candidates.
-6. `arbiter` adjudicates only surviving hypotheses; the engine maps a selected candidate to the benchmark task label.
+6. For detection, an empty survivor set maps to `Non-Fallacious`. For classification,
+   the task is forced-choice: if viability pruning leaves no survivors, a dedicated
+   recovery adjudicator first reconsiders labels proposed before pruning and, when
+   all experts abstained, selects from the full eight-label space.
+7. `arbiter` adjudicates only surviving hypotheses; classification arbiters must
+   select exactly one allowed label, while detection arbiters may reject all survivors.
 
 The raw TARGET text is authoritative. TITLE and immediate parent are context only. Evidence spans must be substrings of TARGET.
 
@@ -44,3 +49,22 @@ Schema validation checks shape and required text, not semantic correctness.
 The arbiter returns a single final selected_candidate (or null) and a
  decision_reason plus decisive_condition. verified and rejection_reason are
  derived by the engine for trace compatibility, never independently predicted.
+
+
+## Classification forced-choice recovery
+
+CoCoLoFa classification is evaluated only on gold-positive examples and requires
+one of the eight fallacy labels. Expert abstention remains allowed internally so
+FORM/FUNCTION/FAILURE analyses are not forced to fabricate evidence. However,
+an empty post-viability candidate set is not a valid terminal classification
+state.
+
+Recovery is explicit and auditable in `candidate_state.recovery`:
+
+- `proposed_candidates`: use labels proposed by at least one expert before
+  viability pruning, including proposals whose role-specific gate failed.
+- `full_label_space`: when all experts abstain, choose from all eight labels.
+
+The recovery adjudicator never receives gold annotations. RAW TARGET remains
+authoritative, and the selected label must satisfy the same structural and
+reasoning-defect checks used elsewhere.
