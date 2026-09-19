@@ -243,4 +243,3 @@ The system is paper-ready when all of the following hold:
 - **Selective gate misses unanimously wrong analyses:** report this limitation and compare against always-review ARS on identical samples.
 - **Public test exposure from prior experiments:** pre-register the new frozen protocol and add an external or newly held-out evaluation where feasible.
 - **Valid spans support incorrect reasoning:** retain semantic error analysis and human evaluation; do not equate provenance validity with correctness.
-
