@@ -1,0 +1,183 @@
+sample:
+  id: 217:4847
+  article_id: 217
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: Everyone knows men who have a history of sexual violence can not be trusted,
+    and that goes double for if they are politicians. Its absurd to let a man like
+    that become one. It goes against the tradition of being able to trust your public
+    officials. Politicians have always been supposed to meet higher moral standards
+    than the rest of us. Being a woman abuser is disqualifying.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: the tradition of being able to trust your public officials. Politicians
+        have always been supposed to meet higher moral standards than the rest of
+        us
+    - role: preservation_conclusion
+      text: Being a woman abuser is disqualifying
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+    - us. Being a woman abuser is disqualifying.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Men with a history of sexual violence should be disqualified
+      from becoming politicians.
+    candidate: Appeal to Tradition
+    supporting_reason: Such men cannot be trusted; politicians must meet higher moral
+      standards, so including them violates the tradition of trusting public officials.
+    support_relation: justifies
+    label_justification: The argument relies on the tradition that public officials
+      should be trustworthy as the basis for disqualifying sexual‑violence offenders,
+      which is an appeal to tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Everyone knows men who have a history of sexual violence can not be trusted,
+      and that goes double for if they are politicians. Its absurd to let a man like
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+    - us. Being a woman abuser is disqualifying.
+  counterargument:
+    decisive_counterargument: Crediting widespread belief as proof that a man with
+      a history of sexual violence should be excluded from political office conflates
+      popularity with fact. An individual's trustworthiness cannot be determined solely
+      on public opinion or presumed common knowledge; it must rest on documented evidence,
+      intent, and current conduct.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that men with a history of sexual violence
+      cannot be trusted and therefore should be disqualified from office relies on
+      the premise that ‘Everyone knows…’, exemplifying an Appeal to Majority.
+    label_justification: The objection directly tests the justification used in the
+      argument—the claim of universal knowledge—to show it is not a legitimate basis
+      for policy. By pointing out that widespread belief does not establish truth
+      or prove disqualifying merit, the counterargument exposes the Appeal to Majority
+      fallacy rather than merely critiquing the conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone knows men who have a history of sexual violence can not be trusted,
+      and that goes double for if they are politicians. Its absurd to let a man like
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Appeal to Majority
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__appeal-to-tradition
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-majority__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition employs the tradition of trustworthiness in
+      public officials, which is explicitly referenced in the target. The statement
+      “It goes against the tradition of being able to trust your public officials.
+      Politicians have always been supposed to meet higher moral standards than the
+      rest of us” directly fulfills the structural requirement of an appeal to tradition.
+      While the text also contains a claim “Everyone knows … can not be trusted”,
+      this serves only as supporting evidence rather than the main structural premise
+      for the fallacy. Thus, Appeal to Tradition is the correct classification.
+    loser_failure: Appeal to Majority relies on the premise that widespread belief
+      alone justifies the conclusion. The target’s “Everyone knows” statement is only
+      a supporting premise for the tradition claim, not the primary basis of the conclusion
+      that such men must be disqualified. Therefore, the mandatory structural condition
+      for an appeal to majority—using popular consensus as the central justification—is
+      not satisfied in this argument.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+    - us. Being a woman abuser is disqualifying.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument invokes the tradition that public officials should
+    be trustworthy as the sole basis for disqualifying men with a history of sexual
+    violence, which matches the appeal‑to‑tradition structure using evidence T2 and
+    T3.
+  decision_reason: The premise that politicians should uphold a tradition of high
+    moral standards is taken as a sufficient justification to disqualify sexual‑violence
+    offenders, fulfilling the appeal‑to‑tradition fallacy criteria.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - that become one. It goes against the tradition of being able to trust your public
+    officials. Politicians have always been supposed to meet higher moral standards
+    than the rest of
+  - us. Being a woman abuser is disqualifying.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6162
+  completion_tokens: 6235
+  total_tokens: 12397
+  wall_time_seconds: 324.01600000000326

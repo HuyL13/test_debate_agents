@@ -1,0 +1,197 @@
+sample:
+  id: 335:7002
+  article_id: 335
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: At this point, why bother? China is stronger than ever and the people in
+    charge have complete control over the people. They won this battle. They think
+    having everyone forget or not even find out about 1989 is best, so that's what
+    is gonna happen. Is there anyone who really thinks that after 30 years, the authorities
+    in China will lose or change their minds/
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+    - lose or change their minds/
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker argues that because China is now more powerful,
+      the authorities control the population, have already suppressed the memory of
+      1989, and will continue to enforce that suppression for the foreseeable future,
+      there is no point in further resistance.
+    candidate: Slippery Slope
+    supporting_reason: The reasoning implicitly suggests that once China regained
+      control, it will only pursue greater suppression of the past and will never
+      change its stance on 1989.
+    support_relation: the author uses the claim that China is strong and in control
+      to argue that the policy of forgetting 1989 will remain unchanged and inevitable
+      , thereby justifying the conclusion that resistance is pointless .
+    label_justification: The claim about China’s strength and control is used as evidence
+      to support the conclusion that the suppression of 1989 will continue, but it
+      does not show a progression from this initial state to an extreme outcome. It
+      is the author’s assertion of a sustained policy rather than a slippery‑slope
+      scenario. Hence no fallacy is warranted. The argument is a straightforward causal
+      claim rather than a misled inference. Thus the candidate falls off.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+  counterargument:
+    decisive_counterargument: The fact that the Chinese authorities presently have
+      strong control does not guarantee that their policy or stance will remain unchanged
+      for thirty years; political, social, or economic pressures can lead even an
+      authoritarian regime to alter its positions. Assuming inevitability solely because
+      of current dominance commits an unwarranted appeal to the authority of the ruling
+      elite.
+    candidate: Appeal to Authority
+    challenged_inference: Because China is stronger than ever and the leadership has
+      complete control, it is impossible for authority to lose or change its mind
+      within thirty years.
+    label_justification: The argument relies on the authority’s dominance as evidence
+      that the future outcome (no change) is inevitable, treating the leaders’ power
+      as a decisive proof rather than a contextual factor. This is a classic appeal
+      to authority fallacy, since the cited authority is not being used to support
+      a claim about its expertise in predicting political change; rather, its power
+      is used as a blanket justification for a conclusion that would hold true even
+      if the authority were incorrect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+    - lose or change their minds/
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: The argument asserts that because the Chinese leadership is ‘stronger
+      than ever’ and exerts ‘complete control’, it is therefore impossible for them
+      to change their stance on 1989 in the next 30 years. This relies on the authority’s
+      dominance as proof that the outcome is inevitable, treating the leaders’ power
+      as a decisive justification rather than merely contextual information. The passage
+      directly supports the mandatory structure of an Appeal to Authority by implying
+      that the claim’s truth follows from the authority’s position, not from any substantive
+      evidence or logical progression.
+    loser_failure: Slippery Slope requires a demonstrable progression from an initial
+      state to an increasingly adverse outcome. The target merely presents a single
+      claim that China will continue to suppress memories of 1989, without outlining
+      a series of escalating steps or consequences that would result from any specific
+      action. Thus, the slippery‑slope condition is not met.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The claim that the Chinese authorities will not change within
+    thirty years is solely supported by reference to their current dominance and control,
+    an appeal to the authority’s power, which constitutes the required structure for
+    an appeal to authority.
+  decision_reason: The statement uses the authority’s present control as evidence
+    that future outcomes (no change) will inevitably follow, fulfilling the structural
+    requirement of an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - At this point, why bother? China is stronger than ever and the people in charge
+    have complete control over the people. They won this battle. They think having
+    everyone forget
+  - or not even find out about 1989 is best, so that's what is gonna happen. Is there
+    anyone who really thinks that after 30 years, the authorities in China will
+  - lose or change their minds/
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6090
+  completion_tokens: 3838
+  total_tokens: 9928
+  wall_time_seconds: 83.23499999998603

@@ -1,0 +1,222 @@
+sample:
+  id: 2:9304
+  article_id: 2
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: The root of the actual issue cannot be climate change. That is another subject
+    that should be discussed but it has nothing to due with the White Rose campaign
+    or the need for it in Myanmar. The root cause is more than likely due to ignorance
+    and religious intolerance by Buddhist extremist in the country.
+  target: Actually, I wouldn't be surprised if global climate change was really the
+    root cause. Yes, there's always been religious conflicts, but it is much more
+    common for groups to fight over shrinking resources, which can be a result of
+    global climate change. A well-run country with citizens who have easy access to
+    basic necessities isn't likely to have internal religious conflicts, but if global
+    climate change makes it more difficult to find water, food and other needs, conflicts
+    lurking under the surface will emerge. Yes, let's quell the current unrest, but
+    let's also focus on the bigger issue of climate change or these other problems
+    will recur.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: global climate change
+    - role: intermediate_consequence
+      text: difficulty to find water, food and other needs, leading to resource scarcity
+    - role: final_consequence
+      text: conflicts lurking under the surface will emerge and problems will recur
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - over shrinking resources, which can be a result of global climate change. A
+      well-run country with citizens who have easy access to basic necessities isn't
+      likely to have internal religious
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Climate change may be a root or major contributing cause of
+      the religious conflict and unrest being discussed.
+    candidate: null
+    supporting_reason: Climate change leads to shrinking resources such as water and
+      food, increasing competition and thereby intensifying or provoking religious
+      conflicts.
+    support_relation: This reasoning provides a causal link between global climate
+      change and the unrest; it is used to justify the conclusion that climate change
+      should be addressed as part of solving the conflict.
+    label_justification: The argument presents a plausible causal connection without
+      committing a recognized fallacy. The claim is supported by the specified evidence
+      passages (T2, T3). Therefore no fallacy is identified, and the reasoning legitimately
+      supports the stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - over shrinking resources, which can be a result of global climate change. A
+      well-run country with citizens who have easy access to basic necessities isn't
+      likely to have internal religious
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+  counterargument:
+    decisive_counterargument: The argument that global climate change is the root
+      cause of the religious conflicts in Myanmar rests solely on a speculative claim
+      that scarcity of resources inevitably sparks such conflicts, without any empirical
+      evidence tying climate change to the specific situation in Myanmar.  The text
+      merely states that “resources can be a result of global climate change” and
+      that “conflicts lurking under the surface will emerge” as a consequence; this
+      leap from a general observation to a definitive causal conclusion overgeneralizes
+      from an unproven premise.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that global climate change is the root cause
+      of the Burmese religious conflicts based on a general link between resource
+      scarcity and conflict.
+    label_justification: 'The objection targets the step where a single, unspecified
+      observation (“resource scarcity can lead to conflict”) is taken to represent
+      all cases of religious conflict in Myanmar, which is precisely the pattern of
+      a hasty generalization: drawing a universal causal claim from insufficient evidence.  This
+      falls under the Hasty Generalization fallacy rather than other categories, as
+      no other fallacious reasoning pattern is directly implicated.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - over shrinking resources, which can be a result of global climate change. A
+      well-run country with citizens who have easy access to basic necessities isn't
+      likely to have internal religious
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: 'The target sentence claims that global climate change is the root
+      cause of religious conflicts in Myanmar based solely on the general observation
+      that resource scarcity tends to lead to conflict, without providing any specific
+      evidence tying climate change to the particular situation in Myanmar. This is
+      a classic hasty generalization: a causal claim about a broad class of events
+      (religious conflicts in Myanmar) is drawn from an unverified, general premise
+      (resource scarcity causes conflict). No progression of increasingly bad outcomes
+      characteristic of a slippery‑slope argument is present. The evidence supporting
+      this conclusion is contained in passages T1, T2 and T3.'
+    loser_failure: The slippery‑slope claim would require showing an escalating sequence
+      of adverse consequences (e.g., from climate change to resource scarcity to worsening
+      conflict to something more extreme). The target only offers a single causal
+      leap from climate change to conflict; it does not present a chain of progressively
+      worsening effects, so it does not satisfy the structural condition for a slippery‑slope
+      fallacy.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Actually, I wouldn't be surprised if global climate change was really the root
+      cause. Yes, there's always been religious conflicts, but it is much more common
+      for groups to fight
+    - over shrinking resources, which can be a result of global climate change. A
+      well-run country with citizens who have easy access to basic necessities isn't
+      likely to have internal religious
+    - conflicts, but if global climate change makes it more difficult to find water,
+      food and other needs, conflicts lurking under the surface will emerge. Yes,
+      let's quell the current unrest,
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims global climate change is the root cause of
+    Myanmar’s religious conflicts by generalizing that scarcity of resources leads
+    to conflict—an inference drawn from a broad but unspecified premise without empirical
+    evidence specific to Myanmar. This meets the structural requirement of a hasty
+    generalization (drawing a universal causal claim from limited, non‑representative
+    evidence).
+  decision_reason: The target's speculation that climate change is the root cause,
+    based solely on the general link between resource scarcity and conflict, constitutes
+    a hasty generalization. Evidence T1–T3 supports this inference.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Actually, I wouldn't be surprised if global climate change was really the root
+    cause. Yes, there's always been religious conflicts, but it is much more common
+    for groups to fight
+  - over shrinking resources, which can be a result of global climate change. A well-run
+    country with citizens who have easy access to basic necessities isn't likely to
+    have internal religious
+  - conflicts, but if global climate change makes it more difficult to find water,
+    food and other needs, conflicts lurking under the surface will emerge. Yes, let's
+    quell the current unrest,
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6913
+  completion_tokens: 4635
+  total_tokens: 11548
+  wall_time_seconds: 86.26500000001397

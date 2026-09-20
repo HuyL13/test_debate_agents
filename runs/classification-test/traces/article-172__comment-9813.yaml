@@ -1,0 +1,170 @@
+sample:
+  id: 172:9813
+  article_id: 172
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: I'm happy with the court's decision. Ripping up the Earth to grab its coal
+    is outdated and not good for nature in general. The long-term consequences cannot
+    be positive. There are a number of ways to harness the power of nature (wind,
+    solar) without harming it, and I look forward to the day when that is the norm.
+    If it takes the courts to lead Australia into the future, so be it.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Ripping up the Earth to grab its coal is outdated and not good for nature
+        in general.
+    - role: evaluative_conclusion
+      text: The long-term consequences cannot be positive.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The speaker supports the court’s decision and argues that
+      coal mining harms nature, so alternative renewable sources should be embraced.
+    candidate: null
+    supporting_reason: Ripping up the Earth to grab its coal is outdated and not good
+      for nature in general; the long‑term consequences cannot be positive; there
+      are better ways to harness nature without harming it.
+    support_relation: The reason asserts that coal extraction is harmful and unproductive
+      to nature and therefore justifies supporting the court’s rejection of the mine.
+    label_justification: The statement is a straightforward opinion based on accepted
+      environmental concerns; it does not employ any logical fallacy such as hasty
+      generalization, slippery slope, or appeals to authorities or nature for justifying
+      the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+    - are a number of ways to harness the power of nature (wind, solar) without harming
+      it, and I look forward to the day when that is the norm. If it
+  counterargument:
+    decisive_counterargument: The claim that 'the long‑term consequences of coal extraction
+      cannot be positive' is based solely on the court’s rejection of a single mine.
+      This leap from one specific instance to a universal judgment about all coal
+      mining lacks supporting evidence and therefore overgeneralizes; many projects
+      could incorporate cleaner technologies, stricter environmental safeguards, or
+      carbon offset measures that might mitigate negative impacts.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that all coal mining will inevitably have
+      negative long‑term consequences is drawn from a single judicial decision.
+    label_justification: The objection attacks the inference by showing it relies
+      on a single sample to reach a broad conclusion, which is the defining characteristic
+      of a hasty generalization fallacy. No other fallacy specifically matches this
+      pattern in the target.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: The target explicitly presents a naturalness premise – “Ripping
+      up the Earth to grab its coal is outdated and not good for nature in general”
+      – followed by an evaluative conclusion that the long‑term consequences “cannot
+      be positive.” This matches the mandatory structure of an Appeal to Nature fallacy.
+      Although a hasty generalization could be argued, the text does not contain a
+      clear sample-to‑universal inference; rather, it directly ties the naturalness
+      premise to a value judgment. Hence Appeal to Nature is the supported fallacy.
+    loser_failure: The target lacks a clear step of drawing a universal conclusion
+      from a single sample, which is the key structural requirement for a Hasty Generalization.
+      The claim about nature is presented as a general evaluation rather than a literal
+      overgeneralization, so Hasty Generalization is not directly supported.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents a premise that ripping up the Earth to extract
+    coal is not good for nature, followed by a conclusion that the long‑term consequences
+    cannot be positive – a structure where an appeal to nature is used to judge value,
+    matching the nature_to_value fallacy.
+  decision_reason: The target explicitly states that harming nature is bad and therefore
+    the long‑term outcome cannot be positive, which satisfies the structural condition
+    for Appeal to Nature. Evidence T1 supports this inference.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+    outdated and not good for nature in general. The long-term consequences cannot
+    be positive. There
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5683
+  completion_tokens: 4353
+  total_tokens: 10036
+  wall_time_seconds: 210.60999999998603

@@ -1,0 +1,128 @@
+sample:
+  id: 1:3151
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: The problem with communists government is they always try to tell their
+    own story.  The only way they have been able to stay in power is through fear.  Fear
+    that any challenge to their power will result in more death.  The souls of 202
+    people being lost is sad, but so is the loss of freedom.   This tradition should
+    remain alive, as should the tradition of questioning the truth of what happened
+    on June 4.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: the tradition of questioning the truth of what happened on June 4
+    - role: preservation_conclusion
+      text: This tradition should remain alive
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - any challenge to their power will result in more death.  The souls of 202 people
+      being lost is sad, but so is the loss of freedom.   This tradition should remain
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The tradition of questioning the truth about what happened
+      on June 4 should remain alive.
+    candidate: null
+    supporting_reason: Communists governments tell their own story and stay in power
+      through fear, so any challenge to their power leads to death and loss of freedom.
+    support_relation: supports
+    label_justification: The argument presents a reason (fear and suppression of dissent)
+      that is appropriately linked to the goal of maintaining the tradition of questioning
+      June 4; no fallacious reasoning is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The problem with communists government is they always try to tell their own
+      story.  The only way they have been able to stay in power is through fear.  Fear
+      that
+    - any challenge to their power will result in more death.  The souls of 202 people
+      being lost is sad, but so is the loss of freedom.   This tradition should remain
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+  counterargument:
+    decisive_counterargument: The argument that the tradition of questioning the truth
+      about June 4 should persist relies solely on its historic longevity. A tradition’s
+      endurance does not itself prove its value; many harmful or incorrect traditions
+      have persisted for generations. Therefore, the claim that this tradition must
+      remain alive is unjustified.
+    candidate: Appeal to Tradition
+    challenged_inference: This tradition should remain alive, as should the tradition
+      of questioning the truth of what happened on June 4.
+    label_justification: The reasoning uses the fact that a tradition has existed
+      (or has been practiced) as a reason to continue it, which constitutes an appeal
+      to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: Appeal to Tradition demonstrated by presenting an existing tradition
+    (questioning the truth of what happened on June 4) as the sole reason for its
+    continuation, with a premise of the tradition’s existence and a conclusion that
+    the tradition should remain alive, thus satisfying the required structural form.
+  decision_reason: The target statement asserts that the tradition of questioning
+    the truth about June 4 should be preserved, relying solely on the fact that it
+    has existed. This use of longevity as justification fulfills the definition of
+    an appeal to tradition.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - any challenge to their power will result in more death.  The souls of 202 people
+    being lost is sad, but so is the loss of freedom.   This tradition should remain
+  - alive, as should the tradition of questioning the truth of what happened on June
+    4.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4501
+  completion_tokens: 4412
+  total_tokens: 8913
+  wall_time_seconds: 135.26600000000326

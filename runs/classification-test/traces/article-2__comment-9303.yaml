@@ -1,0 +1,153 @@
+sample:
+  id: 2:9303
+  article_id: 2
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: If there are 100 extremists so comfortable with the kind of bad behavior
+    described here, that probably points to a much deeper rooted problem. There are
+    probably plenty of people who support their actions. After all, extremists never
+    simply represent themselves. They require support from a lot of layers beneath
+    them to be able to take actions like this. Regardless, it's heartening that things
+    like the White Rose campaign spring up to confront these kind of problems.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: If there are 100 extremists so comfortable with the kind of bad behavior
+        described here
+    - role: observed_property
+      text: comfortable with that bad behavior
+    - role: target_population
+      text: the broader group of people who support extremist actions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+    - who support their actions. After all, extremists never simply represent themselves.
+      They require support from a lot of layers beneath them to be able to take actions
+      like this. Regardless,
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: There are probably plenty of people who support extremist
+      actions.
+    candidate: null
+    supporting_reason: Extremists require support from many layers beneath them to
+      be able to take actions like this.
+    support_relation: cause–effect / explanation
+    label_justification: The target is presenting an explanatory claim that the presence
+      of many supporters explains why extremists can act. The reason is used to justify
+      the conclusion in a straightforward manner and does not exhibit a recognized
+      fallacy; it is a valid argumentative structure.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+    - who support their actions. After all, extremists never simply represent themselves.
+      They require support from a lot of layers beneath them to be able to take actions
+      like this. Regardless,
+  counterargument:
+    decisive_counterargument: 'The step from noting that 100 extremists appear comfortable
+      with a certain kind of bad behavior to concluding that this fact *indicates
+      a deep‑rooted problem* is unjustified: a single statistic—however large—does
+      not automatically prove a widespread, systemic cause. 100 extremists could arise
+      from specific, situational factors (e.g., a local conflict, a charismatic leader)
+      without reflecting an underlying, society‑wide problem.  Thus the claim rests
+      on an unsupported generalization and collapses if the number is not supported
+      by additional evidence.'
+    candidate: Hasty Generalization
+    challenged_inference: If there are 100 extremists so comfortable with the kind
+      of bad behavior described here, this probably points to a much deeper rooted
+      problem.
+    label_justification: 'The argument generalizes from a specific observation (100
+      extremists) to a broad conclusion about the extent of a deeper problem without
+      sufficient evidence. This fits the definition of a hasty generalization, which
+      draws conclusions about a whole class (or the systemic situation) based on a
+      limited sample. The counterargument shows the inference lacks an adequate supporting
+      basis, thereby exposing that fallacy. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If there are 100 extremists so comfortable with the kind of bad behavior described
+      here, that probably points to a much deeper rooted problem. There are probably
+      plenty of people
+    - who support their actions. After all, extremists never simply represent themselves.
+      They require support from a lot of layers beneath them to be able to take actions
+      like this. Regardless,
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage generalizes from the observation of 100 extremists
+    being comfortable with a particular kind of bad behavior to a broad conclusion
+    that this points to a deep‑rooted problem without sufficient evidence, thus fitting
+    the definition of a hasty generalization.
+  decision_reason: The text states that the existence of 100 extremists suggests a
+    deep‑rooted issue, thereby extending a limited observation (sample) to a broader
+    claim about the wider population and systemic problem. This meets the required
+    structural pattern for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If there are 100 extremists so comfortable with the kind of bad behavior described
+    here, that probably points to a much deeper rooted problem. There are probably
+    plenty of people
+  - who support their actions. After all, extremists never simply represent themselves.
+    They require support from a lot of layers beneath them to be able to take actions
+    like this. Regardless,
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4678
+  completion_tokens: 3568
+  total_tokens: 8246
+  wall_time_seconds: 59.64100000000326

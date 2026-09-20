@@ -1,0 +1,185 @@
+sample:
+  id: 239:4915
+  article_id: 239
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: Imagine how much better off we'd be in terms of the climate if we just embraced
+    the natural ways humans lived before the creation of all these artificial technologies.
+    People used to know how to live in harmony with nature. We wouldn't have to be
+    worrying about the ocean knocking at our doors if every tiny aspect of our lives
+    didn't involve pollution.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: people used to know how to live in harmony with nature
+    - role: evaluative_conclusion
+      text: we wouldn't have to be worrying about the ocean knocking at our doors
+        if every tiny aspect of our lives didn't involve pollution
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Imagine how much better off we'd be in terms of the climate if we just embraced
+      the natural ways humans lived before the creation of all these artificial technologies.
+      People
+    - used to know how to live in harmony with nature. We wouldn't have to be worrying
+      about the ocean knocking at our doors if every tiny aspect of our lives
+    - didn't involve pollution.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The speaker advocates abandoning artificial technologies and
+      returning to natural pre‑technology ways in order to improve climate outcomes
+      and eliminate oceanic pollution.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument relies on the historical precedent that people
+      before modern technologies lived in harmony with nature, implying those ways
+      are intrinsically better and should be adopted now.
+    support_relation: The historical harmony premise is presented as justification
+      for adopting natural ways, thereby supporting the advocated policy change.
+    label_justification: By asserting that traditional pre‑technology practices are
+      superior because they were historically practiced, the argument commits an appeal
+      to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Imagine how much better off we'd be in terms of the climate if we just embraced
+      the natural ways humans lived before the creation of all these artificial technologies.
+      People
+    - used to know how to live in harmony with nature. We wouldn't have to be worrying
+      about the ocean knocking at our doors if every tiny aspect of our lives
+  counterargument:
+    decisive_counterargument: The claim that simply reverting to the ‘natural ways
+      humans lived before artificial technologies’ would automatically keep us free
+      from climate danger assumes that past practices were both adequate and applicable
+      today. It treats a historical way of life as evidence that it causes better
+      climate outcomes, ignoring the vast differences in population size, consumption,
+      and ecological context. This leap from past experience to present effectiveness
+      is unjustified and the conclusion rests on an unproven premise.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that because humans historically lived harmoniously
+      with nature, returning to those ways would lead to a climate‑safe future.
+    label_justification: The argument appeals to the longevity of pre‑technological
+      lifestyles as evidence that such a path is preferable today, a classic appeal
+      to tradition in which the historical norm is presented as a reason for ongoing
+      practice without addressing contextual changes or empirical support.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Imagine how much better off we'd be in terms of the climate if we just embraced
+      the natural ways humans lived before the creation of all these artificial technologies.
+      People
+    - used to know how to live in harmony with nature. We wouldn't have to be worrying
+      about the ocean knocking at our doors if every tiny aspect of our lives
+    - didn't involve pollution.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Appeal to Tradition
+    conflict: appeal-to-nature__vs__appeal-to-tradition
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: 'Appeal to Nature meets its mandatory structural condition: the
+      argument presents a naturalness premise ('
+    loser_failure: Appeal to Tradition fails because its primary structure is not
+      explicitly presented as using a traditional practice as justification; the argument
+      emphasizes the naturalness of pre‑technology ways rather than the historical
+      precedent itself.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Imagine how much better off we'd be in terms of the climate if we just embraced
+      the natural ways humans lived before the creation of all these artificial technologies.
+      People
+    - used to know how to live in harmony with nature. We wouldn't have to be worrying
+      about the ocean knocking at our doors if every tiny aspect of our lives
+    - didn't involve pollution.
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target explicitly states that living in harmony with nature—a
+    naturally existing state—would make people better off for the climate, establishing
+    an appeal‑to‑nature structure with a naturalness premise and a value conclusion.
+  decision_reason: The target asserts that by adopting natural ways well before artificial
+    technologies, people would improve climate outcomes, implying that natural ways
+    are inherently preferable. This matches the appeal‑to‑nature fallacy where naturalness
+    is taken to mean better or preferable.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Imagine how much better off we'd be in terms of the climate if we just embraced
+    the natural ways humans lived before the creation of all these artificial technologies.
+    People
+  - used to know how to live in harmony with nature. We wouldn't have to be worrying
+    about the ocean knocking at our doors if every tiny aspect of our lives
+  - didn't involve pollution.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5863
+  completion_tokens: 4487
+  total_tokens: 10350
+  wall_time_seconds: 129.01600000000326

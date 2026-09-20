@@ -1,0 +1,138 @@
+sample:
+  id: 565:10992
+  article_id: 565
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: Freedom of expression is very important even in developing countries. Credible
+    journalism is also essential in paving the way for reform. This book clearly shows
+    the struggle for free speech in Myanmar, from the military junta era to now. It
+    raises a worrying trend too, the use of old laws to suppress free speech even
+    under civilian leadership. it's useful to bear in mind, even countries under democratic
+    transition like Myanmar, struggle with freedom of expression.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Myanmar
+    - role: observed_property
+      text: struggle with freedom of expression
+    - role: target_population
+      text: countries under democratic transition
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - to bear in mind, even countries under democratic transition like Myanmar, struggle
+      with freedom of expression.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The passage argues that freedom of expression is essential—especially
+      in developing and democratically transitioning countries—and that the book provides
+      valuable evidence of how old laws continue to suppress free speech, thereby
+      underscoring the importance of credible journalism for reform.
+    candidate: null
+    supporting_reason: This book clearly shows the struggle for free speech in Myanmar,
+      from the military junta era to now, illustrating the ongoing use of old laws
+      to suppress free expression
+    support_relation: The cited evidence from Myanmar (the book’s account of its struggle)
+      is used to substantiate the claim that freedom of expression matters and that
+      credible journalism is vital for reform, thereby reinforcing the overall goal
+      of highlighting the issue’s importance
+    label_justification: The argument employs specific evidence to back a broad claim
+      without making an unwarranted generalization or slippery slope; there is no
+      logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Freedom of expression is very important even in developing countries. Credible
+      journalism is also essential in paving the way for reform. This book clearly
+      shows the struggle for free speech
+    - in Myanmar, from the military junta era to now. It raises a worrying trend too,
+      the use of old laws to suppress free speech even under civilian leadership.
+      it's useful
+    - to bear in mind, even countries under democratic transition like Myanmar, struggle
+      with freedom of expression.
+  counterargument:
+    decisive_counterargument: The passage claims that every country undergoing democratic
+      transition—illustrated only by Myanmar—faces struggles of free expression, yet
+      no data from any other nation is offered. Drawing a conclusion about the entire
+      class of transitioning states from a single case is precisely the hasty generalization
+      fallacy.
+    candidate: Hasty Generalization
+    challenged_inference: Countries under democratic transition struggle with freedom
+      of expression.
+    label_justification: The objection points out that the claim about all democratic‑transition
+      countries extends beyond the limited observation of Myanmar, violating the condition
+      for a general statement and thus exposing a hasty generalization. The target
+      itself provides no evidence for this broader claim, making the fallacy clear.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - to bear in mind, even countries under democratic transition like Myanmar, struggle
+      with freedom of expression.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Target asserts that all countries under democratic transition
+    struggle with freedom of expression based on the single example of Myanmar, meeting
+    the structure of a sample-to-population inference and lacking broader evidence.
+  decision_reason: The passage explicitly states that countries under democratic transition,
+    exemplified by Myanmar, struggle with free expression, thereby generalizing from
+    a single case to a whole class, which is the defining feature of a hasty generalization.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - to bear in mind, even countries under democratic transition like Myanmar, struggle
+    with freedom of expression.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4453
+  completion_tokens: 3350
+  total_tokens: 7803
+  wall_time_seconds: 68.84400000004098

@@ -1,0 +1,154 @@
+sample:
+  id: 465:8593
+  article_id: 465
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: 'While it breaks the heart to hear of the suffering endured by these women,
+    an even greater threat against them, also produced by their traditional androcentric
+    society, looms even more darkly: honor killings. In southern Asia and parts of
+    MENA honor killings are normalized, and women live in terror. It would be nice
+    if activist groups would target that behavior and condemn it, and then perhaps
+    move on to issues like domestic abuse and gender equality.'
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: issues like domestic abuse and gender equality
+    - role: worse_issue
+      text: honor killings
+    - role: deprioritizing_conclusion
+      text: target honor killings first and then move on to issues like domestic abuse
+        and gender equality
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+    - and condemn it, and then perhaps move on to issues like domestic abuse and gender
+      equality.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Activist groups should focus first on targeting honor killings
+      and then address domestic abuse and gender equality.
+    candidate: null
+    supporting_reason: The passage states that honor killings are a greater threat
+      produced by traditional androcentric society, which serves as the reason for
+      recommending that activist groups prioritize addressing this issue before moving
+      on to other related problems.
+    support_relation: The reason is used to justify the priority strategy in activism.
+    label_justification: No fallacy is present; the argument legitimately uses a threat
+      assessment to support a strategic recommendation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While it breaks the heart to hear of the suffering endured by these women, an
+      even greater threat against them, also produced by their traditional androcentric
+      society, looms even more
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+    - and condemn it, and then perhaps move on to issues like domestic abuse and gender
+      equality.
+  counterargument:
+    decisive_counterargument: The claim that activist groups should first target honor
+      killings and then 'move on' to domestic abuse and gender equality assumes a
+      direct causal link between addressing honor killings and resolving the latter
+      issues, yet no evidence is provided that tackling honor killings will diminish
+      domestic abuse or improve gender equality.  As long as this causal step is unproven,
+      the concluding recommendation rests on an unsupported leap.
+    candidate: Appeal to Worse Problems
+    challenged_inference: That prioritizing the fight against honor killings will
+      automatically lead to progress on domestic abuse and gender equality.
+    label_justification: 'The objection identifies the reasoning flaw that the author
+      uses the severity of honor killings as justification for sidelining or diminishing
+      other serious problems (domestic abuse, gender inequality). This is a classic
+      Appeal to Worse Problems: using an apparently greater or more urgent issue to
+      redirect attention or resources away from other important concerns.  The counterargument
+      directly targets this fallacious use of comparative severity and thus supports
+      the labeled fallacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While it breaks the heart to hear of the suffering endured by these women, an
+      even greater threat against them, also produced by their traditional androcentric
+      society, looms even more
+    - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+      normalized, and women live in terror. It would be nice if activist groups would
+      target that behavior'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target text presents honor killings as a more severe threat
+    and recommends first targeting this issue before addressing domestic abuse and
+    gender equality, thereby deprioritizing the latter problems. This ordering explicitly
+    uses the greater problem to set priority order for the other issues, fulfilling
+    the structural criteria for an Appeal to Worse Problems fallacy.
+  decision_reason: The passage follows the ‘worse problem to deprioritization’ structure
+    with evidence in passages T2 and T3, and the reasoning includes a comparative
+    severity premise that justifies focusing on honor killings first. This directly
+    aligns with the definition of an Appeal to Worse Problems.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - 'darkly: honor killings. In southern Asia and parts of MENA honor killings are
+    normalized, and women live in terror. It would be nice if activist groups would
+    target that behavior'
+  - and condemn it, and then perhaps move on to issues like domestic abuse and gender
+    equality.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 4728
+  completion_tokens: 4185
+  total_tokens: 8913
+  wall_time_seconds: 275.2970000000205

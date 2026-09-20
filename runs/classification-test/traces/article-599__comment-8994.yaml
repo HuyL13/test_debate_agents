@@ -1,0 +1,145 @@
+sample:
+  id: 599:8994
+  article_id: 599
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is absurd! The person charged was in a position of power. Authority
+    is always right!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: persons in a position of power
+    - role: endorsed_claim
+      text: Authority is always right
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker is asserting that a person in a position of power
+      is inherently correct (or that the charge against them is unjustified) because
+      authority is always right.
+    candidate: Appeal to Authority
+    supporting_reason: Authority is always right!
+    support_relation: The statement uses the status of authority to justify the person’s
+      correctness, serving as the argumentative basis for the speaker’s conclusion.
+    label_justification: 'This is an appeal to authority: the speaker relies on the
+      notion that authority figures are always correct as a justification for the
+      person’s position.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+  counterargument:
+    decisive_counterargument: The claim that 'Authority is always right' is an unsupported
+      generalization; the fact that a single individual in power was charged does
+      not prove that all authority figures are always correct.
+    candidate: Hasty Generalization
+    challenged_inference: Authority is always right
+    label_justification: The inference relies on generalizing from a single instance
+      (a person in power was charged) to a universal claim about all authority, which
+      exemplifies a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: Both candidates could fit, but the TARGET contains the assertion
+      “Authority is always right!” which directly constitutes an appeal to authority—using
+      an authority figure’s status as justification for a claim. The hasty‑generalization
+      condition would require explicit inference from the single instance (“the person
+      charged”) to a universal claim; the TARGET does not show that step. Thus the
+      appeal to authority’s structural condition is directly supported.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is absurd! The person charged was in a position of power. Authority is
+      always right!
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that a person in a position of power is always
+    right, thereby using the authority’s status as a justification for the claim,
+    which is the defining structure of an appeal to authority.
+  decision_reason: The TARGET uses the assertion ‘Authority is always right!’ to legitimize
+    the position of the charged individual, matching the appeal‑to‑authority pattern.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is absurd! The person charged was in a position of power. Authority is always
+    right!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5006
+  completion_tokens: 4416
+  total_tokens: 9422
+  wall_time_seconds: 132.25

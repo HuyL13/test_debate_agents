@@ -1,0 +1,157 @@
+sample:
+  id: 470:8006
+  article_id: 470
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: People being allowed to express themselves is vital but not everyone is
+    funny. People need to be able to post funny memes that appeal to the masses and
+    not depressing ones that reflect our reality. There are only two types of memes,
+    funny or depressing.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: funny memes
+    - role: alternative_b
+      text: depressing memes
+    - role: exhaustiveness_commitment
+      text: only these two types exist
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People being allowed to express themselves is vital but not everyone is funny.
+      People need to be able to post funny memes that appeal to the masses and not
+      depressing
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Only funny memes should be posted; depressing memes are undesirable
+      and excluded.
+    candidate: Appeal to Nature
+    supporting_reason: There are only two types of memes, funny or depressing.
+    support_relation: Appeal to Nature is used to justify that funny memes are preferable
+      because they appeal to the masses, framing them as naturally good while portraying
+      depressing memes as undesirable.
+    label_justification: The target accepts the purported natural goodness of funny
+      memes and implicitly devalues non‑funny (depressing) memes, which is a classic
+      appeal to nature. No other fallacy is invoked or supported. This use of nature
+      is presumed to justify the policy that people should post only funny memes.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+  counterargument:
+    decisive_counterargument: Memes are not confined to just two categories—funny
+      and depressing.  They can be informative, satirical, political, or simply neutral.  Claiming
+      that memes must be either funny or depressing ignores these legitimate forms,
+      so the statement is false.
+    candidate: False Dilemma
+    challenged_inference: There are only two types of memes, funny or depressing
+    label_justification: The argument forces a binary classification that excludes
+      other valid meme types, which is the defining characteristic of a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People being allowed to express themselves is vital but not everyone is funny.
+      People need to be able to post funny memes that appeal to the masses and not
+      depressing
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Nature
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Nature
+    conflict: appeal-to-nature__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: appeal-to-nature__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: Applicable
+    loser_failure: Appeal to Nature's required claim that a property is good because
+      it is natural is not explicitly present in the target. The target instead presents
+      an exhaustive binary classification of memes, which directly satisfies the structure
+      of a False Dilemma.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People being allowed to express themselves is vital but not everyone is funny.
+      People need to be able to post funny memes that appeal to the masses and not
+      depressing
+    - ones that reflect our reality. There are only two types of memes, funny or depressing.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target asserts that memes can be only of two types—funny
+    or depressing—presenting two alternatives as exhaustive and thereby excluding
+    other possible meme categories.
+  decision_reason: The statement establishes a false dilemma by claiming all memes
+    belong solely to the two categories, ignoring any other types.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - People being allowed to express themselves is vital but not everyone is funny.
+    People need to be able to post funny memes that appeal to the masses and not depressing
+  - ones that reflect our reality. There are only two types of memes, funny or depressing.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5581
+  completion_tokens: 2994
+  total_tokens: 8575
+  wall_time_seconds: 58.03099999995902

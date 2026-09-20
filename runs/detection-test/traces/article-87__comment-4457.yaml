@@ -1,0 +1,133 @@
+sample:
+  id: 87:4457
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: People in Hong Kong should understand that this is not the path to peace.
+    How do they think China will react to things like this, by just letting it go?
+    No, they will only clamp down more and more. More impositions, more repressive
+    laws, probably culminating in violent, military action. Hong Kong will only hasten
+    it becoming the next Xinjiang with these kinds of actions.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People in Hong Kong should understand that this is not the path to peace. How
+      do they think China will react to things like this, by just letting it go?
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: People in Hong Kong should understand that protest actions
+      are not the path to peace.
+    candidate: Slippery Slope
+    supporting_reason: The argument predicts that if Hong Kong protests occur, China
+      will progressively clamp down, impose repressive laws, and eventually use violent,
+      military action, making Hong Kong become the next Xinjiang.
+    support_relation: mechanism_supports_goal
+    label_justification: The reasoning establishes a chain of escalating consequences
+      from an initial action to an extreme outcome, which is a classic slippery‑slope
+      construction.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People in Hong Kong should understand that this is not the path to peace. How
+      do they think China will react to things like this, by just letting it go?
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+  counterargument:
+    decisive_counterargument: The argument moves from the possibility of moderate
+      dissent to the assertion that China will progressively ‘clamp down’, imposing
+      repressive laws and eventually launching violent military action in Hong Kong,
+      without providing any evidence of such a causal chain. This is an unjustified
+      leap from a single policy change to an extreme outcome, typical of a slippery‑slope
+      reasoning.
+    candidate: Slippery Slope
+    challenged_inference: People in Hong Kong causing local protests will inevitably
+      provoke increasing repression and culminate in violent military action against
+      the region.
+    label_justification: 'The objection directly targets the reasoning step that assumes
+      a chain of escalating consequences (from clamping down to violent military action).
+      This mirrors the definition of a slippery‑slope fallacy: an unsubstantiated
+      prediction that a minor action will lead to a series of more severe, unrelated
+      outcomes.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents an “initial action” (people in Hong Kong
+    protest), followed by a chain of escalating consequences (clamping down, repressive
+    laws, violent military action, and becoming the next Xinjiang), which establishes
+    the classic slippery‑slope structure. The evidence supporting these links is found
+    in passages T1 and T2.
+  decision_reason: The argument predicts that protest in Hong Kong will inevitably
+    lead to increasingly severe outcomes, a textbook slippery‑slope inference.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - People in Hong Kong should understand that this is not the path to peace. How
+    do they think China will react to things like this, by just letting it go?
+  - No, they will only clamp down more and more. More impositions, more repressive
+    laws, probably culminating in violent, military action. Hong Kong will only hasten
+    it becoming the next Xinjiang
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4718
+  completion_tokens: 4269
+  total_tokens: 8987
+  wall_time_seconds: 107.14100000000326

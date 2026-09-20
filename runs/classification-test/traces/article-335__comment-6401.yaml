@@ -1,0 +1,139 @@
+sample:
+  id: 335:6401
+  article_id: 335
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: It seems very honorable what he is doing. He is standing up for his beliefs
+    even at the cost of visiting his family. That is the only brave thing to do.
+  target: I think you're totally right. He's putting himself in real danger and sacrificing
+    a lot, but we have honored heroes like this for all of history for good reason.
+    He represents the ideals of freedom and truth that we have always valued. I wish
+    him the best of luck in his mission.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: we have honored heroes like this for all of history for good reason.
+    - role: preservation_conclusion
+      text: He represents the ideals of freedom and truth that we have always valued.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think you're totally right. He's putting himself in real danger and sacrificing
+      a lot, but we have honored heroes like this for all of history for good reason.
+      He
+    - represents the ideals of freedom and truth that we have always valued. I wish
+      him the best of luck in his mission.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The speaker asserts that the individual is a hero worthy of
+      honor and support.
+    candidate: null
+    supporting_reason: The individual represents enduring ideals of freedom and truth
+      that society has always valued.
+    support_relation: The reason serves as a value-based appeal, establishing that
+      honoring the individual is justified by the alignment with cherished principles.
+    label_justification: The argument presents a legitimate appeal to shared values
+      and does not exhibit a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think you're totally right. He's putting himself in real danger and sacrificing
+      a lot, but we have honored heroes like this for all of history for good reason.
+      He
+    - represents the ideals of freedom and truth that we have always valued. I wish
+      him the best of luck in his mission.
+  counterargument:
+    decisive_counterargument: Saying that because we have honored heroes in the past,
+      this particular action deserves praise justifies the hero based solely on tradition,
+      which in itself is an inadequate ground. Traditions can be based on misconceptions,
+      incomplete information, or outdated values, so using them as evidence for the
+      current situation is logically unsound.
+    candidate: Appeal to Tradition
+    challenged_inference: Because heroes have historically been honored, the current
+      hero’s sacrifices are inherently justified.
+    label_justification: The objection attacks the inference that a longstanding custom
+      is a sufficient reason for current valor; this is the hallmark of an Appeal
+      to Tradition. By pointing out that tradition alone does not confirm moral legitimacy,
+      the counterargument directly undermines the fallacious reliance on historical
+      precedent.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think you're totally right. He's putting himself in real danger and sacrificing
+      a lot, but we have honored heroes like this for all of history for good reason.
+      He
+    - represents the ideals of freedom and truth that we have always valued. I wish
+      him the best of luck in his mission.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: TARGET directly invokes a longstanding tradition— that heroes
+    have historically been honored for good reason—to justify and celebrate the current
+    individual's actions, thereby relying on historical precedent as a sufficient
+    reason, which is the defining structure of an Appeal to Tradition.
+  decision_reason: The target states “we have honored heroes like this for all of
+    history for good reason” and concludes the current hero “represents the ideals
+    of freedom and truth that we have always valued,” using tradition as the primary
+    basis for praise. This meets the structural requirement for an Appeal to Tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think you're totally right. He's putting himself in real danger and sacrificing
+    a lot, but we have honored heroes like this for all of history for good reason.
+    He
+  - represents the ideals of freedom and truth that we have always valued. I wish
+    him the best of luck in his mission.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4421
+  completion_tokens: 3162
+  total_tokens: 7583
+  wall_time_seconds: 119.90600000001723

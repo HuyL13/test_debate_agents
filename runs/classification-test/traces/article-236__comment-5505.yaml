@@ -1,0 +1,141 @@
+sample:
+  id: 236:5505
+  article_id: 236
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Most people in the world want positive action to combat climate change -
+    79% to be exact as surveys have shown. There is a cry for robust action on this
+    issue from the collective voice. Such an overwhelming consensus signifies the
+    magnitude and urgency we are facing. It's just too big and widespread to ignore
+    anymore. Because of this, we must act to ensure the future of the planet is a
+    good one for humanity. With so many united in this belief, doesn't this prove
+    that imminent action is a necessity for preserving the world for future generations?
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people in the world
+    - role: popularity_claim
+      text: 79% want positive action
+    - role: target_claim
+      text: must act to ensure the future of the planet is a good one for humanity
+        and preserve the world for future generations
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - must act to ensure the future of the planet is a good one for humanity. With
+      so many united in this belief, doesn't this prove that imminent action is a
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Immediate action is necessary to combat climate change and
+      preserve the planet for future generations.
+    candidate: Appeal to Majority
+    supporting_reason: Most people in the world want positive action to combat climate
+      change – 79% of surveyed respondents support robust action.
+    support_relation: This popularity claim is presented as the main reason for asserting
+      that urgent action is required, using the number of supporters to justify the
+      conclusion.
+    label_justification: The argument relies on the fact that a large majority endorse
+      climate action to support the claim that such action is necessary; this is the
+      classic premise of an appeal to majority (argumentum ad populum).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - issue from the collective voice. Such an overwhelming consensus signifies the
+      magnitude and urgency we are facing. It's just too big and widespread to ignore
+      anymore. Because of this, we
+  counterargument:
+    decisive_counterargument: A large share of the population supporting a stance
+      does not prove that the recommended action is both necessary and the best solution;
+      popular opinion can be misguided, incomplete, or based on misinformation, and
+      it does not provide evidence that other alternatives are less effective or worse.
+    candidate: Appeal to Majority
+    challenged_inference: Because 79% of people want action, it must be necessary
+      to act.
+    label_justification: The argument relies on the number of people who hold a belief
+      to assert an obligation to act, which is the classic pattern of Appeal to Majority
+      (popular support as justification).
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - issue from the collective voice. Such an overwhelming consensus signifies the
+      magnitude and urgency we are facing. It's just too big and widespread to ignore
+      anymore. Because of this, we
+    - must act to ensure the future of the planet is a good one for humanity. With
+      so many united in this belief, doesn't this prove that imminent action is a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: Appeal to Majority
+  decision_reason: The argument concludes that urgent action is required by citing
+    79 % of people supporting it, using popular support as justification. This fits
+    the classic Appeal to Majority structure—making a claim about urgency based on
+    the number of supporters—supported by passages T1 and T3.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - Most people in the world want positive action to combat climate change - 79% to
+    be exact as surveys have shown. There is a cry for robust action on this
+  - must act to ensure the future of the planet is a good one for humanity. With so
+    many united in this belief, doesn't this prove that imminent action is a
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5097
+  completion_tokens: 1859
+  total_tokens: 6956
+  wall_time_seconds: 56.405999999988126

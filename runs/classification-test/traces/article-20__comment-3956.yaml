@@ -1,0 +1,145 @@
+sample:
+  id: 20:3956
+  article_id: 20
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: We can't form an opinion of one country based on the opinions of a few citizens.
+    If we do this we can make huge errors in judgement, leading to further problems.
+    What if we make trade or economic decisions that are miscalculated? This could
+    lead to mistrust or even war. Global trade or the global economy could collapse.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: forming an opinion of one country based on the opinions of a few citizens
+    - role: intermediate_consequence
+      text: huge errors in judgement leading to further problems, mistrust, or war
+    - role: final_consequence
+      text: global trade or the global economy could collapse
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We shouldn't form an opinion about a country based on the
+      opinions of a few citizens because doing so can lead to huge errors, mistrust,
+      war, or even collapse of global trade and the global economy.
+    candidate: null
+    supporting_reason: If we base an opinion on a few citizens, we can make huge errors
+      in judgement, leading to miscalculated trade or economic decisions, which could
+      cause mistrust or war and potentially collapse global trade or the global economy.
+    support_relation: The reason is used to establish the conclusion by presenting
+      the potential negative consequences of forming an opinion from a small sample.
+    label_justification: No fallacy identified; the argument is a risk assessment
+      that connects limited information to possible adverse outcomes without committing
+      to a logical flaw.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+  counterargument:
+    decisive_counterargument: The claim that taking a view of a nation from a handful
+      of citizens inevitably leads to fatal mis‑calculations and even world economic
+      collapse is a slippery‑slope argument. It postulates a chain of catastrophic
+      outcomes—huge errors, mistrust, war, collapse—based solely on a single minor
+      step (overgeneralizing from a few opinions). In practice, decision makers gather
+      extensive data, diverse opinions, and expert assessments before making trade
+      or economic choices; a small, biased sample would be just one of many inputs
+      and cannot guarantee such dire consequences.
+    candidate: null
+    challenged_inference: Forming an opinion of a country based on the views of a
+      few citizens will inevitably lead to catastrophic errors that collapse global
+      trade.
+    label_justification: The objection points directly to the lack of a justified
+      causal link between the initial premise and the extreme outcomes, refuting the
+      slippery‑slope reasoning that the target relies upon.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We can't form an opinion of one country based on the opinions of a few citizens.
+      If we do this we can make huge errors in judgement, leading to further
+    - problems. What if we make trade or economic decisions that are miscalculated?
+      This could lead to mistrust or even war. Global trade or the global economy
+      could collapse.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains a chain from an initial premise—forming
+    an opinion of a country on the basis of a few citizens—to intermediate negative
+    consequences (errors in judgment leading to mistrust or war) and a final extreme
+    outcome (collapse of global trade or the global economy). This is the hallmark
+    of a slippery‑slope argument as described in the structural evidence T1 and T2.
+  decision_reason: The target directly asserts that a specific action will inevitably
+    trigger a cascade of increasingly severe effects, satisfying the structural definition
+    of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We can't form an opinion of one country based on the opinions of a few citizens.
+    If we do this we can make huge errors in judgement, leading to further
+  - problems. What if we make trade or economic decisions that are miscalculated?
+    This could lead to mistrust or even war. Global trade or the global economy could
+    collapse.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4103
+  completion_tokens: 3359
+  total_tokens: 7462
+  wall_time_seconds: 90.76500000001397

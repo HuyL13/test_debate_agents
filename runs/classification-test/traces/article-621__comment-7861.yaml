@@ -1,0 +1,165 @@
+sample:
+  id: 621:7861
+  article_id: 621
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: If we are finding two headed snakes then there must be something in the
+    water, I bet man is polluting the area. There is no other possible answer. When
+    weird shit happens, its always us that causes it.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: finding two-headed snakes
+    - role: observed_property
+      text: there must be something in the water (pollution)
+    - role: target_population
+      text: weird events / strange phenomena
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+    - shit happens, its always us that causes it.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The narrator concludes that human activity (pollution) is
+      causing the appearance of two‑headed snakes.
+    candidate: False Dilemma
+    supporting_reason: If we are finding two‑headed snakes then there must be something
+      in the water, and there is no other possible answer.
+    support_relation: She uses the causal inference that the snakes’ presence implies
+      something in the water, and then asserts that the only possible explanation
+      is human pollution, thereby limiting the options to a single cause.
+    label_justification: The argument explicitly states “There is no other possible
+      answer,” presenting only pollution as the explanatory alternative. This exclusion
+      of other possibilities constitutes a False Dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+  counterargument:
+    decisive_counterargument: The argument assumes that finding a single two‑headed
+      snake proves man‑made pollution is the only possible cause of all strange events,
+      yet no evidence is provided that rules out other natural or ecological explanations.
+      Concluding that this isolated observation implies a universal causal pattern
+      is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: When we find a two‑headed snake, we must assume water pollution
+      is the cause, and that all weird occurrences are caused by humans.
+    label_justification: The objection demonstrates that the reasoning leaps from
+      one specific case to a blanket claim about all odd phenomena without adequate
+      evidence. This is precisely the hallmark of a hasty generalization, which the
+      target statement exhibits by asserting that the single observation of a two‑headed
+      snake rules out every other potential cause.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+    - shit happens, its always us that causes it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: 'The target explicitly states that only pollution can explain the
+      appearance of two‑headed snakes and declares no other explanation is possible:
+      “There is no other possible answer.” This meets the mandatory structure of a
+      False Dilemma by presenting only one alternative. While the target also contains
+      a general claim (“it’s always us that causes it”), the direct, explicit exclusion
+      of alternatives is the decisive evidence for a False Dilemma rather than a Hasty
+      Generalization.'
+    loser_failure: Hasty Generalization requires the argument to move from a specific
+      sample to a broad population claim. Although the target mentions a single observation
+      (“two‑headed snakes”) and a blanket statement about all weird events, the stronger
+      premise is the explicit denial of other alternatives, which directly satisfies
+      the False Dilemma structure. The generalization is implied but not the primary
+      argumentative structure presented. Therefore, the Hasty Generalization interpretation
+      lacks the key mandatory condition that is clearly supported by the text.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states only one possible explanation (human pollution)
+    for the two‑headed snakes and declares no other answer is possible, presenting
+    an exclusive choice that excludes other plausible causes.
+  decision_reason: The passage explicitly claims a single explanation—pollution— and
+    asserts there are no other possible answers, which fits the structure of a false
+    dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If we are finding two headed snakes then there must be something in the water,
+    I bet man is polluting the area. There is no other possible answer. When weird
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5499
+  completion_tokens: 4474
+  total_tokens: 9973
+  wall_time_seconds: 181.76600000000326

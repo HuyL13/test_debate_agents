@@ -1,0 +1,135 @@
+sample:
+  id: 315:6942
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: Undeniably, people across different cultures and backgrounds naturally have
+    the gumption to go forward, even amidst challenging odds. But that doesn't downplay
+    the crucial role adaptation and resilience play. Face with ever-changing external
+    forces, the strength to overcome surges from within, not just as 'nature intended,'
+    but also due to intrinsic determination and enduring spirits. Therefore, overcoming
+    adversity to these indigenous folks is more a testament of their own desire to
+    thrive than just a matter of mere "nature's course." In the grand scheme of things,
+    it seems only natural that humans, having sprouted from the bosom of nature, encompass
+    the inherent ability to withstand adversity.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It seems only natural that humans, having sprouted from the bosom of nature,
+        encompass the inherent ability to withstand adversity.
+    - role: evaluative_conclusion
+      text: Human resilience and the capacity to overcome adversity is a natural attribute.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - indigenous folks is more a testament of their own desire to thrive than just
+      a matter of mere "nature's course." In the grand scheme of things, it seems
+      only natural
+    - that humans, having sprouted from the bosom of nature, encompass the inherent
+      ability to withstand adversity.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Humans possess an inherent ability to withstand adversity.
+    candidate: Appeal to Nature
+    supporting_reason: Because it is natural that humans can overcome adversity, their
+      inherent ability is justified.
+    support_relation: The reason employs the naturalness of humans to justify their
+      resilience, a classic Appeal to Nature.
+    label_justification: The argument asserts that because something is natural, it
+      must be so, which constitutes an Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - indigenous folks is more a testament of their own desire to thrive than just
+      a matter of mere "nature's course." In the grand scheme of things, it seems
+      only natural
+    - that humans, having sprouted from the bosom of nature, encompass the inherent
+      ability to withstand adversity.
+  counterargument:
+    decisive_counterargument: The argument rests on the claim that because human resilience
+      is a natural trait, it must be inherent and sufficient. Yet the naturalness
+      of a trait does not imply it is functional or beneficial; many natural features
+      are neutral or maladaptive. No evidence is offered that nature specifically
+      intended humans to possess resilience, and resilience can arise from cultural,
+      social, or environmental factors rather than innate design. Therefore, the inference
+      that humanity’s ability to withstand adversity is inherently natural is unjustified.
+    candidate: Appeal to Nature
+    challenged_inference: Since humans are natural beings, they inherently possess
+      the ability to withstand adversity, which is why indigenous people succeed.
+    label_justification: The reasoning uses nature as an appeal to justify a positive
+      attribute, claiming that because something is natural (the human capacity to
+      endure adversity) it should be considered inherent and sufficient. This is the
+      classic definition of an Appeal to Nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - indigenous folks is more a testament of their own desire to thrive than just
+      a matter of mere "nature's course." In the grand scheme of things, it seems
+      only natural
+    - that humans, having sprouted from the bosom of nature, encompass the inherent
+      ability to withstand adversity.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise—“it seems only natural
+    that humans … encompass the inherent ability to withstand adversity”—which is
+    used to infer that humans inherently possess this resilience. This is a classic
+    natural-to-value structure characteristic of an Appeal to Nature fallacy.
+  decision_reason: Appeal to Nature fallacy is present because the argument asserts
+    that naturalness of humans justifies the inherent ability to withstand adversity.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - indigenous folks is more a testament of their own desire to thrive than just a
+    matter of mere "nature's course." In the grand scheme of things, it seems only
+    natural
+  - that humans, having sprouted from the bosom of nature, encompass the inherent
+    ability to withstand adversity.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5228
+  completion_tokens: 4017
+  total_tokens: 9245
+  wall_time_seconds: 91.93700000000536

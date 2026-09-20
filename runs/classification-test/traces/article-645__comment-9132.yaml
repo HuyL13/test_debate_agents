@@ -1,0 +1,170 @@
+sample:
+  id: 645:9132
+  article_id: 645
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: It's not a good look when a company like Facebook sets up auto-flagging
+    protocols like this. However, a bigger problem is those countries in which Facebook
+    is not even allowed. What's worse, the problem described in this story (auto-flagging)
+    or a complete social media blackout? Let's keep our priorities in view at all
+    times. It seems there's always a bigger fish to fry.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the problem described in this story (auto-flagging)
+    - role: alternative_b
+      text: a complete social media blackout
+    - role: exhaustiveness_commitment
+      text: implies these are the only two options
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: argue that the more pressing issue is the fact that Facebook
+      is banned in some countries, rather than its auto‑flagging protocol
+    candidate: null
+    supporting_reason: a bigger problem is those countries in which Facebook is not
+      even allowed
+    support_relation: mechanism_supports_goal
+    label_justification: The passage provides this reason to justify the stated priority,
+      but it does not commit a logical fallacy such as false dilemma, appeal to authority,
+      or hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's not a good look when a company like Facebook sets up auto-flagging protocols
+      like this. However, a bigger problem is those countries in which Facebook is
+      not even allowed.
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+  counterargument:
+    decisive_counterargument: The claim that a social‑media blackout is necessarily
+      a worse problem than Facebook’s auto‑flagging merely sets a priority ladder
+      without evidence that the lower rung is insignificant. Even if a blackout could
+      have more severe economic or societal consequences, that does not logically
+      imply that the auto‑flagging issue can be ignored or lessens in importance.
+      The argument simply asserts a hierarchy of problems (“there’s always a bigger
+      fish to fry”) without explaining why the auto‑flagging should be treated as
+      less consequential. Hence the inference that the auto‑flagging can be deprioritized
+      is unjustified.
+    candidate: Appeal to Worse Problems
+    challenged_inference: auto‑flagging is less important than a blackout
+    label_justification: The objection directly targets the fallacious reasoning that
+      the comparative severity of one problem (blackout) is enough to dismiss the
+      other (auto‑flagging). This demonstrates the “appeal to worse problems” because
+      the discussion relies on the idea that a more serious issue automatically takes
+      precedence over a less serious one, without supporting the claim that the lesser
+      issue is negligible.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Worse Problems
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Worse Problems
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: The target text does not assert that only the two issues mentioned
+      – auto‑flagging and a complete social‑media blackout – are possible. A false
+      dilemma requires that the argument presents only two alternatives and commits
+      to their exhaustiveness. The passage merely contrasts the relative severity
+      of the two problems, without claiming that no other concerns exist or that these
+      are the sole options. Hence it lacks the structural condition needed for a false
+      dilemma.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target text explicitly posits a hierarchy of problems—auto‑flagging
+    versus a complete social‑media blackout—and urges readers to prioritize the larger
+    issue. This comparative framing without supporting evidence that the lesser issue
+    is insignificant fits the definition of an appeal to worse problems. Evidence
+    from passage T2 supports this inference.
+  decision_reason: The text demonstrates a fallacious argument that a more severe
+    problem (blackout) automatically outweighs a less severe one (auto‑flagging).
+    The structure satisfies the mandatory condition for an appeal to worse problems.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - What's worse, the problem described in this story (auto-flagging) or a complete
+    social media blackout? Let's keep our priorities in view at all times. It seems
+    there's always a bigger
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5883
+  completion_tokens: 4465
+  total_tokens: 10348
+  wall_time_seconds: 351.5470000000205

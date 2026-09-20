@@ -1,0 +1,198 @@
+sample:
+  id: 217:4849
+  article_id: 217
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: I think that taking allegations of sexual misconduct into account, instead
+    of actual convictions, is not a wise move. This could lead to innocent politicians
+    being slandered and removed from office, over false allegations, which happen
+    a lot. This could be used by political opponents to remove candidates from an
+    election a false allegation of sexual misconduct.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: taking allegations of sexual misconduct into account, instead of actual
+        convictions
+    - role: intermediate_consequence
+      text: innocent politicians being slandered and removed from office
+    - role: final_consequence
+      text: used by political opponents to remove candidates from an election
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Taking allegations of sexual misconduct into account instead
+      of actual convictions is not a wise move.
+    candidate: null
+    supporting_reason: The argument points out that relying on allegations could lead
+      to innocent politicians being slandered and removed from office, as false allegations
+      happen a lot and could be exploited by political opponents.
+    support_relation: The reason is used to justify the conclusion that such a policy
+      would be unwise by highlighting potential unjust outcomes.
+    label_justification: No logical fallacy is present; the argument is a precautionary
+      claim without misusing authority, majority, tradition, nature, or creating false
+      dilemmas or slippery slope scenarios.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+  counterargument:
+    decisive_counterargument: The argument assumes that because some false accusations
+      exist, any system that considers allegations will inevitably harm innocent politicians;
+      this is a generalization based on insufficient evidence. In practice, most democracies
+      incorporate safeguards—such as corroborating evidence, due‑process hearings,
+      and a presumption of innocence—so that allegations are weighed before any punitive
+      action. Thus the concern that the system will systematically slander innocent
+      officials is exaggerated.;
+    candidate: Hasty Generalization
+    challenged_inference: In justifying that taking allegations into account will
+      lead to innocent politicians being unfairly removed, the argument assumes a
+      causal link without sufficient evidence, generalizing from a few alleged false
+      cases to all cases;
+    label_justification: 'The counterargument points out that the claim takes a handful
+      of false allegations as proof that every instance of considering an allegation
+      will blame an innocent person. This is a classic hasty generalization: a broad
+      conclusion about all potential outcomes is drawn from a limited observation—here,
+      the existence of some false accusations. The argument lacks evidence that such
+      false accusations are common enough or that safeguards would fail, so it commits
+      the Hasty Generalization fallacy rather than merely raising a legitimate concern.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: 'The argument presents a clear causal chain: taking allegations
+      into account leads to innocent politicians being slandered and removed from
+      office, and that in turn can be exploited by political opponents to remove candidates
+      from an election. This satisfies the slippery‑slope requirement that an initial
+      action precipitates progressively worse consequences. The hasty‑generalization
+      claim would need an explicit, limited sample of false allegations to generalize
+      from, but the text merely asserts that “false allegations happen a lot” without
+      citing a specific set of cases, so it does not meet the structural prerequisite.
+      Accordingly, the slippery‑slope interpretation wins.'
+    loser_failure: The hasty‑generalization assertion lacks a concrete case or limited
+      sample from which to extrapolate. It merely claims that false allegations are
+      common and hence any system considering allegations will inevitably harm innocent
+      officials. Without an explicit specific sample, it does not satisfy the mandatory
+      structural condition for hasty generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that taking allegations of sexual misconduct into account, instead of
+      actual convictions, is not a wise move. This could lead to innocent politicians
+      being slandered and removed from
+    - office, over false allegations, which happen a lot. This could be used by political
+      opponents to remove candidates from an election a false allegation of sexual
+      misconduct.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents a clear consequence chain: taking allegations
+    of sexual misconduct into account is the initial action; this could lead to innocent
+    politicians being slandered and removed from office (intermediate consequence);
+    and this could in turn be used by political opponents to remove candidates from
+    an election (final consequence). This progression satisfies the structural requirement
+    for the slippery‑slope fallacy.'
+  decision_reason: The argument contains a progression from the initial policy to
+    intermediate and final adverse outcomes, meeting the structural criteria for a
+    slippery slope.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think that taking allegations of sexual misconduct into account, instead of
+    actual convictions, is not a wise move. This could lead to innocent politicians
+    being slandered and removed from
+  - office, over false allegations, which happen a lot. This could be used by political
+    opponents to remove candidates from an election a false allegation of sexual misconduct.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5592
+  completion_tokens: 5071
+  total_tokens: 10663
+  wall_time_seconds: 169.60999999998603

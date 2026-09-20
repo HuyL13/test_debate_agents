@@ -1,0 +1,110 @@
+sample:
+  id: 387:5957
+  article_id: 387
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: This is a direct impact of the law and a direct result of the government
+    policy. To blame an economic impact only is poor judgment.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is a direct impact of the law and a direct result of the government policy.
+      To blame an economic impact only is poor judgment.
+    candidate: null
+  goal:
+    conclusion_or_goal: The impact described is a direct consequence of the law and
+      government policy, not solely an economic effect.
+    candidate: null
+    supporting_reason: The statement that the impact is a direct result of the law
+      and policy.
+    support_relation: This causal claim is used to justify the conclusion that blaming
+      economics alone is inadequate.
+    label_justification: No fallacious reasoning is evident among the listed types;
+      the argument simply offers a causal explanation rather than committing to any
+      of the specified fallacies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is a direct impact of the law and a direct result of the government policy.
+      To blame an economic impact only is poor judgment.
+  counterargument:
+    decisive_counterargument: The claim that ‘blaming an economic impact only is poor
+      judgment’ presupposes that the law or government policy is the sole cause of
+      the observed outcome, yet no evidence is provided to establish that causal link.
+      Without demonstrating that the law directly produced the effect, it is entirely
+      plausible that the economic impact itself could be the primary or sole cause,
+      or that multiple factors are involved. Thus, the argument fails to substantiate
+      its causal claim and the subsequent judgment that blaming only economics is
+      wrong.
+    candidate: Hasty Generalization
+    challenged_inference: Blaming an economic impact only is poor judgment because
+      the impact is a direct result of the law.
+    label_justification: 'The objection shows that the contractor takes a single causal
+      assertion (‘law is the cause’) as a basis for a sweeping judgment about blaming
+      economics, without supporting evidence or examination of other contributing
+      factors, which reflects a hasty generalization from an insufficient basis. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is a direct impact of the law and a direct result of the government policy.
+      To blame an economic impact only is poor judgment.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The statement generalizes from the single case that the effect
+    is a direct result of the law to a blanket judgment that blaming only the economic
+    impact is poor judgment, without providing evidence of other contributing factors.
+  decision_reason: The argument uses one specific instance (the impact caused by the
+    law) to support a broad claim that attributing the outcome solely to economic
+    causes is unjustified, which constitutes a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is a direct impact of the law and a direct result of the government policy.
+    To blame an economic impact only is poor judgment.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3716
+  completion_tokens: 3121
+  total_tokens: 6837
+  wall_time_seconds: 149.28099999998813

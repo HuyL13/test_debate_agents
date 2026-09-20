@@ -1,0 +1,135 @@
+sample:
+  id: 164:5289
+  article_id: 164
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: Do the people of this country want to go through all of this all over again?
+    Maybe they are only emboldened further to fight against COVID, but I feel like
+    maybe they are tired of it all and the relative lack of danger compared to Ebola
+    may make them not want to go through so many lockdowns and the like. These sorts
+    of things should be put up to a vote, because the majority's opinion on what risks
+    they're willing to take should be the most important.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of the people of this country
+    - role: popularity_claim
+      text: the majority's opinion on what risks they're willing to take is most important
+    - role: target_claim
+      text: these sorts of things should be put up to a vote
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The majority’s opinion on what risks people are willing to
+      take should be the most important for determining pandemic measures.
+    candidate: Appeal to Majority
+    supporting_reason: The argument states that because many people may be tired of
+      lockdowns and see COVID as less dangerous than Ebola, the decisions regarding
+      restrictions should be made by a vote that reflects the majority’s preference.
+    support_relation: justifies the conclusion that the majority’s opinion is the
+      decisive factor in policy decisions
+    label_justification: Utilizing the majority’s preference as the ultimate authority
+      for policy is an example of Appeal to Majority, which asserts that a position
+      is correct or preferable because most people believe it.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Do the people of this country want to go through all of this all over again?
+      Maybe they are only emboldened further to fight against COVID, but I feel like
+    - maybe they are tired of it all and the relative lack of danger compared to Ebola
+      may make them not want to go through so many lockdowns and the like.
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+  counterargument:
+    decisive_counterargument: Assuming the majority's preference should dictate pandemic
+      measures ignores the fact that large segments of the population often lack the
+      technical knowledge needed to assess complex health risks. Relying solely on
+      a popular vote can lead to policies that amplify fear or complacency, rather
+      than those grounded in scientific evidence and expert risk assessment. Public
+      health decisions must weigh empirical data and expert consensus, not just what
+      most people say they want.
+    candidate: Appeal to Majority
+    challenged_inference: These sorts of things should be put up to a vote, because
+      the majority's opinion on what risks they're willing to take should be the most
+      important.
+    label_justification: The argument appeals to the majority's preference as a sufficient
+      reason for policy, asserting that democratic choice is paramount despite the
+      complex, technical nature of public health decisions. This is a classic Appeal
+      to Majority fallacy, where the popularity of an opinion is taken as evidence
+      of its correctness.
+    failure_exposed: false
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that the majority's opinion on
+    risk tolerance should dictate policy decisions, which is the structural core of
+    an Appeal to Majority fallacy.
+  decision_reason: The passage in T3 asserts that because most people have certain
+    preferences, those preferences must be the decisive factor for pandemic measures,
+    fitting the definition of an Appeal to Majority.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - These sorts of things should be put up to a vote, because the majority's opinion
+    on what risks they're willing to take should be the most important.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4664
+  completion_tokens: 2206
+  total_tokens: 6870
+  wall_time_seconds: 146.20300000000861

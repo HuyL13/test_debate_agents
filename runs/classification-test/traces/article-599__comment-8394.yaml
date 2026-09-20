@@ -1,0 +1,138 @@
+sample:
+  id: 599:8394
+  article_id: 599
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: 'This incident is likely a symptom of a much greater issue in Slovakia:
+    widespread corruption and ties to organized crime. Ties to an Italian crime group
+    is probably the tip of the ice berg, with corrupt business bosses across Slovakia
+    getting cozy with international gangsters and ordering hits to protect their interests.
+    Like an ant you find in your house, there is never just the one, and so it is
+    with corporate corruption. Slovaks must demand further investigation and better
+    policing.'
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: This incident
+    - role: observed_property
+      text: ties to organized crime; the incident with a crime group
+    - role: target_population
+      text: corporate corruption among business bosses across Slovakia
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This incident is likely a symptom of a much greater issue in Slovakia: widespread
+      corruption and ties to organized crime. Ties to an Italian crime group is probably
+      the tip'
+    - of the ice berg, with corrupt business bosses across Slovakia getting cozy with
+      international gangsters and ordering hits to protect their interests. Like an
+      ant you find in your house,
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The argument attempts to convince readers that Slovakia suffers
+      from widespread corruption and organized‑crime ties.
+    candidate: Hasty Generalization
+    supporting_reason: 'This incident is likely a symptom of a much greater issue
+      in Slovakia: widespread corruption and ties to organized crime.'
+    support_relation: The reason (the incident being symptomatic) is used to justify
+      the broader claim that corruption is widespread.
+    label_justification: The argument generalizes from a single reported incident
+      to a sweeping claim about the entire country’s corruption, which fits the pattern
+      of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This incident is likely a symptom of a much greater issue in Slovakia: widespread
+      corruption and ties to organized crime. Ties to an Italian crime group is probably
+      the tip'
+    - of the ice berg, with corrupt business bosses across Slovakia getting cozy with
+      international gangsters and ordering hits to protect their interests. Like an
+      ant you find in your house,
+  counterargument:
+    decisive_counterargument: Assuming that a single criminal incident, even one involving
+      an Italian crime group, indicates systemic corruption across the entire country
+      is unwarranted; a single case does not establish a pattern of widespread corruption
+      without further corroborating evidence.
+    candidate: Hasty Generalization
+    challenged_inference: 'This incident is likely a symptom of a much greater issue
+      in Slovakia: widespread corruption and ties to organized crime.'
+    label_justification: The inference draws a broad conclusion about nationwide corruption
+      from one isolated incident, which is the hallmark of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - 'This incident is likely a symptom of a much greater issue in Slovakia: widespread
+      corruption and ties to organized crime. Ties to an Italian crime group is probably
+      the tip'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that one particular incident is a symptom
+    of widespread corruption in Slovakia and extrapolates this to all business bosses
+    and corporate corruption, constituting a hasty generalization.
+  decision_reason: 'The argument draws a conclusion about widespread corruption in
+    Slovakia from a single reported incident, which is a classic hasty generalization. '
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - 'This incident is likely a symptom of a much greater issue in Slovakia: widespread
+    corruption and ties to organized crime. Ties to an Italian crime group is probably
+    the tip'
+  - of the ice berg, with corrupt business bosses across Slovakia getting cozy with
+    international gangsters and ordering hits to protect their interests. Like an
+    ant you find in your house,
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4797
+  completion_tokens: 3225
+  total_tokens: 8022
+  wall_time_seconds: 59.890999999974156

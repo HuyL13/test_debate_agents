@@ -1,0 +1,148 @@
+sample:
+  id: 20:3208
+  article_id: 20
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: The article should probably be taken at face value.  Its arguments are basing
+    a broad conclusion on a small or unrepresentative sample.  The article doesn't
+    provide concrete examples of evidence of how the general population of Armenia
+    feels about the war.  If they want to add weight to their arguments better evidence
+    such as interviews or scientifically based opinion polls would help.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: small or unrepresentative sample
+    - role: observed_property
+      text: broad conclusion
+    - role: target_population
+      text: general population of Armenia
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+    - would help.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The article’s broad conclusion about how the general population
+      of Armenia feels about the war is not trustworthy and requires stronger evidence.
+    candidate: null
+    supporting_reason: The article bases its conclusion on a small or unrepresentative
+      sample and provides no concrete evidence about the population’s views.
+    support_relation: cause
+    label_justification: The speaker analyzes the article’s methodology, pointing
+      out the lack of representative data. This is a legitimate critique and not a
+      logical fallacy such as hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+  counterargument:
+    decisive_counterargument: The text does not claim that the entire population of
+      Armenia supports the war, but merely reports the views of a particular group
+      or few individuals.  Therefore the author is not drawing a broad conclusion
+      from a small sample; the article is merely describing the perspectives expressed
+      by the people quoted.  Hence the critic’s claim that a hasty generalization
+      is present is unfounded.
+    candidate: Hasty Generalization
+    challenged_inference: The article claims to conclude that the general population
+      of Armenia supports the war based on a small sample.
+    label_justification: The counterargument shows that the article’s statement is
+      not a generalization about all Armenians, so the alleged hasty generalization
+      does not occur.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The article should probably be taken at face value.  Its arguments are basing
+      a broad conclusion on a small or unrepresentative sample.  The article doesn't
+      provide concrete examples of evidence
+    - of how the general population of Armenia feels about the war.  If they want
+      to add weight to their arguments better evidence such as interviews or scientifically
+      based opinion polls
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The TARGET provides a clear structure of a hasty generalization:
+    a small or unrepresentative sample (evidence T1) is used to support a broad conclusion
+    about the whole population of Armenia (evidence T2 and T3). The hypothesis has
+    the required structural components—sample, observed property, target population—from
+    the target passage. All conditions are satisfied, so the candidate is accepted.'
+  decision_reason: The target explicitly indicates that a broad conclusion is drawn
+    from a small or unrepresentative sample about the general population of Armenia,
+    which matches the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The article should probably be taken at face value.  Its arguments are basing
+    a broad conclusion on a small or unrepresentative sample.  The article doesn't
+    provide concrete examples of evidence
+  - of how the general population of Armenia feels about the war.  If they want to
+    add weight to their arguments better evidence such as interviews or scientifically
+    based opinion polls
+  - would help.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4239
+  completion_tokens: 2901
+  total_tokens: 7140
+  wall_time_seconds: 165.51600000000326

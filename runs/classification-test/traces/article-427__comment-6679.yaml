@@ -1,0 +1,136 @@
+sample:
+  id: 427:6679
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Wouldn't protesting to their bosses or on air do more than what the government
+    is doing? The protesting is important, it's just they seem to be yelling at the
+    clouds. What can protesting in the street do to help what's going on in their
+    job's building? Even a famous social scientist Dr. John Doe suggested that targeted
+    dialogue to those directed involved with an issue will be more impactful than
+    public demonstrations in certain cases. I would think the emphasis would remain
+    on dialogue and progress and not public displays that won't really bring the change.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Dr. John Doe
+    - role: endorsed_claim
+      text: Targeted dialogue to those directly involved with an issue will be more
+        impactful than public demonstrations in certain cases.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - What can protesting in the street do to help what's going on in their job's
+      building? Even a famous social scientist Dr. John Doe suggested that targeted
+      dialogue to those
+    - directed involved with an issue will be more impactful than public demonstrations
+      in certain cases. I would think the emphasis would remain on dialogue and progress
+      and not public displays
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Public demonstrations in the street are less effective than
+      targeted dialogue; therefore, emphasis should be placed on dialogue rather than
+      public displays.
+    candidate: Appeal to Authority
+    supporting_reason: Citing Dr. John Doe, a famous social scientist, who suggested
+      that targeted dialogue is more impactful than public demonstrations in certain
+      cases.
+    support_relation: The authority reference is used to justify the conclusion that
+      dialogue is more effective than public displays.
+    label_justification: The argument employs an appeal to authority by invoking Dr.
+      John Doe’s expertise to support the claim that dialogue is preferable over public
+      protests, without providing independent evidence for the superiority of dialogue.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - directed involved with an issue will be more impactful than public demonstrations
+      in certain cases. I would think the emphasis would remain on dialogue and progress
+      and not public displays
+  counterargument:
+    decisive_counterargument: Public demonstrations have historically catalyzed policy
+      change by mobilizing public opinion, putting media pressure on decision‑makers,
+      and creating a visible, collective voice that can influence legislators, as
+      seen in movements such as the Civil Rights marches and the 1968 March on Washington.
+      Therefore, dismissing street protests as ineffective overlooks their proven
+      capacity to effect change.
+    candidate: null
+    challenged_inference: Public demonstrations are ineffective and should be replaced
+      by targeted dialogue.
+    label_justification: The argument relies on the authority of Dr. John Doe to assert
+      that dialogue is more impactful than public demonstrations without providing
+      empirical evidence. This is a classic appeal to authority fallacy, where expert
+      endorsement is used as the sole basis for the conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - What can protesting in the street do to help what's going on in their job's
+      building? Even a famous social scientist Dr. John Doe suggested that targeted
+      dialogue to those
+    - directed involved with an issue will be more impactful than public demonstrations
+      in certain cases. I would think the emphasis would remain on dialogue and progress
+      and not public displays
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target cites Dr. John Doe, an authority, to support the
+    claim that targeted dialogue is more effective than public demonstrations, relying
+    on the authority’s status rather than independent evidence.
+  decision_reason: The statement uses Dr. John Doe’s suggested effectiveness of dialogue
+    as the primary justification for concluding that public demonstrations are less
+    effective, fitting the definition of appeal to authority.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - What can protesting in the street do to help what's going on in their job's building?
+    Even a famous social scientist Dr. John Doe suggested that targeted dialogue to
+    those
+  - directed involved with an issue will be more impactful than public demonstrations
+    in certain cases. I would think the emphasis would remain on dialogue and progress
+    and not public displays
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4751
+  completion_tokens: 2484
+  total_tokens: 7235
+  wall_time_seconds: 66.84399999998277

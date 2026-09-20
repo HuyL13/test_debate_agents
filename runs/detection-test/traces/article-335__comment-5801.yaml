@@ -1,0 +1,135 @@
+sample:
+  id: 335:5801
+  article_id: 335
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: This person is not only advocating for a violent revolution, but for foreign
+    nations to wage war to remove the government that they don't like? Frankly, as
+    bad as the government of China is in many ways, they're still in ways a lot more
+    palatable to me than people who say things like this. If you're faced with the
+    nearly billion plus 'brainwashed' and 'ignorant' population and can't manage to
+    convince anyone but a tiny minority to support your ideas, the response shouldn't
+    be inciting violence.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: nearly billion-plus population
+    - role: popularity_claim
+      text: brainwashed and ignorant
+    - role: target_claim
+      text: response shouldn't be inciting violence
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - billion plus 'brainwashed' and 'ignorant' population and can't manage to convince
+      anyone but a tiny minority to support your ideas, the response shouldn't be
+      inciting violence.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The response should not incite violence.
+    candidate: null
+    supporting_reason: Because the population in question is vast, largely unpersuaded
+      and difficult to mobilize, advocating or inciting violent revolution would be
+      ineffective and unjustified.
+    support_relation: provides justification for the conclusion
+    label_justification: No fallacy is evident; the argument uses an example to support
+      a conditional claim without making an unsupported generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This person is not only advocating for a violent revolution, but for foreign
+      nations to wage war to remove the government that they don't like? Frankly,
+      as bad as the
+    - government of China is in many ways, they're still in ways a lot more palatable
+      to me than people who say things like this. If you're faced with the nearly
+    - billion plus 'brainwashed' and 'ignorant' population and can't manage to convince
+      anyone but a tiny minority to support your ideas, the response shouldn't be
+      inciting violence.
+  counterargument:
+    decisive_counterargument: The target treats the claim that violent revolution
+      should be avoided as a universal rule of thumb, yet it offers no evidence that
+      peaceful alternatives will always succeed or that violence is universally ineffective.
+      In situations where political oppression offers no viable channels for change,
+      dismissing violence outright ignores the possibility that armed resistance could
+      be a legitimate, if fraught, strategy.
+    candidate: Appeal to Majority
+    challenged_inference: The target assumes that because most people are unlikely
+      to support violent revolution, the opposition to it is inherently correct, thereby
+      constituting an Appeal to Majority fallacy.
+    label_justification: The objection highlights that the target’s reasoning relies
+      on the majority’s reluctance to support violent methods as the sole basis for
+      rejecting violence, which is precisely the definition of an Appeal to Majority—using
+      the number of people who hold a view to justify or invalidate that view rather
+      than examining the merits of the action itself.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - government of China is in many ways, they're still in ways a lot more palatable
+      to me than people who say things like this. If you're faced with the nearly
+    - billion plus 'brainwashed' and 'ignorant' population and can't manage to convince
+      anyone but a tiny minority to support your ideas, the response shouldn't be
+      inciting violence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage does not contain an appeal‑to‑majority structure.
+    It does not argue that because a large group holds a certain belief or sentiment,
+    that belief is correct or that violence is justified; instead it merely notes
+    the majority’s lack of support. Thus the surviving appeal‑to‑majority hypothesis
+    lacks the required structural foundation.
+  decision_reason: The target does not provide evidence that the majority’s stance
+    justifies the claim, so the candidate is not supported.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - billion plus 'brainwashed' and 'ignorant' population and can't manage to convince
+    anyone but a tiny minority to support your ideas, the response shouldn't be inciting
+    violence.
+  verified: false
+  rejection_reason: The target does not provide evidence that the majority’s stance
+    justifies the claim, so the candidate is not supported.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4444
+  completion_tokens: 3555
+  total_tokens: 7999
+  wall_time_seconds: 217.67199999999139

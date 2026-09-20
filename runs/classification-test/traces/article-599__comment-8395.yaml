@@ -1,0 +1,149 @@
+sample:
+  id: 599:8395
+  article_id: 599
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is probably just one step to what is needed to take down the criminal
+    orgs there. The police need to focus on the big players like the politicians before
+    going after who they hire to do their dirty work. Arresting the powerful people
+    getting away with getting people to do their work is much more important that
+    the people being hired.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is probably just one step to what is needed to take down the criminal orgs
+      there. The police need to focus on the big players like the politicians before
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+    - being hired.
+    candidate: null
+  goal:
+    conclusion_or_goal: Police should focus on arresting big players such as politicians
+      before targeting those they hire to do their dirty work.
+    candidate: null
+    supporting_reason: Arresting powerful people who get away with coercing others
+      is far more important than arresting the people hired to carry out the crimes.
+    support_relation: supports
+    label_justification: The argument plainly states that prioritizing arrests of
+      powerful individuals over those who carry out the work is a more important strategy.  It
+      does not exhibit any of the listed fallacies (e.g., false dilemma, hasty generalization,
+      slippery slope, appeal to authority/membership/nature/tradition/worse problems).
+      It is a straightforward priority claim.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is probably just one step to what is needed to take down the criminal orgs
+      there. The police need to focus on the big players like the politicians before
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+  counterargument:
+    decisive_counterargument: The claim that arresting powerful people is *much* more
+      important than arresting those who hire them relies on a single reported incident
+      to justify a blanket strategy. In reality, dismantling a criminal organization
+      requires coordinated action against *all* levels—high‑level leaders who coordinate,
+      and mid‑level operatives who execute plans and hold critical information. The
+      target’s reasoning leaps from an isolated observation to a sweeping policy prescription
+      without evidence that such a hierarchical focus will in fact bring down the
+      organization, thus committing a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The assertion that arresting powerful individuals is significantly
+      more important than arresting their hired employees for dismantling criminal
+      organizations.
+    label_justification: The objection demonstrates that the target’s reasoning extrapolates
+      a broad strategic conclusion (“focus on politicians; ignore hires”) from a single
+      step or example, thereby placing an unsupported generalization forward as a
+      policy recommendation. This fits the definition of a hasty generalization, where
+      a limited sample is improperly used to justify a universal claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is probably just one step to what is needed to take down the criminal orgs
+      there. The police need to focus on the big players like the politicians before
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+    - being hired.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target extrapolates a broad policy recommendation—prioritizing
+    arrest of powerful individuals over their hired operatives—based on a single asserted
+    step to dismantling criminal organizations, which constitutes a generalization
+    from an insufficient sample.
+  decision_reason: The passage uses one isolated example (“This is probably just one
+    step…”) to justify a sweeping conclusion that arresting big players is much more
+    important than arresting their hires. This meets the structural definition of
+    a hasty generalization, where a conclusion about a whole strategy is drawn from
+    a limited observation.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This is probably just one step to what is needed to take down the criminal orgs
+    there. The police need to focus on the big players like the politicians before
+  - going after who they hire to do their dirty work. Arresting the powerful people
+    getting away with getting people to do their work is much more important that
+    the people
+  - being hired.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4353
+  completion_tokens: 3040
+  total_tokens: 7393
+  wall_time_seconds: 47.828999999997905

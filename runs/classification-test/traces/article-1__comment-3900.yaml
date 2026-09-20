@@ -1,0 +1,172 @@
+sample:
+  id: 1:3900
+  article_id: 1
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: Some believe that the democratization of China is a good thing, but only
+    think this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the Chinese government knows what it best after all. Many do think that
+    the current Chinese government have their priorities straight. We should let people
+    decide for themselves.
+  target: For you to use democracy and the Chinese government in the same sentence
+    must mean you are either clueless as to what democracy is or you are a troll who
+    is representing the CCP. We all know what the government is all about. They might
+    allow you to vote which is a democratic act, but you are still selecting officials
+    with communist beliefs.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: we
+    - role: popularity_claim
+      text: all know
+    - role: target_claim
+      text: the government has communist beliefs or is communist
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - is representing the CCP. We all know what the government is all about. They
+      might allow you to vote which is a democratic act, but you are still selecting
+      officials
+    - with communist beliefs.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker is either clueless about democracy or a troll
+      representing the CCP
+    candidate: False Dilemma
+    supporting_reason: The premise that using the terms 'democracy' and 'Chinese government'
+      together implies that the speaker is either clueless or a troll
+    support_relation: Boolean implication; the premise directly supports the conclusion
+      by asserting that only these two conditions can explain the linguistic choice
+    label_justification: The argument limits the speaker’s possible states to two
+      mutually exclusive options (clueless or troll), excluding all other plausible
+      explanations, which is the definition of a false dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - For you to use democracy and the Chinese government in the same sentence must
+      mean you are either clueless as to what democracy is or you are a troll who
+    - is representing the CCP. We all know what the government is all about. They
+      might allow you to vote which is a democratic act, but you are still selecting
+      officials
+  counterargument:
+    decisive_counterargument: Target assumes that anyone who talks about ‘democracy’
+      and the Chinese government must be clueless or a troll, thereby jumping straight
+      to a character attack and ignoring the actual substantive question of whether
+      China has any democratic features. The criticism tries to invalidate the speaker’s
+      position by questioning his ignorance or intent, not by addressing the merits
+      of his claim that China *can* be described in democratic terms. This ignores
+      the possibility that a person might use or understand the term ‘democracy’ in
+      a nuanced way.
+    candidate: null
+    challenged_inference: That anyone who mentions democracy in relation to the Chinese
+      government must be clueless or a troll.
+    label_justification: The objection reveals that Target’s reasoning is an ad hominem
+      personal attack, which is not covered by the set of fallacy categories listed.
+      Therefore no fallacy label from the list applies, so we set candidate to null.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - For you to use democracy and the Chinese government in the same sentence must
+      mean you are either clueless as to what democracy is or you are a troll who
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Majority
+    - False Dilemma
+    conflict: appeal-to-majority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: appeal-to-majority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: Appeal to Majority requires evidence that the claim is justified
+      by majority opinion, which is not present in the TARGET; it only enumerates
+      two possibilities (clueless or troll) with no appeal to popular opinion.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - For you to use democracy and the Chinese government in the same sentence must
+      mean you are either clueless as to what democracy is or you are a troll who
+    - is representing the CCP. We all know what the government is all about. They
+      might allow you to vote which is a democratic act, but you are still selecting
+      officials
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents only two mutually exclusive explanations
+    (either clueless about democracy or a troll) for someone combining the terms 'democracy'
+    and 'Chinese government', thereby constituting a false dilemma.
+  decision_reason: The target’s wording “must mean you are either clueless as to what
+    democracy is or you are a troll who is representing the CCP” constitutes a two-option
+    choice that excludes all other possibilities, satisfying the structure of a false
+    dilemma fallacy. Evidence is taken from T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - For you to use democracy and the Chinese government in the same sentence must
+    mean you are either clueless as to what democracy is or you are a troll who
+  - is representing the CCP. We all know what the government is all about. They might
+    allow you to vote which is a democratic act, but you are still selecting officials
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5893
+  completion_tokens: 4773
+  total_tokens: 10666
+  wall_time_seconds: 151.07800000003772

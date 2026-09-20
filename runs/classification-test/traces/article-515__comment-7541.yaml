@@ -1,0 +1,151 @@
+sample:
+  id: 515:7541
+  article_id: 515
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: The federal government needs to resolve this fast before other regions mimic
+    this kind of behavior. Failing to get this guy replaced successfully is basically
+    the end of the government. When lower level leaders can just defy their superiors,
+    that's the only outcome that can occur. The government has to get this done by
+    any means. They have no alternative.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: replace the guy
+    - role: alternative_b
+      text: end of the government
+    - role: exhaustiveness_commitment
+      text: The government has to get this done by any means. They have no alternative.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The federal government must replace the individual by any
+      means, and there are no alternatives.
+    candidate: False Dilemma
+    supporting_reason: The argument claims that if the replacement fails the government
+      ends, and that lower‑level leaders defying superiors leads only to that same
+      outcome, thereby presenting a binary choice and denying any other viable option.
+    support_relation: mechanism_supports_goal
+    label_justification: The premises establish a binary, mutually exclusive situation
+      – either the government acts immediately or it ceases to exist – and claim no
+      other alternatives exist. This exclusion of other options constitutes a False
+      Dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+  counterargument:
+    decisive_counterargument: There are many ways for a government to respond to an
+      insolent or ineffective leader other than forceful removal, such as negotiated
+      resignation, administrative restructuring, or legislative reform. The claim
+      that failure to replace the individual will inevitably bring about the end of
+      the entire government is an overstatement without supporting evidence, and the
+      assertion that the administration has no alternative is similarly false. Modern
+      governments routinely handle such situations through a variety of mechanisms
+      that preserve continuity and avoid total collapse.
+    candidate: False Dilemma
+    challenged_inference: Key to the argument is the inference that if lower‑level
+      leaders can defy superiors, the only possible outcome is the collapse of the
+      government, leaving no other viable options.
+    label_justification: The inference predicates its conclusion on a binary choice—collapse
+      versus some unspecified action—while neglecting plausible alternatives. This
+      shows a false dilemma, as it presents a limited set of outcomes as the only
+      ones that could occur.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly frames only two mutually exclusive outcomes—replace
+    the individual or the government collapses—and asserts that no other alternatives
+    exist, satisfying the false dilemma structure.
+  decision_reason: The text states that failing to replace the individual will bring
+    about the end of the government and claims that lower‑level leaders defying superiors
+    can only lead to that outcome, coupled with a declaration that ‘they have no alternative.’
+    This presentation of a binary choice and the denial of other options constitutes
+    a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The federal government needs to resolve this fast before other regions mimic this
+    kind of behavior. Failing to get this guy replaced successfully is basically the
+    end of the government.
+  - When lower level leaders can just defy their superiors, that's the only outcome
+    that can occur. The government has to get this done by any means. They have no
+    alternative.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4668
+  completion_tokens: 2968
+  total_tokens: 7636
+  wall_time_seconds: 103.73399999999674

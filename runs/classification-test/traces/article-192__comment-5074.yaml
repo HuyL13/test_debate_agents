@@ -1,0 +1,129 @@
+sample:
+  id: 192:5074
+  article_id: 192
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: If the judges don't get involved at the beginning of the process isn't it
+    just an open field to make accusations for whatever reason.  What we have here
+    is a divide of two roads to go down.  Either make judging mandatory before taking
+    stuff down or just let the corrupt free for all continue.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: make judging mandatory before taking stuff down
+    - role: alternative_b
+      text: just let the corrupt free for all continue
+    - role: exhaustiveness_commitment
+      text: implies these are the only two options
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the judges don't get involved at the beginning of the process isn't it just
+      an open field to make accusations for whatever reason.  What we have here is
+      a
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Judges must get involved at the beginning of the process to
+      prevent corruption; otherwise corruption will continue unchecked.
+    candidate: False Dilemma
+    supporting_reason: 'The speaker presents only two options: making judging mandatory
+      before taking stuff down or letting corruption continue.'
+    support_relation: This is used to justify the imperative that judges must intervene
+      early, by implying no other alternative exists.
+    label_justification: The argument forces a choice between two extremes as if it
+      were the only possibilities, which is characteristic of a false dilemma. The
+      speaker does not acknowledge or consider any other potential courses of action.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+  counterargument:
+    decisive_counterargument: The claim reduces the situation to only two possible
+      courses of action – enforce mandatory judging or allow the corrupt to remain
+      unchecked – without acknowledging that other, more nuanced solutions could exist,
+      such as phased oversight, independent review panels, or transparency‑enhancing
+      technologies.  By presenting just these two options as mutually exclusive, the
+      argument commits a false dilemma, misrepresenting the range of viable alternatives.
+    candidate: False Dilemma
+    challenged_inference: EXPRESSION_OF_FALSE_DEMIM
+    label_justification: 'The objection targets the structure of the reasoning presented
+      in the target passage: it forces the reader to choose between two mutually exclusive
+      options while disregarding any other reasonable possibilities. This mischaracterization
+      of the available alternatives is the hallmark of a False Dilemma fallacy. The
+      direct evidence for the statement of the two options is found in the second
+      target passage.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - divide of two roads to go down.  Either make judging mandatory before taking
+      stuff down or just let the corrupt free for all continue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The argument lists only the two alternatives—‘make judging mandatory
+    before taking stuff down’ or ‘just let the corrupt free for all continue’—and
+    implies these exhaust all options, meeting the structure of a false dilemma.
+  decision_reason: The target passage explicitly divides the situation into two mutually
+    exclusive routes and presents this as the sole choice, thereby committing the
+    False Dilemma fallacy.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - divide of two roads to go down.  Either make judging mandatory before taking stuff
+    down or just let the corrupt free for all continue.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4449
+  completion_tokens: 2596
+  total_tokens: 7045
+  wall_time_seconds: 92.67199999999139

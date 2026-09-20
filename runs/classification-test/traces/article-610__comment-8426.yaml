@@ -1,0 +1,128 @@
+sample:
+  id: 610:8426
+  article_id: 610
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: We need to get a system in place. Everyone knows that bottles being littered
+    along the ground is bad for us all, so we need to do something. Lets get more
+    places to dispose of them, lets pay people to clean them up, ect. There is plenty
+    we can do.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: everyone
+    - role: popularity_claim
+      text: Everyone knows that bottles being littered along the ground is bad for
+        us all
+    - role: target_claim
+      text: We need to do something
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: We need to establish a system to reduce bottle littering by
+      adding more disposal sites and paying people to clean them up.
+    candidate: null
+    supporting_reason: Everyone knows that bottles being littered along the ground
+      is bad for us all.
+    support_relation: Provides background evidence that establishes the necessity
+      of action.
+    label_justification: The statement is a factual claim used to justify the conclusion;
+      it does not misrepresent the evidence, restrict alternatives, or appeal to authority
+      or majority, so no logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+  counterargument:
+    decisive_counterargument: The argument hinges on the statement that ‘Everyone
+      knows that bottles being littered along the ground is bad for us all’, using
+      this as a reason to build a disposal system and pay for clean‑ups.  However,
+      merely claiming that a large group of people share a belief does not, by itself,
+      prove that a system is required or that the suggested measures are the best
+      response.  The assumption that all people know this fact is unsubstantiated,
+      so the argument relies on the popularity of the belief rather than evidence
+      of effectiveness or necessity.
+    candidate: Appeal to Majority
+    challenged_inference: Everyone knows that bottles being littered along the ground
+      is bad for us all, so we need to do something.
+    label_justification: The counterargument shows that the conclusion is based on
+      an unverified assumption that everyone shares a particular belief.  This reliance
+      on the collective acceptance of a fact, without evidence that it obligates action,
+      exemplifies an Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The TARGET provides a premise that 'Everyone knows that bottles
+    being littered along the ground is bad for us all,' and then concludes that 'We
+    need to do something.' This structure—using the popularity of a claim to justify
+    an action—fits the Appeal to Majority fallacy and satisfies its mandatory structural
+    condition.
+  decision_reason: The TARGET demonstrates that the argument relies on a claim about
+    overwhelming acceptance (Everyone knows...), satisfying the structural requirement
+    for an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - We need to get a system in place. Everyone knows that bottles being littered along
+    the ground is bad for us all, so we need to do something. Lets get
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4232
+  completion_tokens: 3598
+  total_tokens: 7830
+  wall_time_seconds: 74.70299999997951

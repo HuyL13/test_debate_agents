@@ -1,0 +1,138 @@
+sample:
+  id: 486:10756
+  article_id: 486
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: I'm not surprised that this blew up.  Government cybersecurity is terrible
+    in general,  but much worse are stupid script kiddies who can't even do proper
+    social engineering.  A skilled hacker wouldn't have had difficulty getting into
+    the system, that's the scary thing. Cybersecurity is deficient across most governments.    Everyone
+    needs o put more effort into it.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T1
+    - role: observed_property
+      text: T1
+    - role: target_population
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm not surprised that this blew up.  Government cybersecurity is terrible in
+      general,  but much worse are stupid script kiddies who can't even do proper
+      social engineering.  A skilled hacker
+    - wouldn't have had difficulty getting into the system, that's the scary thing.
+      Cybersecurity is deficient across most governments.    Everyone needs o put
+      more effort into it.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Everyone needs to put more effort into cybersecurity.
+    candidate: Hasty Generalization
+    supporting_reason: A skilled hacker wouldn’t have had difficulty getting into
+      the system.
+    support_relation: generalizes from a single instance of a skilled hacker’s success
+      to claim that government cybersecurity is deficient across most governments,
+      thereby motivating universal increased effort.
+    label_justification: The argument uses evidence from one specific incident—having
+      a skilled hacker face no difficulty in breaking into the target system—to make
+      a broad claim about the cybersecurity status of virtually all governments. The
+      leap from a single example to a general conclusion exemplifies a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - wouldn't have had difficulty getting into the system, that's the scary thing.
+      Cybersecurity is deficient across most governments.    Everyone needs o put
+      more effort into it.
+  counterargument:
+    decisive_counterargument: The comment asserts that ‘cybersecurity is deficient
+      across most governments’ based on a single system breach that was apparently
+      due to a script‑kiddie attack.  The argument generalizes a single incident to
+      the entire class of governments without providing any broader evidence or data.  This
+      is an unsupported generalization drawn from an insufficient sample.
+    candidate: Hasty Generalization
+    challenged_inference: cybersecurity is deficient across most governments
+    label_justification: The counterargument directly challenges the inference that
+      all or most governments have deficient cybersecurity by pointing out that the
+      speaker has not supplied enough evidence to justify such a sweeping claim.  This
+      exposes the reasoning failure characteristic of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm not surprised that this blew up.  Government cybersecurity is terrible in
+      general,  but much worse are stupid script kiddies who can't even do proper
+      social engineering.  A skilled hacker
+    - wouldn't have had difficulty getting into the system, that's the scary thing.
+      Cybersecurity is deficient across most governments.    Everyone needs o put
+      more effort into it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: A single example is used to support a sweeping conclusion about
+    the cyber security status of most governments
+  decision_reason: The target asserts that government cybersecurity is deficient across
+    most governments based on a single incident involving a skilled hacker, which
+    meets the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I'm not surprised that this blew up.  Government cybersecurity is terrible in
+    general,  but much worse are stupid script kiddies who can't even do proper social
+    engineering.  A skilled hacker
+  - wouldn't have had difficulty getting into the system, that's the scary thing.
+    Cybersecurity is deficient across most governments.    Everyone needs o put more
+    effort into it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4534
+  completion_tokens: 4397
+  total_tokens: 8931
+  wall_time_seconds: 115.79699999999139

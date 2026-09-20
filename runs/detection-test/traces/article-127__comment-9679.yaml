@@ -1,0 +1,138 @@
+sample:
+  id: 127:9679
+  article_id: 127
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: Why is the focus on the internet shutdowns, and not that actual human rights
+    abuses from the insecurity caused by the coup. There has been enough evidence
+    based on the statistics to show that Myanmar needs more international intervention.
+    It is important to get news out from the people in Myanmar, but we need to focus
+    on the problem itself which is the insecurity caused by the coup.
+  target: I agree that the actual abuses going on in Myanmar are frightening and need
+    to be addressed, however that doesn't mean we shouldn't talk about them shutting
+    off the internet to their citizens. In fact having internet access will only help
+    raise awareness and let us understand what actual abuses are going on. If we allow
+    the silence of the victims of this coup then we will never know the truth of what
+    is actually happening, that is simply not acceptable. I feel that we can and must
+    face both of these problems at the same time, anything else is just dangerous.  I
+    certainly hope that the United Nations will step up here, way too little going
+    on in terms of actual results.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: face both problems at the same time
+    - role: alternative_b
+      text: anything else
+    - role: exhaustiveness_commitment
+      text: anything else is just dangerous
+    structure_complete: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - of these problems at the same time, anything else is just dangerous.  I certainly
+      hope that the United Nations will step up here, way too little going on in terms
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: To address Myanmar’s abuses, we must also confront the internet
+      shutdowns and preserve internet access to raise awareness.
+    candidate: null
+    supporting_reason: Having internet access helps raise awareness and reveal true
+      abuses, preventing silent victims’ voices from being unheard.
+    support_relation: The reason is used to justify the goal of confronting shutdowns
+      and demanding internet access.
+    label_justification: The argument presents a logical connection between internet
+      access and awareness without making unwarranted generalizations or false dilemmas;
+      no fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that the actual abuses going on in Myanmar are frightening and need
+      to be addressed, however that doesn't mean we shouldn't talk about them shutting
+      off the internet
+    - to their citizens. In fact having internet access will only help raise awareness
+      and let us understand what actual abuses are going on. If we allow the silence
+      of the
+    - victims of this coup then we will never know the truth of what is actually happening,
+      that is simply not acceptable. I feel that we can and must face both
+  counterargument:
+    decisive_counterargument: 'The claim that we must confront both the abuses and
+      the internet shutdowns simultaneously—otherwise we will never learn the truth
+      and that’s dangerous—is not justified.  It presents only two alternatives: either
+      we address both issues at once or we will be left in a catastrophic state.  In
+      reality, we can still gather information about abuses through alternative channels
+      such as satellite communications, dissent networks, or foreign observers, even
+      if the internet is shut down.  Therefore the argument is based on an unfounded
+      false dichotomy rather than sound reasoning.'
+    candidate: False Dilemma
+    challenged_inference: that we must address both problems at the same time because
+      otherwise we will never know the truth and it will be dangerous
+    label_justification: The target’s argument limits the options to either tackling
+      both issues together or facing danger, implying only two mutually exclusive
+      possibilities. This matches the structure of a false dilemma, which asserts
+      that only two alternatives exist and one leads to a negative outcome.
+    failure_exposed: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - of these problems at the same time, anything else is just dangerous.  I certainly
+      hope that the United Nations will step up here, way too little going on in terms
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: 'The target explicitly limits the options to either confronting
+    both the abuses and the internet shutdown simultaneously, or facing danger: ''I
+    feel that we can and must face both of these problems at the same time, anything
+    else is just dangerous.'' This is an exhaustive alternatives claim, satisfying
+    the structural requirement for a false dilemma.'
+  decision_reason: The passage presents two mutually exclusive alternatives—tackling
+    both problems together or risking danger if anything else is done—thereby committing
+    a false dilemma.
+  evidence_ids:
+  - T4
+  evidence_spans:
+  - of these problems at the same time, anything else is just dangerous.  I certainly
+    hope that the United Nations will step up here, way too little going on in terms
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5451
+  completion_tokens: 2879
+  total_tokens: 8330
+  wall_time_seconds: 209.18700000000536

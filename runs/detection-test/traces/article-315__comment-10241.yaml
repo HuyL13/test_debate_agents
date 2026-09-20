@@ -1,0 +1,129 @@
+sample:
+  id: 315:10241
+  article_id: 315
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: I feel like just because they're indigenous doesn't mean that the majority
+    of the nation should base economic and environmental laws around what they want.
+    The majority of the nation is not indigenous, so their wants and needs should
+    be given more weight. That solar plant and nuclear plant that they stopped could
+    probably have really helped the entire economy there.
+  target: I don't believe anyone is suggesting that minorities should be the dictators
+    of their countries or something. Just that their concerns and needs should be
+    taken into account when making decisions, such as their concerns about the nuclear
+    power plant. Without doing that, you just have a tyranny of the majority. And
+    ultimately, the indigenous people alone didn't make that decision. As noted in
+    the article, a referendum voted on by all Taiwanese citizens is what stopped the
+    power plant.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I don't believe anyone is suggesting that minorities should be the dictators
+      of their countries or something. Just that their concerns and needs should be
+      taken into account when making
+    - decisions, such as their concerns about the nuclear power plant. Without doing
+      that, you just have a tyranny of the majority. And ultimately, the indigenous
+      people alone didn't make that
+    - decision. As noted in the article, a referendum voted on by all Taiwanese citizens
+      is what stopped the power plant.
+    candidate: null
+  goal:
+    conclusion_or_goal: Minority (indigenous) concerns and needs should be taken into
+      account when making decisions, such as the nuclear power plant issue.
+    candidate: null
+    supporting_reason: If minority concerns are ignored, the political process devolves
+      into tyranny of the majority.
+    support_relation: The reason directly justifies the stated conclusion that minority
+      concerns must be considered; it explains the harmful consequence of failing
+      to do so.
+    label_justification: The argument follows a legitimate causal link between neglecting
+      minority views and majority tyranny, with no evidence of a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I don't believe anyone is suggesting that minorities should be the dictators
+      of their countries or something. Just that their concerns and needs should be
+      taken into account when making
+    - decisions, such as their concerns about the nuclear power plant. Without doing
+      that, you just have a tyranny of the majority. And ultimately, the indigenous
+      people alone didn't make that
+    - decision. As noted in the article, a referendum voted on by all Taiwanese citizens
+      is what stopped the power plant.
+  counterargument:
+    decisive_counterargument: 'The target asserts that failing to incorporate indigenous
+      concerns inevitably results in a tyranny of the majority, implying that the
+      only alternatives are to recognize minority needs or to be tyrannical. This
+      is a **false dilemma**: it presents a binary choice while ignoring other possible
+      explanations (e.g., economic, environmental, or broader political considerations)
+      that could also account for the referendum outcome. The inference is therefore
+      defective because it commits the fallacy of limiting possible outcomes to two
+      exclusive options, with no evidence that the alternative is actually the only
+      one.'
+    candidate: False Dilemma
+    challenged_inference: claim that without considering minority concerns you are
+      necessarily engaging in tyranny of the majority
+    label_justification: The objection shows that the dialogue posits an either/or
+      argument—either indigenous voices are considered or a tyranny occurs—without
+      acknowledging other reasons the referendum could have succeeded. This directly
+      exposes a false dilemma flaw rather than merely critiquing the argument’s content.
+      The assertion of a binary outcome is the reasoning failure, hence the label
+      'False Dilemma.'
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - decisions, such as their concerns about the nuclear power plant. Without doing
+      that, you just have a tyranny of the majority. And ultimately, the indigenous
+      people alone didn't make that
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3272
+  completion_tokens: 2252
+  total_tokens: 5524
+  wall_time_seconds: 72.09299999999348

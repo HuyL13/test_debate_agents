@@ -1,0 +1,133 @@
+sample:
+  id: 442:7323
+  article_id: 442
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: Music has always been a vehicle for change. For long before recorded history,
+    all arts were a means for people to express what they think of the world they
+    live in and the world they'd like to live in. It's unfortunate that so many governments
+    are trying so hard to kill that tradition.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T1
+    - role: preservation_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Music has always been a vehicle for change. For long before recorded history,
+      all arts were a means for people to express what they think of the world they
+      live
+    - in and the world they'd like to live in. It's unfortunate that so many governments
+      are trying so hard to kill that tradition.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Music has always been a vehicle for change and governments
+      are trying to eliminate that tradition.
+    candidate: null
+    supporting_reason: All arts were a means for people to express what they think
+      of the world they live in and the world they'd like to live in.
+    support_relation: The statement about arts being a means of expression is used
+      to justify the claim that music itself functions as a vehicle for social change.
+    label_justification: The reasoning directly supports the stated claim without
+      misrepresenting premises or applying a fallacious appeal; hence, there is no
+      logical fallacy present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Music has always been a vehicle for change. For long before recorded history,
+      all arts were a means for people to express what they think of the world they
+      live
+    - in and the world they'd like to live in. It's unfortunate that so many governments
+      are trying so hard to kill that tradition.
+  counterargument:
+    decisive_counterargument: Saying that governments’ attempts to curb music are
+      wrong simply because music has historically been a vehicle for change relies
+      on the idea that tradition is inherently valuable. That inference is unjustified—interventions
+      can be legitimate even if they disrupt a historical practice, and tradition
+      alone does not establish moral worth.
+    candidate: Appeal to Tradition
+    challenged_inference: Governments are trying to kill the tradition of music, which
+      is inherently bad and therefore governments are morally wrong.
+    label_justification: The argument appeals to the historical longevity of music
+      as a vehicle for change to justify preserving it and condemning governments,
+      without demonstrating that tradition itself confers moral worth. This use of
+      tradition as a basis for validity is a classic appeal to tradition fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - in and the world they'd like to live in. It's unfortunate that so many governments
+      are trying so hard to kill that tradition.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The passage states that music has always served as a vehicle
+    for change, implying that this longstanding tradition is valuable; it then concludes
+    that governments’ attempts to suppress it are unfortunate, thereby arguing for
+    preservation on the basis of historical continuity—an Appeal to Tradition.
+  decision_reason: The structure shows a premise that the tradition existed and a
+    conclusion that it should be preserved; this matches the defining form of the
+    Appeal to Tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Music has always been a vehicle for change. For long before recorded history,
+    all arts were a means for people to express what they think of the world they
+    live
+  - in and the world they'd like to live in. It's unfortunate that so many governments
+    are trying so hard to kill that tradition.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3977
+  completion_tokens: 3079
+  total_tokens: 7056
+  wall_time_seconds: 140.6710000000021

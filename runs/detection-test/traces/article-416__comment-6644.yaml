@@ -1,0 +1,115 @@
+sample:
+  id: 416:6644
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: The problems aren't with the police, the problems are with the government!
+    Why aren't they focusing on the corrupt politicians? All of their problems are
+    caused by the politicians!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The problems are not with the police but with the government;
+      the politicians, especially corrupt ones, are the root cause of all problems.
+    candidate: null
+    supporting_reason: All of their problems are caused by the politicians.
+    support_relation: The reason is presented as evidence that explains why the speaker
+      blames politicians for the problems rather than the police. It is used to justify
+      the conclusion.
+    label_justification: The assertion that politicians are responsible for all problems
+      does not satisfy the criteria for any of the specified fallacies such as a hasty
+      generalization, slippery slope, false dilemma, or appeals. It is a claim lacking
+      evidence but not structurally invalid under the given fallacy taxonomy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+  counterargument:
+    decisive_counterargument: Although corruption among politicians can worsen government
+      performance, the police are a distinct institution with their own chains of
+      command, training, and operational protocols. Numerous reports of police misconduct,
+      excessive use of force, and inadequate accountability mechanisms indicate that
+      police actions alone have contributed to many of the problems the argument attributes
+      solely to politicians.
+    candidate: Hasty Generalization
+    challenged_inference: All of their problems are caused by the politicians.
+    label_justification: The target makes a sweeping claim that every problem originates
+      from politicians, with no evidence or limited examples provided. This universal
+      assertion based on insufficient support constitutes a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target’s claim that “All of their problems are caused by
+    the politicians” does not cite any explicit sample or particular cases from which
+    a broader conclusion is drawn. A Hasty Generalization requires such a specific
+    instance or limited evidence to justify a sweeping universal statement, which
+    this target lacks, so the structural requirement for the fallacy is not met.
+  decision_reason: The target does not provide a sample or specific evidence to generalize
+    from; therefore it does not satisfy the structural condition for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The problems aren't with the police, the problems are with the government! Why
+    aren't they focusing on the corrupt politicians? All of their problems are caused
+    by the politicians!
+  verified: false
+  rejection_reason: The target does not provide a sample or specific evidence to generalize
+    from; therefore it does not satisfy the structural condition for a Hasty Generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3715
+  completion_tokens: 2423
+  total_tokens: 6138
+  wall_time_seconds: 55.26600000000326

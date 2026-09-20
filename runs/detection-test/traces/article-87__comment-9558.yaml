@@ -1,0 +1,133 @@
+sample:
+  id: 87:9558
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: Not great for these 'blue' shops, but they have nobody to blame but themselves.
+    Either they support the protests and stand up for democracy, or they lose their
+    business. They need to make a real choice as there is no middle ground. There
+    is no way to just pretend the massive changes happening aren't a big deal.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: support the protests and stand up for democracy
+    - role: alternative_b
+      text: lose their business
+    - role: exhaustiveness_commitment
+      text: There is no middle ground; they need to make a real choice
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not great for these 'blue' shops, but they have nobody to blame but themselves.
+      Either they support the protests and stand up for democracy, or they lose their
+      business. They
+    - need to make a real choice as there is no middle ground. There is no way to
+      just pretend the massive changes happening aren't a big deal.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: These 'blue' shops ought to support the protests and stand
+      up for democracy.
+    candidate: False Dilemma
+    supporting_reason: Either they support the protests and stand up for democracy,
+      or they lose their business.
+    support_relation: The reasoning depicts a binary choice—support the protests or
+      lose business—implicitly justifying the conclusion that support is necessary.
+    label_justification: The argument presents only two alternatives, dismissing any
+      middle ground or other options, which is the defining feature of a False Dilemma
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not great for these 'blue' shops, but they have nobody to blame but themselves.
+      Either they support the protests and stand up for democracy, or they lose their
+      business. They
+    - need to make a real choice as there is no middle ground. There is no way to
+      just pretend the massive changes happening aren't a big deal.
+  counterargument:
+    decisive_counterargument: The claim that a shop must either outright support the
+      protests or lose its business is a simplistic, all‑or‑nothing framing that ignores
+      alternative possibilities such as moderating support, negotiating with authorities,
+      or finding other routes to maintain profitability. By asserting that there is
+      no middle ground, the argument creates a false binary choice that is not substantiated
+      by evidence.
+    candidate: False Dilemma
+    challenged_inference: The shop’s decision restricts to only two mutually exclusive
+      outcomes with no viable midpoint.
+    label_justification: The reasoning presents a false dilemma by claiming a binary
+      choice (support protests or business loss) while claiming there is no compromise,
+      a classic false dilemma pattern.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not great for these 'blue' shops, but they have nobody to blame but themselves.
+      Either they support the protests and stand up for democracy, or they lose their
+      business. They
+    - need to make a real choice as there is no middle ground. There is no way to
+      just pretend the massive changes happening aren't a big deal.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: 'The target explicitly presents two mutually exclusive alternatives—‘support
+    the protests and stand up for democracy’ or ‘lose their business’—and asserts
+    that no middle ground exists (‘there is no middle ground’). This satisfies the
+    structural requirement for a False Dilemma fallacy. Evidence: T1, T2.'
+  decision_reason: 'The RAW TARGET meets the defining structure of a false dilemma:
+    it offers only two distinct outcomes, claims they are exhaustive, and thereby
+    frames the situation as a binary choice. No other structure or content prevents
+    the fallacy attribution.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Not great for these 'blue' shops, but they have nobody to blame but themselves.
+    Either they support the protests and stand up for democracy, or they lose their
+    business. They
+  - need to make a real choice as there is no middle ground. There is no way to just
+    pretend the massive changes happening aren't a big deal.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4508
+  completion_tokens: 2220
+  total_tokens: 6728
+  wall_time_seconds: 38.98399999999674

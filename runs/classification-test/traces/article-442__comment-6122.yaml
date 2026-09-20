@@ -1,0 +1,134 @@
+sample:
+  id: 442:6122
+  article_id: 442
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: Why should we listen to this musician?  What does he know about how a country
+    should be run?  I understand having sympathy for those who are abused and neglected
+    and am not belittling it, but let the real experts handle it. Let's leave these
+    delicate topics to policy makers who invest their lives working on these issues.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: real experts/policy makers who invest their lives working on these issues
+    - role: endorsed_claim
+      text: We should not listen to this musician on how a country should be run
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why should we listen to this musician?  What does he know about how a country
+      should be run?  I understand having sympathy for those who are abused and neglected
+      and
+    - am not belittling it, but let the real experts handle it. Let's leave these
+      delicate topics to policy makers who invest their lives working on these issues.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Reject listening to this musician
+    candidate: Appeal to Authority
+    supporting_reason: let the real experts handle it. Let's leave these delicate
+      topics to policy makers who invest their lives working on these issues.
+    support_relation: the appeal to authority is used to justify dismissing the musician
+      as irrelevant to policy discussions
+    label_justification: The argument treats the lack of an expert’s credential as
+      a reason to ignore the musician’s views, which is an appeal to authority fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - am not belittling it, but let the real experts handle it. Let's leave these
+      delicate topics to policy makers who invest their lives working on these issues.
+  counterargument:
+    decisive_counterargument: Even though the musician is not a policy maker, he may
+      still provide valuable observations, lived experiences, and fresh perspectives
+      that can illuminate human rights issues; dismissing his voice solely on the
+      basis of lacking formal expertise overlooks legitimate contributions that could
+      inform or improve policy decisions.
+    candidate: Appeal to Authority
+    challenged_inference: Because the musician is not a designated expert on governance,
+      his opinions are invalid and therefore should be ignored in discussions about
+      how a country should be run.
+    label_justification: The argument discounts the musician’s perspective solely
+      on the criterion that he does not have formal policy credentials, treating expert
+      status as the only measure of validity. This mirrors the classic appeal to authority
+      fallacy, where authority is used as a stand‑alone justification for dismissing
+      alternative viewpoints.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why should we listen to this musician?  What does he know about how a country
+      should be run?  I understand having sympathy for those who are abused and neglected
+      and
+    - am not belittling it, but let the real experts handle it. Let's leave these
+      delicate topics to policy makers who invest their lives working on these issues.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument explicitly dismisses the musician’s viewpoints
+    by appealing to the authority of ‘real experts’ and policy makers, treating their
+    authority as the sole justification for rejecting the musician’s claims about
+    governance.
+  decision_reason: The target text cites ‘real experts’ and policy makers as the decision‐making
+    authorities and reasons that the musician should be ignored because he lacks such
+    credentials. This use of authority status as the lone basis for dismissing an
+    opposing viewpoint constitutes an appeal to authority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why should we listen to this musician?  What does he know about how a country
+    should be run?  I understand having sympathy for those who are abused and neglected
+    and
+  - am not belittling it, but let the real experts handle it. Let's leave these delicate
+    topics to policy makers who invest their lives working on these issues.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4505
+  completion_tokens: 3675
+  total_tokens: 8180
+  wall_time_seconds: 93.82800000000861

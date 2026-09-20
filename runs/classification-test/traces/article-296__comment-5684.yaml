@@ -1,0 +1,133 @@
+sample:
+  id: 296:5684
+  article_id: 296
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: The people just need to wait for the process to play out. The court made
+    a good decision that they agree with, so those in charge obviously know what they're
+    doing and what is right. Trust in the process and trust in the system and another
+    good decision will follow. They are the ones making the decisions for a reason!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the court
+    - role: endorsed_claim
+      text: the process will lead to good decisions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The people just need to wait for the process to play out. The court made a good
+      decision that they agree with, so those in charge obviously know what they're
+    - doing and what is right. Trust in the process and trust in the system and another
+      good decision will follow. They are the ones making the decisions for a reason!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The people should wait for the process to play out and trust
+      the authorities because past good decisions indicate they know what they're
+      doing.
+    candidate: Appeal to Authority
+    supporting_reason: The court made a good decision, so those in charge obviously
+      know what they’re doing and what is right.
+    support_relation: The argument uses the authority’s prior successful decision
+      as evidence that future decisions will also be good, thereby justifying trust
+      in the process.
+    label_justification: The statement appeals to the court’s expertise as an authority
+      to legitimize the advised trust, which is the mechanism of an Appeal to Authority
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The people just need to wait for the process to play out. The court made a good
+      decision that they agree with, so those in charge obviously know what they're
+    - doing and what is right. Trust in the process and trust in the system and another
+      good decision will follow. They are the ones making the decisions for a reason!
+  counterargument:
+    decisive_counterargument: Even if that particular ruling was right, a single favorable
+      decision does not prove that the entire system is reliable or will keep making
+      correct judgments. Courts can and do err, may be biased, or constrained by politics;
+      thus, trusting the system merely because one decision was well-received is a
+      leap. Without independent corroboration that the process itself is sound, the
+      argument collapses.
+    candidate: Appeal to Authority
+    challenged_inference: The argument that because the court made a good decision,
+      the people should simply trust the process and expect future good decisions.
+    label_justification: The claim relies on an authority’s single decision to justify
+      blanket trust in the system, offering no evidence that the authority is infallible
+      or that the process is inherently correct, which is characteristic of an Appeal
+      to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The people just need to wait for the process to play out. The court made a good
+      decision that they agree with, so those in charge obviously know what they're
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument cites the court’s past good decision as evidence
+    that those in charge know what they’re doing, thereby using the court’s authority
+    to justify blanket trust in the process and anticipation of future good decisions—an
+    Appeal to Authority structure.
+  decision_reason: It appeals to the court’s expertise as an authority to legitimize
+    the advised trust, without supporting evidence that the system is inherently reliable.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The people just need to wait for the process to play out. The court made a good
+    decision that they agree with, so those in charge obviously know what they're
+  - doing and what is right. Trust in the process and trust in the system and another
+    good decision will follow. They are the ones making the decisions for a reason!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4503
+  completion_tokens: 2725
+  total_tokens: 7228
+  wall_time_seconds: 106.35999999998603

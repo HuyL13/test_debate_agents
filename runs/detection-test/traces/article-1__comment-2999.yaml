@@ -1,0 +1,155 @@
+sample:
+  id: 1:2999
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: Some believe that the democratization of China is a good thing, but only
+    think this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the Chinese government knows what it best after all. Many do think that
+    the current Chinese government have their priorities straight. We should let people
+    decide for themselves.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: has become a popular opinion
+    - role: target_claim
+      text: the democratization of China is a good thing
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Some believe that the democratization of China is a good thing, but only think
+      this way because it has become a popular opinion. It's hardly a simple matter.
+      Perhaps the
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: We should let people decide for themselves
+    candidate: Appeal to Authority
+    supporting_reason: Perhaps the Chinese government knows best (after all). Many
+      do think that the current Chinese government have their priorities straight.
+    support_relation: support
+    label_justification: The argument uses the Chinese government as an authority
+      to assert that it knows what is best, implying that this authority legitimizes
+      the conclusion that people should decide independently. This constitutes an
+      appeal to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Chinese government knows what it best after all. Many do think that the current
+      Chinese government have their priorities straight. We should let people decide
+      for themselves.
+  counterargument:
+    decisive_counterargument: The target argues that because the Chinese government
+      is the ruling authority, it must know what is best and therefore we should let
+      it dictate outcomes. This is an argument that the authority’s position automatically
+      justifies its decisions, which is precisely the structure of an appeal to authority
+      fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: The Chinese government knows what it best after all
+    label_justification: The objection directly critiques the inference that authority
+      alone suffices for correct judgment, a hallmark of the appeal to authority fallacy.
+      It demonstrates that the reasoning relies on the government’s status rather
+      than evidence or reasoning about its competence, thereby exposing the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Chinese government knows what it best after all. Many do think that the current
+      Chinese government have their priorities straight. We should let people decide
+      for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: Appeal to Authority does not justify the conclusion; it only states
+      that the Chinese government may be competent, but it is not used to support
+      the claim that people should decide. Thus it lacks the required structure of
+      an appeal to authority.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Some believe that the democratization of China is a good thing, but only think
+      this way because it has become a popular opinion. It's hardly a simple matter.
+      Perhaps the
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not provide a structure where the popularity
+    of the view is used to justify that the view is true. The sentence merely reports
+    that some people think the democratization is good only because it is popular,
+    which is a critique rather than a claim that “popular opinion makes it true.”
+    Therefore, the required appeal-to-majority structure is absent, and no fallacy
+    is present.
+  decision_reason: 'The target fails the essential structural condition for an Appeal
+    to Majority: it does not assert that the claim’s truth derives from its popularity.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Some believe that the democratization of China is a good thing, but only think
+    this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the
+  - Chinese government knows what it best after all. Many do think that the current
+    Chinese government have their priorities straight. We should let people decide
+    for themselves.
+  verified: false
+  rejection_reason: 'The target fails the essential structural condition for an Appeal
+    to Majority: it does not assert that the claim’s truth derives from its popularity.'
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5466
+  completion_tokens: 5242
+  total_tokens: 10708
+  wall_time_seconds: 231.92199999999139

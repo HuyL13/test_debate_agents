@@ -1,0 +1,137 @@
+sample:
+  id: 416:10545
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: '"Where is Carry Lam?" is a great question, and the administration needs
+    to step up. The relationship between China and Hong Kong is a long and complex
+    one, and I don''t see how some riots are going to change that. But meanwhile,
+    the leadership in Hong Kong is weak and ineffectual. It seems protesting for good
+    local government should be a more pressing and achievable goal to those in Hong
+    Kong than trying to gain full autonomy from China.'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - '"Where is Carry Lam?" is a great question, and the administration needs to
+      step up. The relationship between China and Hong Kong is a long and complex
+      one, and I'
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+    candidate: null
+  goal:
+    conclusion_or_goal: protesting for good local government should be a more pressing
+      and achievable goal than trying to gain full autonomy from China
+    candidate: null
+    supporting_reason: the leadership in Hong Kong is weak and ineffectual
+    support_relation: mechanism_supports_goal
+    label_justification: The target makes a reasoned recommendation that follows logically
+      from the premise that weak leadership makes local governance issues more pressing—a
+      non‑fallacious use of this premise.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+  counterargument:
+    decisive_counterargument: 'The claim that protesting for better local government
+      is a more pressing and achievable goal than seeking full autonomy relies on
+      an unjustified dichotomy: it presents only two alternatives—either pursue autonomy
+      or fight for local government—while neglecting all other possibilities (e.g.,
+      combining reform with autonomy negotiations, pursuing incremental autonomy,
+      or adopting diplomatic means). By framing the issue this way, the argument commits
+      a False Dilemma, because it falsely limits the range of options and forces the
+      conclusion that the first option is preferable solely on the basis that the
+      second is ineffective.'
+    candidate: False Dilemma
+    challenged_inference: Protesting for good local government is a more pressing
+      and achievable goal than seeking full autonomy from China.
+    label_justification: The objection highlights that the argument sets up a binary
+      choice and dismisses other feasible strategies, thereby exposing the False Dilemma
+      fallacy. The counterargument shows the inference depends on an invalid limited
+      set of options, not on sound reasoning.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage compares the achievability of protesting
+    for good local government to that of seeking full autonomy but does not explicitly
+    present a limited, exclusive set of alternatives that exhaust all possibilities.
+    Without an explicit binary choice (e.g., “either X or Y, and nothing else”), the
+    structural requirement for a False Dilemma is unmet, so the claim cannot be identified
+    as that fallacy.
+  decision_reason: False Dilemma is not supported because the target does not commit
+    to the exhaustive exclusive alternative structure.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - don't see how some riots are going to change that. But meanwhile, the leadership
+    in Hong Kong is weak and ineffectual. It seems protesting for good local government
+    should be
+  - a more pressing and achievable goal to those in Hong Kong than trying to gain
+    full autonomy from China.
+  verified: false
+  rejection_reason: False Dilemma is not supported because the target does not commit
+    to the exhaustive exclusive alternative structure.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4463
+  completion_tokens: 3666
+  total_tokens: 8129
+  wall_time_seconds: 111.93799999999464

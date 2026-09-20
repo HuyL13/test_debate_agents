@@ -1,0 +1,138 @@
+sample:
+  id: 550:8848
+  article_id: 550
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: The more people there are the more energy will be needed. Fossil fuels will
+    eventually run out and its only natural that people will lean toward other resources.
+    Nature shows us that those who don't adapt end up suffering. Nature can guide
+    us into the future with wind and solar energy.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Nature shows us that those who don't adapt end up suffering.
+    - role: evaluative_conclusion
+      text: Nature can guide us into the future with wind and solar energy.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+    - us that those who don't adapt end up suffering. Nature can guide us into the
+      future with wind and solar energy.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Nature can guide us into the future with wind and solar energy.
+    candidate: Appeal to Nature
+    supporting_reason: Fossil fuels will eventually run out and it’s only natural
+      that people will lean toward other resources; nature shows us that those who
+      don’t adapt end up suffering.
+    support_relation: The reason is presented as justification for the conclusion
+      that nature can guide us into the future with wind and solar energy.
+    label_justification: The argument asserts that following nature (wind and solar)
+      is the natural and thus correct response to resource scarcity, which is an Appeal
+      to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+  counterargument:
+    decisive_counterargument: The fact that something occurs in nature does not by
+      itself justify its desirability or suitability for humans. Many natural processes—such
+      as hurricanes, plagues, and wildfires—are wildly destructive, yet nature still
+      'uses' them. The claim that 'nature shows those who don’t adapt end up suffering'
+      merely re‑states a causal observation (people who fail to transition to renewable
+      resources may face scarcity) without proving that wind and solar are the optimal
+      or only solution. Thus, the appeal to nature is a non‑sequitur that conflates
+      natural occurrence with moral or practical suitability.
+    candidate: Appeal to Nature
+    challenged_inference: Because it is natural for people to shift to new energy
+      sources, wind and solar are inherently better or inevitable.
+    label_justification: The argument rests on the premise that naturalness confers
+      moral or practical legitimacy, a classic appeal-to-nature fallacy. It conflates
+      natural occurrence with desirable outcome, so the identified label is a direct
+      reflection of that flaw.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The more people there are the more energy will be needed. Fossil fuels will
+      eventually run out and its only natural that people will lean toward other resources.
+      Nature shows
+    - us that those who don't adapt end up suffering. Nature can guide us into the
+      future with wind and solar energy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents a naturalness premise (“Nature shows us
+    that those who don’t adapt end up suffering”) and a evaluative conclusion (“Nature
+    can guide us into the future with wind and solar energy”), implying that because
+    something aligns with natural patterns it is desirable or the correct choice.
+    This matches the structure of an Appeal to Nature fallacy.
+  decision_reason: The argument conflates natural occurrence with moral or practical
+    superiority, satisfying the mandatory structural condition of the Appeal to Nature
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The more people there are the more energy will be needed. Fossil fuels will eventually
+    run out and its only natural that people will lean toward other resources. Nature
+    shows
+  - us that those who don't adapt end up suffering. Nature can guide us into the future
+    with wind and solar energy.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 4525
+  completion_tokens: 3113
+  total_tokens: 7638
+  wall_time_seconds: 168.125

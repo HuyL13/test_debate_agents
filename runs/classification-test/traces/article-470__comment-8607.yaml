@@ -1,0 +1,186 @@
+sample:
+  id: 470:8607
+  article_id: 470
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: 'This was a fun article but here is a nitpick: the popularity of online
+    memes and Facebook posts is not a reliable guide to public opinion. What would
+    be helpful is a citation from an expert in Latin American culture and political
+    opinion, someone who studies the trends and knows the numbers - someone like Dr.
+    Pablo Gomez, for instance. But there''s nothing like that in this piece, so while
+    I enjoyed it, I take it with a boulder of salt.'
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: popularity of online memes and Facebook posts
+    - role: observed_property
+      text: is not a reliable guide to public opinion
+    - role: target_population
+      text: public opinion
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The article’s claims lack credibility because it omits expert
+      citations, so the article should be approached skeptically.
+    candidate: null
+    supporting_reason: the popularity of online memes and Facebook posts is not a
+      reliable guide to public opinion
+    support_relation: the lack of reliable evidentiary support (memes) leads the author
+      to distrust the article’s conclusions, motivating the skeptical stance in the
+      conclusion.
+    label_justification: The reasoning correctly links the absence of expert corroboration
+      to reduced trust; no logical fallacy is committed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    - But there's nothing like that in this piece, so while I enjoyed it, I take it
+      with a boulder of salt.
+  counterargument:
+    decisive_counterargument: The claim that the article’s lack of a citation from
+      a specific expert (e.g., Dr. Pablo Gómez) automatically undermines its reliability
+      is a false appeal to authority. Merely pointing out the absence of a named authority
+      does not demonstrate that the article’s observations—here, that online meme
+      popularity does not track public opinion—are incorrect. Valid conclusions can
+      be drawn from systematic social‑media data analyses and existing scholarly work,
+      even if those sources are not explicitly cited in the article. Therefore, the
+      article remains credible without the presence of one named authority, and the
+      argument that it must be discounted because of missing citations is logically
+      unsound.
+    candidate: Appeal to Authority
+    challenged_inference: The absence of a cited expert necessarily undermines the
+      article's argument about meme popularity and public opinion.
+    label_justification: The counterargument targets the TARGET’s reliance on a single
+      expert’s citation as essential proof; this is an appeal-to-authority fallacy.
+      The TARGET asserts that lacking such authority invalidates the article, which
+      is a concise claim that the argument fails to establish. The rebuttal shows
+      that non‑cited, evidence‑based claims can still be reliable, exposing the appeal‑to‑authority
+      error, and thus the appropriate fallacy label is “Appeal to Authority.”
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    - is a citation from an expert in Latin American culture and political opinion,
+      someone who studies the trends and knows the numbers - someone like Dr. Pablo
+      Gomez, for instance.
+    - But there's nothing like that in this piece, so while I enjoyed it, I take it
+      with a boulder of salt.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The target statement asserts that online meme popularity is generally
+      not a reliable guide to public opinion. This claim presents a sampled phenomenon
+      (the popularity of online memes and Facebook posts) and extends it to a broader
+      population (public opinion) without supporting evidence. That structure satisfies
+      the required pattern for a Hasty Generalization. In contrast, Appeal to Authority
+      would involve asserting the truth of a claim solely because an authority figure
+      endorses it; the target does not do this but merely points out the absence of
+      such endorsement, so the mandatory structural condition for Appeal to Authority
+      is not met.
+    loser_failure: Appeal to Authority would require the target to argue that a statement
+      is true because an authority (e.g., Dr. Pablo Gomez) claims it. The target merely
+      criticizes the lack of a cited authority, not that a claim is true due to an
+      authority’s endorsement. Hence the Appeal to Authority fallacy is not structurally
+      demonstrated.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target asserts that ‘the popularity of online memes and
+    Facebook posts is not a reliable guide to public opinion,’ which is a claim that
+    generalizes from the sample of online meme popularity to the entire public opinion
+    population without evidence, fulfilling the structure of a hasty generalization.
+    Evidence: T1.'
+  decision_reason: 'The claim’s structure matches a sample‑to‑population generalization:
+    sample – popularity of online memes; observed property – not a reliable guide;
+    target – public opinion. No other fallacy applies. Thus Hasty Generalization is
+    the correct label.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - 'This was a fun article but here is a nitpick: the popularity of online memes
+    and Facebook posts is not a reliable guide to public opinion. What would be helpful'
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5910
+  completion_tokens: 5070
+  total_tokens: 10980
+  wall_time_seconds: 143.43700000003446

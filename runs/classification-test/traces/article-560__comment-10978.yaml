@@ -1,0 +1,144 @@
+sample:
+  id: 560:10978
+  article_id: 560
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: Most people agree that abortion should be legal,  so I don't see why Argentina
+    has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+    what democracy is about.  In this case, the majority believe that abortion should
+    be legal.   This should be simple.  Give the people what they want,  give women
+    what they want.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: Most people agree that abortion should be legal
+    - role: target_claim
+      text: Abortion should be legal
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Argentina should legalize abortion or that lawmakers should
+      act in accordance with the majority’s view that abortion is legal.
+    candidate: Appeal to Majority
+    supporting_reason: The argument states that because most people believe abortion
+      should be legal, lawmakers ought to make it legal.
+    support_relation: Majority preference is used as the sole justification for policy
+      change.
+    label_justification: Using the popularity of the viewpoint as the basis for the
+      conclusion is an Appeal to Majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+  counterargument:
+    decisive_counterargument: The reasoning wrongly assumes that a general claim about
+      what most people worldwide believe automatically applies to Argentine politics
+      and that it must govern lawmaking.  It uses the majority’s preference as the
+      sole justification for policy change, ignoring that a democratic system requires
+      evidence that a real majority in that specific context holds that view, plus
+      consideration of minority rights and processes.  This unqualified appeal to
+      the popularity of an opinion is a textbook **Appeal to Majority** fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: The claim that because most people agree abortion should
+      be legal, policymakers in Argentina must therefore legalize it.
+    label_justification: The objection targets the argument’s sole reliance on a supposed
+      majority view to determine law, which directly matches the definition of an
+      Appeal to Majority.  It does not merely critique the content but shows that
+      the inference is logically invalid without evidence of the specific majority
+      and is a separate fallacy, not general criticism of policy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people agree that abortion should be legal,  so I don't see why Argentina
+      has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+      what democracy
+    - is about.  In this case, the majority believe that abortion should be legal.   This
+      should be simple.  Give the people what they want,  give women what they want.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument states that because most people believe abortion
+    should be legal, lawmakers ought to make it legal; this uses the popularity of
+    the viewpoint as the sole justification for policy change, fitting the definition
+    of an Appeal to Majority.
+  decision_reason: The claim that because the majority agree abortion should be legal,
+    Argentina must legalize it is an appeal to majority fallacy, as it relies solely
+    on a general popularity assertion without evidence that it applies to Argentina’s
+    specific context or account for minority rights.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most people agree that abortion should be legal,  so I don't see why Argentina
+    has this problem.  The majority's voice should be the guiding light for lawmakers.  That's
+    what democracy
+  - is about.  In this case, the majority believe that abortion should be legal.   This
+    should be simple.  Give the people what they want,  give women what they want.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4679
+  completion_tokens: 3034
+  total_tokens: 7713
+  wall_time_seconds: 110.17199999999139

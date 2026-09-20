@@ -1,0 +1,126 @@
+sample:
+  id: 1:3150
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: Some believe that the democratization of China is a good thing, but only
+    think this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the Chinese government knows what it best after all. Many do think that
+    the current Chinese government have their priorities straight. We should let people
+    decide for themselves.
+  target: The fact that you said democracy is only a good think since its popular
+    leads me to believe you are a CCP shill or work for the CCP. I have never seen
+    anyone else who doesn't work for a one-part state say this before.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that you said democracy is only a good think since its popular leads
+      me to believe you are a CCP shill or work for the CCP. I have
+    - never seen anyone else who doesn't work for a one-part state say this before.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker is accused of being a CCP shill or working for
+      the CCP.
+    candidate: Appeal to Authority
+    supporting_reason: The fact that you said democracy is only a good think since
+      it’s popular.
+    support_relation: ad hominem (genetic fallacy)
+    label_justification: The argument uses the speaker’s stated opinion to infer their
+      affiliation with the CCP rather than addressing the merits of their claim, which
+      constitutes a genetic ad hominem fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that you said democracy is only a good think since its popular leads
+      me to believe you are a CCP shill or work for the CCP. I have
+    - never seen anyone else who doesn't work for a one-part state say this before.
+  counterargument:
+    decisive_counterargument: 'Saying that because someone claims democracy is only
+      good when popular, that person must be a CCP shill is an ad hominem circumstantial
+      fallacy: it shifts the focus from the claim to an assumed motive rather than
+      providing evidence that the claim is false or harmful. Anyone can hold that
+      opinion for reasons unrelated to CCP affiliation—no evidence is given that the
+      statement is proof of CCP support.'
+    candidate: Appeal to Authority
+    challenged_inference: The inference is that the person’s claim about democracy
+      being locally popular proves they are a CCP shill.
+    label_justification: The argument commits an ad hominem (circumstantial) fallacy
+      because it attacks the presumed motive or affiliation of the speaker rather
+      than addressing the merits of their claim. Claiming that a statement proves
+      CCP affiliation is a misuse of “authority” as the source of truth. The target’s
+      reasoning relies on a false premise that personal claim equates to political
+      support, which is precisely the situational misuse of authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that you said democracy is only a good think since its popular leads
+      me to believe you are a CCP shill or work for the CCP. I have
+    - never seen anyone else who doesn't work for a one-part state say this before.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not invoke an authority figure or
+    expert to support a claim; instead it accuses the speaker of being a CCP shill
+    based solely on their expressed opinion. This reasoning falls under an ad‑hominem
+    circumstantial or genetic attack, not an appeal to authority. Therefore the surviving
+    hypothesis claiming an appeal to authority is incorrect.
+  decision_reason: The target does not present an authority’s statements or qualifications
+    to justify its conclusion. It merely infers affiliation from the speaker’s claim,
+    which is an ad‑hominem fallacy, not an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that you said democracy is only a good think since its popular leads
+    me to believe you are a CCP shill or work for the CCP. I have
+  - never seen anyone else who doesn't work for a one-part state say this before.
+  verified: false
+  rejection_reason: The target does not present an authority’s statements or qualifications
+    to justify its conclusion. It merely infers affiliation from the speaker’s claim,
+    which is an ad‑hominem fallacy, not an appeal to authority.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4483
+  completion_tokens: 3275
+  total_tokens: 7758
+  wall_time_seconds: 109.64099999997416

@@ -1,0 +1,129 @@
+sample:
+  id: 315:6943
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: These people are just trying to save and bring attention to their cultures
+    and traditions. They are the true Taiwanese and because of that deserve to have
+    their wants and needs met. They have been there the longest after all. They know
+    what is best for them and the country as a whole.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: They have been there the longest after all.
+    - role: preservation_conclusion
+      text: They deserve to have their wants and needs met.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are just trying to save and bring attention to their cultures and
+      traditions. They are the true Taiwanese and because of that deserve to have
+      their wants and
+    - needs met. They have been there the longest after all. They know what is best
+      for them and the country as a whole.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: They deserve to have their wants and needs met.
+    candidate: Appeal to Tradition
+    supporting_reason: Because they are the true Taiwanese, having been there the
+      longest, and because they know what is best for themselves and the country.
+    support_relation: The fact that they have been present the longest and possess
+      traditional knowledge is used to justify the claim that they earn the right
+      to have their needs met.
+    label_justification: The argument relies on the longevity of Indigenous peoples
+      as a tradition-based justification for their entitlement, an instance of Appeal
+      to Tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are just trying to save and bring attention to their cultures and
+      traditions. They are the true Taiwanese and because of that deserve to have
+      their wants and
+    - needs met. They have been there the longest after all. They know what is best
+      for them and the country as a whole.
+  counterargument:
+    decisive_counterargument: The fact that Indigenous peoples have lived in Taiwan
+      for millennia does not automatically entitle them to be the sole or definitive
+      “true Taiwanese” nor to have their wants and needs prioritized over others.  Claims
+      of legitimacy or moral priority must rest on legal frameworks, democratic processes,
+      or ethical principles, not simply on the longevity of habitation.  Other communities
+      also contribute to Taiwan’s cultural fabric and deserve consideration.
+    candidate: Appeal to Tradition
+    challenged_inference: Using their longest historical presence as sole justification
+      for Indigenous peoples’ claim of being the true Taiwanese and for their rights
+      to be prioritized.
+    label_justification: The argument appeals to the tradition of Indigenous peoples
+      being the earliest inhabitants to legitimize their status and rights, which
+      is the textbook definition of an appeal to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are just trying to save and bring attention to their cultures and
+      traditions. They are the true Taiwanese and because of that deserve to have
+      their wants and
+    - needs met. They have been there the longest after all. They know what is best
+      for them and the country as a whole.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument cites the Indigenous peoples’ longevity (“they
+    have been there the longest”) as a justification for their entitlement to have
+    their wants and needs met, which is the classic structure of an appeal to tradition.
+  decision_reason: The claim rests on traditional longevity to legitimize present
+    rights, matching the Appeal to Tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These people are just trying to save and bring attention to their cultures and
+    traditions. They are the true Taiwanese and because of that deserve to have their
+    wants and
+  - needs met. They have been there the longest after all. They know what is best
+    for them and the country as a whole.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4423
+  completion_tokens: 4286
+  total_tokens: 8709
+  wall_time_seconds: 87.0

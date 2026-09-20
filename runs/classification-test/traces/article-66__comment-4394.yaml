@@ -1,0 +1,149 @@
+sample:
+  id: 66:4394
+  article_id: 66
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: Celebratory gunfire has been a part of different cultures for decades if
+    not hundreds of years. Trying to stop it now because of a few accidents is silly.
+    Are we going to stop driving due to thousands being killed in wrecks every year
+    Tradition is important. All cultures have them!
+  target: And for many more thousands of years before that, guns never even existed.
+    Maybe they should stick to the more natural traditions. Surely we can be happy
+    celebrating in more natural ways, ones that don't involve metal inventions that
+    can maim and kill people from miles away.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: natural ways, ones that don't involve metal inventions that can maim and
+        kill people from miles away.
+    - role: evaluative_conclusion
+      text: Maybe they should stick to the more natural traditions. Surely we can
+        be happy celebrating in more natural ways
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And for many more thousands of years before that, guns never even existed. Maybe
+      they should stick to the more natural traditions. Surely we can be happy celebrating
+      in more
+    - natural ways, ones that don't involve metal inventions that can maim and kill
+      people from miles away.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The target argues that celebratory gunfire should be abandoned
+      in favor of more natural traditions for celebrations.
+    candidate: Appeal to Nature
+    supporting_reason: The argument asserts that because guns are metal inventions
+      capable of causing maiming and distant killing, celebrating in natural ways
+      is preferable and safer.
+    support_relation: reason
+    label_justification: The reasoning relies on equating natural methods with safety
+      or moral superiority, a classic appeal to nature, without establishing a logical
+      connection between naturalness and the proposed outcome.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And for many more thousands of years before that, guns never even existed. Maybe
+      they should stick to the more natural traditions. Surely we can be happy celebrating
+      in more
+    - natural ways, ones that don't involve metal inventions that can maim and kill
+      people from miles away.
+  counterargument:
+    decisive_counterargument: The claim that firearms are inferior simply because
+      they are metal weapons and that no gun existed in the distant past is a false
+      appeal to nature. Safety and cultural appropriateness of a celebratory means
+      depend on context, regulation, and historical precedent, not on whether the
+      tool is metallic. For example, many societies have used firearms solemnly for
+      centuries, demonstrating that the metallic nature of a gun does not inherently
+      make celebrations dangerous or immoral.
+    candidate: Appeal to Nature
+    challenged_inference: Because firearms have been absent for thousands of years
+      and are made of metallic materials that can maim and kill, we should abandon
+      them and adopt only natural celebratory traditions.
+    label_justification: The objection points out that the reasoning improperly equates
+      the physical nature of firearms (metal, capable of long-range harm) with moral
+      badness, while ignoring the actual safety records and cultural uses of firearms.
+      This is the hallmark of an appeal to nature, as it assumes that natural is inherently
+      better or safe.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And for many more thousands of years before that, guns never even existed. Maybe
+      they should stick to the more natural traditions. Surely we can be happy celebrating
+      in more
+    - natural ways, ones that don't involve metal inventions that can maim and kill
+      people from miles away.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target explicitly links the naturalness of celebratory traditions
+    (those not involving metal inventions) to their superiority, presenting a naturalness‑to‑value
+    structure in which the argument concludes that natural ways are preferable because
+    firearms are metal and harmful; this matches the canonical form of an Appeal to
+    Nature fallacy.
+  decision_reason: The target pairs a naturalness premise (“...natural ways, ones
+    that don't involve metal inventions that can maim and kill people from miles away”)
+    with an evaluative conclusion (“Maybe they should stick to the more natural traditions”),
+    fulfilling the structural requirements of an Appeal to Nature argument. No other
+    fallacy is structurally supported by the provided passages.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - And for many more thousands of years before that, guns never even existed. Maybe
+    they should stick to the more natural traditions. Surely we can be happy celebrating
+    in more
+  - natural ways, ones that don't involve metal inventions that can maim and kill
+    people from miles away.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4680
+  completion_tokens: 2934
+  total_tokens: 7614
+  wall_time_seconds: 69.68799999999464

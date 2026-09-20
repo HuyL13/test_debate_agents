@@ -1,0 +1,171 @@
+sample:
+  id: 335:10301
+  article_id: 335
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: At this point, why bother? China is stronger than ever and the people in
+    charge have complete control over the people. They won this battle. They think
+    having everyone forget or not even find out about 1989 is best, so that's what
+    is gonna happen. Is there anyone who really thinks that after 30 years, the authorities
+    in China will lose or change their minds/
+  target: Well, if everyone took your attitude, they definitely won't. What do you
+    suggest, that the people of China simply give up and live under authoritarians
+    for the rest of time? It's important that people like this keep up their efforts
+    and that nobody throws in the towel.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the people of China simply give up and live under authoritarians for the
+        rest of time
+    - role: alternative_b
+      text: people keep up their efforts and don’t throw in the towel
+    - role: exhaustiveness_commitment
+      text: the speaker implies these are the only two options
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, if everyone took your attitude, they definitely won't. What do you suggest,
+      that the people of China simply give up and live under authoritarians for the
+      rest of time?
+    - It's important that people like this keep up their efforts and that nobody throws
+      in the towel.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The people of China should keep up their efforts and not give
+      up under authoritarian rule.
+    candidate: Hasty Generalization
+    supporting_reason: T1
+    support_relation: argument
+    label_justification: The speaker uses a rhetorical question to challenge the idea
+      of surrender; however, the target does not commit a fallacy. The reason is used
+      to support the conclusion that people should keep fighting, not to argue universal
+      >1.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, if everyone took your attitude, they definitely won't. What do you suggest,
+      that the people of China simply give up and live under authoritarians for the
+      rest of time?
+    - It's important that people like this keep up their efforts and that nobody throws
+      in the towel.
+  counterargument:
+    decisive_counterargument: Encouraging people to continue resisting is not the
+      only viable response; there exist alternative courses of action—such as strategic
+      engagement, diplomatic pressure, or nonviolent reform efforts—that the target
+      ignores. By presenting “give up” or “keep fighting” as the only possibilities,
+      the target commits a false dilemma, forcing a binary choice that is not exhaustive.
+    candidate: False Dilemma
+    challenged_inference: The target assumes that the only reasonable option for the
+      people of China is either to give up or to persist in resistance, thereby excluding
+      other potential courses of action.
+    label_justification: The objection demonstrates that the target’s reasoning artificially
+      limits the range of options to two extremes, making it a clear instance of the
+      false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, if everyone took your attitude, they definitely won't. What do you suggest,
+      that the people of China simply give up and live under authoritarians for the
+      rest of time?
+    - It's important that people like this keep up their efforts and that nobody throws
+      in the towel.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: The target presents a binary choice between surrendering to authoritarian
+      rule or continuing to resist, implying these are the only two viable options.
+      This constructs an artificially limited set of alternatives, meeting the structural
+      requirement for a false dilemma.
+    loser_failure: The target does not draw a general conclusion from a single sample
+      or event; it merely advocates for continued resistance, not a broad sweeping
+      claim about a population. Hence it fails to satisfy the criteria for a hasty
+      generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, if everyone took your attitude, they definitely won't. What do you suggest,
+      that the people of China simply give up and live under authoritarians for the
+      rest of time?
+    - It's important that people like this keep up their efforts and that nobody throws
+      in the towel.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents two mutually exclusive options—giving
+    up and living under authoritarian control versus continuing resistance—and implies
+    that these are the only viable choices, satisfying the structural requirement
+    for a false dilemma.
+  decision_reason: The reply frames the situation as a simple binary choice and asserts
+    that other alternatives are irrelevant, which is the hallmark of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Well, if everyone took your attitude, they definitely won't. What do you suggest,
+    that the people of China simply give up and live under authoritarians for the
+    rest of time?
+  - It's important that people like this keep up their efforts and that nobody throws
+    in the towel.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 6216
+  completion_tokens: 3164
+  total_tokens: 9380
+  wall_time_seconds: 338.93700000000536

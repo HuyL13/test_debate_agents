@@ -1,0 +1,135 @@
+sample:
+  id: 296:10186
+  article_id: 296
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: Governance by committee is no good. Let the people decide. Draft up definitions
+    for the terms in question and an outline of what the restrictions and proscriptions
+    are to be, and let the people vote. The voice of the majority will be the truest
+    guide in a situation like this one. The collective wisdom of the many is more
+    insightful than the few.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority / many
+    - role: popularity_claim
+      text: the voice of the majority will be the truest guide / the collective wisdom
+        of the many is more insightful
+    - role: target_claim
+      text: governance by committee is no good; let the people decide
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governance by committee is no good. Let the people decide. Draft up definitions
+      for the terms in question and an outline of what the restrictions and proscriptions
+      are to be,
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Governance by committee is no good; let the people decide.
+    candidate: Appeal to Majority
+    supporting_reason: The voice of the majority will be the truest guide; the collective
+      wisdom of the many is more insightful than the few.
+    support_relation: The majority’s purported wisdom is presented as the justification
+      for rejecting committee governance in favor of direct popular decision.
+    label_justification: The argument uses the claim that the majority’s voice is
+      inherently superior as a reason for preferring popular decision-making, without
+      providing evidence or a legitimate criterion for why the majority is better.
+      This is a classic Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+    - than the few.
+  counterargument:
+    decisive_counterargument: Popularity is not a guarantor of correctness; a majority
+      can be misinformed, prejudiced, or prone to groupthink, so relying on the “voice
+      of the majority” does not ensure accurate or just decisions.
+    candidate: Appeal to Majority
+    challenged_inference: That allowing the public to unilaterally decide through
+      a vote guarantees the truest guidance for governance.
+    label_justification: The objection directly confronts the mistake of presuming
+      that the majority's opinion is inherently true or superior, which is the hallmark
+      of the Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governance by committee is no good. Let the people decide. Draft up definitions
+      for the terms in question and an outline of what the restrictions and proscriptions
+      are to be,
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument states that the majority’s voice is the truest
+    guide and therefore the preferred method of governance, using the group’s collective
+    wisdom as justification without supporting evidence.
+  decision_reason: The conclusion relies on the appeal that popular decision‑making
+    is inherently best, which is the classic Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Governance by committee is no good. Let the people decide. Draft up definitions
+    for the terms in question and an outline of what the restrictions and proscriptions
+    are to be,
+  - and let the people vote. The voice of the majority will be the truest guide in
+    a situation like this one. The collective wisdom of the many is more insightful
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4667
+  completion_tokens: 3045
+  total_tokens: 7712
+  wall_time_seconds: 101.5

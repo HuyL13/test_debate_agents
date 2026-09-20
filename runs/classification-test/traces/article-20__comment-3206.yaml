@@ -1,0 +1,145 @@
+sample:
+  id: 20:3206
+  article_id: 20
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: This article really tries to ignore the historic, fraternal relations between
+    the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+    That relationship has weathered a lot of outside interference, like the people
+    in this article are trying to push, and has proven mutually beneficial. I hope
+    this war that has no direct connection to Armenia doesn't force its government
+    to abandon that tradition.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T1
+    - role: preservation_conclusion
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - force its government to abandon that tradition.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Armenia should maintain its historic fraternal relations with
+      Russia, and the current war should not force it to abandon that tradition.
+    candidate: null
+    supporting_reason: They have been allies traditionally for centuries; that relationship
+      has weathered outside interference and proven mutually beneficial.
+    support_relation: The assertion that Armenia and Russia have a long‑standing,
+      resilient, and mutually beneficial alliance is used to justify the conclusion
+      that Armenia should not abandon this tradition in the face of the ongoing war.
+    label_justification: No logical fallacy is evident; the argument relies on historical
+      evidence of mutual benefit and resilience, rather than on fallacious reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+  counterargument:
+    decisive_counterargument: A long‑standing alliance does not guarantee that the
+      same policy will remain viable in a new geopolitical context. External wars,
+      shifting strategic interests, and domestic political changes can alter or even
+      sever historic ties. Therefore, the claim that Armenia cannot abandon its traditional
+      relationship with Russia simply because it has existed for centuries is unjustified.
+    candidate: Appeal to Tradition
+    challenged_inference: The war cannot force the Armenian government to abandon
+      its historic fraternal relations with Russia.
+    label_justification: 'The argument appeals to the longevity and prior success
+      of the Armenia‑Russia alliance as evidence that the relationship should continue.
+      This is a classic appeal to tradition fallacy: using the fact that something
+      has existed or been beneficial in the past to argue it will remain beneficial
+      or inevitable in the future, without addressing present circumstances or potential
+      changes. The objection directly targets this reasoning, showing it fails to
+      provide a logical basis beyond the historical record.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This article really tries to ignore the historic, fraternal relations between
+      the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+      That relationship has weathered a lot
+    - of outside interference, like the people in this article are trying to push,
+      and has proven mutually beneficial. I hope this war that has no direct connection
+      to Armenia doesn't
+    - force its government to abandon that tradition.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target states that because Armenia and Russia have long
+    been traditionally allied, the war should not cause Armenia to abandon this historic
+    relationship. This argument presents a tradition premise (their long‑standing
+    alliance) and concludes that the tradition must be preserved, meeting the structural
+    requirements for an appeal to tradition fallacy.
+  decision_reason: The argument references historical longevity to justify continued
+    policy without addressing current context, which is the hallmark of an appeal
+    to tradition.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - This article really tries to ignore the historic, fraternal relations between
+    the peoples of Armenia and Russia. They have been allies traditionally for centuries.
+    That relationship has weathered a lot
+  - force its government to abandon that tradition.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4541
+  completion_tokens: 3388
+  total_tokens: 7929
+  wall_time_seconds: 155.03099999998813

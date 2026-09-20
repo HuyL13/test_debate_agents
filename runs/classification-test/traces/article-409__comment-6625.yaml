@@ -1,0 +1,136 @@
+sample:
+  id: 409:6625
+  article_id: 409
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: This is the result of an extremely sexist culture. I doubt many of the men
+    and boys there were ever taught how to respect women. Is there really any other
+    explanation considering these women are all being killed by men?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: sexist culture
+    - role: alternative_b
+      text: other explanation
+    - role: exhaustiveness_commitment
+      text: The speaker implies that sexist culture is the sole explanation and no
+        other explanation exists.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The speaker concludes that the killings of women are solely
+      caused by an extremely sexist culture, implying no other explanation exists.
+    candidate: False Dilemma
+    supporting_reason: The claim that men and boys were never taught to respect women
+      is used as the single explanation for the murders.
+    support_relation: The reason is employed to justify the conclusion by presenting
+      it as the only possible cause, effectively framing the argument as a binary
+      choice between a sexist culture (the provided explanation) and nothing else.
+    label_justification: By posing the rhetorical question ‘Is there really any other
+      explanation…’ the speaker limits the options to the sexist culture, creating
+      a false dichotomy and thereby committing a False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+  counterargument:
+    decisive_counterargument: The humans behind these crimes cannot be attributed
+      to a single factor such as a sexist culture; there are many potential contributing
+      causes—economic hardship, mental health problems, lack of effective law‑enforcement,
+      random acts of violence, and so on. By insisting that sexism is the sole explanation,
+      the argument ignores a range of plausible influences and presents a simplified
+      ‘either‑or’ view.
+    candidate: False Dilemma
+    challenged_inference: The killings of women are caused only by an extremely sexist
+      culture, and no other explanation is possible.
+    label_justification: The objection shows that the argument restricts the causal
+      explanation to a single factor, neglecting other plausible causes. This reflects
+      a False Dilemma, because the claim forces a binary choice between ‘sexist culture’
+      and some unspecified alternative, thereby misrepresenting the complexity of
+      the situation.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the result of an extremely sexist culture. I doubt many of the men and
+      boys there were ever taught how to respect women. Is there really any other
+    - explanation considering these women are all being killed by men?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states that the killings can only be explained by
+    an extremely sexist culture and rhetorically questions the possibility of any
+    other explanation, thereby presenting exactly two alternatives—sexist culture
+    and ‘any other explanation’—and committing to the claim that these exhaust all
+    options, satisfying the structural criteria of a false dilemma.
+  decision_reason: The speaker limits the cause of the killings to a sexist culture
+    and treats the question ‘Is there really any other explanation?’ as evidence that
+    no other explanations exist, presenting an exhaustive binary choice.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is the result of an extremely sexist culture. I doubt many of the men and
+    boys there were ever taught how to respect women. Is there really any other
+  - explanation considering these women are all being killed by men?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4110
+  completion_tokens: 3734
+  total_tokens: 7844
+  wall_time_seconds: 165.875

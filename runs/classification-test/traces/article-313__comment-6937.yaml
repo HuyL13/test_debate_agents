@@ -1,0 +1,137 @@
+sample:
+  id: 313:6937
+  article_id: 313
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: These kids are in college and they think its a good use of their time to
+    harass other kids due to politics? They have tests and whatnot to worry about.
+    Politics is for when you're older. Idiots! There are many more problems to worry
+    about at your age. Your future, climate change, etc.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: harassing other students because of politics
+    - role: worse_issue
+      text: climate change
+    - role: deprioritizing_conclusion
+      text: politics is for older people and not worth the time of young college students
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are in college and they think its a good use of their time to harass
+      other kids due to politics? They have tests and whatnot to worry about.
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The statement argues that college students are misusing their
+      time by harassing peers over politics and should instead focus on more pressing
+      personal and societal issues.
+    candidate: null
+    supporting_reason: They have academic obligations and many other important concerns
+      such as future plans and climate change, implying politics is not a valuable
+      use of their time.
+    support_relation: Appeals to priority/importance to justify the dismissal of political
+      engagement.
+    label_justification: The argument presents a normative stance against political
+      engagement among college students, supported by a claim of competing priorities.
+      No logical fallacy (e.g., hasty generalization, false dilemma) is evident; thus
+      the reason genuinely supports the stated conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are in college and they think its a good use of their time to harass
+      other kids due to politics? They have tests and whatnot to worry about.
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+  counterargument:
+    decisive_counterargument: The claim that youth should ignore politics because
+      there are bigger problems like climate change ignores that politics directly
+      shapes those problems, so dismissing political engagement because of other concerns
+      is a mistaken inference.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Politics is for older adults; therefore, young people should
+      focus only on other issues such as future and climate change.
+    label_justification: The target argument downplays political activity among young
+      people by highlighting other matters perceived as more critical. This uses the
+      greater perceived importance of other issues to dismiss politics entirely, which
+      fits the definition of an Appeal to Worse Problems, where the existence of a
+      larger issue is presented as a reason to ignore a smaller but still relevant
+      issue.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: Target explicitly downplays political engagement by presenting
+    larger concerns such as climate change as a reason that politics is not worth
+    the time of young college students.
+  decision_reason: The argument claims that political activity is unnecessary for
+    college-aged individuals because there are more pressing issues (e.g., climate
+    change), satisfying the structural requirement that a greater problem is cited
+    to dismiss a smaller one.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These kids are in college and they think its a good use of their time to harass
+    other kids due to politics? They have tests and whatnot to worry about.
+  - Politics is for when you're older. Idiots! There are many more problems to worry
+    about at your age. Your future, climate change, etc.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4270
+  completion_tokens: 3317
+  total_tokens: 7587
+  wall_time_seconds: 211.64100000000326

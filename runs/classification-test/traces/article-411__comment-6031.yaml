@@ -1,0 +1,182 @@
+sample:
+  id: 411:6031
+  article_id: 411
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: I think that we need to focus on the worst countries first, such as Syria
+    and North Korea. I think that the only way to address the issue of freedom is
+    to tackle the worst instances first. Turkmenistan may be low on the list of freedom
+    in the world, but we need to systematically address countries at the bottom of
+    the list first, to solve this issue.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Syria and North Korea
+    - role: observed_property
+      text: to address freedom is to tackle the worst instances first
+    - role: target_population
+      text: countries at the bottom of the list
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that we need to focus on the worst countries first, such as Syria and
+      North Korea. I think that the only way to address the issue of freedom
+    - is to tackle the worst instances first. Turkmenistan may be low on the list
+      of freedom in the world, but we need to systematically address countries at
+      the bottom of
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Focus on the worst countries first (e.g., Syria, North Korea,
+      Turkmenistan) to address the issue of freedom.
+    candidate: False Dilemma
+    supporting_reason: The only way to address the issue of freedom is to tackle the
+      worst instances first.
+    support_relation: provides exclusive justification for the conclusion that the
+      strategy is the only viable option
+    label_justification: The argument implicitly presents a binary choice, claiming
+      that the strategy of targeting the lowest-ranked countries is the sole viable
+      approach, thereby committing a False Dilemma. The specific claim of exclusivity
+      is unsupported and ignores alternative methods.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that we need to focus on the worst countries first, such as Syria and
+      North Korea. I think that the only way to address the issue of freedom
+    - is to tackle the worst instances first. Turkmenistan may be low on the list
+      of freedom in the world, but we need to systematically address countries at
+      the bottom of
+  counterargument:
+    decisive_counterargument: The claim that *the only* way to address freedom is
+      to tackle the worst countries first ignores a wide range of effective alternatives—such
+      as empowering civil society abroad, engaging regional diplomatic mechanisms,
+      or applying targeted economic and legal pressures—demonstrating that the proposed
+      strategy is not exclusive but one among many.
+    candidate: False Dilemma
+    challenged_inference: The only way to address freedom issues is to tackle the
+      worst countries first.
+    label_justification: The objection directly attacks the inference that a single
+      approach suffices by pointing out other viable methods. This exposes that the
+      target’s reasoning presents a false dichotomy between focusing on the worst
+      nations and all other possible strategies, a classic false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think that we need to focus on the worst countries first, such as Syria and
+      North Korea. I think that the only way to address the issue of freedom
+    - is to tackle the worst instances first. Turkmenistan may be low on the list
+      of freedom in the world, but we need to systematically address countries at
+      the bottom of
+    - the list first, to solve this issue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: The target argument does not assert that a characteristic observed
+      in the specific sample (Syria, North Korea) applies to all countries. It does
+      not generalize a property from the few examples to the entire population; rather,
+      it claims that focusing on the worst countries is the *only* viable strategy
+      for addressing freedom, leaving out other possible approaches. Thus the structure
+      of a hasty generalization—sample → broad population claim—is absent. The argument
+      exhibits an exclusivity claim, which matches the false dilemma structure.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think that we need to focus on the worst countries first, such as Syria and
+      North Korea. I think that the only way to address the issue of freedom
+    - is to tackle the worst instances first. Turkmenistan may be low on the list
+      of freedom in the world, but we need to systematically address countries at
+      the bottom of
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly claims that the only viable way to address
+    freedom issues is to tackle the worst countries first, thereby presenting an exclusive
+    alternative and ignoring other possible strategies; this meets the structural
+    condition for a False Dilemma.
+  decision_reason: The argument states, “the only way to address the issue of freedom
+    is to tackle the worst instances first,” which asserts a single, exclusive course
+    of action and thereby neglects other reasonable options. This is a classic False
+    Dilemma structure. The supporting evidence for this conclusion is found in the
+    target passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think that we need to focus on the worst countries first, such as Syria and
+    North Korea. I think that the only way to address the issue of freedom
+  - is to tackle the worst instances first. Turkmenistan may be low on the list of
+    freedom in the world, but we need to systematically address countries at the bottom
+    of
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6242
+  completion_tokens: 3760
+  total_tokens: 10002
+  wall_time_seconds: 88.18700000000536

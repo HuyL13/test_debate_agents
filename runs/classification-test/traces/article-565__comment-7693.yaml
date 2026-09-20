@@ -1,0 +1,161 @@
+sample:
+  id: 565:7693
+  article_id: 565
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: I'm sure this is a great work of research and due diligence, however it
+    can't be terribly accurate because it's a compilation of expert contributions.
+    Had the book's conclusions been based on the widespread opinions and views of
+    the people of Myanmar (by using surveys, for example), then I would be more confident
+    in its attempt to reflect the reality of Myanmar's media landscape and its development.
+    Reaching out to the public and getting a sense of the majority view would give
+    the book much more credence.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the people of Myanmar
+    - role: popularity_claim
+      text: widespread opinions and views of the people of Myanmar
+    - role: target_claim
+      text: the book would be more accurate / reflect reality more accurately and
+        thus gain more credibility
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm sure this is a great work of research and due diligence, however it can't
+      be terribly accurate because it's a compilation of expert contributions. Had
+      the book's conclusions been
+    - based on the widespread opinions and views of the people of Myanmar (by using
+      surveys, for example), then I would be more confident in its attempt to reflect
+      the reality
+    - of Myanmar's media landscape and its development. Reaching out to the public
+      and getting a sense of the majority view would give the book much more credence.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The book is not terribly accurate because it is based only
+      on expert contributions.
+    candidate: Appeal to Majority
+    supporting_reason: The argument asserts that the book would be more credible if
+      its conclusions were based on the widespread opinions and views of the people
+      of Myanmar rather than expert input.
+    support_relation: The reason is employed to justify the claim that the book lacks
+      sufficient accuracy.
+    label_justification: The speaker relies on the presumed authority of a majority
+      view as evidence for credibility, which constitutes an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm sure this is a great work of research and due diligence, however it can't
+      be terribly accurate because it's a compilation of expert contributions. Had
+      the book's conclusions been
+    - based on the widespread opinions and views of the people of Myanmar (by using
+      surveys, for example), then I would be more confident in its attempt to reflect
+      the reality
+    - of Myanmar's media landscape and its development. Reaching out to the public
+      and getting a sense of the majority view would give the book much more credence.
+  counterargument:
+    decisive_counterargument: Using experts to generate conclusions does not automatically
+      make them inaccurate; expert analysis is often needed for complex topics that
+      surveys cannot capture in depth. The claim that a larger, more ‘popular’ sample
+      would be inherently more credible misinterprets the value of expert insight
+      and relies on the fallacious idea that popularity equals truth.
+    candidate: Appeal to Majority
+    challenged_inference: Because the book combines expert contributions, its conclusions
+      cannot be terribly accurate; if it had used surveys of the public, it would
+      be more credible.
+    label_justification: The argument equates the size of the respondent pool (public
+      surveys) with stronger evidence, implying that the majority view is inherently
+      more trustworthy. This is a direct appeal to popularity, where popularity is
+      treated as validation, thereby ignoring the substantive merits of the expert-driven
+      conclusions.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm sure this is a great work of research and due diligence, however it can't
+      be terribly accurate because it's a compilation of expert contributions. Had
+      the book's conclusions been
+    - based on the widespread opinions and views of the people of Myanmar (by using
+      surveys, for example), then I would be more confident in its attempt to reflect
+      the reality
+    - of Myanmar's media landscape and its development. Reaching out to the public
+      and getting a sense of the majority view would give the book much more credence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly uses the popularity of a majority view
+    to argue for the book’s higher credibility, thereby appealing to majority as the
+    justification for accuracy; the structure is present in the text and supported
+    by evidence T1, T2, and T3.
+  decision_reason: The argument asserts that the book would be more credible if it
+    were based on widespread opinions; this is a classic appeal to popularity.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I'm sure this is a great work of research and due diligence, however it can't
+    be terribly accurate because it's a compilation of expert contributions. Had the
+    book's conclusions been
+  - based on the widespread opinions and views of the people of Myanmar (by using
+    surveys, for example), then I would be more confident in its attempt to reflect
+    the reality
+  - of Myanmar's media landscape and its development. Reaching out to the public and
+    getting a sense of the majority view would give the book much more credence.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5031
+  completion_tokens: 3469
+  total_tokens: 8500
+  wall_time_seconds: 68.59299999999348

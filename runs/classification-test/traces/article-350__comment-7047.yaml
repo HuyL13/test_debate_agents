@@ -1,0 +1,161 @@
+sample:
+  id: 350:7047
+  article_id: 350
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: They are refugees in an extremely poor country, which means they come from
+    even poorer ones and they are worried about an ID? How about focusing on just
+    finding food, shelter, and a way out of violent countries before caring about
+    having your eyes scanned and whatnot!? The security concerns are worrisome, I
+    get that, but its preferable over being homeless and starving!
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the security concerns about having your eyes scanned and whatnot
+    - role: worse_issue
+      text: being homeless and starving, i.e., lacking basic food and shelter
+    - role: deprioritizing_conclusion
+      text: focus on finding food, shelter, and a way out of violent countries before
+        caring about ID scanning
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: That security concerns over ID scanning are less important
+      than basic needs like food, shelter, and escaping violence.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The argument acknowledges the security concerns but insists
+      they are subordinate to the more urgent problem of homelessness and starvation.
+    support_relation: the speaker uses the existence of a more severe problem (being
+      homeless and starving) to dismiss or reduce the importance of the security concerns,
+      thereby justifying the preference for focusing on basic needs.
+    label_justification: This is a classic 'Appeal to Worse Problems' – the speaker
+      dismisses or downplays the privacy and security issues by contrasting them with
+      an apparently greater problem of immediate survival.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+  counterargument:
+    decisive_counterargument: While the argument emphasizes the urgency of basic survival
+      needs, it ignores how lacking proper registration severely limits refugees’
+      ability to access essential services, legal protection, and long‑term security.
+      Proper ID and biometric data are prerequisites for receiving aid, educational
+      opportunities, and coordinated relief, which in turn help maintain food, shelter,
+      and safety. Therefore, the claim that ID concerns are less important is a deceptive
+      comparison rather than a legitimate prioritization.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The assertion that security and privacy concerns about biometric
+      registration are preferable to feeding and sheltering refugees, implying they
+      are mutually exclusive choices.
+    label_justification: 'The objection demonstrates that the reasoning falls under
+      “appeal to worse problems”: it prioritizes one problem (lack of food and shelter)
+      over another (privacy/security) merely because the former is more dire, without
+      addressing how the latter directly impacts the former or offering a comprehensive
+      solution. This is a fallacious comparison that obscures the interdependence
+      of the issues.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The argument compares the urgency of basic survival needs (food,
+    shelter, escape) to security concerns about biometric registration, explicitly
+    stating that prioritising the former is preferable to addressing the latter. This
+    satisfies the structural definition of an appeal to worse problems, where a more
+    severe issue is invoked to down‑prioritise a less severe one.
+  decision_reason: The target directly contrasts homelessness/starvation as a worse
+    problem with security concerns, using this comparison to justify deprioritising
+    the latter. This is precisely the structure of an 'Appeal to Worse Problems' fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - They are refugees in an extremely poor country, which means they come from even
+    poorer ones and they are worried about an ID? How about focusing on just finding
+    food,
+  - shelter, and a way out of violent countries before caring about having your eyes
+    scanned and whatnot!? The security concerns are worrisome, I get that, but its
+    preferable over being
+  - homeless and starving!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4908
+  completion_tokens: 3916
+  total_tokens: 8824
+  wall_time_seconds: 233.98499999998603

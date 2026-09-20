@@ -1,0 +1,141 @@
+sample:
+  id: 87:4158
+  article_id: 87
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: We have all known for decades now that China is a bad country and its pretty
+    much tradition at this point to not trust them, especially if you live close to
+    them and their government. The people of Hong Kong who are supporting the blue
+    businesses are doing a huge disservice to their people and their country. They
+    should know what will happen if China wins and these protestors lose!
+  target: It seems only natural that there has become a groundswell movement of people
+    yearning for freedom in the current global climate. They see how the western world
+    works and want in on that. It seems to me that this is just the necessary consequence
+    of Chinas repressive government and stopping it is futile.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It seems only natural that there has become a groundswell movement of
+        people yearning for freedom in the current global climate.
+    - role: evaluative_conclusion
+      text: It seems to me that this is just the necessary consequence of Chinas repressive
+        government and stopping it is futile.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems only natural that there has become a groundswell movement of people
+      yearning for freedom in the current global climate. They see how the western
+      world works and want
+    - in on that. It seems to me that this is just the necessary consequence of Chinas
+      repressive government and stopping it is futile.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: That the rise of a groundswell movement of people yearning
+      for freedom is a natural, inevitable consequence of China's repressive government,
+      and therefore attempts to stop it are futile.
+    candidate: Appeal to Nature
+    supporting_reason: The argument states that it is ‘only natural’ that such a movement
+      has emerged and that this is a ‘necessary consequence’ of China's repressive
+      government.
+    support_relation: The claim of natural inevitability is used to justify the conclusion
+      that the movement is inevitable and that stopping it is futile.
+    label_justification: The argument infers that because the phenomenon is natural,
+      it must occur and is unavoidable, which is an Appeal to Nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems only natural that there has become a groundswell movement of people
+      yearning for freedom in the current global climate. They see how the western
+      world works and want
+    - in on that. It seems to me that this is just the necessary consequence of Chinas
+      repressive government and stopping it is futile.
+  counterargument:
+    decisive_counterargument: Labeling the surge of pro‑freedom sentiment as a natural
+      or inevitable consequence of China’s repressive regime is a fallacious appeal
+      to nature. Naturalness does not entail inevitability; history repeatedly shows
+      that oppressed peoples can and do alter the course of repression—through organized
+      protests, international pressure, or internal dissent. The claim that 'stopping
+      it is futile' ignores the practical agency of actors and the proven possibility
+      of change, revealing the flaw in the reasoning.
+    candidate: Appeal to Nature
+    challenged_inference: The assertion that the grassroots push for freedom is the
+      inevitable, natural consequence of China’s authoritarian rule, and that no effort
+      can stop it.
+    label_justification: The counterargument attacks the premise that the freedom
+      movement is natural and, therefore, unavoidable. This directly exposes an appeal
+      to nature fallacy, where the speaker uses the idea of naturalness to justify
+      the movement’s inevitability.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems only natural that there has become a groundswell movement of people
+      yearning for freedom in the current global climate. They see how the western
+      world works and want
+    - in on that. It seems to me that this is just the necessary consequence of Chinas
+      repressive government and stopping it is futile.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that the pro‑freedom movement is ‘only natural’,
+    then concludes that this is a ‘necessary consequence’ of China’s repressive government
+    and that stopping it is futile. This structure uses the claim of naturalness to
+    justify an inevitable or inevitable‑like conclusion, which is the defining pattern
+    of an Appeal to Nature.
+  decision_reason: The argument explicitly treats the phenomenon as natural and immediately
+    infers it must occur and be unavoidable, thereby employing the natural‑to‑value
+    pattern that constitutes an Appeal to Nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems only natural that there has become a groundswell movement of people yearning
+    for freedom in the current global climate. They see how the western world works
+    and want
+  - in on that. It seems to me that this is just the necessary consequence of Chinas
+    repressive government and stopping it is futile.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4829
+  completion_tokens: 3893
+  total_tokens: 8722
+  wall_time_seconds: 80.56299999999464

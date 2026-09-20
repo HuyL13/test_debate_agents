@@ -1,0 +1,133 @@
+sample:
+  id: 350:5847
+  article_id: 350
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: The countries taking in refugees have more to worry about. Making sure they
+    are accounted for, is essential. The problem of invisible refugees outweighs their
+    privacy in a country they breached.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: their privacy
+    - role: worse_issue
+      text: the problem of invisible refugees
+    - role: deprioritizing_conclusion
+      text: the problem outweighs their privacy
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The countries taking in refugees have more to worry about. Making sure they
+      are accounted for, is essential. The problem of invisible refugees outweighs
+      their privacy in a country they
+    - breached.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Ensuring refugees are properly accounted for
+    candidate: null
+    supporting_reason: The problem of invisible refugees outweighs their privacy in
+      a country they breached
+    support_relation: The comparison establishes that the greater risk justifies the
+      focus on accounting refugees
+    label_justification: No logical fallacy is evident; the argument presents a straightforward
+      prioritization of concerns.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The countries taking in refugees have more to worry about. Making sure they
+      are accounted for, is essential. The problem of invisible refugees outweighs
+      their privacy in a country they
+  counterargument:
+    decisive_counterargument: The target claim that the problem of invisible refugees
+      outweighs their privacy assumes an unavoidable trade‑off between accountability
+      and privacy. However, this ignores that countries can adopt privacy‑preserving
+      data‑management practices that keep refugees accountable without compromising
+      their personal data. The claim is therefore a false representation of the options
+      available.
+    candidate: False Dilemma
+    challenged_inference: That accounting of refugees is essential and therefore the
+      issue of invisible refugees must outweigh any privacy concerns.
+    label_justification: 'The target frames what are presented as only two mutually
+      exclusive concerns – the need to account for refugees and their privacy – implying
+      that focusing on one necessarily harms the other. This is a classic false dilemma,
+      because it ignores a third, viable option: protecting refugees’ privacy while
+      still maintaining an effective accounting system.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The countries taking in refugees have more to worry about. Making sure they
+      are accounted for, is essential. The problem of invisible refugees outweighs
+      their privacy in a country they
+    - breached.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly asserts that the issue of invisible refugees
+    outweighs concerns over refugees’ privacy, thus employing a worse problem to down‑prioritize
+    a lesser one.
+  decision_reason: The RAW TARGET states “The problem of invisible refugees outweighs
+    their privacy,” which matches the structure of an appeal to a worse problem to
+    deprioritize the privacy concern. The evidence spans T1 and T2 fully support this
+    claim. No other fallacy is present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The countries taking in refugees have more to worry about. Making sure they are
+    accounted for, is essential. The problem of invisible refugees outweighs their
+    privacy in a country they
+  - breached.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3859
+  completion_tokens: 3187
+  total_tokens: 7046
+  wall_time_seconds: 156.45300000000861

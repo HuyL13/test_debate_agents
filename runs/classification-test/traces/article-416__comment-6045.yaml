@@ -1,0 +1,140 @@
+sample:
+  id: 416:6045
+  article_id: 416
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: Why aren't the students just obeying the police?  The protesting won't solve
+    anything anyway so they may as well stop.  The police have authority and should
+    be respected. MLK, Jr. said riots are the language of the unheard.  Riots aren't
+    enough.  These things require systematic reforms and cooperation with authorities
+    and government.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: MLK, Jr.
+    - role: endorsed_claim
+      text: Riots aren’t enough. These things require systematic reforms and cooperation
+        with authorities and government.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why aren't the students just obeying the police?  The protesting won't solve
+      anything anyway so they may as well stop.  The police have authority and should
+      be respected. MLK, Jr.
+    - said riots are the language of the unheard.  Riots aren't enough.  These things
+      require systematic reforms and cooperation with authorities and government.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Students should stop protesting and obey the police.
+    candidate: null
+    supporting_reason: Protesting won’t solve anything; riots are insufficient and
+      systematic reforms and cooperation with authorities are required.
+    support_relation: The claim that protests are ineffective serves as a justification
+      for the conclusion that students should cease protesting and obey the police.
+    label_justification: The reasons are presented straightforwardly without misusing
+      them; no fallacy such as hasty generalization, false dilemma, or appeal to authority
+      is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why aren't the students just obeying the police?  The protesting won't solve
+      anything anyway so they may as well stop.  The police have authority and should
+      be respected. MLK, Jr.
+    - said riots are the language of the unheard.  Riots aren't enough.  These things
+      require systematic reforms and cooperation with authorities and government.
+  counterargument:
+    decisive_counterargument: MLK Jr. is invoked to argue that riots are ineffective
+      and therefore protest should be abandoned. In fact, MLK’s own statements championed
+      non‑violent civil disobedience, not surrender to police authority. The target
+      misuses the authority of an respected figure to justify a policy claim that
+      follows no logical connection from the cited statement.
+    candidate: Appeal to Authority
+    challenged_inference: The argument that protesting won’t solve anything and students
+      should obey police is supported by citing MLK Jr. as evidence of the inadequacy
+      of riots.
+    label_justification: The objection shows that the reasoning relies on the authority
+      of an individual who actually advocated for non‑violent protest, not on a conclusion
+      that protest is futile. This misapplication of an authority to justify a claim
+      demonstrates an Appeal to Authority fallacy, rather than merely criticizing
+      the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why aren't the students just obeying the police?  The protesting won't solve
+      anything anyway so they may as well stop.  The police have authority and should
+      be respected. MLK, Jr.
+    - said riots are the language of the unheard.  Riots aren't enough.  These things
+      require systematic reforms and cooperation with authorities and government.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target cites MLK, Jr. as authority to support the claim
+    that protesting won’t solve anything (i.e., that riots are ineffective), without
+    providing substantive argumentative support—an Appeal to Authority fallacy.
+  decision_reason: The target invokes MLK Jr. to justify the claim that protesting
+    is ineffective, thereby relying on the authority of a respected figure rather
+    than logical evidence.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why aren't the students just obeying the police?  The protesting won't solve anything
+    anyway so they may as well stop.  The police have authority and should be respected.
+    MLK, Jr.
+  - said riots are the language of the unheard.  Riots aren't enough.  These things
+    require systematic reforms and cooperation with authorities and government.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4371
+  completion_tokens: 3945
+  total_tokens: 8316
+  wall_time_seconds: 329.51600000000326

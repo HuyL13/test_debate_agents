@@ -1,0 +1,143 @@
+sample:
+  id: 515:7542
+  article_id: 515
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: It's only natural that those with a taste of power would not readily relinquish
+    them. In the same vein as those who vie for power to contend with others. It's
+    just like watching lions in the wild, the struggle for supremacy and control is
+    always at play. There's a certain instinctual push that drives this behavior,
+    whether in humans or animals. If you think about it, it's just akin to how a pack
+    of wolves snarls and fights until one emerges as the alpha, it's a survival instinct
+    ingrained in our very being. It all boils down to this same instinctual drive,
+    the fight for survival, the acquisition of power or dominance, whether it's in
+    politics or in the wild.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T4
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - It's only natural that those with a taste of power would not readily relinquish
+      them. In the same vein as those who vie for power to contend with others. It's
+    - our very being. It all boils down to this same instinctual drive, the fight
+      for survival, the acquisition of power or dominance, whether it's in politics
+      or in the wild.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Power‑holders will not relinquish power because it is natural
+      to do so.
+    candidate: Appeal to Nature
+    supporting_reason: The passage asserts that a natural instinct for dominance and
+      survival drives people (and animals) to seek and retain power.
+    support_relation: The natural‑instinct explanation is used to justify (or at least
+      rationalise) the reluctance of those in power to give up that power.
+    label_justification: Using a claim that a behaviour is ‘natural’ to support or
+      excuse that behaviour is an Appeal to Nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's only natural that those with a taste of power would not readily relinquish
+      them. In the same vein as those who vie for power to contend with others. It's
+    - just like watching lions in the wild, the struggle for supremacy and control
+      is always at play. There's a certain instinctual push that drives this behavior,
+      whether in humans or
+    - animals. If you think about it, it's just akin to how a pack of wolves snarls
+      and fights until one emerges as the alpha, it's a survival instinct ingrained
+      in
+  counterargument:
+    decisive_counterargument: Being natural does not make an action justified or desirable.
+      Claiming that leaders’ unwillingness to relinquish power is natural merely describes
+      a biological or evolutionary tendency without addressing whether that tendency
+      is permissible or correct from a moral or political standpoint.
+    candidate: Appeal to Nature
+    challenged_inference: The argument that leaders cannot or should not relinquish
+      power because it is 'natural' for them to hold it and maintain it.
+    label_justification: The reasoning relies on the premise that naturalness confers
+      legitimacy or inevitability, which is a textbook appeal to nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's only natural that those with a taste of power would not readily relinquish
+      them. In the same vein as those who vie for power to contend with others. It's
+    - just like watching lions in the wild, the struggle for supremacy and control
+      is always at play. There's a certain instinctual push that drives this behavior,
+      whether in humans or
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a premise asserting that retaining power
+    is a natural human instinct (T1) followed by a conclusion that this naturalness
+    legitimizes or explains the unwillingness to relinquish power (T4). This matches
+    the structure of an Appeal to Nature fallacy where the naturalness of an action
+    is used to justify or describe its value or inevitability.
+  decision_reason: The argument uses the naturalness claim to justify power‑holding,
+    satisfying the key structure of an Appeal to Nature.
+  evidence_ids:
+  - T1
+  - T4
+  evidence_spans:
+  - It's only natural that those with a taste of power would not readily relinquish
+    them. In the same vein as those who vie for power to contend with others. It's
+  - our very being. It all boils down to this same instinctual drive, the fight for
+    survival, the acquisition of power or dominance, whether it's in politics or in
+    the wild.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5311
+  completion_tokens: 2770
+  total_tokens: 8081
+  wall_time_seconds: 44.17200000002049

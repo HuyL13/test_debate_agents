@@ -1,0 +1,136 @@
+sample:
+  id: 236:10004
+  article_id: 236
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Either the governments listen to the people and enact policies that will
+    help with climate change, or we all ignore the issues and then die. We can't wait
+    any longer. The young people need to be listened to or everyone will suffer.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the governments listen to the people and enact policies that will help
+        with climate change
+    - role: alternative_b
+      text: we all ignore the issues
+    - role: exhaustiveness_commitment
+      text: either ... or ...
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+    - The young people need to be listened to or everyone will suffer.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Governments must listen to the people and enact climate‑change
+      mitigation policies.
+    candidate: False Dilemma
+    supporting_reason: If governments do not listen, we will ignore climate change
+      and die (or everyone will suffer).
+    support_relation: The catastrophic consequence of ignoring climate change is presented
+      as the only alternative to governments acting, thereby justifying the claim
+      that governments must act.
+    label_justification: The argument frames an either/or choice—governments listening
+      and acting, or the world ignoring climate change and dying—without acknowledging
+      other possibilities. This omission of alternative outcomes makes it a classic
+      false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+    - The young people need to be listened to or everyone will suffer.
+  counterargument:
+    decisive_counterargument: 'The claim that ignoring climate change will inevitably
+      lead to death presumes a single, catastrophic outcome without acknowledging
+      other possible consequences or the existence of alternative strategies that
+      could mitigate harm. It also forces a binary choice between governments listening
+      or universal death, overlooking intermediate or mixed approaches. '
+    candidate: False Dilemma
+    challenged_inference: Target assumes no other viable policy or action exists besides
+      governments listening to people; otherwise society will inevitably die.
+    label_justification: The objection directly highlights that Target presents a
+      limited set of options (listen or die) and excludes many other reasonable possibilities,
+      which is the defining feature of a false dilemma. The rebuttal shows why the
+      inference is unsupported and how it ignores alternatives.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Either the governments listen to the people and enact policies that will help
+      with climate change, or we all ignore the issues and then die. We can't wait
+      any longer.
+    - The young people need to be listened to or everyone will suffer.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target outlines only two mutually exclusive outcomes—governments
+    listening or universal death—without acknowledging other possibilities, constituting
+    a false dilemma.
+  decision_reason: The claim presents an exhaustive alternative structure with only
+    two outcomes, implying that one must choose between governments acting or the
+    world dying, thereby committing the false dilemma fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Either the governments listen to the people and enact policies that will help
+    with climate change, or we all ignore the issues and then die. We can't wait any
+    longer.
+  - The young people need to be listened to or everyone will suffer.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4315
+  completion_tokens: 3366
+  total_tokens: 7681
+  wall_time_seconds: 105.06200000000536

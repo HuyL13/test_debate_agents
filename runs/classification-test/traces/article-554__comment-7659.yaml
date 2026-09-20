@@ -1,0 +1,143 @@
+sample:
+  id: 554:7659
+  article_id: 554
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: Although it’s natural to human being to want justice when you think you
+    have been wronged in some way. Sometimes you also have to let go when it’s clear
+    the very people that you want to lead do not in fact want you. It’s part of our
+    nature to fight but it’s also in our nature to reconsider balance and peace.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Although it’s natural to human being to want justice when you think you have
+      been wronged in some way. Sometimes you also have to let go when it’s clear
+      the
+    - very people that you want to lead do not in fact want you. It’s part of our
+      nature to fight but it’s also in our nature to reconsider balance and
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The passage offers an observation about human nature—people
+      naturally seek justice, may need to let go when leaders do not want them, and
+      possess both a fighting and peace‑reconsidering nature.
+    candidate: null
+    supporting_reason: The text states these observations directly; there is no premise
+      presented that is used to justify a separate conclusion.
+    support_relation: not applicable
+    label_justification: The TARGET does not contain a claim that is being justified
+      by a supporting premise or reason, and therefore no fallacy or argumentative
+      structure is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Although it’s natural to human being to want justice when you think you have
+      been wronged in some way. Sometimes you also have to let go when it’s clear
+      the
+    - very people that you want to lead do not in fact want you. It’s part of our
+      nature to fight but it’s also in our nature to reconsider balance and
+    - peace.
+  counterargument:
+    decisive_counterargument: Even if it is a natural human tendency to seek justice
+      or to fight when we believe we have been wronged, that naturalness does not
+      automatically justify or mandate the pursuit of those actions. Natural behavior
+      can be morally neutral or even harmful—e.g., an instinctive fight response can
+      cause unnecessary violence or cause harm to innocents. Likewise, the inclination
+      to reconsider balance and peace need not be followed without evaluating the
+      specific circumstances or ethical consequences. Therefore, using ‘naturalness’
+      as a basis for deciding what we ought to do is a fallacious appeal to nature.
+    candidate: Appeal to Nature
+    challenged_inference: Because it is natural to seek justice/fight or to reconsider
+      balance, these actions are justified or should be pursued.
+    label_justification: The argument explicitly invokes nature—stating that wanting
+      justice, fighting, and reevaluating balance are part of our nature—to justify
+      or support these actions. This is the classic structure of an appeal to nature,
+      where a claim about natural facts is used to endorse a value or normative recommendation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Although it’s natural to human being to want justice when you think you have
+      been wronged in some way. Sometimes you also have to let go when it’s clear
+      the
+    - very people that you want to lead do not in fact want you. It’s part of our
+      nature to fight but it’s also in our nature to reconsider balance and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target lacks a clear evaluative conclusion that the naturalness
+    of wanting justice or fighting, etc., justifies or requires the corresponding
+    actions. The text only states natural tendencies, not a normative claim tied to
+    those tendencies. Thus the mandatory structure for an appeal to nature is not
+    satisfied.
+  decision_reason: The target text does not contain an explicit normative conclusion
+    following the naturalness premise, so the evidence for an appeal to nature structure
+    is insufficient.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Although it’s natural to human being to want justice when you think you have been
+    wronged in some way. Sometimes you also have to let go when it’s clear the
+  - very people that you want to lead do not in fact want you. It’s part of our nature
+    to fight but it’s also in our nature to reconsider balance and
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4531
+  completion_tokens: 4450
+  total_tokens: 8981
+  wall_time_seconds: 295.8279999999795

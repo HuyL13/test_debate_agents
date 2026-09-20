@@ -1,0 +1,158 @@
+sample:
+  id: 486:10755
+  article_id: 486
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: 'This incident, innocuous as it is, does raise awareness regarding the importance
+    of the simplest aspects of cyber security, like solid passwords, etc. However,
+    the national economy, COVID, and other factors seem like much more urgent foci
+    for the government''s attention. Sure, shore up your passwords and do what should
+    be done to keep the network secure, but let''s direct time and energy to the more
+    central things: economy, healthcare, geopolitical issues, etc.'
+  target: It seems like the government is addressing bigger problems. The hack wasn't
+    serious, they took some steps to bolster security anyway, and then went about
+    doing the government's business. I understand why the opposition party and others
+    may want to inflate the importance of the event, but the government at least realizes
+    that there are more pressing issues.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the hack
+    - role: worse_issue
+      text: bigger problems such as the national economy, healthcare, geopolitical
+        issues
+    - role: deprioritizing_conclusion
+      text: the hack was insignificant and should be deprioritized in favor of larger
+        concerns
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The government is justified in focusing on more pressing issues
+      because the cyber‑hack was not serious and steps were taken to strengthen security.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The hack was not serious and the government took steps to bolster
+      security, yet they shifted focus to larger problems such as the economy and
+      healthcare.
+    support_relation: The reason that the hack was not serious and some security steps
+      were taken is used to justify why the government should prioritize bigger issues
+      over the hack.
+    label_justification: The argument employs the existence of more significant problems
+      (economy, healthcare) to deflect attention from the less severe hacking incident,
+      which is precisely the definition of an appeal to worse problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+  counterargument:
+    decisive_counterargument: 'The target presumes the hacking incident was insignificant
+      (“the hack wasn’t serious”) and that the security measures already taken were
+      enough, therefore the government’s attention to larger problems is justified.
+      This is a classic *appeal‑to‑worse‑problems* attack: the argument dismisses
+      a legitimate threat by asserting that other, apparently more serious issues
+      demand priority. It fails to show any evidence that the breach was indeed trivial
+      or that the remedial steps were adequate; it merely uses the relative importance
+      of other matters as a shield. Consequently, the reasoning rests on a false hierarchy
+      of importance rather than on an assessment of the cyber‑security threat itself.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that a breach is unworthy of concern because
+      bigger problems exist, without evidence that the breach is trivial or that the
+      government’s response is sufficient.
+    label_justification: The objection directly targets the inference that the hack
+      is insignificant and that other issues automatically justify lack of further
+      action, which is a characteristic misuse of an *appeal to worse problems* fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like the government is addressing bigger problems. The hack wasn't
+      serious, they took some steps to bolster security anyway, and then went about
+      doing the government's business. I
+    - understand why the opposition party and others may want to inflate the importance
+      of the event, but the government at least realizes that there are more pressing
+      issues.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly presents a focal issue (the cyber‑hack)
+    as not serious and then immediately contrasts it with larger, supposedly more
+    serious problems (economy, healthcare, geopolitics), concluding that the government's
+    attention should focus on those bigger issues. This matches the structural definition
+    of an appeal to worse problems.
+  decision_reason: The target asserts that the hack was insignificant and that more
+    pressing issues justify deprioritizing it, thereby constituting an appeal to worse
+    problems. Evidence T1 and T2 contain the requisite statements.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems like the government is addressing bigger problems. The hack wasn't serious,
+    they took some steps to bolster security anyway, and then went about doing the
+    government's business. I
+  - understand why the opposition party and others may want to inflate the importance
+    of the event, but the government at least realizes that there are more pressing
+    issues.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5017
+  completion_tokens: 3007
+  total_tokens: 8024
+  wall_time_seconds: 51.953000000008615

@@ -27,6 +27,14 @@ python -m src.run --config configs/detection.yaml --split dev --limit 1 --output
 python -m src.run --config configs/classification.yaml --split dev --limit 1 --output smoke-classification
 ```
 
+For a true single-LLM zero-shot baseline (one model request per sample, with no
+analysts, conflict resolution, or arbiter), run:
+
+```powershell
+python -m src.single_llm --config configs/single_llm_detection.yaml --split test --output detection-test-single-llm
+python -m src.single_llm --config configs/single_llm_classification.yaml --split test --output classification-test-single-llm
+```
+
 Runs are written under `runs/`. Each run contains `manifest.json`, `metrics.json`, `samples.csv`, readable YAML traces under `traces/`, and API metadata under `audit/api_calls.jsonl`. Raw API dumps are disabled unless `TRACE_RAW_API=1`.
 
 ## Method

@@ -1,0 +1,138 @@
+sample:
+  id: 589:11064
+  article_id: 589
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: Azerbaijan needs to make radical change, right now. It's either that, or
+    do nothing and just let the LGBTQ people in their country get completely destroyed.
+    There is no alternative but to immediately adopt and enforce the laws that protect
+    these people. Every single day of delay is more death and destruction.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: radical change
+    - role: alternative_b
+      text: do nothing and let LGBTQ people be destroyed
+    - role: exhaustiveness_commitment
+      text: There is no alternative
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Azerbaijan needs to make radical change, right now. It's either that, or do
+      nothing and just let the LGBTQ people in their country get completely destroyed.
+      There is no alternative
+    - but to immediately adopt and enforce the laws that protect these people. Every
+      single day of delay is more death and destruction.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Azerbaijan must immediately adopt and enforce laws that protect
+      LGBTQ people.
+    candidate: False Dilemma
+    supporting_reason: The argument presents only two options—immediate action or
+      inaction that leads to destruction—claiming that there is no alternative.
+    support_relation: This reasoning is used to justify the urgency of enforcing protective
+      laws.
+    label_justification: The target limits the possibilities to a binary choice, ignoring
+      any other viable solutions, which is a classic false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Azerbaijan needs to make radical change, right now. It's either that, or do
+      nothing and just let the LGBTQ people in their country get completely destroyed.
+      There is no alternative
+    - but to immediately adopt and enforce the laws that protect these people. Every
+      single day of delay is more death and destruction.
+  counterargument:
+    decisive_counterargument: The assertion relies on a binary framing—either Azerbaijan
+      takes radical, immediate action or the LGBTQ community will be destroyed. This
+      ignores all other potential approaches such as incremental legal reforms, targeted
+      protection programs, diplomatic engagement, or civil society initiatives that
+      could also safeguard LGBTQ individuals without a radical overhaul, and therefore
+      the premise that there is no alternative is flawed.
+    candidate: False Dilemma
+    challenged_inference: 'Azerbaijan has only two options: adopt protective laws
+      immediately or allow LGBTQ people to be destroyed; no other viable path exists.'
+    label_justification: The objection directly addresses the inference that presents
+      a limited set of possibilities, supporting the identification of a false dilemma
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Azerbaijan needs to make radical change, right now. It's either that, or do
+      nothing and just let the LGBTQ people in their country get completely destroyed.
+      There is no alternative
+    - but to immediately adopt and enforce the laws that protect these people. Every
+      single day of delay is more death and destruction.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target text explicitly presents only two alternatives—radical
+    change now or inaction leading to destruction—and asserts that there are no other
+    options, thus satisfying the exhaustive alternatives structure required for a
+    false dilemma.
+  decision_reason: The target contains a binary framing with an exhaustive‑alternatives
+    claim, meeting the structural criteria for a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Azerbaijan needs to make radical change, right now. It's either that, or do nothing
+    and just let the LGBTQ people in their country get completely destroyed. There
+    is no alternative
+  - but to immediately adopt and enforce the laws that protect these people. Every
+    single day of delay is more death and destruction.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4481
+  completion_tokens: 3551
+  total_tokens: 8032
+  wall_time_seconds: 141.31299999999464

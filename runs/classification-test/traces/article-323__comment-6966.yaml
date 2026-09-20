@@ -1,0 +1,185 @@
+sample:
+  id: 323:6966
+  article_id: 323
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: This seems like a waste of time for a talented engineer working with AI.
+    The people who speak this language probably speak a more common language as well,
+    so they don't need to rely on their native one. Spend your time using AI to help
+    cure real problems like diseases or something! Its a nice idea, but at the end
+    of the day, a language used by only 10 million people, many of whom probably don't
+    even use computers, isn't that big of a deal.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: developing Shona‑language AI technology for a language used by only 10
+        million people, many of whom probably don’t use computers
+    - role: worse_issue
+      text: curing diseases or other major real problems with AI
+    - role: deprioritizing_conclusion
+      text: it’s not that big of a deal
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This seems like a waste of time for a talented engineer working with AI. The
+      people who speak this language probably speak a more common language as well,
+      so they
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: A language used by only 10 million people, many of whom probably
+      don’t use computers, is not a significant issue worth allocating AI development
+      resources toward.
+    candidate: Appeal to Majority
+    supporting_reason: a language used by only 10 million people ... isn’t that big
+      of a deal
+    support_relation: the low number of speakers is directly used to justify dismissing
+      the value of developing AI for that language
+    label_justification: The argument relies on the total number of speakers—an element
+      of popularity—to support the claim that the language is insignificant; this
+      is a textbook appeal to majority, which is a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+  counterargument:
+    decisive_counterargument: The claim that a language spoken by only 10 million
+      people is not worth the effort ignores the fact that technology can broaden
+      access for anyone who speaks that language, regardless of current computer usage.
+      A small speaker base does not automatically render a language or its digital
+      future insignificant.
+    candidate: null
+    challenged_inference: Because the language has 10 million speakers who likely
+      do not use computers, it is not meaningful to invest AI resources in it.
+    label_justification: The inference treats the modest speaker count as definitive
+      evidence that the language has little value, generalizing from the presumed
+      small and uncomputer‑using population to the whole language community. This
+      is a classic Hasty Generalization fallacy, as the argument extrapolates from
+      an unsupported assumption about user behavior to a blanket dismissal of the
+      language’s worth.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This seems like a waste of time for a talented engineer working with AI. The
+      people who speak this language probably speak a more common language as well,
+      so they
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  - Appeal to Majority
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__appeal-to-worse-problems
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-majority__vs__appeal-to-worse-problems
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Worse Problems
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems, 1
+    loser_failure: Appeal to Majority fails because the target does not rely solely
+      on the population size as a justification; instead it pairs that metric with
+      a stronger argument about redirecting AI effort toward curing diseases. The
+      presence of a distinct, higher‑stakes problem in the claim dilutes the pure
+      appeal-to‑majority structure, so only Appeal to Worse Problems has a direct,
+      complete structural match with the target.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This seems like a waste of time for a talented engineer working with AI. The
+      people who speak this language probably speak a more common language as well,
+      so they
+    - don't need to rely on their native one. Spend your time using AI to help cure
+      real problems like diseases or something! Its a nice idea, but at the end
+    - of the day, a language used by only 10 million people, many of whom probably
+      don't even use computers, isn't that big of a deal.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly references curing diseases (a larger problem)
+    to justify dismissing the significance of developing Shona‑language AI as “not
+    that big of a deal,” matching the worse‑problem‑to‑deprioritization structure
+  decision_reason: Appeal to Worse Problems
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This seems like a waste of time for a talented engineer working with AI. The people
+    who speak this language probably speak a more common language as well, so they
+  - don't need to rely on their native one. Spend your time using AI to help cure
+    real problems like diseases or something! Its a nice idea, but at the end
+  - of the day, a language used by only 10 million people, many of whom probably don't
+    even use computers, isn't that big of a deal.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6027
+  completion_tokens: 4497
+  total_tokens: 10524
+  wall_time_seconds: 227.59399999998277

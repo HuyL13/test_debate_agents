@@ -1,0 +1,110 @@
+sample:
+  id: 313:5736
+  article_id: 313
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: The government only lies and covers up. That's why media is crucial to expose
+    things. It's why they always try to silence the free media.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+    candidate: null
+  goal:
+    conclusion_or_goal: The government lies and covers up, which creates a need for
+      media to expose the truth; the media is therefore crucial and is being consistently
+      silenced by the government.
+    candidate: null
+    supporting_reason: The government only lies and covers up.
+    support_relation: Because the government’s lying concealment creates a gap that
+      the media must fill, the claim that media is crucial derives from that premise.
+    label_justification: There is no logical fallacy present; the argument is a straightforward
+      causal explanation rather than a flawed reasoning pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+  counterargument:
+    decisive_counterargument: The claim that *the government only lies and covers
+      up* is an overgeneralization; governments often provide accurate, transparent
+      information and cooperate with the media, so the blanket statement is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: The government only lies and covers up
+    label_justification: The objection points out that the statement generalizes about
+      all government actions without evidence, exhibiting the characteristic overgeneralization
+      of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government only lies and covers up. That's why media is crucial to expose
+      things. It's why they always try to silence the free media.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a blanket claim that the government only lies
+    and covers up but provides no explicit sample or empirical cases to support a
+    generalization, violating the structural requirement that a Hasty Generalization
+    must be based on a specific instance or set of instances.
+  decision_reason: The claim lacks the necessary sample‑to‑generalization link; therefore
+    the evidence does not support a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government only lies and covers up. That's why media is crucial to expose
+    things. It's why they always try to silence the free media.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3672
+  completion_tokens: 2393
+  total_tokens: 6065
+  wall_time_seconds: 329.68799999999464

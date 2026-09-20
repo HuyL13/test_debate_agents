@@ -1,0 +1,126 @@
+sample:
+  id: 489:8065
+  article_id: 489
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: In authoritarian countries like this, police just always get away with their
+    crimes. Even though it might have gotten worse under Duterte, the underlying problem
+    has existed for as long as any of us have. It's going to be very hard for things
+    to change given how normal some of these abuses have been. Hopefully they can
+    put a lid on it and change things.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+    - as any of us have. It's going to be very hard for things to change given how
+      normal some of these abuses have been. Hopefully they can put a lid
+    candidate: null
+  goal:
+    conclusion_or_goal: Things will be hard to change because police abuses have been
+      normal for a long time
+    candidate: null
+    supporting_reason: The underlying problem has existed for as long as any of us
+      have and abuses feel normal in this country
+    support_relation: This reason is used to support the claim that change is difficult
+    label_justification: The passage does not employ a known fallacy; it states a
+      causal intuition that past normalcy leads to resistance to change. The reasoning
+      serves the conclusion directly, so no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+    - as any of us have. It's going to be very hard for things to change given how
+      normal some of these abuses have been. Hopefully they can put a lid
+  counterargument:
+    decisive_counterargument: The assertion that “police just always get away with
+      their crimes” is an unjustified universal claim—there is no evidence given that
+      police are always successful. In reality, police are held accountable in many
+      cases, and many abuses are prosecuted. The blanket statement fails to provide
+      support and therefore is a classic hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that police always get away with their crimes
+      as a universal truth.
+    label_justification: The objection targets the unsupported leap from limited or
+      anecdotal observations to a sweeping statement about all police in authoritarian
+      countries. That is precisely the definition of a hasty generalization, which
+      involves drawing a broad conclusion from insufficient evidence.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - In authoritarian countries like this, police just always get away with their
+      crimes. Even though it might have gotten worse under Duterte, the underlying
+      problem has existed for as long
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: proposed_candidates
+    candidates:
+    - Hasty Generalization
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states a blanket claim—“police just always get away
+    with their crimes”—which attributes a universal behavior to all police in authoritarian
+    countries without providing supporting evidence, fitting the definition of a hasty
+    generalization.
+  decision_reason: The claim is a universal assertion derived from anecdotal observation,
+    meeting the structural requirement of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - In authoritarian countries like this, police just always get away with their crimes.
+    Even though it might have gotten worse under Duterte, the underlying problem has
+    existed for as long
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4715
+  completion_tokens: 2381
+  total_tokens: 7096
+  wall_time_seconds: 56.562000000005355

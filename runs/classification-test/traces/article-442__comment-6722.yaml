@@ -1,0 +1,133 @@
+sample:
+  id: 442:6722
+  article_id: 442
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: When you combine the numbers of women and children, they outnumber the men
+    and adults so their needs and rights need to be met. The fact that the country
+    is so poor in this aspect that a singer has to bring attention to it is sad! Their
+    needs hold much more weight, especially since they have been neglected for so
+    long!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the numbers of women and children
+    - role: observed_property
+      text: they outnumber the men and adults
+    - role: target_population
+      text: their needs and rights need to be met (and hold more weight than those
+        of men and adults)
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+    - so poor in this aspect that a singer has to bring attention to it is sad! Their
+      needs hold much more weight, especially since they have been neglected for so
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Women and children outnumber men and adults, so their needs
+      and rights should be prioritized and met.
+    candidate: null
+    supporting_reason: The demographic fact that women and children outnumber men
+      and adults.
+    support_relation: Uses the numerical majority of women and children to justify
+      that their needs and rights are of greater importance.
+    label_justification: The argument draws a conclusion about the priority of needs
+      based on population numbers, but this usage does not fit any of the specified
+      fallacies (e.g., not a hasty generalization, false dilemma, or appeal to majority
+      in the sense of popularity). Therefore no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+  counterargument:
+    decisive_counterargument: The fact that women and children constitute a larger
+      share of the population does not automatically grant their needs or rights greater
+      weight. Moral priority should be determined by the severity of the injustice,
+      not by numerical dominance. A minority group can experience rights violations
+      that are equally, or even more, urgent than those of a majority.
+    candidate: Appeal to Majority
+    challenged_inference: Because women and children outnumber men and adults, their
+      needs and rights should be given priority.
+    label_justification: The argument uses population size to justify prioritizing
+      a group’s rights, a classic appeal to majority that assigns moral weight based
+      solely on numbers rather than on substantive considerations.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement makes an inference based on the *population
+    as a whole* rather than extrapolating a property from a limited or specific sample
+    to a broader group. It does not exhibit the structure of a hasty generalization
+    (sample → broader population claim). Therefore the candidate fails its mandatory
+    structural condition.
+  decision_reason: The target lacks a clear sample‐to‐population inference; it merely
+    states that women and children outnumber men and adults and therefore their needs
+    are heavier, not a generalization from a specific subset. This violates the structural
+    requirement for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you combine the numbers of women and children, they outnumber the men and
+    adults so their needs and rights need to be met. The fact that the country is
+  - so poor in this aspect that a singer has to bring attention to it is sad! Their
+    needs hold much more weight, especially since they have been neglected for so
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4195
+  completion_tokens: 5075
+  total_tokens: 9270
+  wall_time_seconds: 198.84299999999348

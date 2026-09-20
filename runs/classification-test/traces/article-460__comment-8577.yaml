@@ -1,0 +1,155 @@
+sample:
+  id: 460:8577
+  article_id: 460
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: The road to totalitarianism begins here, with a clamping down on independent
+    journalism. Once freedom of the press is stamped out, then comes freedom of speech,
+    then the freedom to assemble, to protest, etc., etc. Soon a state of crushing
+    authority will dominate the people in all areas of their lives. That is why the
+    road must be destroyed here, at the start, so the people have a shot at remaining
+    free.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: clamping down on independent journalism
+    - role: intermediate_consequence
+      text: freedom of the press stamped out, then comes freedom of speech, then the
+        freedom to assemble, to protest, etc.
+    - role: final_consequence
+      text: state of crushing authority will dominate the people in all areas of their
+        lives
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Prevent the clamp-down on independent journalism to stop a
+      slide into totalitarianism.
+    candidate: Slippery Slope
+    supporting_reason: Clamping down on independent journalism inevitably leads to
+      the suppression of freedom of the press, which then cascades into loss of freedom
+      of speech, assembly, and ultimately results in crushing authority over the populace.
+    support_relation: The reason presents a causal chain in which the initial action
+      (suppression of journalism) leads inexorably to increasingly severe consequences
+      (totalitarian rule).
+    label_justification: The argument lists a progressive erosion of freedoms without
+      providing intermediate evidence for each step, implying an inevitable descent
+      into totalitarianism. This is characteristic of a slippery-slope argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    - at the start, so the people have a shot at remaining free.
+  counterargument:
+    decisive_counterargument: The argument assumes that suppressing independent journalism
+      inevitably leads to a totalitarian state, yet there are many examples of democratic
+      societies that have restricted press freedoms temporarily (e.g., during wars
+      or crises) without slipping into totalitarianism. Thus the claim lacks empirical
+      support and logical necessity.
+    candidate: Slippery Slope
+    challenged_inference: Clamping down on independent journalism will inevitably
+      erode press, speech, assembly freedoms and culminate in total authoritarian
+      rule.
+    label_justification: The objection demonstrates that the reasoning builds an automatic,
+      inevitable chain from an initial act to catastrophic consequences, which is
+      precisely the hallmark of a slippery‑slope fallacy. It relies on a single isolated
+      prediction without evidence of a necessary causal link, exposing a logical defect
+      rather than a generic criticism.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The road to totalitarianism begins here, with a clamping down on independent
+      journalism. Once freedom of the press is stamped out, then comes freedom of
+      speech, then the freedom to
+    - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+      the people in all areas of their lives. That is why the road must be destroyed
+      here,
+    - at the start, so the people have a shot at remaining free.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument advances a causal chain—from clamping down on journalism
+    to a totalitarian state—without evidence for the intermediate links, fitting the
+    slippery‑slope form
+  decision_reason: The passage outlines a singular, inevitable progression of events
+    resulting in a catastrophic outcome, which meets the structural criteria for a
+    slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The road to totalitarianism begins here, with a clamping down on independent journalism.
+    Once freedom of the press is stamped out, then comes freedom of speech, then the
+    freedom to
+  - assemble, to protest, etc., etc. Soon a state of crushing authority will dominate
+    the people in all areas of their lives. That is why the road must be destroyed
+    here,
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4975
+  completion_tokens: 3091
+  total_tokens: 8066
+  wall_time_seconds: 88.65700000000652

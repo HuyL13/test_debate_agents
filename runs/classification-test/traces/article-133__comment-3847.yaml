@@ -1,0 +1,138 @@
+sample:
+  id: 133:3847
+  article_id: 133
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: Is one guy getting arrested that big a deal? Especially in a country like
+    Azerbaijan, where there are much bigger problems. How about all the ethnic minorities
+    in the country who are constantly being attacked in ways much worse than an arrest?
+    Maybe things like that should be the priority.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: one guy getting arrested
+    - role: worse_issue
+      text: attacks on ethnic minorities
+    - role: deprioritizing_conclusion
+      text: maybe things like that should be the priority
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is one guy getting arrested that big a deal? Especially in a country like Azerbaijan,
+      where there are much bigger problems. How about all the ethnic minorities in
+      the country
+    - who are constantly being attacked in ways much worse than an arrest? Maybe things
+      like that should be the priority.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The arrest of a single individual is relatively unimportant
+      compared to larger issues in Azerbaijan.
+    candidate: Appeal to Worse Problems
+    supporting_reason: There exist bigger problems—particularly the repeated attacks
+      on ethnic minorities—that should take priority over the arrest.
+    support_relation: The reason is used to argue that the arrest is not worth concern.
+    label_justification: The speaker downplays a specific event by citing the existence
+      of more serious problems, which is the definition of an Appeal to Worse Problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is one guy getting arrested that big a deal? Especially in a country like Azerbaijan,
+      where there are much bigger problems. How about all the ethnic minorities in
+      the country
+    - who are constantly being attacked in ways much worse than an arrest? Maybe things
+      like that should be the priority.
+  counterargument:
+    decisive_counterargument: Even if much larger systemic violations occur in Azerbaijan,
+      the arrest of an individual human‑rights lawyer remains a significant event
+      because each case directly undermines rule of law and civil liberties; dismissing
+      it on the basis of other problems ignores the specific harm to the individual
+      and the broader implication for human‑rights advocacy.
+    candidate: Appeal to Worse Problems
+    challenged_inference: One person’s arrest is trivial when there are many other,
+      bigger problems.
+    label_justification: The objection directly challenges the reasoning that an arrest
+      is insignificant because other issues exist, i.e. the argument commits an Appeal
+      to Worse Problems by shifting focus to more severe violations to downplay the
+      importance of the arrest.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is one guy getting arrested that big a deal? Especially in a country like Azerbaijan,
+      where there are much bigger problems. How about all the ethnic minorities in
+      the country
+    - who are constantly being attacked in ways much worse than an arrest? Maybe things
+      like that should be the priority.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target statement presents a focal issue (the arrest of a
+    single individual) and a worse issue (ongoing attacks on ethnic minorities), then
+    concludes that the former should be deprioritized in light of the latter, matching
+    the structural definition of an Appeal to Worse Problems. Evidence T1 and T2 provide
+    the necessary linguistic cues for this inference.
+  decision_reason: The argument cites more serious problems to downplay a specific
+    event, satisfying the mandatory structure for Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Is one guy getting arrested that big a deal? Especially in a country like Azerbaijan,
+    where there are much bigger problems. How about all the ethnic minorities in the
+    country
+  - who are constantly being attacked in ways much worse than an arrest? Maybe things
+    like that should be the priority.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4452
+  completion_tokens: 3394
+  total_tokens: 7846
+  wall_time_seconds: 133.2039999999979

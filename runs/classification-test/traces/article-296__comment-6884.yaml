@@ -1,0 +1,147 @@
+sample:
+  id: 296:6884
+  article_id: 296
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: It sounds like much of the criticisms about all this are pretty minor and
+    not something to be that concerned about. The country has to pass laws related
+    to all this kind of stuff. Like most laws, it's probably not going to be perfect,
+    but what else can they do? Whatever they do, someone will complain about it, so
+    they either do nothing or just let the courts go through with the process.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: do nothing
+    - role: alternative_b
+      text: let the courts go through
+    - role: exhaustiveness_commitment
+      text: they either do nothing or let the courts go through
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The criticisms are minor, so the country should not worry;
+      the only viable responses are inaction or letting courts decide.
+    candidate: False Dilemma
+    supporting_reason: People will complain no matter what the country does, so the
+      only options are to do nothing or to let courts handle the matter.
+    support_relation: The argument relies on the claim that complaints are inevitable
+      to maintain that the only feasible choices are inaction or court intervention,
+      thereby excluding any alternative courses of action.
+    label_justification: The passage presents a binary choice—either nothing is done
+      or the courts are allowed to act—while ignoring the existence of other legitimate
+      options, which is the definition of a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It sounds like much of the criticisms about all this are pretty minor and not
+      something to be that concerned about. The country has to pass laws related to
+      all
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+  counterargument:
+    decisive_counterargument: The target proposes only two responses to the issue
+      – either do nothing or let courts handle it – implying that these are the only
+      viable options. In reality, governments can draft more nuanced legislation,
+      conduct stakeholder consultation, or establish regulatory bodies to address
+      the concerns. By reducing the spectrum of possible solutions to a binary choice,
+      the argument commits a false dilemma.
+    candidate: False Dilemma
+    challenged_inference: The target's proposal that only doing nothing or relying
+      on the courts constitutes a viable strategy, implying these are the exclusive
+      choices.
+    label_justification: The objection directly targets the inference that the policy
+      options are limited to two extremes, which is the definition of a false dilemma.
+      The argument fails to acknowledge alternative reasonable actions. No other fallacy
+      more precisely matches this error.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It sounds like much of the criticisms about all this are pretty minor and not
+      something to be that concerned about. The country has to pass laws related to
+      all
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents only two alternatives – do nothing or let
+    courts decide – and treats them as the sole viable options, while ignoring other
+    reasonable courses of action. This meets the structural definition of a false
+    dilemma.
+  decision_reason: The passage explicitly states that the only choices are inaction
+    or court intervention, indicating an exhaustive alternatives claim that excludes
+    all other legitimate options, matching the false dilemma fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+    what else can they do? Whatever they do, someone will complain about it, so they
+  - either do nothing or just let the courts go through with the process.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4544
+  completion_tokens: 3628
+  total_tokens: 8172
+  wall_time_seconds: 115.07799999997951

@@ -1,0 +1,184 @@
+sample:
+  id: 15:9342
+  article_id: 15
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: This is something that should be the country's main concern. Pretty much
+    every country on earth knows how wrong it is to hurt kids and yet the majority
+    of this country's kids are hurt and exploited? What is wrong with them? Obviously
+    I'm not saying all countries need to act and think just like us in all respects,
+    but this is one thing that absolutely should be.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: every country on earth
+    - role: popularity_claim
+      text: pretty much every country knows how wrong it is to hurt kids
+    - role: target_claim
+      text: this is something that should be the country's main concern
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: This country's main concern should be protecting its children
+      from harm and exploitation.
+    candidate: null
+    supporting_reason: Pretty much every country on earth knows how wrong it is to
+      hurt kids.
+    support_relation: The universal moral consensus that hurting children is wrong
+      is used to justify why protecting children should be the country's main concern.
+    label_justification: The argument legitimately appeals to a widely accepted moral
+      stance rather than employing an invalid logical pattern; thus no fallacy is
+      present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+  counterargument:
+    decisive_counterargument: The passage assumes that because a large number of children
+      in this country are harmed, the country’s government must be chiefly responsible
+      and that other nations’ concerns can be ignored. However, simply observing child
+      abuse does not establish that the nation in question uniquely warrants primary
+      focus, nor does it justify sidelining other serious problems worldwide. This
+      conclusion hinges on an unverified claim that “every country on earth knows
+      how wrong it is to hurt kids,” treating that assertion as a universal authority
+      without evidence. The logical leap from the statistic to the policy priority
+      therefore constitutes an *Appeal to Authority* fallacy, as it uses the supposed
+      moral consensus of all nations to justify a specific action without demonstrating
+      its validity.
+    candidate: Appeal to Authority
+    challenged_inference: This is something that should be the country's main concern.
+    label_justification: The counterargument points out that the reasoning depends
+      on an unsubstantiated universal claim that all nations recognize child abuse
+      as wrong. By treating that claim as a guiding authority without supporting evidence,
+      the argument commits an Appeal to Authority fallacy. The objection is directly
+      tied to the target’s inference, not merely a generic criticism.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority > Appeal to Authority
+    loser_failure: The passage does not invoke a specific expert, organization, or
+      institution to justify the claim that child abuse should be the main concern;
+      instead it relies on the broad belief that *pretty much every country on earth*
+      knows hurting children is wrong. This use of a large group’s consensus is an
+      Appeal to Majority, not an Appeal to Authority, which would require referencing
+      a recognized authority figure or evidence of expertise. Accordingly, the appeal
+      to authority interpretation fails because it misidentifies the nature of the
+      cited “authority.”
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is something that should be the country's main concern. Pretty much every
+      country on earth knows how wrong it is to hurt kids and yet the majority of
+      this
+    - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+      not saying all countries need to act and think just like us in all respects,
+      but this
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly cites that “pretty much every country
+    on earth knows how wrong it is to hurt kids” (population group and popularity
+    claim) and concludes that this should be the country’s main concern, thereby using
+    the majority’s belief as a basis for the claim.
+  decision_reason: 'The argument matches the appeal‑to‑majority form: it relies on
+    the popularity of the view that harming children is wrong to justify the specific
+    policy stance that it should be the country’s main concern.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is something that should be the country's main concern. Pretty much every
+    country on earth knows how wrong it is to hurt kids and yet the majority of this
+  - country's kids are hurt and exploited? What is wrong with them? Obviously I'm
+    not saying all countries need to act and think just like us in all respects, but
+    this
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5779
+  completion_tokens: 4913
+  total_tokens: 10692
+  wall_time_seconds: 172.60899999999674

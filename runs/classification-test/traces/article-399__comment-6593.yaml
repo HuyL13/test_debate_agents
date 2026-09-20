@@ -1,0 +1,187 @@
+sample:
+  id: 399:6593
+  article_id: 399
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: Everyone in Gambia should just listen to the leaders. Things will go smoother
+    for everyone. Some may argue, but trust is important.
+  target: I agree with you that it is important to listen to the leaders, but what
+    happens when the majority of them don't have  your best interest in mind? Should
+    people listen to them then? I am sure the majority of the leaders aren't looking
+    out for the  people's best interest. I am sure a majority of us have been let
+    down by actions that seem to favor the powerful few over the general population.
+    I am pretty sure that most people would feel the same way I do.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: leaders
+    - role: popularity_claim
+      text: majority of the leaders aren't looking out for the people's best interest
+    - role: target_claim
+      text: people should not listen to the leaders
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - listen to them then? I am sure the majority of the leaders aren't looking out
+      for the  people's best interest. I am sure a majority of us have been let
+    - down by actions that seem to favor the powerful few over the general population.
+      I am pretty sure that most people would feel the same way I do.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: People should not automatically listen to leaders because
+      the majority supposedly do not act in the public’s best interests.
+    candidate: Hasty Generalization
+    supporting_reason: Claim that “the majority of the leaders aren’t looking out
+      for the people’s best interest” (T2) and that “most people would feel the same
+      way I do” (T3), implying a universal conclusion from limited observations.
+    support_relation: The reason is employed to justify the conclusion that listening
+      to leaders is unwarranted.
+    label_justification: The argument generalizes that most leaders are self‑serving
+      based on anecdotal impressions, without presenting evidence that covers the
+      entire population of leaders. This constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - listen to them then? I am sure the majority of the leaders aren't looking out
+      for the  people's best interest. I am sure a majority of us have been let
+    - down by actions that seem to favor the powerful few over the general population.
+      I am pretty sure that most people would feel the same way I do.
+  counterargument:
+    decisive_counterargument: Your claim that the majority of leaders are not acting
+      in the public’s best interest relies on an unsubstantiated belief that most
+      leaders are self‑interested. Even if that were true, the mere fact that a majority
+      holds a certain opinion does not make listening to them irrational; majority
+      opinion is not evidence of correctness. Therefore, concluding that people should
+      refuse to listen because the majority of leaders act poorly is a faulty inference.
+    candidate: Appeal to Majority
+    challenged_inference: Because the majority of leaders are presumed not to act
+      in the best interest of the people, people should not listen to them.
+    label_justification: The argument uses the fact that most people or leaders have
+      a particular view as evidence for abandoning trust in leaders, thereby committing
+      an appeal to majority fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree with you that it is important to listen to the leaders, but what happens
+      when the majority of them don't have  your best interest in mind? Should people
+    - listen to them then? I am sure the majority of the leaders aren't looking out
+      for the  people's best interest. I am sure a majority of us have been let
+    - down by actions that seem to favor the powerful few over the general population.
+      I am pretty sure that most people would feel the same way I do.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority's mandatory structural condition— that the argument
+      relies on a claim about a majority population to justify a conclusion— is directly
+      reflected in the target text. The target explicitly states, “I am sure the majority
+      of the leaders aren't looking out for the people’s best interest” (T2) and “I
+      am sure a majority of us have been let down” (T2) and that “most people would
+      feel the same way I do” (T3), using that majority claim to argue that people
+      should not listen to the leaders. This satisfies Appeal to Majority’s structure.
+      In contrast, the target does not present an explicit instance of drawing a broad
+      conclusion from a limited sample, which would be required for a Hasty Generalization.
+      The generalization implied by the target is tied to a majority claim rather
+      than a small anecdotal sample, so Hasty Generalization’s mandatory condition
+      is not directly supported.
+    loser_failure: The target lacks the necessary evidence of an insufficiently broad
+      or poorly representative sample that would justify a Hasty Generalization. The
+      references to majority claims instead directly support Appeal to Majority, leaving
+      Hasty Generalization unsupported.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - listen to them then? I am sure the majority of the leaders aren't looking out
+      for the  people's best interest. I am sure a majority of us have been let
+    - down by actions that seem to favor the powerful few over the general population.
+      I am pretty sure that most people would feel the same way I do.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that because the majority of leaders
+    are not acting in the people's best interest and because most people would feel
+    the same way, people should not listen to the leaders. This claim relies on the
+    number of people holding that view to justify the conclusion.
+  decision_reason: The target demonstrates a classic appeal to majority by arguing
+    that the widespread belief or experience (majority of leaders not acting in best
+    interest, majority of people sharing this view) justifies the policy (people should
+    not listen). Evidence supporting this is in passages T2 and T3.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - listen to them then? I am sure the majority of the leaders aren't looking out
+    for the  people's best interest. I am sure a majority of us have been let
+  - down by actions that seem to favor the powerful few over the general population.
+    I am pretty sure that most people would feel the same way I do.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6024
+  completion_tokens: 5250
+  total_tokens: 11274
+  wall_time_seconds: 344.0

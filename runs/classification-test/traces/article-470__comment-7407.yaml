@@ -1,0 +1,134 @@
+sample:
+  id: 470:7407
+  article_id: 470
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: It’s funny how America is a joke to many people trying to come over here
+    and live. The World seems to center around the United States, doesn’t it? Maybe
+    we are like reality television so bad it’s good?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+    - are like reality television so bad it’s good?
+    candidate: null
+  goal:
+    conclusion_or_goal: America is perceived as a joke by many people
+    candidate: null
+    supporting_reason: Many people trying to immigrate find America a joke
+    support_relation: mechanism_supports_goal
+    label_justification: The statement simply reports an opinion about how people
+      feel; it does not employ any of the defined fallacies (no hasty generalization,
+      false dilemma, appeal to majority, etc.). Therefore no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: America is a joke / the world centers around the United
+      States and reality‑television comparison
+    label_justification: The excerpt is an unsubstantiated sarcastic opinion that
+      does not match any of the listed fallacies (no sample‑to‑population jump, no
+      progressive escalation, no false dilemma, etc.). The objection is that the claim
+      is unsupported, but it does not constitute a recognized fallacious reasoning
+      pattern, so no specific fallacy label applies.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It’s funny how America is a joke to many people trying to come over here and
+      live. The World seems to center around the United States, doesn’t it? Maybe
+      we
+    - are like reality television so bad it’s good?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that “America is a joke” based on the experience
+    of a subset of people—those who are trying to immigrate—thereby generalizing from
+    that sample to a broader claim about the nation. This meets the structural condition
+    of a hasty generalization where a claim is drawn from a limited group to describe
+    a larger whole.
+  decision_reason: The target contains a claim that China is a joke to many people
+    trying to come and live in America, inferred from a limited set of observers (people
+    who are trying to immigrate). The argument lacks further support and directly
+    generalizes from that sample to a broader statement about the whole country. While
+    other fallacies are not clearly present, a hasty generalization best matches the
+    pattern of using a specific group’s view to make a sweeping claim about the nation.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It’s funny how America is a joke to many people trying to come over here and live.
+    The World seems to center around the United States, doesn’t it? Maybe we
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4176
+  completion_tokens: 4258
+  total_tokens: 8434
+  wall_time_seconds: 110.0

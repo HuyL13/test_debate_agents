@@ -1,0 +1,144 @@
+sample:
+  id: 359:7075
+  article_id: 359
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: This lockdown seems serious, doesn't it? When something like this happens
+    it really makes you wonder if there's a better alternative. Are there just only
+    two options - gritting teeth and bearing through or causing a full-blown revolt
+    with potentially serious consequences? But, surely these aren't the only options
+    during such a crisis. There must be other ways to navigate such difficult times.
+    It's easy to feel trapped between gritting teeth and causing a revolt, but perhaps
+    the real challenge is charting a different, more sustainable path through adversity.
+    After all, aren't human beings capable of innovation and adaptability?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: gritting teeth and bearing through
+    - role: alternative_b
+      text: causing a full-blown revolt with potentially serious consequences
+    - role: exhaustiveness_commitment
+      text: Are there just only two options - gritting teeth and bearing through or
+        causing a full-blown revolt with potentially serious consequences?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This lockdown seems serious, doesn't it? When something like this happens it
+      really makes you wonder if there's a better alternative. Are there just only
+      two options - gritting teeth
+    - and bearing through or causing a full-blown revolt with potentially serious
+      consequences? But, surely these aren't the only options during such a crisis.
+      There must be other ways to navigate
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: There are alternative options beyond merely gritting teeth
+      or revolting; humans should pursue a different, more sustainable path through
+      adversity.
+    candidate: null
+    supporting_reason: Human beings possess the capacity for innovation and adaptability,
+      implying that other approaches are possible.
+    support_relation: supports
+    label_justification: The target presents a well-supported assertion that alternative
+      responses exist, using the fact that humans can innovate as legitimate support.
+      No logical fallacy is committed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - such difficult times. It's easy to feel trapped between gritting teeth and causing
+      a revolt, but perhaps the real challenge is charting a different, more sustainable
+      path through adversity. After
+    - all, aren't human beings capable of innovation and adaptability?
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: The inference that the two options exhaust all possibilities.
+    label_justification: The objection does not target a specific named fallacy; rather
+      it points out that the target’s claim that other options exist is unsupported
+      and merely an unverified assertion. It fails to provide evidence for alternatives,
+      which is a flaw in reasoning but not an instance of one of the listed fallacies.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This lockdown seems serious, doesn't it? When something like this happens it
+      really makes you wonder if there's a better alternative. Are there just only
+      two options - gritting teeth
+    - and bearing through or causing a full-blown revolt with potentially serious
+      consequences? But, surely these aren't the only options during such a crisis.
+      There must be other ways to navigate
+    - such difficult times. It's easy to feel trapped between gritting teeth and causing
+      a revolt, but perhaps the real challenge is charting a different, more sustainable
+      path through adversity. After
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The text explicitly states that the two options are not exhaustive
+    (“But, surely these aren't the only options...”), therefore it does not commit
+    to a false dilemma. The candidate claim is unsupported and the structural requirement
+    for a false dilemma is not satisfied.
+  decision_reason: The passage rejects the exclusivity of the two options, so the
+    false dilemma fallacy is not present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This lockdown seems serious, doesn't it? When something like this happens it really
+    makes you wonder if there's a better alternative. Are there just only two options
+    - gritting teeth
+  - and bearing through or causing a full-blown revolt with potentially serious consequences?
+    But, surely these aren't the only options during such a crisis. There must be
+    other ways to navigate
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4691
+  completion_tokens: 3775
+  total_tokens: 8466
+  wall_time_seconds: 233.25

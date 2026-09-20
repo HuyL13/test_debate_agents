@@ -1,0 +1,144 @@
+sample:
+  id: 416:6044
+  article_id: 416
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: These kids are not only ruining their lives, but the lives of everyone around
+    them. They need to listen to the cops and stop rioting. It will accomplish nothing
+    at all. Not listening to them will just mean JAIL. They don't know the ins and
+    outs of what goes on in the government, so they shouldn't be rioting for something
+    they have no part in.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: cops
+    - role: endorsed_claim
+      text: The kids should listen to the cops and stop rioting; not listening will
+        lead to jail and they don’t understand government affairs.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The protagonist argues that the kids should stop rioting.
+    candidate: null
+    supporting_reason: They don't know the ins and outs of what goes on in the government,
+      so they shouldn't be rioting.
+    support_relation: rejection
+    label_justification: The argument simply asserts that lacking knowledge justifies
+      not rioting, which does not match any of the specified fallacy categories (Appeal
+      to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal
+      to Worse Problems, Hasty Generalization, Slippery Slope, False Dilemma). Therefore
+      no fallacy label is applied.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+  counterargument:
+    decisive_counterargument: The text asserts that children must heed the police
+      and cease rioting because police authority guarantees truth, yet it offers no
+      evidence that the police are correct or that their guidance is wise. The mere
+      fact that the police are in control does not establish that their perspective
+      is the best or that rioting is futile. The claim is thus an unsubstantiated
+      appeal to authority—the argument concludes that the children should stop rioting
+      solely because authoritative actors (the police) say so, with no independent
+      justification or empirical support. This logical misstep is a classic Appeal
+      to Authority.
+    candidate: Appeal to Authority
+    challenged_inference: These kids should stop rioting because the police are in
+      authority and they know what is best.
+    label_justification: The inference rests exclusively on the police’s status as
+      authority figures without providing any corroborating evidence that their directive
+      is valid or in the children’s best interest. Hence the fallacy is an Appeal
+      to Authority, not merely a critique of the content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target declares that children should obey the police (“cops”)
+    and stop rioting, basing the recommendation solely on the police’s authority status
+    rather than providing any supporting evidence. This conforms to the definition
+    of an Appeal to Authority.
+  decision_reason: The target uses the police as an authority figure whose directives
+    are accepted as true without evidence, satisfying the necessary structure for
+    an Appeal to Authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These kids are not only ruining their lives, but the lives of everyone around
+    them. They need to listen to the cops and stop rioting. It will accomplish nothing
+    at
+  - all. Not listening to them will just mean JAIL. They don't know the ins and outs
+    of what goes on in the government, so they shouldn't be rioting for something
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4541
+  completion_tokens: 3590
+  total_tokens: 8131
+  wall_time_seconds: 147.6720000000205

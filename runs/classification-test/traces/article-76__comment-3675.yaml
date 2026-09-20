@@ -1,0 +1,130 @@
+sample:
+  id: 76:3675
+  article_id: 76
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: They really need to take care of this problem. Today, journalists are targeted.
+    Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+    a target and not a single person will be left alive.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: The problem is not taken care of
+    - role: intermediate_consequence
+      text: Journalists, academics, and doctors are targeted
+    - role: final_consequence
+      text: Everyone becomes a target and no one is left alive
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They really need to take care of this problem. Today, journalists are targeted.
+      Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+      a target and not a single
+    - person will be left alive.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Everyone becomes a target and no one will be left alive.
+    candidate: Slippery Slope
+    supporting_reason: The assertion that after targeting journalists comes academics,
+      then doctors, leading to targeting everyone.
+    support_relation: A gradual escalation argument is used to support the claim that
+      all people will eventually be targeted.
+    label_justification: The argument claims that because journalists are targeted
+      now, it inevitably follows that academics, doctors, and ultimately everyone
+      will be targeted, presenting a classic slippery‑slope reasoning without evidence
+      of an unavoidable progression.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They really need to take care of this problem. Today, journalists are targeted.
+      Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+      a target and not a single
+  counterargument:
+    decisive_counterargument: There is no evidence linking the targeting of journalists
+      to a predictable cascade that will inevitably reach academics, doctors, and
+      all other people; the claim assumes a causal chain that hasn't been demonstrated,
+      making the assertion a speculative escalation.
+    candidate: Slippery Slope
+    challenged_inference: Sooner or later everyone becomes a target and not a single
+      person will be left alive.
+    label_justification: This inference portrays an inevitable progression of harm—from
+      journalists to academics, to doctors, to everyone—without any proven causal
+      link or evidence, which is the hallmark of a slippery‑slope argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They really need to take care of this problem. Today, journalists are targeted.
+      Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+      a target and not a single
+    - person will be left alive.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The passage presents an escalating causal chain—starting with
+    journalists being targeted, then academics, then doctors, and ultimately everyone—without
+    evidence of inevitability, matching the structure of a slippery‑slope argument.
+  decision_reason: The target text explicitly predicts a sequence of increasingly
+    severe consequences (journalists → academics → doctors → everyone), which constitutes
+    a slippery‑slope inference. The mandatory structural condition of a consequence
+    chain is satisfied by the evidence passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They really need to take care of this problem. Today, journalists are targeted.
+    Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+    a target and not a single
+  - person will be left alive.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4090
+  completion_tokens: 3475
+  total_tokens: 7565
+  wall_time_seconds: 113.45300000000861

@@ -1,0 +1,144 @@
+sample:
+  id: 313:6337
+  article_id: 313
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: It seems to me that Bangladesh must either shut down its universities or
+    ban the internet on those campuses in order to maintain public safety for students.
+    I don't see how students can feel safe unless immediate action is taken. Let's
+    talk solutions, not merely options.
+  target: I agree completely. It's obvious that decisive action must be taken, even
+    if viewed as extreme by some. It's either ban the internet for student safety
+    or shut down completely. Safety comes before everything. Perhaps it's time for
+    stricter regulation and zero-tolerance policies towards bullying. Even if it restricts
+    some freedom, it's worth saving the lives of students.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: ban the internet for student safety
+    - role: alternative_b
+      text: shut down completely
+    - role: exhaustiveness_commitment
+      text: only these two options are offered
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Decisive action—either banning the internet on campus or shutting
+      down universities—must be taken to protect student safety.
+    candidate: False Dilemma
+    supporting_reason: Safety comes before everything.
+    support_relation: The reason is presented as the justification for the conclusion
+      that decisive action is required.
+    label_justification: The argument limits the possible responses to two extreme
+      options (ban or shut down), implicitly arguing that these are the only viable
+      solutions. By presenting this constrained choice while ignoring other potential
+      measures, the speaker commits a False Dilemma fallacy. The safety claim is the
+      stated reason, but the exclusion of alternatives undermines the logical form
+      of the argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+    - Safety comes before everything. Perhaps it's time for stricter regulation and
+      zero-tolerance policies towards bullying. Even if it restricts some freedom,
+      it's worth saving the lives of students.
+  counterargument:
+    decisive_counterargument: The claim that Bangladesh must either shut down its
+      universities or ban the internet on those campuses is a false dilemma. It presents
+      only two extreme options, ignoring realistic middle‑ground solutions such as
+      implementing stricter cybersecurity protocols, enhancing campus security, or
+      creating digital safety policies that do not require total shutdown or universal
+      internet bans. These alternatives could protect student safety while preserving
+      academic and digital access.
+    candidate: False Dilemma
+    challenged_inference: Inference that the situation presents only two mutually
+      exclusive solutions, dismissing any other viable options.
+    label_justification: The target statement explicitly narrows the range of choices
+      to two extremes without acknowledging other possibilities. This is a textbook
+      example of the false dilemma fallacy, where the speaker commits an inference
+      error by assuming exclusivity where it does not exist.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. It's obvious that decisive action must be taken, even if
+      viewed as extreme by some. It's either ban the internet for student safety or
+      shut down completely.
+    - Safety comes before everything. Perhaps it's time for stricter regulation and
+      zero-tolerance policies towards bullying. Even if it restricts some freedom,
+      it's worth saving the lives of students.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly limits solutions to two mutually exclusive,
+    exhaustive alternatives—ban the internet on campus or shut down the universities—without
+    acknowledging any other viable options, satisfying the structural criterion for
+    a false dilemma.
+  decision_reason: The target’s statement “It’s either ban the internet for student
+    safety or shut down completely” presents only two options and implies these are
+    the only possibilities, which meets the definition of a False Dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I agree completely. It's obvious that decisive action must be taken, even if viewed
+    as extreme by some. It's either ban the internet for student safety or shut down
+    completely.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4799
+  completion_tokens: 3359
+  total_tokens: 8158
+  wall_time_seconds: 273.7179999999935

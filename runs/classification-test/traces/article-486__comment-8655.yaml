@@ -1,0 +1,128 @@
+sample:
+  id: 486:8655
+  article_id: 486
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: It's justified that the people think that data has been stolen.  It could
+    have very well been taken and the data that was taken has not been identified
+    yet.   I think it's natural to make this assumption.  I just assume these days
+    that some has my data or information and do my best to keep tabs on it.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: I think it's natural to make this assumption.
+    - role: evaluative_conclusion
+      text: It's justified that the people think that data has been stolen.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's justified that the people think that data has been stolen.  It could have
+      very well been taken and the data that was taken has not been identified yet.   I
+    - think it's natural to make this assumption.  I just assume these days that some
+      has my data or information and do my best to keep tabs on it.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: It is justified that people think their data has been stolen.
+    candidate: null
+    supporting_reason: The data may have been taken without yet being identified,
+      so assuming it was stolen is natural.
+    support_relation: The reason offers a plausible scenario (data taken, unidentified)
+      that justifies the conclusion that the public view of data theft is reasonable.
+    label_justification: No fallacy is present; the reason legitimately supports the
+      conclusion without misusing a premise or committing a recognized logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's justified that the people think that data has been stolen.  It could have
+      very well been taken and the data that was taken has not been identified yet.   I
+    - think it's natural to make this assumption.  I just assume these days that some
+      has my data or information and do my best to keep tabs on it.
+  counterargument:
+    decisive_counterargument: Just because data theft is possible does not make the
+      assumption that it has occurred justified; the lack of evidence for theft means
+      the belief is purely speculative and can be harmful if acted upon.
+    candidate: Appeal to Nature
+    challenged_inference: It is justified to assume data has been stolen because it
+      could be, and that it’s natural to make that assumption.
+    label_justification: The argument relies on the claim that it is “natural” to
+      make this assumption, using naturalness as a justification for the conclusion.
+      This constitutes an Appeal to Nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's justified that the people think that data has been stolen.  It could have
+      very well been taken and the data that was taken has not been identified yet.   I
+    - think it's natural to make this assumption.  I just assume these days that some
+      has my data or information and do my best to keep tabs on it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target provides a naturalness premise (“I think it’s natural…”)
+    that is used to justify an evaluative conclusion (“It’s justified that the people
+    think the data has been stolen”), matching the structural pattern for an Appeal
+    to Nature.
+  decision_reason: The text explicitly links naturalness with justification, meeting
+    the mandatory structure of a nature‑to‑value appeal. Thus the surviving candidate
+    is confirmed.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's justified that the people think that data has been stolen.  It could have
+    very well been taken and the data that was taken has not been identified yet.   I
+  - think it's natural to make this assumption.  I just assume these days that some
+    has my data or information and do my best to keep tabs on it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4272
+  completion_tokens: 2954
+  total_tokens: 7226
+  wall_time_seconds: 46.780999999988126

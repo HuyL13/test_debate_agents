@@ -1,0 +1,132 @@
+sample:
+  id: 313:6335
+  article_id: 313
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: The government really needs to respect the rights of these people. Most
+    students are not happy with this kind of censorship. If most people aren't happy
+    with a policy, then that should be the clearest sign that the policy is bad.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: students
+    - role: popularity_claim
+      text: most students are not happy with this kind of censorship
+    - role: target_claim
+      text: that should be the clearest sign that the policy is bad
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The policy is bad.
+    candidate: Appeal to Majority
+    supporting_reason: If most people aren't happy with a policy, then that should
+      be the clearest sign that the policy is bad.
+    support_relation: The argument uses the fact that the majority of people (students)
+      are unhappy as justification that the policy is wrong.
+    label_justification: The argument relies on the majority’s discontent as proof
+      that the policy is bad, which is an improper appeal to consensus.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+  counterargument:
+    decisive_counterargument: The fact that most students are unhappy does not automatically
+      mean the policy is wrong. Popular opinion can be misinformed, biased, or driven
+      by factors unrelated to the policy’s merits, and history shows that majority
+      views are sometimes wrong. Therefore a majority’s discontent is not a reliable
+      sign that a policy is bad.
+    candidate: Appeal to Majority
+    challenged_inference: If most people aren't happy with a policy, then that should
+      be the clearest sign that the policy is bad.
+    label_justification: The argument asserts that majority sentiment alone establishes
+      the policy’s validity, which is the definition of an appeal to majority (ad
+      populum) fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly connects a majority’s unhappiness with
+    a policy to the policy’s being bad, which is the textbook definition of an appeal
+    to majority (ad populum) fallacy.
+  decision_reason: The target contains the premise ‘If most people aren’t happy with
+    a policy, then … the policy is bad’, establishing a logical link from majority
+    sentiment to policy judgment. This directly matches the structure of an appeal
+    to majority fallacy. Therefore the candidate ‘Appeal to Majority’ is accepted.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The government really needs to respect the rights of these people. Most students
+    are not happy with this kind of censorship. If most people aren't happy with a
+    policy, then
+  - that should be the clearest sign that the policy is bad.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4319
+  completion_tokens: 2493
+  total_tokens: 6812
+  wall_time_seconds: 210.51600000000326

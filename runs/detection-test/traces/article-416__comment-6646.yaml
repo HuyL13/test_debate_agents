@@ -1,0 +1,129 @@
+sample:
+  id: 416:6646
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: Why aren't the students just obeying the police?  The protesting won't solve
+    anything anyway so they may as well stop.  The police have authority and should
+    be respected. MLK, Jr. said riots are the language of the unheard.  Riots aren't
+    enough.  These things require systematic reforms and cooperation with authorities
+    and government.
+  target: They should just go with the majority of the ruling entity China. Why go
+    against something that will only lead to violence. Most of the people can't be
+    wrong can they? Follow the crowd for peace.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most of the people
+    - role: popularity_claim
+      text: most of the people can't be wrong
+    - role: target_claim
+      text: They should just go with the majority of the ruling entity China. Why
+        go against something that will only lead to violence. Follow the crowd for
+        peace.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should just go with the majority of the ruling entity China. Why go against
+      something that will only lead to violence. Most of the people can't be wrong
+      can
+    - they? Follow the crowd for peace.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: They should go with the majority of the ruling entity China
+      / follow the crowd for peace.
+    candidate: Appeal to Majority
+    supporting_reason: Most people can't be wrong, so following the majority is justified.
+    support_relation: The argument uses the claim that the majority cannot be wrong
+      to justify the conclusion that individuals should follow the majority’s action.
+    label_justification: This reasoning invokes the popularity of a view (the majority)
+      as evidence for its correctness, which is the classic Appeal to Majority (argumentum
+      ad populum).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should just go with the majority of the ruling entity China. Why go against
+      something that will only lead to violence. Most of the people can't be wrong
+      can
+    - they? Follow the crowd for peace.
+  counterargument:
+    decisive_counterargument: Just because most people or the ruling entity in China
+      support a particular course of action does not prove that action is morally
+      or logically correct; majorities can be wrong, oppressive, or mistaken, so following
+      them cannot be justified merely on the basis of population size.
+    candidate: Appeal to Majority
+    challenged_inference: They should just go with the majority of the ruling entity
+      China.
+    label_justification: The inference relies on the false premise that the majority’s
+      viewpoint is inherently valid, a classic Appeal to Majority (bandwagon) fallacy.
+      The counterargument directly attacks this premise by noting that larger numbers
+      do not guarantee correctness, thus exposing the specific reasoning defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should just go with the majority of the ruling entity China. Why go against
+      something that will only lead to violence. Most of the people can't be wrong
+      can
+    - they? Follow the crowd for peace.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target contains an explicit majority claim (“Most of the
+    people can’t be wrong”) followed by a conclusion that individuals should follow
+    the majority’s action, meeting the structural requirement for an Appeal to Majority.
+  decision_reason: The target explicitly uses the popularity of a view as evidence
+    for its correctness, exemplifying a classic appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They should just go with the majority of the ruling entity China. Why go against
+    something that will only lead to violence. Most of the people can't be wrong can
+  - they? Follow the crowd for peace.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4516
+  completion_tokens: 3481
+  total_tokens: 7997
+  wall_time_seconds: 102.90599999998813

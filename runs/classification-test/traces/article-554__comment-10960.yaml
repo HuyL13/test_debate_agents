@@ -1,0 +1,170 @@
+sample:
+  id: 554:10960
+  article_id: 554
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: I'm confused. If there were two rejected no-confidence motions for him,
+    why does the court think its okay to not allow him to be PM? Seems political to
+    me. If you let the courts get political, you eventually get countries like Russia
+    and Nazi Germany. Before it gets that bad, it could lead to the opposition being
+    barred from holding office ever again, or political prisoners being taken.
+  target: The court doesn't seem to have a strong reason to hear the case, so I agree
+    that the Sri Lankan court seem to be politicized. This is distressing because
+    people will loose faith in their institutions and the government's ability to
+    function properly. Once that happens, civil unrest and chaos will ensue. It's
+    important to stop early signs of institutional failures before they destroy the
+    society.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: The court doesn't seem to have a strong reason to hear the case, so I
+        agree that the Sri Lankan court seem to be politicized.
+    - role: intermediate_consequence
+      text: people will loose faith in their institutions and the government's ability
+        to function properly.
+    - role: final_consequence
+      text: Once that happens, civil unrest and chaos will ensue. It's important to
+        stop early signs of institutional failures before they destroy the society.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+    - will loose faith in their institutions and the government's ability to function
+      properly. Once that happens, civil unrest and chaos will ensue. It's important
+      to stop early signs of institutional
+    - failures before they destroy the society.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The Sri Lankan court is politicized
+    candidate: Hasty Generalization
+    supporting_reason: The court lacks a strong reason to hear the case
+    support_relation: used to justify the conclusion that the court is politicized
+    label_justification: A single observation of the court’s lack of grounds for a
+      particular case is generalized to claim that the institution is politicized
+      overall, which is a classic Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+  counterargument:
+    decisive_counterargument: A court’s decision not to hear a case does not automatically
+      erode public trust or trigger widespread unrest; the chain of consequences the
+      comment proposes is unsubstantiated.
+    candidate: Slippery Slope
+    challenged_inference: The court’s lack of a strong reason to hear the case will
+      inevitably lead the public to lose faith in institutions, which will cause civil
+      unrest and chaos.
+    label_justification: The target argument builds an assumed, escalating chain of
+      negative outcomes—loss of faith, unrest, and chaos—stemming from a single judicial
+      action. This speculative causal progression, lacking evidence, typifies a slippery‑slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+    - will loose faith in their institutions and the government's ability to function
+      properly. Once that happens, civil unrest and chaos will ensue. It's important
+      to stop early signs of institutional
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: Slippery Slope does not fit because the text does not provide a
+      clear progressive chain of consequences from the initial event; the claim about
+      politicization is a direct generalization from a single observation.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The court doesn't seem to have a strong reason to hear the case, so I agree
+      that the Sri Lankan court seem to be politicized. This is distressing because
+      people
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: A single observation— that the court had no strong reason to
+    hear a particular case— is generalized to the conclusion that the entire Sri Lankan
+    court is politicized. This meets the structural criterion for a hasty generalization.
+  decision_reason: The target statement extrapolates from one specific lack of justification
+    to a blanket claim about the institution’s politicization, which is the classic
+    form of hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The court doesn't seem to have a strong reason to hear the case, so I agree that
+    the Sri Lankan court seem to be politicized. This is distressing because people
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 6302
+  completion_tokens: 5186
+  total_tokens: 11488
+  wall_time_seconds: 491.9070000000065

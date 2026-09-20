@@ -1,0 +1,143 @@
+sample:
+  id: 4:9309
+  article_id: 4
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: This is the expected consequence of taking such drastic, abnormal measures
+    to try to contain a pandemic. We have immune systems for a reason. Of course,
+    sensible measures like taking vaccines when they're available and not coughing
+    in other people's faces and all that are great, but we should also let nature
+    run its course before we put the entire world under such authoritarian measures.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: We have immune systems for a reason.
+    - role: evaluative_conclusion
+      text: we should also let nature run its course before we put the entire world
+        under such authoritarian measures.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+    - world under such authoritarian measures.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Let nature run its course before imposing authoritarian measures
+      to contain a pandemic.
+    candidate: Appeal to Nature
+    supporting_reason: We have immune systems for a reason.
+    support_relation: The conclusion that authoritarian measures should be avoided
+      is supported by the claim that humans possess natural immune systems, implying
+      that natural resistance is preferable to imposed restrictions.
+    label_justification: The argument uses the naturalness of immune defenses as a
+      justification against political or societal interventions, which constitutes
+      an appeal to nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+  counterargument:
+    decisive_counterargument: The argument assumes that because we possess natural
+      immune systems, we ought to rely exclusively on that and avoid any policy intervention.
+      However, empirical evidence shows that when an outbreak reaches a large scale—especially
+      with a novel, highly transmissible virus—uncontrolled spread overwhelms any
+      natural immunity, leading to massive morbidity and mortality. Public health
+      measures such as lockdowns, mask mandates, and testing not only reduce transmission
+      rates but also buy time for vaccine distribution, ultimately saving lives. Thus,
+      relying solely on natural immunity is not a safe or rational strategy.
+    candidate: Appeal to Nature
+    challenged_inference: We should let nature run its course before imposing authoritarian
+      measures.
+    label_justification: The objection directly confronts the premise that 'nature
+      is sufficient' and shows that this premise is flawed. It therefore exposes the
+      appeal‑to‑nature fallacy, wherein the argument treats natural processes as inherently
+      preferable to human‑made interventions.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+    - vaccines when they're available and not coughing in other people's faces and
+      all that are great, but we should also let nature run its course before we put
+      the entire
+    - world under such authoritarian measures.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that because humans have natural immune systems,
+    we should allow nature to manage the pandemic and avoid authoritarian measures,
+    using the naturalness of immunity to justify a policy choice – the classic appeal-to‑nature
+    structure.
+  decision_reason: The argument claims that natural immunity exists ‘for a reason’,
+    and therefore the best course is to let nature run its course instead of imposing
+    restrictive measures. This uses the naturalness of an immune system as a value
+    justification, matching the appeal‑to‑nature structure. Hence the candidate ‘Appeal
+    to Nature’ correctly identifies the fallacy. The evidence supporting this is the
+    passages labeled T1 and T3.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - This is the expected consequence of taking such drastic, abnormal measures to
+    try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+    measures like taking
+  - world under such authoritarian measures.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4663
+  completion_tokens: 3051
+  total_tokens: 7714
+  wall_time_seconds: 101.46899999998277

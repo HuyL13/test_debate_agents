@@ -1,0 +1,155 @@
+sample:
+  id: 87:3709
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: We have all known for decades now that China is a bad country and its pretty
+    much tradition at this point to not trust them, especially if you live close to
+    them and their government. The people of Hong Kong who are supporting the blue
+    businesses are doing a huge disservice to their people and their country. They
+    should know what will happen if China wins and these protestors lose!
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: all people
+    - role: popularity_claim
+      text: We have all known for decades now
+    - role: target_claim
+      text: China is a bad country
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We have all known for decades now that China is a bad country and its pretty
+      much tradition at this point to not trust them, especially if you live close
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The people of Hong Kong who support blue businesses are doing
+      a huge disservice to their people and country; they should know what will happen
+      if China wins and these protesters lose.
+    candidate: null
+    supporting_reason: We have all known for decades that China is a bad country and
+      it has a tradition of not trusting them.
+    support_relation: Because China is bad and untrustworthy, the supporters who back
+      it are harming their people and country.
+    label_justification: The argument does not correspond to any of the listed logical‑fallacy
+      types (no hidden premises, no appeal to authority/many, etc.), so no fallacy
+      is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We have all known for decades now that China is a bad country and its pretty
+      much tradition at this point to not trust them, especially if you live close
+  counterargument:
+    decisive_counterargument: Stating that China is a 'bad country' without any evidence
+      or specifying which aspects are bad is an over‑generalization; it applies a
+      single negative perception to a whole nation and ignores the many different
+      dimensions of China’s society and economy that could be viewed positively. The
+      argument simply assumes that because someone dislikes China’s government, China
+      entire is bad, which is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: China is a bad country and therefore Hong Kong people who
+      buy from blue businesses are harming their country
+    label_justification: The objection shows that the argument draws a sweeping conclusion
+      about the entire country of China based on unspecified or insufficient evidence,
+      which is the defining characteristic of a Hasty Generalization. The claim ‘China
+      is a bad country’ applies a single negative label to an entire nation without
+      presenting supporting instances or data, thus revealing a specific reasoning
+      defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We have all known for decades now that China is a bad country and its pretty
+      much tradition at this point to not trust them, especially if you live close
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The hasty generalization structure requires that the argument explicitly
+      draw a sweeping conclusion about a large group based on a specific, typically
+      insufficient, sample or particular cases. The target claim simply states that
+      “China is a bad country” without citing any specific examples or evidence from
+      a subset; it merely asserts a universal label. Because the passage offers no
+      such sample or concrete instances from which the general claim is inferred,
+      the mandatory structural condition for a hasty generalization is not satisfied.
+      Consequently, the appeal to majority, which is directly supported by the claim
+      that “everyone has known this for decades,” is the correct fallacy.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We have all known for decades now that China is a bad country and its pretty
+      much tradition at this point to not trust them, especially if you live close
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states ‘We have all known for decades
+    now that China is a bad country’, using a majority‐knowledge claim (‘all people
+    know’) to justify the target claim. This satisfies the mandatory structural condition
+    of an Appeal to Majority, supported by evidence T1.
+  decision_reason: The target contains a popularity claim (‘we have all known for
+    decades now’) used to support the claim that China is a bad country, matching
+    the required structure of an Appeal to Majority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - We have all known for decades now that China is a bad country and its pretty much
+    tradition at this point to not trust them, especially if you live close
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5548
+  completion_tokens: 4287
+  total_tokens: 9835
+  wall_time_seconds: 114.60900000002584

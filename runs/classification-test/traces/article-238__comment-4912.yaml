@@ -1,0 +1,134 @@
+sample:
+  id: 238:4912
+  article_id: 238
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Why are there so many Iranians focused on a war in a foreign country? I
+    think they have enough problems at home to worry about. I guess they need a distraction
+    from all the human rights abuses and protests that are going on.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: many Iranians focused on a war in a foreign country
+    - role: observed_property
+      text: they have enough problems at home to worry about
+    - role: target_population
+      text: they need a distraction from all the human rights abuses and protests
+        that are going on
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why are there so many Iranians focused on a war in a foreign country? I think
+      they have enough problems at home to worry about. I guess they need a
+    - distraction from all the human rights abuses and protests that are going on.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The speaker is trying to explain why many Iranians focus on
+      a foreign war, suggesting it is due to a need for distraction from domestic
+      issues.
+    candidate: null
+    supporting_reason: They claim that the people need a distraction from all the
+      human rights abuses and protests happening at home.
+    support_relation: This reason is used to justify the conclusion by attributing
+      a motive (distraction) for the observed attention to the foreign war.
+    label_justification: The argument does not contain any of the target logical fallacies
+      (Hasty Generalization, Slippery Slope, False Dilemma, Appeal to Authority, Appeal
+      to Majority, Appeal to Nature, Appeal to Tradition, or Appeal to Worse Problems).
+      It is merely a speculative explanation, so no fallacy label is warranted.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why are there so many Iranians focused on a war in a foreign country? I think
+      they have enough problems at home to worry about. I guess they need a
+    - distraction from all the human rights abuses and protests that are going on.
+  counterargument:
+    decisive_counterargument: It’s unsupported to say that the Iranians’ attention
+      on a foreign war is simply a distraction from domestic issues; they may have
+      legitimate interests, empathy, or geopolitical reasons for caring about it.
+      The claim assumes a single motive for all Iranians without evidence, making
+      the inference a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Because Iranians have plenty of domestic problems, their
+      focus on a foreign war serves as a distraction.
+    label_justification: The argument generalizes the entire Iranian population’s
+      motivation from an unproven claim, fitting the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why are there so many Iranians focused on a war in a foreign country? I think
+      they have enough problems at home to worry about. I guess they need a
+    - distraction from all the human rights abuses and protests that are going on.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target presents a claim that the entire Iranian population
+    needs a distraction from domestic issues, based solely on the observation that
+    many Iranians focus on a foreign war; this is an unsupported generalization from
+    a sample to the whole population, satisfying the Hasty Generalization structure.
+    The evidence supporting this claim is found in passages T1 and T2.
+  decision_reason: The passage generalizes the whole Iranian population’s motivation
+    to 'need a distraction' based on an unqualified claim that 'many Iranians' are
+    focused on a foreign conflict, meeting the definition of a Hasty Generalization.
+    Evidence T1 and T2 provide the relevant premises.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why are there so many Iranians focused on a war in a foreign country? I think
+    they have enough problems at home to worry about. I guess they need a
+  - distraction from all the human rights abuses and protests that are going on.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4167
+  completion_tokens: 3167
+  total_tokens: 7334
+  wall_time_seconds: 155.85900000002584

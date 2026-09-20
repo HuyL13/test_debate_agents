@@ -1,0 +1,134 @@
+sample:
+  id: 22:3213
+  article_id: 22
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: I am happy, the environment is being protected against this mine. I do think
+    we need to look at other ways to boost the local economy. It is also important
+    the government look into regulations for further development plans that protect
+    the environment. Ecologist, Dr. Seema said, mining not only harms the environment
+    but also impedes sustainable economic growth. There needs to be a balance that
+    benefits both the environment and the economy. I think we need to get more information
+    about impacts before we move forward with any regulations. Are there other experts
+    that have different opinions? We need to stick to the facts in order to gain the
+    most benefit possible. How else can we benefit the economy if the mine is not
+    a good option?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Dr. Seema
+    - role: endorsed_claim
+      text: mining not only harms the environment but also impedes sustainable economic
+        growth
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the government look into regulations for further development plans that protect
+      the environment. Ecologist, Dr. Seema said, mining not only harms the environment
+      but also impedes sustainable economic growth. There
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker seeks to protect the environment from the proposed
+      mine while exploring alternative economic opportunities, emphasizing that regulation
+      should be based on factual information and expert input.
+    candidate: null
+    supporting_reason: Dr. Seema’s statement that mining harms the environment and
+      impedes sustainable economic growth
+    support_relation: The expert’s claim is used to justify regulatory action and
+      the need for a balanced approach that protects the environment and supports
+      the local economy.
+    label_justification: The expert quotation is used as legitimate evidence; it does
+      not misrepresent the authority or commit a fallacious appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the government look into regulations for further development plans that protect
+      the environment. Ecologist, Dr. Seema said, mining not only harms the environment
+      but also impedes sustainable economic growth. There
+  counterargument:
+    decisive_counterargument: The argument that mining impedes sustainable economic
+      growth rests almost entirely on the single statement of ecologist Dr. Seema,
+      without presenting any empirical data or broader expert consensus. Relying on
+      one authority’s claim to justify a policy stance constitutes an appeal‑to‑authority
+      fallacy and fails to substantiate the economic impact claim.
+    candidate: Appeal to Authority
+    challenged_inference: Mining harms the environment and impedes sustainable economic
+      growth.
+    label_justification: The objection directly addresses the reasoning failure that
+      the claim is supported solely by one expert’s statement, a classic case of appeal
+      to authority rather than evidence-based argumentation.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the government look into regulations for further development plans that protect
+      the environment. Ecologist, Dr. Seema said, mining not only harms the environment
+      but also impedes sustainable economic growth. There
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly cites ecologist Dr. Seema’s statement
+    that mining harms the environment and impedes sustainable economic growth, using
+    her authority as the sole support for this claim without presenting additional
+    empirical evidence. This satisfies the structural requirement for an appeal‑to‑authority
+    fallacy.
+  decision_reason: The target’s argument relies solely on a single expert’s assertion
+    to support a substantive claim about mining’s impacts, matching the definition
+    of an appeal to authority fallacy.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - the government look into regulations for further development plans that protect
+    the environment. Ecologist, Dr. Seema said, mining not only harms the environment
+    but also impedes sustainable economic growth. There
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5168
+  completion_tokens: 4118
+  total_tokens: 9286
+  wall_time_seconds: 105.32800000000861

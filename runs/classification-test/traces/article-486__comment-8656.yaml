@@ -1,0 +1,168 @@
+sample:
+  id: 486:8656
+  article_id: 486
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: When I see a major hacking story like this, I immediately become doubtful
+    of all the details that come from parties that are directly involved in the incident.
+    Should we just buy automatically what these biased individuals release to the
+    public? I think not. What we need here is an independent security firm to come
+    in and see what damage was actually done. Too expensive? Not needed? I highly
+    disagree with this and so does Tom Stayward of Tom's Cybersecurity Plus. He is
+    an expert of internet security and he says they must hire a team of experts to
+    check into this matter. Furthermore he is no slouch in the field, he has investigated
+    numerous such incidents and has found the root truths in all of them. He says
+    'It's often not what the officials first believe, many times there are breeches
+    they don't even know have happened." I know some people will just want to move
+    on, but I feel we must find the truth. Is anything more important than the truth?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Tom Stayward of Tom's Cybersecurity Plus
+    - role: endorsed_claim
+      text: We must hire a team of independent security experts to investigate the
+        incident.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    - T5
+    evidence_spans:
+    - was actually done. Too expensive? Not needed? I highly disagree with this and
+      so does Tom Stayward of Tom's Cybersecurity Plus. He is an expert of internet
+      security and he
+    - says they must hire a team of experts to check into this matter. Furthermore
+      he is no slouch in the field, he has investigated numerous such incidents and
+      has found
+    - the root truths in all of them. He says 'It's often not what the officials first
+      believe, many times there are breeches they don't even know have happened."
+      I know
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: We should hire an independent security firm to investigate
+      the damage rather than rely on the biased releases from the parties directly
+      involved.
+    candidate: Appeal to Authority
+    supporting_reason: Tom Stayward’s status as an internet‑security expert and his
+      statements that hiring a team of experts is necessary for uncovering the true
+      damage.
+    support_relation: The author uses Tom’s authority to justify the conclusion that
+      an independent investigation is required.
+    label_justification: The argument depends on the expertise of Tom Stayward to
+      legitimize the recommendation, which is a classic appeal to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    - T5
+    evidence_spans:
+    - was actually done. Too expensive? Not needed? I highly disagree with this and
+      so does Tom Stayward of Tom's Cybersecurity Plus. He is an expert of internet
+      security and he
+    - says they must hire a team of experts to check into this matter. Furthermore
+      he is no slouch in the field, he has investigated numerous such incidents and
+      has found
+    - the root truths in all of them. He says 'It's often not what the officials first
+      believe, many times there are breeches they don't even know have happened."
+      I know
+  counterargument:
+    decisive_counterargument: The conclusion that we should hire an independent security
+      firm relies solely on Tom Stayward’s assertion of his expertise, yet no empirical
+      evidence is offered to show that his recommendation is reliable or that independent
+      verification is in fact needed. Relying on one expert’s opinion to justify a
+      procedural change is precisely the classic appeal to authority fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: Because Tom Stayward is an expert, his recommendation to
+      employ an independent security firm is a sufficient reason to do so.
+    label_justification: The argument uses Tom Stayward’s purported authority as the
+      sole justification for hiring additional experts, without presenting independent
+      evidence or reasoning. This matches the appeal to authority fallacy, where an
+      expert’s opinion is treated as proof without substantive support.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    - T5
+    evidence_spans:
+    - was actually done. Too expensive? Not needed? I highly disagree with this and
+      so does Tom Stayward of Tom's Cybersecurity Plus. He is an expert of internet
+      security and he
+    - says they must hire a team of experts to check into this matter. Furthermore
+      he is no slouch in the field, he has investigated numerous such incidents and
+      has found
+    - the root truths in all of them. He says 'It's often not what the officials first
+      believe, many times there are breeches they don't even know have happened."
+      I know
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that the recommendation to hire an independent
+    security firm relies solely on Tom Stayward’s asserted expertise and statements,
+    with no independent evidence offered. This matches the definition of an appeal
+    to authority, fulfilling both the structure (authority cited) and the content
+    (unsubstantiated reliance).
+  decision_reason: The conclusion that an independent security firm should be hired
+    is justified only by citing an authority’s claim, satisfying the criteria for
+    an appeal to authority fallacy.
+  evidence_ids:
+  - T3
+  - T4
+  - T5
+  evidence_spans:
+  - was actually done. Too expensive? Not needed? I highly disagree with this and
+    so does Tom Stayward of Tom's Cybersecurity Plus. He is an expert of internet
+    security and he
+  - says they must hire a team of experts to check into this matter. Furthermore he
+    is no slouch in the field, he has investigated numerous such incidents and has
+    found
+  - the root truths in all of them. He says 'It's often not what the officials first
+    believe, many times there are breeches they don't even know have happened." I
+    know
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6106
+  completion_tokens: 3139
+  total_tokens: 9245
+  wall_time_seconds: 60.671999999991385

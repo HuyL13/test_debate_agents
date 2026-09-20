@@ -1,0 +1,165 @@
+sample:
+  id: 429:6683
+  article_id: 429
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: I agree that it's good that this bill was withdrawn but who is to say where
+    it stops? The issue now becomes what other laws can the people find to challenge
+    and have withdrawn? Are we going to petition for leniency in burglary or tax evasion
+    laws just because we don't agree with them? Would murder be considered fair? It's
+    crucial to note that this could pave the way to utter chaos where anyone with
+    a slick lawyer could get away with ruthless crimes. The direction we are headed
+    in is scary!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the withdrawal of the bill
+    - role: intermediate_consequence
+      text: people may challenge and withdraw other laws
+    - role: final_consequence
+      text: chaos where slick lawyers could get away with ruthless crimes
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that it's good that this bill was withdrawn but who is to say where
+      it stops? The issue now becomes what other laws can the people find to
+    - challenge and have withdrawn? Are we going to petition for leniency in burglary
+      or tax evasion laws just because we don't agree with them? Would murder be considered
+      fair? It's
+    - crucial to note that this could pave the way to utter chaos where anyone with
+      a slick lawyer could get away with ruthless crimes. The direction we are headed
+      in
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker concludes that withdrawing the bill could trigger
+      a cascade of legal loosening and societal chaos.
+    candidate: Slippery Slope
+    supporting_reason: The claim that the bill’s withdrawal could “pave the way to
+      utter chaos where anyone with a slick lawyer could get away with ruthless crimes”
+      implies a chain reaction of worsening consequences.
+    support_relation: The slippery‑slope reasoning is used to justify the speaker’s
+      warning that withdrawing the bill will lead to indiscriminate legal leniency
+      and societal breakdown.
+    label_justification: The argument projects an escalating series of negative outcomes
+      (from withdrawal of one law to deregulation of severe crimes) without evidence
+      that such a progression will occur, which fits the definition of a slippery‑slope
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - challenge and have withdrawn? Are we going to petition for leniency in burglary
+      or tax evasion laws just because we don't agree with them? Would murder be considered
+      fair? It's
+    - crucial to note that this could pave the way to utter chaos where anyone with
+      a slick lawyer could get away with ruthless crimes. The direction we are headed
+      in
+    - is scary!
+  counterargument:
+    decisive_counterargument: While the withdrawal of a single bill may indicate a
+      willingness to reconsider certain statutes, it does not logically entail a cascading
+      deluge of law‑withdrawals—including grave offenses like burglary, tax evasion,
+      or even murder. The argument commits a slippery‑slope fallacy by presenting
+      a single, unsubstantiated leap to catastrophic outcomes simply because the first
+      step has been taken.
+    candidate: Slippery Slope
+    challenged_inference: The inference that withdrawing one bill will inevitably
+      lead to the withdrawal of increasingly severe laws, culminating in chaos where
+      a slick lawyer can get away with ruthless crimes.
+    label_justification: The objection directly targets the reasoning that a single
+      withdrawal triggers a chain reaction, a classic example of a slippery‑slope
+      fallacy. It points out that the claim lacks intermediate steps or evidence,
+      therefore the argument’s derivation of chaotic consequences is the specific
+      reasoning failure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that it's good that this bill was withdrawn but who is to say where
+      it stops? The issue now becomes what other laws can the people find to
+    - challenge and have withdrawn? Are we going to petition for leniency in burglary
+      or tax evasion laws just because we don't agree with them? Would murder be considered
+      fair? It's
+    - crucial to note that this could pave the way to utter chaos where anyone with
+      a slick lawyer could get away with ruthless crimes. The direction we are headed
+      in
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target asserts that the withdrawal of a single bill will
+    inevitably trigger a chain of further legal relaxations culminating in chaotic
+    crime, a claim lacking evidence and presenting a progressive, unsubstantiated
+    sequence of negative consequences.
+  decision_reason: The argument projects an escalating series of negative outcomes
+    (from withdrawing one law to the potential withdrawal of severe crimes and ensuing
+    chaos) without any supporting evidence, satisfying the structure of a slippery‑slope
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I agree that it's good that this bill was withdrawn but who is to say where it
+    stops? The issue now becomes what other laws can the people find to
+  - challenge and have withdrawn? Are we going to petition for leniency in burglary
+    or tax evasion laws just because we don't agree with them? Would murder be considered
+    fair? It's
+  - crucial to note that this could pave the way to utter chaos where anyone with
+    a slick lawyer could get away with ruthless crimes. The direction we are headed
+    in
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5206
+  completion_tokens: 3229
+  total_tokens: 8435
+  wall_time_seconds: 95.95400000002701

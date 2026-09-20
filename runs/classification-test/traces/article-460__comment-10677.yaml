@@ -1,0 +1,145 @@
+sample:
+  id: 460:10677
+  article_id: 460
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Malaysians should be very wary. Authoritarianism always starts small, like
+    this. First it's just so-called misinformation related to COVID, but what's next?
+    Before you know it, so much as saying you don't think the government is doing
+    a great job is an offense and all dissenting voices will be silenced.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Authoritarianism always starts small, like this. First it's just so-called
+        misinformation related to COVID
+    - role: intermediate_consequence
+      text: Before you know it, so much as saying you don't think the government is
+        doing a great job is an offense
+    - role: final_consequence
+      text: all dissenting voices will be silenced
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Malaysians should be very wary that authoritarianism will
+      grow and silence dissent.
+    candidate: Slippery Slope
+    supporting_reason: Authoritarianism always starts small, like this—first it’s
+      misinformation about COVID, but what’s next? Before you know it, dissenting
+      voices will be silenced.
+    support_relation: The reason portrays an inevitable escalation from a small, initial
+      authoritarian act (misinformation) to a severe outcome (silencing dissent),
+      thereby justifying the conclusion that Malaysians must be cautious.
+    label_justification: The argument claims a chain of events—small‑scale authoritarian
+      control leading inevitably to the suppression of dissent—without demonstrating
+      a clear causal mechanism, which is characteristic of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+  counterargument:
+    decisive_counterargument: The target’s claim that “Authoritarianism always starts
+      small” and will inevitably spread to silence dissent is a slippery‑slope argument
+      that offers no evidence linking the suppression of COVID‑19 misinformation to
+      broader censorship; paradoxically, governments can target misinformation while
+      maintaining democratic freedoms.
+    candidate: Slippery Slope
+    challenged_inference: Because the government currently suppresses COVID‑related
+      misinformation, authoritarianism will inevitably expand to silence all dissenting
+      voices.
+    label_justification: The objection points out that the claim relies on an unsupported
+      progression from a single policy change to a chain of increasingly repressive
+      actions. This is a classic slippery‑slope fallacy, not merely a weak argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents a causal chain from an initial modest authoritarian
+    action (restricting COVID‑related misinformation) to an extreme outcome (complete
+    silencing of dissent) without substantiating the link, matching a slippery‑slope
+    structure. Evidence ids: [T1,T2]'
+  decision_reason: The argument purports that a small start—policing misinformation—inevitably
+    leads to dissent being deemed offensive and ultimately silenced, a classic slippery‑slope
+    assertion that lacks evidence for a causal mechanism and satisfies the mandatory
+    progression condition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Malaysians should be very wary. Authoritarianism always starts small, like this.
+    First it's just so-called misinformation related to COVID, but what's next? Before
+    you know it, so much as saying
+  - you don't think the government is doing a great job is an offense and all dissenting
+    voices will be silenced.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4600
+  completion_tokens: 3249
+  total_tokens: 7849
+  wall_time_seconds: 67.57799999997951

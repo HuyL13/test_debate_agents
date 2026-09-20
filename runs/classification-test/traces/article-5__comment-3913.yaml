@@ -1,0 +1,151 @@
+sample:
+  id: 5:3913
+  article_id: 5
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: He wasn't a saviour but I also like to see sometimes that people can work
+    around the system to get their freedom. Reminds me of the stories my granddad
+    told me about people outsmarting the man during prohibition. The good thing is
+    the holes he used for deception will be plugged so the system should be better
+    in the end.
+  target: Saying things like that will eventually lead you and others to being happy
+    when all criminals get out of their punishment. That thinking will lead to lawlessness.
+    I mean, if you are happy one tax evader escaped justice, why wouldn't you be happy
+    when a robber or a murderer escaped next?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Saying things like that
+    - role: intermediate_consequence
+      text: you and others to being happy when all criminals get out of their punishment
+    - role: final_consequence
+      text: lawlessness
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Saying things like that will eventually lead you and others to being happy when
+      all criminals get out of their punishment. That thinking will lead to lawlessness.
+      I mean, if
+    - you are happy one tax evader escaped justice, why wouldn't you be happy when
+      a robber or a murderer escaped next?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Saying such praise for criminal escapes will eventually lead
+      to general happiness for evaders and ultimately to lawlessness.
+    candidate: Slippery Slope
+    supporting_reason: If you are happy when a tax evader escapes justice, why wouldn’t
+      you be happy when a robber or murderer escapes next?
+    support_relation: The reason shows a chain of escalating happiness that culminates
+      in lawlessness, implying that a single permissive statement will lead to broad
+      negative consequences.
+    label_justification: The argument claims that a single permissive statement will
+      inevitably lead to an extreme undesirable outcome—lawlessness—without intermediate
+      evidence, fitting the definition of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Saying things like that will eventually lead you and others to being happy when
+      all criminals get out of their punishment. That thinking will lead to lawlessness.
+      I mean, if
+    - you are happy one tax evader escaped justice, why wouldn't you be happy when
+      a robber or a murderer escaped next?
+  counterargument:
+    decisive_counterargument: Praising or discussing how some individuals have used
+      loopholes to evade punishment does not logically lead to a broad pattern where
+      everyone will relish the escape of all criminals. The argument assumes a causal
+      chain—from admiration of occasional successful outsmarting to a general societal
+      shift toward celebrating criminal escapes—that is not supported by evidence.
+      Celebrating a single case or arguing that creativity can outsmart a specific
+      law does not guarantee that future tax evaders, robbers, or murderers will routinely
+      escape and that society will become lawless.
+    candidate: Slippery Slope
+    challenged_inference: That praising or reflecting on loopholes will inevitably
+      cause people to be happy when all criminals escape punishment, leading to widespread
+      lawlessness.
+    label_justification: The objection exposes a failure to establish a legitimate
+      causal connection between the initial event (commenting on loopholes) and the
+      extreme outcomes (lawlessness). The TARGET argument presents a compressed, unsupported
+      progression—a hallmark of a slippery‑slope fallacy—by asserting that one specific
+      type of thinking inevitably leads to a chain of increasingly adverse consequences
+      without demonstrating the intermediary steps.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Saying things like that will eventually lead you and others to being happy when
+      all criminals get out of their punishment. That thinking will lead to lawlessness.
+      I mean, if
+    - you are happy one tax evader escaped justice, why wouldn't you be happy when
+      a robber or a murderer escaped next?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument presents a chain from praising criminal escapes
+    to widespread lawlessness, a classic slippery‑slope structure without intermediate
+    evidence.
+  decision_reason: The target statement outlines an initial event (Saying things like
+    that), an intermediate consequence (people becoming happy when criminals escape),
+    and a final undesirable outcome (lawlessness), satisfying the slippery‑slope structure.
+    No other fallacy structure is present. Evidence T1 and T2 provide the complete
+    chain.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Saying things like that will eventually lead you and others to being happy when
+    all criminals get out of their punishment. That thinking will lead to lawlessness.
+    I mean, if
+  - you are happy one tax evader escaped justice, why wouldn't you be happy when a
+    robber or a murderer escaped next?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4858
+  completion_tokens: 2829
+  total_tokens: 7687
+  wall_time_seconds: 110.125

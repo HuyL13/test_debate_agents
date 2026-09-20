@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from src.llm.client import Client, GenerationResult, ModelConfig
 from src.schemas import arbiter_schema
 
@@ -62,3 +64,23 @@ def test_client_returns_output_with_call_stats_and_cache_hit(tmp_path):
     audit = (tmp_path / "api_calls.jsonl").read_text(encoding="utf-8")
     assert '"request"' not in audit
     assert '"response"' not in audit
+
+
+def test_client_reports_provider_finish_reason_for_non_final_response(tmp_path):
+    response = envelope("{}")
+    response["choices"][0]["finish_reason"] = "length"
+    transport = Transport([response])
+    client = Client(
+        ModelConfig(name="fixture-model", provider="mock", max_attempts=1),
+        tmp_path / "cache.sqlite",
+        tmp_path / "api_calls.jsonl",
+        transport=transport,
+    )
+
+    with pytest.raises(ValueError, match="finish_reason=length"):
+        client.generate(
+            system_prompt="Analyze.",
+            user_prompt=json.dumps({"input": {"comment": "x"}}),
+            schema=arbiter_schema("detection", ["Slippery Slope"]),
+            metadata={"stage": "arbiter"},
+        )

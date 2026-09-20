@@ -1,0 +1,138 @@
+sample:
+  id: 387:6559
+  article_id: 387
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: Hong Kong is finished. The people need to rise up and take control. If China
+    keeps weighing their influence on HK, things will get worse.
+  target: You believe Hong Kong is finished just because of a single law and a few
+    examples of it maybe negatively affecting the country?  I think you are jumping
+    to a conclusion without weighing all the facts and understanding that laws can
+    be complex and their outcomes evolve over time. I understand the initial concern
+    but we have to look at these issues with a discerning eye to see what the actual
+    effects and their causes are.  At this point we are not sure if the concerns to
+    this law will not be addressed and improve the law in the long run. I really hope
+    that in the end all these concerns will actually lead to a more free Hong Kong
+    and the people who live there.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - You believe Hong Kong is finished just because of a single law and a few examples
+      of it maybe negatively affecting the country?  I think you are jumping to a
+    - conclusion without weighing all the facts and understanding that laws can be
+      complex and their outcomes evolve over time. I understand the initial concern
+      but we have to look at
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: The speaker is challenging the assertion that Hong Kong is
+      finished, arguing that the claim is premature and based on insufficient evidence.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The target’s assertion that the other side’s claim is hasty
+      is a legitimate critique and directly supports the speaker’s goal. No fallacious
+      reasoning is employed.
+    mechanism_supports_goal: true
+    support_relation: The reason is used to explain why the original claim is unsubstantiated
+      and therefore should be rejected.
+    supporting_reason: The speaker says the claim is a 'jumping to a conclusion without
+      weighing all the facts'.
+    evidence_spans:
+    - You believe Hong Kong is finished just because of a single law and a few examples
+      of it maybe negatively affecting the country?  I think you are jumping to a
+    - conclusion without weighing all the facts and understanding that laws can be
+      complex and their outcomes evolve over time. I understand the initial concern
+      but we have to look at
+  counterargument:
+    decisive_counterargument: The target’s claim that the opposing view rests solely
+      on a single law and a few examples is a misrepresentation; it ignores any broader
+      context or additional evidence that might have been cited. By reducing the opposing
+      argument to such an oversimplification, the target commits a strawman fallacy,
+      because it attacks a version of the argument that the original speaker did not
+      present.
+    candidate: False Dilemma
+    challenged_inference: The target infers that the opposing side’s stance is simplistic
+      and based only on a single law, thereby simplifying and misrepresenting their
+      full argument.
+    label_justification: The target argument unfairly distorts the opposing view by
+      claiming it relies solely on a single law and arbitrary examples. By creating
+      a simplified, distorted version of the counterargument, the target engages in
+      a strawman approach. The text explicitly frames the opponent’s position as ‘just
+      because of a single law and a few examples’ (T1), and then immediately deems
+      this as a ‘jumping to a conclusion’ (T2). The mischaracterization undermines
+      a fair engagement with the actual reasoning, illustrating a classic strawman
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You believe Hong Kong is finished just because of a single law and a few examples
+      of it maybe negatively affecting the country?  I think you are jumping to a
+    - conclusion without weighing all the facts and understanding that laws can be
+      complex and their outcomes evolve over time. I understand the initial concern
+      but we have to look at
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: the TARGET does not present a limited set of options that are
+    claimed to be exhaustive, so it does not commit a False Dilemma.
+  decision_reason: The target’s argument addresses the opponent’s simplification of
+    the issue but does not offer a dichotomous choice or claim that only two alternatives
+    exist. Therefore the False Dilemma fallacy is not present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - You believe Hong Kong is finished just because of a single law and a few examples
+    of it maybe negatively affecting the country?  I think you are jumping to a
+  - conclusion without weighing all the facts and understanding that laws can be complex
+    and their outcomes evolve over time. I understand the initial concern but we have
+    to look at
+  verified: false
+  rejection_reason: The target’s argument addresses the opponent’s simplification
+    of the issue but does not offer a dichotomous choice or claim that only two alternatives
+    exist. Therefore the False Dilemma fallacy is not present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 2
+  retries: 2
+  prompt_tokens: 5178
+  completion_tokens: 3322
+  total_tokens: 8500
+  wall_time_seconds: 148.56299999999464

@@ -1,0 +1,154 @@
+sample:
+  id: 550:8247
+  article_id: 550
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: It's a good sign that the Middle East seems to be finally looking seriously
+    at renewable energy. Too often they have seem to be stuck with using oil and other
+    polluting fuels. When I look at the issue I think about my neighbor Paul, he says
+    he knows a lot bout energy technologies. He says that the Middle East should focus
+    entirely on solar power. He does seem to know what he is talking about, so who
+    am I to argue? I can see some people arguing that he doesn't have a degree or
+    is even an expert, but that seems snobbish to me. He uses a lot of words that
+    sound like they could be about energy and he said he watched a tv show about it
+    once. I think that is pretty impressive and his opinion should be respected.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Paul
+    - role: endorsed_claim
+      text: Middle East should focus entirely on solar power
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - focus entirely on solar power. He does seem to know what he is talking about,
+      so who am I to argue? I can see some people arguing that he doesn't
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The target asserts that Paul’s opinion—that the Middle East
+      should focus entirely on solar power—is valid and should be respected, implying
+      that the region’s shift toward renewables is a positive sign.
+    candidate: Appeal to Authority
+    supporting_reason: Paul claims to know a lot about energy technologies, uses technical-sounding
+      language, and has watched a relevant TV show, which the author presents as evidence
+      of his expertise.
+    support_relation: The perceived expertise of Paul is presented as the justification
+      for accepting his recommendation on renewable energy.
+    label_justification: The argument provides Paul’s supposed authority as the sole
+      basis for endorsing his position, relying on his claimed knowledge rather than
+      substantive evidence or expert consensus—an instance of appeal to an unverified
+      authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - focus entirely on solar power. He does seem to know what he is talking about,
+      so who am I to argue? I can see some people arguing that he doesn't
+    - have a degree or is even an expert, but that seems snobbish to me. He uses a
+      lot of words that sound like they could be about energy and he
+  counterargument:
+    decisive_counterargument: Paul’s lack of formal qualifications, limited experience,
+      and self‑claimed knowledge do not establish him as an expert on energy policy;
+      therefore his opinion cannot be accepted simply because he sounds knowledgeable.
+    candidate: Appeal to Authority
+    challenged_inference: Paul’s opinion on renewable energy is worthy of respect
+      because he appears knowledgeable.
+    label_justification: The objection directly targets the argument’s reliance on
+      a single individual’s perceived expertise. The target fails to provide credible
+      supporting evidence (credentials, peer review, empirical data) and instead leans
+      on Paul’s self‑characterization and casual familiarity with the topic, which
+      is the hallmark of an Appeal to Authority fallacy. The counterargument shows
+      that this appeal is unjustified, thus highlighting the specific reasoning flaw.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - polluting fuels. When I look at the issue I think about my neighbor Paul, he
+      says he knows a lot bout energy technologies. He says that the Middle East should
+    - focus entirely on solar power. He does seem to know what he is talking about,
+      so who am I to argue? I can see some people arguing that he doesn't
+    - have a degree or is even an expert, but that seems snobbish to me. He uses a
+      lot of words that sound like they could be about energy and he
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target affirms Paul’s opinion should be respected solely
+    on the basis that he “seems to know what he’s talking about,” citing his self‑claimed
+    knowledge and casual familiarity, which is the classic structure of an appeal
+    to authority. Evidence from the passages that convey this reasoning are T2, T3,
+    and T4.
+  decision_reason: The target presents Paul’s claim that the Middle East should focus
+    entirely on solar power as authoritative by invoking his seemingly expert knowledge.
+    This falls under Appeal to Authority because the argument relies on an unverified
+    individual's perceived expertise rather than on substantive evidence. The supporting
+    passages are T2, T3 and T4, which contain Paul’s claim, his self‑established expertise,
+    and the author’s endorsement of his knowledge.
+  evidence_ids:
+  - T2
+  - T3
+  - T4
+  evidence_spans:
+  - polluting fuels. When I look at the issue I think about my neighbor Paul, he says
+    he knows a lot bout energy technologies. He says that the Middle East should
+  - focus entirely on solar power. He does seem to know what he is talking about,
+    so who am I to argue? I can see some people arguing that he doesn't
+  - have a degree or is even an expert, but that seems snobbish to me. He uses a lot
+    of words that sound like they could be about energy and he
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5658
+  completion_tokens: 2477
+  total_tokens: 8135
+  wall_time_seconds: 52.64100000000326

@@ -1,0 +1,133 @@
+sample:
+  id: 19:3954
+  article_id: 19
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: Why are we putting in more restrictions? Does this really provide a benefit
+    or is it a way to distract from something else?  Are there any benefits I am unaware
+    of? It seems to go against a need for freedom of expression, a natural want/need
+    for all people. What problem is this actually solving? What do these restrictions
+    improve? What do you think?
+  target: This may be unintuitive, but lots of people in the world aren't interested
+    in the complete free flow of information. It just leads to endless polarization
+    and divisions in society. The majority in PNG might be completely for this, and
+    if they are, then we have no right to question them.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority in PNG
+    - role: popularity_claim
+      text: might be completely for this
+    - role: target_claim
+      text: we have no right to question them
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This may be unintuitive, but lots of people in the world aren't interested in
+      the complete free flow of information. It just leads to endless polarization
+      and divisions in society.
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The claim is that because the majority of people in Papua
+      New Guinea support the new media restrictions, there is no right to question
+      them, thereby justifying the restrictions.
+    candidate: Appeal to Majority
+    supporting_reason: The argument cites the perceived majority support as evidence
+      that the restrictions are acceptable and that objections should be dismissed.
+    support_relation: The reasoning uses the majority’s preference as a justificatory
+      basis for the policy, implying that majority opinion alone confers legitimacy.
+    label_justification: The argument employs the ad‑populum fallacy by asserting
+      that the majority’s support renders the policy unquestionable, rather than providing
+      independent evidence that the policy is sound.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This may be unintuitive, but lots of people in the world aren't interested in
+      the complete free flow of information. It just leads to endless polarization
+      and divisions in society.
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+  counterargument:
+    decisive_counterargument: even if a majority in png believes a policy, that does
+      not automatically validate it or preclude legitimate critique; history shows
+      majority‑supported rules can be harmful, and dissent can uncover legitimate
+      concerns.
+    candidate: Appeal to Majority
+    challenged_inference: the inference that because a majority might support media
+      restrictions, nothing can legitimately question them
+    label_justification: the objection points to an argument that relies on the size
+      of the group (the majority) to justify absence of scrutiny, which is the hallmark
+      of an appeal‑to‑majority fallacy
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target statement uses the claim that the majority in Papua
+    New Guinea might support the restrictions and therefore “we have no right to question
+    them,” whose reasoning rests on the size of the majority as justifying the policy—an
+    appeal‑to‑majority argument.
+  decision_reason: The argument links majority support directly to a dismissal of
+    criticism, a classic appeal‑to‑majority structure.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - The majority in PNG might be completely for this, and if they are, then we have
+    no right to question them.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4698
+  completion_tokens: 3089
+  total_tokens: 7787
+  wall_time_seconds: 46.125

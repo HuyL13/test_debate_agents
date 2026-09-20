@@ -1,0 +1,135 @@
+sample:
+  id: 66:3645
+  article_id: 66
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: You can't tell people how to celebrate.  Just because some people are too
+    stupid and irresponsible to fire guns doesn't mean this right should be taken
+    away from everyone. It  will spiral out of control.  It might get so out of hand,
+    one can't even burn leaves in their front yard lest they burn down everyone's
+    property.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: people having the right to fire guns is not taken away
+    - role: intermediate_consequence
+      text: It will spiral out of control
+    - role: final_consequence
+      text: one can't even burn leaves in their front yard lest they burn down everyone's
+        property
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You can't tell people how to celebrate.  Just because some people are too stupid
+      and irresponsible to fire guns doesn't mean this right should be taken away
+      from everyone. It
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker is arguing that the right to celebrate (e.g.,
+      firing guns for fireworks) should not be revoked for all people; restricting
+      it for a minority of careless users would lead to extreme, broad restrictions.
+    candidate: Slippery Slope
+    supporting_reason: The speaker asserts that taking away the right could spiral
+      out of control, eventually prohibiting even harmless activities like burning
+      leaves in the front yard to avoid accidental fires.
+    support_relation: The slippery‑slope claim (T2) is used as the justificatory reason
+      that the attempted restriction of firearms for irresponsible people would produce
+      unwanted, extreme consequences, thereby supporting the conclusion that the right
+      should be preserved for everyone.
+    label_justification: The text explicitly projects a single restriction (removing
+      the right for some people) into an escalating chain of more severe consequences
+      (ban on all celebratory activities), which characterizes a Slippery Slope fallacy.
+      Evidence includes T2, detailing the predicted ‘spiral out of control’.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+  counterargument:
+    decisive_counterargument: The claim that restricting gun rights for a few irresponsible
+      users would inevitably lead to an erosion of unrelated freedoms—like burning
+      leaves in a yard—is an unsubstantiated causal chain. No evidence shows that
+      cutting a single right triggers a cascade of extreme social controls; the argument
+      simply projects fearful outcomes without demonstrating any likelihood or mechanism.
+    candidate: Slippery Slope
+    challenged_inference: If some people cannot responsibly use guns, then limiting
+      gun rights will spiral into banning other unrelated activities such as burning
+      leaves.
+    label_justification: The objection targets the implicit assumption that a single
+      restriction will automatically cause a chain of progressively extreme, unrelated
+      restrictions. This is precisely the pattern of a slippery slope fallacy, where
+      a presumed causal link is presented without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target states that restricting gun rights for irresponsible
+    users will trigger an escalating chain of extreme restrictions—up to banning simple
+    actions like burning leaves—thereby presenting an unsubstantiated causal progression
+    characteristic of a slippery‑slope fallacy.
+  decision_reason: The passage contains an unverified causal chain that a small restriction
+    (on gun fireworks) will lead to drastic, unrelated restrictions, satisfying the
+    structural conditions for a slippery‑slope reasoning.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - will spiral out of control.  It might get so out of hand, one can't even burn
+    leaves in their front yard lest they burn down everyone's property.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4551
+  completion_tokens: 3958
+  total_tokens: 8509
+  wall_time_seconds: 133.875

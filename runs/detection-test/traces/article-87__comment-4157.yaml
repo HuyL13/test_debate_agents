@@ -1,0 +1,138 @@
+sample:
+  id: 87:4157
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: These people are choosing to lose things based on their opinions. What about
+    children who have no choice about the fact that they are going hungry. I don't
+    understand helping those who are making the choice to go hungry. I think our energy
+    would be better spent helping the innocent victims like children.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: helping those who are making the choice to go hungry
+    - role: worse_issue
+      text: children who have no choice about the fact that they are going hungry
+    - role: deprioritizing_conclusion
+      text: our energy would be better spent helping the innocent victims like children
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Prioritize allocating resources to help children who are going
+      hungry rather than to people who are making a choice to lose things based on
+      their opinions.
+    candidate: Appeal to Authority
+    supporting_reason: The argument frames the issue as a moral one by contrasting
+      adults who make an ‘opinion‑based choice’ with children who ‘have no choice’
+      and are ‘innocent victims.’ It uses the emotional weight of children’s vulnerability
+      to justify prioritizing them over adults’ choices.
+    support_relation: emotional value of children is used as justificatory reason
+      for prioritization
+    label_justification: This relies on an emotional appeal to the vulnerability of
+      children without providing logical reasons why their need is greater; it is
+      an appeal to emotion rather than a logically sound argument.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+  counterargument:
+    decisive_counterargument: The claim that we should focus our aid on children rather
+      than on people who are voluntarily choosing to go hungry conflates two separate,
+      unconnected problems and dismisses help to the latter group based solely on
+      the fact that the latter are seen as worse. Helping anyone in need is not a
+      trade‑off decided by emotional weight or the relative severity of their circumstances.
+      Accordingly, the inference that energy should be better spent exclusively on
+      children is unwarranted.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The author's inference that we should better expend our
+      energy on helping children rather than people who are choosing to go hungry
+      because the children are more deserving or the problem is worse.
+    label_justification: The argument uses the idea that children’s suffering is a
+      'worse' or more serious problem to downplay or dismiss assistance to another
+      group, which fits the definition of an appeal to worse problems.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The argument presents two distinct problems—people voluntarily
+    choosing to go hungry versus children who are starving—and concludes that aid
+    should be redirected toward the children, thereby treating the children's plight
+    as a 'worse' problem to justify ignoring the other group. This satisfies the structure
+    of an Appeal to Worse Problems.
+  decision_reason: The target contains an explicit comparison of the two problems
+    and a prioritization that favors the latter, matching the formal definition of
+    an appeal to a worse problem.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These people are choosing to lose things based on their opinions. What about children
+    who have no choice about the fact that they are going hungry. I don't understand
+    helping
+  - those who are making the choice to go hungry. I think our energy would be better
+    spent helping the innocent victims like children.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4299
+  completion_tokens: 3834
+  total_tokens: 8133
+  wall_time_seconds: 155.73499999998603

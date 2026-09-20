@@ -1,0 +1,154 @@
+sample:
+  id: 465:10692
+  article_id: 465
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: Governments really need to address these issues before they get worse. The
+    rises in the rates, as horrible as they are, aren't nearly as bad as they can
+    and likely will get if nothing is done. Eventually, there won't be a single woman
+    out there who hasn't been a victim of domestic violence. The entire basic family
+    structure could be so irreversibly harmed. This is a real threat to the future
+    of humanity.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Governments do not address domestic violence issues
+    - role: intermediate_consequence
+      text: Everyone eventually becomes a victim of domestic violence
+    - role: final_consequence
+      text: The basic family structure is irreversibly harmed, threatening humanity's
+        future
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Governments really need to address these issues before they get worse. The rises
+      in the rates, as horrible as they are, aren't nearly as bad as they can and
+      likely
+    - will get if nothing is done. Eventually, there won't be a single woman out there
+      who hasn't been a victim of domestic violence. The entire basic family structure
+      could be
+    - so irreversibly harmed. This is a real threat to the future of humanity.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Governments truly need to address the rising rates of domestic
+      violence before they worsen further.
+    candidate: Slippery Slope
+    supporting_reason: The argument claims that if no action is taken, domestic‑violence
+      rates will not only rise but ultimately reach a point where every woman becomes
+      a victim, irreparably damaging family structures and posing a real threat to
+      humanity.
+    support_relation: Uses a narrative of inevitable, escalating negative outcomes
+      to persuade the audience that immediate policy action is required.
+    label_justification: The reasoning presents a linear progression from the current
+      situation to an extreme, unlikely future—an archetypal slippery‑slope argument—without
+      providing evidence that such an outcome is inevitable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Governments really need to address these issues before they get worse. The rises
+      in the rates, as horrible as they are, aren't nearly as bad as they can and
+      likely
+    - will get if nothing is done. Eventually, there won't be a single woman out there
+      who hasn't been a victim of domestic violence. The entire basic family structure
+      could be
+    - so irreversibly harmed. This is a real threat to the future of humanity.
+  counterargument:
+    decisive_counterargument: Even if domestic‑violence rates are rising, there is
+      no evidence that the trend will inevitably lead to every woman becoming a victim.
+      Existing legal protections, social support networks, and individual agency all
+      serve as barriers that prevent universal victimisation. The claim of an inevitable,
+      universal outcome is an unsupported extrapolation.
+    candidate: Slippery Slope
+    challenged_inference: Eventually, there won't be a single woman out there who
+      hasn't been a victim of domestic violence.
+    label_justification: The argument projects an unverified, extreme escalation from
+      rising domestic‑violence rates to universal victimisation. This leap lacks supporting
+      evidence and portrays a dramatic outcome that is not logically warranted by
+      the premises, characterising a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - will get if nothing is done. Eventually, there won't be a single woman out there
+      who hasn't been a victim of domestic violence. The entire basic family structure
+      could be
+    - so irreversibly harmed. This is a real threat to the future of humanity.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The TARGET presents a stepwise chain of escalating consequences—from
+    the initial state of inaction to the extreme claim that every woman will be victimized,
+    leading to irreparable harm to familial structures and a threat to humanity—without
+    evidence that each step is inevitable. This satisfies the structural requirement
+    of a slippery‑slope argument.
+  decision_reason: The argument asserts a progressive, inevitable escalation from
+    rising rates to universal victimisation and societal collapse, characteristic
+    of a slippery‑slope fallacy. Evidence supporting this inference is found in T1,
+    T2, and T3.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Governments really need to address these issues before they get worse. The rises
+    in the rates, as horrible as they are, aren't nearly as bad as they can and likely
+  - will get if nothing is done. Eventually, there won't be a single woman out there
+    who hasn't been a victim of domestic violence. The entire basic family structure
+    could be
+  - so irreversibly harmed. This is a real threat to the future of humanity.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4902
+  completion_tokens: 2673
+  total_tokens: 7575
+  wall_time_seconds: 173.11000000001513

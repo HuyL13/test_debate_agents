@@ -1,0 +1,112 @@
+sample:
+  id: 470:8608
+  article_id: 470
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: The leaders are in charge because they know what to do. They like Biden
+    over Trump, so it must be the correct choice.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Biden is the correct choice.
+    candidate: Appeal to Authority
+    supporting_reason: The leaders are in charge because they know what to do.
+    support_relation: the reason that leaders know what to do is used to justify Biden’s
+      correctness.
+    label_justification: 'This argument relies on the authority of political leaders—who
+      are assumed to possess knowledge and legitimacy—to assert that Biden is the
+      correct choice, a classic appeal to authority not based on evidence. '
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+  counterargument:
+    decisive_counterargument: While leaders are certainly experienced, their personal
+      preference for Biden does not automatically prove that Biden is the best choice
+      for the country. Preferences can be influenced by a variety of factors—personal,
+      political, or strategic—that are unrelated to who would actually serve the nation’s
+      best interests. Thus, relying solely on their choice is an unjustified leap.
+    candidate: null
+    challenged_inference: That leaders being in charge and liking Biden over Trump
+      proves Biden is the correct choice.
+    label_justification: 'This is an appeal to authority fallacy: the argument asserts
+      the correctness of Biden solely on the basis that leaders (who are presumed
+      to know what to do) prefer him, without providing independent evidence or exploring
+      other relevant factors.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument states that because leaders (authorities) prefer
+    Biden, that choice is correct. It relies on the leaders’ authority to justify
+    Biden, meeting the structural definition of an appeal to authority.
+  decision_reason: 'The conclusion that Biden is the correct choice depends on the
+    leaders’ preference, an authority figure, rather than on evidence or reasoning,
+    thereby satisfying the criteria for an appeal to authority. Evidence: T1.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The leaders are in charge because they know what to do. They like Biden over Trump,
+    so it must be the correct choice.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3634
+  completion_tokens: 2514
+  total_tokens: 6148
+  wall_time_seconds: 67.75

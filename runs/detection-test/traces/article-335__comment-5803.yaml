@@ -1,0 +1,97 @@
+sample:
+  id: 335:5803
+  article_id: 335
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: It seems very honorable what he is doing. He is standing up for his beliefs
+    even at the cost of visiting his family. That is the only brave thing to do.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems very honorable what he is doing. He is standing up for his beliefs
+      even at the cost of visiting his family. That is the only brave thing to
+    - do.
+    candidate: null
+  goal:
+    conclusion_or_goal: He is honorable and brave for standing up for his beliefs
+      even at the cost of visiting his family.
+    candidate: null
+    supporting_reason: He is standing up for his beliefs even at the cost of visiting
+      his family.
+    support_relation: endorsing
+    label_justification: The target provides a straightforward praise without an argument
+      that commits a fallacy. The reason is a legitimate attributive support for the
+      conclusion, so no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems very honorable what he is doing. He is standing up for his beliefs
+      even at the cost of visiting his family. That is the only brave thing to
+  counterargument:
+    decisive_counterargument: The claim that his action is the only brave thing to
+      do lacks supporting evidence and dismisses other possible brave actions, but
+      it does not rely on a classic logical fallacy; it simply presents an unsupported,
+      subjective assertion.
+    candidate: null
+    challenged_inference: It is unsubstantiated to assert that standing up for one's
+      beliefs at the cost of visiting family is *the* only brave thing one can do.
+    label_justification: The objection notes the absence of evidence and the overbroad
+      assertion, but this does not align neatly with any of the defined fallacies
+      such as Hasty Generalization, Slippery Slope, or Appeal to Authority. Therefore,
+      no fallacy label is assigned.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems very honorable what he is doing. He is standing up for his beliefs
+      even at the cost of visiting his family. That is the only brave thing to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2670
+  completion_tokens: 1360
+  total_tokens: 4030
+  wall_time_seconds: 58.828000000008615

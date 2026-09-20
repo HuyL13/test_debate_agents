@@ -1,0 +1,153 @@
+sample:
+  id: 538:8212
+  article_id: 538
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: I get that the author/s of this article conducted their surveys, but something
+    important is missing here. There is no certification of these findings (and more
+    importantly, their meaning) by an expert on the local politics of the region.
+    Without that it's difficult to onboard these "results" with anything more than
+    skepticism. If they had recruited someone like Professor Z, who is actually from
+    the region himself, into the project, then I would more readily accept these findings.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Professor Z
+    - role: endorsed_claim
+      text: I would more readily accept these findings
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker argues that the survey results should be considered
+      untrustworthy because they lack certification by a local political expert.
+    candidate: Appeal to Authority
+    supporting_reason: The claim that the absence of an expert endorsement makes the
+      findings questionable is used to justify skepticism.
+    support_relation: direct
+    label_justification: The target relies on the presence of an authority figure
+      (a regional expert) to establish the credibility of the findings; because that
+      authority is missing, the speaker dismisses the results—a classic appeal to
+      authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get that the author/s of this article conducted their surveys, but something
+      important is missing here. There is no certification of these findings (and
+      more importantly, their meaning) by
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+  counterargument:
+    decisive_counterargument: The conclusion that the survey results are untrustworthy
+      simply because a local political expert didn’t co‑author the study is unwarranted.
+      The credibility of a survey rests on methodological rigour—sampling, questionnaire
+      design, data analysis—rather than the presence of a named authority. Many credible
+      studies are produced by independent researchers without a specific regional
+      expert, yet are accepted on the basis of transparent procedures. Therefore,
+      rejecting the findings because they lack an expert from the area is a form of
+      appeal to authority, not evidence.
+    candidate: Appeal to Authority
+    challenged_inference: The findings are invalid or skeptically treated unless they
+      are certified or endorsed by a local political expert.
+    label_justification: This counterargument directly attacks the fallacious reliance
+      on a single authority’s endorsement for the validity of the data, exposing that
+      the argument uses an appeal to authority where the absence of that authority
+      is taken as a disqualifying factor.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get that the author/s of this article conducted their surveys, but something
+      important is missing here. There is no certification of these findings (and
+      more importantly, their meaning) by
+    - an expert on the local politics of the region. Without that it's difficult to
+      onboard these "results" with anything more than skepticism. If they had recruited
+      someone like Professor Z,
+    - who is actually from the region himself, into the project, then I would more
+      readily accept these findings.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target’s reasoning hinges on the presence (or absence) of
+    an expert from the region as a deciding factor for the credibility of the survey
+    results—an explicit appeal to authority, since the argument states that without
+    this authority the findings are suspect, thereby treating the authority figure’s
+    endorsement as necessary proof of validity.
+  decision_reason: The target statement explicitly calls for an expert endorsement
+    (“expert on the local politics of the region”) to establish legitimacy. It claims
+    that the lack of such an endorsement makes the results mistrustworthy, while a
+    hypothetical endorsement would lend them credibility. This use of a single authority’s
+    endorsement as a decisive criterion constitutes an appeal‑to‑authority fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - an expert on the local politics of the region. Without that it's difficult to
+    onboard these "results" with anything more than skepticism. If they had recruited
+    someone like Professor Z,
+  - who is actually from the region himself, into the project, then I would more readily
+    accept these findings.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4923
+  completion_tokens: 3477
+  total_tokens: 8400
+  wall_time_seconds: 92.29699999999139

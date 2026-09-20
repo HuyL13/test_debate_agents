@@ -1,0 +1,129 @@
+sample:
+  id: 236:4904
+  article_id: 236
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Not become one with mother nature is no way to go in the world. Everyone
+    should be for nature and keeping the environment great. Lets protect what we have
+    in this world as nature intended.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: nature intended
+    - role: evaluative_conclusion
+      text: Everyone should be for nature and keeping the environment great
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+    - this world as nature intended.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: All people should support nature and keep the environment
+      great.
+    candidate: null
+    supporting_reason: Not becoming one with mother nature is no way to go in the
+      world, so we ought to protect what we have as nature intended.
+    support_relation: The speaker uses the claim that rejecting alignment with nature
+      is undesirable as a justification for the goal of protecting the environment.
+    label_justification: The argument does not employ an invalid logical inference
+      such as an appeal to nature or false dilemma; it simply presents a normative
+      stance and a motivation for action. Therefore, no fallacious reasoning is apparent.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+    - this world as nature intended.
+  counterargument:
+    decisive_counterargument: Saying that the only proper way to live is to ‘become
+      one with mother nature’ assumes that what is natural is inherently good or correct,
+      which is a classic appeal to nature. Many natural processes are harmful or exploitative
+      (e.g., predation, disease spread, deforestation in the wild). The fact that
+      something occurs in nature does not automatically confer moral or practical
+      value. Therefore the argument’s claim that living in harmony with nature is
+      the sole legitimate path is invalid because it relies on a naturalistic fallacy
+      rather than evidence that such harmony actually yields better outcomes.
+    candidate: Appeal to Nature
+    challenged_inference: Being one with mother nature is the only good or correct
+      way to live in the world.
+    label_justification: 'The objection exposes the appeal to nature fallacy: the
+      argument argues that natural harmony is inherently superior without examining
+      whether natural examples produce beneficial outcomes. The counterargument dismantles
+      this reasoning by highlighting that natural processes are not automatically
+      good or optimal, thus directly challenging the naturalistic appeal.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Not become one with mother nature is no way to go in the world. Everyone should
+      be for nature and keeping the environment great. Lets protect what we have in
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise ‘nature intended’
+    followed by an evaluative conclusion that the environment should be protected,
+    fitting the classical appeal‑to‑nature structure.
+  decision_reason: The sentence states the world is 'as nature intended' and urges
+    others to 'protect' it, so the argument appeals to the naturalness of the environment
+    to justify protection, matching the Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Not become one with mother nature is no way to go in the world. Everyone should
+    be for nature and keeping the environment great. Lets protect what we have in
+  - this world as nature intended.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3780
+  completion_tokens: 2997
+  total_tokens: 6777
+  wall_time_seconds: 94.17199999999139

@@ -1,0 +1,143 @@
+sample:
+  id: 22:3062
+  article_id: 22
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: Caving in because a few has-been celebs oppose a coal mine is a dumb move.
+    I guess we're going to roll over for every celebrity cause and sink the whole
+    economy. Decisions like this one need to be made by experts who understand the
+    real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+    but it sure hurts a lot of Joe and Jane Does and small business owners who are
+    struggling to recover from the impact of covid.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: experts
+    - role: endorsed_claim
+      text: decisions like this one need to be made by experts who understand the
+        real impact
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I
+      guess we're going to roll over for every celebrity cause and sink the whole
+    - economy. Decisions like this one need to be made by experts who understand the
+      real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+      but it
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker is asserting that decisions about the coal mine
+      should be made by experts who understand the real impact, rather than by celebrity
+      protests.
+    candidate: null
+    supporting_reason: The passage states, ‘Decisions like this one need to be made
+      by experts who understand the real impact.’
+    support_relation: mechanism_supports_goal
+    label_justification: The speaker is making a normative claim about who should
+      make the decision; it is not an ill‑formed logical inference or a fallacy. No
+      unsupported premise or illicit appeal is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - economy. Decisions like this one need to be made by experts who understand the
+      real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+      but it
+  counterargument:
+    decisive_counterargument: The claim that only experts should decide the mine’s
+      future dismisses the legitimate role of public and expert input, but it also
+      ignores that experts can be biased and that citizens—including those who are
+      not celebrities—are often more directly affected by environmental impacts than
+      the experts are.  By treating expert opinion as automatically superior to all
+      other viewpoints, the argument commits an appeal to authority.  The stance that
+      ‘the decision should be made by experts’ is the problematic inference being
+      challenged.
+    candidate: Appeal to Authority
+    challenged_inference: Decisions like building the coal mine should be made solely
+      by experts, not by celebrity opposition.
+    label_justification: The counterargument shows that elevating expert opinion above
+      all other voices merely to justify rejecting celebrity dissent exemplifies an
+      appeal to authority—the argument relies on the experts’ status as a basis for
+      truth rather than on substantive evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I
+      guess we're going to roll over for every celebrity cause and sink the whole
+    - economy. Decisions like this one need to be made by experts who understand the
+      real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+      but it
+    - sure hurts a lot of Joe and Jane Does and small business owners who are struggling
+      to recover from the impact of covid.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly claims that only experts’ opinions should
+    guide the decision about the coal mine, using their authority as the sole justification
+    for rejecting celebrity opposition.
+  decision_reason: 'The target states: “Decisions like this one need to be made by
+    experts who understand the real impact,” which is a classic appeal to authority.
+    This warrants the Appeal to Authority label.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I guess
+    we're going to roll over for every celebrity cause and sink the whole
+  - economy. Decisions like this one need to be made by experts who understand the
+    real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+    but it
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4735
+  completion_tokens: 4154
+  total_tokens: 8889
+  wall_time_seconds: 129.29699999999139

@@ -1,0 +1,128 @@
+sample:
+  id: 409:7223
+  article_id: 409
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: It's the norm for people to blame songs. While ignoring self-blame. Lyrics
+    are only as powerful as the weakness of who is listening. So it's not the song's
+    fault.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+    candidate: null
+  goal:
+    conclusion_or_goal: The song is not to be blamed for any harmful effect.
+    candidate: null
+    supporting_reason: Lyrics are only as powerful as the weakness of who is listening.
+    support_relation: supports
+    label_justification: The reasoning used is a straightforward causal claim that
+      the listeners’ weakness, not the song itself, produces the outcome.  This is
+      a legitimate justification and does not correspond to any of the specified fallacies
+      (e.g., no appeal to authority, majority, nature, tradition, worse problem, or
+      false dilemma).  Therefore no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+  counterargument:
+    decisive_counterargument: The reasoning conflates the fact that people often blame
+      songs with a universal claim that songs cannot be at fault. The observation
+      that a norm exists for blaming music does not by itself show that self‑blame
+      is valid or that the songs are harmless. A single or limited observation about
+      blame patterns is not sufficient to negate responsibility or the potential provocativeness
+      of lyrical content. The argument therefore leaps from a specific behavioral
+      pattern to a sweeping conclusion about causal responsibility, ignoring counter‑evidence
+      that certain lyrics can directly influence listeners’ actions. This constitutes
+      a leap from limited evidence to a general claim.
+    candidate: Hasty Generalization
+    challenged_inference: It concludes that songs are not at fault because the blame
+      norm exists and lyrics depend on listener weakness; an inference that generalizes
+      from a few blame instances to a universal attribution of responsibility.
+    label_justification: 'The objection demonstrates that the argument draws a general
+      conclusion about the culpability of songs based solely on an observation about
+      how people tend to blame music, without considering broader evidence of lyrical
+      influence. This is a classic hasty generalization: a conclusion about all cases
+      is derived from an insufficient sample.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+      only as powerful as the weakness of who is listening. So it's not the song's
+      fault.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a universal conclusion that songs are not at
+    fault based solely on the observation that people often blame songs, a single
+    behavioral pattern that does not provide sufficient evidence to generalize about
+    all songs. The argument therefore leaps from limited observation to a sweeping
+    claim, which is precisely the structural definition of a hasty generalization.
+  decision_reason: The target commits a hasty generalization by concluding that songs
+    cannot be at fault based on an anecdotal norm of blaming music. It fails to consider
+    broader evidence or specific counterexamples, and the claim is generalized to
+    all songs from insufficient evidence. The evidence supporting this conclusion
+    is contained in passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's the norm for people to blame songs. While ignoring self-blame. Lyrics are
+    only as powerful as the weakness of who is listening. So it's not the song's fault.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3871
+  completion_tokens: 4257
+  total_tokens: 8128
+  wall_time_seconds: 170.5

@@ -1,0 +1,156 @@
+sample:
+  id: 304:5710
+  article_id: 304
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: Most people know gay rights will not happen in Pakistan. That place is too
+    conservative. Eventually, maybe, but not now, as the socio-economic situation
+    improves, it might be more liberal .
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: know gay rights will not happen in Pakistan
+    - role: target_claim
+      text: gay rights will not happen in Pakistan
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Gay rights are unlikely to be achieved in Pakistan at present,
+      but may become possible in the future if the socio‑economic situation improves.
+    candidate: null
+    supporting_reason: That place is too conservative
+    support_relation: reason for the conclusion
+    label_justification: The sentence simply states an environmental premise (conservatism)
+      and a temporal prediction, without misusing a premise to justify an unrelated
+      conclusion. No logical fallacy is apparent.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+  counterargument:
+    decisive_counterargument: The conclusion that gay rights cannot be achieved in
+      Pakistan now because it is 'too conservative' ignores the specific actions of
+      activists, incremental legal reforms, and historical precedents where significant
+      rights changes occurred even in societies deemed conservative. Concluding that
+      the mere label of conservatism precludes any progress is an unwarranted generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Because Pakistan is described as too conservative, gay rights
+      will not happen now.
+    label_justification: The objection attacks the jump from observing that Pakistan
+      is generally seen as conservative to asserting that this definitively prevents
+      any gay‑rights progress. That assertion extrapolates from a single observation
+      (the society’s overall conservatism) to a universal restriction on civil‑rights
+      developments, which is precisely the pattern that defines a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: appeal-to-majority__vs__hasty-generalization
+    loser_failure: Appeal to Majority does not satisfy its mandatory structural condition
+      because the target passage does not use the popularity claim of ‘most people’
+      as a justification for the conclusion that gay rights will not happen; it merely
+      states that most people believe that. The only inferential step present is the
+      leap from observing Pakistan as ‘too conservative’ to concluding that gay rights
+      cannot happen now, which matches the pattern of a hasty generalization.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+      Eventually, maybe, but not now, as the socio-economic situation improves, it
+      might be more liberal
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The inference that Pakistan's conservatism (a single observed
+    characteristic) absolutely prevents HIV rights represents a broad, unsupported
+    generalization based on limited observation.
+  decision_reason: The target concludes that gay rights will not happen now because
+    Pakistan is too conservative, which generalizes from one characteristic to a universal
+    outcome without sufficient evidence. This matches the pattern of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people know gay rights will not happen in Pakistan. That place is too conservative.
+    Eventually, maybe, but not now, as the socio-economic situation improves, it might
+    be more liberal
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5171
+  completion_tokens: 3779
+  total_tokens: 8950
+  wall_time_seconds: 125.20300000000861

@@ -1,0 +1,145 @@
+sample:
+  id: 335:6402
+  article_id: 335
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: This person is not only advocating for a violent revolution, but for foreign
+    nations to wage war to remove the government that they don't like? Frankly, as
+    bad as the government of China is in many ways, they're still in ways a lot more
+    palatable to me than people who say things like this. If you're faced with the
+    nearly billion plus 'brainwashed' and 'ignorant' population and can't manage to
+    convince anyone but a tiny minority to support your ideas, the response shouldn't
+    be inciting violence.
+  target: Yes, its not smart what he's doing. If enough people hear his rhetoric in
+    China, it could lead to them actually trying something which would obviously lead
+    to tons of death. Once China finds out they tried something due to his rhetoric,
+    the CCP could kill everyone he knows.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If enough people hear his rhetoric in China
+    - role: intermediate_consequence
+      text: they actually try something which would obviously lead to tons of death
+    - role: final_consequence
+      text: the CCP could kill everyone he knows
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: His rhetoric could provoke violent action in China and provoke
+      severe retaliation from the CCP.
+    candidate: null
+    supporting_reason: If enough people hear his rhetoric in China, it could lead
+      to them actually trying something that would obviously lead to tons of death,
+      and the CCP might kill everyone he knows.
+    support_relation: The argument uses a proposed causal link between the spread
+      of rhetoric and violent consequences to justify the claim that the rhetoric
+      is unwise.
+    label_justification: The claim is a legitimate, though potentially speculative,
+      causal concern rather than a fallacious use of reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+  counterargument:
+    decisive_counterargument: The argument assumes that a piece of rhetoric will inevitably
+      provoke widespread violent action, result in mass casualties, and provoke a
+      severe state retaliation—all with no empirical basis. It replaces a realistic
+      discourse about political persuasion with an unsubstantiated causal chain that
+      predicts extreme outcomes from a single action. This leap from one possible
+      effect to an extreme chain of events is a classic slippery‑slope move, where
+      the author claims that a simple statement will inevitably lead down a path of
+      escalating violence without evidence.
+    candidate: null
+    challenged_inference: If enough people hear his rhetoric in China, it could lead
+      to them actually trying something which would obviously lead to tons of death.
+      Once China finds out they tried something due to his rhetoric, the CCP could
+      kill everyone he knows.
+    label_justification: The inference relies on an unstated progression of increasingly
+      adverse consequences that follows logically from the initial premise, but without
+      demonstrating any causal link or evidence. This is the hallmark of a Slippery
+      Slope fallacy, where the conclusion about severe retaliation depends on speculative
+      and cumulative steps rather than proven cause and effect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target includes a chain of events: an initial condition
+    (“if enough people hear his rhetoric”) followed by an intermediate consequence
+    (“they actually try something causing tons of death”) and an extreme final consequence
+    (“the CCP could kill everyone he knows”), matching the structural form of a slippery‑slope
+    claim.'
+  decision_reason: The target explicitly presents a slippery‑slope argument with a
+    progressive chain of consequences, satisfying the required structural condition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+    it could lead to them actually trying something which would obviously lead to
+    tons of
+  - death. Once China finds out they tried something due to his rhetoric, the CCP
+    could kill everyone he knows.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4439
+  completion_tokens: 3492
+  total_tokens: 7931
+  wall_time_seconds: 277.68700000000536

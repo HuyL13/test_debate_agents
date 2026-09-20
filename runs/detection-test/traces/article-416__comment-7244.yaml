@@ -1,0 +1,130 @@
+sample:
+  id: 416:7244
+  article_id: 416
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: Hong Kong is the last place I'd want to protest right now with how much
+    Power China has over them nowadays. Protesting the government will risk your freedom
+    and life. Its not like the old Hong Kong anymore. I wish they could overcome the
+    China influence, but it looks impossible at this point.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - Hong Kong is the last place I'd want to protest right now with how much Power
+      China has over them nowadays. Protesting the government will risk your freedom
+      and life.
+    - Its not like the old Hong Kong anymore. I wish they could overcome the China
+      influence, but it looks impossible at this point.
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: Protesting the Hong Kong government is risky because China’s
+      power over Hong Kong puts protesters’ freedom and life at stake.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The speaker provides a reason (China’s influence) that logically
+      supports the conclusion that protesting is risky. No fallacious reasoning such
+      as a hasty generalization or false dilemma is used.
+    mechanism_supports_goal: true
+    support_relation: The perceived level of Chinese control is presented as the direct
+      cause of the danger associated with protesting, thereby justifying the conclusion
+      that protesting is inadvisable.
+    supporting_reason: China has significant power over Hong Kong, so protesting the
+      government would risk your freedom and life.
+    evidence_spans:
+    - Hong Kong is the last place I'd want to protest right now with how much Power
+      China has over them nowadays. Protesting the government will risk your freedom
+      and life.
+    - Its not like the old Hong Kong anymore. I wish they could overcome the China
+      influence, but it looks impossible at this point.
+  counterargument:
+    decisive_counterargument: 'The claim that protesting in Hong Kong will inevitably
+      put one’s freedom and life at risk relies only on the observation that China
+      exerts power in the territory. From this single observation the argument leaps
+      to a universal conclusion—that any protest will end in danger. That is a classic
+      hasty‑generalization error: a limited situation (China’s influence) is generalized
+      to all protests without evidence that this situation always produces the stated
+      outcome.'
+    candidate: Hasty Generalization
+    challenged_inference: The argument that protest in Hong Kong will endanger freedom/life
+      because China has influence over the region.
+    label_justification: The objection points out that the reasoning generalizes from
+      a single situation (China’s influence) to a universal claim about all protests,
+      which matches the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Hong Kong is the last place I'd want to protest right now with how much Power
+      China has over them nowadays. Protesting the government will risk your freedom
+      and life.
+    - Its not like the old Hong Kong anymore. I wish they could overcome the China
+      influence, but it looks impossible at this point.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument claims that protesting in Hong Kong will inevitably
+    risk freedom and life based solely on the observation that China has significant
+    power in the region, generalizing from this single condition to all protests without
+    sufficient evidence, which matches the definition of a hasty generalization.
+  decision_reason: The target’s statement that “protesting the government will risk
+    your freedom and life” relies only on China’s influence—a single observation—and
+    extends this to all protests in Hong Kong, thereby executing a hasty generalization.
+    Evidence T1 and T2 support this inference.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Hong Kong is the last place I'd want to protest right now with how much Power
+    China has over them nowadays. Protesting the government will risk your freedom
+    and life.
+  - Its not like the old Hong Kong anymore. I wish they could overcome the China influence,
+    but it looks impossible at this point.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 4090
+  completion_tokens: 3702
+  total_tokens: 7792
+  wall_time_seconds: 57.375

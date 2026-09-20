@@ -1,0 +1,121 @@
+sample:
+  id: 411:7229
+  article_id: 411
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: It's natural for people here to seek freedom. Turkmenistan isn't offering
+    that. Censorship and full control is all their leaders impose.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's natural for people here to seek freedom.
+    - role: evaluative_conclusion
+      text: Censorship and full control is all their leaders impose.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural for people here to seek freedom. Turkmenistan isn't offering that.
+      Censorship and full control is all their leaders impose.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Turkmenistan isn’t offering freedom; it imposes censorship
+      and full control
+    candidate: Appeal to Nature
+    supporting_reason: It’s natural for people here to seek freedom
+    support_relation: Appeal to Nature
+    label_justification: The argument uses the claim that freedom is a natural desire
+      to justify that Turkmenistan’s lack of freedom (and thus its censorship) is
+      unacceptable, appealing to nature in place of a legitimate value or evidence-based
+      justification.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural for people here to seek freedom. Turkmenistan isn't offering that.
+      Censorship and full control is all their leaders impose.
+  counterargument:
+    decisive_counterargument: A natural inclination for freedom does not automatically
+      make any policy that restricts it unjust or harmful. What is natural or desirable
+      does not constitute a normative requirement for how a state should govern; policies
+      can be justified on other grounds such as security, public order or cultural
+      cohesion. Therefore, the claim that Turkmenistan’s censorship is wrong because
+      people naturally desire freedom is unjustified.
+    candidate: Appeal to Nature
+    challenged_inference: Because people naturally seek freedom, the censorship imposed
+      by Turkmenistan’s leaders is wrong.
+    label_justification: The objection illustrates that the argument uses the natural
+      desire for freedom as a normative basis for judging the policy. This is precisely
+      the hallmark of an Appeal to Nature fallacy, where a natural state of affairs
+      is claimed to be morally right or wrong without additional justification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural for people here to seek freedom. Turkmenistan isn't offering that.
+      Censorship and full control is all their leaders impose.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument asserts that because seeking freedom is natural,
+    the absence of freedom and presence of censorship in Turkmenistan is unacceptable,
+    thereby using a natural state of affairs as the sole normative basis for criticizing
+    the policy.
+  decision_reason: The target provides a naturalness premise (“people naturally seek
+    freedom”) and an evaluative conclusion that rejects Turkmenistan’s censorship
+    on that basis, matching the Appeal to Nature structure. Evidence supporting this
+    fallacy is found in passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's natural for people here to seek freedom. Turkmenistan isn't offering that.
+    Censorship and full control is all their leaders impose.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4014
+  completion_tokens: 3014
+  total_tokens: 7028
+  wall_time_seconds: 95.85899999999674

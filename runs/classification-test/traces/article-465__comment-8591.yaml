@@ -1,0 +1,163 @@
+sample:
+  id: 465:8591
+  article_id: 465
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: The abuse it heartbreaking to hear about no matter who is happens too. I
+    wish there was more being done about this in the Middle East. Renowned author
+    and Middle East expert, Hans Christians, has a book about this topic where he
+    says that it is a generational issue that will never be changed since it is ingrained
+    with religion. He's not religious, so I am not sure what he would know about anything
+    ingrained in the religion so how can we trust what he says? One would think that
+    a cultural shift would end all the violence. In contrast, an Islamic religion
+    expert and devote Islamic follower, Ali Mustafa, claims it is not solely a generational
+    problem but an education and opportunity issue. His perspective, although different,
+    seems to carry more weight. Isn't it apt to believe that a man who lives within
+    the system could provide more insight on how the system works?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Hans Christians
+    - role: endorsed_claim
+      text: It is a generational issue that will never be changed since it is ingrained
+        with religion.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - East expert, Hans Christians, has a book about this topic where he says that
+      it is a generational issue that will never be changed since it is ingrained
+      with religion.
+    - He's not religious, so I am not sure what he would know about anything ingrained
+      in the religion so how can we trust what he says? One would think that
+    - a cultural shift would end all the violence. In contrast, an Islamic religion
+      expert and devote Islamic follower, Ali Mustafa, claims it is not solely a generational
+      problem but an
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker concludes that Ali Mustafa’s perspective is more
+      credible and should be preferred over Hans Christians’ position.
+    candidate: Appeal to Authority
+    supporting_reason: By asserting that Ali Mustafa is a devout Islamic follower
+      who lives within the system, the speaker claims his view carries more weight
+      because of his personal authority and insider status.
+    support_relation: appeal_to_authority
+    label_justification: The claim that an individual's personal attributes (religious
+      devotion and insider experience) give their perspective more weight is a classic
+      appeal to authority, which is a known logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T4
+    - T5
+    - T6
+    evidence_spans:
+    - a cultural shift would end all the violence. In contrast, an Islamic religion
+      expert and devote Islamic follower, Ali Mustafa, claims it is not solely a generational
+      problem but an
+    - education and opportunity issue. His perspective, although different, seems
+      to carry more weight. Isn't it apt to believe that a man who lives within the
+      system could provide more insight
+    - on how the system works?
+  counterargument:
+    decisive_counterargument: 'The argument assumes that someone’s personal religious
+      identity is the decisive factor in judging their expertise about religion. That
+      is false: scholarly assessments depend on evidence and methodology, not on whether
+      the author is a believer or not. Likewise, an insider’s proximity to a culture
+      does not guarantee an unbiased or accurate view, and it can introduce systematic
+      bias. Therefore, the inference that Hans Christians is unreliable and Ali Mustafa
+      is more credible solely because of their religious identities or insider status
+      is unwarranted.'
+    candidate: Appeal to Authority
+    challenged_inference: He claims that because Hans Christians is not religious,
+      we cannot trust his statement, while an Islamic expert who is a devout follower
+      provides a more accurate perspective because he lives inside the system. This
+      is an appeal to authority that relies on the author’s identity rather than evidence.
+    label_justification: The objection demonstrates that the target argument relies
+      on a presupposition that personal religious identity determines credibility,
+      which is an improper use of authority. It highlights that authority should be
+      based on expertise and evidence, not on the speaker’s religious affiliation,
+      making it an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T5
+    evidence_spans:
+    - He's not religious, so I am not sure what he would know about anything ingrained
+      in the religion so how can we trust what he says? One would think that
+    - education and opportunity issue. His perspective, although different, seems
+      to carry more weight. Isn't it apt to believe that a man who lives within the
+      system could provide more insight
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly claims that Hans Christians’ lack of religious
+    affiliation makes his statement untrustworthy, while asserting that Ali Mustafa’s
+    status as a devout follower and insider provides his perspective with more weight,
+    thereby using personal characteristics (religious identity and insider status)
+    as the basis for credibility—a classic appeal to authority.
+  decision_reason: The reasoning demonstrates reliance on the identity of the speaker
+    rather than evidence – fulfilling the structural condition for an Appeal to Authority
+    fallacy. Evidence supports this claim in passages T4, T5, and T6.
+  evidence_ids:
+  - T4
+  - T5
+  - T6
+  evidence_spans:
+  - a cultural shift would end all the violence. In contrast, an Islamic religion
+    expert and devote Islamic follower, Ali Mustafa, claims it is not solely a generational
+    problem but an
+  - education and opportunity issue. His perspective, although different, seems to
+    carry more weight. Isn't it apt to believe that a man who lives within the system
+    could provide more insight
+  - on how the system works?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5963
+  completion_tokens: 3946
+  total_tokens: 9909
+  wall_time_seconds: 147.34400000001187

@@ -1,0 +1,140 @@
+sample:
+  id: 565:8892
+  article_id: 565
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: While this is an important topic and it deserves some play there are much
+    bigger things going on. We need to make sure that democracy is at the front of
+    the citizens minds. That way freedom of speech and press will prevail. We can't
+    let little things take over our minds, we need the big topics to stay out front.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: this important topic
+    - role: worse_issue
+      text: bigger things going on (democracy, freedom of speech, press)
+    - role: deprioritizing_conclusion
+      text: We can't let little things take over our minds, we need the big topics
+        to stay out front.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Prioritize larger topics such as democracy and freedom of
+      speech over smaller matters
+    candidate: Appeal to Worse Problems
+    supporting_reason: The speaker argues that because there are 'much bigger things
+      going on', smaller topics should not dominate the public mind
+    support_relation: The claim of larger issues is used to justify diminishing the
+      importance of 'little things' and to guide attention toward democracy
+    label_justification: Using the existence of larger problems to downplay or dismiss
+      smaller ones matches the definition of Appeal to Worse Problems, a recognized
+      logical fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+  counterargument:
+    decisive_counterargument: The argument ignores that smaller, seemingly ‘little’
+      issues can be vital to a functioning democracy—such as local election integrity
+      or minority rights—by dismissing them simply because they are not the most striking
+      headline. Demarcating topics into ‘big’ and ‘little’ does not guarantee that
+      focusing on the big ones will protect freedom of speech or the press. Neglecting
+      the small matters can alienate communities and undermine confidence in democratic
+      institutions. The inference that only the biggest topics deserve attention is
+      thus faulty.
+    candidate: Appeal to Worse Problems
+    challenged_inference: That because there are bigger issues, lesser‐sized topics
+      can be ignored without consequence.
+    label_justification: The objection directly exposes the fallacy that prioritizes
+      larger concerns while dismissing smaller ones (Appeal to Worse Problems), which
+      is the specific reasoning error in the target’s statement. The counterargument
+      targets this logic rather than merely criticizing the argument’s content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this is an important topic and it deserves some play there are much bigger
+      things going on. We need to make sure that democracy is at the front of
+    - the citizens minds. That way freedom of speech and press will prevail. We can't
+      let little things take over our minds, we need the big topics to stay out front.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target states that larger issues (democracy, freedom of
+    speech, press) should occupy the public mind, thereby downplaying or dismissing
+    smaller, seemingly ‘little’ matters. This structure uses a known bigger problem
+    to justify ignoring smaller concerns, matching the definition of an Appeal to
+    Worse Problems fallacy.
+  decision_reason: The passage explicitly commits an Appeal to Worse Problems by leveraging
+    the presence of major issues to argue against attention to minor topics.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - While this is an important topic and it deserves some play there are much bigger
+    things going on. We need to make sure that democracy is at the front of
+  - the citizens minds. That way freedom of speech and press will prevail. We can't
+    let little things take over our minds, we need the big topics to stay out front.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4629
+  completion_tokens: 3975
+  total_tokens: 8604
+  wall_time_seconds: 130.59299999999348

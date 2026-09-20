@@ -1,0 +1,152 @@
+sample:
+  id: 560:8278
+  article_id: 560
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: If the government of Argentina grants the right to an abortion for women
+    and girls who are assaulted, there will be unintended consequences. One right
+    granted will only trigger the demand for another right, and another, and so on,
+    like a kid in a candy shop, and soon they will have countrywide abortions on demand
+    and a plummeting birth rate. Be careful lawmakers of Argentina!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the government of Argentina grants the right to an abortion for women
+        and girls who are assaulted
+    - role: intermediate_consequence
+      text: the demand for another right, and another, and so on
+    - role: final_consequence
+      text: countrywide abortions on demand and a plummeting birth rate
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the government of Argentina grants the right to an abortion for women and
+      girls who are assaulted, there will be unintended consequences. One right granted
+      will only trigger the
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Granting the right to abortion for women and girls who are
+      assaulted will inevitably lead to widespread abortion on demand and a plummeting
+      birth rate.
+    candidate: Slippery Slope
+    supporting_reason: Allowing abortion rights will trigger a demand for increasingly
+      numerous rights, creating a chain reaction that culminates in countrywide abortions
+      on demand.
+    support_relation: The reason is used to argue that the initial legal change will
+      produce an escalating series of additional rights and negative outcomes.
+    label_justification: The argument presents an unsubstantiated, causal chain—from
+      one granted right to many others—that leads to an undesirable consequence. This
+      is the classic form of a slippery‑slope fallacy, as it projects a sequence of
+      events without providing evidence for each link.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the government of Argentina grants the right to an abortion for women and
+      girls who are assaulted, there will be unintended consequences. One right granted
+      will only trigger the
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+  counterargument:
+    decisive_counterargument: The claim that granting abortion rights to assaulted
+      women will inevitably trigger a chain of further rights, leading to widespread
+      abortion demand and a plummeting birth rate, is entirely speculative and lacks
+      any empirical support. Historical evidence shows that countries can expand abortion
+      access without a dramatic decline in fertility—the outcome you predict is not
+      a necessary consequence but a conjectural one. Therefore, the reasoning relies
+      on an unwarranted causal chain, a classic slippery‑slope fallacy.
+    candidate: Slippery Slope
+    challenged_inference: Whether granting the abortion right to assaulted women will
+      inevitably lead to a cascading demand for increasingly radical abortion rights
+      and a steep drop in birth rates.
+    label_justification: The objection directly attacks the step in the argument that
+      asserts a causal chain of escalating outcomes. Since no evidence is provided
+      for either the intermediate rights or the ultimate birth‑rate decline, the inference
+      rests on a slippery‑slope claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the government of Argentina grants the right to an abortion for women and
+      girls who are assaulted, there will be unintended consequences. One right granted
+      will only trigger the
+    - demand for another right, and another, and so on, like a kid in a candy shop,
+      and soon they will have countrywide abortions on demand and a plummeting birth
+      rate.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument offers an unsubstantiated, escalating causal chain—from
+    granting abortion rights for assaulted women to demands for additional rights
+    and ultimately to widespread abortion on demand and a falling birth rate—meeting
+    the structural definition of a slippery‑slope fallacy.
+  decision_reason: The text explicitly states that allowing one right will trigger
+    a cascade of further rights leading to unwanted consequences, which is the hallmark
+    structure of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the government of Argentina grants the right to an abortion for women and girls
+    who are assaulted, there will be unintended consequences. One right granted will
+    only trigger the
+  - demand for another right, and another, and so on, like a kid in a candy shop,
+    and soon they will have countrywide abortions on demand and a plummeting birth
+    rate.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4853
+  completion_tokens: 2061
+  total_tokens: 6914
+  wall_time_seconds: 58.312000000005355

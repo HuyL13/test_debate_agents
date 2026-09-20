@@ -1,0 +1,152 @@
+sample:
+  id: 5:3162
+  article_id: 5
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: Regardless of what issues Japan's legal system may have, this is not good
+    news. First, big-time rich Europeans escape the law. Then it'll be the rich locals.
+    Then the middle class. Finally, everyone will be able to just flee and the legal
+    system has basically collapsed. Imagine the chaos and anarchy that will overtake
+    the country. All kicked off by some rich European's escape that some people actually
+    thought was a good thing.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: big-time rich Europeans escape the law
+    - role: intermediate_consequence
+      text: Then it'll be the rich locals. Then the middle class.
+    - role: final_consequence
+      text: everyone will be able to just flee and the legal system has basically
+        collapsed. Imagine the chaos and anarchy that will overtake the country.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Regardless of what issues Japan's legal system may have, this is not good news.
+      First, big-time rich Europeans escape the law. Then it'll be the rich locals.
+      Then the middle
+    - class. Finally, everyone will be able to just flee and the legal system has
+      basically collapsed. Imagine the chaos and anarchy that will overtake the country.
+      All kicked off by
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The target argues that the escape of rich Europeans will trigger
+      a chain of events that ultimately collapses Japan’s legal system and induces
+      chaos.
+    candidate: Slippery Slope
+    supporting_reason: 'The target presents a sequential prediction: first rich Europeans
+      escape, then rich locals, then the middle class, and finally everyone can flee,
+      leading to a collapsed legal system and anarchy. This chain of escalating consequences
+      is used to justify the conclusion that the escape is harmful.'
+    support_relation: The reasoning about the sequential escalation is employed to
+      support the claim that the escape will lead to systemic collapse.
+    label_justification: The argument falsely assumes that the initial event will
+      inevitably lead to a series of increasingly adverse outcomes without providing
+      evidence for each step, which is characteristic of a slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Regardless of what issues Japan's legal system may have, this is not good news.
+      First, big-time rich Europeans escape the law. Then it'll be the rich locals.
+      Then the middle
+    - class. Finally, everyone will be able to just flee and the legal system has
+      basically collapsed. Imagine the chaos and anarchy that will overtake the country.
+      All kicked off by
+    - some rich European's escape that some people actually thought was a good thing.
+  counterargument:
+    decisive_counterargument: The assertion that the escape of a single rich European
+      will eventually lead to legal system collapse and national anarchy is speculative.  Japanese
+      legal institutions have safeguards, and past escape incidents have not triggered
+      systemic breakdown or widespread chaos.  Thus the claimed causal chain is not
+      inevitable or supported by evidence.
+    candidate: null
+    challenged_inference: The escape of a single rich European will inevitably result
+      in the collapse of Japan’s legal system and widespread anarchy.
+    label_justification: The counterargument directly addresses the speculative causal
+      escalation presumed in the target, demonstrating the absence of evidence and
+      the lack of inevitability, which is the hallmark of a slippery‑slope argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Regardless of what issues Japan's legal system may have, this is not good news.
+      First, big-time rich Europeans escape the law. Then it'll be the rich locals.
+      Then the middle
+    - class. Finally, everyone will be able to just flee and the legal system has
+      basically collapsed. Imagine the chaos and anarchy that will overtake the country.
+      All kicked off by
+    - some rich European's escape that some people actually thought was a good thing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a clear chain of escalating negative consequences—initially
+    rich Europeans escape, followed by rich locals, then the middle class, culminating
+    in everyone fleeing and the legal system collapsing—without providing evidence
+    for each step, satisfying the structural requirement of a slippery‑slope argument.
+  decision_reason: The argument falsely assumes that the initial event will inevitably
+    lead to a series of increasingly adverse outcomes, which is characteristic of
+    a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Regardless of what issues Japan's legal system may have, this is not good news.
+    First, big-time rich Europeans escape the law. Then it'll be the rich locals.
+    Then the middle
+  - class. Finally, everyone will be able to just flee and the legal system has basically
+    collapsed. Imagine the chaos and anarchy that will overtake the country. All kicked
+    off by
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4664
+  completion_tokens: 2396
+  total_tokens: 7060
+  wall_time_seconds: 51.062999999994645

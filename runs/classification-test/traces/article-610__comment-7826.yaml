@@ -1,0 +1,139 @@
+sample:
+  id: 610:7826
+  article_id: 610
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: I don't understand, why doesn't the government put some recovery policies
+    in place? Surely most people would be in support of that, right? The government
+    should take a vote, or at least run some polling. If the majority wants change,
+    which I think they definitely would, then they should implement that change rapidly.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people would be in support of that
+    - role: target_claim
+      text: the government should put recovery policies in place (implement the change
+        rapidly)
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't understand, why doesn't the government put some recovery policies in
+      place? Surely most people would be in support of that, right? The government
+      should take a vote, or
+    - at least run some polling. If the majority wants change, which I think they
+      definitely would, then they should implement that change rapidly.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Urge the government to adopt and rapidly implement recovery
+      policies.
+    candidate: Appeal to Majority
+    supporting_reason: most people would support the policies
+    support_relation: Appeal to Majority
+    label_justification: The speaker claims that because the majority would support
+      change, the government should act, using perceived popularity as justification
+      rather than evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't understand, why doesn't the government put some recovery policies in
+      place? Surely most people would be in support of that, right? The government
+      should take a vote, or
+    - at least run some polling. If the majority wants change, which I think they
+      definitely would, then they should implement that change rapidly.
+  counterargument:
+    decisive_counterargument: The assertion that ‘most people would be in support
+      of that’ is merely speculation; no empirical evidence of majority preference
+      is provided, nor does a majority’s preference automatically justify rapid implementation.
+      The argument therefore relies on an unverified majority opinion to support the
+      recommendation.
+    candidate: Appeal to Majority
+    challenged_inference: The government should implement recovery policies rapidly
+      because the majority supposedly supports them.
+    label_justification: The objection points out that the argument depends on an
+      unstated majority opinion to justify the recommendation, which is precisely
+      the logical fallacy of an Appeal to Majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't understand, why doesn't the government put some recovery policies in
+      place? Surely most people would be in support of that, right? The government
+      should take a vote, or
+    - at least run some polling. If the majority wants change, which I think they
+      definitely would, then they should implement that change rapidly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The argument derives its recommendation that the government
+    adopt recovery policies from the assertion that most people would support them,
+    using this popularity claim as a justification without providing evidence. The
+    structure matches a classic Appeal to Majority: population group (“most people”),
+    popularity claim, and target claim that the government should act based on that
+    popularity.'
+  decision_reason: The target explicitly states “most people would be in support of
+    that” and then concludes that the government should implement the policy, which
+    fits the Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I don't understand, why doesn't the government put some recovery policies in place?
+    Surely most people would be in support of that, right? The government should take
+    a vote, or
+  - at least run some polling. If the majority wants change, which I think they definitely
+    would, then they should implement that change rapidly.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4426
+  completion_tokens: 2245
+  total_tokens: 6671
+  wall_time_seconds: 73.48500000004424

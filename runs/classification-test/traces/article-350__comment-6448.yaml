@@ -1,0 +1,143 @@
+sample:
+  id: 350:6448
+  article_id: 350
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: The countries taking in refugees have more to worry about. Making sure they
+    are accounted for, is essential. The problem of invisible refugees outweighs their
+    privacy in a country they breached.
+  target: I think I agree, but I think that's more something the people of the country
+    should decide. It sounds like this is more a move by the UN than the actual countries
+    themselves. Why don't their people put it to a vote? Majority opinion should be
+    the deciding factor here, like everything else in a true democracy.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people of the country
+    - role: popularity_claim
+      text: Majority opinion should be the deciding factor
+    - role: target_claim
+      text: the refugee policy should be decided by a vote
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker is asserting that the decision on the UN move
+      should be made by the people of the country through a democratic vote, with
+      majority opinion being the deciding factor.
+    candidate: null
+    supporting_reason: Majority opinion should be the deciding factor here, like everything
+      else in a true democracy.
+    support_relation: This statement is used to argue why the decision should be determined
+      by a popular vote rather than by the UN or the governments alone.
+    label_justification: The comment does not commit a logical fallacy; it merely
+      presents a normative stance that majority decision-making is appropriate in
+      a democracy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+  counterargument:
+    decisive_counterargument: The claim that the ‘true’ democratic decision must be
+      driven by majority public opinion ignores that this is a matter about individual
+      rights, privacy and humanitarian obligations; majority preferences can be uninformed
+      or biased and they can override the rights of a minority of refugees.  Simply
+      appealing to the fact that most citizens vote for a policy does not justify
+      abandoning established duties toward those who rely on UN‑managed registration.  Hence
+      the argument relies on an *appeal to majority* fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: Appealing to majority public opinion as the sole deciding
+      factor in a refugee registration policy in a democracy.
+    label_justification: 'The objection shows that the original claim treats majority
+      opinion as the definitive measure of legitimacy, which is precisely the structure
+      of an Appeal to Majority: using the number or popularity of a group as the proof
+      of correctness.  This is distinct from other fallacies such as hasty generalization
+      or false dilemma because it does not generalize from a sample or present a false
+      dichotomy, but rather elevates majority opinion itself as the decisive standard.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The TARGET text asserts that the refugee policy should be decided
+    by a vote, asserting that majority opinion is the deciding factor and using popularity
+    as a basis for the claim. This matches the definition of an Appeal to Majority
+    fallacy.
+  decision_reason: The target explicitly states that majority opinion should decide
+    on the refugee policy, thereby appealing to the mass judgment as a justification,
+    which satisfies the structural requirement for Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think I agree, but I think that's more something the people of the country should
+    decide. It sounds like this is more a move by the UN than the
+  - actual countries themselves. Why don't their people put it to a vote? Majority
+    opinion should be the deciding factor here, like everything else in a true democracy.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4215
+  completion_tokens: 2701
+  total_tokens: 6916
+  wall_time_seconds: 194.73399999999674

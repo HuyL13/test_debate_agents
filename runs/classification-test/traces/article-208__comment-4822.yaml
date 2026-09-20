@@ -1,0 +1,174 @@
+sample:
+  id: 208:4822
+  article_id: 208
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: Staring at slavery feels like people think black people should sit and stare
+    at the past. And relive traumatic events? People used to understand what had happened,
+    and live with it without constantly bringing it up. The people now are not as
+    strong as previous generations. At least not emotionally.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: previous generations of black people
+    - role: observed_property
+      text: not as strong emotionally
+    - role: target_population
+      text: current black people
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The author argues that dwelling on the history of slavery
+      is unnecessary or harmful because the current generation of Black people is
+      not as emotionally strong as previous generations.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that “the people now are not as strong as previous
+      generations. At least not emotionally.” is presented as evidence that supports
+      the argument that current Black people should not dwell on slavery.
+    support_relation: supports
+    label_justification: The argument generalizes the emotional strength of all people
+      in the present generation based on an unqualified comparison with past generations,
+      thereby committing a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+  counterargument:
+    decisive_counterargument: The claim that modern black people are not as emotionally
+      strong as past generations rests solely on a reference to how people in the
+      past handled trauma—an appeal to tradition. It assumes that because past generations
+      were perceived as more resilient and thus avoided repeatedly surfacing traumatic
+      history, the same pattern should apply today. However, emotional resilience
+      is not a fixed characteristic that can be transferred across centuries; contemporary
+      social, political, and personal contexts differ markedly from those of the past.
+      The inference therefore commits an appeal to tradition fallacy.
+    candidate: Appeal to Tradition
+    challenged_inference: Assuming that because black people historically coped by
+      not constantly revisiting their traumatic past, current generations should do
+      the same, thereby invalidating the relevance of trauma history altogether.
+    label_justification: The objection shows that the argument relies on a historical
+      precedent to justify a present action, and it fails to address changes in context,
+      empirical evidence or individual variation. This appeals to tradition, where
+      past practice is used as evidence for current validity, and the counter‑argument
+      directly confronts that logical shortcut.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Tradition
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Appeal to Tradition
+    loser_failure: It requires a justification that the present should follow a past
+      practice, which the text does not provide; it merely compares past and present
+      emotional strength, a direct sample-to-population inference.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Staring at slavery feels like people think black people should sit and stare
+      at the past. And relive traumatic events? People used to understand what had
+      happened, and live with
+    - it without constantly bringing it up. The people now are not as strong as previous
+      generations. At least not emotionally.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes the emotional strength of all current
+    Black people based on an unqualified comparison with previous generations, which
+    is an insufficient sample to support a conclusion about the entire population.
+  decision_reason: The target claims that the present generation of Black people is
+    not as emotionally strong as previous generations, drawing a broad conclusion
+    from a limited observation of past generations’ resilience, thereby committing
+    a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Staring at slavery feels like people think black people should sit and stare at
+    the past. And relive traumatic events? People used to understand what had happened,
+    and live with
+  - it without constantly bringing it up. The people now are not as strong as previous
+    generations. At least not emotionally.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5785
+  completion_tokens: 4912
+  total_tokens: 10697
+  wall_time_seconds: 101.28200000000652

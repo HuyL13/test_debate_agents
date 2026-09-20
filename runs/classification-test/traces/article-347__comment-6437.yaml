@@ -1,0 +1,123 @@
+sample:
+  id: 347:6437
+  article_id: 347
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: The regulation of NGOs are necessary. Though it can lead to silencing. Some
+    NGOs do good work needed by the society.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - The regulation of NGOs are necessary. Though it can lead to silencing. Some
+      NGOs do good work needed by the society.
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: The regulation of NGOs is necessary.
+    evidence_ids:
+    - T1
+    label_justification: The argument does not employ any of the listed logical fallacies;
+      the reason serves a legitimate support function for the conclusion.
+    mechanism_supports_goal: true
+    support_relation: The reason is used to justify the necessity of regulation by
+      highlighting the beneficial role NGOs play, implying regulation is needed to
+      facilitate or manage that benefit.
+    supporting_reason: Some NGOs do good work needed by society.
+    evidence_spans:
+    - The regulation of NGOs are necessary. Though it can lead to silencing. Some
+      NGOs do good work needed by the society.
+  counterargument:
+    candidate: null
+    challenged_inference: The regulation of NGOs are necessary.
+    decisive_counterargument: The claim that NGO regulation is necessary is presented
+      without any supporting evidence, and the potential negative effects (silencing)
+      are only mentioned as a possible outcome. This constitutes an unsupported assertion
+      rather than a logically derived necessity.
+    evidence_ids:
+    - T1
+    failure_exposed: false
+    label_justification: This objection does not point to a specific fallacy from
+      the provided list; it merely identifies the lack of evidence for the necessity
+      claim, so failure_exposed=false.
+    evidence_spans:
+    - The regulation of NGOs are necessary. Though it can lead to silencing. Some
+      NGOs do good work needed by the society.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that all NGOs require regulation without
+    providing sufficient evidence, effectively generalizing from limited observations
+    (“Some NGOs do good work”) to a broad claim about the entire population of NGOs,
+    which aligns with the structural requirement of a hasty generalization.
+  decision_reason: The passage makes a sweeping claim about the necessity of regulating
+    NGOs while offering no substantive evidence beyond a single anecdotal mention
+    that some NGOs do good work. This is a classic example of hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The regulation of NGOs are necessary. Though it can lead to silencing. Some NGOs
+    do good work needed by the society.
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 1
+  cache_hits: 3
+  retries: 0
+  prompt_tokens: 3848
+  completion_tokens: 4013
+  total_tokens: 7861
+  wall_time_seconds: 18.92200000002049

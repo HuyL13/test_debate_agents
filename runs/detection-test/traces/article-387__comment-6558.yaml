@@ -1,0 +1,161 @@
+sample:
+  id: 387:6558
+  article_id: 387
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: 'This is troubling and tragic. Everyone knows that the financial boom of
+    Hong Kong is due to the lack of constraint (economic freedom!). But what has worked
+    so well for markets is not being allowed to benefit the actual people who live
+    and work there. More freedom, always more freedom, is the way to solve problems,
+    not repression and crackdowns! Stay strong, Hong Kong: your struggle reminds us
+    all of the value of freedom.'
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Everyone
+    - role: popularity_claim
+      text: everyone knows
+    - role: target_claim
+      text: the financial boom of Hong Kong is due to the lack of constraint (economic
+        freedom!)
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is troubling and tragic. Everyone knows that the financial boom of Hong
+      Kong is due to the lack of constraint (economic freedom!). But what has worked
+      so well for
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: More freedom solves problems; repression does not.
+    candidate: Hasty Generalization
+    supporting_reason: Everyone knows that the financial boom of Hong Kong is due
+      to the lack of constraint (economic freedom).
+    support_relation: mechanism_supports_goal
+    label_justification: The argument infers a universal claim that more freedom will
+      solve all problems from a single specific case (Hong Kong’s boom), which is
+      a classic hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is troubling and tragic. Everyone knows that the financial boom of Hong
+      Kong is due to the lack of constraint (economic freedom!). But what has worked
+      so well for
+    - markets is not being allowed to benefit the actual people who live and work
+      there. More freedom, always more freedom, is the way to solve problems, not
+      repression and crackdowns!
+  counterargument:
+    decisive_counterargument: Saying 'everyone knows' does not establish evidence—popular
+      opinion is not proof of fact.  Without data or expert citations the claim that
+      Hong Kong’s boom is solely due to a lack of constraint is unsupported, and the
+      leap to 'more freedom solves everything' is an unsubstantiated generalization.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that economic freedom alone explains Hong Kong’s
+      financial boom and that simply increasing freedom will solve all problems.
+    label_justification: The argument relies on the blanket assertion 'everyone knows'
+      to validate its conclusion, which is a classic Appeal to Popularity (or Appeal
+      to Majority).
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is troubling and tragic. Everyone knows that the financial boom of Hong
+      Kong is due to the lack of constraint (economic freedom!). But what has worked
+      so well for
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: both_fallacies
+    loser_failure: Appeal to Majority did not fully justify the universal claim; the
+      appeal to majority is present, but the primary inference from a single case
+      (Hong Kong) to a universal statement (“more freedom solves all problems”) meets
+      the mandatory structure of a hasty generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is troubling and tragic. Everyone knows that the financial boom of Hong
+      Kong is due to the lack of constraint (economic freedom!). But what has worked
+      so well for
+    - markets is not being allowed to benefit the actual people who live and work
+      there. More freedom, always more freedom, is the way to solve problems, not
+      repression and crackdowns!
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that the financial boom of Hong Kong is due
+    to economic freedom (a specific case) and then concludes that “more freedom …
+    is the way to solve problems, not repression” (a universal claim), thus falling
+    under hasty generalization.
+  decision_reason: The argument infers a universal claim—more freedom solves all problems—by
+    citing a single instance (Hong Kong’s boom) as the sole basis, meeting the structural
+    criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is troubling and tragic. Everyone knows that the financial boom of Hong Kong
+    is due to the lack of constraint (economic freedom!). But what has worked so well
+    for
+  - markets is not being allowed to benefit the actual people who live and work there.
+    More freedom, always more freedom, is the way to solve problems, not repression
+    and crackdowns!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5886
+  completion_tokens: 4838
+  total_tokens: 10724
+  wall_time_seconds: 184.92199999999139

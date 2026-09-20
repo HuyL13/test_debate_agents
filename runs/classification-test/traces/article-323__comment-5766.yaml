@@ -1,0 +1,134 @@
+sample:
+  id: 323:5766
+  article_id: 323
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: It's great that these people are finding ways to preserve their languages
+    and cultures. It's entirely natural to want to honor your heritage and pass it
+    down. Of course, it's also natural and great to assimilate into larger cultures,
+    but there can be a healthy balance.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's entirely natural to want to honor your heritage and pass it down.
+        Of course, it's also natural and great to assimilate into larger cultures.
+    - role: evaluative_conclusion
+      text: there can be a healthy balance.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that these people are finding ways to preserve their languages and
+      cultures. It's entirely natural to want to honor your heritage and pass it down.
+      Of course, it's
+    - also natural and great to assimilate into larger cultures, but there can be
+      a healthy balance.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Encourage a balanced approach to preserving languages and
+      cultures while assimilating into larger cultures.
+    candidate: null
+    supporting_reason: It is natural to want to honor your heritage and pass it down.
+    support_relation: The naturalness claim underpins the goal by framing language
+      preservation as a desirable, inherent motive, which justifies the advocated
+      balance.
+    label_justification: The statement merely reports an observation about natural
+      human desires and does not misapply that naturalness to assert moral superiority
+      or cause a false dichotomy; hence no logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's great that these people are finding ways to preserve their languages and
+      cultures. It's entirely natural to want to honor your heritage and pass it down.
+      Of course, it's
+  counterargument:
+    decisive_counterargument: The fact that a practice is natural does not in itself
+      prove it is morally or socially preferable; naturalness alone does not justify
+      claiming that preserving languages and cultures is inherently ‘great’.
+    candidate: Appeal to Nature
+    challenged_inference: Everything that is natural is good or desirable.
+    label_justification: The argument equates naturalness with inherent goodness,
+      which is the hallmark of an appeal to nature; the counterargument demonstrates
+      that naturalness alone does not confer moral value, exposing that fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that these people are finding ways to preserve their languages and
+      cultures. It's entirely natural to want to honor your heritage and pass it down.
+      Of course, it's
+    - also natural and great to assimilate into larger cultures, but there can be
+      a healthy balance.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument does not assert that naturalness confers inherent
+    goodness or desirability; it merely notes that preserving culture and assimilating
+    are natural needs and that a balance can exist. Therefore the structure of an
+    appeal-to-nature—linking naturalness with a value judgment—is missing, so the
+    claim is not fallacious under the target text. No evidence supports an actual
+    Appeal to Nature inference.
+  decision_reason: The target does not equate naturalness with moral value; it only
+    states natural feelings and a balanced outcome, lacking the necessary evaluative
+    jump to qualify as an Appeal to Nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's great that these people are finding ways to preserve their languages and
+    cultures. It's entirely natural to want to honor your heritage and pass it down.
+    Of course, it's
+  - also natural and great to assimilate into larger cultures, but there can be a
+    healthy balance.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4231
+  completion_tokens: 3166
+  total_tokens: 7397
+  wall_time_seconds: 190.56200000003446

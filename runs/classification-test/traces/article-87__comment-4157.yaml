@@ -1,0 +1,175 @@
+sample:
+  id: 87:4157
+  article_id: 87
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: These people are choosing to lose things based on their opinions. What about
+    children who have no choice about the fact that they are going hungry. I don't
+    understand helping those who are making the choice to go hungry. I think our energy
+    would be better spent helping the innocent victims like children.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: alternative_a
+      text: helping those who are making the choice to go hungry
+    - role: alternative_b
+      text: helping innocent children
+    - role: exhaustiveness_commitment
+      text: our energy would be better spent helping the innocent victims like children
+    structure_complete: true
+    structure_type: exhaustive_alternatives
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+    candidate: False Dilemma
+  goal:
+    candidate: Appeal to Authority
+    conclusion_or_goal: The speaker argues that energy would be better spent helping
+      innocent victims such as children rather than those who choose to go hungry.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The reasoning proceeds from an emotional claim—children are
+      innocent victims—to the conclusion that they deserve more support, without providing
+      substantive justification. This emotional appeal is a classic form of the fallacy
+      of appeal to pity or appeal to innocence, which is a type of emotional appeal
+      error.
+    mechanism_supports_goal: true
+    support_relation: Appeal to emotion
+    supporting_reason: The argument appeals to the emotional perception that children
+      are innocent victims, using that sentiment to justify prioritizing resources
+      for them over other groups.
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+  counterargument:
+    decisive_counterargument: You can still help both the activists who are making
+      intentional choices and the children who are starving; the argument suggests
+      that you must choose one group over the other, which incorrectly frames the
+      situation as a zero‑sum choice.
+    candidate: False Dilemma
+    challenged_inference: Our energy would be better spent helping the innocent victims
+      like children.
+    label_justification: The TARGET claim presents a binary choice—either focus on
+      people choosing to lose things or focus solely on children—implying these options
+      exhaust all possibilities. However, the reasoning fails because resources can
+      be distributed to support both groups simultaneously, demonstrating a false
+      dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Authority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: Appeal to Authority demonstrates an appeal to an authority figure
+      or source, which the TARGET does not contain. The target only discusses choices
+      and preferences without relying on any expert or authority. Therefore the mandatory
+      structural condition of Appeal to Authority—i.e., the presence of an authority
+      whose opinion is used as evidence—is not satisfied.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These people are choosing to lose things based on their opinions. What about
+      children who have no choice about the fact that they are going hungry. I don't
+      understand helping
+    - those who are making the choice to go hungry. I think our energy would be better
+      spent helping the innocent victims like children.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents two mutually exclusive alternatives—helping
+    those who choose to lose (activists) versus helping children who are hungry—and
+    commits to spending energy only on the latter, implying that any aid to the former
+    is denied. This is a classic false dilemma (exhaustive alternatives) structure.
+  decision_reason: The claim explicitly frames a zero‑sum choice between two groups
+    and asserts that resources can only be spent on one, thereby committing a false
+    dilemma fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These people are choosing to lose things based on their opinions. What about children
+    who have no choice about the fact that they are going hungry. I don't understand
+    helping
+  - those who are making the choice to go hungry. I think our energy would be better
+    spent helping the innocent victims like children.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 3
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 5787
+  completion_tokens: 3167
+  total_tokens: 8954
+  wall_time_seconds: 96.64000000001397

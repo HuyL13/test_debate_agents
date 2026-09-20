@@ -1,0 +1,160 @@
+sample:
+  id: 22:3962
+  article_id: 22
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: It is obvious the environmental impacts were most important here. We cannot
+    argue that anything else is more important. Can anyone tell me anything that matters
+    more?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: environmental impacts were most important here
+    - role: alternative_b
+      text: anything else
+    - role: exhaustiveness_commitment
+      text: We cannot argue that anything else is more important
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Environmental impacts are the highest priority in this matter.
+    candidate: null
+    supporting_reason: The statement claims it is obvious that environmental impacts
+      are the most important.
+    support_relation: Reason serves to justify the conclusion.
+    label_justification: No fallacy from the provided categories is evident; the argument
+      uses an appeal to obviousness, which is not listed as a fallacy here.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+  counterargument:
+    decisive_counterargument: Nothing in the passage provides evidence that environmental
+      impacts were truly the most important factor. The claim rests solely on the
+      speaker’s assertion that the issue is “obvious,” which is merely an appeal to
+      presumed common knowledge rather than a factual claim. Other factors—such as
+      economic benefits, job creation, community well‑being, or cultural significance—could
+      be equally or more significant, but the speaker offers no argument to exclude
+      them.
+    candidate: Appeal to Authority
+    challenged_inference: Environmental impacts were the most important consideration
+      in the decision about the new Australian coal mine.
+    label_justification: 'The target treats the statement ‘it is obvious’ as if the
+      speaker’s judgment were self‑evident authority. This is an Appeal to Authority:
+      the speaker’s unsubstantiated claim serves as the justification for the conclusion,
+      but no external or objective evidence is cited.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Authority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: The claim does not constitute an Appeal to Authority, because it
+      relies on a subjective judgment of ‘obvious’ rather than on an external expert
+      or credible source. The speaker offers no evidence that environmental impacts
+      are truly the most important factor or that any authority corroborates this
+      view. In contrast, the passage clearly presents only two alternatives—environmental
+      impacts versus other concerns—and asserts that no other alternative can be more
+      important, satisfying the exhaustive‑alternatives structure of a False Dilemma.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is obvious the environmental impacts were most important here. We cannot
+      argue that anything else is more important. Can anyone tell me anything that
+      matters more?
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states that environmental impacts are most important
+    and then asserts that nothing else can be more important, presenting two alternatives
+    and claiming they exhaust all possibilities, which matches the structure of a
+    false dilemma.
+  decision_reason: The target explicitly lists environmental impacts as the most important
+    alternative and rejects any other option as more important, thereby treating only
+    these two as exhaustive options and displaying the hallmark structure of a false
+    dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is obvious the environmental impacts were most important here. We cannot argue
+    that anything else is more important. Can anyone tell me anything that matters
+    more?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4915
+  completion_tokens: 4131
+  total_tokens: 9046
+  wall_time_seconds: 104.63999999998487

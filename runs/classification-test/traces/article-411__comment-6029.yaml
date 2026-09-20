@@ -1,0 +1,150 @@
+sample:
+  id: 411:6029
+  article_id: 411
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Their government has got to be hiding something nefarious if they think
+    its worth going through all this trouble. Maybe they are actively committing genocide
+    on their people or something. Why else censor everything? Bottom line is that
+    censoring the internet is to hide what they are doing to their people and prevent
+    them from speaking out.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: censoring everything
+    - role: observed_property
+      text: to hide what they are doing to their people and prevent them from speaking
+        out
+    - role: target_population
+      text: their government
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The claim that the government’s internet censorship is evidence
+      of hidden nefarious activities, such as genocide, implying the government is
+      hiding wrongdoing.
+    candidate: Hasty Generalization
+    supporting_reason: Their government has got to be hiding something nefarious if
+      they think its worth going through all this trouble.
+    support_relation: This reasoning assumes that because the government censors the
+      internet, it must be hiding nefarious actions, thereby justifying the conclusion
+      that it is engaging in genocide.
+    label_justification: The argument leans on a single observation (the government’s
+      censorship) and expands it to a severe wrongdoing (genocide) without evidence,
+      which is characteristic of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+  counterargument:
+    decisive_counterargument: The argument assumes that the presence of internet censorship
+      automatically implies that the government is hiding a serious crime such as
+      genocide. Censorship can arise for a wide range of reasons—security concerns,
+      legal compliance, cultural preservation, or political stability—none of which
+      necessarily involve criminal concealment. Without independent evidence of genocide
+      or other wrongdoing, the claim remains speculative. Thus the inference is unsupported,
+      but it does not fit any of the fallacy categories listed (hasty generalization,
+      slippery slope, false dilemma, appeal to authority, appeal to majority, appeal
+      to nature, appeal to tradition, or appeal to worse problems).
+    candidate: null
+    challenged_inference: Infer that censoring the internet is evidence that the government
+      is hiding genocide or other nefarious acts.
+    label_justification: The objection points out the lack of causal evidence between
+      censorship and hidden wrongdoing. The reasoning does not utilize any of the
+      specified fallacy structures; therefore the fallacy type is not applicable and
+      failure_exposed is set to false.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes from the single observation that the
+    government censors the internet to conclude that it hides genocide, attributing
+    a property to the entire government population, which matches the sample‑to‑population
+    structure of a hasty generalization.
+  decision_reason: The claim that the government must be hiding something nefarious
+    (specifically genocide) is inferred solely from the observation that it censors
+    the internet, thereby treating the censorship as a sample that represents the
+    entire government. This satisfies the required structural condition of a hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Their government has got to be hiding something nefarious if they think its worth
+    going through all this trouble. Maybe they are actively committing genocide on
+    their people or something.
+  - Why else censor everything? Bottom line is that censoring the internet is to hide
+    what they are doing to their people and prevent them from speaking out.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4309
+  completion_tokens: 4665
+  total_tokens: 8974
+  wall_time_seconds: 121.5

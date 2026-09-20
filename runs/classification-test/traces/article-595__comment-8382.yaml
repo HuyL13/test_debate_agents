@@ -1,0 +1,133 @@
+sample:
+  id: 595:8382
+  article_id: 595
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: This is just one small part of what will happen if we don't reign in the
+    climate. Today it's a bunch of dead flamingoes. What tomorrow? Other birds. Then
+    horses. Cats and dogs. Finally, all of us people will be the victims of broken
+    ecosystems.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If we don’t reign in the climate
+    - role: intermediate_consequence
+      text: First the dead flamingoes, then other birds, and horses.
+    - role: final_consequence
+      text: Finally, all of us people will be the victims of broken ecosystems.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is just one small part of what will happen if we don't reign in the climate.
+      Today it's a bunch of dead flamingoes. What tomorrow? Other birds. Then horses.
+    - Cats and dogs. Finally, all of us people will be the victims of broken ecosystems.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: All people will become victims of broken ecosystems if we
+      do not curb climate change.
+    candidate: Slippery Slope
+    supporting_reason: Today it's a bunch of dead flamingoes. What tomorrow? Other
+      birds. Then horses. Cats and dogs. Finally, all of us people will be the victims
+      of broken ecosystems.
+    support_relation: The reason presents an escalating scenario that leads from current
+      flamingo deaths to eventual human victimization, thereby justifying the conclusion.
+    label_justification: The argument describes a progressive chain of increasingly
+      severe ecological harms that culminates in human loss, fitting the definition
+      of a slippery-slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is just one small part of what will happen if we don't reign in the climate.
+      Today it's a bunch of dead flamingoes. What tomorrow? Other birds. Then horses.
+    - Cats and dogs. Finally, all of us people will be the victims of broken ecosystems.
+  counterargument:
+    decisive_counterargument: The stepped cascade from flamingo deaths to horses,
+      cats, dogs, and ultimately humans is unsupported; no evidence links flamingo
+      mortality to a global, escalating collapse that would affect every species,
+      including us.
+    candidate: Slippery Slope
+    challenged_inference: If we fail to curb climate change, it will inevitably lead
+      to the extinction of flamingoes, then horses, cats, dogs, and finally humans,
+      who will suffer from broken ecosystems.
+    label_justification: The counterargument demonstrates an unjustified, speculative
+      progression from one specific event (flamingo deaths) to a far‑reached, catastrophic
+      outcome (human victimization of ecosystems). This exemplifies a slippery‑slope
+      fallacy, where an initial step is exaggerated into a chain of increasingly severe
+      consequences without evidence of causal connection.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is just one small part of what will happen if we don't reign in the climate.
+      Today it's a bunch of dead flamingoes. What tomorrow? Other birds. Then horses.
+    - Cats and dogs. Finally, all of us people will be the victims of broken ecosystems.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: Target consists of a clear chain of escalating consequences—from
+    flamingo deaths to other birds, horses, cats and dogs, and ultimately to humans
+    as victims—without evidence supporting the causal link between each step, matching
+    the slippery‑slope pattern.
+  decision_reason: The argument enumerates a progressive cascade of increasingly severe
+    outcomes stemming from failing to control climate, satisfying the structure of
+    a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is just one small part of what will happen if we don't reign in the climate.
+    Today it's a bunch of dead flamingoes. What tomorrow? Other birds. Then horses.
+  - Cats and dogs. Finally, all of us people will be the victims of broken ecosystems.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4444
+  completion_tokens: 2779
+  total_tokens: 7223
+  wall_time_seconds: 48.73399999999674

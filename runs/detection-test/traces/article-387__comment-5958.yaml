@@ -1,0 +1,106 @@
+sample:
+  id: 387:5958
+  article_id: 387
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: Hong Kong is finished. The people need to rise up and take control. If China
+    keeps weighing their influence on HK, things will get worse.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Hong Kong is finished. The people need to rise up and take control. If China
+      keeps weighing their influence on HK, things will get worse.
+    candidate: null
+  goal:
+    conclusion_or_goal: Hong Kong is finished.
+    candidate: null
+    supporting_reason: If China keeps weighing their influence on HK, things will
+      get worse.
+    support_relation: cause
+    label_justification: The target makes a causal claim without providing supporting
+      evidence or premises, so no specific logical‑fallacy pattern can be identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Hong Kong is finished. The people need to rise up and take control. If China
+      keeps weighing their influence on HK, things will get worse.
+  counterargument:
+    decisive_counterargument: The claim that 'Hong Kong is finished' and that continued
+      Chinese influence will inevitably make the situation worse is made without any
+      supporting evidence; it is an unqualified blanket statement about the future
+      of an entire city. Such an unsupported sweeping conclusion cannot be justified
+      by the brief premises presented.
+    candidate: Hasty Generalization
+    challenged_inference: Hong Kong is finished, and things will get worse if China
+      continues to influence Hong Kong
+    label_justification: The objection highlights that the argument relies on a broad,
+      unverifiable assertion about the whole of Hong Kong’s future, jumping from an
+      unsupported premise to a general conclusion—classic hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Hong Kong is finished. The people need to rise up and take control. If China
+      keeps weighing their influence on HK, things will get worse.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not provide a sample or specific case
+    from which a broader claim is drawn; it merely makes an unsupported blanket assertion
+    about all of Hong Kong. Therefore it fails the mandatory structural requirement
+    for a Hasty Generalization.
+  decision_reason: The candidate does not meet the definition of a hasty generalization,
+    lacking an explicit sample to generalize from, so the statement is not classified
+    as such.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Hong Kong is finished. The people need to rise up and take control. If China keeps
+    weighing their influence on HK, things will get worse.
+  verified: false
+  rejection_reason: The candidate does not meet the definition of a hasty generalization,
+    lacking an explicit sample to generalize from, so the statement is not classified
+    as such.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3677
+  completion_tokens: 2854
+  total_tokens: 6531
+  wall_time_seconds: 128.39100000000326

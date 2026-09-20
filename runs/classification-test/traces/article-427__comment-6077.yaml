@@ -1,0 +1,177 @@
+sample:
+  id: 427:6077
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Why can't the higher ups in journalism circles in Spain help these women?
+    How about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+    he help stage an intervention? What year is it again?  It feels like Spain is
+    still in the dark ages.  These men have the power, and they should not ignore
+    the valid complaints of these women who should be treated as equals.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It feels like Spain is still in the dark ages.
+    - role: evaluative_conclusion
+      text: These men have the power, and they should not ignore the valid complaints
+        of these women who should be treated as equals.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - intervention? What year is it again?  It feels like Spain is still in the dark
+      ages.  These men have the power, and they should not ignore the valid complaints
+      of
+    - these women who should be treated as equals.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The higher‑ups in Spanish journalism should intervene to help
+      women who have filed complaints and treat them as equals.
+    candidate: null
+    supporting_reason: These men have the power, and they should not ignore the valid
+      complaints of these women who should be treated as equals.
+    support_relation: supports
+    label_justification: The reasoning is directly used to justify the conclusion
+      without relying on a deceptive or faulty logical structure; it is an appeal
+      to fairness, not a recognized fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Why can't the higher ups in journalism circles in Spain help these women? How
+      about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+      he help stage an
+    - these women who should be treated as equals.
+  counterargument:
+    decisive_counterargument: Just because the ‘higher ups’ in journalism have a leadership
+      title does not guarantee they are able or obliged to intervene in the complaints
+      of women journalists. Power alone is not a sufficient justification for action;
+      it merely grants the possibility of influence, and whether they choose or are
+      capable of acting depends on many other factors. Therefore the argument “they
+      shouldn’t ignore the complaints because they have power” relies on an unwarranted
+      appeal to authority and presumes that authority automatically entails responsibility
+      and capability.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that higher‑up journalists should intervene
+      simply because they hold positions of power and therefore have authority to
+      act.
+    label_justification: The objection points out that the argument uses the authority
+      of those in senior positions to justify that they ought to address the women’s
+      complaints. This violates the known fallacy that an authority’s position alone
+      does not supply the evidence or mandate for action, thereby exposing an appeal
+      to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why can't the higher ups in journalism circles in Spain help these women? How
+      about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+      he help stage an
+    - intervention? What year is it again?  It feels like Spain is still in the dark
+      ages.  These men have the power, and they should not ignore the valid complaints
+      of
+    - these women who should be treated as equals.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-nature
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-nature
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Nature
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: Appeal to Nature lacks a clear naturalness premise strictly linking
+      to the moral/ evaluative conclusion; the argument relies primarily on the authority
+      of senior journalists to justify action rather than on what is 'natural'.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why can't the higher ups in journalism circles in Spain help these women? How
+      about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+      he help stage an
+    - intervention? What year is it again?  It feels like Spain is still in the dark
+      ages.  These men have the power, and they should not ignore the valid complaints
+      of
+    - these women who should be treated as equals.
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target asserts that because the higher‑up journalists possess
+    authority/power, they are obligated to intervene and address the women’s complaints.
+    This relies on the authority of the individuals as justification for the duty,
+    which constitutes an appeal to authority. The target itself contains the reasoning,
+    and no other fallacy structure is present.
+  decision_reason: The target’s claim that the men’s power mandates action relies
+    on the status of those individuals as authority. This is the classic appeal to
+    authority structure, making the argument fallacious. Evidence is found across
+    all three passages (T1–T3).
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Why can't the higher ups in journalism circles in Spain help these women? How
+    about the former head of the Spanish Press Federation, Arsenio Escolar?  Couldn't
+    he help stage an
+  - intervention? What year is it again?  It feels like Spain is still in the dark
+    ages.  These men have the power, and they should not ignore the valid complaints
+    of
+  - these women who should be treated as equals.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5915
+  completion_tokens: 6521
+  total_tokens: 12436
+  wall_time_seconds: 149.26600000000326

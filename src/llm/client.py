@@ -126,8 +126,12 @@ class Client:
                 if self.raw_debug_path is not None:
                     append_jsonl(self.raw_debug_path, {"request": request_payload, "response": response, "metadata": metadata})
                 choice = response["choices"][0]
-                if choice.get("finish_reason") != "stop" or choice["message"].get("refusal"):
-                    raise ValueError("Refused, truncated, or non-final response")
+                finish_reason = choice.get("finish_reason")
+                refusal = choice["message"].get("refusal")
+                if finish_reason != "stop" or refusal:
+                    raise ValueError(
+                        f"Non-final response: finish_reason={finish_reason}, refusal={bool(refusal)}"
+                    )
                 raw = choice["message"].get("content")
                 if not isinstance(raw, str):
                     raise ValueError("Missing JSON response text")

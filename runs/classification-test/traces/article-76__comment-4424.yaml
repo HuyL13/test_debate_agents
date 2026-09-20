@@ -1,0 +1,152 @@
+sample:
+  id: 76:4424
+  article_id: 76
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: The violence done against other is relentless between these factions. There
+    seems to be no limits on who they can attack. Nations should unite for peace.
+  target: That's very true, we need to stand united against this threat. If the whole
+    world doesn't come together to do something about this, in the most concrete,
+    direct manner, it will only spiral out of control and result in far more death
+    and destruction. Either we work together and solve all this immediately or let
+    chaos reign. There's no real alternative.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: We work together and solve all this immediately.
+    - role: alternative_b
+      text: Let chaos reign.
+    - role: exhaustiveness_commitment
+      text: There’s no real alternative.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That's very true, we need to stand united against this threat. If the whole
+      world doesn't come together to do something about this, in the most concrete,
+      direct manner, it
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+    - alternative.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: We should unite the world to confront the threat immediately.
+    candidate: False Dilemma
+    supporting_reason: The argument presents only two mutually exclusive options –
+      either the world unites to solve the crisis immediately, or chaos reigns.
+    support_relation: This reason is used to justify the conclusion by framing unity
+      as the sole viable solution.
+    label_justification: The speaker excludes any alternative strategies (e.g., partial
+      cooperation or diplomatic negotiation) and states that failure to unite inevitably
+      leads to chaos. This selective presentation of options constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's very true, we need to stand united against this threat. If the whole
+      world doesn't come together to do something about this, in the most concrete,
+      direct manner, it
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+  counterargument:
+    decisive_counterargument: 'The assertion narrows the response to a binary choice—either
+      full global cooperation that supposedly solves the problem immediately, or total
+      chaos. In reality, there are many viable alternatives: targeted diplomatic engagement,
+      incremental disarmament measures, regional coalitions, economic sanctions, or
+      increased intelligence sharing. Moreover, even if global cooperation were slow
+      or imperfect, this does not automatically imply that the situation will spiral
+      out of control. Therefore, the claim that the world has only two options is
+      a misleading oversimplification.'
+    candidate: False Dilemma
+    challenged_inference: The inference that only two mutually exclusive options exist
+      to address the threat—the world must either act immediately with universal cooperation
+      or let chaos reign.
+    label_justification: The target presents a false dilemma by asserting that these
+      are the only alternatives and explicitly stating, “There's no real alternative.”
+      This exclusively pairs two extremes as though they exhaust all possibilities.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That's very true, we need to stand united against this threat. If the whole
+      world doesn't come together to do something about this, in the most concrete,
+      direct manner, it
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+    - alternative.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a dichotomy—either world unity to resolve
+    the threat immediately or chaos reigns—while asserting that no other options exist
+    (“There’s no real alternative”), which meets the structural criteria for a false
+    dilemma.
+  decision_reason: The argument offers only two mutually exclusive alternatives and
+    claims exclusivity, indicating the presence of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - That's very true, we need to stand united against this threat. If the whole world
+    doesn't come together to do something about this, in the most concrete, direct
+    manner, it
+  - will only spiral out of control and result in far more death and destruction.
+    Either we work together and solve all this immediately or let chaos reign. There's
+    no real
+  - alternative.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4533
+  completion_tokens: 2460
+  total_tokens: 6993
+  wall_time_seconds: 59.578999999997905

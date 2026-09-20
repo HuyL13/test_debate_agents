@@ -1,0 +1,127 @@
+sample:
+  id: 416:6644
+  article_id: 416
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: The problems aren't with the police, the problems are with the government!
+    Why aren't they focusing on the corrupt politicians? All of their problems are
+    caused by the politicians!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: problems aren't with the police, the problems are with the government
+    - role: observed_property
+      text: all problems are caused by politicians
+    - role: target_population
+      text: all problems
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The problems are caused by corrupt politicians rather than
+      the police.
+    candidate: null
+    supporting_reason: All problems are caused by the politicians.
+    support_relation: The claim that the politicians are the cause directly supports
+      the conclusion that the problems lie with the government, not the police.
+    label_justification: The reasoning uses a simple causal claim without any of the
+      outlined logical‑fallacy patterns. It does not invoke an authority, majority,
+      tradition, nature, a false dilemma, a slippery slope, or a hasty generalization
+      drawn from a limited sample. Hence no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+  counterargument:
+    decisive_counterargument: The claim that all of the problems stem from corrupt
+      politicians ignores the real, documented issues with police conduct and the
+      complex interplay of multiple actors. Without evidence that every single problem
+      is caused by the politicians, the argument unfairly paints the entire system
+      with a single brush.
+    candidate: Hasty Generalization
+    challenged_inference: All of their problems are caused by the politicians!
+    label_justification: 'The inference attributes the cause of an entire set of problems
+      to one group based on an unsubstantiated assumption. This is a classic hasty
+      generalization: a sweeping claim about a large category (all problems) drawn
+      from a limited premise (politicians being corrupt) without adequate evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problems aren't with the police, the problems are with the government! Why
+      aren't they focusing on the corrupt politicians? All of their problems are caused
+      by the politicians!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target asserts that all problems are caused by corrupt
+    politicians based on limited or unsubstantiated evidence, presenting a sweeping
+    claim that attributes every problem to this single group. This inference meets
+    the Hasty Generalization structure: an asserted sample (politicians being corrupt)
+    is used to conclude a property of the entire population of problems.'
+  decision_reason: The claim attributes all problems to politicians—a sweeping statement
+    derived from a single or insufficient premise—constituting a hasty generalization.
+    Evidence provided in T1 supports this inference.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The problems aren't with the police, the problems are with the government! Why
+    aren't they focusing on the corrupt politicians? All of their problems are caused
+    by the politicians!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3875
+  completion_tokens: 3629
+  total_tokens: 7504
+  wall_time_seconds: 145.5

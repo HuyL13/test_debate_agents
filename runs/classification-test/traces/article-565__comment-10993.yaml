@@ -1,0 +1,188 @@
+sample:
+  id: 565:10993
+  article_id: 565
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: After years of living under a repressive junta, of course people are reluctant
+    to speak out. Because people are reluctant to speak out against inadequacies they
+    perceive in government, the government can reasonably take the silence as acceptance
+    of their policies and feels free to behave however it wants. Any regime leans
+    toward obtaining more power, and without institutional checks and pushback from
+    the citizens, the regression to full military dictatorship is inevitable.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: people are reluctant to speak out
+    - role: intermediate_consequence
+      text: the government can take the silence as acceptance of their policies and
+        feels free to behave however it wants
+    - role: final_consequence
+      text: the regression to full military dictatorship is inevitable
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - After years of living under a repressive junta, of course people are reluctant
+      to speak out. Because people are reluctant to speak out against inadequacies
+      they perceive in government, the
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The passage argues that because citizens are silent under
+      a repressive regime, the government can interpret this silence as acceptance
+      and, lacking institutional checks, will inevitably extend its power until it
+      becomes a full military dictatorship.
+    candidate: Hasty Generalization
+    supporting_reason: Any regime leans toward obtaining more power
+    support_relation: The statement about regimes generally tending to consolidate
+      power is used to justify the claim that, in the absence of citizen pushback,
+      the government’s unchecked expansion of power will inevitably lead to a regression
+      to dictatorship.
+    label_justification: The argument extrapolates a sweeping claim about all regimes—that
+      they all inevitably lean toward consolidating power—to support its conclusion,
+      without providing evidence that covers the full range of possible regimes or
+      acknowledging exceptions, which constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+  counterargument:
+    decisive_counterargument: While prolonged silence can reduce visible pressure
+      on a regime, it does not guarantee a slide into full military dictatorship.
+      History shows that revolutions or political reforms can emerge from assorted
+      forms of civil resistance, diplomatic pressure, or internal factionalism even
+      when overt dissent is muted, proving the claim of inevitable authoritarian regression
+      unsupported.
+    candidate: Slippery Slope
+    challenged_inference: The conclusion that, because citizens are reluctant to speak
+      out and there are no institutional checks, the government will inevitably slide
+      into a full military dictatorship.
+    label_justification: The argument presents an unbroken link from reduced dissent
+      to absolute authoritarianism, a classic slippery‑slope fallacy where an initial
+      condition is claimed to inevitably lead to an extreme outcome without intermediate
+      evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: Slippery Slope
+    loser_failure: Hasty Generalization would require an explicit sample or few observations
+      to justify a sweeping claim about a whole class; the target does not merely
+      extrapolate from the single example of a repressive junta to all regimes but
+      presents a chain of escalating consequences—people’s silence leading to unchecked
+      power and ultimate dictatorial regression—which is the essential structure of
+      a slippery‑slope argument.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - After years of living under a repressive junta, of course people are reluctant
+      to speak out. Because people are reluctant to speak out against inadequacies
+      they perceive in government, the
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The passage presents an unbroken progression from citizens’
+    reluctance to speak out, to the government interpreting silence as acceptance,
+    to the regime gaining unchecked power, culminating in the asserted inevitability
+    of a full military dictatorship—an unverified slippery‑slope inference.
+  decision_reason: The argument establishes a cause‑effect chain leading to an extreme
+    outcome without intermediate evidence, matching the slippery‑slope structure.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - After years of living under a repressive junta, of course people are reluctant
+    to speak out. Because people are reluctant to speak out against inadequacies they
+    perceive in government, the
+  - government can reasonably take the silence as acceptance of their policies and
+    feels free to behave however it wants. Any regime leans toward obtaining more
+    power, and without institutional checks
+  - and pushback from the citizens, the regression to full military dictatorship is
+    inevitable.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6214
+  completion_tokens: 4621
+  total_tokens: 10835
+  wall_time_seconds: 66.68699999997625

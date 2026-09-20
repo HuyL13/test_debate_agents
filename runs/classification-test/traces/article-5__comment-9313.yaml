@@ -1,0 +1,135 @@
+sample:
+  id: 5:9313
+  article_id: 5
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: Can't say I'm surprised by this, at least when it comes to the nature of
+    the Japanese justice system. Anytime I see an article on the subject, it's always
+    talking about how harsh and unfair it is. The simple fact I've never seen anything
+    good written about it probably suggests it's irredeemable. I hope Japan is able
+    to do something about this.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: articles I've seen
+    - role: observed_property
+      text: always talk harsh and unfair
+    - role: target_population
+      text: Japanese justice system
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Can't say I'm surprised by this, at least when it comes to the nature of the
+      Japanese justice system. Anytime I see an article on the subject, it's always
+      talking
+    - about how harsh and unfair it is. The simple fact I've never seen anything good
+      written about it probably suggests it's irredeemable. I hope Japan is able to
+      do something
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The Japanese justice system is irredeemable.
+    candidate: Hasty Generalization
+    supporting_reason: The fact that the speaker has never seen anything good written
+      about the system
+    support_relation: This limited observation is used to justify the overarching
+      conclusion about the system’s overall quality.
+    label_justification: The argument bases a sweeping claim about the justice system’s
+      irredeemability on the absence of any favorable coverage, which is an insufficient
+      and unrepresentative sample.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - about how harsh and unfair it is. The simple fact I've never seen anything good
+      written about it probably suggests it's irredeemable. I hope Japan is able to
+      do something
+  counterargument:
+    decisive_counterargument: Just because no positive articles have appeared in the
+      sources you’ve read doesn’t mean there are no positive aspects to the Japanese
+      justice system; the absence of evidence in a limited sample isn’t proof of non‑existence.
+    candidate: Hasty Generalization
+    challenged_inference: The Japanese justice system is irredeemable because no good
+      articles have been published about it.
+    label_justification: The argument draws a sweeping conclusion about an entire
+      institution from a narrow and possibly biased sample of media reports, thereby
+      committing a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Can't say I'm surprised by this, at least when it comes to the nature of the
+      Japanese justice system. Anytime I see an article on the subject, it's always
+      talking
+    - about how harsh and unfair it is. The simple fact I've never seen anything good
+      written about it probably suggests it's irredeemable. I hope Japan is able to
+      do something
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The speaker draws a sweeping conclusion that the Japanese justice
+    system is irredeemable based on the limited sample of personally seen articles
+    that are negative, thus generalizing from that small, unrepresentative set to
+    the entire system.
+  decision_reason: The argument treats the observed articles—‘always talking about
+    how harsh and unfair it is’—as sufficient evidence to claim the whole justice
+    system is irredeemable, satisfying the structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Can't say I'm surprised by this, at least when it comes to the nature of the Japanese
+    justice system. Anytime I see an article on the subject, it's always talking
+  - about how harsh and unfair it is. The simple fact I've never seen anything good
+    written about it probably suggests it's irredeemable. I hope Japan is able to
+    do something
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4574
+  completion_tokens: 2190
+  total_tokens: 6764
+  wall_time_seconds: 48.125

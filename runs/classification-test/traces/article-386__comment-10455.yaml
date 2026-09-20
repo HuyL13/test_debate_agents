@@ -1,0 +1,148 @@
+sample:
+  id: 386:10455
+  article_id: 386
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: It's hard to imagine security forces having to deal with over 70 bomb threats
+    in one day. They must have been so strained for resources! This is a prime example
+    of the complexities of today's world, where technology can be used to spread panic
+    and disorder in an otherwise peaceful society. I take solace in the hope that
+    Kosovo's security forces can guide them through this difficult time.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: over 70 bomb threats in one day
+    - role: observed_property
+      text: technology can be used to spread panic and disorder
+    - role: target_population
+      text: today’s world complexities
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+    - of the complexities of today's world, where technology can be used to spread
+      panic and disorder in an otherwise peaceful society. I take solace in the hope
+      that Kosovo's security
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The target expresses keen concern about the strain on Kosovo
+      security forces due to an unusually high number of bomb threats and offers hope
+      that the forces can navigate this complex situation.
+    candidate: null
+    supporting_reason: They must have been so strained for resources! This is a prime
+      example of the complexities of today's world...
+    support_relation: The stated strain and complexity are presented as reasons to
+      understand the difficulty the security forces face and to justify the speaker's
+      hopeful outlook.
+    label_justification: The target does not present a deductive or inductive argument
+      that relies on a fallacious reasoning pattern. It merely narrates a situation
+      and expresses empathy, so no logical-fallacy label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+    - of the complexities of today's world, where technology can be used to spread
+      panic and disorder in an otherwise peaceful society. I take solace in the hope
+      that Kosovo's security
+    - forces can guide them through this difficult time.
+  counterargument:
+    decisive_counterargument: The claim that security forces “must have been so strained
+      for resources” follows from the fact that they faced 70 bomb threats in one
+      day, but there is no evidence that those threats actually exhausted resources.
+      It assumes that having many threats automatically leads to resource depletion,
+      disregarding the force’s actual capacity, staffing levels, or prior contingency
+      planning. Without data showing a shortage or overload, the conclusion about
+      strain is unjustified and represents a hasty generalization from a single extreme
+      event. This is not merely an emotional expression but an unwarranted inference.
+    candidate: Hasty Generalization
+    challenged_inference: Security forces must have been so strained for resources
+    label_justification: 'The inference draws a broad conclusion about the overall
+      resource strain of the security forces based solely on the observation of 70
+      bomb threats in a single day. This is a classic example of a hasty generalization:
+      a specific instance (the day’s 70 alerts) is used to claim a general state (resource
+      strain) without providing evidence that the instance reflects the norm or that
+      resources were actually exhausted.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+    - of the complexities of today's world, where technology can be used to spread
+      panic and disorder in an otherwise peaceful society. I take solace in the hope
+      that Kosovo's security
+    - forces can guide them through this difficult time.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Inference that security forces must have been strained for resources
+    is based solely on the observation of over 70 bomb threats in a single day, generalizing
+    about the overall resource condition without evidence; this fits the sample‑to‑population
+    structure of a hasty generalization.
+  decision_reason: The claim in the target—“They must have been so strained for resources”—is
+    drawn from a singular extreme case (over 70 bomb threats in one day). The text
+    offers no evidence that resources were actually exhausted or that this case is
+    representative of all times security forces are operating, thus constituting a
+    sample‑to‑population hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's hard to imagine security forces having to deal with over 70 bomb threats
+    in one day. They must have been so strained for resources! This is a prime example
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4565
+  completion_tokens: 4148
+  total_tokens: 8713
+  wall_time_seconds: 138.71799999999348

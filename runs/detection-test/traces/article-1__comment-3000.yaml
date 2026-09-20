@@ -1,0 +1,143 @@
+sample:
+  id: 1:3000
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: The memories of people continue to preserve the reality of events, as it
+    is in their nature to hold on to the truth. As they say, you can't fool all the
+    people all the time. Ever noticed how even the most forgotten parts of history
+    find their way back to our consciousness? That's nature for you. The attempt to
+    rewrite history is not only going against the natural order but also invites the
+    natural repercussions, as nature works in its own mysterious ways to restore balance.
+    Accepting what has happened may seem difficult but it is the most natural way
+    to heal and move forward. One can't just turn the existing natural laws upside-down
+    without expecting some form of reckoning. Let's let the nature take its course.
+    After all, the true story of our past is the foundation on which we build our
+    future.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T4
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - The memories of people continue to preserve the reality of events, as it is
+      in their nature to hold on to the truth. As they say, you can't fool all
+    - may seem difficult but it is the most natural way to heal and move forward.
+      One can't just turn the existing natural laws upside-down without expecting
+      some form of reckoning.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Reject rewriting history and accept the true past as the basis
+      for the future.
+    candidate: Appeal to Nature
+    supporting_reason: The argument claims that what is natural (e.g., memories preserving
+      truth, acceptance being the natural healing process) is inherently correct,
+      while anything that goes against natural order (rewriting history) leads to
+      negative consequences.
+    support_relation: 'Appeal to Nature: using the naturalness of a phenomenon as
+      proof of its desirability or correctness.'
+    label_justification: The claim that a process is preferable solely because it
+      conforms to nature, without independent justification, constitutes an appeal
+      to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - history is not only going against the natural order but also invites the natural
+      repercussions, as nature works in its own mysterious ways to restore balance.
+      Accepting what has happened
+    - may seem difficult but it is the most natural way to heal and move forward.
+      One can't just turn the existing natural laws upside-down without expecting
+      some form of reckoning.
+  counterargument:
+    decisive_counterargument: The claim that rewriting history is wrong because it
+      goes against your ‘natural order’ and will trigger 'natural repercussions' conflates
+      human moral judgments with natural laws. Natural laws govern physical phenomena,
+      not the value of preserving or revising collective memory. The fact that history
+      can be remembered or forgotten does not mean that altering accounts incurs mystical
+      or unavoidable consequences. Therefore, the inference that rewriting history
+      violates nature and is therefore unjustifiable is unsupported and relies on
+      an appeal to nature rather than evidence of actual causal consequences.
+    candidate: Appeal to Nature
+    challenged_inference: Rewriting history is wrong because it violates natural order
+      and will provoke natural repercussions.
+    label_justification: The objection directly exposes the fallacy by illustrating
+      that natural laws do not determine moral or pragmatic correctness about historical
+      narratives. The reasoning treats 'nature' as a normative guide, which is the
+      hallmark of an Appeal to Nature fallacy, rather than a mere criticism of the
+      argument.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - history is not only going against the natural order but also invites the natural
+      repercussions, as nature works in its own mysterious ways to restore balance.
+      Accepting what has happened
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument presents a claim that a process (preserving memory,
+    accepting history) is preferable because it aligns with what is described as 'natural,'
+    thereby using naturalness as a justification for its desirability while simultaneously
+    denigrating actions that diverge from natural order, which fits the nature_to_value
+    form of an appeal to nature fallacy.
+  decision_reason: The target explicitly states that memories hold truth as a natural
+    property and that accepting history is the natural way to heal, implying that
+    naturalness confers moral value. This structure satisfies the appeal to nature
+    fallacy conditions.
+  evidence_ids:
+  - T1
+  - T4
+  evidence_spans:
+  - The memories of people continue to preserve the reality of events, as it is in
+    their nature to hold on to the truth. As they say, you can't fool all
+  - may seem difficult but it is the most natural way to heal and move forward. One
+    can't just turn the existing natural laws upside-down without expecting some form
+    of reckoning.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5572
+  completion_tokens: 2829
+  total_tokens: 8401
+  wall_time_seconds: 96.34399999998277

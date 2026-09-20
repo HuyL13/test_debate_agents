@@ -1,0 +1,145 @@
+sample:
+  id: 560:8877
+  article_id: 560
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: That story is awful, but its something that probably happens extremely rarely.
+    This doesn't mean the authorities are wrong or immoral when it comes to this issue.
+    They know what is best for their people and society. If its the law now, its the
+    law. Religious leaders might not be doctors, but they know what's best when it
+    comes to aboriton as that is a moral and spiritual matter.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the authorities (government officials and religious leaders)
+    - role: endorsed_claim
+      text: they know what is best for their people and society, so their position
+        should be accepted
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That story is awful, but its something that probably happens extremely rarely.
+      This doesn't mean the authorities are wrong or immoral when it comes to this
+      issue. They know what
+    - is best for their people and society. If its the law now, its the law. Religious
+      leaders might not be doctors, but they know what's best when it comes to
+    - aboriton as that is a moral and spiritual matter.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: justify that authorities and religious leaders are correct
+      and not immoral
+    candidate: Appeal to Authority
+    supporting_reason: They know what is best
+    support_relation: Uses authority claims to support the claim that authorities’
+      and religious leaders’ positions are justified
+    label_justification: The argument relies on the unsubstantiated claim that authorities
+      and religious leaders know what is best, constituting an appeal to authority
+      fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - That story is awful, but its something that probably happens extremely rarely.
+      This doesn't mean the authorities are wrong or immoral when it comes to this
+      issue. They know what
+    - aboriton as that is a moral and spiritual matter.
+  counterargument:
+    decisive_counterargument: The claim that authorities and religious leaders are
+      inherently morally right because they 'know what is best' is an appeal to authority.
+      It assumes that the mere position of the speaker guarantees the correctness
+      of their judgment. Authority does not constitute evidence that the law or practice
+      is just or the best solution; unjust laws exist and experts can be wrong. Therefore
+      the argument fails to provide substantive justification for the moral evaluation
+      of the authorities.
+    candidate: null
+    challenged_inference: Authority figures are morally justified in enforcing or
+      upholding the abortion law simply because they claim to know what is best.
+    label_justification: The counterargument specifically identifies the appeal to
+      authority is used to justify the moral stance, with no supporting evidence presented;
+      it violates logical premises.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That story is awful, but its something that probably happens extremely rarely.
+      This doesn't mean the authorities are wrong or immoral when it comes to this
+      issue. They know what
+    - is best for their people and society. If its the law now, its the law. Religious
+      leaders might not be doctors, but they know what's best when it comes to
+    - aboriton as that is a moral and spiritual matter.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument relies solely on the authorities’ and religious
+    leaders’ status and claimed knowledge—“they know what is best for their people
+    and society” and “they know what's best when it comes to abortion”—to justify
+    their position, with no evidence provided in support. This structure satisfies
+    the criteria for an Appeal to Authority fallacy.
+  decision_reason: The Target explicitly asserts that authorities are correct because
+    they are authorities, which is a textbook appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - That story is awful, but its something that probably happens extremely rarely.
+    This doesn't mean the authorities are wrong or immoral when it comes to this issue.
+    They know what
+  - is best for their people and society. If its the law now, its the law. Religious
+    leaders might not be doctors, but they know what's best when it comes to
+  - aboriton as that is a moral and spiritual matter.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4489
+  completion_tokens: 2921
+  total_tokens: 7410
+  wall_time_seconds: 124.5

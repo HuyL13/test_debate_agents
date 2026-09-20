@@ -1,0 +1,150 @@
+sample:
+  id: 429:10584
+  article_id: 429
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: I'm relieved there was significant pushback on this proposed legislation.
+    It's not unreasonable to predict that if the law had passed without controversy,
+    other countries will be inspired to enact similar legislation in order to suppress
+    dissident voices. Then what? A world where free expression is limited in the name
+    of stopping fake news? Let's keep pushing for freedom of speech.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: law has passed without controversy
+    - role: intermediate_consequence
+      text: other countries will be inspired to enact similar legislation in order
+        to suppress dissident voices
+    - role: final_consequence
+      text: a world where free expression is limited in the name of stopping fake
+        news
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Keep pushing for freedom of speech.
+    candidate: Slippery Slope
+    supporting_reason: Predicting that if the legislation had passed without controversy,
+      other countries would be inspired to enact similar laws to suppress dissident
+      voices, leading to a world where free expression is limited in the name of stopping
+      fake news.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument presents a progression from the proposed law
+      to a future scenario of widespread free‑speech restrictions by other nations.
+      This chain of escalating adverse consequences, lacking intermediate evidence,
+      fits the definition of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+  counterargument:
+    decisive_counterargument: There is no evidence that a draft law passed in one
+      country would spur other governments to copy it, let alone that such copying
+      would inevitably lead to the suppression of dissident voices. The claim is a
+      speculative jump from an unproven policy outcome to a far‑reaching international
+      consequence that rests on no factual grounding.
+    candidate: Slippery Slope
+    challenged_inference: If the law had passed without controversy, other countries
+      will be inspired to enact similar legislation in order to suppress dissident
+      voices.
+    label_justification: 'The argument forces a chain of consequences—law passes →
+      other countries imitate → free expression is curtailed—without providing evidence
+      for any link in that chain. This is the textbook pattern of a slippery‑slope
+      fallacy: an unsubstantiated prediction that a single event will set off a cascade
+      of undesirable outcomes.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm relieved there was significant pushback on this proposed legislation. It's
+      not unreasonable to predict that if the law had passed without controversy,
+      other countries will be inspired to enact
+    - similar legislation in order to suppress dissident voices. Then what? A world
+      where free expression is limited in the name of stopping fake news? Let's keep
+      pushing for freedom of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a chain of unsubstantiated consequences—if
+    the law passes, other countries will enact similar suppressive legislation, leading
+    to a world where free expression is limited—meeting the slippery‑slope structure
+    without evidence for the links.
+  decision_reason: The argument posits a series of escalating adverse outcomes stemming
+    from a single legislative event, lacking supporting evidence for the intermediate
+    steps, which satisfies a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I'm relieved there was significant pushback on this proposed legislation. It's
+    not unreasonable to predict that if the law had passed without controversy, other
+    countries will be inspired to enact
+  - similar legislation in order to suppress dissident voices. Then what? A world
+    where free expression is limited in the name of stopping fake news? Let's keep
+    pushing for freedom of
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4743
+  completion_tokens: 2883
+  total_tokens: 7626
+  wall_time_seconds: 72.73399999999674

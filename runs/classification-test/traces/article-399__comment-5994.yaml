@@ -1,0 +1,134 @@
+sample:
+  id: 399:5994
+  article_id: 399
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: It's encouraging to hear that people like Momodou Gajaga are able to maintain
+    their digital/internet connections. That means there is hope for connectivity
+    across all of Gambia, which is very reassuring. If Gajaga can maintain his connection,
+    I'm sure many or even most in Gambia can do so too. But let's keep working to
+    make things better!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: people like Momodou Gajaga
+    - role: observed_property
+      text: maintain their digital/internet connections
+    - role: target_population
+      text: Gambia
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's encouraging to hear that people like Momodou Gajaga are able to maintain
+      their digital/internet connections. That means there is hope for connectivity
+      across all of Gambia, which is very
+    - reassuring. If Gajaga can maintain his connection, I'm sure many or even most
+      in Gambia can do so too. But let's keep working to make things better!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The author is aiming to convey hope that digital connectivity
+      can be achieved across all of Gambia by highlighting a single success story.
+    candidate: null
+    supporting_reason: If Gajaga can maintain his connection, I'm sure many or even
+      most in Gambia can do so too.
+    support_relation: This statement is used to justify the hopeful conclusion about
+      widespread connectivity.
+    label_justification: The argument extrapolates from one individual's experience
+      to the entire country, which constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - reassuring. If Gajaga can maintain his connection, I'm sure many or even most
+      in Gambia can do so too. But let's keep working to make things better!
+  counterargument:
+    decisive_counterargument: The claim that because one individual—Momodou Gajaga—can
+      keep an internet connection implies that the majority of Gambians can do the
+      same is an overgeneralization. One person's success does not prove that the
+      necessary conditions (infrastructure, affordability, reliability) are uniformly
+      met across a whole country. The argument neglects variations in geography, economics,
+      and network availability that can prevent many others from maintaining similar
+      connections.
+    candidate: Hasty Generalization
+    challenged_inference: That Momodou Gajaga’s ability to maintain connectivity implies
+      that a large portion of the Gambian population can do so as well
+    label_justification: The objection targets the logical leap from a single observed
+      case to a sweeping conclusion about most people. This specific reasoning flaw
+      matches the definition of a hasty generalization, where a conclusion about a
+      broad group is drawn from an insufficient sample. The counterargument thus directly
+      exposes the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - reassuring. If Gajaga can maintain his connection, I'm sure many or even most
+      in Gambia can do so too. But let's keep working to make things better!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The TARGET asserts that because a single individual—Momodou Gajaga—can
+    maintain an internet connection, many or even most people in Gambia can do the
+    same, thereby translating an observation about one person into a sweeping claim
+    about the whole population. This is a classic sample‑to‑population hasty generalization.
+  decision_reason: The claim improperly generalizes from one specific case to an entire
+    national population, meeting the structural requirements for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's encouraging to hear that people like Momodou Gajaga are able to maintain
+    their digital/internet connections. That means there is hope for connectivity
+    across all of Gambia, which is very
+  - reassuring. If Gajaga can maintain his connection, I'm sure many or even most
+    in Gambia can do so too. But let's keep working to make things better!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4420
+  completion_tokens: 1922
+  total_tokens: 6342
+  wall_time_seconds: 166.34299999999348

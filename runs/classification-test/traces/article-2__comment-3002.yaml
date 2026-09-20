@@ -1,0 +1,115 @@
+sample:
+  id: 2:3002
+  article_id: 2
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: The fact that he’s a Buddhist monk means that he’s reliable. I would agree
+    with his campaign based on the fact that he’s a monk who demonstrates peace and
+    love.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Buddhist monk
+    - role: endorsed_claim
+      text: He is reliable so I agree with his campaign
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Agree with the monk’s campaign.
+    candidate: Appeal to Authority
+    supporting_reason: He is a Buddhist monk, which is used as evidence that he is
+      reliable.
+    support_relation: The monk’s identity is used to justify the speaker’s agreement
+      with the campaign.
+    label_justification: The argument relies on the monk’s status to establish trustworthiness,
+      treating a credential as proof of the claim’s merit—a classic appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+  counterargument:
+    decisive_counterargument: A monk’s personal vocation offers no objective proof
+      of his reliability or of the merits of his campaign. Reliability must be demonstrated
+      through evidence, track record, or expertise relevant to the campaign’s goals,
+      not merely by religious affiliation.
+    candidate: Appeal to Authority
+    challenged_inference: The argument assumes that the monk’s identity guarantees
+      his reliability and therefore supports his campaign.
+    label_justification: The inference relies on the monk’s status as a respected
+      religious figure to justify belief in his campaign, rather than on relevant
+      evidence or expertise. This is the classic pattern of appealing to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument uses the monk’s religious status as an authority
+    claim to establish his reliability and then relies on that claim to endorse his
+    campaign, which is a classic appeal to authority.
+  decision_reason: 'Appeal to Authority: the monk’s identity is treated as sufficient
+    proof of reliability and justification for agreeing with the campaign, without
+    providing independent evidence about the campaign’s merits.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+    his campaign based on the fact that he’s a monk who demonstrates peace and love.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4012
+  completion_tokens: 2804
+  total_tokens: 6816
+  wall_time_seconds: 78.89100000000326

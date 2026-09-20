@@ -1,0 +1,164 @@
+sample:
+  id: 515:8741
+  article_id: 515
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: If you have an election and the losing party does not leave office how can
+    you trust them? Most politicians are crooked and should not be trusted. People
+    need to make sure to stay on top of these people because they all do what is in
+    their best interest and not your best interest. People need to stay alert and
+    informed.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most politicians
+    - role: popularity_claim
+      text: most politicians are crooked
+    - role: target_claim
+      text: they should not be trusted
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: People need to stay alert and informed
+    candidate: Hasty Generalization
+    supporting_reason: Most politicians are crooked and should not be trusted
+    support_relation: This claim is used to justify that people must remain vigilant
+      and aware of politicians
+    label_justification: The passage makes a broad, unsupported claim that most politicians
+      are crooks, generalizing from an implied limited set of examples, which fits
+      the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+  counterargument:
+    decisive_counterargument: The claim that most politicians are crooked is made
+      without any evidence or specific examples and is applied to all politicians
+      as a conclusion that they cannot be trusted.  Politicians, like any group, are
+      heterogeneous; some are honest and accountable.  Therefore the inference does
+      not follow from the premise.
+    candidate: Hasty Generalization
+    challenged_inference: If you have an election and the losing party does not leave
+      office how can you trust them? Most politicians are crooked and should not be
+      trusted. People need to make sure to stay on top of these people because they
+      all do what is in their best interest and not your best interest. People need
+      to stay alert and informed.
+    label_justification: The objection points out that the argument draws a blanket
+      conclusion about all politicians from an unsupported general statement (“Most
+      politicians are crooked”), which is precisely the reasoning defect identified
+      by the Hasty Generalization fallacy.  The objection does not merely criticize
+      tone or content – it targets the logical step of extending a single unverified
+      claim to an entire population.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The target passage does not provide a concrete, limited set of
+      examples from which a broader conclusion is drawn; therefore the mandatory structural
+      condition for Hasty Generalization—explicit sample → broader population—is not
+      satisfied. Instead, the passage relies directly on a claim about the majority
+      (“most politicians are crooked”) to justify why people should remain alert,
+      which matches the definition of an Appeal to Majority.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The passage provides a popularity claim that ‘most politicians
+    are crooked’ and concludes that ‘they should not be trusted’, satisfying the structural
+    form of Appeal to Majority. Evidence supporting this claim is found in passage
+    T1.
+  decision_reason: The target explicitly states a popularity claim and uses it to
+    justify the claim that politicians cannot be trusted, which is exactly the structure
+    of an Appeal to Majority. Thus the label ‘Appeal to Majority’ is valid.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If you have an election and the losing party does not leave office how can you
+    trust them? Most politicians are crooked and should not be trusted. People need
+    to
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5656
+  completion_tokens: 3283
+  total_tokens: 8939
+  wall_time_seconds: 61.90700000000652

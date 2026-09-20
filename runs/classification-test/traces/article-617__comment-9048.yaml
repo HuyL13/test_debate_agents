@@ -1,0 +1,154 @@
+sample:
+  id: 617:9048
+  article_id: 617
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: Any sane human being should be horrified by these journalists losing their
+    lives for telling the truth, but we must face a larger problem, that of deaths
+    from poverty in Cameroon. Thousands of people die from not having enough food
+    and clean water in Cameroon every single year. That seems like a much more urgent
+    problem that the admittedly horrific murder of a few journalists, and we must
+    slay the giant before battling the elves.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the murder of a few journalists
+    - role: worse_issue
+      text: deaths from poverty in Cameroon
+    - role: deprioritizing_conclusion
+      text: we must slay the giant before battling the elves.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Any sane human being should be horrified by these journalists losing their lives
+      for telling the truth, but we must face a larger problem, that of deaths from
+      poverty in
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+    - murder of a few journalists, and we must slay the giant before battling the
+      elves.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Prioritize addressing deaths from poverty in Cameroon over
+      the murders of a few journalists
+    candidate: Appeal to Worse Problems
+    supporting_reason: The passage states that the deaths caused by poverty are a
+      much larger and more urgent problem than the murders of a small number of journalists,
+      thereby justifying the shift of focus
+    support_relation: the reason about the larger scale of poverty deaths is used
+      to down‑prioritize the seriousness of the journalist murders
+    label_justification: 'Appeal to Worse Problems: the argument dismisses or diminishes
+      a smaller urgent issue in favor of a larger, more pressing problem without adequate
+      justification for the trade‑off'
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Any sane human being should be horrified by these journalists losing their lives
+      for telling the truth, but we must face a larger problem, that of deaths from
+      poverty in
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+    - murder of a few journalists, and we must slay the giant before battling the
+      elves.
+  counterargument:
+    decisive_counterargument: The argument assumes that the sheer number of deaths
+      from poverty automatically renders the murders of journalists less important,
+      implying that one humanitarian crisis can be deprioritized because another is
+      worse. This ignores the distinct moral weight of each incident and the fact
+      that both situations require attention—using a larger problem to dismiss a smaller
+      one is logically flawed.
+    candidate: Appeal to Worse Problems
+    challenged_inference: It is justified to consider journalists’ murders less urgent
+      than deaths from poverty simply because the latter is numerically larger.
+    label_justification: The statement explicitly uses the greater issue of poverty‑related
+      deaths to downplay the significance of journalist killings, thus employing a
+      larger problem to justify a lower priority for the smaller issue.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - Cameroon. Thousands of people die from not having enough food and clean water
+      in Cameroon every single year. That seems like a much more urgent problem that
+      the admittedly horrific
+    - murder of a few journalists, and we must slay the giant before battling the
+      elves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly compares the murders of a few journalists
+    to the larger issue of deaths from poverty in Cameroon, using the greater number
+    of poverty‑related deaths to downplay the urgency of the journalist killings.
+    This satisfies the structural pattern of an Appeal to Worse Problems fallacy.
+  decision_reason: The argument presents the murder of journalists as less urgent
+    by referencing the greater number of deaths from poverty, thereby employing a
+    larger problem to justify deprioritization of the smaller issue. Evidence T1,
+    T2, and T3 supports this reasoning.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Any sane human being should be horrified by these journalists losing their lives
+    for telling the truth, but we must face a larger problem, that of deaths from
+    poverty in
+  - Cameroon. Thousands of people die from not having enough food and clean water
+    in Cameroon every single year. That seems like a much more urgent problem that
+    the admittedly horrific
+  - murder of a few journalists, and we must slay the giant before battling the elves.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4575
+  completion_tokens: 3547
+  total_tokens: 8122
+  wall_time_seconds: 213.9529999999795

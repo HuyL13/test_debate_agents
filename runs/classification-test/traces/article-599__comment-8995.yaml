@@ -1,0 +1,160 @@
+sample:
+  id: 599:8995
+  article_id: 599
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: I think if you're running a country like this, you either criminalize investigative
+    reporting like the kind done by Kuciak, or you allow it but make no guarantees
+    about the personal safety of such journalists. You can either make it impossible
+    for them to get themselves killed or you can strongly discourage them from engaging
+    in work that might get themselves killed. What other options could there be?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: criminalize investigative reporting or allow it but make no guarantees
+        about the personal safety of such journalists
+    - role: alternative_b
+      text: make it impossible for investigative journalists to get themselves killed
+        or strongly discourage them from engaging in work that might put them at risk
+    - role: exhaustiveness_commitment
+      text: What other options could there be?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think if you're running a country like this, you either criminalize investigative
+      reporting like the kind done by Kuciak, or you allow it but make no guarantees
+      about the
+    - personal safety of such journalists. You can either make it impossible for them
+      to get themselves killed or you can strongly discourage them from engaging in
+      work that might get
+    - themselves killed. What other options could there be?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: 'The speaker claims that only two options exist for governing
+      a country in such a context: either criminalize investigative reporting or allow
+      it without guaranteeing journalists’ safety.'
+    candidate: False Dilemma
+    supporting_reason: The statement explicitly uses the structure ‘you either… or
+      you…’, enumerating only two options and implying that no other alternatives
+      are viable.
+    support_relation: The dual‑option framing is used to conclude that the presented
+      choices are exhaustive and no other options should be considered.
+    label_justification: Because the argument presents a strict either‑or division
+      that excludes other possibilities, it exhibits the classic False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think if you're running a country like this, you either criminalize investigative
+      reporting like the kind done by Kuciak, or you allow it but make no guarantees
+      about the
+    - personal safety of such journalists. You can either make it impossible for them
+      to get themselves killed or you can strongly discourage them from engaging in
+      work that might get
+    - themselves killed. What other options could there be?
+  counterargument:
+    decisive_counterargument: The claim that a country has only two options—criminalizing
+      investigative journalism or allowing it with no safety guarantees—ignores legitimate
+      alternatives such as enacting protective legislation, providing emergency support
+      for journalists, and ensuring secure investigative processes. These measures
+      can safeguard reporters while preserving their freedom to report truthfully,
+      demonstrating that the alleged dichotomy is not exhaustive.
+    candidate: False Dilemma
+    challenged_inference: The inference that a nation’s approach to investigative
+      journalism is limited to either criminalization or unprotected allowance, implying
+      no other viable strategies exist.
+    label_justification: The objection explicitly targets the argument’s presentation
+      of only two opposing options as exhaustive, which is the hallmark of a False
+      Dilemma (or False Dichotomy). The counterargument shows an omitted but equally
+      plausible alternative, thereby exposing the fallacious structure of the claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think if you're running a country like this, you either criminalize investigative
+      reporting like the kind done by Kuciak, or you allow it but make no guarantees
+      about the
+    - personal safety of such journalists. You can either make it impossible for them
+      to get themselves killed or you can strongly discourage them from engaging in
+      work that might get
+    - themselves killed. What other options could there be?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target uses an exclusive either‑or structure (‘you either…
+    or you…’) and implicitly claims that those two options exhaust all possibilities,
+    thereby presenting a false dilemma.
+  decision_reason: 'The argument states that a country must either criminalize investigative
+    reporting or allow it without guaranteeing journalists’ safety, and that the only
+    ways to prevent journalists from getting killed are to make it impossible or to
+    discourage them. It then asks for alternatives, implying that only the two presented
+    options exist. This satisfies the structure of a false dilemma: two exclusive
+    alternatives are offered and a commitment to their exhaustiveness is asserted.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I think if you're running a country like this, you either criminalize investigative
+    reporting like the kind done by Kuciak, or you allow it but make no guarantees
+    about the
+  - personal safety of such journalists. You can either make it impossible for them
+    to get themselves killed or you can strongly discourage them from engaging in
+    work that might get
+  - themselves killed. What other options could there be?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4876
+  completion_tokens: 2641
+  total_tokens: 7517
+  wall_time_seconds: 68.45299999997951

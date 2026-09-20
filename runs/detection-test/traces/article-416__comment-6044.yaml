@@ -1,0 +1,166 @@
+sample:
+  id: 416:6044
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: These kids are not only ruining their lives, but the lives of everyone around
+    them. They need to listen to the cops and stop rioting. It will accomplish nothing
+    at all. Not listening to them will just mean JAIL. They don't know the ins and
+    outs of what goes on in the government, so they shouldn't be rioting for something
+    they have no part in.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: They need to listen to the cops and stop rioting.
+    - role: alternative_b
+      text: Not listening to them will just mean JAIL.
+    - role: exhaustiveness_commitment
+      text: Not listening to them will just mean JAIL, implying that listening or
+        jail are the only outcomes.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The youths should listen to the police and stop rioting.
+    candidate: Appeal to Authority
+    supporting_reason: Not listening will just mean jail, and the youths lack knowledge
+      of government workings, so they should obey police.
+    support_relation: The reason relies on the authority of the police and an implied
+      consequence (jail) to justify the conclusion that the youths should stop rioting.
+    label_justification: The argument uses the police’s authority as a basis for compliance
+      without providing substantive evidence of their expertise or the justification
+      for obedience, which is a classic appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+  counterargument:
+    decisive_counterargument: People can and often do protest without detailed knowledge
+      of governmental workings; lack of insider information does not invalidate legitimate
+      grievances. Stating that ignorance means one must obey authority is a deceptive
+      appeal to authority rather than a sound moral or legal principle.
+    candidate: null
+    challenged_inference: Their ignorance of government practices justifies not rioting
+    label_justification: 'The objection directly targets the argument’s unwarranted
+      reliance on governmental authority (the cited cops and the expertise of the
+      government) to dictate civic action. This is the hallmark of an Appeal to Authority:
+      it uses the authority’s position to legitimize obedience instead of providing
+      substantive reasons for the action in question.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - they have no part in.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  - Appeal to Authority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: 'Both appeals to authority and false dilemma are possible.  The
+      false dilemma’s mandatory structural condition – offering two mutually exclusive,
+      exhaustive alternatives – is directly supported by the target’s wording: the
+      argument presents “listen to the cops and stop rioting” versus “not listening
+      will just mean JAIL,” implying these are the only outcomes.  The appeal to authority’s
+      structural condition would require an explicit assertion that police authority
+      alone makes the injunction correct, which is not directly stated in the passage.  Therefore
+      the false dilemma satisfies the necessary structure while the appeal to authority
+      does not.  Additionally the cited passages T1 and T2 contain the two alternatives,
+      confirming the false dilemma interpretation.'
+    loser_failure: Appeal to Authority does not meet its required structure (explicit
+      reliance on authority alone) in the given text.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are not only ruining their lives, but the lives of everyone around
+      them. They need to listen to the cops and stop rioting. It will accomplish nothing
+      at
+    - all. Not listening to them will just mean JAIL. They don't know the ins and
+      outs of what goes on in the government, so they shouldn't be rioting for something
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: Exhaustive alternative claim where listening to cops or facing
+    jail are presented as the only outcomes, supported by T1 and T2.
+  decision_reason: The target supplies two mutually exclusive options – stop rioting
+    by listening to the cops or just facing jail – and implies no other outcomes exist,
+    fulfilling the structural criteria for a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These kids are not only ruining their lives, but the lives of everyone around
+    them. They need to listen to the cops and stop rioting. It will accomplish nothing
+    at
+  - all. Not listening to them will just mean JAIL. They don't know the ins and outs
+    of what goes on in the government, so they shouldn't be rioting for something
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5673
+  completion_tokens: 5418
+  total_tokens: 11091
+  wall_time_seconds: 105.14000000001397

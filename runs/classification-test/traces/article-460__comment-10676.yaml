@@ -1,0 +1,132 @@
+sample:
+  id: 460:10676
+  article_id: 460
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: I would say that the majority of people would agree that fake information
+    circulating during the COVID pandemic is a major problem. However, the measures
+    by the Malaysian government is much too draconian. This is a blatant infringement
+    on free speech and the freedom of the press.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would say that the majority of people would agree that fake information circulating
+      during the COVID pandemic is a major problem. However, the measures by the Malaysian
+      government is
+    - much too draconian. This is a blatant infringement on free speech and the freedom
+      of the press.
+    candidate: null
+  goal:
+    conclusion_or_goal: The Malaysian government’s measures against fake information
+      during the COVID pandemic are too draconian and constitute a blatant infringement
+      on free speech and the freedom of the press.
+    candidate: Appeal to Majority
+    supporting_reason: The majority of people agree that fake information circulating
+      during the COVID pandemic is a major problem
+    support_relation: improperly used as justification for the claim that the government’s
+      measures are draconian, although the two claims are not logically connected
+    label_justification: The argument invokes a claim about a majority view of the
+      public to support a political judgment about governmental policy. The majority’s
+      opinion about fake news is irrelevant to whether the measures constitute an
+      infringement on free speech, making the use a fallacious appeal to popularity.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would say that the majority of people would agree that fake information circulating
+      during the COVID pandemic is a major problem. However, the measures by the Malaysian
+      government is
+    - much too draconian. This is a blatant infringement on free speech and the freedom
+      of the press.
+  counterargument:
+    decisive_counterargument: The argument assumes that the fact that most people
+      consider fake COVID‑related information a serious problem automatically warrants
+      harsh government action. Popular opinion does not determine whether a response
+      is necessary, appropriate, or proportionate. Inability to justify the measures
+      from the majority belief reveals a faulty inference.
+    candidate: Appeal to Majority
+    challenged_inference: The majority view that fake information is a major problem
+      justifies the government's draconian measures.
+    label_justification: The counterargument shows that the inference relies on the
+      strength of a popular opinion to support a policy choice, a classic misuse of
+      majority sentiment as if it were a normative reason for action, thus exposing
+      the Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I would say that the majority of people would agree that fake information circulating
+      during the COVID pandemic is a major problem. However, the measures by the Malaysian
+      government is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target statement does not contain the inference that the
+    majority opinion justifies the draconian government measures; it merely reports
+    the majority view and critiques the measures. Therefore the Appeal to Majority
+    fallacy is not present in the target.
+  decision_reason: The target lacks the necessary inference linking majority sentiment
+    to justification of the policy; no appeal to majority is committed.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I would say that the majority of people would agree that fake information circulating
+    during the COVID pandemic is a major problem. However, the measures by the Malaysian
+    government is
+  - much too draconian. This is a blatant infringement on free speech and the freedom
+    of the press.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4015
+  completion_tokens: 3116
+  total_tokens: 7131
+  wall_time_seconds: 99.98500000004424

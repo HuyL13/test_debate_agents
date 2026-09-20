@@ -1,0 +1,188 @@
+sample:
+  id: 5:3911
+  article_id: 5
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: So if you are arrested in Japan you are held under "hostage justice" until
+    you confess.  That seems to me like torturing prisoners until they confess.  I
+    guess in Japan, you are guilty until proven innocent the reverse of the US justice
+    system.  I don't see how a coerced confession can even be tried fairly.
+  target: If the system was not innocent until proven guilty, do you think they would
+    have given him bail and let him out on house arrest? To me that seems like they
+    were going to let him at least have a say in court. Even Japanese legal scholar
+    Ichiro Suzuki has come out and said that the Japanese judicial system is lax,
+    especially for the wealthy. So that should be an indication that defendant had
+    rights and was granted them.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Ichiro Suzuki
+    - role: endorsed_claim
+      text: the Japanese judicial system is lax, especially for the wealthy
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The target is arguing that the defendant was granted rights
+      and that the Japanese judicial system is comparatively fair (or at least that
+      the defendant had due rights).
+    candidate: Appeal to Authority
+    supporting_reason: Japanese legal scholar Ichiro Suzuki has said that the Japanese
+      judicial system is lax, especially for the wealthy, which the target uses to
+      infer that the defendant had rights and was granted them.
+    support_relation: The reason is cited to support the conclusion that legal rights
+      were upheld, relying on the authority of a scholar. This is a classic appeal
+      to authority, where the speaker uses a recognized expert’s claim to justify
+      their broader assertion.
+    label_justification: The target employs the opinion of Ichiro Suzuki as evidence
+      to establish the defendant’s rights, which fits the definition of an Appeal
+      to Authority fallacy (unless the authority’s expertise is explicitly given).
+      The subsequent inference is mechanically used to support the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+  counterargument:
+    decisive_counterargument: The single mention that a Japanese legal scholar called
+      the system lax for the wealthy, and the fact that bail may have been offered
+      in a specific case, are far from proof that the defendant actually had rights
+      and was granted them. Bail alone is a procedural tool that remains possible
+      under both guilty‑until‑proved‑innocent and innocent‑until‑proved‑guilty systems,
+      and a scholarly remark about a general feature of the legal system does not
+      establish whether those rights were exercised in a particular instance.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that the defendant’s rights were fully upheld
+      and granted based on the bail situation and a scholar’s general criticism of
+      the system.
+    label_justification: 'The objection demonstrates that the argument leaps from
+      a broad, general statement about the Japanese judicial system (as expressed
+      by a scholar) to a specific claim about the defendant’s rights without sufficient
+      evidence linking the two. This is precisely the pattern of hasty generalization,
+      in which evidence from a single source is extrapolated to a broader conclusion.
+      The counterargument does not merely critique the argument; it exposes a formal
+      reasoning flaw: using a single, non‑specific example to substantiate a claim
+      about a particular case.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: Hasty Generalization lacks the mandatory structural condition,
+      as the argument does not move from a specific sample to a broad conclusion but
+      rather from a general claim to a particular case.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target asserts that the Japanese legal scholar Ichiro Suzuki’s
+    statement that the Japanese judicial system is lax, especially for the wealthy,
+    serves as evidence that the defendant was granted rights. This reliance on an
+    authority’s opinion to substantiate a broader claim—without establishing the authority’s
+    relevant expertise or direct evidence—fits the definition of an Appeal to Authority
+    fallacy.
+  decision_reason: The target uses an expert’s opinion to justify a conclusion about
+    the defendant’s rights, and the authority is not established as an essential source
+    for that specific claim. Thus the inference is a legitimate appeal to authority
+    fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - they were going to let him at least have a say in court. Even Japanese legal scholar
+    Ichiro Suzuki has come out and said that the Japanese judicial system is
+  - lax, especially for the wealthy. So that should be an indication that defendant
+    had rights and was granted them.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6694
+  completion_tokens: 3939
+  total_tokens: 10633
+  wall_time_seconds: 107.09299999999348

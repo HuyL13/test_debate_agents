@@ -1,0 +1,159 @@
+sample:
+  id: 22:3064
+  article_id: 22
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: We should also still be concerned with creating more jobs in the area of
+    Berrima. The Korean company would have brought a lot more economic support to
+    the area. But it's important to note that the area needs to stay clean and livable
+    for the people and the animals. Where will New South Wales be in 20 years if we
+    do not concern ourselves with the environmental impact of our decisions today.
+    New South Wales is a big part of Australia and in Australia is a large part of
+    the Pacific area which is in need of Environmental warriors.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We should also still be concerned with creating more jobs in the area of Berrima.
+      The Korean company would have brought a lot more economic support to the area.
+      But
+    - it's important to note that the area needs to stay clean and livable for the
+      people and the animals. Where will New South Wales be in 20 years if we
+    - do not concern ourselves with the environmental impact of our decisions today.
+      New South Wales is a big part of Australia and in Australia is a large part
+      of the
+    candidate: null
+  goal:
+    conclusion_or_goal: We should still be concerned with creating more jobs in Berrima.
+    candidate: null
+    supporting_reason: T1
+    support_relation: supports
+    label_justification: 'The target presents a straightforward argument: it asserts
+      a goal (job creation) and provides a reason (economic support from a Korean
+      company) that substantiates that goal. No fallacious reasoning—such as a false
+      dilemma, slippery slope, or appeal to authority—appears. The subsequent environmental
+      concern is introduced as an additional consideration, not as a contradiction
+      or substitute to the primary conclusion. Therefore, the argument does not commit
+      a logical fallacy.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We should also still be concerned with creating more jobs in the area of Berrima.
+      The Korean company would have brought a lot more economic support to the area.
+      But
+  counterargument:
+    decisive_counterargument: The target’s claim that not considering environmental
+      impact today guarantees a negative outcome for New South Wales in twenty years
+      is unsupported. It takes a single potential consequence—future environmental
+      degradation—and presents it as a necessary result of any economic development,
+      ignoring the many other factors that influence long‑term prosperity. Without
+      evidence that the Korean company’s projects would inevitably result in such
+      a decline, the argument merely invokes fear rather than a logical connection.
+      This is not a case of a listed logical fallacy such as a false dilemma or slippery
+      slope, but a claim that relies on an unsupported causal inference.
+    candidate: null
+    challenged_inference: The inference that neglecting environmental effects will
+      inevitably lead to a harmful state for NSW in 20 years.
+    label_justification: The objection demonstrates a missing causal link rather than
+      a discrete fallacy type from the provided list. The argument merely appeals
+      to fear without evidence, which does not neatly fit appeal‑to‑authority, majority,
+      nature, tradition, or worse‑problems. Thus the fallacy cannot be classified
+      under the supplied categories.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should also still be concerned with creating more jobs in the area of Berrima.
+      The Korean company would have brought a lot more economic support to the area.
+      But
+    - it's important to note that the area needs to stay clean and livable for the
+      people and the animals. Where will New South Wales be in 20 years if we
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target contrasts a proposition about creating jobs in Berrima
+    with concerns about environmental impacts, implying a binary choice between economic
+    benefits and ecological health. This framing suggests an either-or scenario that
+    excludes the possibility of balancing both objectives, fitting the structure of
+    a false dilemma.
+  decision_reason: 'The passage presents a trade‑off: economic development is highlighted
+    first, then environmental concerns are introduced as an alternative priority,
+    thereby creating an implicit false tension between two mutually exclusive outcomes.
+    This matches the classic false dilemma pattern.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We should also still be concerned with creating more jobs in the area of Berrima.
+    The Korean company would have brought a lot more economic support to the area.
+    But
+  - it's important to note that the area needs to stay clean and livable for the people
+    and the animals. Where will New South Wales be in 20 years if we
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5120
+  completion_tokens: 4666
+  total_tokens: 9786
+  wall_time_seconds: 142.40600000001723

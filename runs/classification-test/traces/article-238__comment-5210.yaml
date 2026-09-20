@@ -1,0 +1,143 @@
+sample:
+  id: 238:5210
+  article_id: 238
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Its only natural for Azerbaijan to be wary of Iran. If you're a secular
+    country like them, of course you'd be suspicious of a country as religious as
+    them. Its an us vs. them situation we see in humanity and nature all the time.
+    If you don't believe in killing innocents and some other people do, naturally
+    you will be suspicious of them.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Its only natural for Azerbaijan to be wary of Iran.
+    - role: evaluative_conclusion
+      text: you will be suspicious of them.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Its only natural for Azerbaijan to be wary of Iran. If you're a secular country
+      like them, of course you'd be suspicious of a country as religious as them.
+      Its
+    - suspicious of them.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: It is natural for Azerbaijan to be wary of Iran (i.e., that
+      Azerbaijan should be suspicious of Iran).
+    candidate: Appeal to Nature
+    supporting_reason: The argument uses the idea that ‘natural’ us‑vs‑them patterns
+      and the instinctive response to a religious versus secular divide to justify
+      Azerbaijan’s suspicion of Iran.
+    support_relation: The appeal to nature serves as the justificatory premise for
+      the conclusion that Azerbaijan should be wary of Iran.
+    label_justification: The claim rests on the implicit premise that what is ‘natural’—the
+      pattern of mistrust between secular and religious societies—renders Azerbaijan’s
+      wariness appropriate, thus the argument commits an Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Its only natural for Azerbaijan to be wary of Iran. If you're a secular country
+      like them, of course you'd be suspicious of a country as religious as them.
+      Its
+    - an us vs. them situation we see in humanity and nature all the time. If you
+      don't believe in killing innocents and some other people do, naturally you will
+      be
+  counterargument:
+    decisive_counterargument: The fact that Azerbaijan is secular and Iran is religious
+      does not, in itself, make suspicion or wariness a natural or inevitable outcome.
+      Many secular governments successfully cooperate with or trust religious states,
+      and many religious states maintain wary relations with secular ones. Claiming
+      that 'because it is natural' that Azerbaijan should be wary conflates a so‑called
+      natural state of affairs with a justification for political stance, which is
+      an invalid reasoning step.
+    candidate: Appeal to Nature
+    challenged_inference: It is natural for Azerbaijan to be wary of Iran because
+      Azerbaijan is secular and Iran is religious.
+    label_justification: The argument uses the word 'natural' to support a claim about
+      political behavior, implying that what is natural is thus correct or inevitable.
+      This is the classic naturalistic or appeal to nature fallacy, which conflates
+      nature with moral (or factual) validity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Its only natural for Azerbaijan to be wary of Iran. If you're a secular country
+      like them, of course you'd be suspicious of a country as religious as them.
+      Its
+    - an us vs. them situation we see in humanity and nature all the time. If you
+      don't believe in killing innocents and some other people do, naturally you will
+      be
+    - suspicious of them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that being wary of Iran is “only natural”
+    for Azerbaijan, and from that naturalness premise it draws the conclusion that
+    Azerbaijan should be suspicious, thereby using a claim about nature to justify
+    a value-position—an Appeal to Nature fallacy. Evidence for the naturalness premise
+    is in T1 and the concluded suspicion is in T3.
+  decision_reason: 'Appeal to Nature: naturalness premise (T1) → conclusion (T3) with
+    no further justification.'
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - Its only natural for Azerbaijan to be wary of Iran. If you're a secular country
+    like them, of course you'd be suspicious of a country as religious as them. Its
+  - suspicious of them.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4734
+  completion_tokens: 3698
+  total_tokens: 8432
+  wall_time_seconds: 97.09400000001187

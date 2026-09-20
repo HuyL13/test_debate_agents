@@ -1,0 +1,129 @@
+sample:
+  id: 87:3707
+  article_id: 87
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: The news on this topic is interesting to me. The internet 'news' makes it
+    seem like Hong Kong wants nothing to do with China and that these protests truly
+    represent the popular will. I have a few friends from Hong Kong, and they all
+    love China. Strange. Seems like the news isn't interested in reporting what the
+    people actually think.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: a few friends from Hong Kong
+    - role: observed_property
+      text: they all love China
+    - role: target_population
+      text: the people in Hong Kong
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The news isn’t interested in reporting what the people actually
+      think.
+    candidate: Hasty Generalization
+    supporting_reason: I have a few friends from Hong Kong, and they all love China
+    support_relation: supports
+    label_justification: The argument generalizes from a limited sample of friends
+      (a few individuals) to a claim about the broader reporting of the news, which
+      is a classic instance of hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+  counterargument:
+    decisive_counterargument: Your claim that the news isn’t reporting what the people
+      actually think is based on just a handful of friends, not on a representative
+      sample of Hong Kong residents. From a few isolated opinions you can’t logically
+      conclude something about the overall population or about the coverage as a whole—this
+      is exactly a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: the news isn't interested in reporting what the people actually
+      think
+    label_justification: The objection shows that the inference reaches a broad claim
+      (that news misrepresents the populace) from a very limited sample (a few friends).
+      This is precisely the definition of a hasty generalization. The counterargument
+      therefore directly exposes that reasoning failure.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement reasons that, based on a small, non‑representative
+    sample of friends who all love China, the news must not be reporting what the
+    broader population actually thinks. This extrapolation from a limited sample to
+    a broad claim about the people or the news constitutes a hasty generalization.
+    The evidence in T2 shows the sample (“a few friends from Hong Kong”) and the generalized
+    conclusion (“the news isn’t interested in reporting what the people actually think”),
+    satisfying the structural requirement for a hasty generalization.
+  decision_reason: The argument uses an insufficient sample (a few friends) to make
+    a broad claim about news coverage and public opinion, which is the textbook definition
+    of a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - the popular will. I have a few friends from Hong Kong, and they all love China.
+    Strange. Seems like the news isn't interested in reporting what the people actually
+    think.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4411
+  completion_tokens: 2621
+  total_tokens: 7032
+  wall_time_seconds: 195.48500000004424

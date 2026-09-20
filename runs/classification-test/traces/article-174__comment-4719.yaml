@@ -1,0 +1,135 @@
+sample:
+  id: 174:4719
+  article_id: 174
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: Having religious and free speech is natural need of people all over the
+    world. We need to stop government censorship. Government censorship is never a
+    good thing, it leads to discontent in many other areas as well.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Having religious and free speech is natural need of people all over the
+        world.
+    - role: evaluative_conclusion
+      text: We need to stop government censorship. Government censorship is never
+        a good thing, it leads to discontent in many other areas as well.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+    - discontent in many other areas as well.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: stop government censorship
+    candidate: null
+    supporting_reason: Government censorship is never a good thing, it leads to discontent
+      in many other areas as well
+    support_relation: the reason argues that censorship causes widespread negative
+      consequences, thereby justifying the need to stop it
+    label_justification: the reasoning neither constitutes a recognized fallacy (such
+      as Hasty Generalization, Appeal to Nature, etc.) nor relies on any form of logical
+      trickery; it merely presents a general claim without evidential support, so
+      the appropriate conclusion is no fallacy is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+    - discontent in many other areas as well.
+  counterargument:
+    decisive_counterargument: The fact that religious and free‑speech needs are natural
+      does not, by itself, justify a blanket ban on government censorship. Naturalness
+      simply describes a human inclination; it does not establish that such longing
+      must be treated as an absolute right. Many other natural desires—such as it
+      is to acquire wealth or to seek companionship—are constrained by laws and regulations
+      precisely because acting on them unconditionally can lead to harm or injustice.
+      Therefore, asserting that government censorship is never a good thing solely
+      because free speech is a natural need commits a faulty appeal to nature.
+    candidate: Appeal to Nature
+    challenged_inference: Having religious and free speech is a natural need of people
+      all over the world, therefore we must stop government censorship because government
+      censorship is never a good thing.
+    label_justification: 'The objection targets the claim that the naturalness of
+      a desire provides moral authority to deny government censorship, which is the
+      hallmark of an Appeal to Nature fallacy: equating a natural condition with moral
+      acceptability.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Having religious and free speech is natural need of people all over the world.
+      We need to stop government censorship. Government censorship is never a good
+      thing, it leads to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target asserts that religious and free speech is a natural
+    need, then immediately concludes that government censorship is wrong, thereby
+    deriving a moral value from a natural state—a classic appeal to nature structure.
+  decision_reason: The premise “Having religious and free speech is a natural need”
+    is used to support the value judgment that censorship should be stopped, which
+    matches the nature‑to‑value structure of an Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Having religious and free speech is natural need of people all over the world.
+    We need to stop government censorship. Government censorship is never a good thing,
+    it leads to
+  - discontent in many other areas as well.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4174
+  completion_tokens: 2806
+  total_tokens: 6980
+  wall_time_seconds: 319.31299999996554

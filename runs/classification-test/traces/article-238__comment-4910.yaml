@@ -1,0 +1,158 @@
+sample:
+  id: 238:4910
+  article_id: 238
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Their overall safety is more important. It is very dangerous in the middle
+    east and this is less of an issue. Worries should be put in perspective.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: this is less of an issue
+    - role: worse_issue
+      text: It is very dangerous in the middle east
+    - role: deprioritizing_conclusion
+      text: Worries should be put in perspective.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Worries about danger in the Middle East should be down‑rated
+      because overall safety is deemed more important.
+    candidate: null
+    supporting_reason: The speaker states that overall safety is more important and
+      that the danger in the Middle East is a lesser issue, thereby justifying the
+      claim that worries should be moderated.
+    support_relation: The stated importance of overall safety and the relative devaluation
+      of Middle‑Eastern danger serve as premises that lead to the conclusion that
+      concerns about the Middle East should be put in perspective.
+    label_justification: The argument does not map onto a recognized logical‑fallacy
+      pattern; it merely presents a subjective weighting of relative importance. No
+      illicit reasoning is invoked, so no fallacy label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+  counterargument:
+    decisive_counterargument: You cannot say that one area’s hazards automatically
+      make another area’s concerns unimportant; the claim treats only two alternatives
+      – danger in the Middle East versus ‘this’ issue – and dismisses all other possible
+      reasons for worry. This is a false dilemma, because it forces the choice between
+      just two contradictory options while ignoring other legitimate concerns.
+    candidate: False Dilemma
+    challenged_inference: Their overall safety is more important. It is very dangerous
+      in the middle east and this is less of an issue. Worries should be put in perspective.
+    label_justification: The objection shows that the argument commits the false dilemma
+      fallacy – it presents only two alternatives (danger in the Middle East vs the
+      current concern) and insists that because one is more dangerous the other is
+      less important. By refusing to consider other factors or concerns, it reduces
+      a complex set of possible worries to a binary choice, matching the definition
+      of a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: False Dilemma would require the statement to force a binary choice
+      between only two alternatives; however, the target merely compares the severity
+      of danger in the Middle East with another issue, implying a hierarchy rather
+      than a mutually exclusive dilemma. The claim does not present solely two options
+      or dismiss all other concerns, so it does not satisfy the structural condition
+      of a false dilemma.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Their overall safety is more important. It is very dangerous in the middle east
+      and this is less of an issue. Worries should be put in perspective.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target presents a more serious problem (“It is very dangerous
+    in the Middle East”) to downplay a lesser concern (“this is less of an issue”)
+    and urges putting that worry in perspective. This is a classic Appeal to Worse
+    Problems structure.
+  decision_reason: The passage explicitly states that a broader, more dangerous issue
+    outweighs the specific worry, thereby diminishing the latter’s importance, which
+    meets the definition of Appeal to Worse Problems. No other fallacy fits, and the
+    structure is complete.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Their overall safety is more important. It is very dangerous in the middle east
+    and this is less of an issue. Worries should be put in perspective.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4940
+  completion_tokens: 4817
+  total_tokens: 9757
+  wall_time_seconds: 185.18700000000536

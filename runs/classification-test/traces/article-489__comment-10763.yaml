@@ -1,0 +1,163 @@
+sample:
+  id: 489:10763
+  article_id: 489
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: The President has said that he will take responsibility for the rape cases
+    of his troops. I am sure that as President, he would know best. However, judging
+    from the macho culture he is cultivating, I highly doubt that any rape victims
+    would see any real justice done under him.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: President
+    - role: endorsed_claim
+      text: he would know best
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The victims will not receive real justice under the President.
+    candidate: Hasty Generalization
+    supporting_reason: macho culture
+    support_relation: the author infers from the President's macho culture that victims
+      will not receive real justice, generalizing a single cultural trait to all judicial
+      outcomes
+    label_justification: The argument extrapolates from the President’s evident macho
+      culture to claim that any rape victims will see no real justice, thereby generalizing
+      a specific characteristic to a broad outcome without sufficient evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+  counterargument:
+    decisive_counterargument: The claim that rape victims would not receive justice
+      simply because the President cultivates a macho culture is not supported by
+      any evidence that macho leadership affects criminal justice outcomes. A cultural
+      trait of one political figure does not logically imply systemic failures for
+      all victims. This leap from a single observation to a broad conclusion is a
+      non-justified generalization.
+    candidate: Hasty Generalization
+    challenged_inference: I highly doubt that any rape victims would see any real
+      justice done under him.
+    label_justification: The objection demonstrates that the inference draws a general
+      conclusion about the justice outcomes for all rape victims based solely on the
+      President’s macho culture, which is a single, non-representative observation.
+      This is characteristic of the hasty generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Appeal to Authority
+    loser_failure: The target statement “I highly doubt that any rape victims would
+      see any real justice done under him” clearly generalizes from the President’s
+      specific trait—his macho culture—to a broad claim about all rape victims' outcomes,
+      without sufficient evidence. This is a direct illustration of the hasty‑generalization
+      structure. In contrast, the appeal to authority is only an auxiliary assertion
+      that “as President, he would know best,” which does not structurally justify
+      the main conclusion and is therefore less directly supported as the main fallacy.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The President has said that he will take responsibility for the rape cases of
+      his troops. I am sure that as President, he would know best. However, judging
+      from the
+    - macho culture he is cultivating, I highly doubt that any rape victims would
+      see any real justice done under him.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a universal conclusion about the justice
+    outcomes for all rape victims solely from the President’s macho culture, a single
+    observation that is not representative of the broader population.
+  decision_reason: The statement asserts that because the President cultivates a macho
+    culture, no rape victim will see real justice. This is a generalization from an
+    isolated characteristic of one person (the President) to a broad claim about all
+    rape victims, satisfying the definition of a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - macho culture he is cultivating, I highly doubt that any rape victims would see
+    any real justice done under him.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5749
+  completion_tokens: 4350
+  total_tokens: 10099
+  wall_time_seconds: 207.53200000000652

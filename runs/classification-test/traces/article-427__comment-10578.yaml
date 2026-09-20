@@ -1,0 +1,146 @@
+sample:
+  id: 427:10578
+  article_id: 427
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: I think it's fine for women to demand equal pay and power, but then what?
+    I can see the movement taking more and more, until women hold the power in society
+    and men will go on strike for equal representation. The article suggests this
+    movement is spreading to other areas other than media, so I think it's important
+    to make sure equality is achieved slowly and sensibly and doesn't slide into a
+    negative situation.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: women demanding equal pay and power
+    - role: intermediate_consequence
+      text: women hold the power in society
+    - role: final_consequence
+      text: men go on strike for equal representation
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it's fine for women to demand equal pay and power, but then what? I
+      can see the movement taking more and more, until women hold the power in
+    - society and men will go on strike for equal representation. The article suggests
+      this movement is spreading to other areas other than media, so I think it's
+      important to make
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Equality should be achieved slowly and sensibly to avoid a
+      negative situation where men might strike for equal representation.
+    candidate: Slippery Slope
+    supporting_reason: If women gain too much power, men will go on strike for equal
+      representation, leading to a negative outcome.
+    support_relation: The reason is used to justify the conclusion that equality must
+      be pursued at a slow, sensible pace in order to prevent the predicted negative
+      chain of events.
+    label_justification: The argument assumes a causal progression from women demanding
+      equality to a situation where men strike, culminating in an overall negative
+      outcome, without providing evidence for each step. This is a classic slippery‑slope
+      structure, where one action is depicted as leading inevitably to an undesirable
+      consequence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think it's fine for women to demand equal pay and power, but then what? I
+      can see the movement taking more and more, until women hold the power in
+    - society and men will go on strike for equal representation. The article suggests
+      this movement is spreading to other areas other than media, so I think it's
+      important to make
+    - sure equality is achieved slowly and sensibly and doesn't slide into a negative
+      situation.
+  counterargument:
+    decisive_counterargument: The claim that women demanding equal pay will inevitably
+      lead to women dominating all power and men striking is a speculative, unsubstantiated
+      escalation. No causal evidence links the movement to such an outcome, so the
+      argument relies on a slippery slope without data.
+    candidate: Slippery Slope
+    challenged_inference: If women pursue equal pay and power, then over time women
+      will take over all societal power, men will go on strike for equal representation,
+      and society will slide into a negative situation.
+    label_justification: The objection exposes a progression from the initial demand
+      to an extreme, undesirable consequence without presenting any causal linkage
+      or evidence. This is precisely the hallmark of a slippery slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think it's fine for women to demand equal pay and power, but then what? I
+      can see the movement taking more and more, until women hold the power in
+    - society and men will go on strike for equal representation. The article suggests
+      this movement is spreading to other areas other than media, so I think it's
+      important to make
+    - sure equality is achieved slowly and sensibly and doesn't slide into a negative
+      situation.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target passage outlines a causal chain—women demanding equal
+    pay and power → women gradually attaining all societal power → men striking for
+    equal representation—leading to a predicted negative outcome, yet offers no supporting
+    evidence for each step, satisfying the structural criteria of a slippery‑slope
+    fallacy.
+  decision_reason: The target explicitly presents an unsubstantiated escalation from
+    the initial demand to an extreme undesirable consequence, fulfilling the slippery‑slope
+    criteria.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I think it's fine for women to demand equal pay and power, but then what? I can
+    see the movement taking more and more, until women hold the power in
+  - society and men will go on strike for equal representation. The article suggests
+    this movement is spreading to other areas other than media, so I think it's important
+    to make
+  - sure equality is achieved slowly and sensibly and doesn't slide into a negative
+    situation.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4803
+  completion_tokens: 3762
+  total_tokens: 8565
+  wall_time_seconds: 81.26599999997416

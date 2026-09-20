@@ -1,0 +1,161 @@
+sample:
+  id: 599:8993
+  article_id: 599
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is a good step towards justice. Imagine how much worse things could
+    get if these elite figures were shown they could literally get away with murder.
+    What today is an extraordinary killing that causes shockwaves across all of the
+    country could soon become just another mundane murder with impunity by the rich
+    that happens all the time, because they know they can get away with it.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: elite figures being shown they can get away with murder
+    - role: intermediate_consequence
+      text: murder becomes a mundane, impunity event by the rich
+    - role: final_consequence
+      text: the rich would get away with murder all the time
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is a good step towards justice. Imagine how much worse things could get
+      if these elite figures were shown they could literally get away with murder.
+      What today is
+    - an extraordinary killing that causes shockwaves across all of the country could
+      soon become just another mundane murder with impunity by the rich that happens
+      all the time, because they
+    - know they can get away with it.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: This statement argues that the current action is a positive
+      step toward justice and warns that if elite figures are allowed to get away
+      with murder, future killings could become routine and impunity among the wealthy.
+    candidate: null
+    supporting_reason: Because elites can get away with murder, the future could see
+      ordinary murders by the rich being tolerated as they know they can evade punishment.
+    support_relation: The reason is used to support the conclusion that this step
+      is a good move toward justice by showing the potential negative consequences
+      of not taking such a step.
+    label_justification: The argument does not employ a fallacious pattern such as
+      a slippery slope, hasty generalization, or appeal to authority; it presents
+      a plausible causal connection between elite impunity and future murder frequency.
+      Therefore, no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is a good step towards justice. Imagine how much worse things could get
+      if these elite figures were shown they could literally get away with murder.
+      What today is
+    - an extraordinary killing that causes shockwaves across all of the country could
+      soon become just another mundane murder with impunity by the rich that happens
+      all the time, because they
+    - know they can get away with it.
+  counterargument:
+    decisive_counterargument: 'The argument jumps from the possible fact that these
+      elite figures might escape punishment to the sweeping claim that such an outcome
+      would inevitably make future murders by the wealthy mundane. That leap is unsupported:
+      there is no evidence a single instance of impunity would trigger a cascade of
+      widespread killings. The reasoning therefore exemplifies a classic slippery‑slope
+      fallacy.'
+    candidate: Slippery Slope
+    challenged_inference: Allowing these elite figures to get away with murder will
+      inevitably result in their murders becoming commonplace and routine.
+    label_justification: 'The objection directly targets the prediction that a single
+      step (no accountability for elite killings) will lead to a dramatic and inevitable
+      escalation (many more murders by elites). This is a textbook slippery‑slope
+      pattern: an unsubstantiated claim that a small change will trigger a chain of
+      adverse events. The counterargument identifies this specific reasoning fallacy
+      rather than simply criticizing the content of the argument.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is a good step towards justice. Imagine how much worse things could get
+      if these elite figures were shown they could literally get away with murder.
+      What today is
+    - an extraordinary killing that causes shockwaves across all of the country could
+      soon become just another mundane murder with impunity by the rich that happens
+      all the time, because they
+    - know they can get away with it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains an initial claim that elite figures could
+    get away with murder, followed by a predicted chain where this leads to routine,
+    impunity murders by the rich and ultimately that the rich would get away with
+    murder all the time—an unsubstantiated causal escalation characteristic of a slippery‑slope
+    structure.
+  decision_reason: 'The argument explicitly warns that if elite figures escape accountability,
+    murders will become mundane, leading to rampant impunity. This matches the required
+    structure: initial event → intermediate consequence → final consequence, without
+    evidence of the causal link, therefore the target commits a slippery‑slope fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This is a good step towards justice. Imagine how much worse things could get if
+    these elite figures were shown they could literally get away with murder. What
+    today is
+  - an extraordinary killing that causes shockwaves across all of the country could
+    soon become just another mundane murder with impunity by the rich that happens
+    all the time, because they
+  - know they can get away with it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4579
+  completion_tokens: 4019
+  total_tokens: 8598
+  wall_time_seconds: 101.17199999999139

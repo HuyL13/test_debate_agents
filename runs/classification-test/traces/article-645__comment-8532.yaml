@@ -1,0 +1,140 @@
+sample:
+  id: 645:8532
+  article_id: 645
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: Facebook goes too far. Sison means something to a lot of people in the philippines.
+    So they should be allowed to post about him in the philippines. The people respected
+    him, and Facebook should allow people to share. He simply counts as a political
+    figure. Facebook should back down.
+  target: I agree that Facebook monitors things a little too far at times. Think about
+    the alternative of everyone posting whatever they wanted. Without some line in
+    the sand, criminals and anyone else could post whatever illegal images they wanted.
+    Think about actions that not censorship would have on Facebook, and social media
+    in general. It is scary to think about. I am not even saying that all posts would
+    go into the wild west territory and be harmful, but the few cases that I have
+    seen of misuse it's a reasonable fear. Let's not ignore the risks!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the few cases of misuse observed
+    - role: observed_property
+      text: misuse
+    - role: target_population
+      text: future misuse risk on Facebook
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - I am not even saying that all posts would go into the wild west territory and
+      be harmful, but the few cases that I have seen of misuse it's a
+    - reasonable fear. Let's not ignore the risks!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That Facebook’s monitoring—its censorship and moderation—is
+      justified or necessary to prevent the spread of illegal or harmful content.
+    candidate: null
+    supporting_reason: Because without a line in the sand, criminals and others could
+      post illegal images or content that would be dangerous or illegal; monitoring
+      prevents such misuse.
+    support_relation: mechanism_supports_goal
+    label_justification: The explanation is a legitimate risk-based argument that
+      appeals to the potential consequences of not having moderation. It does not
+      mislead, overgeneralize, or employ a false dilemma. Hence, no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree that Facebook monitors things a little too far at times. Think about
+      the alternative of everyone posting whatever they wanted. Without some line
+      in the sand, criminals and
+    - anyone else could post whatever illegal images they wanted. Think about actions
+      that not censorship would have on Facebook, and social media in general. It
+      is scary to think about.
+  counterargument:
+    decisive_counterargument: 'The target’s conclusion that Facebook must limit content
+      because the speaker has seen a few cases of misuse relies on a limited sample
+      of personal observations, implying that such instances justify broad censorship.
+      This is a classic over‑generalization: from a few observed cases it extrapolates
+      a universal policy. The argument fails to establish a reliable evidence base
+      that extreme misuse is common enough to warrant blanket monitoring.'
+    candidate: Hasty Generalization
+    challenged_inference: The assertion that Facebook should curtail content to avoid
+      criminal misuse is over‑generalized from limited personal observation.
+    label_justification: The counter-argument points out that the target’s reasoning
+      is founded on a few isolated cases (“the few cases that I have seen”), which
+      is precisely the pattern of a Hasty Generalization—adopting a broad policy from
+      an insufficient sample. The objection thus directly supports the Hasty Generalization
+      label rather than merely criticizing the content of the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - I am not even saying that all posts would go into the wild west territory and
+      be harmful, but the few cases that I have seen of misuse it's a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims that a few observed cases of misuse justify
+    broad concerns for future misuse on Facebook, generalizing from a small sample
+    ('the few cases that I have seen of misuse') to the entire population of Facebook
+    content.
+  decision_reason: 'The target’s assertion generalizes from limited personal observations
+    to a universal risk of misuse, meeting the structural criteria for a hasty generalization.
+    Evidence: T3 and T4.'
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - I am not even saying that all posts would go into the wild west territory and
+    be harmful, but the few cases that I have seen of misuse it's a
+  - reasonable fear. Let's not ignore the risks!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5064
+  completion_tokens: 3620
+  total_tokens: 8684
+  wall_time_seconds: 258.0469999999623

@@ -1,0 +1,123 @@
+sample:
+  id: 164:4688
+  article_id: 164
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: Travel to Africa should be avoided if possible. Africa is such a vast place
+    yet Ebola is concentrated there. We should not bring any instances of this disease
+    back to our country.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+    - our country.
+    candidate: null
+  goal:
+    conclusion_or_goal: Travel to Africa should be avoided if possible.
+    candidate: Hasty Generalization
+    supporting_reason: Africa is a vast place yet Ebola is concentrated there. We
+      should not bring any instances of this disease back to our country.
+    support_relation: The statement about Ebola being concentrated in Africa is used
+      to justify the blanket recommendation that travel to Africa should be avoided.
+    label_justification: The argument draws a broad conclusion about all travel to
+      Africa from the limited fact that Ebola is present there, thereby generalizing
+      from a specific instance to an entire region without sufficient evidence, which
+      meets the criteria for a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+  counterargument:
+    decisive_counterargument: Ebola’s presence in some parts of Africa does not make
+      the entire continent unsafe, and many African regions have effective public‑health
+      safeguards. With proper precautions—such as vaccination, screening, travel‑history
+      assessment, and timely treatment—people can travel safely, making a blanket
+      ban unnecessary.
+    candidate: Hasty Generalization
+    challenged_inference: Travel to Africa should be avoided if possible because Ebola
+      is concentrated there.
+    label_justification: The reasoning jumps from the isolated fact that Ebola is
+      present in Africa to a sweeping conclusion that all travel to Africa is unsafe,
+      without considering variations in risk or precautionary measures. This is a
+      classic example of a Hasty Generalization.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+    - our country.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Target spans T1 provide a claim that the presence of Ebola in
+    Africa justifies a blanket recommendation to avoid all travel to Africa, thereby
+    generalizing from a specific disease instance to all travelers. This satisfies
+    the structural criteria for a Hasty Generalization.
+  decision_reason: Evidence T1 supports the conclusion that all travel to Africa should
+    be avoided based on the fact that Ebola is concentrated there.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Travel to Africa should be avoided if possible. Africa is such a vast place yet
+    Ebola is concentrated there. We should not bring any instances of this disease
+    back to
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3831
+  completion_tokens: 3458
+  total_tokens: 7289
+  wall_time_seconds: 133.20300000000861

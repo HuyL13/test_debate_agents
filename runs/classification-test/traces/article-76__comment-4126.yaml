@@ -1,0 +1,172 @@
+sample:
+  id: 76:4126
+  article_id: 76
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: They really need to take care of this problem. Today, journalists are targeted.
+    Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+    a target and not a single person will be left alive.
+  target: It is in the nature of terrorists to try and take out the brightest. And
+    those who expose them. It should also be our ideal to thwart this nature and let
+    human nature's kindness reign.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is in the nature of terrorists to try and take out the brightest. And
+        those who expose them.
+    - role: evaluative_conclusion
+      text: let human nature's kindness reign.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+    - let human nature's kindness reign.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: To thwart terrorists—whose nature is to target the brightest—so
+      that human kindness can reign.
+    candidate: null
+    supporting_reason: It is in the nature of terrorists to try and take out the brightest.
+    support_relation: The characterization of terrorists’ natural tendency is presented
+      as the underlying motivation for the imperative to oppose and stop that behavior.
+    label_justification: The argument employs a factual statement about terrorist
+      behavior as a premise for a normative conclusion (to oppose it). This reasoning
+      follows logically and does not exhibit a logical fallacy; therefore the correct
+      classification is no fallacy (null).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+  counterargument:
+    decisive_counterargument: The passage assumes that terrorists systematically target
+      the brightest individuals without presenting evidence for such a pattern. This
+      is an over‑broad claim drawn from nothing more than isolated anecdotes, which
+      constitutes a hasty generalization. The conclusion—‘we should thwart this nature
+      and let kindness reign’—follows from an unjustified generalization about terrorist
+      behavior.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that all terrorists have a natural tendency to
+      target the brightest people (and thus must be stopped), based on no empirical
+      support.
+    label_justification: The objection demonstrates that the argument leaps from no
+      data to a universal statement about terrorists’ motives, exploiting a single
+      anecdotal impression to make a sweeping claim—exactly the pattern of a hasty
+      generalization. Hence the flaw is specifically a hasty generalization, not another
+      fallacy type.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+    - let human nature's kindness reign.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: 'The TARGET explicitly states that “It is in the nature of terrorists
+      to try and take out the brightest… It should also be our ideal to thwart this
+      nature and let human nature’s kindness reign.” This structure matches the standard
+      Appeal to Nature pattern: a claim about the natural tendency of terrorists (naturalness
+      premise) followed by a normative conclusion praising humanity’s kindness (evaluative
+      conclusion). Hasty Generalization requires an explicit sample or anecdote from
+      which a sweeping claim is drawn, but here no sample is provided—there is only
+      a blanket assertion about all terrorists. Therefore the mandatory structural
+      condition for Appeal to Nature is met, while that for Hasty Generalization is
+      not. Thus Appeal to Nature is the correct classification.'
+    loser_failure: Hasty Generalization lacks the required explicit sample-to-generalization
+      step; the TARGET presents a universal claim without any cited evidence, so it
+      does not satisfy the structural conditions for a hasty generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+    - let human nature's kindness reign.
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target asserts a natural property of terrorists (‘It is
+    in the nature of terrorists to try and take out the brightest…’) and then concludes
+    that ‘human nature’s kindness reign’—a value judgment—should prevail. This matches
+    the structure of an appeal to nature, where a natural fact is used to justify
+    a moral or evaluative claim, satisfying the mandatory structural conditions.
+  decision_reason: The target cites a natural tendency of terrorists and argues that
+    humanity should counter that tendency by allowing human nature’s kindness to prevail,
+    constituting an appeal to nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is in the nature of terrorists to try and take out the brightest. And those
+    who expose them. It should also be our ideal to thwart this nature and
+  - let human nature's kindness reign.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5361
+  completion_tokens: 3479
+  total_tokens: 8840
+  wall_time_seconds: 116.92200000002049

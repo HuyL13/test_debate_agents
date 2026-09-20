@@ -1,0 +1,168 @@
+sample:
+  id: 87:3708
+  article_id: 87
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: The Chinese government and its red economy only care about themselves. They
+    think that their way to govern and oppress its citizens by taking away their basics
+    human rights, is the only way to run a nation. It is good to see the people of
+    Hong Kong standing up for themselves and their rights. I once heard someone who
+    was an expert speaking on how the Chinese economy flourishes off of oppressing
+    its people and taking away their rights. That is a scary thought as their economy
+    is growing and becoming a true world power.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: The Chinese government and its red economy
+    - role: observed_property
+      text: only care about themselves and think that oppressing citizens by taking
+        away their basic human rights is the only way to run a nation
+    - role: target_population
+      text: all governments and nation-states
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Chinese government and its red economy only care about themselves. They
+      think that their way to govern and oppress its citizens by taking away their
+      basics human rights, is
+    - the only way to run a nation. It is good to see the people of Hong Kong standing
+      up for themselves and their rights. I once heard someone who was
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The Chinese government’s oppressive policies are the primary
+      reason for its economic success, implying moral condemnation of its governance.
+    candidate: Appeal to Authority
+    supporting_reason: An expert is cited as saying that the Chinese economy flourishes
+      by oppressing people and taking away their rights.
+    support_relation: This claim is used to justify the conclusion that the economy’s
+      growth depends on oppression.
+    label_justification: The argument relies on an authority’s statement to support
+      a causal claim, which constitutes an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - an expert speaking on how the Chinese economy flourishes off of oppressing its
+      people and taking away their rights. That is a scary thought as their economy
+      is growing and
+  counterargument:
+    decisive_counterargument: The claim that the Chinese economy thrives because it
+      oppresses its citizens is supported only by citing a single expert speaker,
+      which does not provide empirical evidence or address alternative explanations.
+      Relying on one authority’s opinion to establish causality is a logical flaw.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that the Chinese economy flourishes by oppressing
+      its people and removing basic human rights.
+    label_justification: The objection points out that the target’s reasoning depends
+      on a lone expert’s statement without corroborating data, which exemplifies an
+      appeal to authority. The claim is justified solely by citing the expert rather
+      than presenting evidence, fitting the definition of this fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - an expert speaking on how the Chinese economy flourishes off of oppressing its
+      people and taking away their rights. That is a scary thought as their economy
+      is growing and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: 'The hasty generalization claim requires a clear sample-to-population
+      inference that the text explicitly generalizes from the Chinese government to
+      all governments or all nations.  The target only describes the Chinese government’s
+      view that oppression is the only way to govern; it does not claim that this
+      applies to all governments or to all ways of governance.  Therefore it lacks
+      the mandatory structural condition for a hasty generalization.  In contrast,
+      the target contains a direct appeal to an authority: a single expert is cited
+      to justify that the Chinese economy flourishes because it oppresses its people.  This
+      satisfies the Appeal to Authority condition without any additional premises.  Thus
+      Appeal to Authority is the correct classification.'
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - an expert speaking on how the Chinese economy flourishes off of oppressing its
+      people and taking away their rights. That is a scary thought as their economy
+      is growing and
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: the argument draws conclusions about the Chinese economy’s growth
+    – that it flourishes by oppressing its people – solely on a single expert’s statement,
+    without providing independent evidence, thereby relying on an authority to support
+    a causal claim.
+  decision_reason: The target cites an expert’s assertion that the economy’s growth
+    is due to oppression and uses that statement to justify the conclusion, which
+    meets the definition of an appeal to authority.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - an expert speaking on how the Chinese economy flourishes off of oppressing its
+    people and taking away their rights. That is a scary thought as their economy
+    is growing and
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6439
+  completion_tokens: 4735
+  total_tokens: 11174
+  wall_time_seconds: 489.39100000000326

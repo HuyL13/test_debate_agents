@@ -1,0 +1,138 @@
+sample:
+  id: 411:7230
+  article_id: 411
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Their government is treating them like cattle. Its a totally unnatural way
+    to live for humans. We want and need to talk to people and find information whenever
+    we want it. Its natural to be social and curious. Humans are social creatures,
+    this is what all biologists say! Keeping us from talking to others is like keeping
+    us in a zoo.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It’s natural to be social and curious. Humans are social creatures, this
+        is what all biologists say!
+    - role: evaluative_conclusion
+      text: Keeping us from talking to others is like keeping us in a zoo.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - it. Its natural to be social and curious. Humans are social creatures, this
+      is what all biologists say! Keeping us from talking to others is like keeping
+      us in a
+    - zoo.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The target argues that the government is treating its citizens
+      like cattle by denying them the natural right to communicate and access information.
+    candidate: Appeal to Nature
+    supporting_reason: Humans are social creatures, this is what all biologists say.
+      Thus keeping us from talking to others is like keeping us in a zoo.
+    support_relation: Justification
+    label_justification: The reasoning uses the claim that human social behavior is
+      natural and therefore desirable, equating naturalness with moral validity. This
+      appeal to nature serves to support the conclusion that the government’s restrictions
+      are wrong and unjustifiable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - it. Its natural to be social and curious. Humans are social creatures, this
+      is what all biologists say! Keeping us from talking to others is like keeping
+      us in a
+  counterargument:
+    decisive_counterargument: The argument assumes that because humans naturally desire
+      social interaction and curiosity, any restriction on that behavior is inherently
+      wrong or unnatural. However, natural does not automatically confer moral value
+      or optimality. Many natural phenomena (e.g., predation, disease) are not desirable,
+      nor do all human biological tendencies produce ethical actions. Therefore, citing
+      the naturalness of social curiosity to judge the government’s censorship is
+      a faulty appeal to nature.
+    candidate: Appeal to Nature
+    challenged_inference: Because governments restrict social interaction, their treatment
+      is justified as natural and therefore morally wrong.
+    label_justification: The objection directly critiques the reasoning that natural
+      human behavior implies the moral correctness of unrestricted access to interaction,
+      which is precisely the core of the Appeal to Nature fallacy. It does not merely
+      criticize the argument in a general sense, but exposes the specific faulty inference
+      that naturalness equals desirability.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government is treating them like cattle. Its a totally unnatural way to
+      live for humans. We want and need to talk to people and find information whenever
+      we want
+    - it. Its natural to be social and curious. Humans are social creatures, this
+      is what all biologists say! Keeping us from talking to others is like keeping
+      us in a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target claims that it is natural for humans to be social
+    and curious—supported by biologists—and directly equates the prohibition of communication
+    with being kept in a zoo. This uses the naturalness premise to justify the conclusion,
+    fitting the typical appeal to nature structure.
+  decision_reason: The argument employs the naturalness of social interaction to argue
+    that government restrictions are wrong, a classic appeal to nature.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - it. Its natural to be social and curious. Humans are social creatures, this is
+    what all biologists say! Keeping us from talking to others is like keeping us
+    in a
+  - zoo.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4398
+  completion_tokens: 3287
+  total_tokens: 7685
+  wall_time_seconds: 132.32800000000861

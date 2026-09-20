@@ -1,0 +1,137 @@
+sample:
+  id: 1:9301
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: It's great that the people here aren't forgetting their true past. Commemorations
+    have always been an important part of humanity. And that tradition is for good
+    reason as well. This vigil and other events like it are the only way the crimes
+    of the CCP will not be forgotten, and an important part of how they'll be stopped
+    in the future.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Commemorations have always been an important part of humanity.
+    - role: preservation_conclusion
+      text: This vigil and other events like it are the only way the crimes of the
+        CCP will not be forgotten, and an important part of how they'll be stopped
+        in the future.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that the people here aren't forgetting their true past. Commemorations
+      have always been an important part of humanity. And that tradition is for good
+      reason as well. This
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+    - future.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The vigil and other commemorative events are essential to
+      ensure the crimes of the CCP are remembered and are a key factor in preventing
+      those crimes from happening again.
+    candidate: Appeal to Tradition
+    supporting_reason: Commemorations have always been an important part of humanity.
+    support_relation: The historical importance of commemorations is used to justify
+      that this vigil is justified and valuable.
+    label_justification: The argument relies on the enduring tradition of commemorations
+      as evidence of their worth, a classic appeal to tradition, without addressing
+      other possible reasons.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that the people here aren't forgetting their true past. Commemorations
+      have always been an important part of humanity. And that tradition is for good
+      reason as well. This
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+  counterargument:
+    decisive_counterargument: The claim that a vigil and similar commemorative events
+      are *the only way* to prevent the crimes of the CCP from being forgotten ignores
+      many other effective methods of remembrance and prevention. History and contemporary
+      practice show that education, documentaries, books, digital archives, international
+      human rights advocacy, and political dialogue also preserve collective memory
+      and inspire future action. In short, asserting exclusivity is unsupported and
+      reflects an unjustified limitation on possibilities.
+    candidate: null
+    challenged_inference: vigil and other events like it are the only way the crimes
+      of the CCP will not be forgotten, and an important part of how they'll be stopped
+      in the future
+    label_justification: This inference presents a dichotomy—only vigil events can
+      maintain memory and drive future prevention—while ignoring other viable means,
+      thereby exhibiting a false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+    - future.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument explicitly states that commemorations have always
+    been important—a tradition—and then concludes that this vigil is therefore necessary
+    to remember and prevent CCP crimes, using that tradition as the sole justification.
+  decision_reason: 'The target claims commemorations are inherently valuable because
+    they have always existed, and then cites that tradition as the reason this specific
+    vigil matters, matching the structure of an appeal to tradition: a longstanding
+    practice is invoked as proof of the action’s worth.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's great that the people here aren't forgetting their true past. Commemorations
+    have always been an important part of humanity. And that tradition is for good
+    reason as well. This
+  - vigil and other events like it are the only way the crimes of the CCP will not
+    be forgotten, and an important part of how they'll be stopped in the
+  - future.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4447
+  completion_tokens: 3262
+  total_tokens: 7709
+  wall_time_seconds: 156.43700000000536

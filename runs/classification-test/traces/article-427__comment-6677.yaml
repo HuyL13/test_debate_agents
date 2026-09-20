@@ -1,0 +1,129 @@
+sample:
+  id: 427:6677
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: I am much more likely to trust the people in charge of these organizations
+    than the women striking. How do we know what they say is true? If there were real
+    issues, the people in charge would handle it. Feminist protests like this usually
+    blow things out of proportion, let's be honest!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: people in charge of these organizations
+    - role: endorsed_claim
+      text: their statements are trustworthy
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I am much more likely to trust the people in charge of these organizations than
+      the women striking. How do we know what they say is true? If there were
+    - real issues, the people in charge would handle it. Feminist protests like this
+      usually blow things out of proportion, let's be honest!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker concludes that the people in charge of the organizations
+      are more trustworthy than the women striking, implying that the protests are
+      unwarranted.
+    candidate: Appeal to Authority
+    supporting_reason: If there were real issues, the people in charge would handle
+      it.
+    support_relation: The speaker relies on the perceived authority of the organizational
+      leaders to justify the conclusion that the protestors are less credible.
+    label_justification: The argument uses the position of authority as a basis for
+      accepting the claim over the protestors’ allegations, which is characteristic
+      of an Appeal to Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I am much more likely to trust the people in charge of these organizations than
+      the women striking. How do we know what they say is true? If there were
+    - real issues, the people in charge would handle it. Feminist protests like this
+      usually blow things out of proportion, let's be honest!
+  counterargument:
+    decisive_counterargument: The fact that those in charge claim to be trustworthy
+      does not guarantee that they will address real problems. Historical evidence
+      shows that authorities can and often do ignore, suppress, or obstruct legitimate
+      grievances, especially those that threaten entrenched power structures. Therefore
+      trusting authority outright is unjustified.
+    candidate: null
+    challenged_inference: If there are real issues, the people in charge would handle
+      them, so the protesters are exaggerating the situation.
+    label_justification: The objection directly targets the reliance on authority
+      as the sole criterion for truth, which is an Appeal to Authority – the speaker
+      claims that because the officials are in charge they are inherently trustworthy,
+      using their position as evidence for their statements instead of independent
+      verification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I am much more likely to trust the people in charge of these organizations than
+      the women striking. How do we know what they say is true? If there were
+    - real issues, the people in charge would handle it. Feminist protests like this
+      usually blow things out of proportion, let's be honest!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The speaker relies on the perceived authority of organizational
+    leaders to justify dismissing the protestors’ claims, using the leaders’ position
+    as the sole basis for trust.
+  decision_reason: The target explicitly states that the speaker is more likely to
+    trust the people in charge than the striking women, arguing that if there were
+    real issues, the people in charge would handle them. This is an instance of an
+    Appeal to Authority, where the authority’s status is used as justification for
+    the claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I am much more likely to trust the people in charge of these organizations than
+    the women striking. How do we know what they say is true? If there were
+  - real issues, the people in charge would handle it. Feminist protests like this
+    usually blow things out of proportion, let's be honest!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4165
+  completion_tokens: 3892
+  total_tokens: 8057
+  wall_time_seconds: 85.25

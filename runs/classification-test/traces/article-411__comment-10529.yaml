@@ -1,0 +1,144 @@
+sample:
+  id: 411:10529
+  article_id: 411
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Turkmenistan has the slowest internet in the world. They are only ahead
+    of North Korea and war-torn Syria in terms of fredom. But the good thing is that
+    at least have access. Maybe if the people let the government know their disappointment
+    the internet can be sped up. It's not good that their internet is slow, but I'm
+    sure they are making improvements.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Turkmenistan has the slowest internet in the world. They are only ahead of North
+      Korea and war-torn Syria in terms of fredom. But the good thing is that at least
+    - have access. Maybe if the people let the government know their disappointment
+      the internet can be sped up. It's not good that their internet is slow, but
+      I'm sure they
+    - are making improvements.
+    candidate: null
+  goal:
+    conclusion_or_goal: Turkmenistan's internet can improve if the people express
+      their disappointment to the government.
+    candidate: null
+    supporting_reason: If the people let the government know their disappointment,
+      the internet can be sped up.
+    support_relation: The reason is used as a causal inference that suggests government
+      action will improve internet speed.
+    label_justification: No fallacy is present. The statement offers a tentative causal
+      explanation rather than a fallacious argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - have access. Maybe if the people let the government know their disappointment
+      the internet can be sped up. It's not good that their internet is slow, but
+      I'm sure they
+  counterargument:
+    decisive_counterargument: The claim that ‘if the people let the government know
+      their disappointment, the internet can be sped up’ is an unsupported causal
+      assertion – it offers no evidence that government feedback actually leads to
+      network improvements. Without empirical support, the inference is speculative
+      rather than logically justified.
+    candidate: null
+    challenged_inference: That government speed can be improved by receiving public
+      complaints.
+    label_justification: The argument does not match any of the specified fallacy
+      types (hasty generalization, slippery slope, false dilemma, appeal to authority,
+      appeal to majority, appeal to nature, appeal to tradition, appeal to worse problems).
+      It rests on an unsubstantiated causal claim, but since no fallacy from the list
+      is applicable, the appropriate label is null.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkmenistan has the slowest internet in the world. They are only ahead of North
+      Korea and war-torn Syria in terms of fredom. But the good thing is that at least
+    - have access. Maybe if the people let the government know their disappointment
+      the internet can be sped up. It's not good that their internet is slow, but
+      I'm sure they
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument attributes the ability to improve internet speed
+    to the government’s response—an implicit appeal to governmental authority—without
+    providing supporting evidence.
+  decision_reason: The statement “maybe if the people let the government know their
+    disappointment the internet can be sped up” relies on the authority of the government
+    to act, but no explicit authority is cited or evidenced, fitting the pattern of
+    an appeal to authority fallingacy.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - have access. Maybe if the people let the government know their disappointment
+    the internet can be sped up. It's not good that their internet is slow, but I'm
+    sure they
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4638
+  completion_tokens: 3238
+  total_tokens: 7876
+  wall_time_seconds: 94.32800000000861

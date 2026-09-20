@@ -1,0 +1,130 @@
+sample:
+  id: 350:7046
+  article_id: 350
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: Refugees have more to worry about than privacy. They are running from home,
+    and don't want their host to know who they are? There are worst issues for the
+    host, if they can't identify refugees.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+    candidate: null
+  goal:
+    conclusion_or_goal: Refugees are primarily concerned with escaping danger rather
+      than privacy, and hosts face significant issues when they cannot identify refugees.
+    candidate: null
+    supporting_reason: Refugees are running from home and don’t want their host to
+      know who they are.
+    support_relation: This reason explains why refugees prioritize escape over privacy
+      and underscores the host’s difficulty in identifying refugees, thereby supporting
+      the stated conclusion.
+    label_justification: The passage offers a clear, non‑fallacious causal explanation
+      linking refugees’ displacement to their privacy concerns; no logical fallacy
+      is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+  counterargument:
+    decisive_counterargument: Privacy is a fundamental right that protects refugees
+      from potential harm, exploitation, and stigma. It is possible for host authorities
+      to identify refugees through secure, privacy‑preserving systems that collect
+      only the necessary information and use encryption or anonymization techniques.
+      Therefore, refugees’ privacy concerns should not be dismissed as less important
+      just because hosts face identification challenges.
+    candidate: False Dilemma
+    challenged_inference: The target implies that refugees’ privacy matters less than
+      the host’s need for identification, presenting only these two options as mutually
+      exclusive.
+    label_justification: The argument forces an exclusive choice between two concerns—refugees’
+      desire for privacy and the host’s need to identify them—ignoring the possibility
+      that both can be addressed simultaneously. This narrow framing commits a False
+      Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Refugees have more to worry about than privacy. They are running from home,
+      and don't want their host to know who they are? There are worst issues for the
+      host,
+    - if they can't identify refugees.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents only two mutually exclusive outcomes – that
+    refugees’ privacy is lesser concern versus that host’s inability to identify refugees
+    causes severe issues – without allowing for both concerns to coexist, which manifests
+    a false dilemma structure.
+  decision_reason: The statement forces a choice between prioritizing privacy or identification,
+    thereby committing a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Refugees have more to worry about than privacy. They are running from home, and
+    don't want their host to know who they are? There are worst issues for the host,
+  - if they can't identify refugees.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3976
+  completion_tokens: 3898
+  total_tokens: 7874
+  wall_time_seconds: 243.1720000000205

@@ -1,0 +1,117 @@
+sample:
+  id: 174:9818
+  article_id: 174
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: The government ruled that it was alright to keep the radio station going.
+    Might makes right, so the decision is absolutely right!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: government
+    - role: endorsed_claim
+      text: the decision is absolutely right
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The government’s decision to keep the radio station operating
+      is absolutely right.
+    candidate: null
+    supporting_reason: might makes right
+    support_relation: reason is presented as the justification for the conclusion
+    label_justification: The reasoning relies on the idea that those with might can
+      rightfully decide, which is a form of 'might makes right' appeal. This fallacy
+      type is not among the explicitly listed fallacies for this task, so no fallacy
+      label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+  counterargument:
+    decisive_counterargument: Just because the government has the authority and power
+      to decide allows it to operate a radio station does not automatically make the
+      decision morally or logically correct. Power does not equate to justice; actions
+      with power can still be unjust, biased, or harmful. Therefore the claim that
+      the decision is 'absolutely right' because 'might makes right' is unjustified.
+    candidate: Appeal to Authority
+    challenged_inference: Because the government has power (might), the decision is
+      absolutely right.
+    label_justification: The argument uses the government's power as a reason for
+      moral correctness, which is a classic appealing to authority/power fallacy—asserting
+      that because an authority figure or entity has the ability to act, its action
+      is inherently right. This does not provide independent justification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly uses the government's authority as the
+    sole justification for the decision's correctness, fulfilling the structural requirement
+    for Appeal to Authority (authoritative source + endorsed claim).
+  decision_reason: The argument states that because the government (authority) has
+    might, the decision is right. This is a classic appeal to authority/power, as
+    it relies solely on the government’s status rather than independent justification.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government ruled that it was alright to keep the radio station going. Might
+    makes right, so the decision is absolutely right!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3803
+  completion_tokens: 2335
+  total_tokens: 6138
+  wall_time_seconds: 224.15600000001723

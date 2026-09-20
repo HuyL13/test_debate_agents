@@ -1,0 +1,158 @@
+sample:
+  id: 550:10948
+  article_id: 550
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: It's great that they're making this transition, although they are doing
+    it rather slowly.   At the same time I have to think that maybe they could do
+    something about their human rights abuses instead.  Or maybe their problems with
+    religious extremists.   I mean,   improving energy technology isn't really going
+    to help in those areas.   There are more important things to worry about than
+    energy infrastructure.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: improving energy technology / energy infrastructure
+    - role: worse_issue
+      text: human rights abuses
+    - role: deprioritizing_conclusion
+      text: focus on human rights abuses instead; energy infrastructure is less important
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that they're making this transition, although they are doing it rather
+      slowly.   At the same time I have to think that maybe they could do something
+      about their
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Human rights abuses and religious extremist problems are more
+      important to address than energy infrastructure improvements.
+    candidate: null
+    supporting_reason: Improving energy technology is claimed not to help with human
+      rights issues or religious extremist problems, so those issues should take priority.
+    support_relation: The speaker uses the lack of impact of energy technology on
+      human rights and extremist issues to justify prioritizing those concerns over
+      energy infrastructure.
+    label_justification: The argument does not commit any of the identified fallacies;
+      it simply states a preference for tackling human rights and extremist issues
+      rather than energy transition, with a supporting reasoning that energy tech
+      does not address those problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that they're making this transition, although they are doing it rather
+      slowly.   At the same time I have to think that maybe they could do something
+      about their
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+  counterargument:
+    decisive_counterargument: Just because improving energy technology does not by
+      itself solve human‑rights or extremist issues does not mean it is a lesser priority.
+      Energy infrastructure advances can reduce poverty, improve health, increase
+      political stability, and ultimately mitigate the conditions that fuel abuse
+      or radicalization. Ignoring the energy transition because it has no immediate
+      impact on these problems treats them as mutually exclusive, whereas in practice
+      they can be addressed simultaneously.
+    candidate: Appeal to Worse Problems
+    challenged_inference: improving energy technology isn't really going to help human
+      rights abuses or religious extremist problems; therefore, those are more important
+      to address than energy infrastructure.
+    label_justification: The objection directly addresses the reasoning that elevates
+      human‑rights and extremism concerns by claiming that energy improvements lack
+      relevance, thereby exposing the fallacy that a seemingly more “important” issue
+      is dismissed simply because it is considered worse or larger. This aligns with
+      the definition of Appeal to Worse Problems, where a more pressing issue is used
+      to justify deprioritizing another issue and the counterargument shows that such
+      a hierarchy is unwarranted. Evidence for this reasoning is found in passages
+      T2 and T3, which articulate the claim that energy technology will not help those
+      problems.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+      mean,   improving energy technology isn't really going to help in those areas.   There
+      are more important things to
+    - worry about than energy infrastructure.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly claims that energy infrastructure is less
+    important than human rights abuses and religious extremist problems, exemplifying
+    an appeal to worse problems.
+  decision_reason: The text states that “There are more important things to worry
+    about than energy infrastructure,” directly prioritizing the worse issue and dismissing
+    the other, fitting the appeal to worse problems fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's great that they're making this transition, although they are doing it rather
+    slowly.   At the same time I have to think that maybe they could do something
+    about their
+  - human rights abuses instead.  Or maybe their problems with religious extremists.   I
+    mean,   improving energy technology isn't really going to help in those areas.   There
+    are more important things to
+  - worry about than energy infrastructure.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4630
+  completion_tokens: 3747
+  total_tokens: 8377
+  wall_time_seconds: 66.34400000004098

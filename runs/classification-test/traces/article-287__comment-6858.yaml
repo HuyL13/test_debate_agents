@@ -1,0 +1,114 @@
+sample:
+  id: 287:6858
+  article_id: 287
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: Most experts think he is not so bad. So he is probably not as extreme as
+    that. He is just a bitcoin shiller and focuses on that online.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Most experts
+    - role: endorsed_claim
+      text: he is not so bad/not as extreme and is just a bitcoin shiller
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Establish that he is not extreme but merely a bitcoin shiller
+      focusing online
+    candidate: Appeal to Authority
+    supporting_reason: Most experts think he is not so bad.
+    support_relation: The argument uses experts’ opinion as evidence to conclude he
+      is not as extreme as portrayed.
+    label_justification: The conclusion relies solely on the alleged expert consensus
+      without presenting independent evidence, which exemplifies an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+  counterargument:
+    decisive_counterargument: The target’s reasoning treats the experts’ opinions
+      as conclusive proof that the person is not extreme, substituting authority for
+      independent evidence. Expert consensus does not logically guarantee the truth
+      of the claim; the conclusion simply follows from the authority, not from verifiable
+      facts, which is the hallmark of an appeal to authority fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: He is not as extreme as claimed
+    label_justification: The argument relies on experts’ opinions to establish the
+      actual extremity of an individual, using authority as justification rather than
+      evidence, which directly illustrates an appeal to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most experts think he is not so bad. So he is probably not as extreme as that.
+      He is just a bitcoin shiller and focuses on that online.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target argument uses the statement that ‘most experts think
+    he is not so bad’ to reach the conclusion that he is not extreme, without providing
+    independent evidence. This corresponds exactly to an appeal to authority, where
+    expert consensus is used as proof rather than substantive support.
+  decision_reason: The argument treats expert opinion as conclusive proof of the person’s
+    lack of extremity, thereby exemplifying an appeal to authority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most experts think he is not so bad. So he is probably not as extreme as that.
+    He is just a bitcoin shiller and focuses on that online.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3970
+  completion_tokens: 2407
+  total_tokens: 6377
+  wall_time_seconds: 43.60899999999674
