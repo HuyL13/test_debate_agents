@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import shutil
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from src.engine import Engine
 from src.evaluate import score
 from src.io_utils import append_jsonl, read_jsonl, write_json
 from src.labels import ANALYSTS, labels_for
-from src.llm.client import Client
+from src.llm.client import Client, RateLimitError
 from src.llm.config import ModelConfig
 from src.trace import append_samples_csv, build_sample_trace, sample_trace_filename, write_sample_trace
 
@@ -101,7 +102,7 @@ def _prediction_row(trace):
 
 
 def _log_json(label, value):
-    print(f"{label}: {json.dumps(value, ensure_ascii=False, sort_keys=True)}", flush=True)
+    print(f"{label}: {json.dumps(value, ensure_ascii=True, sort_keys=True)}", flush=True)
 
 
 def _shorten(text, limit=600):
@@ -109,8 +110,9 @@ def _shorten(text, limit=600):
     return text if len(text) <= limit else text[: limit - 3] + "..."
 
 
-def execute(config, *, limit=None, resume=False, output=None):
+def execute(config, *, limit=None, resume=False, output=None, client=None, sleep_fn=None):
     config = validate_config(config)
+    sleep_fn = sleep_fn or time.sleep
     if limit is not None and (type(limit) is not int or limit < 1):
         raise ValueError("limit must be a positive integer")
     samples = select_task(load_split(Path(config["data_dir"]) / f"{config['split']}.json"), config["task"])
@@ -138,12 +140,13 @@ def execute(config, *, limit=None, resume=False, output=None):
     else:
         write_json(manifest_path, manifest)
     raw_debug_path = run_dir / "debug" / "raw_api.jsonl" if os.environ.get("TRACE_RAW_API") == "1" else None
-    client = Client(
-        ModelConfig(**config["model"]),
-        Path(config["cache_dir"]) / "responses.sqlite",
-        run_dir / "audit" / "api_calls.jsonl",
-        raw_debug_path=raw_debug_path,
-    )
+    if client is None:
+        client = Client(
+            ModelConfig(**config["model"]),
+            Path(config["cache_dir"]) / "responses.sqlite",
+            run_dir / "audit" / "api_calls.jsonl",
+            raw_debug_path=raw_debug_path,
+        )
     engine = Engine(client, task=config["task"])
     predictions = []
     errors = []
@@ -160,7 +163,24 @@ def execute(config, *, limit=None, resume=False, output=None):
         try:
             print(f"[{index}/{len(samples)}] {sample.sample_id} start", flush=True)
             print(f"TARGET: {_shorten(model_input.comment)}", flush=True)
-            result = engine.run(model_input, {"sample_id": sample.sample_id, "split": config["split"]})
+            rate_limit_count = 0
+            while True:
+                try:
+                    result = engine.run(
+                        model_input,
+                        {"sample_id": sample.sample_id, "split": config["split"]},
+                        on_stage=lambda stage, value: _log_json(f"  {stage}", value),
+                    )
+                    break
+                except RateLimitError as exc:
+                    rate_limit_count += 1
+                    delay = max(1.0, exc.retry_after if exc.retry_after is not None else 60.0)
+                    print(
+                        f"[{index}/{len(samples)}] {sample.sample_id} rate-limited "
+                        f"count={rate_limit_count}; retrying in {delay:g}s",
+                        flush=True,
+                    )
+                    sleep_fn(delay)
             gold = sample.gold(config["task"])
             final_result = {
                 "selected_candidate": result["selected_candidate"],
@@ -203,14 +223,6 @@ def execute(config, *, limit=None, resume=False, output=None):
                 "total_tokens": result["stats"]["total_tokens"],
                 "wall_time_seconds": result["stats"]["wall_time_seconds"],
             })
-            for role in ANALYSTS:
-                _log_json(f"  {role}", result["initial_analysis"][role])
-            if result["conflicts"]:
-                for conflict in result["conflicts"]:
-                    _log_json("  conflict", conflict)
-            else:
-                print("  conflicts: none", flush=True)
-            _log_json("  arbiter", result["arbiter"])
             print(
                 f"[{index}/{len(samples)}] {sample.sample_id} done "
                 f"prediction={row['prediction']} "

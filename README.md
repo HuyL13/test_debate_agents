@@ -1,6 +1,6 @@
-# CoCoLoFa Conflict-Guided Reasoning
+# CoCoLoFa Unified Multi-Perspective Reasoning
 
-This repo runs one active research flow for the original CoCoLoFa detection and classification tasks: Conflict-Guided Multi-Agent Fallacy Reasoning.
+This repo runs three independent fallacy perspectives followed by unified comparative adjudication for the original CoCoLoFa detection and classification tasks.
 
 ## Data
 
@@ -41,11 +41,11 @@ Runs are written under `runs/`. Each run contains `manifest.json`, `metrics.json
 
 The flow uses three independent initial analysts:
 
-- `scheme`
-- `enthymeme`
-- `critical`
+- `structure`: inferential form and mandatory slots
+- `goal`: argument function and discourse ownership
+- `counterargument`: strongest objection versus strongest defense
 
-A deterministic conflict map routes disagreements or structural contradictions to targeted pairwise resolution. The arbiter then outputs the final task label from raw target text, compact analyst reports, and any targeted resolutions. Detection may end with no accepted fallacy and map to `Non-Fallacious`. Classification is forced-choice: if viability pruning leaves no survivor, an explicit recovery adjudicator chooses from pre-pruning proposals or, when all experts abstain, from the full eight-label space. Recovery is recorded in the trace. There is no generic debate, hidden planner, voting protocol, or decomposer.
+Candidate dossiers preserve every proposed and contested interpretation without pairwise elimination. Detection always compares them against an explicit `Non-Fallacious` hypothesis in one final call. Classification shortcuts only a unanimous uncontested singleton; disagreements and recovery use the same comparative adjudicator. There is no voting protocol or resolver tournament.
 
 ## Metrics
 

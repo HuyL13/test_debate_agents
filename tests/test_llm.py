@@ -1,8 +1,10 @@
 import json
+from io import BytesIO
+from urllib.error import HTTPError
 
 import pytest
 
-from src.llm.client import Client, GenerationResult, ModelConfig
+from src.llm.client import Client, GenerationResult, ModelConfig, RateLimitError
 from src.schemas import arbiter_schema
 
 
@@ -84,3 +86,34 @@ def test_client_reports_provider_finish_reason_for_non_final_response(tmp_path):
             schema=arbiter_schema("detection", ["Slippery Slope"]),
             metadata={"stage": "arbiter"},
         )
+
+
+def test_client_preserves_rate_limit_and_retry_after(tmp_path):
+    error = HTTPError(
+        "https://example.test/chat/completions",
+        429,
+        "Too Many Requests",
+        {"Retry-After": "7"},
+        BytesIO(b'{"error":"rate limited"}'),
+    )
+
+    class RateLimitedTransport:
+        def complete(self, payload):
+            raise error
+
+    client = Client(
+        ModelConfig(name="fixture-model", provider="mock", max_attempts=1),
+        tmp_path / "cache.sqlite",
+        tmp_path / "api_calls.jsonl",
+        transport=RateLimitedTransport(),
+    )
+
+    with pytest.raises(RateLimitError) as caught:
+        client.generate(
+            system_prompt="Analyze.",
+            user_prompt=json.dumps({"input": {"comment": "x"}}),
+            schema=arbiter_schema("detection", ["Slippery Slope"]),
+            metadata={"stage": "arbiter"},
+        )
+
+    assert caught.value.retry_after == 7

@@ -5,6 +5,8 @@ import yaml
 
 from src.io_utils import read_jsonl
 from src.runner import execute, load_config
+from src.llm.client import RateLimitError
+from tests.test_engine import ScriptedClient, counter, final, goal, structure
 
 
 def write_data(tmp_path):
@@ -138,3 +140,28 @@ cache_dir: {tmp_path.as_posix()}/cache
 
     assert loaded["task"] == "detection"
     assert loaded["output_root"].endswith("runs")
+
+
+def test_runner_retries_same_sample_after_rate_limit(tmp_path):
+    class RateLimitedOnceClient(ScriptedClient):
+        def __init__(self, outputs):
+            super().__init__(outputs)
+            self.attempts = 0
+
+        def generate(self, **kwargs):
+            self.attempts += 1
+            if self.attempts == 1:
+                raise RateLimitError(retry_after=3)
+            return super().generate(**kwargs)
+
+    cfg = config(tmp_path)
+    client = RateLimitedOnceClient([
+        structure(None), goal(None), counter(None), final("Non-Fallacious", None),
+    ])
+    waits = []
+
+    result = execute(cfg, limit=1, client=client, sleep_fn=waits.append)
+
+    assert result["status"] == "complete"
+    assert client.attempts == 5
+    assert waits == [3]

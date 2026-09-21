@@ -66,13 +66,14 @@ class Engine:
         self.llm = llm
         self.task = task
 
-    def run(self, model_input: ModelInput, metadata):
+    def run(self, model_input: ModelInput, metadata, on_stage=None):
         if not isinstance(model_input, ModelInput):
             raise TypeError("Engine accepts only label-free ModelInput")
 
         started = time.monotonic()
         calls = []
         reports = {}
+        on_stage = on_stage or (lambda stage, output: None)
         safe_metadata = {
             key: metadata[key]
             for key in ("sample_id", "split", "dataset", "experiment")
@@ -91,6 +92,7 @@ class Engine:
             )
             calls.append(result)
             reports[role] = result.output
+            on_stage(role, result.output)
 
         dossiers = build_candidate_dossiers(self.task, reports)
         route = adjudication_route(self.task, dossiers)
@@ -109,6 +111,7 @@ class Engine:
                 "rejected_candidates": [],
                 "status": "direct_unanimous_singleton",
             }
+            on_stage("direct_decision", adjudication)
         else:
             payload = {
                 "stage": "comparative_adjudication",
@@ -137,6 +140,7 @@ class Engine:
             calls.append(result)
             adjudication = {**result.output, "status": "comparative_adjudication"}
             selected = result.output["selected_candidate"]
+            on_stage("comparative_adjudication", result.output)
 
         prediction = (
             adjudication["selected_verdict"]

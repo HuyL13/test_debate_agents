@@ -33,6 +33,22 @@ class GenerationResult:
     stats: CallStats
 
 
+class RateLimitError(RuntimeError):
+    def __init__(self, retry_after=None):
+        self.retry_after = retry_after
+        detail = f"; retry after {retry_after:g} seconds" if retry_after is not None else ""
+        super().__init__("Provider rate limit persisted after configured attempts" + detail)
+
+
+def _retry_after(error):
+    raw = error.headers.get("Retry-After") if error.headers else None
+    try:
+        value = float(raw)
+    except (TypeError, ValueError):
+        return None
+    return value if value >= 0 else None
+
+
 def _usage(response):
     usage = response.get("usage") or {}
     return {
@@ -178,4 +194,6 @@ class Client:
                 raise last_error
             if attempt + 1 < self.config.max_attempts:
                 time.sleep(min(60, self.config.backoff_seconds * 2 ** attempt))
+        if isinstance(last_error, HTTPError) and last_error.code == 429:
+            raise RateLimitError(_retry_after(last_error)) from last_error
         raise ValueError(f"No valid response after {self.config.max_attempts} attempts: {last_error}") from last_error

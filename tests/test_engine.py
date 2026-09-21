@@ -200,3 +200,19 @@ def test_classification_disagreement_uses_one_comparative_call():
         "structure", "goal", "counterargument", "comparative_adjudication",
     ]
     assert result["prediction"] == "Slippery Slope"
+
+
+def test_engine_emits_each_stage_as_soon_as_it_completes():
+    client = ScriptedClient([structure(), goal(), counter(), final()])
+    events = []
+
+    Engine(client, task="detection").run(
+        INPUT,
+        {"sample_id": "1:2"},
+        on_stage=lambda stage, output: events.append((stage, output)),
+    )
+
+    assert [stage for stage, _ in events] == [
+        "structure", "goal", "counterargument", "comparative_adjudication",
+    ]
+    assert events[-1][1]["selected_candidate"] == "Slippery Slope"
