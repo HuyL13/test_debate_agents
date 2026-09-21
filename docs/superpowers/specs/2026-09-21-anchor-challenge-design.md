@@ -12,10 +12,6 @@ The method must support both original tasks:
 - detection: `Fallacious` or `Non-Fallacious` over all test comments;
 - classification: one of the eight CoCoLoFa labels over gold-positive comments.
 
-All prompt selection, thresholds, and routing rules must be fixed on the dev
-split. The test split is reserved for one final evaluation after the design is
-frozen.
-
 ## Motivation And Trace Evidence
 
 The current agents are not sufficiently independent. They use the same model,
@@ -235,51 +231,34 @@ Every trace records the anchor, both perspectives, routed disagreements, debate
 resolutions, final hypotheses, judge output, stage transitions, and call/token/time
 statistics.
 
-## Evaluation Protocol
+## Verification And Runs
 
-Development proceeds only on the dev split. The experiment matrix is:
+Implementation is verified with the repository's existing automated test suite.
+Focused tests cover stage schemas, deterministic routing, override invariants,
+trace completeness, resume behavior, and final metric generation.
 
-1. single-LLM baseline;
-2. anchor alone, which must reproduce the single baseline;
-3. anchor plus structural verifier without debate;
-4. anchor plus both perspectives without debate;
-5. perspectives plus targeted debate;
-6. full method with symmetric judge and deterministic verification;
-7. ablations removing each perspective and removing debate.
+After tests pass, run the full detection and classification test splits once.
+Results use the existing metric format:
 
-Primary metrics are detection F1 and classification macro-F1. Accuracy,
-precision, recall, false-positive rate, false-negative rate, calls, tokens, and
-wall time are also reported.
+- detection: accuracy, positive-class precision, recall, F1, false-positive rate,
+  false-negative rate, per-class scores, and confusion matrix;
+- classification: accuracy, macro-F1, per-label scores, and confusion matrix;
+- both tasks: calls, tokens, and wall time in sample traces and CSV output.
 
-Process metrics include:
-
-- candidate recall before adjudication;
-- candidate loss by routing, debate, and judge;
-- anchor errors corrected by deliberation;
-- correct anchors damaged by deliberation;
-- debate correction and regression rates;
-- judge accuracy conditional on disagreement type;
-- cost per net corrected sample.
-
-The full method advances to test only when it beats the single baseline on the
-corresponding dev primary metric and does not materially degrade the other task.
-Prompts, schemas, routing, and thresholds are then frozen. Final paired comparison
-uses McNemar's test for accuracy and paired bootstrap confidence intervals for F1.
-For nondeterministic inference, report the mean and standard deviation over at
-least three fixed, documented runs.
+The new run directories preserve the existing manifest, metrics, predictions,
+samples, audit, and trace artifacts so results can be compared directly with the
+current single-LLM and multi-agent runs.
 
 ## Success Criteria
 
-The redesign is successful when:
+The implementation is complete when:
 
-- detection test F1 and classification test macro-F1 both exceed their respective
-  single-LLM baselines after dev-only selection;
-- detection false-positive rate does not exceed the single baseline by more than
-  one percentage point;
-- deliberation corrects more anchor errors than it introduces;
+- both full test runs complete without failed or silently dropped samples;
+- detection and classification report the same metrics as the current runners;
 - every final decision is traceable to target evidence and an explicit mandatory
   condition;
 - no gold label or annotation metadata enters model-visible input.
 
-The method may use more calls than the single baseline, but its cost must be
-reported and justified by statistically supported quality gains.
+The resulting metrics are compared directly with the existing single-LLM and
+multi-agent baselines. Calls, tokens, and wall time are reported alongside model
+quality.
