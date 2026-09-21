@@ -113,6 +113,20 @@ def _candidate(task):
     return {"anyOf": [{"enum": list(FALLACIES)}, {"type": "null"}]}
 
 
+def _nullable_string(max_length=1200):
+    return {"anyOf": [_string(max_length), {"type": "null"}]}
+
+
+def _analyst_fields(task):
+    return {
+        "verdict": {"enum": ["Fallacious", "Non-Fallacious"]},
+        "candidate": _candidate(task),
+        "mandatory_condition": _nullable_string(),
+        "condition_satisfied": {"type": "boolean"},
+        "opposing_reason": _string(),
+    }
+
+
 def _slots():
     return {
         "type": "array",
@@ -129,9 +143,13 @@ def structure_schema(task):
     labels_for(task)
     return object_schema({
         "evidence_spans": _spans(),
+        **_analyst_fields(task),
         "structure_type": {"enum": list(STRUCTURE_TYPES)},
         "slots": _slots(),
         "structure_complete": {"type": "boolean"},
+        "premise": _nullable_string(),
+        "conclusion": _nullable_string(),
+        "inferential_link": _nullable_string(),
     })
 
 
@@ -139,12 +157,13 @@ def goal_schema(task):
     labels_for(task)
     return object_schema({
         "evidence_spans": _spans(),
+        **_analyst_fields(task),
         "conclusion_or_goal": {"anyOf": [_string(), {"type": "null"}]},
-        "candidate": _candidate(task),
         "supporting_reason": {"anyOf": [_string(), {"type": "null"}]},
         "support_relation": {"anyOf": [_string(), {"type": "null"}]},
         "label_justification": _string(),
         "mechanism_supports_goal": {"type": "boolean"},
+        "fallacy_owned_by_target": {"type": "boolean"},
     })
 
 
@@ -152,11 +171,47 @@ def counterargument_schema(task):
     labels_for(task)
     return object_schema({
         "evidence_spans": _spans(),
+        **_analyst_fields(task),
         "decisive_counterargument": {"anyOf": [_string(), {"type": "null"}]},
-        "candidate": _candidate(task),
         "challenged_inference": {"anyOf": [_string(), {"type": "null"}]},
         "label_justification": _string(),
         "failure_exposed": {"type": "boolean"},
+        "strongest_objection": _string(),
+        "strongest_defense": _string(),
+        "winning_side": {"enum": ["objection", "defense", "unresolved"]},
+    })
+
+
+def comparative_adjudicator_schema(task, allowed_candidates):
+    labels_for(task)
+    allowed = list(dict.fromkeys(
+        candidate for candidate in allowed_candidates if candidate is not None
+    ))
+    if task == "classification":
+        selected = {"enum": allowed}
+        verdict = {"enum": ["Fallacious"]}
+    else:
+        selected = (
+            {"anyOf": [{"enum": allowed}, {"type": "null"}]}
+            if allowed else {"type": "null"}
+        )
+        verdict = {"enum": ["Fallacious", "Non-Fallacious"]}
+    rejected_item = object_schema({
+        "candidate": {"enum": allowed},
+        "failed_condition": _string(),
+    })
+    return object_schema({
+        "selected_verdict": verdict,
+        "selected_candidate": selected,
+        "evidence_spans": _spans(),
+        "decisive_condition": _string(),
+        "decision_reason": _string(),
+        "rejected_candidates": {
+            "type": "array",
+            "items": rejected_item,
+            "minItems": 0,
+            "maxItems": len(allowed),
+        },
     })
 
 
@@ -209,10 +264,31 @@ def derive_candidate(role, value):
                  if kind == value["structure_type"]), None)
 
 
-def validate_structure_semantics(value):
+def _validate_analyst_semantics(value, task):
+    labels_for(task)
+    candidate = value["candidate"]
+    verdict = value["verdict"]
+    if verdict == "Non-Fallacious" and candidate is not None:
+        raise ValueError("A negative verdict cannot select a fallacy candidate")
+    if verdict == "Fallacious" and candidate is None:
+        raise ValueError("A positive verdict requires a fallacy candidate")
+    if candidate is not None:
+        _require_text(value, ("mandatory_condition",))
+        if not value["condition_satisfied"]:
+            raise ValueError("A positive candidate requires its mandatory condition")
+    elif value["condition_satisfied"]:
+        raise ValueError("A negative report cannot satisfy a fallacy condition")
+    _require_text(value, ("opposing_reason",))
+
+
+def validate_structure_semantics(value, task="detection"):
+    _validate_analyst_semantics(value, task)
     candidate = derive_candidate("structure", value)
     structure_type = value["structure_type"]
     complete = value["structure_complete"]
+
+    if value["candidate"] != candidate:
+        raise ValueError("Structure candidate must match structure_type")
 
     if candidate is None:
         if complete is not False or value["slots"]:
@@ -233,17 +309,40 @@ def _require_text(value, fields):
             raise ValueError(f"{field} must contain a concrete explanation")
 
 
-def validate_goal_semantics(value):
+def validate_goal_semantics(value, task="detection"):
+    _validate_analyst_semantics(value, task)
     _require_text(value, ("label_justification",))
     if value["candidate"] is not None or value["mechanism_supports_goal"]:
         _require_text(value, ("conclusion_or_goal", "supporting_reason", "support_relation"))
     return value
 
 
-def validate_counterargument_semantics(value):
+def validate_counterargument_semantics(value, task="detection"):
+    _validate_analyst_semantics(value, task)
     _require_text(value, ("label_justification",))
     if value["candidate"] is not None or value["failure_exposed"]:
         _require_text(value, ("challenged_inference", "decisive_counterargument"))
+    _require_text(value, ("strongest_objection", "strongest_defense"))
+    if value["winning_side"] == "objection" and value["verdict"] != "Fallacious":
+        raise ValueError("An objection winner requires a positive verdict")
+    if value["winning_side"] == "defense" and value["verdict"] != "Non-Fallacious":
+        raise ValueError("A defense winner requires a negative verdict")
+    return value
+
+
+def validate_comparative_adjudicator_semantics(value, task, allowed_candidates):
+    labels_for(task)
+    selected = value["selected_candidate"]
+    verdict = value["selected_verdict"]
+    if selected is not None and selected not in allowed_candidates:
+        raise ValueError("Final adjudicator selected a candidate outside the allowed set")
+    if verdict == "Non-Fallacious" and selected is not None:
+        raise ValueError("A negative verdict cannot select a fallacy candidate")
+    if verdict == "Fallacious" and selected is None:
+        raise ValueError("A positive verdict requires a fallacy candidate")
+    if task == "classification" and verdict != "Fallacious":
+        raise ValueError("Classification requires a fallacious verdict")
+    _require_text(value, ("decision_reason", "decisive_condition"))
     return value
 
 
