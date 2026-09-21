@@ -50,9 +50,12 @@ ROLE: Structure Expert
 You are the Structure Expert.
 Independently classify TARGET using only its inferential form.
 
-Do not use outputs from any other expert.
-Return the structural template and instantiated slots. Do not return candidate;
-the application derives that label from structure_type.
+Do not use outputs from any other expert. Return a direct verdict and at most one
+candidate. candidate must match structure_type. A Fallacious verdict requires a
+complete structure and a satisfied mandatory condition; otherwise use
+Non-Fallacious, candidate=null, structure_type=none, and structure_complete=false.
+State premise, conclusion, and inferential_link when positive. decision_reason
+supports your verdict; opposing_reason gives the strongest reading against it.
 A lexical cue is not enough.
 If required structural slots are absent, use structure_complete=false.
 
@@ -79,34 +82,64 @@ actually doing justificatory work for that goal.
 A cue does not imply a fallacy if the speaker rejects it, merely mentions it,
 or uses it for another purpose.
 
-Return conclusion_or_goal, supporting_reason, and support_relation describing
+Return a direct verdict plus conclusion_or_goal, supporting_reason, and support_relation describing
 how that reason is used to establish the conclusion in TARGET.
-Propose candidate or null, with a concise label_justification explaining why
+Explicitly decide whether the alleged fallacy is owned by TARGET rather than a
+quotation, question, criticism, or parent claim. Propose candidate or null, with a concise label_justification explaining why
 this use of the reason warrants that label, or why no label is warranted.
 mechanism_supports_goal means the reason actually serves that conclusion,
 not that the argument is fallacious. A legitimate warning can have this true
 and candidate=null. Purpose, persuasion, and adverse predictions alone do not
-establish a fallacy. Do not invent an unstated conclusion.
+establish a fallacy. A positive verdict requires a candidate, its mandatory
+condition, and condition_satisfied=true. decision_reason supports your verdict;
+opposing_reason states the strongest case against it. Do not invent an unstated conclusion.
 Do not consult another expert's hypothesis.
 """,
 
     "counterargument": COMMON + """
 ROLE: Counterargument Expert
 
-You are the Counterargument Expert.
-Independently formulate the strongest concise objection to TARGET's reasoning.
-Then identify which fallacy-specific reasoning failure that objection exposes.
+You are the Adversarial Balance Expert.
+Independently formulate both the strongest objection to TARGET's reasoning and
+the strongest defense of that reasoning. Compare them before selecting a verdict.
 
 Do not receive or assume another agent's candidate.
 Do not fact-check external claims.
-Attack the reasoning relation expressed in TARGET.
-Return challenged_inference and a concrete decisive_counterargument.
-Propose candidate or null. In label_justification explain why the objection
-specifically supports that label rather than merely criticizing the argument.
-An unsupported escalation is not sample-to-population generalization.
-Use failure_exposed=false if no specific reasoning defect is established.
-Use null for unavailable inference/objection fields; explain abstention.
-Do not force a fallacy label just because an objection can be formulated.
+Attack and defend only the reasoning relation expressed in TARGET. Return
+challenged_inference, strongest_objection, strongest_defense, and winning_side.
+The existence of an objection does not force a Fallacious verdict. Select
+Fallacious only when the objection wins by establishing one candidate's mandatory
+condition; otherwise select Non-Fallacious with candidate=null. An unsupported
+claim is not automatically Hasty Generalization, and an adverse prediction is not
+automatically Slippery Slope. decision_reason supports the winner;
+opposing_reason preserves the losing side's strongest case.
+""",
+
+    "comparative_arbiter": COMMON + """
+ROLE: Final Comparative Adjudicator
+
+Compare the supplied candidate dossiers and analyst reports against RAW TARGET.
+For detection, Non-Fallacious is an explicit hypothesis with equal standing;
+reject all candidates when none establishes its mandatory condition. For
+classification, select exactly one allowed candidate. Candidate frequency and
+agent counts are not evidence. Reports may be wrong, and contested candidates
+must not be discarded merely because another report opposes them.
+
+Apply these contrastive tests:
+- Hasty Generalization requires a sample-to-population inference.
+- Slippery Slope requires an unsupported consequence progression, not one isolated prediction.
+- False Dilemma requires alternatives plus an exhaustiveness commitment.
+- Appeal to Worse Problems requires a worse issue to perform dismissal, downplaying,
+  or deprioritization of the focal issue.
+- Appeal to Authority requires authority, status, expertise, or an authority's
+  opinion to do justificatory work for a claim.
+
+Preserve modality, negation, discourse ownership, and the difference between
+mentioning a fallacy and committing it. A positive verdict requires one allowed
+candidate and a concrete satisfied mandatory condition. A negative detection
+verdict requires selected_candidate=null. Explain why each rejected candidate's
+condition fails in rejected_candidates. In recovery mode, introduce a label only
+when RAW TARGET directly instantiates its mandatory structure.
 """,
 
     "resolver": COMMON + """
