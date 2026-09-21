@@ -9,6 +9,10 @@ def _target(payload):
     return user["input"]["target"]
 
 
+def _user(payload):
+    return json.loads(payload["messages"][1]["content"])
+
+
 def _span(text):
     return text[:120] if text else "empty"
 
@@ -19,48 +23,78 @@ class MockTransport:
         stage = json.loads(payload["messages"][1]["content"]).get("stage", "")
         target = _target(payload)
         span = "good and evil" if "good and evil" in target else _span(target)
+        negative = "good and evil" in target
         if "structure_complete" in properties:
             value = {
                 "evidence_spans": [span],
-                "structure_type": "none" if "good and evil" in target else "consequence_chain",
-                "slots": [] if "good and evil" in target else [
+                "verdict": "Non-Fallacious" if negative else "Fallacious",
+                "candidate": None if negative else "Slippery Slope",
+                "mandatory_condition": None if negative else "An unsupported consequence progression is asserted.",
+                "condition_satisfied": not negative,
+                "decision_reason": "No listed structure is present." if negative else "The target asserts escalation.",
+                "opposing_reason": "A hidden contrast defect might exist." if negative else "The warning may be proportionate.",
+                "structure_type": "none" if negative else "consequence_chain",
+                "slots": [] if negative else [
                     {"role": "initial_event", "text": span},
                     {"role": "intermediate_consequence", "text": span},
                     {"role": "final_consequence", "text": span},
                 ],
-                "structure_complete": "good and evil" not in target,
+                "structure_complete": not negative,
+                "premise": None if negative else span,
+                "conclusion": None if negative else span,
+                "inferential_link": None if negative else "The initial event is claimed to escalate.",
             }
         elif "mechanism_supports_goal" in properties:
-            if "good and evil" in target:
+            if negative:
                 value = {
                     "evidence_spans": [span],
+                    "verdict": "Non-Fallacious",
+                    "mandatory_condition": None,
+                    "condition_satisfied": False,
+                    "decision_reason": "The moral contrast does not instantiate a listed fallacy.",
+                    "opposing_reason": "The contrast might oversimplify the issue.",
                     "conclusion_or_goal": "make a moral contrast",
                     "candidate": None,
                     "supporting_reason": None,
                     "support_relation": None,
                     "label_justification": "Moral contrast alone is not a fallacy.",
                     "mechanism_supports_goal": False,
+                    "fallacy_owned_by_target": True,
                 }
             else:
                 value = {
                     "evidence_spans": [span],
+                    "verdict": "Fallacious",
+                    "mandatory_condition": "An unsupported consequence progression is asserted.",
+                    "condition_satisfied": True,
+                    "decision_reason": "The escalation does justificatory work.",
+                    "opposing_reason": "The warning may be proportionate.",
                     "conclusion_or_goal": "warn against the initial action",
                     "candidate": "Slippery Slope",
-                "supporting_reason": "Rights will be lost after allowing the action.",
-                "support_relation": "Predicted escalation is used to oppose the action.",
-                "label_justification": "The warning assumes unestablished escalation.",
+                    "supporting_reason": "Rights will be lost after allowing the action.",
+                    "support_relation": "Predicted escalation is used to oppose the action.",
+                    "label_justification": "The warning assumes unestablished escalation.",
                     "mechanism_supports_goal": True,
+                    "fallacy_owned_by_target": True,
                 }
         elif "failure_exposed" in properties:
             value = {
                 "evidence_spans": [span],
-                "decisive_counterargument": None if "good and evil" in target else (
+                "verdict": "Non-Fallacious" if negative else "Fallacious",
+                "mandatory_condition": None if negative else "An unsupported consequence progression is asserted.",
+                "condition_satisfied": not negative,
+                "decision_reason": "The defense defeats the objection." if negative else "The objection defeats the defense.",
+                "opposing_reason": "The contrast may oversimplify." if negative else "The warning may be proportionate.",
+                "decisive_counterargument": None if negative else (
                     "The escalation is asserted but not established by the stated reasoning."
                 ),
-                "candidate": None if "good and evil" in target else "Slippery Slope",
-                "challenged_inference": None if "good and evil" in target else "The initial action leads to escalation.",
-                "label_justification": "No reasoning defect in the contrast." if "good and evil" in target else "Unestablished escalation supports Slippery Slope.",
-                "failure_exposed": "good and evil" not in target,
+                "candidate": None if negative else "Slippery Slope",
+                "challenged_inference": None if negative else "The initial action leads to escalation.",
+                "label_justification": "No reasoning defect in the contrast." if negative else "Unestablished escalation supports Slippery Slope.",
+                "failure_exposed": not negative,
+                "strongest_objection": "The reasoning may oversimplify or escalate.",
+                "strongest_defense": "The target states a permissible contrast or warning.",
+                "winning_side": "defense" if negative else "objection",
             }
         elif "winner" in properties:
             allowed = properties["winner"].get("enum") or properties["winner"]["anyOf"][0].get("enum", [])
@@ -81,11 +115,12 @@ class MockTransport:
                 for option in selected_schema.get("anyOf", []):
                     allowed.extend(option.get("enum", []))
 
-            if allowed:
+            task = _user(payload).get("task")
+            if allowed and not (task == "detection" and negative):
                 selected = allowed[0]
                 value = {
+                    "selected_verdict": "Fallacious",
                     "selected_candidate": selected,
-
                     "evidence_spans": [span],
                     "decisive_condition": (
                         "consequence_chain"
@@ -93,14 +128,16 @@ class MockTransport:
                         else "target_fallacy_condition"
                     ),
                     "decision_reason": "The target supports the stated escalation hypothesis.",
+                    "rejected_candidates": [],
                 }
             else:
                 value = {
+                    "selected_verdict": "Non-Fallacious",
                     "selected_candidate": None,
-
                     "evidence_spans": [span],
                     "decisive_condition": "none",
                     "decision_reason": "No surviving hypothesis is supported.",
+                    "rejected_candidates": [],
                 }
         else:
             raise ValueError(f"Unknown mock schema for stage: {stage}")

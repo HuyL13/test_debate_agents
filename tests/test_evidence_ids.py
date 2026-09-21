@@ -16,7 +16,20 @@ def test_passages_preserve_characters_and_offsets():
 def test_wire_schema_rejects_quotes_and_unknown_ids():
     passages = target_passages("Original TARGET")
     schema = reference_schema(structure_schema("detection"), passages)
-    base = {"structure_type": "none", "slots": [], "structure_complete": False}
+    base = {
+        "verdict": "Non-Fallacious",
+        "candidate": None,
+        "mandatory_condition": None,
+        "condition_satisfied": False,
+        "decision_reason": "No listed structure is present.",
+        "opposing_reason": "A hidden inference may exist.",
+        "structure_type": "none",
+        "slots": [],
+        "structure_complete": False,
+        "premise": None,
+        "conclusion": None,
+        "inferential_link": None,
+    }
     validate_output({**base, "evidence_ids": ["T1"]}, schema)
     for fields in ({"evidence_ids": ["P1"]}, {"evidence_spans": ["Original ..."]}):
         with pytest.raises(ValueError):
