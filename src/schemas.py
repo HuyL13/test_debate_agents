@@ -123,6 +123,7 @@ def _analyst_fields(task):
         "candidate": _candidate(task),
         "mandatory_condition": _nullable_string(),
         "condition_satisfied": {"type": "boolean"},
+        "decision_reason": _string(),
         "opposing_reason": _string(),
     }
 
@@ -278,7 +279,7 @@ def _validate_analyst_semantics(value, task):
             raise ValueError("A positive candidate requires its mandatory condition")
     elif value["condition_satisfied"]:
         raise ValueError("A negative report cannot satisfy a fallacy condition")
-    _require_text(value, ("opposing_reason",))
+    _require_text(value, ("decision_reason", "opposing_reason"))
 
 
 def validate_structure_semantics(value, task="detection"):

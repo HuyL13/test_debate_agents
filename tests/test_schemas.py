@@ -80,6 +80,7 @@ def test_structure_candidate_type_mapping_and_slots_are_enforced():
         "candidate": "Slippery Slope",
         "mandatory_condition": "An unsupported escalation links an action to severe consequences.",
         "condition_satisfied": True,
+        "decision_reason": "The consequence progression is asserted without support.",
         "opposing_reason": "The passage could be read as a supported warning.",
         "structure_type": "consequence_chain",
         "slots": [
@@ -113,6 +114,7 @@ def test_appeal_to_majority_requires_target_claim_slot():
         "candidate": "Appeal to Majority",
         "mandatory_condition": "Popularity is used as proof of the target claim.",
         "condition_satisfied": True,
+        "decision_reason": "Popularity is used to justify the target claim.",
         "opposing_reason": "Popularity may only provide context.",
         "structure_type": "popularity_to_claim",
         "slots": [
@@ -149,6 +151,7 @@ def test_analyst_contracts_require_balanced_verdict_fields():
         "candidate",
         "mandatory_condition",
         "condition_satisfied",
+        "decision_reason",
         "opposing_reason",
     }
     for factory in (structure_schema, goal_schema, counterargument_schema):
@@ -170,6 +173,7 @@ def test_detection_report_rejects_candidate_verdict_mismatch():
         "verdict": "Non-Fallacious",
         "mandatory_condition": "Alternatives are exhaustive.",
         "condition_satisfied": True,
+        "decision_reason": "The alternatives are asserted as exhaustive.",
         "opposing_reason": "The alternatives may not be exhaustive.",
         "fallacy_owned_by_target": True,
     }
