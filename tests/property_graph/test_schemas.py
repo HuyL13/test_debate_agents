@@ -53,6 +53,13 @@ def test_signature_rejects_unseen_evidence(valid_signature):
         validate_signature(signature, "Experts agree. It is true.")
 
 
+def test_signature_rejects_runaway_relation_output(valid_signature):
+    signature = deepcopy(valid_signature)
+    signature["relations"] = signature["relations"] * 7
+    with pytest.raises(ValueError, match="item count"):
+        validate_signature(signature, "Experts agree. It is true.")
+
+
 def test_graph_rejects_dangling_edge():
     graph = {
         "meta": {},

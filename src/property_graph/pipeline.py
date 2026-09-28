@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -100,8 +101,25 @@ def _build_client(config, output):
         ModelConfig(**config["model"]),
         Path(config["cache_dir"]) / "responses.sqlite",
         output / "audit" / "api_calls.jsonl",
-        raw_debug_path=output / "debug" / "raw_api.jsonl",
+        raw_debug_path=(
+            output / "debug" / "raw_api.jsonl"
+            if os.environ.get("TRACE_RAW_API") == "1" else None
+        ),
     )
+
+
+def _provider_audit_summary(path):
+    path = Path(path)
+    events = read_jsonl(path) if path.exists() else []
+    return {
+        "provider_calls": sum(not event.get("cache_hit", False) for event in events),
+        "cache_hits": sum(event.get("cache_hit", False) for event in events),
+        "retry_events": sum((event.get("attempt") or 1) > 1 for event in events),
+        "valid_responses": sum(event.get("valid", False) for event in events),
+        "invalid_responses": sum(not event.get("valid", False) for event in events),
+        "total_tokens": sum((event.get("usage") or {}).get("total_tokens", 0) for event in events),
+        "latency_seconds": sum(event.get("latency_seconds", 0.0) for event in events),
+    }
 
 
 def run_pipeline(config, command, *, limit=None, output=None, resume=False, client=None):
@@ -171,6 +189,7 @@ def run_pipeline(config, command, *, limit=None, output=None, resume=False, clie
         "label_coverage": sorted({sample.fallacy for sample in samples}),
         "graph_version": version,
         "extraction": extraction,
+        "provider_audit": _provider_audit_summary(output / "audit" / "api_calls.jsonl"),
         "seed": {"nodes": len(seed["nodes"]), "edges": len(seed["edges"])},
         "evolved": {"nodes": len(evolved["nodes"]), "edges": len(evolved["edges"])},
     }

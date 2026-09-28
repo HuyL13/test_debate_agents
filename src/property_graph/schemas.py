@@ -53,6 +53,7 @@ SIGNATURE_JSON_SCHEMA = {
         "propositions": {
             "type": "array",
             "minItems": 1,
+            "maxItems": 6,
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -67,6 +68,7 @@ SIGNATURE_JSON_SCHEMA = {
         },
         "relations": {
             "type": "array",
+            "maxItems": 6,
             "items": {
                 "type": "object",
                 "additionalProperties": False,
@@ -82,6 +84,7 @@ SIGNATURE_JSON_SCHEMA = {
                     "explicitness": {"type": "string", "enum": ["explicit", "implicit", "uncertain"]},
                     "evidence_spans": {
                         "type": "array",
+                        "maxItems": 2,
                         "items": {"type": "string", "minLength": 1},
                     },
                 },

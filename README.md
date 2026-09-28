@@ -56,3 +56,39 @@ Detection reports accuracy, positive-class precision/recall/F1, false positive r
 ```powershell
 pytest -q
 ```
+
+## Property-graph induction
+
+The property-graph pipeline extracts one label-blind argument signature per
+positive classification-train sample, then deterministically builds prototypes,
+shared mechanisms, discriminative conditions, indexes, and a seed-to-evolved
+change report. It reads `NVIDIA_API_KEY`, `NVIDIA_BASE_URL`, and
+`NVIDIA_MODEL` from the current `.env`; credentials are not copied into run
+artifacts.
+
+Run a small, label-stratified train smoke:
+
+```powershell
+python -m src.property_graph.pipeline smoke --config configs/property_graph.yaml --limit 8 --output runs/property-graph-smoke --resume
+```
+
+Validate the generated graphs:
+
+```powershell
+python -m src.property_graph.pipeline validate --graph runs/property-graph-smoke/seed_graph.json
+python -m src.property_graph.pipeline validate --graph runs/property-graph-smoke/fallacy_graph.json
+```
+
+The run directory contains `seed_graph.json`, `fallacy_graph.json`, versioned
+graphs, extraction records/failures, three retrieval indexes,
+`graph_induction_report.md`, and both JSON and Markdown graph diffs. Resume
+skips completed sample IDs, while the response cache avoids repeated identical
+provider requests. Raw request/response dumps are written only when
+`TRACE_RAW_API=1`.
+
+Smoke thresholds intentionally permit prototypes from tiny samples so the
+whole pipeline can be verified. Smoke graph size, shared mechanisms,
+discriminative conditions, and retrieval results are functional diagnostics,
+not tuned research metrics. Use larger train coverage and tune thresholds only
+on dev before interpreting graph quality. Test data must not be used for
+induction or tuning.

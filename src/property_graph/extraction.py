@@ -20,6 +20,8 @@ TITLE and PARENT are context only. Do not classify, name, or infer a fallacy.
 Return JSON matching the supplied schema. Use only these proposition roles:
 {roles}. Use only these speaker roles: {speakers}. Use only these relation types:
 {relations}. Evidence spans must be verbatim substrings of TITLE, PARENT, or TARGET.
+Use at most 6 propositions and 6 relations, with at most 2 short evidence spans
+per relation. Copy every evidence span exactly; never paraphrase a quote.
 Represent uncertainty explicitly and do not invent unsupported relations.""".format(
     roles=", ".join(PROPOSITION_ROLES),
     speakers=", ".join(SPEAKER_ROLES),

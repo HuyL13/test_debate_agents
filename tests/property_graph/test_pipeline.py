@@ -39,6 +39,7 @@ def test_config_resolves_env_without_storing_secret(monkeypatch):
     config = load_property_graph_config("configs/property_graph.yaml")
     assert config["model"]["name"] == "model-x"
     assert config["model"]["base_url"] == "https://example.test/v1"
+    assert config["model"]["max_completion_tokens"] >= 8192
     assert "secret-value" not in json.dumps(config)
 
 
@@ -53,12 +54,14 @@ def test_mock_pipeline_writes_valid_graph_diff_and_indexes(tmp_path, monkeypatch
     }
     output = tmp_path / "run"
     client = Client(
-        ModelConfig(**config["model"]), tmp_path / "cache.sqlite", tmp_path / "audit.jsonl",
+        ModelConfig(**config["model"]), tmp_path / "cache.sqlite", output / "audit" / "api_calls.jsonl",
     )
 
     result = run_pipeline(config, "smoke", limit=8, output=output, client=client)
 
     assert result["extraction"]["completed"] == 8
+    assert result["provider_audit"]["provider_calls"] == 8
+    assert result["provider_audit"]["valid_responses"] == 8
     seed = load_graph(output / "seed_graph.json")
     evolved = load_graph(output / "fallacy_graph.json")
     assert len(evolved["nodes"]) > len(seed["nodes"])
