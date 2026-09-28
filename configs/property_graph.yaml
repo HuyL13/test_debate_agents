@@ -1,0 +1,41 @@
+data_dir: data/cocolofa
+definitions: definitions/fallacy_labels.json
+output_root: runs/property-graph
+cache_dir: cache/property-graph
+prompt_version: v1
+
+model:
+  provider: openai_compatible
+  name_env: NVIDIA_MODEL
+  base_url_env: NVIDIA_BASE_URL
+  api_key_env: NVIDIA_API_KEY
+  temperature: 0.0
+  max_completion_tokens: 1600
+  timeout_seconds: 120
+  max_attempts: 3
+  backoff_seconds: 1.0
+  structured_output: true
+
+induction:
+  similarity_weights:
+    relations: 0.50
+    semantic: 0.35
+    qualifiers: 0.15
+  distance_threshold: 0.42
+  min_cluster_size: 1
+  required_feature_ratio: 0.80
+  typical_feature_ratio: 0.40
+  min_shared_features: 1
+  min_shared_support: 2
+  discriminative_min_abs_score: 1.0
+  discriminative_min_support: 1
+
+retrieval:
+  top_k_labels: 4
+  top_k_prototypes: 8
+  weights:
+    required_coverage: 0.50
+    jaccard: 0.25
+    typical_coverage: 0.15
+    discriminative_bonus: 0.10
+
