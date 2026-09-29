@@ -3,57 +3,142 @@ import json
 from src.io_utils import digest
 
 
-SEMANTIC_SYSTEM_PROMPT = """You are extracting the latent reasoning structure of an argument.
+SEMANTIC_SYSTEM_PROMPT = """You are given an argumentative comment.
 
-Do NOT classify the fallacy.
-Do NOT assign the comment to a predefined reasoning mode.
-Do NOT perform mechanical entity replacement.
+Your task is to rewrite the comment into a topic-independent canonical reasoning representation.
 
-Read the complete target comment first. Understand the argument, then abstract
-away topic-specific content while preserving the inferential structure.
+The goal is NOT to summarize the comment and NOT to classify its fallacy.
 
-Follow this order internally:
+The goal is to preserve the argument's inferential structure while removing unnecessary topic-specific content.
 
-1. Identify the actual PREMISE.
-2. Identify the actual CONCLUSION.
-3. Identify the inferential bridge: WHY is the premise supposed to support the conclusion?
-4. Determine the conclusion direction.
-5. Only after steps 1-4, remove topic-specific content.
-6. Write canonical_reasoning as a natural-language abstract inference.
+## What CANONICAL_REASONING must preserve
 
-Important rules:
+Before rewriting, internally determine:
 
-- Preserve reasoning direction inside canonical_reasoning.
-- Preserve whether historical persistence is treated as value, legitimacy,
-  reliability, stability, entrenched harm, precedent, prediction, or another
-  semantic relation.
-- A long-standing SYSTEM may be treated as stable and deeply embedded, leading
-  to resistance to abrupt replacement. A harmful PRACTICE may instead be
-  treated as entrenched harm, leading to stronger intervention.
-- Do not reduce the argument to keywords or a summary that loses the bridge.
-- Do not replace every noun with an uppercase token. Prefer natural abstractions
-  such as "a long-standing SYSTEM", "a harmful PRACTICE", "a GROUP", "an
-  established NORM", or "a historical ACTION".
-- Use only as much abstraction as necessary. The output must remain grammatical
-  and semantically natural English.
-- Do not include the conclusion inside the premise.
-- Historical reference alone does not imply preservation.
-- Opposite-direction arguments must remain clearly distinguishable.
-- The canonical text must include a clear premise -> bridge -> conclusion
-  progression, using prose and arrows only when they improve clarity.
+1. What is the main premise or evidence?
+2. What conclusion is the author trying to support?
+3. Why is the premise supposed to support that conclusion?
+4. What is the direction of the inference?
+   - preserve something
+   - continue something
+   - resist change
+   - restore something
+   - accept something
+   - reject something
+   - change or remove something
+   - avoid something
+   - or merely predict or describe something
 
-Return strict JSON with exactly these fields and no others:
+The final canonical reasoning must preserve these relations.
+
+## Detopicalization
+
+Remove details that are specific to the topic, such as:
+
+- specific countries
+- politicians
+- organizations
+- religions
+- ethnic or social groups
+- named policies
+- websites
+- technologies
+- products
+- events
+- specific institutions
+
+Replace them only when needed with simple semantic descriptions such as:
+
+- a GROUP
+- an AUTHORITY
+- a SYSTEM
+- a PRACTICE
+- a NORM
+- a ROLE
+- an ACTION
+- a METHOD
+- an INSTITUTION
+- an OUTCOME
+
+However:
+
+Do NOT mechanically replace every noun with an uppercase placeholder.
+
+The result must remain fluent natural language.
+
+Bad:
+
+POWER_HOLDING_GROUP follows POLICY because TRADITIONAL_NORM supports SYSTEM.
+
+Good:
+
+A SYSTEM has existed for a long time and is deeply embedded in a society, so its persistence is treated as evidence that replacing it abruptly would be risky.
+
+## Preserve the inferential bridge
+
+Do not produce a generic summary such as:
+
+A long-standing practice should continue.
+
+Instead preserve WHY the premise supports the conclusion.
+
+Good:
+
+A SYSTEM has existed for a long time and maintained stability -> its longevity is treated as evidence of reliability -> resist replacing the SYSTEM.
+
+Another example:
+
+A harmful PRACTICE has persisted for a long time -> its persistence indicates that the problem is entrenched rather than legitimate -> stronger intervention is needed to overcome the PRACTICE.
+
+These two arguments must remain clearly different even though both mention something long-standing.
+
+## Important constraints
+
+- Understand the argument BEFORE abstracting it.
+- Do not classify the argument into a predefined reasoning mode.
+- Do not mention the fallacy label.
+- Do not use keyword matching.
+- Do not assume that mentioning history or tradition means the conclusion supports preservation.
+- Preserve opposite reasoning directions.
+- Remove topic content only when it is not necessary for the logical relation.
+- Keep distinctions such as successful past experience vs harmful past experience;
+  longevity as evidence of reliability vs longevity as evidence of entrenched harm;
+  preservation vs removal; continuation vs avoidance; and normative recommendation
+  vs descriptive prediction.
+- Do not add reasoning that is absent from the original comment.
+- Do not copy unnecessary wording from the original comment.
+- The result should normally be one concise natural-language sentence or inference chain.
+- Prefer the form ABSTRACT PREMISE -> INFERENTIAL BRIDGE -> ABSTRACT CONCLUSION,
+  but ordinary natural-language sentences are acceptable if the relation is equally clear.
+
+## Example
+
+Original:
+
+Rulers concealing information from those they rule is basically tradition at this point. Laws and enforcement mechanisms need to be far stronger to overcome the timeless practice of corruption.
+
+Good canonical reasoning:
+
+A harmful practice has persisted for a long time because those responsible avoid accountability -> its persistence indicates an entrenched problem rather than legitimacy -> stronger intervention is needed to overcome the practice.
+
+Bad canonical reasoning:
+
+A governing authority traditionally withholds information, so stronger laws are needed.
+
+Why bad: it retains too much topic content and does not explicitly preserve the important inferential relation between persistence, entrenched harm, and the need for change.
+
+## Output
+
+Return STRICT JSON only:
 
 {
-  "sample_id": "...",
-  "original_text": "...",
-  "canonical_reasoning": "..."
+  "sample_id": "<provided sample id>",
+  "original_text": "<original text unchanged>",
+  "canonical_reasoning": "<detopicalized natural-language reasoning>"
 }
 
-Copy sample_id exactly. Copy original_text exactly from the target comment.
-canonical_reasoning must preserve the abstract premise, inferential bridge,
-abstract conclusion, and direction. Never output a bare X or Y placeholder,
-generic labels such as "comment", or a bag of uppercase tags.
+Do not output explanations, markdown, or additional fields.
+Copy sample_id exactly and copy original_text unchanged.
 """
 
 

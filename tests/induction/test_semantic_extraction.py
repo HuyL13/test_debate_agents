@@ -30,13 +30,18 @@ def test_semantic_prompt_preserves_direction_without_predefined_modes(tmp_path):
     system, user = semantic_extraction_prompt(sample)
     prompt = system + user
     assert "predefined reasoning mode" in prompt
-    assert "mechanical entity replacement" in prompt
+    assert "mechanically replace every noun with an uppercase placeholder" in prompt
     assert "Appeal to Tradition" not in prompt
     assert sample["comment"] in prompt
-    assert "Identify the actual PREMISE" in prompt
+    assert "What is the main premise or evidence?" in prompt
     assert "inferential bridge" in prompt
     assert "canonical_reasoning" in prompt
     assert "ambiguity_notes" not in prompt
+    assert "The goal is NOT to summarize the comment" in prompt
+    assert "What CANONICAL_REASONING must preserve" in prompt
+    assert "Do not add reasoning that is absent from the original comment" in prompt
+    assert "A harmful practice has persisted for a long time because those responsible avoid accountability" in prompt
+    assert "Do not output explanations, markdown, or additional fields" in prompt
 
 
 def test_semantic_prompt_preserves_persistence_interpretation_and_role_placeholders(tmp_path):
@@ -46,9 +51,9 @@ def test_semantic_prompt_preserves_persistence_interpretation_and_role_placehold
 
     assert "legitimacy" in system
     assert "entrenched harm" in system
-    assert "a harmful PRACTICE" in system
-    assert "a long-standing SYSTEM" in system
-    assert "uppercase token" in system
+    assert "A harmful PRACTICE" in system
+    assert "A SYSTEM has existed for a long time" in system
+    assert "uppercase placeholder" in system
     assert "direction" in system
 
 
