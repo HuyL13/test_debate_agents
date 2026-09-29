@@ -61,6 +61,7 @@ class MockTransport:
         elif "mode_name" in properties:
             audit = _user(payload).get("cluster_audit", {})
             cluster = audit.get("cluster_id", 0)
+            member_ids = [member.get("sample_id") for member in _user(payload).get("members", []) if member.get("sample_id")]
             value = {
                 "cluster_id": cluster, "mode_name": "A discovered reasoning mode",
                 "premise_pattern": "A premise is presented.",
@@ -68,8 +69,8 @@ class MockTransport:
                 "core_bridge": "The premise is treated as support for the conclusion.",
                 "canonical_template": "PREMISE -> BRIDGE -> CONCLUSION",
                 "non_invariant_details": [], "boundary_notes": [],
-                "supporting_member_ids": audit.get("outlier_ids", []) or ["unknown"],
-                "coverage_n": 1,
+                "supporting_member_ids": member_ids or audit.get("outlier_ids", []) or ["unknown"],
+                "coverage_n": len(member_ids) or 1,
             }
         elif "core_invariant" in properties:
             modes = _user(payload).get("audited_modes", [])

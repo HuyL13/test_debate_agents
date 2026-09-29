@@ -20,8 +20,11 @@ def _client(config):
     from src.llm.client import Client
     from src.llm.config import ModelConfig
     model = os.environ.get(config.model_env, "configured-model")
-    return Client(ModelConfig(name=model, temperature=config.llm_temperature,
-                              max_attempts=config.llm_max_retries),
+    base_url = os.environ.get(config.base_url_env, "https://api.openai.com/v1")
+    model_config = ModelConfig(name=model, base_url=base_url, api_key_env=config.api_key_env,
+                               provider="openai_compatible" if base_url != "https://api.openai.com/v1" else "openai",
+                               temperature=config.llm_temperature, max_attempts=config.llm_max_retries)
+    return Client(model_config,
                   Path(config.output_dir) / "llm_cache.sqlite3",
                   Path(config.output_dir) / "audit" / "api_calls.jsonl")
 
@@ -87,7 +90,11 @@ def induce_cluster_modes(config, client=None):
     member_rows = read_jsonl(output / "cluster_member_audit.jsonl") if (output / "cluster_member_audit.jsonl").exists() else []
     client = client or _client(config)
     modes = []
+    existing = {row["cluster_id"]: row for row in read_jsonl(output / "cluster_modes.jsonl")} if (output / "cluster_modes.jsonl").exists() else {}
     for audit in audits:
+        if audit["cluster_id"] in existing:
+            modes.append(existing[audit["cluster_id"]])
+            continue
         system, user = cluster_mode_prompt(audit, [row for row in member_rows if row["cluster_id"] == audit["cluster_id"]])
         result = client.generate(system_prompt=system, user_prompt=user, schema=cluster_mode_schema(),
                                  metadata={"stage": "cluster_mode_induction", "cluster_id": audit["cluster_id"]},
