@@ -1,0 +1,144 @@
+sample:
+  id: 208:5122
+  article_id: 208
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: Though it is necessary to discuss and dissect historical times to understand
+    our present I think people need to not dwell too much on our past mistakes. People
+    who talk about colonial past need to focus on the future instead to move forward.
+    They should not be stuck in the past in order to make progress.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: People who talk about colonial past
+    - role: observed_property
+      text: should not be stuck in the past in order to make progress, and instead
+        focus on the future to move forward
+    - role: target_population
+      text: People who talk about colonial past
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Though it is necessary to discuss and dissect historical times to understand
+      our present I think people need to not dwell too much on our past mistakes.
+      People who talk
+    - about colonial past need to focus on the future instead to move forward. They
+      should not be stuck in the past in order to make progress.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: People should not dwell on past mistakes; instead they should
+      focus on the future to progress.
+    candidate: null
+    supporting_reason: The passage notes that while discussing historical times is
+      necessary for understanding the present, people who dwell too much on colonial
+      past are hindered from moving forward.
+    support_relation: The reason is cited to justify the conclusion by asserting that
+      excessive focus on past mistakes is obstructive to future progress.
+    label_justification: No evidence of a fallacy; the argument simply states a viewpoint
+      supported by the cited claim that focusing on past hinders progress.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Though it is necessary to discuss and dissect historical times to understand
+      our present I think people need to not dwell too much on our past mistakes.
+      People who talk
+    - about colonial past need to focus on the future instead to move forward. They
+      should not be stuck in the past in order to make progress.
+  counterargument:
+    decisive_counterargument: 'Your statement generalizes that anyone who discusses
+      the colonial past must keep their focus solely on the future, implying that
+      revisiting past injustices inherently stagnates progress. This is an overgeneralization:
+      the claim lacks any supporting instances showing that engagement with colonial
+      history necessarily obstructs forward movement. In many contexts, confronting
+      and learning from historical mistakes is precisely what enables informed and
+      equitable progress. Therefore, the inference that all discussions of colonial
+      past should avoid dwelling on history is not justified by evidence.'
+    candidate: Hasty Generalization
+    challenged_inference: People who talk about colonial past need to focus on the
+      future for progress.
+    label_justification: The objection targets a broad, unsupported claim about all
+      individuals who discuss colonial history. The counterargument demonstrates that
+      the inference is an over‑generalization lacking supporting evidence, fitting
+      the definition of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Though it is necessary to discuss and dissect historical times to understand
+      our present I think people need to not dwell too much on our past mistakes.
+      People who talk
+    - about colonial past need to focus on the future instead to move forward. They
+      should not be stuck in the past in order to make progress.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The claim’s structure lacks an explicit sample that is smaller
+    than the target population. Both the sample (“people who talk about colonial past”)
+    and the inferred property apply to the same group, so the argument does not generalize
+    from a limited case to a broader population, violating the mandatory structural
+    condition for a Hasty Generalization.
+  decision_reason: The target statement proposes a universal rule for all people who
+    discuss colonial history without providing any evidence, but the sample and the
+    target population are identical, so the necessary structural criterion of moving
+    from a limited sample to a broader class is not met. Accordingly, no fallacious
+    inference can be established.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Though it is necessary to discuss and dissect historical times to understand our
+    present I think people need to not dwell too much on our past mistakes. People
+    who talk
+  - about colonial past need to focus on the future instead to move forward. They
+    should not be stuck in the past in order to make progress.
+  verified: false
+  rejection_reason: The target statement proposes a universal rule for all people
+    who discuss colonial history without providing any evidence, but the sample and
+    the target population are identical, so the necessary structural criterion of
+    moving from a limited sample to a broader class is not met. Accordingly, no fallacious
+    inference can be established.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4296
+  completion_tokens: 4092
+  total_tokens: 8388
+  wall_time_seconds: 106.78100000001723

@@ -1,0 +1,144 @@
+sample:
+  id: 359:6474
+  article_id: 359
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: How far can lockdowns go? It starts with a few weeks, then it's months,
+    and as noted here, there's no definitive end in sight. Before you know it, these
+    governments will expect lockdowns to be the normal state of things with people
+    living their entire lives indoors and maybe getting permission to venture outside
+    every now and then.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: It starts with a few weeks
+    - role: intermediate_consequence
+      text: then it's months
+    - role: final_consequence
+      text: governments will expect lockdowns to be the normal state of things with
+        people living their entire lives indoors and maybe getting permission to venture
+        outside every now and then.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How far can lockdowns go? It starts with a few weeks, then it's months, and
+      as noted here, there's no definitive end in sight. Before you know it, these
+      governments
+    - will expect lockdowns to be the normal state of things with people living their
+      entire lives indoors and maybe getting permission to venture outside every now
+      and then.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Lockdowns will ultimately become the normal state, with people
+      living indoors and needing permission to go outside.
+    candidate: Slippery Slope
+    supporting_reason: The passage describes a progression from short-term lockdowns
+      to an indefinite situation that leads to a drastic and long-lasting change in
+      normal life.
+    support_relation: The argument presents a chain of escalating consequences (weeks
+      → months → no end → normal state of lockdown) to support the conclusion that
+      lockdowns will permanently dominate society.
+    label_justification: The reasoning assumes that a small policy shift (implementing
+      lockdowns) will inevitably lead to an extreme outcome (perpetual lockdowns and
+      restricted freedom) without providing evidence for that progression, which is
+      the classic slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How far can lockdowns go? It starts with a few weeks, then it's months, and
+      as noted here, there's no definitive end in sight. Before you know it, these
+      governments
+    - will expect lockdowns to be the normal state of things with people living their
+      entire lives indoors and maybe getting permission to venture outside every now
+      and then.
+  counterargument:
+    decisive_counterargument: There is no evidence that governments plan to keep lockdowns
+      in place forever; policy decisions are typically driven by epidemiological data,
+      vaccination rates, public pressure, and economic considerations, all of which
+      can lead to relaxation or termination of restrictions before they become the
+      'normal' state.
+    candidate: Slippery Slope
+    challenged_inference: Lockdowns will inevitably evolve from a few weeks to months,
+      expanding into a permanent state of living indoors with occasional permission
+      to go outside.
+    label_justification: The argument assumes a linear, inevitable progression—from
+      a brief, necessary restriction to a perpetual, rigid one—without supporting
+      evidence or a detailed causal chain. This fits the definition of a slippery
+      slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How far can lockdowns go? It starts with a few weeks, then it's months, and
+      as noted here, there's no definitive end in sight. Before you know it, these
+      governments
+    - will expect lockdowns to be the normal state of things with people living their
+      entire lives indoors and maybe getting permission to venture outside every now
+      and then.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a coherent chain of escalating consequences—initial
+    lockdowns lasting a few weeks, extending to months, becoming seemingly indefinite,
+    and ultimately leading to permanent lockdowns with people living indoors and needing
+    permission to go outside—without providing evidence that each step follows. This
+    satisfies the required structural form of a slippery‑slope argument and indicates
+    the inference is fallacious.
+  decision_reason: The passage describes an inevitable progression from short‑term
+    lockdowns to a permanent state, making a causal leap without supporting evidence,
+    which aligns with the definition of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - How far can lockdowns go? It starts with a few weeks, then it's months, and as
+    noted here, there's no definitive end in sight. Before you know it, these governments
+  - will expect lockdowns to be the normal state of things with people living their
+    entire lives indoors and maybe getting permission to venture outside every now
+    and then.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4574
+  completion_tokens: 2734
+  total_tokens: 7308
+  wall_time_seconds: 152.54699999999866

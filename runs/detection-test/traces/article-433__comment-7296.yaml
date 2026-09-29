@@ -1,0 +1,152 @@
+sample:
+  id: 433:7296
+  article_id: 433
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: Every single instance of policy brutality needs to be fully accounted for.
+    If not, it can only get worse. Cops are already murdering people with virtual
+    impunity, so long as they can passably pretend they were afraid. What's next?
+    They won't even have to use that excuse? They will just become judge, jury, and
+    executioner? How much more power will these killers eventually get if they're
+    not stopped?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: not fully accounting for policy brutality
+    - role: intermediate_consequence
+      text: cops will no longer need to use the excuse of fear and will become judge,
+        jury, and executioner
+    - role: final_consequence
+      text: these killers will gain increasing power if not stopped
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Every single instance of policy brutality needs to be fully accounted for. If
+      not, it can only get worse. Cops are already murdering people with virtual impunity,
+      so long as
+    - they can passably pretend they were afraid. What's next? They won't even have
+      to use that excuse? They will just become judge, jury, and executioner? How
+      much more power will
+    - these killers eventually get if they're not stopped?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Police brutality must be fully accounted for; if it is not,
+      the situation will inevitably worsen.
+    candidate: Slippery Slope
+    supporting_reason: If not accounted for, it can only get worse
+    support_relation: The reason is used to justify the conclusion that failure to
+      fully account for each instance of policy brutality will lead to progressively
+      worse outcomes, specifically increased police power.
+    label_justification: The argument asserts an unsubstantiated causal chain—failure
+      to account leads inevitably to further worsening and greater police authority—without
+      providing intermediate steps or evidence, which is characteristic of a slippery‑slope
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Every single instance of policy brutality needs to be fully accounted for. If
+      not, it can only get worse. Cops are already murdering people with virtual impunity,
+      so long as
+    - they can passably pretend they were afraid. What's next? They won't even have
+      to use that excuse? They will just become judge, jury, and executioner? How
+      much more power will
+    - these killers eventually get if they're not stopped?
+  counterargument:
+    decisive_counterargument: The claim that a failure to fully account for every
+      instance of policy brutality will inevitably lead to police becoming judge,
+      jury, and executioner is an unjustified causal leap. It assumes a specific chain
+      of worsening outcomes without evidence that such a progression will occur, or
+      that no other factors could intervene to prevent it. The argument therefore
+      rests on an unwarranted extrapolation from a single premise—lack of accountability—to
+      a severe future scenario, i.e., a slippery-slope reasoning.
+    candidate: Slippery Slope
+    challenged_inference: If not fully accounted for, policy brutality will inevitably
+      get worse, culminating in police wielding unchecked judgment and execution powers.
+    label_justification: This objection directly targets the implicit causal chain
+      presented in the TARGET, demonstrating that the escalation from “not accounted
+      for” to “judge, jury, and executioner” is presented without substantiation,
+      a hallmark of the slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Every single instance of policy brutality needs to be fully accounted for. If
+      not, it can only get worse. Cops are already murdering people with virtual impunity,
+      so long as
+    - they can passably pretend they were afraid. What's next? They won't even have
+      to use that excuse? They will just become judge, jury, and executioner? How
+      much more power will
+    - these killers eventually get if they're not stopped?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument presents an unsubstantiated causal chain in which
+    failure to fully account for policy brutality is claimed to inevitably lead to
+    progressively worse outcomes—specifically, greater police power culminating in
+    police becoming judge, jury, and executioner—without intermediate evidence, satisfying
+    the structural requirements of a slippery‑slope fallacy.
+  decision_reason: The presence of a clear escalation from the initial event (inadequate
+    accountability) to an extreme conclusion (police wielding unchecked judicial power)
+    demonstrates the characteristic unsubstantiated progression that defines a slippery‑slope
+    argument.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Every single instance of policy brutality needs to be fully accounted for. If
+    not, it can only get worse. Cops are already murdering people with virtual impunity,
+    so long as
+  - they can passably pretend they were afraid. What's next? They won't even have
+    to use that excuse? They will just become judge, jury, and executioner? How much
+    more power will
+  - these killers eventually get if they're not stopped?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4922
+  completion_tokens: 3047
+  total_tokens: 7969
+  wall_time_seconds: 127.06299999999464

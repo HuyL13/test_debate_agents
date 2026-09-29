@@ -1,0 +1,129 @@
+sample:
+  id: 4:3160
+  article_id: 4
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: I think it's pretty clear the government simply couldn't do more and those
+    complaints are not really reasonable. It's easy for armchair experts with no understanding
+    of the actual issue to make those kinds of comments, but it's not fair. Either
+    they did what they did, which probably saved millions, or they did nothing and
+    many more would have died. It's hard to see any other options.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+    - It's hard to see any other options.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Deflect complaints about the government's response and justify
+      that the government’s actions were necessary and correct.
+    candidate: False Dilemma
+    supporting_reason: Either they did what they did, which probably saved millions,
+      or they did nothing and many more would have died.
+    support_relation: The argument frames the outcome as a binary choice, implying
+      that action was the only viable option and thus legitimizes the government's
+      decision.
+    label_justification: The statement presents only two mutually exclusive possibilities
+      and asserts no other alternatives exist, which is the definition of a false
+      dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+  counterargument:
+    decisive_counterargument: The claim that the government only had two options—either
+      they did exactly what they did or they did nothing—is a false dichotomy. In
+      reality, the government could have employed a range of additional measures such
+      as expanding testing and contact tracing, increasing hospital capacity, or providing
+      targeted medical support to vulnerable populations, which would have mitigated
+      loss of life. By dismissing these possibilities, the argument commits a false
+      dilemma.
+    candidate: False Dilemma
+    challenged_inference: Either they did what they did, which probably saved millions,
+      or they did nothing and many more would have died.
+    label_justification: The counterargument shows that the reasoning imposes an artificial
+      binary, ignoring viable intermediate strategies, thereby exposing a false dilemma.
+      This target passage explicitly restricts the possible options to only two outcomes,
+      which is a classic false dilemma structure.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to make those kinds of comments, but it's not fair. Either they did what they
+      did, which probably saved millions, or they did nothing and many more would
+      have died.
+    - It's hard to see any other options.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The statement limits the government’s options to only two mutually
+    exclusive outcomes, implying no other realistic alternatives, which is the definition
+    of a false dilemma.
+  decision_reason: The passage explicitly presents only two possibilities—either the
+    government did what it did and saved millions, or it did nothing and many would
+    have died—and declares it hard to see any other options, constituting a true false
+    dilemma.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - to make those kinds of comments, but it's not fair. Either they did what they
+    did, which probably saved millions, or they did nothing and many more would have
+    died.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4511
+  completion_tokens: 3688
+  total_tokens: 8199
+  wall_time_seconds: 144.65599999998813

@@ -1,0 +1,183 @@
+sample:
+  id: 239:5515
+  article_id: 239
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: Making decisions on climate policy because some KIDS think its best is insane.
+    Adults run the country. They know what to do as they have the experience. Kids
+    are kids and don't know what they're even protesting. There's a reason we don't
+    let kids be politicians.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: some KIDS think its best
+    - role: observed_property
+      text: kids are kids and don't know what they're even protesting
+    - role: target_population
+      text: kids
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Adults should be the ones deciding climate policy
+    candidate: Appeal to Authority
+    supporting_reason: Adults have experience and thus know what to do, while kids
+      lack this knowledge
+    support_relation: The reason that adults are experienced and kids are not is used
+      to justify the claim that adults must run climate policy
+    label_justification: The argument relies on asserting that adults possess the
+      authority to decide due to their experience, treating this expertise as proof
+      that they should lead, which is an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+  counterargument:
+    decisive_counterargument: The claim treats adults’ experience as a guaranteed
+      indicator of superior policy judgment and dismisses children simply because
+      they lack formal authority. However, experience does not ensure correctness—many
+      well‑intentioned experts have made poor policy choices, and valuable insights
+      can arise from those who are new to a field. By reducing climate decision‑making
+      to a blanket preference for adult expertise, the text ignores the potential
+      competency and innovative ideas that children and youths can contribute. Thus,
+      the inference that only adults can or should decide policy is unjustified and
+      falls into an appeal to authority.
+    candidate: Appeal to Authority
+    challenged_inference: Because adults have experience, they are always better decision‑makers
+      for climate policy than children; therefore children’s views should be ignored.
+    label_justification: The argument explicitly invokes adults’ experience as a sufficient
+      reason to override children’s perspectives on climate policy. It relies on the
+      claim that authority (i.e., being an adult with experience) is automatically
+      the best source of judgment, which is the defining characteristic of an appeal
+      to authority. The reasoning does not provide evidence that such experience correlates
+      with better outcomes, merely assuming it does.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: 'In the target, the argument explicitly asserts that adults are
+      the appropriate decision-makers because they possess experience, presenting
+      this as a justification for policy authority: ''Adults run the country. They
+      know what to do as they have the experience.'' This is the core structure of
+      an Appeal to Authority fallacy, where the claimed expertise of a group (adults)
+      is used to support the conclusion that they should govern climate policy. While
+      a Hasty Generalization interpretation could be argued (generalizing about all
+      kids from a sample that ''some kids think it’s insane''), the primary structural
+      condition illustrated in the text is the claim of authority based on experience,
+      which is a direct instance of Appeal to Authority. The provided evidence supports
+      this interpretation with passages T1 and T2.'
+    loser_failure: The Hasty Generalization category requires an explicit observation
+      of a small sample that is then generalized to the whole population. The TARGET
+      text offers a hint of a sample ('some KIDS think its best is insane'), but the
+      dominant claim is not a generalization about all kids; instead it is asserting
+      that adults, because of their experience, are correctly placed to make decisions.
+      The evidence for a generalized statement about kids is secondary and does not
+      directly satisfy the mandatory structural condition as strongly as the appeal
+      to authority claim.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument attributes authority to adults because of their
+    experience and uses this authority to justify that they should decide climate
+    policy, satisfying the structural condition of an appeal to authority.
+  decision_reason: The target asserts that adults are the proper agents for climate
+    policy decision-making solely on the basis that adults possess experience, which
+    constitutes an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Making decisions on climate policy because some KIDS think its best is insane.
+    Adults run the country. They know what to do as they have the experience. Kids
+    are kids
+  - and don't know what they're even protesting. There's a reason we don't let kids
+    be politicians.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5243
+  completion_tokens: 4477
+  total_tokens: 9720
+  wall_time_seconds: 490.344000000041

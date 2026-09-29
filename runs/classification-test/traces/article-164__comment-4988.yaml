@@ -1,0 +1,147 @@
+sample:
+  id: 164:4988
+  article_id: 164
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: I think it is only natural, people having just experienced one epidemic
+    will be hyper vigilant about another. I believe their experience will give the
+    citizens an advantage in preventing the spread of COVID. In fact, in some cases
+    they may over react in cautionary measures, which is only natural given their
+    recent experience with infectious disease.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: people having just experienced one epidemic will be hyper vigilant about
+        another
+    - role: evaluative_conclusion
+      text: this hyper vigilance gives citizens an advantage in preventing the spread
+        of COVID, and is therefore acceptable
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: People will be hyper‑vigilant and possibly over‑react to a
+      new epidemic because they have recently experienced one.
+    candidate: null
+    supporting_reason: it is only natural for people who have just experienced an
+      epidemic to be more cautious about another
+    support_relation: provides a descriptive observation but not used to justify a
+      normative claim
+    label_justification: the statement merely observes that prior experience makes
+      vigilance natural; it does not invoke the appeal‑to‑nature fallacy, so no fallacy
+      is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+  counterargument:
+    decisive_counterargument: Because it is natural for people to be more cautious
+      after an epidemic does not logically guarantee that they will act advantageously
+      to prevent COVID‑19 spread, nor that any extra caution is beneficial. Past experience
+      can shape behaviour, but it can also lead to misjudged fears, misallocation
+      of resources, or even complacency if people feel falsely safe. Thus the claim
+      that hyper‑vigilance or over‑reaction is an inevitable, natural advantage is
+      not logically supported.
+    candidate: Appeal to Nature
+    challenged_inference: The inference that people’s recent epidemic experience naturally
+      ensures increased vigilance and advantage in controlling COVID‑19.
+    label_justification: 'The objection shows that the target reasoning relies on
+      the claim that a natural response (hyper‑vigilance) is sufficient justification
+      for an advantageous outcome. This is precisely the pattern of an Appeal to Nature
+      fallacy: using the fact that a belief or action is natural as evidence that
+      it is appropriate or beneficial.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: 'The target states that because it is natural for people to
+    be hyper‑vigilant after an epidemic, this vigilance gives citizens an advantage
+    in preventing COVID‑19. This is a classic Appeal to Nature: it treats the natural
+    state (hyper‑vigilance) as evidence that the outcome (preventing viral spread)
+    is good or justified, matching the required naturalness‑to‑value structure.'
+  decision_reason: The argument uses the naturalness of hyper‑vigilance as justification
+    for its effectiveness, satisfying the structure of an Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think it is only natural, people having just experienced one epidemic will be
+    hyper vigilant about another. I believe their experience will give the citizens
+    an advantage in preventing
+  - the spread of COVID. In fact, in some cases they may over react in cautionary
+    measures, which is only natural given their recent experience with infectious
+    disease.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4365
+  completion_tokens: 3106
+  total_tokens: 7471
+  wall_time_seconds: 107.71899999998277

@@ -1,0 +1,124 @@
+sample:
+  id: 416:6645
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: There's no denying that on the surface level, it's a choice between continuing
+    to protest or going to jail or adhering to the law and halting protests.   They
+    could have constructive dialogues, too.  How about that?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+    candidate: null
+  goal:
+    conclusion_or_goal: Suggests that protests can be halted through adherence to
+      the law and constructive dialogue, rather than continued protest or incarceration
+    candidate: null
+    supporting_reason: 'An enumeration of choices available: continue protesting,
+      go to jail, or adhere to the law and halt protests, plus the option of constructive
+      dialogue'
+    support_relation: The reason is used to show the options available and introduces
+      dialogue as an alternative to the protracted view of protest/conflict
+    label_justification: The argument does not present a fallacy; it simply enumerates
+      options and proposes dialogue.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+  counterargument:
+    decisive_counterargument: The remark reduces the protest situation to a binary
+      choice—either continue protesting (risking jail) or stop by obeying the law—while
+      ignoring other realistic strategies such as negotiated partial compliance, targeted
+      non‑violent action, or phased dialogue. By presenting only two outcomes, it
+      creates an oversimplified picture that misleads readers about the range of practical
+      options.
+    candidate: False Dilemma
+    challenged_inference: 'The situation can be accurately described as a choice between
+      only two outcomes: continue protesting or halt protests/face jail.'
+    label_justification: This challenge directly exposes the claim that the scenario
+      is a simple two‑option dilemma, which is the defining premise of a False Dilemma.
+      The target statement explicitly frames the debate as a pick between continuing
+      protest or complying with law, thereby committing the fallacy of limiting possibilities
+      to only two alternatives.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly frames the protest situation as a choice
+    between only two outcomes—continuing protest (risking jail) or halting protests
+    by complying with the law—while ignoring other realistic strategies, satisfying
+    the structural definition of a false dilemma.
+  decision_reason: The target text, supported by passages T1 and T2, presents the
+    situation as a binary choice, which meets the mandatory structural condition for
+    false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There's no denying that on the surface level, it's a choice between continuing
+    to protest or going to jail or adhering to the law and halting protests.   They
+    could have
+  - constructive dialogues, too.  How about that?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3970
+  completion_tokens: 3123
+  total_tokens: 7093
+  wall_time_seconds: 83.35999999998603

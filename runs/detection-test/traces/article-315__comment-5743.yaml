@@ -1,0 +1,134 @@
+sample:
+  id: 315:5743
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: It's wonderful to see such recognition, so hard-earned and a long time coming.
+    But let's be careful, too. While social progress and the recognition of all people
+    groups is good, we must not make changes too quickly, as these patterns of social
+    order have been in place in the region for a very long time. Reform is always
+    welcome but not at the expense of long established views which have so powerfully
+    shaped such a large part of the world.  Let's strive for changes that honor tradition
+    while making room for progress.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T2
+    - role: preservation_conclusion
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - we must not make changes too quickly, as these patterns of social order have
+      been in place in the region for a very long time. Reform is always welcome but
+    - not at the expense of long established views which have so powerfully shaped
+      such a large part of the world.  Let's strive for changes that honor tradition
+      while making room
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Advocating measured social change that respects traditional
+      views.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument appeals to the long‑standing nature and influence
+      of existing social patterns to justify slowing or moderating reforms.
+    support_relation: uses the persistence and influence of established traditions
+      as a motivational reason to limit or pace change.
+    label_justification: 'Appeal to Tradition is the fallacy most directly illustrated:
+      the speaker argues that because social orders have existed for a very long time
+      and have powerfully shaped society, reforms should not be made at the expense
+      of these long‑established views.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - we must not make changes too quickly, as these patterns of social order have
+      been in place in the region for a very long time. Reform is always welcome but
+    - not at the expense of long established views which have so powerfully shaped
+      such a large part of the world.  Let's strive for changes that honor tradition
+      while making room
+  counterargument:
+    decisive_counterargument: Long‑standing social patterns do not automatically prove
+      that they are good or should resist change; many traditions are outdated or
+      oppressive. Reliability to tradition alone fails to justify limiting progress.
+    candidate: Appeal to Tradition
+    challenged_inference: Social change should be curtailed because established traditions
+      have shaped society for a long time and ought to be honored.
+    label_justification: The argument relies on tradition as a sole reason to resist
+      change, asserting that because something has existed for a long time it is inherently
+      justified or better. This is the classic Appeal to Tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - we must not make changes too quickly, as these patterns of social order have
+      been in place in the region for a very long time. Reform is always welcome but
+    - not at the expense of long established views which have so powerfully shaped
+      such a large part of the world.  Let's strive for changes that honor tradition
+      while making room
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The argument presents a premise that longstanding social patterns
+    have been in place for a very long time and have powerfully shaped a large part
+    of the world, then concludes that changes should not be made too quickly in order
+    to honor tradition. This satisfies the structural requirement of an appeal to
+    tradition: using the persistence and influence of existing traditions as a reason
+    to limit or pace change.'
+  decision_reason: The target passage explicitly links the endurance of social orders
+    to the need for caution in reform, appealing to tradition as a justification.
+    This matches the fallacy structure of Appeal to Tradition. No other fallacy is
+    structurally present, and the premises and conclusion meet the necessary conditions.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - we must not make changes too quickly, as these patterns of social order have been
+    in place in the region for a very long time. Reform is always welcome but
+  - not at the expense of long established views which have so powerfully shaped such
+    a large part of the world.  Let's strive for changes that honor tradition while
+    making room
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4992
+  completion_tokens: 2999
+  total_tokens: 7991
+  wall_time_seconds: 123.38999999998487

@@ -1,0 +1,162 @@
+sample:
+  id: 515:10841
+  article_id: 515
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: This is a troubling story, I can't even imagine a Governor just refusing
+    to go and ordering the arrest of his replacement. It is such a fantastic story
+    it is almost hard to believe that this has actually occurred. Even with how crazy
+    of an event it is, I am thinking that Afghanistan have much bigger fishes to fry
+    than this stubborn Governor. The Taliban for one is obviously a major ongoing
+    problem that should be taken on immediately. The economy, poverty and the treatment
+    of women all need to come before this issue as well. I understand that this story
+    will make a splash and attract a lot of interest, but Afghanistan needs to stay
+    focused on these major issues. Politics are always messy and we can't find ourselves
+    caught in the circus when so much needs to be done already. I sincerely hope that
+    the Afghan leadership will lead here and do the right thing for the whole country.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Governor refusing to go and ordering arrest of his replacement
+    - role: worse_issue
+      text: The Taliban, economy, poverty, and treatment of women
+    - role: deprioritizing_conclusion
+      text: Focus should be on these major issues rather than the Governor incident
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - almost hard to believe that this has actually occurred. Even with how crazy
+      of an event it is, I am thinking that Afghanistan have much bigger fishes to
+      fry than
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+    - come before this issue as well. I understand that this story will make a splash
+      and attract a lot of interest, but Afghanistan needs to stay focused on these
+      major
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Afghanistan should prioritize larger issues such as the Taliban,
+      the economy, poverty, and women's rights over the governor incident.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Afghanistan has bigger issues that demand attention.
+    support_relation: Appeal to Worse Problems
+    label_justification: The argument dismisses the governor incident by claiming
+      larger problems exist, employing an appeal to worse problems to downplay the
+      significance of the former.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+  counterargument:
+    decisive_counterargument: The claim that the governor’s refusal to proceed and
+      ordering another’s arrest is a minor concern ignores that this episode signals
+      a direct breach of constitutional order and undermines the very institutions
+      needed to confront larger crises such as the Taliban, poverty and women’s rights.
+      Ignoring this problem or treating it as less important, simply because other
+      issues seem more pressing, falsely assumes that the two problems are mutually
+      exclusive and that addressing them is impossible in tandem. In reality, a shaky
+      rule‑of‑law foundation could worsen the very problems it tries to replace, so
+      the governor matter cannot be dismissed merely by pointing to other challenges.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that the governor’s actions are far less important
+      than Afghanistan’s other major issues, so the country should focus exclusively
+      on the Taliban, economy, poverty and women’s treatment.
+    label_justification: The target explicitly downplays the governor’s incident by
+      stating that Afghanistan has 'much bigger fishes to fry' and moving attention
+      to other concerns; this is a classic Appeal to Worse Problems, where a problem
+      is dismissed in favor of a seemingly more serious one.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - almost hard to believe that this has actually occurred. Even with how crazy
+      of an event it is, I am thinking that Afghanistan have much bigger fishes to
+      fry than
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+    - come before this issue as well. I understand that this story will make a splash
+      and attract a lot of interest, but Afghanistan needs to stay focused on these
+      major
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly downplays the governor incident by stating
+    there are “much bigger fishes to fry” such as the Taliban, economy, poverty, and
+    women’s treatment, thereby dismissing the governor’s actions in favor of these
+    more pressing issues. This satisfies the structural requirement of an Appeal to
+    Worse Problems, as evidenced by segments T2, T3 and T4.
+  decision_reason: Target’s comparison of the governor’s matter to larger crises provides
+    the necessary structure for the Appeal to Worse Problems fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  - T4
+  evidence_spans:
+  - almost hard to believe that this has actually occurred. Even with how crazy of
+    an event it is, I am thinking that Afghanistan have much bigger fishes to fry
+    than
+  - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+    that should be taken on immediately. The economy, poverty and the treatment of
+    women all need to
+  - come before this issue as well. I understand that this story will make a splash
+    and attract a lot of interest, but Afghanistan needs to stay focused on these
+    major
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5908
+  completion_tokens: 3992
+  total_tokens: 9900
+  wall_time_seconds: 67.93699999997625

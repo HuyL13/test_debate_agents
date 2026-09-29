@@ -1,0 +1,154 @@
+sample:
+  id: 172:9812
+  article_id: 172
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: This is getting out of control! This will keep people out of new jobs just
+    to make a measly difference in the global temperature!
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is getting out of control! This will keep people out of new jobs just to
+      make a measly difference in the global temperature!
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker rejects or condemns the policy as getting out
+      of control.
+    candidate: Appeal to Authority
+    supporting_reason: It will keep people out of new jobs just to make a measly difference
+      in the global temperature!
+    support_relation: The speaker cites the policy’s (supposed) negative consequence—job
+      loss—as justification for asserting that the policy is untenable and out of
+      control.
+    label_justification: 'The argument attempts to disprove or condemn the policy
+      by pointing to the undesirable consequence of harmful impact on employment,
+      invoking the policy’s adverse outcome as evidence of its wrongness. This is
+      an appeal to consequence: a fallacy that concludes a proposition is false or
+      undesirable based on its potential outcomes rather than on its logical or factual
+      content.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is getting out of control! This will keep people out of new jobs just to
+      make a measly difference in the global temperature!
+  counterargument:
+    decisive_counterargument: The claim that this measure ‘will keep people out of
+      new jobs’ is made without any evidence that the policy actually results in a
+      net loss of employment across the industry. It assumes that all job creation
+      efforts are thwarted merely because the policy exists, yet no data or specific
+      examples are provided. This leap from a single, unsubstantiated claim to a universal
+      conclusion about job loss constitutes an unjustified generalization.
+    candidate: Hasty Generalization
+    challenged_inference: 'Premise: The policy will keep people out of new jobs |
+      Conclusion: This will universally eliminate job creation opportunities'
+    label_justification: The argument asserts a universal effect (“keeping people
+      out of new jobs”) based on a single, unspecified premise about policy impact,
+      without substantiating evidence. This is a clear example of a hasty generalization,
+      where a broad claim is made without demonstrating that the limited evidence
+      justifies that breadth. The counterargument points out the lack of support for
+      the universal claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is getting out of control! This will keep people out of new jobs just to
+      make a measly difference in the global temperature!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The target statement is a broad, universal claim about the impact
+      of a policy on all people—‘This will keep people out of new jobs’—made without
+      providing any specific examples or evidence. This satisfies the structural condition
+      of a hasty generalization, where a sweeping conclusion is drawn from insufficient
+      or ambiguous support. In contrast, it does not invoke any authority figure or
+      expert to justify the claim, so the structural condition for an appeal to authority
+      is not met.
+    loser_failure: The target does not reference any authority or expert, so it cannot
+      fulfill the mandatory condition for an appeal to authority.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is getting out of control! This will keep people out of new jobs just to
+      make a measly difference in the global temperature!
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not provide an explicit sample or
+    specific cases from which a broader conclusion is drawn—its claim that a policy
+    “will keep people out of new jobs” is made without any supporting evidence or
+    partial observation. Because the mandatory structural requirement of a hasty generalization
+    (an explicit instance or sample leading to a general claim) is not satisfied,
+    the claim does not meet the definition of that fallacy, and thus no fallacy is
+    detected.
+  decision_reason: The target lacks the necessary sample-to-generalization structure
+    required for a hasty generalization, so the claim is not fallacious under that
+    category.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is getting out of control! This will keep people out of new jobs just to
+    make a measly difference in the global temperature!
+  verified: false
+  rejection_reason: The target lacks the necessary sample-to-generalization structure
+    required for a hasty generalization, so the claim is not fallacious under that
+    category.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5065
+  completion_tokens: 4005
+  total_tokens: 9070
+  wall_time_seconds: 185.60900000005495

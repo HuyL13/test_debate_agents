@@ -1,0 +1,127 @@
+sample:
+  id: 192:9872
+  article_id: 192
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: They can now ban sites that broadcast matches. The next thing they'll do
+    is ban any mention of football if they don't align with the government.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: They can now ban sites that broadcast matches.
+    - role: intermediate_consequence
+      text: The next thing they'll do is ban any mention of football if they don't
+        align with the government.
+    - role: final_consequence
+      text: 'null'
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can now ban sites that broadcast matches. The next thing they'll do is
+      ban any mention of football if they don't align with the government.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: They predict that the government will soon extend its censorship
+      to ban any mention of football if it does not align with the government.
+    candidate: Slippery Slope
+    supporting_reason: The argument claims that because the government has already
+      banned sites broadcasting matches, the next logical step will be to ban all
+      mentions of football that are not aligned with the government.
+    support_relation: using
+    label_justification: The argument projects a future extreme consequence (banning
+      all mentions) based solely on a current action (banning sites), without evidence
+      of a causal chain, which is the hallmark of a slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can now ban sites that broadcast matches. The next thing they'll do is
+      ban any mention of football if they don't align with the government.
+  counterargument:
+    decisive_counterargument: The fact that a government can ban the sites that stream
+      football matches does not logically entail that it will next ban every mention
+      of football. Governments often limit only the distribution of content, not the
+      discussion of it, and there is no evidence that this censorship will expand
+      to the broad, abstract level claimed. Thus the inference that the next step
+      will be a wholesale ban on any mention of football is not justified.
+    candidate: Slippery Slope
+    challenged_inference: The inference that the next thing the government will do
+      is ban any mention of football if it does not align with the government.
+    label_justification: 'The argument posits a chain of escalating censorship—from
+      banning broadcast sites to banning all mention—without providing any intermediate
+      evidence of such a progression. This is a classic slippery-slope reasoning:
+      an initial action is taken as a single, inevitable precursor to a more extreme,
+      but unsubstantiated, consequence. Hence, the fallacy identified is a slippery
+      slope.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They can now ban sites that broadcast matches. The next thing they'll do is
+      ban any mention of football if they don't align with the government.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target states that after the government bans sites broadcasting
+    matches, it will next ban any mention of football that does not align with the
+    government. This projects an unsubstantiated chain of escalation from an initial
+    action to an extreme consequence, without evidence of intermediate steps, which
+    satisfies the structural definition of a slippery‑slope fallacy.
+  decision_reason: The argument predicts a future extreme step (banning all mentions
+    of football) based solely on a current action (banning broadcast sites) and provides
+    no intermediate evidence, meeting the criteria for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - They can now ban sites that broadcast matches. The next thing they'll do is ban
+    any mention of football if they don't align with the government.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3962
+  completion_tokens: 2738
+  total_tokens: 6700
+  wall_time_seconds: 112.06299999999464

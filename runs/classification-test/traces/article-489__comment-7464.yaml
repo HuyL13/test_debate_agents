@@ -1,0 +1,181 @@
+sample:
+  id: 489:7464
+  article_id: 489
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: I hope their country is able to stand up and depose Duterte for good. If
+    they don't, I fear these trends will only continue. Things will just get worse
+    and dozens of these horrendous crimes will turn into hundreds, then more. There's
+    no alternative but getting an actually decent leader.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: not deposing Duterte
+    - role: intermediate_consequence
+      text: trends will continue and things will get worse
+    - role: final_consequence
+      text: dozens of horrible crimes will turn into hundreds and more
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker asserts that the only viable course of action
+      is to depose Duterte and install a ‘decent’ leader in order to prevent worsening
+      crimes.
+    candidate: False Dilemma
+    supporting_reason: If they don’t depose Duterte, I fear these trends will only
+      continue… dozens… hundreds…
+    support_relation: The speaker uses the predicted worsening of crimes as the rationale
+      for claiming that the sole solution is a decent leader.
+    label_justification: By explicitly stating “There’s no alternative but getting
+      an actually decent leader,” the speaker limits the options to two (depose Duterte
+      or continue with worsening crimes) and dismisses any other possible alternatives.
+      This restrictive framing constitutes a false dilemma. No evidence of a direct
+      causal link between the specific action and outcomes is provided, yet the argument
+      is still based on that limited choice, warranting the fallacy label. The reasoning
+      is correctly identified as the causal prediction that the trend will worsen
+      when we remain under Duterte’s leadership. The fallacy comes from the confining
+      of alternatives, not from the causal claim itself.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+  counterargument:
+    decisive_counterargument: The claim that the country’s failure to depose Duterte
+      will inevitably cause those horrendous crimes to swell from dozens into hundreds
+      and then beyond relies on a speculative progression that is not supported by
+      any evidence. Other political, economic, or social factors could prevent such
+      an escalation, rendering the asserted chain of consequences unfounded.
+    candidate: Slippery Slope
+    challenged_inference: If Duterte is not deposed, crimes will dramatically increase
+      from dozens to hundreds and more, worsening the situation.
+    label_justification: The target’s reasoning presents an unsubstantiated escalation
+      from one event (failure to depose Duterte) to a series of increasingly adverse
+      outcomes (crime surges). This fits the definition of a slippery-slope fallacy,
+      as it assumes a direct, inevitable causal chain without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - False Dilemma
+  transitions:
+  - before:
+    - Slippery Slope
+    - False Dilemma
+    conflict: false-dilemma__vs__slippery-slope
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: While the target also outlines a causal progression that could
+      be framed as a slippery-slope argument (failure to depose Duterte leads to worsening
+      trends and a surge in crimes), the explicit statement that there is no alternative
+      but to install a truly decent leader directly satisfies the structural requirement
+      for a false dilemma—presenting the situation as a dichotomy and dismissing all
+      other options. The slippery-slope structure is implied rather than overtly articulated,
+      so it does not meet the mandatory condition as strongly as the false dilemma
+      claim does.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly limits the options to two by asserting
+    that “There’s no alternative but getting an actually decent leader,” thereby framing
+    the only viable response as deposing Duterte or accepting continued worsening
+    crimes. This restricts the choice set to exactly two alternatives, satisfying
+    the structural condition for a false dilemma.
+  decision_reason: The argument presents only two possible outcomes – obtaining a
+    decent leader (implicitly by deposing Duterte) or seeing crime rates continue
+    to rise – and dismisses any other possibilities, which constitutes a false dilemma.
+    Evidence from the target text (T1 and T2) supports this assertion.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I hope their country is able to stand up and depose Duterte for good. If they
+    don't, I fear these trends will only continue. Things will just get worse and
+  - dozens of these horrendous crimes will turn into hundreds, then more. There's
+    no alternative but getting an actually decent leader.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5860
+  completion_tokens: 5284
+  total_tokens: 11144
+  wall_time_seconds: 136.5

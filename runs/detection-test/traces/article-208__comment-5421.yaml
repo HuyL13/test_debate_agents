@@ -1,0 +1,145 @@
+sample:
+  id: 208:5421
+  article_id: 208
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: I like the fact that the artist is able to take both the good and bad from
+    her homelands history and turn it into beautiful and meaningful artwork. I think
+    this is a way to engage the audience in a way that will be profound. I think that
+    we can all agree that art can help us confront and heal from our past.
+  target: 'Why focus on the traumatic past of colonial times with your art? You could
+    make an actual difference if you used your art to bring attention to important
+    issues of today! I''m sure your home country is still not in great shape after
+    all! Like Banksy, for instance: He uses art to wake people up to modern issues
+    like war and economic problems!'
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: focus on the traumatic past of colonial times
+    - role: alternative_b
+      text: use art to bring attention to important issues of today
+    - role: exhaustiveness_commitment
+      text: implies these are the only viable approaches to make a difference
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Suggest that the artist should redirect her focus from colonial
+      trauma to contemporary issues in order to make a meaningful impact with her
+      art.
+    candidate: null
+    supporting_reason: The comment states that using the artist’s work to highlight
+      current problems would bring about an actual difference and cites Banksy as
+      an example of an artist who addresses modern issues such as war and economic
+      problems.
+    support_relation: The reason is employed to argue that concentrating on past trauma
+      is unproductive, whereas addressing present concerns is more effective and therefore
+      constitutes the proper direction for the artist’s work.
+    label_justification: The commentary does not rely on any logical misstep (e.g.,
+      appeal to authority, false dilemma, or hasty generalization). The argument simply
+      proposes an alternative focus and illustrates it with an example, making it
+      a straightforward evaluative point rather than a fallacious claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+    - and economic problems!
+  counterargument:
+    decisive_counterargument: Focusing on historical trauma can be essential for collective
+      healing and for contextualizing present social issues, so choosing to highlight
+      colonial history does not preclude making a meaningful difference; it may in
+      fact support contemporary activism.
+    candidate: False Dilemma
+    challenged_inference: The artist should shift their focus from historic colonial
+      trauma to contemporary issues in order to make an actual difference.
+    label_justification: The target presents an implied binary choice—either address
+      past colonial trauma or tackle present-day problems—while asserting only the
+      latter is effective, thereby committing the False Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present an explicit exhaustive binary choice
+    between only two alternatives; it merely criticizes a focus on historical trauma
+    and praises attention to contemporary issues, which does not meet the structural
+    requirement for a false dilemma. Therefore the claim of a false dilemma is unsupported
+    by the provided evidence. The candidate is rejected.
+  decision_reason: The target statement fails to establish two exhaustive alternatives
+    with a commitment that only one is viable, thus it does not commit the False Dilemma
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why focus on the traumatic past of colonial times with your art? You could make
+    an actual difference if you used your art to bring attention to important issues
+    of
+  - 'today! I''m sure your home country is still not in great shape after all! Like
+    Banksy, for instance: He uses art to wake people up to modern issues like war'
+  verified: false
+  rejection_reason: The target statement fails to establish two exhaustive alternatives
+    with a commitment that only one is viable, thus it does not commit the False Dilemma
+    fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4713
+  completion_tokens: 3316
+  total_tokens: 8029
+  wall_time_seconds: 46.98399999999674

@@ -1,0 +1,142 @@
+sample:
+  id: 217:4847
+  article_id: 217
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: Everyone knows men who have a history of sexual violence can not be trusted,
+    and that goes double for if they are politicians. Its absurd to let a man like
+    that become one. It goes against the tradition of being able to trust your public
+    officials. Politicians have always been supposed to meet higher moral standards
+    than the rest of us. Being a woman abuser is disqualifying.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: the tradition of being able to trust public officials and that politicians
+        have always been supposed to meet higher moral standards than the rest of
+        us
+    - role: preservation_conclusion
+      text: Being a woman abuser is disqualifying
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Everyone knows men who have a history of sexual violence can not be trusted,
+      and that goes double for if they are politicians. Its absurd to let a man like
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+    - us. Being a woman abuser is disqualifying.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The argument claims that men with a history of sexual violence,
+      especially if they are politicians, should be disqualified because such individuals
+      cannot be trusted and that this violates the tradition of trusting public officials.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument invokes the tradition that politicians should
+      meet higher moral standards and be trustworthy as justification for disqualifying
+      a known sexual abuser, relying on historical expectations rather than relevant
+      evidence.
+    support_relation: mechanism_supports_goal
+    label_justification: The tradition is used as the sole basis for disqualification,
+      an appeal to tradition fallacy, as it assumes historical norms automatically
+      confer moral validity.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+    - us. Being a woman abuser is disqualifying.
+  counterargument:
+    decisive_counterargument: 'The argument bases the disqualification of a politician
+      simply on an unexamined belief that the tradition of higher moral standards
+      for public officials requires disqualification of anyone with a history of sexual
+      violence.  That is a classic appeal to tradition: it assumes that because the
+      norm was once upheld, it must always hold, without showing that the tradition
+      still applies or that it logically warrants disqualification.  The claim does
+      not provide any evidence that the tradition actually obligates disqualification
+      or that the history of sexual violence inevitably renders a person untrustworthy
+      in a public role.  Consequently the reasoning is fallacious.'
+    candidate: Appeal to Tradition
+    challenged_inference: Men with a history of sexual violence cannot be trusted
+      and, by tradition, must be disqualified from holding public office.
+    label_justification: The objection directly targets the logical use of tradition
+      in the reasoning—tradition is cited as a justification for exclusion, which
+      is the defining feature of an appeal to tradition.  The counterargument shows
+      that no logical link is provided from the tradition to the disqualification,
+      exposing the specific reasoning defect.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - that become one. It goes against the tradition of being able to trust your public
+      officials. Politicians have always been supposed to meet higher moral standards
+      than the rest of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target contains a clear tradition premise—‘the tradition
+    of being able to trust public officials, that politicians have always been supposed
+    to meet higher moral standards than the rest of us’—and concludes that a sexual‑violence
+    abuser is disqualifying, thereby using the tradition as the sole normative basis.
+    This satisfies the structural requirement for an appeal to tradition fallacy.
+  decision_reason: The argument explicitly relies on the tradition of trust in public
+    officials to justify disqualification, matching the definition of the appeal to
+    tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Everyone knows men who have a history of sexual violence can not be trusted, and
+    that goes double for if they are politicians. Its absurd to let a man like
+  - that become one. It goes against the tradition of being able to trust your public
+    officials. Politicians have always been supposed to meet higher moral standards
+    than the rest of
+  - us. Being a woman abuser is disqualifying.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4513
+  completion_tokens: 4270
+  total_tokens: 8783
+  wall_time_seconds: 210.81199999997625

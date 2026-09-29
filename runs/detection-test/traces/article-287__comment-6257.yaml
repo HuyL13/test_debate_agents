@@ -1,0 +1,134 @@
+sample:
+  id: 287:6257
+  article_id: 287
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: If the country has been peaceful for nearly three decades, why stop it.
+    Its methods must be working to some degree and shouldn't be punished. Other aspects
+    of rights shouldn't be ignored but don't forget about peace being a large positive.
+  target: I agree with you, and it's evident that you're right because the people
+    support this government. Isn't it clear that they're willing to trade in some
+    freedom for security? While this may be contrary to say American values, that
+    doesn't mean it's wrong. If the majority of people are behind this kind of authoritarianism,
+    it should be respected.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of people
+    - role: popularity_claim
+      text: they are behind this kind of authoritarianism
+    - role: target_claim
+      text: it should be respected
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - this may be contrary to say American values, that doesn't mean it's wrong. If
+      the majority of people are behind this kind of authoritarianism, it should be
+      respected.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The target asserts that because the majority of citizens support
+      the authoritarian government and are willing to trade freedom for security,
+      the government and its authoritarianism should be respected.
+    candidate: Appeal to Majority
+    supporting_reason: The fact that the majority of people are behind this kind of
+      authoritarianism and are willing to trade freedom for security.
+    support_relation: The reason is used to justify the conclusion that the authoritarian
+      regime merits respect or acceptance.
+    label_justification: The argument appeals to the majority's preference as a legitimizing
+      rationale, a classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you, and it's evident that you're right because the people support
+      this government. Isn't it clear that they're willing to trade in some freedom
+      for security? While
+    - this may be contrary to say American values, that doesn't mean it's wrong. If
+      the majority of people are behind this kind of authoritarianism, it should be
+      respected.
+  counterargument:
+    decisive_counterargument: The fact that most people in a society may back an authoritarian
+      regime does not establish that the regime is ethically legitimate or should
+      be honored. Populations can be misinformed, coerced, or manipulated, and history
+      provides many cases where a popular choice later proved harmful or unjust. Therefore,
+      using popular support as evidence of correctness commits an appeal to majority
+      fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: If the majority of people are behind this kind of authoritarianism,
+      it should be respected.
+    label_justification: The objection directly undermines the inference that majority
+      support justifies respect for authoritarianism, identifying the logical flaw
+      that equates a popular view with moral legitimacy – the hallmark of the Appeal
+      to Majority fallacy. The counterargument specifically counters the target’s
+      reasoning without merely criticizing it, thereby substantiating the fallacy
+      label.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you, and it's evident that you're right because the people support
+      this government. Isn't it clear that they're willing to trade in some freedom
+      for security? While
+    - this may be contrary to say American values, that doesn't mean it's wrong. If
+      the majority of people are behind this kind of authoritarianism, it should be
+      respected.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that because the majority of people
+    support the authoritarian government, it should be respected, satisfying the structural
+    condition of an appeal to majority; evidence T2 provides the premise and conclusion
+    for this claim.
+  decision_reason: The target’s assertion that the government's authoritarianism merits
+    respect solely on the basis that the majority of people endorse it constitutes
+    an Appeal to Majority fallacy, with structural evidence present in passage T2.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - this may be contrary to say American values, that doesn't mean it's wrong. If
+    the majority of people are behind this kind of authoritarianism, it should be
+    respected.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4675
+  completion_tokens: 2051
+  total_tokens: 6726
+  wall_time_seconds: 122.34399999999732

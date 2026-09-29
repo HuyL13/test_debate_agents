@@ -1,0 +1,139 @@
+sample:
+  id: 486:8056
+  article_id: 486
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: It doesn't seem healthy to me that everything these days gets blamed on
+    insidious foreign actors, whether that be Russia or China or whoever. Seems like
+    an easy scapegoat governments can just constantly use anytime they've done something
+    wrong. Next thing you know, people will be blaming the Kremlin when they stub
+    their toe on a door.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It doesn't seem healthy to me that everything these days gets blamed on insidious
+      foreign actors, whether that be Russia or China or whoever. Seems like an easy
+      scapegoat governments
+    - can just constantly use anytime they've done something wrong. Next thing you
+      know, people will be blaming the Kremlin when they stub their toe on a door.
+    candidate: null
+  goal:
+    conclusion_or_goal: The target argues that governments frequently blame foreign
+      actors as a scapegoat whenever they have caused harm, making a sweeping generalisation
+      about government behaviour.
+    candidate: Hasty Generalization
+    supporting_reason: The target generalises that “everything these days gets blamed
+      on insidious foreign actors” and that governments “can just constantly use …
+      anytime they've done something wrong” from presumably limited observations.
+    support_relation: the reasoning that foreign actors are used as easy scapegoats
+      underpins the claim that governments commonly do so for any mistake they make.
+    label_justification: The statement makes a broad claim about all governments and
+      all situations based on limited anecdotal evidence, which meets the criteria
+      for a hasty generalisation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It doesn't seem healthy to me that everything these days gets blamed on insidious
+      foreign actors, whether that be Russia or China or whoever. Seems like an easy
+      scapegoat governments
+    - can just constantly use anytime they've done something wrong. Next thing you
+      know, people will be blaming the Kremlin when they stub their toe on a door.
+  counterargument:
+    decisive_counterargument: The assertion that ‘everything is blamed on foreign
+      actors’ and that governments readily use them as scapegoats is an unsupported
+      sweeping claim. No specific examples, data, or evidence are provided to substantiate
+      that every incident is attributed to foreign adversaries or that this occurs
+      routinely. Without any particular observations or evidence to back the claim,
+      it is a hasty generalization, treating a seemingly uniform pattern from no demonstrated
+      cases.
+    candidate: Hasty Generalization
+    challenged_inference: It doesn't seem healthy to me that everything these days
+      gets blamed on insidious foreign actors, whether that be Russia or China or
+      whoever, and that governments can just constantly use them as scapegoats whenever
+      they have done something wrong.
+    label_justification: The claim generalizes that ‘everything’ is blamed on foreign
+      actors and that governments routinely employ such scapegoats, yet provides no
+      specific incidents or empirical support. This is a classic example of a hasty
+      generalization, where a universal conclusion is drawn without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It doesn't seem healthy to me that everything these days gets blamed on insidious
+      foreign actors, whether that be Russia or China or whoever. Seems like an easy
+      scapegoat governments
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target makes a sweeping claim that ‘everything these days
+    is blamed on foreign actors’ and that governments routinely use them as scapegoats,
+    based on an anecdotal observation (e.g., stubbing a toe on a door). No specific
+    empirical evidence or multiple cases are provided to substantiate this universal
+    claim, constituting a hasty generalization per the structural criteria. Evidence:
+    T1, T2.'
+  decision_reason: The argument generalises about all governments and all situations
+    from a single isolated observation (the stub‑toe example) without evidence, satisfying
+    the structure of a hasty generalisation.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It doesn't seem healthy to me that everything these days gets blamed on insidious
+    foreign actors, whether that be Russia or China or whoever. Seems like an easy
+    scapegoat governments
+  - can just constantly use anytime they've done something wrong. Next thing you know,
+    people will be blaming the Kremlin when they stub their toe on a door.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4435
+  completion_tokens: 2997
+  total_tokens: 7432
+  wall_time_seconds: 76.34400000001187

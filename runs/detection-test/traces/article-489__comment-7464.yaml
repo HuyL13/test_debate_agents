@@ -1,0 +1,135 @@
+sample:
+  id: 489:7464
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: I hope their country is able to stand up and depose Duterte for good. If
+    they don't, I fear these trends will only continue. Things will just get worse
+    and dozens of these horrendous crimes will turn into hundreds, then more. There's
+    no alternative but getting an actually decent leader.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If they don't depose Duterte
+    - role: intermediate_consequence
+      text: Things will just get worse and dozens of these horrendous crimes will
+        turn into hundreds
+    - role: final_consequence
+      text: then more
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The only viable action is to obtain a decent leader (i.e.,
+      to depose Duterte).
+    candidate: null
+    supporting_reason: The argument claims that if Duterte remains in power, crime
+      will continue to rise and cause greater harm. Therefore, obtaining a competent
+      leader is the only way to prevent this worsening trend.
+    support_relation: The reasoning directly supports the goal by suggesting that
+      deposing Duterte is necessary to stop the predicted escalation of crime. It
+      establishes a causal link between Duterte’s continued rule and future harm,
+      thereby justifying the conclusion.
+    label_justification: The argument does not exhibit any identified logical fallacies
+      such as false dilemma, slippery slope, or hasty generalization; it presents
+      a simple causal prediction and a consequent recommendation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+  counterargument:
+    decisive_counterargument: The claim that failing to depose Duterte will inevitably
+      trigger a massive surge in horrendous crimes is unsupported; it presents an
+      unsubstantiated causal chain (a slippery slope) without evidence that each step
+      follows the previous one. Thus the reasoning that ‘if they don’t depose…things
+      just get worse and a bad leader is inevitable’ is a false causal escalation.
+    candidate: Slippery Slope
+    challenged_inference: The inference that not deposing Duterte inevitably results
+      in a spiral of ever-worse crime and that the only alternative is a ‘decent’
+      leader.
+    label_justification: The objection isolates the assertion that a single decision
+      to retain Duterte would trigger an unbounded worsening of crime—a classic slippery‑slope
+      claim that lacks empirical support. This directly challenges the risky causal
+      progression rather than merely attacking the argument’s conclusions.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I hope their country is able to stand up and depose Duterte for good. If they
+      don't, I fear these trends will only continue. Things will just get worse and
+    - dozens of these horrendous crimes will turn into hundreds, then more. There's
+      no alternative but getting an actually decent leader.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents an unsupported causal chain: if Duterte
+    is not deposed (initial event), crime trends will worsen (intermediate consequence)
+    leading to a massive surge in horrendous crimes (final consequence). This unsubstantiated
+    escalation without evidence constitutes a slippery‑slope fallacy.'
+  decision_reason: 'The target meets the structural requirement of a slippery-slope
+    argument—an initial event followed by escalating negative consequences—while the
+    reasoning lacks empirical support, meeting the definition of a Slippery Slope
+    fallacy. Evidence_Ids: [T1, T2]'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I hope their country is able to stand up and depose Duterte for good. If they
+    don't, I fear these trends will only continue. Things will just get worse and
+  - dozens of these horrendous crimes will turn into hundreds, then more. There's
+    no alternative but getting an actually decent leader.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4279
+  completion_tokens: 3460
+  total_tokens: 7739
+  wall_time_seconds: 188.43800000002375

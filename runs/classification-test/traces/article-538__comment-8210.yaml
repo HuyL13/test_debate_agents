@@ -1,0 +1,182 @@
+sample:
+  id: 538:8210
+  article_id: 538
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: Of course these people don't really care all that much about what flag is
+    above the government buildings. Actual security and prosperity is much more important
+    to most. Both sides should tone down the nationalist rhetoric and focus on what
+    actually matters - the well-being of the people.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most
+    - role: popularity_claim
+      text: Most people care more about security and prosperity than the flag above
+        government buildings.
+    - role: target_claim
+      text: Both sides should tone down nationalist rhetoric and focus on the well-being
+        of the people.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+    - should tone down the nationalist rhetoric and focus on what actually matters
+      - the well-being of the people.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Both sides should tone down the nationalist rhetoric and focus
+      on what actually matters – the well‑being of the people.
+    candidate: null
+    supporting_reason: Actual security and prosperity is much more important to most
+      people than the flag shown over government buildings.
+    support_relation: The reason is used to justify the recommendation by claiming
+      that attention should be directed toward the issues that matter most to the
+      population.
+    label_justification: The target presents a single, straightforward claim with
+      a supporting statement that points to a perceived priority. No argument element
+      is misused or based on a faulty inference (e.g., hasty generalisation, slippery
+      slope, false dilemma, etc.). Therefore, the argument does not fall under the
+      fallacy categories defined; the reason genuinely supports the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+    - should tone down the nationalist rhetoric and focus on what actually matters
+      - the well-being of the people.
+  counterargument:
+    decisive_counterargument: You state that most people care more about security
+      than the flag, but you give no evidence or data to show that this is indeed
+      the case for the majority; the claim could be based on an isolated observation
+      or assumption. Without support, it is an unsupported generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Most people don't care about the flag; they prioritize security
+      and prosperity.
+    label_justification: The argument extends an unsubstantiated observation to a
+      blanket statement about the entire population’s priorities, lacking empirical
+      support, which fits the definition of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: If the target uses a majority claim to justify a conclusion, it
+      satisfies Appeal to Majority’s mandatory structural condition. If it instead
+      presents an unsupported observation from a sample and extends it to the whole
+      population, it would satisfy Hasty Generalization. The target states that “Actual
+      security and prosperity is much more important to most” and uses that majority
+      claim to argue that “both sides should tone down nationalist rhetoric and focus
+      on what actually matters,” directly employing the majority to underpin the conclusion.
+      No explicit sample or case is extended to the whole population, so the Hasty
+      Generalization condition is not satisfied. Therefore Appeal to Majority is selected.
+    loser_failure: The Hasty Generalization claim requires an explicit sample or observation
+      that is then generalized to a larger group. The target does not provide any
+      specific observation or data—only a blanket statement that “most” people care
+      about security over the flag—so it fails to meet the structural condition for
+      a hasty generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+    - should tone down the nationalist rhetoric and focus on what actually matters
+      - the well-being of the people.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument cites that most people care more about security
+    and prosperity than about flags, then concludes both sides should tone down nationalist
+    rhetoric. This uses a majority preference to justify a normative claim, satisfying
+    the structural definition of an appeal to majority.
+  decision_reason: The passage states that 'most' people prioritize security and prosperity
+    over flag symbols, and from this the speaker claims both sides should reduce nationalist
+    rhetoric to focus on well‑being. The inference relies on the popularity claim
+    to support the normative conclusion, which is a textbook appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Of course these people don't really care all that much about what flag is above
+    the government buildings. Actual security and prosperity is much more important
+    to most. Both sides
+  - should tone down the nationalist rhetoric and focus on what actually matters -
+    the well-being of the people.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5251
+  completion_tokens: 4037
+  total_tokens: 9288
+  wall_time_seconds: 119.0

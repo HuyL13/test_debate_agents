@@ -1,0 +1,126 @@
+sample:
+  id: 367:10397
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: It wasn't really a good idea to call off the march because of the violent
+    protesters.  Allowing intimidation to dictate whether others can show their disapproval
+    of suppression of human rights, sets a dangerous precedent. Imagine if violent
+    protestors decided men should no longer be allowed to drive because statistics
+    show they are responsible for most accidents. Those that disapprove of such a
+    restriction, would not be able to protest against it which may signal to officials
+    most citizens approve of it.
+  target: Leaving the decision to end the protest on the government might be the better
+    thing. They are the authority to do so, so let them make the call. They should
+    take immediate steps to enforce a stricter control on these hate groups.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the government
+    - role: endorsed_claim
+      text: they should take immediate steps to enforce a stricter control on these
+        hate groups
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Leaving the decision to end the protest on the government might be the better
+      thing. They are the authority to do so, so let them make the call. They should
+    - take immediate steps to enforce a stricter control on these hate groups.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: That the government should decide to end the protest and enforce
+      stricter control over the hate groups.
+    candidate: null
+    supporting_reason: They are the authority to do so, so let them make the call.
+    support_relation: Posits that the government’s inherent authority validates their
+      decision to end the protest and impose stronger controls, thus supporting the
+      conclusion.
+    label_justification: The use of authority here is a legitimate justification,
+      not a fallacious appeal, because it merely states that the government has the
+      institutional role to make such decisions.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Leaving the decision to end the protest on the government might be the better
+      thing. They are the authority to do so, so let them make the call. They should
+  counterargument:
+    decisive_counterargument: The claim that the government’s status as an authority
+      alone makes it correct to end the protest is a weak justification; authority
+      does not equate to moral or democratic correctness. Peaceful protests are, in
+      democratic societies, a protected right that can be upheld even when the government
+      disagrees, and suppression should not be a given simply because the state holds
+      power.
+    candidate: Appeal to Authority
+    challenged_inference: Because the government has authority, it is inherently the
+      correct actor to decide to end the protest.
+    label_justification: 'The target argument relies on the notion that authority
+      automatically bestows the right to make sound decisions. This is the classic
+      Appeal to Authority fallacy: treating the authority of the government as evidence
+      of correctness, rather than providing substantive support to the conclusion.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Leaving the decision to end the protest on the government might be the better
+      thing. They are the authority to do so, so let them make the call. They should
+    - take immediate steps to enforce a stricter control on these hate groups.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly uses the government’s authority to justify
+    ending the protest, thereby appealing to authority as the sole basis for the conclusion.
+  decision_reason: The target declares that because the government is the authority,
+    it should decide to end the protest, which is an Appeal to Authority fallacy—lacking
+    substantive justification beyond the position of authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Leaving the decision to end the protest on the government might be the better
+    thing. They are the authority to do so, so let them make the call. They should
+  - take immediate steps to enforce a stricter control on these hate groups.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4491
+  completion_tokens: 3164
+  total_tokens: 7655
+  wall_time_seconds: 132.42099999999846

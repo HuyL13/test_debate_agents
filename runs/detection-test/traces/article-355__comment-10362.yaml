@@ -1,0 +1,141 @@
+sample:
+  id: 355:10362
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: so much attention is drawn when there is an allegation or accusation. this
+    makes it hard because it brings so much attention and provides an easy out for
+    someone to falsely accuse someone. there should be harsh penalties for women who
+    make false allegations for one reason or the other.
+  target: There are worse problems then a false allegations, and its true allegations
+    that are never seen. There needs to be effort to see the true ones through. There
+    needs to be a system to ensure justice for victims of abuse without getting drowned
+    out in the noise of false claims.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: false allegations
+    - role: worse_issue
+      text: true allegations that are never seen
+    - role: deprioritizing_conclusion
+      text: there needs to be effort to see the true ones through and a system to
+        ensure justice for victims of abuse without being drowned out in the noise
+        of false claims
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There are worse problems then a false allegations, and its true allegations
+      that are never seen. There needs to be effort to see the true ones through.
+      There needs to
+    - be a system to ensure justice for victims of abuse without getting drowned out
+      in the noise of false claims.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: There needs to be a system to ensure justice for victims of
+      abuse without getting drowned out in the noise of false claims.
+    candidate: null
+    supporting_reason: There are worse problems than false allegations, and its true
+      allegations are never seen.
+    support_relation: The reason establishes a problem (false allegations drowning
+      out true ones) that justifies the need for a system to protect victims.
+    label_justification: The argument presents a clear causal link between the problem
+      of false allegations obscuring true ones and the need for a system to safeguard
+      victims, without employing any fallacious reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There are worse problems then a false allegations, and its true allegations
+      that are never seen. There needs to be effort to see the true ones through.
+      There needs to
+    - be a system to ensure justice for victims of abuse without getting drowned out
+      in the noise of false claims.
+  counterargument:
+    decisive_counterargument: The claim that “there are worse problems than false
+      allegations” does not justify neglecting or minimizing them. Simply pointing
+      out that other issues exist does not establish that false allegations are less
+      important or that they should be ignored. The target’s comparison merely shifts
+      focus without evidence that the other problems outweigh the harm caused by false
+      claims. This is an attempt to dismiss the significance of false allegations
+      by citing a supposedly greater problem, which is a classic Appeal to Worse Problems
+      fallacy.
+    candidate: Appeal to Worse Problems
+    challenged_inference: False allegations are less concerning because there are
+      worse problems.
+    label_justification: The objection targets the reasoning step where the argument
+      reduces the importance of false allegations by claiming other issues are worse,
+      which is precisely the defining feature of an Appeal to Worse Problems.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There are worse problems then a false allegations, and its true allegations
+      that are never seen. There needs to be effort to see the true ones through.
+      There needs to
+    - be a system to ensure justice for victims of abuse without getting drowned out
+      in the noise of false claims.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target contains no explicit statement that false allegations
+    are less important or should be neglected because other problems are worse. It
+    instead urges focus on unseen true allegations and justice without dismissing
+    the relevance of false claims. Thus the appeal‑to‑worse‑problems structure is
+    not present.
+  decision_reason: The target does not contain the required pattern of de‑prioritizing
+    false allegations by citing other, supposedly worse, problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There are worse problems then a false allegations, and its true allegations that
+    are never seen. There needs to be effort to see the true ones through. There needs
+    to
+  - be a system to ensure justice for victims of abuse without getting drowned out
+    in the noise of false claims.
+  verified: false
+  rejection_reason: The target does not contain the required pattern of de‑prioritizing
+    false allegations by citing other, supposedly worse, problems.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4466
+  completion_tokens: 3259
+  total_tokens: 7725
+  wall_time_seconds: 166.59299999999348

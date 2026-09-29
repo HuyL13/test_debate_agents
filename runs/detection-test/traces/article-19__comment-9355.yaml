@@ -1,0 +1,169 @@
+sample:
+  id: 19:9355
+  article_id: 19
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: ''
+  target: Any government that tries to make it harder for journalists to do their
+    job is not to be trusted. There is no good reason for it. The people of new guinea
+    need to stop this in its tracks. If they let the government make it harder for
+    jounalists, they will eventually try to make it like China and then the people
+    won't be informed about anything.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: If they let the government make it harder for journalists, they will eventually
+        try to make it like China, and then the people won't be informed about anything.
+    - role: intermediate_consequence
+      text: They will eventually try to make it like China
+    - role: final_consequence
+      text: The people won't be informed about anything
+    - role: evaluative_conclusion
+      text: (none)
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - guinea need to stop this in its tracks. If they let the government make it harder
+      for jounalists, they will eventually try to make it like China and then the
+    - people won't be informed about anything.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Governments that attempt to restrict journalists are untrustworthy
+      and dangerous; the people should stop such measures immediately.
+    candidate: Slippery Slope
+    supporting_reason: If the people let the government make it harder for journalists,
+      the government will eventually turn its policies into a China‑style model that
+      denies people information.
+    support_relation: The reason predicts a sequence of escalating negative effects
+      (restriction → authoritarian control → information blackout) to justify distrust
+      of the government.
+    label_justification: 'The argument employs a slippery slope appeal: it states
+      that allowing any step toward restricting journalists will inevitably lead to
+      extreme censorship and information suppression, a claim that is not grounded
+      in evidence or logical progression.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - guinea need to stop this in its tracks. If they let the government make it harder
+      for jounalists, they will eventually try to make it like China and then the
+    - people won't be informed about anything.
+  counterargument:
+    decisive_counterargument: The argument assumes that a single step—allowing the
+      government to make it more difficult for journalists to do their job—will inevitably
+      lead to a China‑style authoritarian regime that suppresses information, without
+      providing any evidence of a causal link or intermediate steps. This unfounded
+      leap from the initial action to an extreme outcome is a classic slippery‑slope
+      fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: If they let the government make it harder for journalists,
+      they will eventually try to make it like China and then the people won't be
+      informed about anything.
+    label_justification: The counterargument specifically identifies the unsupported
+      causal escalation from restricted journalism to an authoritarian outcome, demonstrating
+      a clear slippery‑slope reasoning failure. The candidate “Appeal to Authority”
+      is not relevant here; the flaw is in the structure of the claim, not an appeal
+      to a particular authority. Thus the correct label is Slippery Slope.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - guinea need to stop this in its tracks. If they let the government make it harder
+      for jounalists, they will eventually try to make it like China and then the
+    - people won't be informed about anything.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: slippery_slope
+    loser_failure: The argument does not invoke any authority figure or expert; it
+      is based solely on a causal claim that restricting journalists will lead to
+      a China‑style regime and then to full information suppression. Because appeal
+      to authority requires an unwarranted authority claim, it is not directly supported
+      by the TARGET. In contrast, the TARGET explicitly presents a chain of worsening
+      consequences—initial restriction, transition to authoritarian control, outcome
+      of lack of information—which satisfies the mandatory structural conditions of
+      a slippery slope. Therefore Slippery Slope is the correct classification.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - guinea need to stop this in its tracks. If they let the government make it harder
+      for jounalists, they will eventually try to make it like China and then the
+    - people won't be informed about anything.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: TARGET contains a multi-step causal chain (initial restriction
+    on journalists → eventual China‑style censorship → complete lack of information),
+    satisfying the structural requirements for a slippery slope, yet it offers no
+    supporting evidence, making it a fallacious inference.
+  decision_reason: The target statement presents a clear slippery slope claim that
+    any governmental attempt to curb journalists will inevitably lead to extreme authoritarian
+    control and total informational blackout, meeting the mandatory structural condition.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - guinea need to stop this in its tracks. If they let the government make it harder
+    for jounalists, they will eventually try to make it like China and then the
+  - people won't be informed about anything.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6181
+  completion_tokens: 3315
+  total_tokens: 9496
+  wall_time_seconds: 98.68699999997625

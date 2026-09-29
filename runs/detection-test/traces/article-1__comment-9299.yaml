@@ -1,0 +1,134 @@
+sample:
+  id: 1:9299
+  article_id: 1
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: The problem with communists government is they always try to tell their
+    own story.  The only way they have been able to stay in power is through fear.  Fear
+    that any challenge to their power will result in more death.  The souls of 202
+    people being lost is sad, but so is the loss of freedom.   This tradition should
+    remain alive, as should the tradition of questioning the truth of what happened
+    on June 4.
+  target: It seems that their narrative is working for outside observers as well.
+    You stated 202 lost but it is very likely the number was in the thousands. It
+    is important that the push for truth and transparency continues.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that their narrative is working for outside observers as well. You
+      stated 202 lost but it is very likely the number was in the thousands. It is
+      important
+    - that the push for truth and transparency continues.
+    candidate: null
+  goal:
+    conclusion_or_goal: It is important that the push for truth and transparency continues.
+    candidate: null
+    supporting_reason: The claim that the narrative (202 lost) is misleading and that
+      the actual number was likely in the thousands.
+    support_relation: The observed discrepancy between the stated casualty figure
+      and the probable true figure is used to argue that continuing efforts for truth
+      and transparency are necessary.
+    label_justification: The target explicitly states a conclusion (the push for truth
+      continues) and provides a reason (the narrative underreports losses), without
+      employing any logical fallacy. Therefore no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that their narrative is working for outside observers as well. You
+      stated 202 lost but it is very likely the number was in the thousands. It is
+      important
+    - that the push for truth and transparency continues.
+  counterargument:
+    decisive_counterargument: The claim that the death toll was ‘very likely in the
+      thousands’ is made without any supporting data; it is purely speculative.  Because
+      there is no evidence for this higher figure, the argument relies on the absence
+      of a known exact number to justify a specific conclusion, which is an improper
+      use of ignorance to support the case.
+    candidate: Appeal to Authority
+    challenged_inference: If the deaths were actually in the thousands, then the story
+      is working for outside observers and the push for truth is justified.
+    label_justification: The objection targets the argument’s leap from having no
+      firm evidence to claiming a higher death toll, which is an appeal to ignorance—concluding
+      a fact (thousands of deaths) based on the lack of contrary evidence. This defensive
+      claim exposes the logical failure rather than merely criticizing the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems that their narrative is working for outside observers as well. You
+      stated 202 lost but it is very likely the number was in the thousands. It is
+      important
+    - that the push for truth and transparency continues.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The surviving candidate claims an Appeal to Authority, but the
+    target argument does not invoke any authority or expert testimony to support its
+    conclusion. Instead, the argument relies on an unsubstantiated assertion that
+    the death toll was “very likely in the thousands.” This is an instance of an argument
+    from ignorance, not an appeal to authority. Since the candidate’s fallacy type
+    is incorrect, no fallacy is identified. The target reasoning is merely speculative
+    without evidence, so the criteria for a fallacious inference are not met.
+  decision_reason: No fallacy is present in the target statement because it does not
+    exhibit the structure of the stated candidate (Appeal to Authority). It merely
+    presents an unsupported claim (appeal to ignorance), and the arguers fail to provide
+    any justification. Thus the argument does not meet the criteria for a logical
+    fallacy as classified in the surviving candidate set.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems that their narrative is working for outside observers as well. You stated
+    202 lost but it is very likely the number was in the thousands. It is important
+  - that the push for truth and transparency continues.
+  verified: false
+  rejection_reason: No fallacy is present in the target statement because it does
+    not exhibit the structure of the stated candidate (Appeal to Authority). It merely
+    presents an unsupported claim (appeal to ignorance), and the arguers fail to provide
+    any justification. Thus the argument does not meet the criteria for a logical
+    fallacy as classified in the surviving candidate set.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4304
+  completion_tokens: 3524
+  total_tokens: 7828
+  wall_time_seconds: 118.54700000002049

@@ -1,0 +1,151 @@
+sample:
+  id: 335:7002
+  article_id: 335
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: At this point, why bother? China is stronger than ever and the people in
+    charge have complete control over the people. They won this battle. They think
+    having everyone forget or not even find out about 1989 is best, so that's what
+    is gonna happen. Is there anyone who really thinks that after 30 years, the authorities
+    in China will lose or change their minds/
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: China is stronger than ever and the people in charge have complete control
+        over the people. They won this battle.
+    - role: observed_property
+      text: They think having everyone forget or not even find out about 1989 is best.
+    - role: target_population
+      text: after 30 years, the authorities in China will lose or change their minds.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+    - lose or change their minds/
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: It is futile to bother raising the issue of the 1989 Tiananmen
+      Massacre or engaging in activism against the Chinese authorities.
+    candidate: null
+    supporting_reason: China's current strength, the authorities' complete control
+      over the population, and their intent that everyone forget or not even find
+      out about 1989.
+    support_relation: The reason is used to establish the conclusion that activism
+      or advocacy is pointless, implying that the political reality makes such efforts
+      ineffective.
+    label_justification: The argument does not employ a recognized fallacy; it presents
+      a historical/political observation as justification for the conclusion, thereby
+      legitimately supporting the conclusion even though it may be debatable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+  counterargument:
+    decisive_counterargument: Claiming that China’s current strength guarantees that,
+      in 30 years, its authorities will not change or allow memory of 1989 simply
+      extrapolates from a single snapshot of the present political situation. Over
+      three decades, political, social, and economic dynamics can shift dramatically—new
+      generations of leaders may emerge, domestic pressure for openness could rise,
+      or international norms might influence domestic policy. Thus the conclusion
+      is drawn from an inadequate sample and therefore rests on an over‑broad generalization.
+    candidate: Hasty Generalization
+    challenged_inference: That China’s current power and control mean the authorities
+      will never change or recall 1989 even after 30 years.
+    label_justification: The objection demonstrates that the argument generalizes
+      from the present regime’s strength to all future possibilities without sufficient
+      evidence, which is precisely the defining feature of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At this point, why bother? China is stronger than ever and the people in charge
+      have complete control over the people. They won this battle. They think having
+      everyone forget
+    - or not even find out about 1989 is best, so that's what is gonna happen. Is
+      there anyone who really thinks that after 30 years, the authorities in China
+      will
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument extrapolates a single snapshot of China’s current
+    power and control (the sample) to a definitive statement about the state of its
+    authorities in 30 years, thereby generalizing from one case to a broader future
+    population without sufficient evidence. This meets the structural requirement
+    of a hasty generalization.
+  decision_reason: The target claims that because China ‘is stronger than ever’ and
+    its leaders ‘won this battle’, it follows that in 30 years the authorities will
+    never change or recall 1989. This inference takes the present situation as a sample
+    and extends it to a broad claim about the entire future regime, which is a classic
+    over‑generalization from an inadequate sample. The evidence supporting both the
+    sample (“China is stronger than ever…They won this battle”) and the conclusion
+    (“after 30 years the authorities will lose or change their minds”) is provided
+    in passages T1, T2, and T3. No additional fallacy types or justification sources
+    are invoked, so the claim is properly identified as a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - At this point, why bother? China is stronger than ever and the people in charge
+    have complete control over the people. They won this battle. They think having
+    everyone forget
+  - or not even find out about 1989 is best, so that's what is gonna happen. Is there
+    anyone who really thinks that after 30 years, the authorities in China will
+  - lose or change their minds/
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4589
+  completion_tokens: 3957
+  total_tokens: 8546
+  wall_time_seconds: 158.0

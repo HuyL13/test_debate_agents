@@ -1,0 +1,111 @@
+sample:
+  id: 416:10546
+  article_id: 416
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: The students should have been allowed to peacefully protest.  They are optimistic
+    young people who care about their future. The government needs to initiate a dialogue
+    rather than resort to violence.  Peaceful negotiation is key.  These young people
+    will be the future of Hong Kong one day.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The students should have been allowed to peacefully protest.  They are optimistic
+      young people who care about their future. The government needs to initiate a
+      dialogue rather than resort to
+    - violence.  Peaceful negotiation is key.  These young people will be the future
+      of Hong Kong one day.
+    candidate: null
+  goal:
+    conclusion_or_goal: The students should have been allowed to peacefully protest.
+    candidate: null
+    supporting_reason: They are optimistic young people who care about their future
+      and will be the future of Hong Kong.
+    support_relation: provides justification for
+    label_justification: The argument uses an emotional appeal that the students’
+      optimism and concern for their future justify peaceful protest. This falls under
+      no formal fallacy in the given list, so no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The students should have been allowed to peacefully protest.  They are optimistic
+      young people who care about their future. The government needs to initiate a
+      dialogue rather than resort to
+    - violence.  Peaceful negotiation is key.  These young people will be the future
+      of Hong Kong one day.
+  counterargument:
+    decisive_counterargument: The claim that students ought to be allowed to protest
+      simply because they are optimistic young people who care about their future
+      lacks any logical link between the premise and the conclusion. Optimism and
+      care for the future do not automatically confer a right to protest, nor do they
+      rule out other legitimate reasons for restricting or regulating protest activities.
+      Therefore, the inference from the stated premises to the conclusion is unsupported
+      and violates the basic requirement that a conclusion must follow from its premises.
+    candidate: Appeal to Nature
+    challenged_inference: Students should have been allowed to peacefully protest
+      because they are optimistic and care about their future.
+    label_justification: The objection demonstrates a failure of logical coherence,
+      showing the conclusion does not logically stem from the premises. Since no fallacy
+      in the provided list directly captures this defect, the label is set to null.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The students should have been allowed to peacefully protest.  They are optimistic
+      young people who care about their future. The government needs to initiate a
+      dialogue rather than resort to
+    - violence.  Peaceful negotiation is key.  These young people will be the future
+      of Hong Kong one day.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2790
+  completion_tokens: 3109
+  total_tokens: 5899
+  wall_time_seconds: 60.60899999999674

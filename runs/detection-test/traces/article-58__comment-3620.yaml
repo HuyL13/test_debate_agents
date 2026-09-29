@@ -1,0 +1,105 @@
+sample:
+  id: 58:3620
+  article_id: 58
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: There hasn't been a big issue so far that people know about. The trials
+    hold little risk. We can't discount the possibility.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There hasn't been a big issue so far that people know about. The trials hold
+      little risk. We can't discount the possibility.
+    candidate: null
+  goal:
+    conclusion_or_goal: The trials are of little risk and no major issue has yet emerged.
+    candidate: null
+    supporting_reason: The trials hold little risk.
+    support_relation: This statement is used to justify the claim that there is currently
+      no significant problem arising from the trials.
+    label_justification: No fallacy is found; the reason merely supports the claim
+      without using a misleading or invalid form of argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There hasn't been a big issue so far that people know about. The trials hold
+      little risk. We can't discount the possibility.
+  counterargument:
+    decisive_counterargument: The absence of reported large‑scale problems in the
+      early stages of a clinical trial does not prove that the trials pose little
+      risk. Early observations may be based on a limited number of participants, a
+      short follow‑up period, or under‑reporting. Without comprehensive data, concluding
+      low risk is premature.
+    candidate: Hasty Generalization
+    challenged_inference: No big issues have occurred so far → trials hold little
+      risk.
+    label_justification: The inference generalizes from the specific sample of currently
+      observed outcomes (none) to a broad claim about overall risk. This falls under
+      the Hasty Generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There hasn't been a big issue so far that people know about. The trials hold
+      little risk. We can't discount the possibility.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a generalized claim that the trials hold little
+    risk based on the limited observation that no big issues have emerged so far,
+    which satisfies the structure of a hasty generalization (specific sample → broad
+    conclusion).
+  decision_reason: The inference ‘No big issues have occurred so far → trials hold
+    little risk’ generalizes from a specific sample of early observations to a universal
+    claim about overall risk, matching the definition of a hasty generalization. Evidenced
+    by passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There hasn't been a big issue so far that people know about. The trials hold little
+    risk. We can't discount the possibility.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3663
+  completion_tokens: 2211
+  total_tokens: 5874
+  wall_time_seconds: 182.625

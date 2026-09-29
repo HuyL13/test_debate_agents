@@ -1,0 +1,159 @@
+sample:
+  id: 515:8141
+  article_id: 515
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: If you lose an election and refuse to step aside you should not be able
+    to do there. There must be legal avenues to argue the validity of a election.
+    If the losing party does not need to step down then every elected official could
+    choose to do that and there would be chaos.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you lose an election and refuse to step aside you should not be able to do
+      there. There must be legal avenues to argue the validity of a election.
+    - If the losing party does not need to step down then every elected official could
+      choose to do that and there would be chaos.
+    candidate: null
+  goal:
+    conclusion_or_goal: That a candidate who loses an election must step down to prevent
+      chaos
+    candidate: Hasty Generalization
+    supporting_reason: If the losing party does not step down, every elected official
+      could choose to do that and there would be chaos
+    support_relation: The argument uses this causal claim to justify that all officials
+      will refuse to step down unless legal avenues succeed, thereby supporting the
+      conclusion that the losing party must resign
+    label_justification: The reasoning leaps from the possibility of one losing party
+      refusing to step down to the universal claim that every official would then
+      also refuse, an unsupported generalization characteristic of a hasty generalization
+      fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - If the losing party does not need to step down then every elected official could
+      choose to do that and there would be chaos.
+  counterargument:
+    decisive_counterargument: The argument assumes that a losing official’s refusal
+      to relinquish office automatically leads to national chaos, yet it offers no
+      evidence that such a refusal would provoke widespread disorder or that there
+      are no institutional safeguards (e.g., courts, electoral commissions, or peaceful
+      protest) to manage contested outcomes. Without demonstrating intermediate steps
+      or likelihood, the claim is an unsupported leap to catastrophic consequences.
+    candidate: Slippery Slope
+    challenged_inference: Refusal to step down inevitably results in chaos.
+    label_justification: 'The target’s reasoning presents a classic slippery‑slope
+      fallacy: it connects an initial act (refusing to step down) with an extreme,
+      inevitable outcome (chaos) without showing a realistic causal chain. This fallacy
+      is exposed because the inference relies on an unsubstantiated progression from
+      a single event to widespread disorder.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - If the losing party does not need to step down then every elected official could
+      choose to do that and there would be chaos.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The argument assumes that if a single losing party refuses to step
+      down, then automatically every elected official would also refuse and chaos
+      would ensue. This leap from one specific scenario to a universal claim about
+      all officials lacks supporting evidence, fitting the definition of a hasty generalization.
+      The stepwise escalation required for a slippery slope is absent, as the argument
+      presents only a single causal link (refusal → chaos) rather than a chain of
+      increasingly severe outcomes.
+    loser_failure: The claim does not demonstrate a progressive series of consequences,
+      nor does it illustrate intermediate steps leading to chaos; it merely states
+      that refusal will directly result in disorder. Without this progression, it
+      does not meet the structural criteria for a slippery slope fallacy. Hence the
+      argument better matches a hasty generalization.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - If the losing party does not need to step down then every elected official could
+      choose to do that and there would be chaos.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument infers that if one losing party refuses to step
+    down, then all elected officials would also refuse, a broad claim based on a single
+    case, which satisfies the structure of a hasty generalization.
+  decision_reason: The passage from ID T2 states that “every elected official could
+    choose to do that” following a single instance of one party not stepping down,
+    thereby generalizing from a limited sample to all officials, a classic hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - If the losing party does not need to step down then every elected official could
+    choose to do that and there would be chaos.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5391
+  completion_tokens: 4263
+  total_tokens: 9654
+  wall_time_seconds: 84.28100000001723

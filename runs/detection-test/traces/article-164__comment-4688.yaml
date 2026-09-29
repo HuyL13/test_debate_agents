@@ -1,0 +1,105 @@
+sample:
+  id: 164:4688
+  article_id: 164
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: Travel to Africa should be avoided if possible. Africa is such a vast place
+    yet Ebola is concentrated there. We should not bring any instances of this disease
+    back to our country.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+    - our country.
+    candidate: null
+  goal:
+    conclusion_or_goal: Travel to Africa should be avoided if possible.
+    candidate: null
+    supporting_reason: Ebola is concentrated in Africa, so traveling could bring the
+      disease back
+    support_relation: provides justification for avoiding travel
+    label_justification: The reasoning directly supports the conclusion with a relevant
+      risk claim, not a logical fallacy. The argument is a plausible, non-fallacious
+      cause‑effect statement.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+  counterargument:
+    decisive_counterargument: Ebola outbreaks are highly localized to a few regions
+      (e.g., parts of the DRC), while most African countries have no cases and safe
+      travel can be conducted with usual precautions. Therefore the claim that all
+      travel to Africa must be avoided is an over-generalization based on insufficient
+      evidence.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that Ebola’s presence in Africa warrants avoiding
+      all travel to the continent assumes that the disease’s concentration in a few
+      areas means all African travel is unsafe.
+    label_justification: The counterargument directly undermines the argument’s blanket
+      claim by showing that the evidence for Ebola is limited to specific locales,
+      thereby exposing the fallacy of drawing a broad conclusion (all travel should
+      be avoided) from a narrow sample (a few outbreak sites). This is precisely the
+      defining failure of the Hasty Generalization reasoning pattern.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Travel to Africa should be avoided if possible. Africa is such a vast place
+      yet Ebola is concentrated there. We should not bring any instances of this disease
+      back to
+    - our country.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2652
+  completion_tokens: 2670
+  total_tokens: 5322
+  wall_time_seconds: 118.875

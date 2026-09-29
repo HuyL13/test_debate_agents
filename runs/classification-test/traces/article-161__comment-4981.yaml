@@ -1,0 +1,125 @@
+sample:
+  id: 161:4981
+  article_id: 161
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: If the refugees get expelled, there will be issues. First it's muslims,
+    later others. We can't tolerate religious bias which puts some people at a disadvantage
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: refugees get expelled
+    - role: intermediate_consequence
+      text: issues – first muslims, later others
+    - role: final_consequence
+      text: religious bias puts some people at a disadvantage
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: It predicts that expelling refugees will cause problems, first
+      for Muslims and later for other groups.
+    candidate: null
+    supporting_reason: The argument states a conditional outcome—if refugees are expelled,
+      issues will arise because of religious bias disadvantaging some people.
+    support_relation: supports the predicted poor outcome for disadvantaged religious
+      groups.
+    label_justification: The target makes an unsubstantiated conditional claim but
+      does not exhibit a recognized fallacious structure such as a slippery slope,
+      hasty generalization, appeal to authority, or other listed fallacies. Therefore
+      no fallacy label applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+  counterargument:
+    decisive_counterargument: The inference that expelling refugees will inevitably
+      create a series of religious biases—first against Muslims and later against
+      other groups—is an unstated causal claim that is not supported by any evidence
+      in the passage. Without evidence linking refugee expulsions to subsequent discrimination,
+      the conclusion relies solely on an assumed causal chain.
+    candidate: Slippery Slope
+    challenged_inference: If refugees are expelled, religious bias will arise, first
+      targeting Muslims and later other groups, disadvantaging certain people.
+    label_justification: The objection targets the reasoning that an initial act (expelling
+      refugees) automatically leads to a chain of adverse consequences (religious
+      bias affecting multiple groups). This fits the definition of a slippery-slope
+      argument—an unjustified claim that a single action will inevitably result in
+      a series of escalating negative outcomes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target asserts that expelling refugees will inevitably lead
+    to a sequence of negative outcomes—first affecting Muslims, then other groups—presenting
+    an implicit causal chain without supporting evidence, which satisfies the structure
+    of a slippery‑slope argument.
+  decision_reason: The argument claims that a single action (expelling refugees) will
+    trigger a series of escalating adverse consequences (religious bias against Muslims
+    and then other groups) without evidence, fitting the definition of a slippery‑slope
+    fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If the refugees get expelled, there will be issues. First it's muslims, later
+    others. We can't tolerate religious bias which puts some people at a disadvantage
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3920
+  completion_tokens: 3364
+  total_tokens: 7284
+  wall_time_seconds: 230.7039999999979

@@ -1,0 +1,184 @@
+sample:
+  id: 429:6685
+  article_id: 429
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: Obviously this would negatively impact the vast majority of politically
+    active citizens while only helping the politicians. This should have been withdrawn
+    and it never should be introduced again.  You would have a hard time finding a
+    citizen okay with this, but I'm sure there are a few of the couple hundred politicians
+    who are. Citizens outnumber them by a mile.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: citizens
+    - role: popularity_claim
+      text: You would have a hard time finding a citizen okay with this, but I'm sure
+        there are a few of the couple hundred politicians who are.
+    - role: target_claim
+      text: This should have been withdrawn and it never should be introduced again.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: This policy should be withdrawn and never introduced again.
+    candidate: null
+    supporting_reason: It would negatively impact the vast majority of politically
+      active citizens while only helping politicians.
+    support_relation: The reason is used to argue that the policy should be stopped
+      because it harms citizens more than it benefits politicians.
+    label_justification: The reasoning is directly used to support the conclusion;
+      no logical fallacy is apparent.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+  counterargument:
+    decisive_counterargument: The argument that the proposed measure would ‘negatively
+      impact the vast majority of politically active citizens while only helping politicians’
+      is a sweeping claim that rests on no supporting evidence—it simply assumes that
+      most citizens would oppose it and that a small minority of politicians would
+      support it.  Without data showing a large portion of citizens would be harmed,
+      the claim is an unjustified generalization.  Moreover, the proposal could in
+      fact protect ordinary citizens from misinformation, so its purported negative
+      effect on the majority is not a necessary outcome.
+    candidate: Hasty Generalization
+    challenged_inference: That the measure would harm the vast majority of politically
+      active citizens while only aiding a small group of politicians
+    label_justification: The inference is based on an unsubstantiated, blanket claim
+      that a large population is harmed, without any evidence or sampling; therefore
+      it exemplifies a hasty generalization, where a broad conclusion is drawn from
+      insufficient information.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: /eligible_clauses
+    loser_failure: The Target does not present a specific sample or limited observational
+      data from which a broad generalization is drawn; instead it asserts that a ‘vast
+      majority’ of politically active citizens would be negatively impacted and uses
+      that popularity claim to argue against the proposal. That matches the mandatory
+      structural condition for Appeal to Majority (use of a majority/popularity statement
+      to justify a conclusion), whereas Hasty Generalization requires a claim derived
+      from an insufficient or non‑representative sample—not present here.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target explicitly states that the measure would negatively
+    affect the majority of politically active citizens and that the populace is largely
+    opposed (“You would have a hard time finding a citizen okay with this”). This
+    majority’s lack of support is then used to argue that the measure should be withdrawn.
+    This structure matches an appeal to majority fallacy: using the population’s approval
+    (or disapproval) to justify a claim. The supplied evidence T1 and T2 support the
+    existence of this majority claim and the consequent recommendation.'
+  decision_reason: Appeal to Majority
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Obviously this would negatively impact the vast majority of politically active
+    citizens while only helping the politicians. This should have been withdrawn and
+    it never should be introduced again.  You
+  - would have a hard time finding a citizen okay with this, but I'm sure there are
+    a few of the couple hundred politicians who are. Citizens outnumber them by a
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5701
+  completion_tokens: 4392
+  total_tokens: 10093
+  wall_time_seconds: 138.53100000001723

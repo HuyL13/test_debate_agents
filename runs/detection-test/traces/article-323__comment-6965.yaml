@@ -1,0 +1,114 @@
+sample:
+  id: 323:6965
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: People will try to preserve their tradition. So shona as a natural online
+    language may or may not work. It certainly won't go global, but might suffice
+    for local use.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will try to preserve their tradition. So shona as a natural online language
+      may or may not work. It certainly won't go global, but might suffice for local
+      use.
+    candidate: null
+  goal:
+    conclusion_or_goal: Shona will not go global but may suffice for local use.
+    candidate: null
+    supporting_reason: People will try to preserve their tradition.
+    support_relation: The stated reason is employed to justify the prediction about
+      Shona’s limited global uptake.
+    label_justification: The argument simply cites the tendency to preserve tradition
+      as an explanatory factor for expected language use; it does not commit a recognized
+      fallacy such as Appeal to Tradition or any other listed fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will try to preserve their tradition. So shona as a natural online language
+      may or may not work. It certainly won't go global, but might suffice for local
+      use.
+  counterargument:
+    decisive_counterargument: The desire to preserve a tradition does not logically
+      prevent an eastern language from gaining wide usage online; many languages that
+      are steeped in tradition have become global or at least widespread digital communities.
+    candidate: Appeal to Tradition
+    challenged_inference: People will try to preserve their tradition. So shona as
+      a natural online language may or may not work. It certainly won't go global,
+      but might suffice for local use.
+    label_justification: The argument treats the existence of a tradition as a reason
+      to assume limited global viability, thereby appealing to the value or persistence
+      of tradition as a justification for the conclusion without establishing a causal
+      relationship.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will try to preserve their tradition. So shona as a natural online language
+      may or may not work. It certainly won't go global, but might suffice for local
+      use.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The argument uses the existence of a tradition—“people will
+    try to preserve their tradition”—as a basis for concluding that Shona as a natural
+    online language may not achieve global reach, implying that tradition itself is
+    a reason for its limited viability. This satisfies the structural requirement
+    for an Appeal to Tradition: a tradition is treated as a justification for a conclusion
+    without establishing a causal relationship.'
+  decision_reason: The target statement rests on the premise that preserving tradition
+    inherently constrains global adoption of Shona online, which is a classic appeal
+    to tradition fallacy. The premise does not provide any causal link between tradition
+    and global viability, merely implying it from tradition alone.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - People will try to preserve their tradition. So shona as a natural online language
+    may or may not work. It certainly won't go global, but might suffice for local
+    use.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3776
+  completion_tokens: 3225
+  total_tokens: 7001
+  wall_time_seconds: 145.06200000000536

@@ -1,0 +1,185 @@
+sample:
+  id: 208:5421
+  article_id: 208
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: I like the fact that the artist is able to take both the good and bad from
+    her homelands history and turn it into beautiful and meaningful artwork. I think
+    this is a way to engage the audience in a way that will be profound. I think that
+    we can all agree that art can help us confront and heal from our past.
+  target: 'Why focus on the traumatic past of colonial times with your art? You could
+    make an actual difference if you used your art to bring attention to important
+    issues of today! I''m sure your home country is still not in great shape after
+    all! Like Banksy, for instance: He uses art to wake people up to modern issues
+    like war and economic problems!'
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots:
+    - role: focal_issue
+      text: traumatic past of colonial times
+    - role: worse_issue
+      text: important issues of today, such as war and economic problems
+    - role: deprioritizing_conclusion
+      text: art should focus on contemporary issues instead of the colonial past
+    structure_complete: true
+    structure_type: worse_problem_to_deprioritization
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+    - and economic problems!
+    candidate: Appeal to Worse Problems
+  goal:
+    candidate: Appeal to Authority
+    conclusion_or_goal: The artist should shift their focus from colonial past to
+      contemporary issues.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    label_justification: The argument appeals to the authority of a well‑known artist
+      to validate its claim rather than presenting independent evidence, which typifies
+      an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+    support_relation: The cited example is intended to justify the recommendation
+      that the artist prioritize present‑day concerns.
+    supporting_reason: It cites Banksy—an influential contemporary artist—as a model
+      whose work successfully addresses modern problems such as war and economic issues,
+      using this example to support the recommendation.
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+    - and economic problems!
+  counterargument:
+    candidate: Appeal to Authority
+    challenged_inference: The argument that focusing on the present—like Banksy does—makes
+      an artist’s work more impactful than addressing colonial trauma.
+    decisive_counterargument: The effectiveness of art is not determined solely by
+      whether it addresses contemporary topics; addressing historical trauma can illuminate
+      the roots of present injustices, foster collective healing, and mobilize communities
+      in ways contemporary issues alone may not. Banksy is merely one example; many
+      artists who explore colonial history engage audiences powerfully and influence
+      current social change.
+    evidence_ids:
+    - T2
+    failure_exposed: true
+    label_justification: The target relies on citing Banksy, a well-known activist
+      artist, to imply that art should address modern issues. This use of an authority
+      figure’s practice to justify the claim that contemporary focus is inherently
+      better constitutes an Appeal to Authority fallacy.
+    evidence_spans:
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-worse-problems
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-worse-problems
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Worse Problems
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: Appeal to Authority fails because the argument’s structure centers
+      on de‑prioritizing the colonial past by citing the greater seriousness of modern
+      issues, rather than using the authority of Banksy to justify a claim; the authority
+      reference merely supports that shift but does not provide the necessary justification
+      for the premise.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why focus on the traumatic past of colonial times with your art? You could make
+      an actual difference if you used your art to bring attention to important issues
+      of
+    - 'today! I''m sure your home country is still not in great shape after all! Like
+      Banksy, for instance: He uses art to wake people up to modern issues like war'
+    - and economic problems!
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target states that because there are more pressing contemporary
+    issues (war and economic problems), the focus on the colonial past is less worthwhile.
+    This fits the definition of an Appeal to Worse Problems, where a current problem
+    is presented as worse to de-prioritise a prior problem.
+  decision_reason: The target argues that by focusing on the traumatic past of colonial
+    times, the artist neglects more pressing issues of today, thereby presenting the
+    newer issues as worse and making the former less worthy of attention. This is
+    a classic Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Why focus on the traumatic past of colonial times with your art? You could make
+    an actual difference if you used your art to bring attention to important issues
+    of
+  - 'today! I''m sure your home country is still not in great shape after all! Like
+    Banksy, for instance: He uses art to wake people up to modern issues like war'
+  - and economic problems!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 2
+  cache_hits: 3
+  retries: 0
+  prompt_tokens: 6270
+  completion_tokens: 4402
+  total_tokens: 10672
+  wall_time_seconds: 25.54700000002049

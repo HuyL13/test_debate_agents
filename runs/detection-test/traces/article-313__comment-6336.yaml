@@ -1,0 +1,112 @@
+sample:
+  id: 313:6336
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: People will naturally protest injustice. The students have every reason
+    to. The death of their fellow student is major.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+    candidate: null
+  goal:
+    conclusion_or_goal: People will naturally protest injustice.
+    candidate: null
+    supporting_reason: The students have every reason to.
+    support_relation: supports
+    label_justification: No fallacy detected; the reason legitimately supports the
+      conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+  counterargument:
+    decisive_counterargument: The claim that *students will protest because people
+      naturally protest injustice* rests on the unverifiable universal premise “people
+      will naturally protest injustice.”  This premise is an over‑generalization taken
+      from the sample text without supporting evidence, and it leaps from a broad
+      claim about human behavior to a specific event involving the students.  Such
+      a sweeping assertion that all people will react in a particular way simply because
+      “natural” is a clear example of a hasty generalization—assuming the rule applies
+      to the specific situation without demonstrating that it does.
+    candidate: Hasty Generalization
+    challenged_inference: People will naturally protest injustice.  The students have
+      every reason to.  The death of their fellow student is major.
+    label_justification: The objection points out that the inference uses an unjustified
+      generalization about all people (“people will naturally protest injustice”)
+      to conclude that this specific group will engage in that behavior.  No other
+      fallacy type fits the structure better, so the label ‘Hasty Generalization’
+      correctly captures the failure exposed.  The inference is protected by the over‑generalized
+      premise, which itself is unsubstantiated.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target sentence does not provide an explicit sample or case
+    from which a broader claim is drawn; rather it merely states a universal assertion
+    (“People will naturally protest injustice”). Because a hasty generalization requires
+    an inference from a specific example to a sweeping conclusion, the structural
+    condition for this fallacy is not met, so the claim cannot be classified as a
+    hasty generalization.
+  decision_reason: The target lacks the necessary explicit sample or inference needed
+    for a hasty generalization, so the fallacy is not present.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - People will naturally protest injustice. The students have every reason to. The
+    death of their fellow student is major.
+  verified: false
+  rejection_reason: The target lacks the necessary explicit sample or inference needed
+    for a hasty generalization, so the fallacy is not present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3740
+  completion_tokens: 3797
+  total_tokens: 7537
+  wall_time_seconds: 256.125

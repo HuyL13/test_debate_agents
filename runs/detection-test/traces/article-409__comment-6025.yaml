@@ -1,0 +1,170 @@
+sample:
+  id: 409:6025
+  article_id: 409
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: Completely!  Music and art are used as a mirror to society echoing the reality
+    that many live in and see. It's merely bringing a spotlight to it so it can be
+    more known.  It does seem like an easy scapegoat, but turning a blind eye to the
+    root cause doesn't solve anything. If we want to see a change in the lyrics, the
+    society needs to change first. Poverty, racial inequality, crime rates, and for
+    Jamaica, femicide should all be what we focus on changing.The focus should be
+    on this societal issue and not a Beanie Man song.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: focusing on the Beanie Man song
+    - role: alternative_b
+      text: focusing on societal issues such as poverty, racial inequality, crime
+        rates, and femicide
+    - role: exhaustiveness_commitment
+      text: the focus should be on this societal issue and not a Beanie Man song
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - be more known.  It does seem like an easy scapegoat, but turning a blind eye
+      to the root cause doesn't solve anything. If we want to see a change in
+    - the lyrics, the society needs to change first. Poverty, racial inequality, crime
+      rates, and for Jamaica, femicide should all be what we focus on changing.The
+      focus should be on this
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The focus should be on addressing societal issues (poverty,
+      racial inequality, crime rates, femicide) rather than blaming a Beanie Man song.
+    candidate: null
+    supporting_reason: Music and art merely mirror society’s reality and are spotlighting
+      it; therefore they are not the cause of the problems, and blaming them is a
+      misdirected scapegoat.
+    support_relation: The reason that music is a reflection, not a cause, supports
+      the conclusion that efforts should be directed at root societal causes.
+    label_justification: The argument uses the fact that music mirrors reality to
+      logically shift focus from the song to systemic problems; this does not constitute
+      a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Completely!  Music and art are used as a mirror to society echoing the reality
+      that many live in and see. It's merely bringing a spotlight to it so it can
+    - be more known.  It does seem like an easy scapegoat, but turning a blind eye
+      to the root cause doesn't solve anything. If we want to see a change in
+    - the lyrics, the society needs to change first. Poverty, racial inequality, crime
+      rates, and for Jamaica, femicide should all be what we focus on changing.The
+      focus should be on this
+  counterargument:
+    decisive_counterargument: 'Target claims we must ignore the Beanie Man song because
+      other societal problems are worse, implying that focusing on one issue will
+      detract from addressing the others. This is a classic appeal to worse problems:
+      the existence of more severe problems is used to dismiss or minimize the importance
+      of a valid concern. You can simultaneously address the broader societal issues
+      and also critique the song’s harmful content; dismissing the song does not eliminate
+      the problem it raises.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: Because there are larger societal issues (poverty, racism,
+      crime, femicide) the song should be ignored and not considered.
+    label_justification: The objection shows that Target’s reasoning relies on the
+      presence of greater problems to negate the relevance of the smaller, but still
+      valid, issue. This is exactly what the Appeal to Worse Problems fallacy describes.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - the lyrics, the society needs to change first. Poverty, racial inequality, crime
+      rates, and for Jamaica, femicide should all be what we focus on changing.The
+      focus should be on this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Worse Problems
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Worse Problems
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: The argument states that because larger societal problems—poverty,
+      racial inequality, crime rates, and femicide—exist, the Beanie Man song should
+      be ignored and not considered a focus. This use of a more severe, overarching
+      issue to dismiss the relevance of a smaller, valid issue satisfies the mandatory
+      structural condition of an Appeal to Worse Problems.
+    loser_failure: The submission does not explicitly present an exclusive pair of
+      alternatives with a commitment that they exhaust all possibilities; it merely
+      notes that the focus should be on societal issues rather than the song, which
+      is not a clear false dilemma structure.
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - the lyrics, the society needs to change first. Poverty, racial inequality, crime
+      rates, and for Jamaica, femicide should all be what we focus on changing.The
+      focus should be on this
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: 'Target argues that because there are larger societal problems—poverty,
+    racial inequality, crime rates, and femicide—the Beanie Man song should be ignored
+    or de-emphasized, thus dismissing a valid concern by point‑ing to worse issues.
+    Evidence: T3.'
+  decision_reason: The target’s claim that the song is less important because larger
+    problems exist exemplifies an appeal to worse problems. The passage T3 provides
+    the required structure and content supporting this fallacy.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - the lyrics, the society needs to change first. Poverty, racial inequality, crime
+    rates, and for Jamaica, femicide should all be what we focus on changing.The focus
+    should be on this
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6331
+  completion_tokens: 4483
+  total_tokens: 10814
+  wall_time_seconds: 204.76499999995576

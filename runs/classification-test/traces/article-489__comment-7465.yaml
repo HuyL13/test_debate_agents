@@ -1,0 +1,150 @@
+sample:
+  id: 489:7465
+  article_id: 489
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: This situation is absolutely appalling. Swift action must be taken against
+    those in power before the entire society breaks down. Changes in law enforcement
+    and public punishments should be enacted quickly. It makes one wonder if it would
+    be preferable to completely abolish the law enforcement agencies and let everyone
+    fend for themselves.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This situation is absolutely appalling. Swift action must be taken against those
+      in power before the entire society breaks down. Changes in law enforcement and
+      public punishments should be enacted
+    - quickly. It makes one wonder if it would be preferable to completely abolish
+      the law enforcement agencies and let everyone fend for themselves.
+    candidate: null
+  goal:
+    conclusion_or_goal: Swift action must be taken against those in power before society
+      breaks down, and changes in law enforcement and public punishments should be
+      enacted quickly (possibly abolishing law enforcement agencies entirely).
+    candidate: null
+    supporting_reason: This situation is absolutely appalling.
+    support_relation: The emotional description of the situation is used as a reason
+      to justify the urgency of the proposed actions.
+    label_justification: The argument does not exhibit any of the specified logical
+      fallacies; it merely employs an emotional appeal to motivate the stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This situation is absolutely appalling. Swift action must be taken against those
+      in power before the entire society breaks down. Changes in law enforcement and
+      public punishments should be enacted
+  counterargument:
+    decisive_counterargument: The passage asserts that swift action against those
+      in power is essential to prevent societal breakdown and even suggests abolishing
+      law‑enforcement agencies as an alternative, yet it offers no evidence that these
+      measures would actually avert collapse, nor does it rule out any other viable
+      strategies. The claim is an unsupported causal leap that relies only on fear
+      and urgency, without demonstrating a necessary link between the proposed actions
+      and the desired outcome.
+    candidate: null
+    challenged_inference: The assertion that immediate, drastic changes to law‑enforcement—or
+      even its complete abolition—are needed to prevent societal breakdown, based
+      solely on the notion that the situation is appalling.
+    label_justification: This objection exposes that the Target’s reasoning appeals
+      to emotion and offers a sole extreme remedy without any evidence or logical
+      link, but it does not match any of the catalogued fallacies (Hasty Generalization,
+      Slippery Slope, False Dilemma, Appeal to Authority, Appeal to Majority, Appeal
+      to Nature, Appeal to Tradition, Appeal to Worse Problems). Therefore no particular
+      fallacy can be assigned, and the failure is not a recognized example of the
+      given types.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This situation is absolutely appalling. Swift action must be taken against those
+      in power before the entire society breaks down. Changes in law enforcement and
+      public punishments should be enacted
+    - quickly. It makes one wonder if it would be preferable to completely abolish
+      the law enforcement agencies and let everyone fend for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The passage presents only two extreme outcomes—swift action
+    must be taken to prevent societal breakdown, or else society will collapse—thereby
+    implying that these are the sole viable options, which constitutes a false dilemma.
+    Evidence indicates this framing of urgency and collapse as a binary choice.
+  decision_reason: The argument reframes the situation as a dichotomy between taking
+    immediate drastic action and allowing societal collapse, reflecting the false
+    dilemma structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This situation is absolutely appalling. Swift action must be taken against those
+    in power before the entire society breaks down. Changes in law enforcement and
+    public punishments should be enacted
+  - quickly. It makes one wonder if it would be preferable to completely abolish the
+    law enforcement agencies and let everyone fend for themselves.
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4543
+  completion_tokens: 2780
+  total_tokens: 7323
+  wall_time_seconds: 157.45300000000861

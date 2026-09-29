@@ -1,0 +1,157 @@
+sample:
+  id: 465:7392
+  article_id: 465
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: I wouldn’t be surprised if the suicide rates of women in those countries
+    was at an all time high too. It’s either live in fear or risk even more violence
+    if you try to get help. We need to be addressing the issue of violence against
+    women that was already there long before COVID.#Itstimeforachange
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: live in fear
+    - role: alternative_b
+      text: risk even more violence if you try to get help
+    - role: exhaustiveness_commitment
+      text: It’s either live in fear or risk even more violence if you try to get
+        help.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Address the high violence against women and associated suicide
+      risks exacerbated by the COVID‑19 pandemic.
+    candidate: False Dilemma
+    supporting_reason: 'The speaker presents only two mutually exclusive outcomes
+      for women seeking help: they must live in fear or risk even more violence.'
+    support_relation: mechanism_supports_goal
+    label_justification: The reason narrows the options available to women (live in
+      fear vs. risk violence) without acknowledging other possible solutions or mitigations,
+      thus constituting a False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+  counterargument:
+    decisive_counterargument: There is no empirical evidence presented to show that
+      women’s suicide rates in those countries are actually at an all‑time high; the
+      author merely speculates that fear and the risk of further violence could drive
+      suicides. Concluding that the rates are high from an unverified claim about
+      some women’s circumstances is an unwarranted extrapolation.
+    candidate: Hasty Generalization
+    challenged_inference: Women in those countries have suicide rates at an all‑time
+      high because they live in fear or risk more violence if they seek help.
+    label_justification: The argument takes a limited observation (women fearing or
+      facing violence) and infers a universal statistic (suicide rates in the entire
+      population) without supporting data, which is the textbook pattern of a hasty
+      generalization. No other listed fallacy fits the reasoning step more precisely.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+    - if you try to get help. We need to be addressing the issue of violence against
+      women that was already there long before COVID.#Itstimeforachange
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: Hasty Generalization could not directly find a structural condition
+      where a specific observation is generalized to a universal claim in the target
+      text. The target only speculates about suicide rates rather than presenting
+      a concrete limited sample and a broader inference.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I wouldn’t be surprised if the suicide rates of women in those countries was
+      at an all time high too. It’s either live in fear or risk even more violence
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents the claim ‘It’s either live in fear or risk
+    even more violence if you try to get help’ as an exhaustive set of mutually exclusive
+    options for women, thereby excluding all other possible alternatives and committing
+    to a false dilemma. This structure is evident in T1.
+  decision_reason: The target contains an explicit exhaustive dichotomy that presents
+    only two mutually exclusive outcomes—live in fear or risk more violence when seeking
+    help—thereby forming a false dilemma. The evidence supporting this claim is found
+    in T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I wouldn’t be surprised if the suicide rates of women in those countries was at
+    an all time high too. It’s either live in fear or risk even more violence
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5785
+  completion_tokens: 4210
+  total_tokens: 9995
+  wall_time_seconds: 135.84400000001187

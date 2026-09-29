@@ -35,6 +35,13 @@ def test_classification_filters_gold_and_retains_negative_parent(tmp_path, artic
     assert selected[1].model_input().parent_comment == ''
 
 
+def test_load_split_accepts_utf8_bom_from_windows_tools(tmp_path, articles):
+    path = tmp_path / 'dev.json'
+    path.write_text(json.dumps(articles), encoding='utf-8-sig')
+
+    assert load_split(path)[0].sample_id == '42:1'
+
+
 def test_allowlisted_context_does_not_change_when_annotations_change(tmp_path, articles):
     before = load_split(write_split(tmp_path, articles))[1].model_input().as_dict()
     changed = copy.deepcopy(articles)

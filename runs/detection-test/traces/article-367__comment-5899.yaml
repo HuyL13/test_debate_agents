@@ -1,0 +1,147 @@
+sample:
+  id: 367:5899
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: So sad that people are still getting attacked just for having different
+    beliefs. It is our differences that make us stronger together, and the violence
+    demonstrated goes against basic survival instincts we witness everyday within
+    nature. You naturally see different species interact everyday helping each other
+    in their survival journey. Instead of destroying each other we should take cues
+    from natures harmony and not resort to means that threaten our own survival. It
+    is essential we remember that our evolution has been about fostering connections,
+    not creating barriers.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: instincts we witness everyday within nature. You naturally see different
+        species interact everyday helping each other in their survival journey.
+    - role: evaluative_conclusion
+      text: Instead of destroying each other we should take cues from nature’s harmony
+        and not resort to means that threaten our own survival.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - instincts we witness everyday within nature. You naturally see different species
+      interact everyday helping each other in their survival journey. Instead of destroying
+      each other we should take cues from
+    - natures harmony and not resort to means that threaten our own survival. It is
+      essential we remember that our evolution has been about fostering connections,
+      not creating barriers.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Humans should not resort to violence against each other; we
+      should emulate nature's harmonious cooperation.
+    candidate: Appeal to Nature
+    supporting_reason: Violence goes against basic survival instincts observed in
+      nature; species interact cooperatively.
+    support_relation: The argument cites natural cooperation to justify the conclusion
+      that humans ought to refrain from violence.
+    label_justification: The argument uses the fact that other species cooperate in
+      nature to claim that humans should too, appealing to nature as a moral standard.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - So sad that people are still getting attacked just for having different beliefs.
+      It is our differences that make us stronger together, and the violence demonstrated
+      goes against basic survival
+    - instincts we witness everyday within nature. You naturally see different species
+      interact everyday helping each other in their survival journey. Instead of destroying
+      each other we should take cues from
+  counterargument:
+    decisive_counterargument: 'The claim that because nature normally exhibits cooperation,
+      humans should therefore cooperate is an appeal to nature: natural behavior does
+      not establish moral correctness, and many natural interactions involve competition
+      or aggression, so this premise does not justify the argument.'
+    candidate: Appeal to Nature
+    challenged_inference: Because natural cooperation demonstrates a beneficial, survival‑preserving
+      pattern, human society must emulate this pattern and avoid violence.
+    label_justification: The objection directly targets the inference that natural
+      tendencies provide a moral blueprint, a classic appeal to nature. By noting
+      that natural systems include violence and competition alongside cooperation,
+      the counterargument shows the premise is invalid for justifying human conduct,
+      thereby exposing the specific logical defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So sad that people are still getting attacked just for having different beliefs.
+      It is our differences that make us stronger together, and the violence demonstrated
+      goes against basic survival
+    - instincts we witness everyday within nature. You naturally see different species
+      interact everyday helping each other in their survival journey. Instead of destroying
+      each other we should take cues from
+    - natures harmony and not resort to means that threaten our own survival. It is
+      essential we remember that our evolution has been about fostering connections,
+      not creating barriers.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument contains a naturalness premise (“instincts we witness
+    everyday within nature… different species interact… helping each other…”) and
+    an evaluative conclusion (“instead of destroying each other we should take cues
+    from nature’s harmony and not resort to means that threaten our own survival”),
+    thus it fits the definition of an Appeal to Nature fallacy.
+  decision_reason: 'The text explicitly argues that because nature demonstrates cooperation
+    and survival via harmonious interaction, humans should emulate this behavior.
+    This aligns with the typical structure of an appeal to nature: a claim that a
+    natural state implies a preferred moral or practical action. The evidence T2 and
+    T3 provide the necessary premise and conclusion.'
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - instincts we witness everyday within nature. You naturally see different species
+    interact everyday helping each other in their survival journey. Instead of destroying
+    each other we should take cues from
+  - natures harmony and not resort to means that threaten our own survival. It is
+    essential we remember that our evolution has been about fostering connections,
+    not creating barriers.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4916
+  completion_tokens: 2891
+  total_tokens: 7807
+  wall_time_seconds: 95.10899999993853

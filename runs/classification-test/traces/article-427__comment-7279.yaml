@@ -1,0 +1,148 @@
+sample:
+  id: 427:7279
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: Once you let them dictate rules against fairness, they will continue the
+    problem. It only gets worse. Rights will be trampled and compromised.
+  target: Whoa there, let's not get crazy! Demanding equal treatment isn't going to
+    cause an uprising there the rules and everything else get changed. Women are just
+    fed up with not being treated fairly, surely you can understand how that effects
+    women everywhere? Let's not lose sight of things that are even bigger issues like
+    climate change, world hunger, or economic crises. It's about priorities.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Women are just fed up with not being treated fairly, demanding equal treatment
+    - role: worse_issue
+      text: Climate change, world hunger, or economic crises
+    - role: deprioritizing_conclusion
+      text: Not losing sight of bigger issues, it's about priorities
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Whoa there, let's not get crazy! Demanding equal treatment isn't going to cause
+      an uprising there the rules and everything else get changed. Women are just
+      fed up with not
+    - being treated fairly, surely you can understand how that effects women everywhere?
+      Let's not lose sight of things that are even bigger issues like climate change,
+      world hunger, or economic
+    - crises. It's about priorities.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The speaker contends that demands for equal treatment by women
+      are not a major concern and should be de-prioritized in favor of addressing
+      larger global problems.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The argument cites bigger issues—climate change, world hunger,
+      and economic crises—to demonstrate that these are more pressing than women's
+      demands.
+    support_relation: This reason is used to undermine the urgency of the women's
+      demands, thereby supporting the conclusion that their cause should not be prioritized.
+    label_justification: By highlighting superior problems, the argument dismisses
+      the current issue, which is the textbook pattern of an Appeal to Worse Problems
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - being treated fairly, surely you can understand how that effects women everywhere?
+      Let's not lose sight of things that are even bigger issues like climate change,
+      world hunger, or economic
+    - crises. It's about priorities.
+  counterargument:
+    decisive_counterargument: The argument that women’s demands for equal treatment
+      can be ignored because there are seemingly more urgent issues like climate change
+      or world hunger is misplaced. Rights and equality are not secondary needs that
+      can be postponed; denying them can worsen inequality, deteriorate social cohesion,
+      and ultimately impair the community’s capacity to tackle those very “bigger”
+      problems. Ignoring gender justice simply by pointing to another issue diverts
+      attention from the pressing injustice at hand and fails to recognize that addressing
+      equality can be integral to, rather than separate from, solving larger societal
+      crises.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that women’s demand for equal treatment is
+      unimportant and should be deprioritized because other issues (climate change,
+      world hunger, economic crises) are larger or more urgent.
+    label_justification: The argument commits the Appeal to Worse Problems fallacy
+      by positing that because there are presumably more severe problems, the current
+      issue of gender inequality is less significant and can be ignored. It uses an
+      argument by comparison—highlighting a supposedly larger problem—to dismiss or
+      devalue the original grievance. This is a clear example of the fallacy, as it
+      asserts a false equivalence between unrelated issues’ importance without logical
+      justification.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - being treated fairly, surely you can understand how that effects women everywhere?
+      Let's not lose sight of things that are even bigger issues like climate change,
+      world hunger, or economic
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: 'The target passage follows the required structure: it states
+    a focal issue (women’s demand for equal treatment), then cites objectively larger
+    issues (climate change, world hunger, economic crises) as “worse problems,” and
+    concludes by re‑prioritizing those problems over the women’s demands. This pattern
+    matches the standard appeal‑to‑worse‑problems fallacy and is evident across passages
+    T1, T2, and T3.'
+  decision_reason: The target text provides the necessary components—focal issue,
+    worse issue(s), and a priority‑shifting conclusion—directly matching the appeal‑to‑worse‑problems
+    structure, so the label is justified.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Whoa there, let's not get crazy! Demanding equal treatment isn't going to cause
+    an uprising there the rules and everything else get changed. Women are just fed
+    up with not
+  - being treated fairly, surely you can understand how that effects women everywhere?
+    Let's not lose sight of things that are even bigger issues like climate change,
+    world hunger, or economic
+  - crises. It's about priorities.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4882
+  completion_tokens: 3797
+  total_tokens: 8679
+  wall_time_seconds: 86.25

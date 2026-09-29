@@ -1,0 +1,117 @@
+sample:
+  id: 429:7285
+  article_id: 429
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: i guess the age old adage of believe none of what you hear and half of what
+    you see stands true. one should seek several different sources when obtaining
+    information and/or news. we should be prompted not to accept everything at face
+    value.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - i guess the age old adage of believe none of what you hear and half of what
+      you see stands true. one should seek several different sources when obtaining
+      information
+    - and/or news. we should be prompted not to accept everything at face value.
+    candidate: null
+  goal:
+    conclusion_or_goal: Encourage not to accept everything at face value when obtaining
+      information/news
+    candidate: null
+    supporting_reason: Advice to seek several different sources and be skeptical
+    support_relation: provides justification for the conclusion
+    label_justification: No logical fallacy is present; the statement simply advises
+      cautious information consumption
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - i guess the age old adage of believe none of what you hear and half of what
+      you see stands true. one should seek several different sources when obtaining
+      information
+    - and/or news. we should be prompted not to accept everything at face value.
+  counterargument:
+    decisive_counterargument: The assertion that an 'age‑old adage' automatically
+      validates the principle of scrutinizing information simply relies on its long-standing
+      popularity, not on any evidence that the rule is effective or accurate in mitigating
+      misinformation.
+    candidate: Appeal to Tradition
+    challenged_inference: The adage’s age is presented as proof that seeking multiple
+      sources is a reliable strategy.
+    label_justification: The reasoning uses the fact that a maxim has existed for
+      a long time as evidence of its truth or usefulness, which is the characteristic
+      of an appeal to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - i guess the age old adage of believe none of what you hear and half of what
+      you see stands true. one should seek several different sources when obtaining
+      information
+    - and/or news. we should be prompted not to accept everything at face value.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: Target premises present an age‑old adage as proof of its truth,
+    using the adage’s longevity to justify seeking multiple sources without substantive
+    evidence that this strategy actually mitigates misinformation.
+  decision_reason: The comment asserts that because an adage has existed for a long
+    time, it stands true and therefore the practice it recommends (seeking several
+    sources) is reliable. This meets the Appeal to Tradition structural condition,
+    wherein the age of an assertion is used as the sole justification for its validity.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - i guess the age old adage of believe none of what you hear and half of what you
+    see stands true. one should seek several different sources when obtaining information
+  - and/or news. we should be prompted not to accept everything at face value.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3961
+  completion_tokens: 2446
+  total_tokens: 6407
+  wall_time_seconds: 251.32799999999406

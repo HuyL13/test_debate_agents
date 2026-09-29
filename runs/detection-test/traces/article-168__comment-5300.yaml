@@ -1,0 +1,124 @@
+sample:
+  id: 168:5300
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: ''
+  target: We really should get away from the idea that it's right to vote for somebody
+    just because they share the same skin color or ethnicity has others. Seems like
+    we excuse this type of behavior.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We really should get away from the idea that it's right to vote for somebody
+      just because they share the same skin color or ethnicity has others. Seems like
+      we
+    - excuse this type of behavior.
+    candidate: null
+  goal:
+    conclusion_or_goal: Stop voting for a candidate solely because they share one's
+      skin color or ethnicity.
+    candidate: Appeal to Nature
+    supporting_reason: Voting based on shared ethnicity or skin color is excused as
+      a virtue, which the author claims is inappropriate.
+    support_relation: mechanism_supports_goal
+    label_justification: The passage does not employ an unsupported claim or bias;
+      it merely argues against a particular voting practice, so no logical fallacy
+      is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We really should get away from the idea that it's right to vote for somebody
+      just because they share the same skin color or ethnicity has others. Seems like
+      we
+    - excuse this type of behavior.
+  counterargument:
+    decisive_counterargument: Your claim that voting for someone solely because they
+      share your skin color or ethnicity is inherently wrong ignores legitimate contexts
+      in which identity-based voting serves a fair and democratic purpose—such as
+      ensuring minority representation or protecting cultural interests. Without acknowledging
+      these nuances, the statement unjustly dismisses an entire voting strategy.
+    candidate: null
+    challenged_inference: The inference that ‘it is right to vote for somebody just
+      because they share the same skin color or ethnicity’ is inherently wrong and
+      that such reasoning excuses discriminatory behaviour.
+    label_justification: The objection points out that the target’s conclusion relies
+      on an unwarranted generalization about identity-based voting without providing
+      context or evidence, revealing that the argument’s justification is insufficient,
+      which does not fit a specific named logical fallacy in this case; it merely
+      lacks a solid premise.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We really should get away from the idea that it's right to vote for somebody
+      just because they share the same skin color or ethnicity has others. Seems like
+      we
+    - excuse this type of behavior.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not present a claim that a practice
+    is good or bad because it is natural or not natural. Instead, it merely criticizes
+    voting based on shared ethnicity and urges a rejection of that practice. Therefore,
+    the structural condition required for an Appeal to Nature fallacy is not satisfied,
+    and no fallacy is present in the target.
+  decision_reason: The target does not contain the core of an Appeal to Nature argument;
+    it lacks a naturalness-based justification. Consequently the survivor 'Appeal
+    to Nature' is rejected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We really should get away from the idea that it's right to vote for somebody just
+    because they share the same skin color or ethnicity has others. Seems like we
+  - excuse this type of behavior.
+  verified: false
+  rejection_reason: The target does not contain the core of an Appeal to Nature argument;
+    it lacks a naturalness-based justification. Consequently the survivor 'Appeal
+    to Nature' is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 8
+  cache_hits: 0
+  retries: 4
+  prompt_tokens: 3868
+  completion_tokens: 2972
+  total_tokens: 6840
+  wall_time_seconds: 327.8280000000086

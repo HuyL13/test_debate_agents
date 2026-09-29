@@ -1,0 +1,137 @@
+sample:
+  id: 133:4596
+  article_id: 133
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: I would think the government of Azerbaijan has more important issues than
+    arresting a civil rights journalist who had not been in the country for awhile.
+    All they have done is create even bigger issues over one that did not exist to
+    begin with. They really need to get their act together.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: arresting a civil rights journalist who had not been in the country for
+        awhile.
+    - role: worse_issue
+      text: more important issues
+    - role: deprioritizing_conclusion
+      text: They really need to get their act together.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The arrest of the civil‑rights journalist is unjustified or
+      less important.
+    candidate: Appeal to Worse Problems
+    supporting_reason: the government has more important issues than arresting the
+      journalist
+    support_relation: uses the comparison of importance to down‑play the significance
+      of the arrest as a form of justification
+    label_justification: The argument appeals to the existence of supposedly ‘worse’
+      problems to dismiss the value or legitimacy of the journalist’s arrest, which
+      is the definition of an appeal to worse problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+  counterargument:
+    decisive_counterargument: The argument that the Azerbaijani government’s other
+      problems make the arrest of a civil‑rights journalist irrelevant is a misuse
+      of the concept of importance.  The severity of a human‑rights violation cannot
+      be likened to a competing list of issues; the fact that other problems exist
+      does not diminish the arrest’s significance or provide a legitimate reason to
+      ignore it.  Merely citing the existence of other difficulties does not justify
+      downplaying or dismissing the rights‑violating act, nor does it establish a
+      causal relationship between the other problems and the journalist’s arrest.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The inference that because there are more important issues,
+      the arrest is unimportant or should be ignored is incorrect.
+    label_justification: 'The objection demonstrates that the argument relies on underscoring
+      other concerns to diminish the value of the current situation, which is precisely
+      the hallmark of an Appeal to Worse Problems fallacy: asserting that a more pressing
+      issue exists in order to deflect attention from the original claim.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: the target argument compares a more pressing, unspecified ‘worse’
+    issue to the arrest and concludes that the arrest is unimportant, which matches
+    the structural definition of an appeal to worse problems
+  decision_reason: The target claims that the government has more important issues
+    than arresting the civil‑rights journalist, thereby downplaying the arrest’s significance.
+    This structure of citing a supposedly worse problem to dismiss the current issue
+    is the hallmark of an appeal to worse problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I would think the government of Azerbaijan has more important issues than arresting
+    a civil rights journalist who had not been in the country for awhile. All they
+    have done
+  - is create even bigger issues over one that did not exist to begin with. They really
+    need to get their act together.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4509
+  completion_tokens: 3174
+  total_tokens: 7683
+  wall_time_seconds: 126.81200000003446

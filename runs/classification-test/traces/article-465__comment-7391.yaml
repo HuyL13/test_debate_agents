@@ -1,0 +1,140 @@
+sample:
+  id: 465:7391
+  article_id: 465
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: We need to work hard to eradicate all forms of domestic violence, pandemic
+    induced or otherwise. The experts have made it clear that aside from the basic
+    human rights issues involved, this kind of violence just hurts everyone in the
+    community and makes everything worse. Like Joyce Banda said, the seeds of success
+    in every nation on Earth are best planted in women and children.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: experts
+    - role: endorsed_claim
+      text: domestic violence hurts everyone and makes everything worse
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We need to work hard to eradicate all forms of domestic violence, pandemic induced
+      or otherwise. The experts have made it clear that aside from the basic human
+      rights issues
+    - involved, this kind of violence just hurts everyone in the community and makes
+      everything worse. Like Joyce Banda said, the seeds of success in every nation
+      on Earth are best
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: We need to work hard to eradicate all forms of domestic violence,
+      pandemic induced or otherwise.
+    candidate: null
+    supporting_reason: Experts stating that domestic violence harms everyone in the
+      community, and Joyce Banda’s claim that seeds of success are best planted in
+      women and children.
+    support_relation: mechanism_supports_goal
+    label_justification: The TARGET uses expert testimony and a reputable quote to
+      justify the conclusion that eradicating domestic violence is necessary. Neither
+      appeal to authority nor any other fallacy is evident from the provided text.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We need to work hard to eradicate all forms of domestic violence, pandemic induced
+      or otherwise. The experts have made it clear that aside from the basic human
+      rights issues
+    - involved, this kind of violence just hurts everyone in the community and makes
+      everything worse. Like Joyce Banda said, the seeds of success in every nation
+      on Earth are best
+    - planted in women and children.
+  counterargument:
+    decisive_counterargument: Citing experts alone does not prove that domestic violence
+      universally harms everyone. Experts can be wrong, biased, or not fully comprehensive.
+      Without empirical data or logical reasoning linking the claim to the experts’
+      testimony, the argument rests on an unexamined authority.
+    candidate: Appeal to Authority
+    challenged_inference: The argument assumes that expert statements suffice to establish
+      that all domestic violence makes everything worse.
+    label_justification: The objection focuses on the reliance on experts for justification
+      without evidence, reflecting an appeal to authority fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We need to work hard to eradicate all forms of domestic violence, pandemic induced
+      or otherwise. The experts have made it clear that aside from the basic human
+      rights issues
+    - involved, this kind of violence just hurts everyone in the community and makes
+      everything worse. Like Joyce Banda said, the seeds of success in every nation
+      on Earth are best
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly cites experts as authorities and uses
+    their statement that domestic violence harms everyone and worsens the community
+    to support the claim, matching the structure of an appeal to authority.
+  decision_reason: The passage uses the experts’ endorsement to justify the adverse
+    effects of domestic violence, which satisfies the Appeal to Authority structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We need to work hard to eradicate all forms of domestic violence, pandemic induced
+    or otherwise. The experts have made it clear that aside from the basic human rights
+    issues
+  - involved, this kind of violence just hurts everyone in the community and makes
+    everything worse. Like Joyce Banda said, the seeds of success in every nation
+    on Earth are best
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4210
+  completion_tokens: 2865
+  total_tokens: 7075
+  wall_time_seconds: 100.96799999999348

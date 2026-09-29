@@ -1,0 +1,114 @@
+sample:
+  id: 315:6941
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: Most people will agree it's important to preserve culture. The indigenous
+    singers are right. They need to do what they can to keep their origins alive.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: Most people will agree it's important to preserve culture
+    - role: target_claim
+      text: Preserve culture is important
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people will agree it's important to preserve culture. The indigenous singers
+      are right. They need to do what they can to keep their origins alive.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The indigenous singers are correct that preserving their culture
+      is necessary; therefore, they should take action to keep their origins alive.
+    candidate: Appeal to Majority
+    supporting_reason: Most people will agree it's important to preserve culture.
+    support_relation: The assertion that a majority agrees with cultural preservation
+      is used as the justificatory reason for endorsing the indigenous singers' position.
+    label_justification: The argument employs an appeal to majority fallacy by asserting
+      that because most people support cultural preservation, the indigenous singers’
+      stance is justified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people will agree it's important to preserve culture. The indigenous singers
+      are right. They need to do what they can to keep their origins alive.
+  counterargument:
+    decisive_counterargument: The appeal to the fact that most people think preserving
+      culture matters does not in itself establish that the indigenous singers’ particular
+      stance or actions are warranted. A majority opinion is not a valid proof of
+      worth or correctness—it is merely a social consensus that can be flawed or ignorant
+      of the specific context. Therefore, asserting that the singers are right solely
+      because the public agrees on cultural preservation commits an Appeal to Majority
+      fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: Because most people agree culture preservation is important,
+      the indigenous singers are right.
+    label_justification: The argument uses the majority opinion as the sole reason
+      for affirming the singers’ stance, which is the textbook definition of an Appeal
+      to Majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people will agree it's important to preserve culture. The indigenous singers
+      are right. They need to do what they can to keep their origins alive.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that because most people agree
+    culture preservation is important, the indigenous singers are right and should
+    act. This supplied majority opinion is used as the sole justification for the
+    singers’ stance, fitting the definition of an appeal to majority fallacy.
+  decision_reason: The argument’s structure shows a population claim (most people)
+    being used to warrant the singers’ correctness, matching the Appeal to Majority
+    pattern.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people will agree it's important to preserve culture. The indigenous singers
+    are right. They need to do what they can to keep their origins alive.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3988
+  completion_tokens: 3079
+  total_tokens: 7067
+  wall_time_seconds: 65.125

@@ -1,0 +1,149 @@
+sample:
+  id: 470:7406
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: Great news for most of these people. Donald Trump was wildly dangerous and
+    it's sensible for our nearest neighbors to have strong opinions on the election.
+    Imagine how much worse things could have gotten for them if he won again. The
+    wave of authoritarianism would likely hit these vulnerable countries, cursing
+    them with leaders possibly even worse than Trump. All of the Americas could have
+    fallen to catastrophic conflict and ruin.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: he won again
+    - role: intermediate_consequence
+      text: The wave of authoritarianism would likely hit these vulnerable countries,
+        cursing them with leaders possibly even worse than Trump.
+    - role: final_consequence
+      text: All of the Americas could have fallen to catastrophic conflict and ruin.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - things could have gotten for them if he won again. The wave of authoritarianism
+      would likely hit these vulnerable countries, cursing them with leaders possibly
+      even worse than Trump. All
+    - of the Americas could have fallen to catastrophic conflict and ruin.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The author is concluding that Trump's defeat is good news
+      for many in the Americas because Trump’s re‑election could have led to disastrous
+      consequences for these countries.
+    candidate: Slippery Slope
+    supporting_reason: The text reasons that because Donald Trump was ‘wildly dangerous’,
+      if he had won again a wave of authoritarianism would hit vulnerable nations,
+      producing even worse leaders and potentially triggering catastrophic conflict
+      across the Americas.
+    support_relation: The chain of causal predictions (Trump wins → authoritarian
+      wave → worse leaders → catastrophic conflict) is used to justify the claim that
+      Trump’s defeat is great news.
+    label_justification: The argument presents a sequence of escalating, negative
+      outcomes stemming from an initial event (Trump’s re‑election) without substantiating
+      the links, matching the slippery slope fallacy pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Great news for most of these people. Donald Trump was wildly dangerous and it's
+      sensible for our nearest neighbors to have strong opinions on the election.
+      Imagine how much worse
+    - things could have gotten for them if he won again. The wave of authoritarianism
+      would likely hit these vulnerable countries, cursing them with leaders possibly
+      even worse than Trump. All
+    - of the Americas could have fallen to catastrophic conflict and ruin.
+  counterargument:
+    decisive_counterargument: 'The claim that “if Trump had won, a wave of authoritarianism
+      would likely hit vulnerable countries, leading all of the Americas to catastrophic
+      conflict” relies on a speculative, unsubstantiated causal chain.  The argument
+      presents an extreme outcome as inevitable given Trump’s imagined victory, without
+      any evidence that such a transition of power would trigger authoritarian leaders
+      or widespread war.  This is a classic slippery‑slope reasoning: an initial event
+      (Trump winning) is taken to inevitably precipitate a drastic, undesirable consequence
+      (total collapse of the Americas).'
+    candidate: Slippery Slope
+    challenged_inference: If Donald Trump had won, a wave of authoritarianism would
+      likely hit vulnerable countries, leading all of the Americas to catastrophic
+      conflict.
+    label_justification: The counterargument shows the fallacy by highlighting that
+      the claim posits a chain of adverse events that are not logically or evidentially
+      supported by the premises.  The reasoning relies on an unjustified leap from
+      one event to extreme outcomes, which is the hallmark of the slippery‑slope fallacy.  No
+      other fallacy (e.g., appeal to authority, hasty generalisation) fits the form
+      of the argument better than this specific failure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Great news for most of these people. Donald Trump was wildly dangerous and it's
+      sensible for our nearest neighbors to have strong opinions on the election.
+      Imagine how much worse
+    - things could have gotten for them if he won again. The wave of authoritarianism
+      would likely hit these vulnerable countries, cursing them with leaders possibly
+      even worse than Trump. All
+    - of the Americas could have fallen to catastrophic conflict and ruin.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents an initial event (Trump’s re‑election) followed
+    by a chain of progressively harsher outcomes—an authoritarian wave in vulnerable
+    countries, worse leaders, and ultimately catastrophic conflict across the Americas—without
+    supportive evidence, satisfying the slippery‑slope structure.
+  decision_reason: The argument speculates that Trump’s win would trigger a sequence
+    of escalating negative consequences, an unsubstantiated causal chain—hallmarks
+    of a slippery‑slope fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - things could have gotten for them if he won again. The wave of authoritarianism
+    would likely hit these vulnerable countries, cursing them with leaders possibly
+    even worse than Trump. All
+  - of the Americas could have fallen to catastrophic conflict and ruin.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4914
+  completion_tokens: 4283
+  total_tokens: 9197
+  wall_time_seconds: 162.26600000000326

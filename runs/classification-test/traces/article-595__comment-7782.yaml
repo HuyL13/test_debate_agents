@@ -1,0 +1,168 @@
+sample:
+  id: 595:7782
+  article_id: 595
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: People for the most part have always cared about wildlife and this should
+    be no different. People need to make sure that they are doing what they can to
+    protect animals and the environment because even if you say you don't care at
+    some point it is going to affect you and the people that you care about. The present
+    condition of the Earth should be alarming to all and make us all want to do better.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: People
+    - role: popularity_claim
+      text: People for the most part have always cared about wildlife
+    - role: target_claim
+      text: People need to make sure that they are doing what they can to protect
+        animals and the environment
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+    - animals and the environment because even if you say you don't care at some point
+      it is going to affect you and the people that you care about. The present
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Encourage people to continue caring for wildlife and protecting
+      the environment.
+    candidate: Appeal to Tradition
+    supporting_reason: People for the most part have always cared about wildlife and
+      this should be no different.
+    support_relation: The reason is used to justify the conclusion that continuing
+      to care for wildlife is appropriate because it has been a long‑standing tradition.
+    label_justification: The argument appeals to the longevity of the practice of
+      caring for wildlife as a basis for continued action, which fits the definition
+      of an appeal to tradition (tradition → preserve/continue).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+  counterargument:
+    decisive_counterargument: The argument infers that because people have historically
+      cared about wildlife, we should continue to do so today, but the past level
+      of concern does not automatically justify the current level of action. It fails
+      to show that the traditional pattern of care is sufficient for today's ecological
+      challenges, thus relying on tradition rather than substantive evidence. This
+      makes the reasoning an appeal to tradition.
+    candidate: Appeal to Tradition
+    challenged_inference: Because people have always cared about wildlife, it follows
+      that we should continue to care and protect animals.
+    label_justification: The objection highlights that the argument uses the longevity
+      of a practice (people caring for wildlife) as justification for continuing that
+      practice, which is the definition of an appeal to tradition.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Tradition
+    conflict: appeal-to-majority__vs__appeal-to-tradition
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Compare only these candidates. Select the one whose mandatory structural
+      condition is directly supported by TARGET.
+    loser_failure: Appeal to Tradition's mandatory condition (use of longevity/tradition
+      to justify continuation) is not as directly evident as the explicit majority
+      claim present in the target.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+    - animals and the environment because even if you say you don't care at some point
+      it is going to affect you and the people that you care about. The present
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target includes a popularity claim (“People for the most
+    part have always cared about wildlife”) that is used to justify a normative claim
+    (“People need to make sure that they are doing what they can to protect animals
+    and the environment”). This direct link satisfies the structural requirement of
+    an appeal to majority.
+  decision_reason: The content explicitly invokes the majority’s concern to support
+    the claim that individuals should act to protect wildlife, which is the defining
+    structure of an appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - People for the most part have always cared about wildlife and this should be no
+    different. People need to make sure that they are doing what they can to protect
+  - animals and the environment because even if you say you don't care at some point
+    it is going to affect you and the people that you care about. The present
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5636
+  completion_tokens: 5701
+  total_tokens: 11337
+  wall_time_seconds: 121.96899999998277

@@ -1,0 +1,200 @@
+sample:
+  id: 22:3212
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: This whole push for environmentalism is going too far. A coal company that
+    would have created hundreds of jobs and brought all the benefits associated was
+    stopped, for what? Because some people are worried about global climate change?
+    What's next, even the 'renewable' energy sources are bad and we all just have
+    to live incredibly basic lives with no luxuries, all for the sake of the environment?
+    Are hundreds of lost jobs going to turn into thousands, or even millions? We need
+    to find a balance.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: shutting down a coal company, part of the push for environmentalism
+    - role: intermediate_consequence
+      text: loss of hundreds of jobs and benefits associated with the coal company
+    - role: final_consequence
+      text: potential for thousands or even millions of jobs lost and living basic
+        lives without luxuries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This whole push for environmentalism is going too far. A coal company that would
+      have created hundreds of jobs and brought all the benefits associated was stopped,
+      for what? Because
+    - some people are worried about global climate change? What's next, even the 'renewable'
+      energy sources are bad and we all just have to live incredibly basic lives with
+      no luxuries,
+    - all for the sake of the environment? Are hundreds of lost jobs going to turn
+      into thousands, or even millions? We need to find a balance.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: This whole push for environmentalism is going too far, and
+      the speaker is advocating for a balance that limits environmental policies.
+    candidate: Appeal to Authority
+    supporting_reason: The assertion that the coal company was stopped because some
+      people are worried about global climate change is used to question the legitimacy
+      of environmental actions.
+    support_relation: The claim about people’s concerns is employed to cast doubt
+      on environmental motivations, thereby justifying the conclusion that environmentalism
+      is excessive.
+    label_justification: 'The speaker attacks the motivations of environmentalists
+      by implying that worry about climate change is irrational, which is a form of
+      ad hominem circumstantial fallacy. This reasoning is used to support the conclusion
+      that environmentalism is too far. Evidence ids: T1, T2, T3.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This whole push for environmentalism is going too far. A coal company that would
+      have created hundreds of jobs and brought all the benefits associated was stopped,
+      for what? Because
+    - some people are worried about global climate change? What's next, even the 'renewable'
+      energy sources are bad and we all just have to live incredibly basic lives with
+      no luxuries,
+    - all for the sake of the environment? Are hundreds of lost jobs going to turn
+      into thousands, or even millions? We need to find a balance.
+  counterargument:
+    decisive_counterargument: There is no evidence that adopting environmental policies
+      will cause a gradual increase from hundreds to thousands or millions of lost
+      jobs or that it will force people to live basic lives; the claim is an unsupported
+      escalation from the initial policy to extreme outcomes.
+    candidate: null
+    challenged_inference: The argument states that environmentalism will inevitably
+      lead to severely limited lifestyles and loss of many jobs.
+    label_justification: The objection reveals that the reasoning relies on an unsubstantiated,
+      dramatic leap from a single action (pushing for environmentalism) to a chain
+      of adverse consequences—a classic slippery‑slope fallacy. The argument fails
+      to provide intermediate steps or evidence linking the policy to the extreme
+      outcomes.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - some people are worried about global climate change? What's next, even the 'renewable'
+      energy sources are bad and we all just have to live incredibly basic lives with
+      no luxuries,
+    - all for the sake of the environment? Are hundreds of lost jobs going to turn
+      into thousands, or even millions? We need to find a balance.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: The passage articulates a progression from the initial action of
+      shutting down a coal company (the “push for environmentalism”) to a broader
+      set of negative outcomes—loss of hundreds of jobs, potential loss of thousands
+      or millions of jobs, and a life “with no luxuries.”  This chain of increasing
+      adverse consequences satisfies the structural requirement for a slippery‑slope
+      argument.  No authority is cited, so the appeal‑to‑authority interpretation
+      lacks a required structural element.
+    loser_failure: The appeal‑to‑authority hypothesis wrongly claims that the speaker
+      uses an authority to justify the claim that environmentalism is too far.  The
+      text contains no mention of an expert, statistic, or authoritative source; it
+      only raises concerns about climate‑change worry and the effects of shutting
+      down the coal company.  Without an authority being invoked, this fallacy cannot
+      be established.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This whole push for environmentalism is going too far. A coal company that would
+      have created hundreds of jobs and brought all the benefits associated was stopped,
+      for what? Because
+    - some people are worried about global climate change? What's next, even the 'renewable'
+      energy sources are bad and we all just have to live incredibly basic lives with
+      no luxuries,
+    - all for the sake of the environment? Are hundreds of lost jobs going to turn
+      into thousands, or even millions? We need to find a balance.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not provide a sufficient causal chain
+    demonstrating that the initial event (shutting down a coal company) inevitably
+    leads to a progressively more extreme outcome (millions of lost jobs and a basic
+    lifestyle). The claim remains a speculative warning rather than an asserted progression,
+    so the required structural conditions for a Slippery Slope fallacy are not satisfied.
+  decision_reason: The RAW TARGET only expresses an isolated concern about a potentially
+    large fallout from job losses; it does not satisfy the slippery-slope requirement
+    of a clear, successive escalation toward an extreme conclusion.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This whole push for environmentalism is going too far. A coal company that would
+    have created hundreds of jobs and brought all the benefits associated was stopped,
+    for what? Because
+  - some people are worried about global climate change? What's next, even the 'renewable'
+    energy sources are bad and we all just have to live incredibly basic lives with
+    no luxuries,
+  - all for the sake of the environment? Are hundreds of lost jobs going to turn into
+    thousands, or even millions? We need to find a balance.
+  verified: false
+  rejection_reason: The RAW TARGET only expresses an isolated concern about a potentially
+    large fallout from job losses; it does not satisfy the slippery-slope requirement
+    of a clear, successive escalation toward an extreme conclusion.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6103
+  completion_tokens: 3979
+  total_tokens: 10082
+  wall_time_seconds: 257.0320000000065

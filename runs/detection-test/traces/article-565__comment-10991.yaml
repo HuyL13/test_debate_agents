@@ -1,0 +1,119 @@
+sample:
+  id: 565:10991
+  article_id: 565
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: Most people believe in freedom of expression. That means that it must be
+    always the right thing in life.
+  target: Just because most people believe something,  that doesn't mean it's true.  If
+    most people jumped off a cliff,  that wouldn't make it a good idea.     Freedom
+    of expression is important,  but not because the majority believes in it.   In
+    fact,  most of the world doesn't believe in free expression.  Most of the world
+    is pretty repressive.  The book itself soom light an insightful read and Myanmar's
+    struggle for free press and expression.   I look forward to reading it.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Just because most people believe something,  that doesn't mean it's true.  If
+      most people jumped off a cliff,  that wouldn't make it a good idea.     Freedom
+      of expression is important,
+    - but not because the majority believes in it.   In fact,  most of the world doesn't
+      believe in free expression.  Most of the world is pretty repressive.  The book
+      itself soom
+    - light an insightful read and Myanmar's struggle for free press and expression.   I
+      look forward to reading it.
+    candidate: null
+  goal:
+    conclusion_or_goal: argue that majority belief is not a sufficient justification
+      for the truth or value of freedom of expression
+    candidate: null
+    supporting_reason: most people believe something, that does not make it true
+    support_relation: the reason demonstrates that majority belief is insufficient
+      justification for the principle being claimed
+    label_justification: the reasoning is valid and not a fallacious appeal to majority;
+      it merely rejects the fallacy rather than committing one
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Just because most people believe something,  that doesn't mean it's true.  If
+      most people jumped off a cliff,  that wouldn't make it a good idea.     Freedom
+      of expression is important,
+  counterargument:
+    decisive_counterargument: The claim that 'most of the world doesn’t believe in
+      free expression' is a sweeping statement made without any supporting evidence,
+      thus it represents an unsupported generalization about a vast and diverse population.
+    candidate: Hasty Generalization
+    challenged_inference: Most of the world doesn’t believe in free expression.
+    label_justification: The target’s argument includes an unsubstantiated sweeping
+      claim about a global population, which is a classic example of a hasty generalization—a
+      fallacy where a broad conclusion is drawn from insufficient or non‑representative
+      evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - but not because the majority believes in it.   In fact,  most of the world doesn't
+      believe in free expression.  Most of the world is pretty repressive.  The book
+      itself soom
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that ‘most of the world doesn’t believe in
+    free expression’ and ‘most of the world is pretty repressive’—a sweeping, unsupported
+    claim about a vast, diverse population that the text fails to substantiate, meeting
+    the structural condition for a hasty generalization.
+  decision_reason: The claim is a broad generalization made without evidence, satisfying
+    the criteria for Hasty Generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - but not because the majority believes in it.   In fact,  most of the world doesn't
+    believe in free expression.  Most of the world is pretty repressive.  The book
+    itself soom
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4534
+  completion_tokens: 2837
+  total_tokens: 7371
+  wall_time_seconds: 119.18700000000536

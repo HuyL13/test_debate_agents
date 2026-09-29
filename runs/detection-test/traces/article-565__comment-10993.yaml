@@ -1,0 +1,198 @@
+sample:
+  id: 565:10993
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: After years of living under a repressive junta, of course people are reluctant
+    to speak out. Because people are reluctant to speak out against inadequacies they
+    perceive in government, the government can reasonably take the silence as acceptance
+    of their policies and feels free to behave however it wants. Any regime leans
+    toward obtaining more power, and without institutional checks and pushback from
+    the citizens, the regression to full military dictatorship is inevitable.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: people reluctant to speak out against inadequacies they perceive in government
+    - role: intermediate_consequence
+      text: the government can reasonably take the silence as acceptance of their
+        policies and feels free to behave however it wants
+    - role: final_consequence
+      text: the regression to full military dictatorship is inevitable
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - After years of living under a repressive junta, of course people are reluctant
+      to speak out. Because people are reluctant to speak out against inadequacies
+      they perceive in government, the
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The argument concludes that, because people do not speak out
+      and the regime can interpret this as acceptance, the lack of institutional checks
+      will inevitably lead to a full return to military dictatorship.
+    candidate: Hasty Generalization
+    supporting_reason: Any regime leans toward obtaining more power, and without institutional
+      checks and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+    support_relation: directly
+    label_justification: The argument applies a sweeping claim (“any regime leans
+      toward obtaining more power”) and draws a general inevitable outcome (“regression
+      to full military dictatorship”) from a limited context, which is a classic pattern
+      of hasty generalization. This claim is used to justify the overall conclusion
+      that the regression is inevitable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+  counterargument:
+    decisive_counterargument: Silence by itself does not force a regime to interpret
+      it as endorsement or to grow unchecked.  Historical instances show that governments
+      often perceive quiet as passive consent yet still face cracks from internal
+      opposition, principled dissent, or external pressure; these mechanisms can prevent
+      a slide into full dictatorship even when public speech is suppressed.
+    candidate: Slippery Slope
+    challenged_inference: The argument claims that citizen silence inevitably leads
+      the government to erode checks and become a full military dictatorship.
+    label_justification: 'The objection shows that the reasoning asserts a single
+      step – silence – will inescapably trigger a chain of events culminating in dictatorship.  This
+      is exactly the structure of a slippery‑slope fallacy: an unsubstantiated link
+      between an initial condition and a dire eventuality is made without acknowledging
+      alternative outcomes.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - After years of living under a repressive junta, of course people are reluctant
+      to speak out. Because people are reluctant to speak out against inadequacies
+      they perceive in government, the
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: 'Slippery Slope requires a causal chain from an initial event to
+      increasingly adverse consequences. The target presents a progression: citizen
+      silence → government interprets it as acceptance → regime behaves unchecked
+      → inevitable regression to full military dictatorship. The text explicitly lays
+      out this chain, satisfying the structural condition of a slippery‑slope argument.
+      In contrast, although the argument contains a sweeping claim (“any regime leans
+      toward obtaining more power”), this claim is part of the same causal chain rather
+      than an independent, isolated generalization from a single sample. Thus the
+      dominant fallacy is Slippery Slope.'
+    loser_failure: Hasty Generalization would need a clear sample–>population leap
+      that is independent of a progression; the target’s main claim is presented as
+      a chain of consequences rather than an isolated generalization. The argument
+      does not isolate a single case and generalize it outside the context, so Hasty
+      Generalization is not the primary fallacy here.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - After years of living under a repressive junta, of course people are reluctant
+      to speak out. Because people are reluctant to speak out against inadequacies
+      they perceive in government, the
+    - government can reasonably take the silence as acceptance of their policies and
+      feels free to behave however it wants. Any regime leans toward obtaining more
+      power, and without institutional checks
+    - and pushback from the citizens, the regression to full military dictatorship
+      is inevitable.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target states a causal chain—public silence leads to perceived
+    acceptance, which leads to unchecked power, culminating in inevitable dictatorship—without
+    providing evidence for any link, satisfying the slippery‑slope structure.
+  decision_reason: The argument presents an unsubstantiated progression from an initial
+    condition (citizen silence) to a dire outcome (full military dictatorship), claiming
+    inevitability. This lack of justification for each step constitutes a slippery‑slope
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - After years of living under a repressive junta, of course people are reluctant
+    to speak out. Because people are reluctant to speak out against inadequacies they
+    perceive in government, the
+  - government can reasonably take the silence as acceptance of their policies and
+    feels free to behave however it wants. Any regime leans toward obtaining more
+    power, and without institutional checks
+  - and pushback from the citizens, the regression to full military dictatorship is
+    inevitable.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6462
+  completion_tokens: 4421
+  total_tokens: 10883
+  wall_time_seconds: 226.53099999998813

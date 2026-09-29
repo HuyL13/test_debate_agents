@@ -1,0 +1,107 @@
+sample:
+  id: 387:7157
+  article_id: 387
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: Those who know say media freedom is bad in HK now. They need to rise up.
+    China will keep influencing HK negatively, to make it more like China .
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Those who know say media freedom is bad in HK now. They need to rise up. China
+      will keep influencing HK negatively, to make it more like China .
+    candidate: null
+  goal:
+    conclusion_or_goal: They need to rise up.
+    candidate: Appeal to Authority
+    supporting_reason: Those who know say media freedom is bad in HK now.
+    support_relation: A claimed authority provides justification for the asserted
+      action.
+    label_justification: The argument appeals to an unspecified, vague authority (“those
+      who know”) to justify the call for uprising, which is a misuse of authority
+      and does not constitute a sound basis for the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Those who know say media freedom is bad in HK now. They need to rise up. China
+      will keep influencing HK negatively, to make it more like China .
+  counterargument:
+    decisive_counterargument: The claim that China will keep influencing Hong Kong
+      negatively, thereby turning it into a state more like China, is made without
+      evidence and relies solely on a vague statement that “those who know” assert
+      this. This move depends on an unspecified authority rather than on facts, making
+      it an appeal to authority rather than a sound inference.
+    candidate: Appeal to Authority
+    challenged_inference: China will keep influencing HK negatively, to make it more
+      like China.
+    label_justification: The objection demonstrates that the inference depends only
+      on an unspecified authority (the ambiguous ‘those who know’) without any supporting
+      evidence of the alleged influence or its outcome, which is exactly the hallmark
+      of an appeal to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Those who know say media freedom is bad in HK now. They need to rise up. China
+      will keep influencing HK negatively, to make it more like China .
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument claims that because an unspecified group known
+    as ‘those who know’ states media freedom is bad in Hong Kong, one must ‘rise up’.
+    This explicitly uses a vague authority to justify the conclusion, fulfilling the
+    structural requirement for an appeal to authority and thereby constituting the
+    fallacy.
+  decision_reason: The target presents an argument that relies on an undefined, unnamed
+    authority (‘those who know’) to support the claim that people should rise up,
+    which meets the condition for a fallacious appeal to authority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Those who know say media freedom is bad in HK now. They need to rise up. China
+    will keep influencing HK negatively, to make it more like China .
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3877
+  completion_tokens: 3318
+  total_tokens: 7195
+  wall_time_seconds: 120.43700000000536

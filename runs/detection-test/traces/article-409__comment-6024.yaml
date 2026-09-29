@@ -1,0 +1,130 @@
+sample:
+  id: 409:6024
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: In almost every culture, it is essentially a tradition to make men fear
+    ever laying hands on a woman. Jamaica needs to make an example out of any man
+    who does. Don't hold back at all. The violence will stop after enough see what
+    can happen to them. It has always been unacceptable to harm a woman, but nowadays
+    its less so. Take us back to those days!
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: 'In almost every culture, it is essentially a tradition to make men fear
+        ever laying hands on a woman. Jamaica needs to make an example out of any
+        man who does. Don''t hold back at all. The violence will stop after enough
+        see what can happen '
+    - role: preservation_conclusion
+      text: Take us back to those days!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - In almost every culture, it is essentially a tradition to make men fear ever
+      laying hands on a woman. Jamaica needs to make an example out of any man who
+    - less so. Take us back to those days!
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Jamaica should make a hard example of any man who harms a
+      woman to deter future violence.
+    candidate: Appeal to Tradition
+    supporting_reason: In almost every culture it is a tradition that men should fear
+      harming a woman; this tradition is cited to justify severe punitive action.
+    support_relation: The tradition is invoked as a justification for making an example
+      of offending men.
+    label_justification: The argument asserts that because a cultural tradition exists,
+      the current punitive approach is justified, which is the hallmark of an appeal
+      to tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - In almost every culture, it is essentially a tradition to make men fear ever
+      laying hands on a woman. Jamaica needs to make an example out of any man who
+  counterargument:
+    decisive_counterargument: Just because a practice has been observed in many cultures
+      does not mean it is morally correct or effective. The claim that 'making men
+      fear ever laying hands on a woman' is a beneficial tradition ignores evidence
+      that widespread punitive measures often fail to reduce violence and can even
+      provoke retaliation. If history shows a common pattern, it does not guarantee
+      the practice is desirable or successful.
+    candidate: null
+    challenged_inference: The argument infers that tradition alone validates the necessity
+      of harsh punitive examples to deter men from harming women.
+    label_justification: 'This fallacy is an Appeal to Tradition: the reasoning relies
+      on the longevity or prevalence of a practice to argue for its continued use.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - In almost every culture, it is essentially a tradition to make men fear ever
+      laying hands on a woman. Jamaica needs to make an example out of any man who
+    - does. Don't hold back at all. The violence will stop after enough see what can
+      happen to them. It has always been unacceptable to harm a woman, but nowadays
+      its
+    - less so. Take us back to those days!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target includes a premise that a cultural tradition exists—“In
+    almost every culture, it is essentially a tradition to make men fear ever laying
+    hands on a woman”—and a conclusion that Jamaica should return to those days and
+    make hard examples of men who harm women to deter future violence. This satisfies
+    the structure of an Appeal to Tradition, which uses a tradition as a justification
+    for a current action or policy.
+  decision_reason: The structural requirement of invoking tradition to support a conclusion
+    is met, and the argument’s reasoning relies on that tradition as a basis for current
+    punitive measures.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - In almost every culture, it is essentially a tradition to make men fear ever laying
+    hands on a woman. Jamaica needs to make an example out of any man who
+  - less so. Take us back to those days!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4424
+  completion_tokens: 3443
+  total_tokens: 7867
+  wall_time_seconds: 143.03100000001723

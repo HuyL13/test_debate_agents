@@ -1,0 +1,133 @@
+sample:
+  id: 589:7765
+  article_id: 589
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: It looks like the violence in Azerbaijan culminated from a lack of the country's
+    addressing issues against the lgbtq community. This is truly sad. Hate can often
+    lead to violence. This may have only been a matter of time. Let other countries
+    in the world take notice so that we can avoid these types of horrible events.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+    - This may have only been a matter of time. Let other countries in the world take
+      notice so that we can avoid these types of horrible events.
+    candidate: null
+  goal:
+    conclusion_or_goal: The target text asserts that the violence in Azerbaijan can
+      be attributed to the country’s failure to address LGBTQ+ issues, and urges other
+      nations to take notice to prevent similar events.
+    candidate: null
+    supporting_reason: The target makes a single causal claim without providing evidence
+      or acknowledging other contributing factors. It does not rely on any of the
+      listed fallacious reasoning patterns (e.g., appeal to authority, hasty generalization,
+      false dilemma). The statement is presented as an observation rather than a logical
+      inference that hinges on a fallacious premise. Therefore, no fallacious label
+      applies.
+    support_relation: No fallacious relation is detected; the reasoning presented
+      is not a known logical fallacy.
+    label_justification: No fallacy is present because the argument merely offers
+      an unsubstantiated causal claim, which is not among the defined fallacious structures.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+    - This may have only been a matter of time. Let other countries in the world take
+      notice so that we can avoid these types of horrible events.
+  counterargument:
+    decisive_counterargument: The argument infers that the violence in Azerbaijan
+      was caused by a lack of addressing LGBTQ‑related issues based on a single incident.
+      This single example is insufficient to support a general causal claim, making
+      the inference a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The violence in Azerbaijan culminated from a lack of addressing
+      issues against the LGBTQ community.
+    label_justification: The target makes a causal claim from one specific incident
+      (as indicated in passage T1) and presents it as a general pattern. This mirrors
+      the definition of a hasty generalization, as the argument leaps from a single
+      observation to a universal conclusion without broader evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It looks like the violence in Azerbaijan culminated from a lack of the country's
+      addressing issues against the lgbtq community. This is truly sad. Hate can often
+      lead to violence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target does not present a broad claim about a larger population
+    derived from a single case; it merely proposes a causal explanation for that specific
+    incident. Since a true hasty generalization requires a universal or broad claim
+    supported by insufficient evidence, the evidence fails to meet the structural
+    condition for this fallacy, so the candidate is not upheld.
+  decision_reason: The target makes a causal suggestion about the Azerbaijan incident
+    based on one example, but it does not extrapolate this claim to a larger set of
+    events or a universal rule. Hence the mandatory structural condition for a hasty
+    generalization is not satisfied.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It looks like the violence in Azerbaijan culminated from a lack of the country's
+    addressing issues against the lgbtq community. This is truly sad. Hate can often
+    lead to violence.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4120
+  completion_tokens: 4177
+  total_tokens: 8297
+  wall_time_seconds: 135.81200000000536

@@ -1,0 +1,137 @@
+sample:
+  id: 411:6029
+  article_id: 411
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Their government has got to be hiding something nefarious if they think
+    its worth going through all this trouble. Maybe they are actively committing genocide
+    on their people or something. Why else censor everything? Bottom line is that
+    censoring the internet is to hide what they are doing to their people and prevent
+    them from speaking out.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+    candidate: null
+  goal:
+    conclusion_or_goal: That the government is hiding something nefarious, likely
+      genocide, and it censors the internet to conceal this wrongdoing and prevent
+      people from speaking out.
+    candidate: False Dilemma
+    supporting_reason: They infer that censorship must exist only to hide the government’s
+      illicit actions, implying that no other motive exists for censoring.
+    support_relation: The reason is treated as an exclusive alternative to any other
+      possible motive for censorship, establishing the conclusion that censorship
+      serves to conceal wrongdoing.
+    label_justification: The argument presents a dichotomy—censorship is either for
+      hiding nefarious acts or else has no reason—thereby implying a false dilemma
+      between ‘censor to hide wrongdoing’ and ‘no other motive’. This fallacy is directly
+      employed to justify the conclusion about hidden genocide.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+  counterargument:
+    decisive_counterargument: The argument assumes that the only possible reason for
+      internet censorship is to conceal a grave wrongdoing such as genocide. In reality,
+      governments censor for numerous other legitimate or even harmless reasons—security
+      concerns, protection of minors, political stability, or technological constraints.
+      Because the claim does not provide evidence that the censorship is linked to
+      a clandestine genocide, it is not logically necessary that the government is
+      hiding something nefarious.
+    candidate: False Dilemma
+    challenged_inference: censoring the internet is to hide what they are doing to
+      their people
+    label_justification: The objection shows that the reasoning reduces the world
+      to only two options—either the government’s censorship is concealment of genocide
+      or nothing else—and dismisses all other plausible explanations. This is precisely
+      the structure of a false dilemma, where the argument presents a limited set
+      of alternatives and forces a conclusion that need not follow from the evidence
+      provided.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Their government has got to be hiding something nefarious if they think its
+      worth going through all this trouble. Maybe they are actively committing genocide
+      on their people or something.
+    - Why else censor everything? Bottom line is that censoring the internet is to
+      hide what they are doing to their people and prevent them from speaking out.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: 'The target constructs an exclusive dichotomy by asserting that
+    censorship can only serve to hide nefarious activities (such as genocide) and
+    implying that no other motive exists. This satisfies the structural requirement
+    of a false dilemma: two mutually exclusive options are presented, and the argument
+    claims they exhaust all possibilities.'
+  decision_reason: The comment presents censorship as solely for concealing wrongdoing,
+    dismissing any other legitimate reasons. This exclusivity establishes a false
+    dilemma between ‘censor to hide wrongdoing’ and ‘no other motive’, fulfilling
+    the fallacy’s structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Their government has got to be hiding something nefarious if they think its worth
+    going through all this trouble. Maybe they are actively committing genocide on
+    their people or something.
+  - Why else censor everything? Bottom line is that censoring the internet is to hide
+    what they are doing to their people and prevent them from speaking out.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4144
+  completion_tokens: 2807
+  total_tokens: 6951
+  wall_time_seconds: 144.68700000003446

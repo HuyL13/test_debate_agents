@@ -1,0 +1,140 @@
+sample:
+  id: 162:5283
+  article_id: 162
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: We have to understand though that people in Myanmar might not want the same
+    cyber freedoms as we do. Perhaps most people are okay with this . I have a friend
+    who lives there and said he is not concerned with internet restrictions. It is
+    possible that with their unique culture, most of Myanmars  population might not
+    view cyber restrictions in a negative manner.
+  target: Do you think your single friend is representative of the whole population?
+    I have a friend in America who might say the same thing, but that certainly doesn't
+    mean Americans are pro-censorship. I mean, I get the underlying point that we
+    should always consider what people actually want and should recognize that others
+    don't always share our values. But I don't think it's fair to sow doubt based
+    on what one friend of yours says or thinks.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: your single friend
+    - role: observed_property
+      text: his stance on censorship
+    - role: target_population
+      text: the whole population
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Do you think your single friend is representative of the whole population? I
+      have a friend in America who might say the same thing, but that certainly doesn't
+      mean Americans
+    - don't think it's fair to sow doubt based on what one friend of yours says or
+      thinks.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: It is unfair to assume that one friend’s opinion represents
+      the views of the entire population.
+    candidate: null
+    supporting_reason: I don't think it's fair to sow doubt based on what one friend
+      of yours says or thinks.
+    support_relation: supports
+    label_justification: Target does not commit a logical fallacy; instead it critiques
+      the unjustified generalization based on a single anecdote.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Do you think your single friend is representative of the whole population? I
+      have a friend in America who might say the same thing, but that certainly doesn't
+      mean Americans
+    - are pro-censorship. I mean, I get the underlying point that we should always
+      consider what people actually want and should recognize that others don't always
+      share our values. But I
+    - don't think it's fair to sow doubt based on what one friend of yours says or
+      thinks.
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The target correctly identifies that a single friend is not
+      sufficient evidence to generalize about a whole population. This valid critique
+      does not contain any fallacious reasoning, so no specific inference failure
+      is exposed.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Do you think your single friend is representative of the whole population? I
+      have a friend in America who might say the same thing, but that certainly doesn't
+      mean Americans
+    - are pro-censorship. I mean, I get the underlying point that we should always
+      consider what people actually want and should recognize that others don't always
+      share our values. But I
+    - don't think it's fair to sow doubt based on what one friend of yours says or
+      thinks.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage does not itself make the generalization that
+    a single friend represents the whole population; it merely questions that inference.
+    Therefore no hasty generalization is present.
+  decision_reason: 'The target’s statement is a critique of claiming a single friend
+    to represent the entire population, rather than a claim that such a generalization
+    is true. Hence the fallacy is not exhibited in the target. '
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - Do you think your single friend is representative of the whole population? I have
+    a friend in America who might say the same thing, but that certainly doesn't mean
+    Americans
+  - don't think it's fair to sow doubt based on what one friend of yours says or thinks.
+  verified: false
+  rejection_reason: 'The target’s statement is a critique of claiming a single friend
+    to represent the entire population, rather than a claim that such a generalization
+    is true. Hence the fallacy is not exhibited in the target. '
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4578
+  completion_tokens: 2320
+  total_tokens: 6898
+  wall_time_seconds: 78.67200000000594

@@ -1,0 +1,116 @@
+sample:
+  id: 565:8891
+  article_id: 565
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: Most people believe in freedom of expression. That means that it must be
+    always the right thing in life.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: Most people believe in freedom of expression
+    - role: target_claim
+      text: it must be always the right thing in life
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Freedom of expression must always be the right thing.
+    candidate: Appeal to Majority
+    supporting_reason: Most people believe in freedom of expression.
+    support_relation: The argument infers that because a majority hold a belief, the
+      belief is inherently correct.
+    label_justification: The reasoning relies on the prevalence of belief as evidence
+      of truth, which is the classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+  counterargument:
+    decisive_counterargument: Because a large number of people hold a view, that view
+      does not by itself establish it as inherently right or correct. Majority opinion
+      offers no logical justification for the claim that freedom of expression must
+      always be the right thing to pursue.
+    candidate: Appeal to Majority
+    challenged_inference: Most people believe in freedom of expression.  That means
+      that it must be always the right thing in life.
+    label_justification: The objection shows that the conclusion depends solely on
+      the popularity of the belief, which is a classic appeal to majority fallacy.  The
+      inference lacks any logical link between belief prevalence and normative validity.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument uses the prevalence of belief (“most people believe…”)
+    as justification that the belief is true or right, satisfying the structure of
+    an appeal to majority.
+  decision_reason: The target states that because most people believe in freedom of
+    expression, it must always be right, which is a classic appeal to majority. Accordingly,
+    the evidence supporting this inference is identified by T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people believe in freedom of expression. That means that it must be always
+    the right thing in life.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3698
+  completion_tokens: 1807
+  total_tokens: 5505
+  wall_time_seconds: 40.04700000002049

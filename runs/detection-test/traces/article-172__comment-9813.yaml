@@ -1,0 +1,145 @@
+sample:
+  id: 172:9813
+  article_id: 172
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: I'm happy with the court's decision. Ripping up the Earth to grab its coal
+    is outdated and not good for nature in general. The long-term consequences cannot
+    be positive. There are a number of ways to harness the power of nature (wind,
+    solar) without harming it, and I look forward to the day when that is the norm.
+    If it takes the courts to lead Australia into the future, so be it.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Ripping up the Earth to grab its coal is outdated and not good for nature
+        in general.
+    - role: evaluative_conclusion
+      text: The long-term consequences cannot be positive.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: I am pleased with the court’s decision and believe the move
+      away from coal toward renewable energy is beneficial for the future of Australia.
+    candidate: null
+    supporting_reason: Ripping up the Earth to extract coal is outdated, harms nature,
+      and has negative long‑term consequences, whereas wind and solar can harness
+      nature’s power without harm, so the court’s decision is the right direction.
+    support_relation: The reason that coal extraction harms nature and has negative
+      long‑term effects is employed to justify the speaker’s approval of the court’s
+      rejection of the coal mine, and to reinforce the desirability of pursuing renewable
+      energy.
+    label_justification: The target comment presents opinions and a causal claim but
+      does not employ any of the identified logical fallacies; therefore no fallacy
+      is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+    - are a number of ways to harness the power of nature (wind, solar) without harming
+      it, and I look forward to the day when that is the norm. If it
+  counterargument:
+    decisive_counterargument: 'You assert that coal mining is inherently bad because
+      it ‘rips up the Earth’ and that this makes it ‘not good for nature.’ That conclusion
+      is drawn solely from the idea that because a practice harms or is not natural,
+      it must be wrong. This is an appeal to nature: you claim the activity is undesirable
+      simply because it hurts the environment, without providing evidence that the
+      long‑term environmental impact is necessarily negative or that the alternatives
+      are demonstrably superior. Likewise, the statement that wind and solar ‘do not
+      harm’ therefore makes them the norm assumes that nature’s goodness automatically
+      makes an option preferable, which is the same logical error. The claim that
+      long‑term consequences “cannot be positive” is presented without supporting
+      evidence and relies on the same premise that nature must be protected at all
+      costs.
+
+
+      To refute this, one could point out that natural resource extraction can have
+      both harmful and beneficial effects, that many modern industries rely on natural
+      resources while also contributing to environmental recovery, and that the net
+      environmental cost of coal versus renewables depends on many variables (technology,
+      policy, carbon capture'
+    candidate: Appeal to Nature
+    challenged_inference: The inference that coal mining is wrong because it harms
+      nature and therefore the long‑term consequences cannot be positive.
+    label_justification: 'The objection shows the reasoning depends solely on the
+      notion that because something is damaging to nature it is therefore bad, which
+      is precisely the appeal to nature fallacy.  The premise lacks evidence and misuses
+      the status of ''nature'' as justification for rejecting coal mining.  No other
+      fallacy categories fit this reasoning, so the label is justified. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+      outdated and not good for nature in general. The long-term consequences cannot
+      be positive. There
+    - are a number of ways to harness the power of nature (wind, solar) without harming
+      it, and I look forward to the day when that is the norm. If it
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise – “Ripping up the
+    Earth to grab its coal is outdated and not good for nature in general” – coupled
+    with an evaluative conclusion – “The long‑term consequences cannot be positive.”
+    This constitutes an appeal to nature structure (nature_to_value).
+  decision_reason: The argument relies solely on the fact that coal mining harms nature
+    to conclude it is bad; it does not provide evidence for the long‑term consequences.
+    This meets the structural criteria for an appeal to nature fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I'm happy with the court's decision. Ripping up the Earth to grab its coal is
+    outdated and not good for nature in general. The long-term consequences cannot
+    be positive. There
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4711
+  completion_tokens: 3998
+  total_tokens: 8709
+  wall_time_seconds: 174.59400000004098

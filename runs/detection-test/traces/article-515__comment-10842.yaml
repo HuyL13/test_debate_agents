@@ -1,0 +1,134 @@
+sample:
+  id: 515:10842
+  article_id: 515
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: 'This kind of infighting is innate among politicians. In fact, this trait
+    is so native, such a natural building block of the politician''s makeup, that
+    it is the very reason he entered politics in the first place. Their love of power
+    is like the spots on a leopard: an unchangeable mark of a particular kind of animal.
+    We can hope for better from our leaders, but I wouldn''t count on it. Besides,
+    the fact that this trait and its results (infighting) are so naturally intrinsic
+    to politics means they are probably the best way to approach political issues.
+    Darwin would be proud.'
+  target: Most countries don't have infighting quite so extreme.   This speaks to
+    a lack of a tradition of peaceful transition of power.   Such traditions are necessary
+    for a healthy political system.   It's unfair to these people,  they want stability
+    and peaceful progress,   The negative precedent this sets is terrible.  Sometimes
+    should be done about it before the problem spreads to other regions.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: This speaks to a lack of a tradition of peaceful transition of power.
+    - role: preservation_conclusion
+      text: Such traditions are necessary for a healthy political system.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most countries don't have infighting quite so extreme.   This speaks to a lack
+      of a tradition of peaceful transition of power.   Such traditions are necessary
+      for a healthy political system.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Infighting is problematic and should be addressed before it
+      spreads to other regions.
+    candidate: null
+    supporting_reason: The prevalence of infighting in certain countries, which indicates
+      a lack of a tradition of peaceful transition of power, demonstrates that such
+      traditions are necessary for a healthy political system.
+    support_relation: The reason explains why infighting leads to unfairness, a terrible
+      negative precedent, and why urgent action is warranted.
+    label_justification: The argument presents a clear causal link between lack of
+      tradition and infighting and uses that link to justify the need for intervention.
+      No fallacious reasoning—such as hasty generalization, slippery slope, or appeal‑to‑tradition—is
+      evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most countries don't have infighting quite so extreme.   This speaks to a lack
+      of a tradition of peaceful transition of power.   Such traditions are necessary
+      for a healthy political system.
+    - It's unfair to these people,  they want stability and peaceful progress,   The
+      negative precedent this sets is terrible.  Sometimes should be done about it
+      before the problem spreads to other
+  counterargument:
+    decisive_counterargument: The premise that a tradition of peaceful power transition
+      *must* be present for a political system to be healthy is not warranted—many
+      stable systems have succeeded with different mechanisms, and merely lacking
+      a longstanding tradition does not inevitably produce infighting. Therefore the
+      claimed necessity is unsubstantiated.
+    candidate: Appeal to Tradition
+    challenged_inference: that a tradition of peaceful transition of power is necessary
+      for a healthy political system
+    label_justification: The target argues the health of a system depends on a traditional
+      peaceful transfer, implying the tradition itself guarantees good governance;
+      this is a classic appeal to tradition fallacy. The counterargument directly
+      shows the necessity claim is unjustified.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most countries don't have infighting quite so extreme.   This speaks to a lack
+      of a tradition of peaceful transition of power.   Such traditions are necessary
+      for a healthy political system.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly presents the premise that a tradition
+    of peaceful transition of power is lacking and follows it with the conclusion
+    that such traditions are necessary for a healthy political system—a classic appeal
+    to tradition structure.
+  decision_reason: The target includes the claim that the agreement on peaceful transition
+    of power is essential for political health, and it presents this as a justification
+    based solely on its historical nature, which matches the appeal-to-tradition fallacy.
+    Evidence T1 substantiates this structure.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most countries don't have infighting quite so extreme.   This speaks to a lack
+    of a tradition of peaceful transition of power.   Such traditions are necessary
+    for a healthy political system.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4898
+  completion_tokens: 3615
+  total_tokens: 8513
+  wall_time_seconds: 172.6880000000092

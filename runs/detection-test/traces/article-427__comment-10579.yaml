@@ -1,0 +1,104 @@
+sample:
+  id: 427:10579
+  article_id: 427
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Good for these ladies!  They are professionals and should be treated as
+    equals and with respect.  I admire them for their courage, and hope their protests
+    will bring awareness to discrimination and harassment in the workplace. This takes
+    courage and will expose power imbalances for female journalist worldwide.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - these ladies
+    - will expose power imbalances for female journalist worldwide.
+    - female journalist worldwide
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: these ladies
+    - role: observed_property
+      text: will expose power imbalances for female journalist worldwide.
+    - role: target_population
+      text: female journalist worldwide
+    structure_complete: true
+    candidate: Hasty Generalization
+  goal:
+    evidence_spans:
+    - They are professionals and should be treated as equals and with respect.
+    conclusion_or_goal: Support female journalists and their protests for equality
+      and workplace protection.
+    candidate: null
+    supporting_reason: They are professionals and should be treated as equals and
+      with respect.
+    support_relation: The writer draws on the fact that the journalists are professionals
+      deserving equal respect to justify backing their protests.
+    label_justification: The statement uses the reasoning legitimately to support
+      the stated goal; no fallacy is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - will expose power imbalances for female journalist worldwide
+    decisive_counterargument: The argument assumes that a single protest by a few
+      journalists will automatically create a worldwide awareness of power imbalances,
+      which is an overgeneralization lacking supporting evidence.
+    candidate: Hasty Generalization
+    challenged_inference: Protests will expose power imbalances for female journalist
+      worldwide
+    label_justification: The inference extrapolates the effect of one specific protest
+      to a global outcome, which typifies a hasty generalization.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  evidence_spans:
+  - these ladies
+  - will expose power imbalances for female journalist worldwide.
+  - female journalist worldwide
+  decisive_condition: The target states that the protests of a few women journalists
+    (“these ladies”) will expose power imbalances for all female journalists worldwide,
+    generalizing from a small sample to a global population without evidence, constituting
+    a hasty generalization.
+  decision_reason: The target claims that the protests of a few female journalists
+    (“these ladies”) will expose power imbalances for all female journalists worldwide,
+    which generalizes from a specific sample to a global population without evidence—an
+    instance of hasty generalization.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3437
+  completion_tokens: 4060
+  total_tokens: 7497
+  wall_time_seconds: 108.18800000002375

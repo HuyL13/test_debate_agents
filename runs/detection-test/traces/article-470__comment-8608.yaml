@@ -1,0 +1,105 @@
+sample:
+  id: 470:8608
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: The leaders are in charge because they know what to do. They like Biden
+    over Trump, so it must be the correct choice.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: leaders
+    - role: endorsed_claim
+      text: Biden is the correct choice
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The choice of Biden over Trump is the correct choice.
+    candidate: Appeal to Authority
+    supporting_reason: The leaders' preference for Biden
+    support_relation: the leaders’ preference is taken as justification for the choice,
+      appealing to the leaders’ authority and expertise to support the claim
+    label_justification: The argument uses the leaders—regarded as authorities with
+      knowledge—to justify the political choice, which is the classic form of an Appeal
+      to Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+  counterargument:
+    decisive_counterargument: The argument relies on the leaders’ preference for Biden
+      to prove that Biden is the correct choice, but leaders can be wrong or biased,
+      and their opinion does not itself constitute evidence that Biden is right.
+    candidate: Appeal to Authority
+    challenged_inference: The leaders’ preference for Biden over Trump proves that
+      Biden is the correct choice.
+    label_justification: The counterargument demonstrates that the reasoning depends
+      on accepting authority as proof, which is an appeal to authority fallacy, rather
+      than providing substantive evidence.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The leaders are in charge because they know what to do. They like Biden over
+      Trump, so it must be the correct choice.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target contains an authority-to-claim structure in which
+    the leaders are presented as experts and their preference for Biden is used to
+    justify the political choice.
+  decision_reason: The argument attributes the correctness of choosing Biden solely
+    to the leaders’ perceived authority, fitting the classic appeal to authority pattern.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The leaders are in charge because they know what to do. They like Biden over Trump,
+    so it must be the correct choice.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3716
+  completion_tokens: 2138
+  total_tokens: 5854
+  wall_time_seconds: 103.6710000000021

@@ -1,0 +1,147 @@
+sample:
+  id: 621:11160
+  article_id: 621
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: While the main subject is interesting, I'm more concerned with the threat
+    to the snakes in general. More must be done to protect them, for the sake of the
+    ecosystem. If we don't ramp up protection efforts, they'll surely slip into extinction.
+    And then that will just lead to greater collapse in the ecosystem as a whole.
+  target: We must do more to protect snakes in the wild, too many are killed by humans
+    that unnecessarily fear them. We also must do more to educate people on how to
+    behave around them and ensure neither party ends up injured. While I agree with
+    you on that aspect, I don't agree with you that this issue is sure to lead the
+    greater ecosystem to collapse. Fear mongering is not necessary and will likely
+    turn people away from the issue completely. All people need to understand is how
+    integral they are to controlling major pests, do you know anyone who likes rodent
+    invasions? I have yet to meet the person who does and this is a key element to
+    winning support for protecting all snake species. Education, not fear, is always
+    the best tactic to gain support for any critical issue. I hope that we all can
+    do our part to ensure snakes are here and thriving in the years to come.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: I have yet to meet the person who does
+    - role: observed_property
+      text: person who likes rodent invasions
+    - role: target_population
+      text: all people
+    structure_complete: true
+    evidence_ids:
+    - T4
+    - T3
+    evidence_spans:
+    - are to controlling major pests, do you know anyone who likes rodent invasions?
+      I have yet to meet the person who does and this is a key element to winning
+    - lead the greater ecosystem to collapse. Fear mongering is not necessary and
+      will likely turn people away from the issue completely. All people need to understand
+      is how integral they
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: We must do more to protect snakes in the wild and do so through
+      education, not fear mongering.
+    candidate: null
+    supporting_reason: Education, not fear, is always the best tactic to gain support
+      for any critical issue, and snakes are integral to controlling major pests,
+      which can be used to win public support for their protection.
+    support_relation: supporting_reason justifies the conclusion by claiming that
+      an educational approach is more effective than fear-based tactics and that highlighting
+      the ecological benefits of snakes encourages public backing for conservation
+      measures.
+    label_justification: The reasoning is an attempt to justify the conclusion; it
+      does not exhibit any of the specified logical fallacies (Hasty Generalization,
+      Slippery Slope, False Dilemma, Appeal to Authority, Appeal to Majority, Appeal
+      to Nature, Appeal to Tradition, Appeal to Worse Problems), thus no fallacy is
+      detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T4
+    - T5
+    evidence_spans:
+    - We must do more to protect snakes in the wild, too many are killed by humans
+      that unnecessarily fear them. We also must do more to educate people on how
+    - are to controlling major pests, do you know anyone who likes rodent invasions?
+      I have yet to meet the person who does and this is a key element to winning
+    - support for protecting all snake species. Education, not fear, is always the
+      best tactic to gain support for any critical issue. I hope that we all can do
+      our part
+  counterargument:
+    decisive_counterargument: The target claims that nobody likes rodent invasions
+      based solely on the speaker’s personal experience—“I have yet to meet any person
+      who does.” This conclusion is drawn from an extremely limited sample (the speaker’s
+      acquaintances) and is then applied to everyone. Such an overgeneralization of
+      a small, non‑representative sample to the entire population is a classic Hasty
+      Generalization, undermining the strength of the target’s broader claim that
+      fear‑mongering is unnecessary and that education alone will suffice. The evidence
+      for this issue lies in T4, which contains the direct statement illustrating
+      the overreach.
+    candidate: Hasty Generalization
+    challenged_inference: The target’s claim that no one likes rodent invasions is
+      supported by an unjustifiably small sample and is therefore overgeneralized.
+    label_justification: The objection identifies a concrete reasoning flaw—overgeneralization
+      from a minimal anecdotal sample—matching the strict definition of a Hasty Generalization
+      fallacy in the target’s argument. Other assertions in the target are neutral
+      or unsupported, but they do not meet the criteria for a named logical fallacy.
+      Hence the label is justified as the fallacy exposed.
+    failure_exposed: true
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - are to controlling major pests, do you know anyone who likes rodent invasions?
+      I have yet to meet the person who does and this is a key element to winning
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a conclusion about the entire population—‘no
+    one likes rodent invasions’—from an extremely limited personal sample, explicitly
+    stating ‘I have yet to meet the person who does.’ This sample‑to‑population inference
+    meets the structural definition of a Hasty Generalization.
+  decision_reason: The target’s claim that nobody likes rodent invasions is based
+    solely on the speaker’s personal experience, an unrepresentative set, and is extended
+    to all people, satisfying the criteria for Hasty Generalization.
+  evidence_ids:
+  - T4
+  evidence_spans:
+  - are to controlling major pests, do you know anyone who likes rodent invasions?
+    I have yet to meet the person who does and this is a key element to winning
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5895
+  completion_tokens: 3764
+  total_tokens: 9659
+  wall_time_seconds: 159.81300000002375

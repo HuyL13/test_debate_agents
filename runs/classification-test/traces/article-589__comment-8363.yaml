@@ -1,0 +1,152 @@
+sample:
+  id: 589:8363
+  article_id: 589
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: It's clear from all polling that the vast, overwhelming majority of the
+    population of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter?
+    The voice of the majority should be respected, even if it's contrary to the values
+    some of us in other countries might have. It's up to us to help change that majority
+    opinion, not force it on them.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the vast, overwhelming majority of the population of Azerbaijan
+    - role: popularity_claim
+      text: doesn't support LGBTQ rights
+    - role: target_claim
+      text: the voice of the majority should be respected, even if it's contrary to
+        the values some of us in other countries might have
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+    - respected, even if it's contrary to the values some of us in other countries
+      might have. It's up to us to help change that majority opinion, not force it
+      on
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Justify that the majority opinion in Azerbaijan should guide
+      policy on LGBTQ rights and that external actors should help change that opinion
+      rather than impose it
+    candidate: Appeal to Majority
+    supporting_reason: Polling shows the vast, overwhelming majority of Azerbaijan’s
+      population does not support LGBTQ rights
+    support_relation: The poll data is used to argue that a majority view is the legitimate
+      basis for respecting that perspective
+    label_justification: The argument relies on the popular consensus (as indicated
+      by polling) to justify respecting the majority’s position, thereby employing
+      an argumentum ad populum (Appeal to Majority) fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+    - respected, even if it's contrary to the values some of us in other countries
+      might have. It's up to us to help change that majority opinion, not force it
+      on
+  counterargument:
+    decisive_counterargument: The argument assumes that because a broad majority disapproves
+      of LGBTQ rights, their preference should unilaterally determine the legal standing
+      of LGBTQ individuals. However, respecting individual rights does not hinge on
+      majority opinion; democracies are also mandated to protect minorities against
+      oppression and to uphold universal human rights standards. The mere size of
+      the majority does not legitimize discrimination, rendering the appeal to majority
+      invalid.
+    candidate: Appeal to Majority
+    challenged_inference: Because the vast majority in Azerbaijan does not support
+      LGBTQ rights, those rights should be denied or ignored, regardless of external
+      values.
+    label_justification: The inference leverages the majority’s stance as the sole
+      justification for normative policy, sidestepping legitimate grounds such as
+      universal human rights. This is a textbook instance of an appeal to majority,
+      where the popularity of a belief is presented as evidence of its truth or correctness.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's clear from all polling that the vast, overwhelming majority of the population
+      of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+      of the majority should be
+    - respected, even if it's contrary to the values some of us in other countries
+      might have. It's up to us to help change that majority opinion, not force it
+      on
+    - them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly cites polling that the vast, overwhelming
+    majority of Azerbaijan’s population does not support LGBTQ rights and then argues
+    that this majority view should be respected as the basis for policy, thereby using
+    the popularity of the belief as a justification for its truth or acceptability,
+    which satisfies the structural requirements of an Appeal to Majority fallacy.
+  decision_reason: Appeal to Majority. The argument relies on the popular consensus
+    to justify respecting the majority’s stance on LGBTQ rights without addressing
+    other moral or legal considerations.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's clear from all polling that the vast, overwhelming majority of the population
+    of Azerbaijan doesn't support LGBTQ rights. Does democracy not matter? The voice
+    of the majority should be
+  - respected, even if it's contrary to the values some of us in other countries might
+    have. It's up to us to help change that majority opinion, not force it on
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4769
+  completion_tokens: 2599
+  total_tokens: 7368
+  wall_time_seconds: 112.53099999998813

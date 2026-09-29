@@ -1,0 +1,116 @@
+sample:
+  id: 427:6078
+  article_id: 427
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Once you let them dictate rules against fairness, they will continue the
+    problem. It only gets worse. Rights will be trampled and compromised.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T1
+    - role: final_consequence
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Allowing them to dictate rules will lead to rights being trampled
+      and compromised.
+    candidate: Slippery Slope
+    supporting_reason: They will continue the problem; it only gets worse; rights
+      will be trampled.
+    support_relation: slippery_slope_implicit_progression
+    label_justification: The argument presents an unsubstantiated, incremental chain
+      of negative consequences (rights trampled) that supposedly follows from allowing
+      a group to set unfair rules, fitting the slippery‑slope pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+  counterargument:
+    decisive_counterargument: The argument assumes that allowing an authority to set
+      rules will inevitably cascade into the severe outcome of rights being trampled,
+      yet no evidence is provided that any such rule‑making will produce that chain
+      of harm. In the absence of a demonstrated causal link, the claim merely speculates
+      about a worst‑case scenario; it does not establish that the progression from
+      initial rule‑setting to rights violations is unavoidable. Hence the inference
+      rests on an unsubstantiated slippery‑slope assumption.
+    candidate: Slippery Slope
+    challenged_inference: That letting an authority dictate rules that are unfair
+      inevitably leads to a worsening of the situation and eventual trampling of rights.
+    label_justification: The objection shows that the inference relies on an unwarranted
+      causal chain from a single step (authorities setting unfair rules) to a severe,
+      guaranteed outcome (rights being compromised). This is the textbook pattern
+      of a slippery‑slope fallacy – an exaggerated, unjustified progression of negative
+      consequences.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you let them dictate rules against fairness, they will continue the problem.
+      It only gets worse. Rights will be trampled and compromised.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target sentence contains an initial action (letting them
+    dictate unfair rules) followed by an intermediate worsening step (“It only gets
+    worse”) and a final extreme consequence (rights will be trampled and compromised),
+    forming the required progressive chain that characterizes a slippery‑slope argument.
+  decision_reason: The text asserts an unsubstantiated, inevitable progression of
+    negative outcomes stemming from a single event, satisfying the structural requirements
+    for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Once you let them dictate rules against fairness, they will continue the problem.
+    It only gets worse. Rights will be trampled and compromised.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4006
+  completion_tokens: 3768
+  total_tokens: 7774
+  wall_time_seconds: 72.68799999999464

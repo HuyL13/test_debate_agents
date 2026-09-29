@@ -1,0 +1,127 @@
+sample:
+  id: 217:5148
+  article_id: 217
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: Most can agree sexual harassment is bad. So most will agree it is right
+    to ban them from office. This is a way to keep the majority of society safe from
+    predatory people being in positions of power.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most
+    - role: popularity_claim
+      text: Most can agree sexual harassment is bad
+    - role: target_claim
+      text: It is right to ban them from office
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+    - from predatory people being in positions of power.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Ban sexual harassers from office
+    candidate: Appeal to Majority
+    supporting_reason: Most can agree sexual harassment is bad
+    support_relation: Uses the fact that the majority believes sexual harassment is
+      bad as the reason that it is right to ban perpetrators from office
+    label_justification: The argument relies on the majority’s opinion to claim ban
+      of sexual harassers is justified, which is an Appeal to Majority fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+  counterargument:
+    decisive_counterargument: Even if most people judge sexual harassment as bad,
+      that fact alone does not prove that banning harassers from office is the correct
+      or legally justified action. Popular agreement is a measure of opinion, not
+      of moral or factual truth, and can reflect widespread misconceptions. Ethical
+      decisions should be based on principles, evidence, and due process rather than
+      on majority belief.
+    candidate: Appeal to Majority
+    challenged_inference: The argument treats the fact that the majority believes
+      sexual harassment is bad as evidence that banning people from office is right.
+    label_justification: The inference proceeds from a statement about a majority
+      opinion to a conclusion about what is morally or legally permissible, i.e.,
+      it uses the popularity of an idea as proof of its correctness, which is the
+      hallmark of the Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most can agree sexual harassment is bad. So most will agree it is right to ban
+      them from office. This is a way to keep the majority of society safe
+    - from predatory people being in positions of power.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument states that because most people agree sexual harassment
+    is bad, it follows that most will agree it is right to ban harassers from office,
+    using the majority’s opinion as evidence for the normative claim. This matches
+    the structural form of an Appeal to Majority fallacy.
+  decision_reason: The inference proceeds from a majority opinion about sexual harassment
+    to justify a policy decision (banning harassers), which is the hallmark of an
+    Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most can agree sexual harassment is bad. So most will agree it is right to ban
+    them from office. This is a way to keep the majority of society safe
+  - from predatory people being in positions of power.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4258
+  completion_tokens: 2660
+  total_tokens: 6918
+  wall_time_seconds: 137.09400000001187

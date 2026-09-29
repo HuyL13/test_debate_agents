@@ -1,0 +1,155 @@
+sample:
+  id: 172:5014
+  article_id: 172
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: Is this really helpful? I mean coal mines have always been a source of income
+    for the local economy. For years they have provided jobs and supported the economy.
+    Aren't we just creating a new problem by stopping them?
+  target: Since that is the case and everyone knew that the outcome would be something
+    of this nature, its on everyone involved to have started a transition plan. There
+    are other jobs out there and the government should have stepped in to offer miners
+    who wanted to transition to other jobs free training in those fields and the opportunity
+    to gain employment. Miner themselves also needed to start to plan for this future.
+    It's not like it came out of nowhere. They are hardworking people and with the
+    help of the government will land on their feet.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: everyone
+    - role: popularity_claim
+      text: everyone knew that the outcome would be something of this nature
+    - role: target_claim
+      text: the government should step in to offer miners transition training, and
+        miners themselves need to plan for the future
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Since that is the case and everyone knew that the outcome would be something
+      of this nature, its on everyone involved to have started a transition plan.
+      There are other
+    - jobs out there and the government should have stepped in to offer miners who
+      wanted to transition to other jobs free training in those fields and the opportunity
+      to gain
+    - employment. Miner themselves also needed to start to plan for this future. It's
+      not like it came out of nowhere. They are hardworking people and with the help
+      of the
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Miners and the government must proactively prepare for a transition
+      out of coal mining, providing free training and support so that miners can secure
+      employment elsewhere.
+    candidate: null
+    supporting_reason: Because the outcome of the mine’s closure was anticipated and
+      everyone knew what it would entail, it is the responsibility of all parties
+      to begin a transition plan.
+    support_relation: The cited knowledge of the outcome serves as a justification
+      for assigning responsibility to miners, the government, and other stakeholders
+      to plan and provide resources, thereby achieving the goal of facilitating a
+      smooth transition.
+    label_justification: The reasoning legitimately supports the conclusion; no fallacious
+      reasoning is employed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Since that is the case and everyone knew that the outcome would be something
+      of this nature, its on everyone involved to have started a transition plan.
+      There are other
+    - jobs out there and the government should have stepped in to offer miners who
+      wanted to transition to other jobs free training in those fields and the opportunity
+      to gain
+    - employment. Miner themselves also needed to start to plan for this future. It's
+      not like it came out of nowhere. They are hardworking people and with the help
+      of the
+  counterargument:
+    decisive_counterargument: The reasoning that a transition plan must already have
+      been started simply because “everyone knew what would happen” conflates mere
+      awareness with a presupposed requirement to act. Knowledge of an outcome does
+      not logically imply that a specific set of actions (such as free training for
+      miners) was or should have been taken. The argument jumps from a statement of
+      collective anticipation to an obligation without offering any causal connection.
+      This non‑sequential leap illustrates an **Appeal to Majority** fallacy, wherein
+      the perceived consensus of the public is used as an implicit justification that
+      a particular course of action is necessary.
+    candidate: Appeal to Majority
+    challenged_inference: Since that is the case and everyone knew that the outcome
+      would be something of this nature, it's on everyone involved to have started
+      a transition plan.
+    label_justification: The objection directly targets the logical step in which
+      the premise (everyone’s knowledge of a predicted outcome) is treated as sufficient
+      ground for concluding that a transition plan ought to exist. This premise does
+      not establish a necessary link between knowledge and action, a classic pattern
+      of the appeal to majority arg... which is the most appropriate fallacy from
+      the supplied list.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Since that is the case and everyone knew that the outcome would be something
+      of this nature, its on everyone involved to have started a transition plan.
+      There are other
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states a majority claim – “everyone knew
+    that the outcome would be something of this nature” – and uses that claim to justify
+    the necessity of a transition plan (“it’s on everyone involved to have started
+    a transition plan”). This satisfies the structural requirement of Appeal to Majority,
+    where popularity is employed as a grounding for the suggested action.
+  decision_reason: The target contains wording that equates a widespread foreknowledge
+    (“everyone knew …”) with a required collective action (“everyone involved should
+    have started a transition plan”). This matches the definition of an appeal to
+    majority. Evidence ID supporting this claim is T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Since that is the case and everyone knew that the outcome would be something of
+    this nature, its on everyone involved to have started a transition plan. There
+    are other
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5064
+  completion_tokens: 3664
+  total_tokens: 8728
+  wall_time_seconds: 216.89000000001397

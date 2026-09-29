@@ -1,0 +1,124 @@
+sample:
+  id: 560:7677
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: All females should have the right to legal abortion if it falls within the
+    guidelines of their countries laws. The rules need to be made more clear so that
+    doctors and hospitals do not run the risk of getting in trouble for doing the
+    procedure. Clear laws on the matter will make things easier on everyone. Many
+    experts will tell you the same, that clear and concise laws will make the process
+    easier.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: many experts
+    - role: endorsed_claim
+      text: clear and concise laws will make the process easier
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and hospitals do not run the risk of getting in trouble for doing the procedure.
+      Clear laws on the matter will make things easier on everyone. Many experts will
+      tell
+    - you the same, that clear and concise laws will make the process easier.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: All females should have the right to legal abortion if it
+      falls within the guidelines of their countries' laws.
+    candidate: Appeal to Authority
+    supporting_reason: Many experts will tell you the same, that clear and concise
+      laws will make the process easier.
+    support_relation: appeal to authority (uses expert testimony to justify the conclusion)
+    label_justification: The argument relies on citing experts to support the claim
+      that clearer laws will help; this use of authority as justification constitutes
+      an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - you the same, that clear and concise laws will make the process easier.
+  counterargument:
+    decisive_counterargument: Demanding expertise without naming concrete experts
+      or presenting evidence turns the claim into an appeal to authority; simply saying
+      *many experts will tell you* is insufficient to substantiate the policy recommendation.
+    candidate: Appeal to Authority
+    challenged_inference: The argument claims that clear laws will automatically make
+      the abortion process easier for doctors and hospitals, citing unspecified experts
+      as justification for universal female rights to legal abortion within country
+      guidelines.
+    label_justification: The objection shows that the reasoning relies on an unspecified
+      appeal to experts instead of providing concrete evidence or reasoning, which
+      is precisely the weakness identified by the *Appeal to Authority* fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and hospitals do not run the risk of getting in trouble for doing the procedure.
+      Clear laws on the matter will make things easier on everyone. Many experts will
+      tell
+    - you the same, that clear and concise laws will make the process easier.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The passage cites unspecified expert testimony—“many experts
+    will tell you”—as the basis for asserting that clearer laws will make the abortion
+    process easier, which is a classic appeal to authority that lacks concrete evidence
+    or named experts.
+  decision_reason: 'The target includes an authority_to_claim structure: an unspecified
+    authority (“many experts”) is used to support the claim that clearer laws ease
+    the process, satisfying the structural requirement for an Appeal to Authority
+    fallacy.'
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - and hospitals do not run the risk of getting in trouble for doing the procedure.
+    Clear laws on the matter will make things easier on everyone. Many experts will
+    tell
+  - you the same, that clear and concise laws will make the process easier.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4610
+  completion_tokens: 2757
+  total_tokens: 7367
+  wall_time_seconds: 210.829000000027

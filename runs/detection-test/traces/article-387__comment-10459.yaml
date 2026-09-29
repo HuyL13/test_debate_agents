@@ -1,0 +1,174 @@
+sample:
+  id: 387:10459
+  article_id: 387
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: You believe Hong Kong is finished just because of a single law and a few
+    examples of it maybe negatively affecting the country?  I think you are jumping
+    to a conclusion without weighing all the facts and understanding that laws can
+    be complex and their outcomes evolve over time. I understand the initial concern
+    but we have to look at these issues with a discerning eye to see what the actual
+    effects and their causes are.  At this point we are not sure if the concerns to
+    this law will not be addressed and improve the law in the long run. I really hope
+    that in the end all these concerns will actually lead to a more free Hong Kong
+    and the people who live there.
+  target: Precisely, their intentions have been shown. Waiting to see how it turns
+    out, as you propose, could be disastorous. They have already shown their cards
+    in what they want to do. They want to limit the media and make sure that the message
+    is what they want, this has to be taken seriously now. The free world must begin
+    to advocate for a free press in Hong Kong.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Precisely, their intentions have been shown. Waiting to see how it turns out,
+      as you propose, could be disastorous. They have already shown their cards in
+      what they want to
+    - do. They want to limit the media and make sure that the message is what they
+      want, this has to be taken seriously now. The free world must begin to
+    - advocate for a free press in Hong Kong.
+    candidate: null
+  goal:
+    conclusion_or_goal: Advocate for a free press in Hong Kong immediately, as waiting
+      could lead to disaster.
+    candidate: False Dilemma
+    supporting_reason: 'They have already shown their intentions: to limit media and
+      control the narrative.'
+    support_relation: The reason is invoked to frame the urgency of immediate action
+      by presenting ‘waiting’ as the only other option and implying catastrophic outcomes
+      if it is chosen.
+    label_justification: The passage explicitly juxtaposes two alternatives—waiting,
+      which would be disastrous, versus immediate advocacy—presenting them as the
+      only possibilities and thereby misrepresenting the range of reasonable options.  This
+      falls under the False Dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Precisely, their intentions have been shown. Waiting to see how it turns out,
+      as you propose, could be disastorous. They have already shown their cards in
+      what they want to
+    - do. They want to limit the media and make sure that the message is what they
+      want, this has to be taken seriously now. The free world must begin to
+  counterargument:
+    decisive_counterargument: The argument assumes that simply because the authorities
+      have expressed an intention to limit media, waiting for the outcome would inevitably
+      lead to a disastrous end—without showing any intermediate steps or evidence
+      of a causal chain. This leap from a single expressed intent to a catastrophic
+      result is an unwarranted slippery‑slope claim.
+    candidate: Slippery Slope
+    challenged_inference: Waiting to see how it turns out could be disastrous.
+    label_justification: 'The objection exposes a failure to establish a plausible
+      progression of events: the target’s reasoning jumps abruptly from an expressed
+      intention to an inevitable disastrous outcome, fitting the definition of a slippery‑slope
+      fallacy. The counterargument clarifies that such a claim lacks intermediate
+      evidence, demonstrating the specific logical defect.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Precisely, their intentions have been shown. Waiting to see how it turns out,
+      as you propose, could be disastorous. They have already shown their cards in
+      what they want to
+    - do. They want to limit the media and make sure that the message is what they
+      want, this has to be taken seriously now. The free world must begin to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Slippery Slope
+  transitions:
+  - before:
+    - False Dilemma
+    - Slippery Slope
+    conflict: false-dilemma__vs__slippery-slope
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: false-dilemma__vs__slippery-slope
+    loser_failure: The target presents only two options—waiting or immediate advocacy—and
+      frames waiting as inevitably disastrous, thereby treating these choices as exhaustive
+      and mutually exclusive. This satisfies the False Dilemma structural condition.
+      The target provides no intermediate steps or evidence of a causal progression
+      required for a Slippery Slope, so that fallacy is unsupported. The evidence
+      justifying this choice is captured in the passages T1 and T2.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Precisely, their intentions have been shown. Waiting to see how it turns out,
+      as you propose, could be disastorous. They have already shown their cards in
+      what they want to
+    - do. They want to limit the media and make sure that the message is what they
+      want, this has to be taken seriously now. The free world must begin to
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target text contrasts only two options—waiting (which is
+    portrayed as disastrous) versus immediate advocacy for a free press—presenting
+    them as the sole alternatives. This mischaracterizes the range of possible responses,
+    satisfying the structural criteria for a False Dilemma fallacy.
+  decision_reason: The passage explicitly frames the situation as a choice between
+    waiting, which would result in disaster, and acting immediately, thereby implying
+    that no other reasonable options exist. This fits the definition of a False Dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Precisely, their intentions have been shown. Waiting to see how it turns out,
+    as you propose, could be disastorous. They have already shown their cards in what
+    they want to
+  - do. They want to limit the media and make sure that the message is what they want,
+    this has to be taken seriously now. The free world must begin to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6540
+  completion_tokens: 5037
+  total_tokens: 11577
+  wall_time_seconds: 160.125

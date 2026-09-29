@@ -1,0 +1,186 @@
+sample:
+  id: 161:4679
+  article_id: 161
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Things seemed to be working well the way it is without opening pathways
+    for refugees from other countries. This act does not seem like it would be beneficial
+    in any way to Assam or any other part of India. The Assam Accord has been working
+    for over 30 years.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: The Assam Accord has been working for over 30 years.
+    - role: preservation_conclusion
+      text: This act does not seem like it would be beneficial in any way to Assam
+        or any other part of India.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T1
+    evidence_spans:
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The Citizenship Amendment Act will not be beneficial to Assam
+      or any part of India.
+    candidate: Hasty Generalization
+    supporting_reason: Things seemed to be working well the way it is without opening
+      pathways for refugees from other countries.
+    support_relation: This observation is used to justify the claim that the act is
+      not beneficial.
+    label_justification: The conclusion is based on a single observation of the current
+      situation without refugees and generalizes it to all effects of the act, lacking
+      sufficient evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+  counterargument:
+    decisive_counterargument: 'The claim that the Citizenship Amendment Act would
+      not benefit Assam relies simply on the fact that the Assam Accord has worked
+      for 30 years, implying that continuing the status quo is good. This is an appeal
+      to tradition: it treats historical endurance as proof of efficacy without examining
+      current conditions or alternative policies. Since the Accord’s record does not
+      automatically guarantee the continued success of a similar or different policy,
+      the argument is logically weak.'
+    candidate: Appeal to Tradition
+    challenged_inference: This act does not seem like it would be beneficial in any
+      way to Assam or any other part of India
+    label_justification: The objection targets the specific use of the Assam Accord’s
+      longevity as evidence for the act’s alleged futility, which is the defining
+      move of an Appeal to Tradition fallacy. The argument equates historical practice
+      with justified continuance, ignoring contextual changes and lacking empirical
+      support.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Hasty Generalization
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition is the only fallacy whose mandatory structural
+      condition is directly supported by the TARGET text. The TARGET explicitly cites
+      “The Assam Accord has been working for over 30 years” as evidence for rejecting
+      the Citizenship Amendment Act, which is the classic tradition premise leading
+      to a preservation conclusion. While the text also presents an observation that
+      “Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries,” the passage explicitly leverages the Assam Accord’s
+      longevity rather than merely generalizing from a single observation. Hence Appeal
+      to Tradition satisfies the structural requirement, whereas Hasty Generalization
+      does not.
+    loser_failure: Hasty Generalization’s mandatory structure requires the argument
+      to explicitly generalize from a clearly defined sample to a broader conclusion.
+      The TARGET does not present a distinct sample in the texture of a single case
+      that is then extrapolated; the claim is anchored on the transition from a single
+      observation to a broader policy conclusion, which is less direct than the cited
+      tradition premise. Therefore, the argument’s structure aligns more closely with
+      an Appeal to Tradition.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Things seemed to be working well the way it is without opening pathways for
+      refugees from other countries. This act does not seem like it would be beneficial
+      in any
+    - way to Assam or any other part of India. The Assam Accord has been working for
+      over 30 years.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target contains a tradition premise—‘The Assam Accord has
+    been working for over 30 years’—followed by a preservation conclusion—‘This act
+    does not seem like it would be beneficial in any way to Assam or any other part
+    of India’—which fits the structure of an Appeal to Tradition. The evidence from
+    passages T1 and T2 confirms this pattern, satisfying the mandatory structural
+    condition and supporting the fallacy detection.
+  decision_reason: The argument uses the longevity of the Assam Accord as proof that
+    the proposed act will not benefit Assam, treating historical endurance as evidence
+    for the current position. This is the defining move of an Appeal to Tradition,
+    and the provided evidence supports this structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Things seemed to be working well the way it is without opening pathways for refugees
+    from other countries. This act does not seem like it would be beneficial in any
+  - way to Assam or any other part of India. The Assam Accord has been working for
+    over 30 years.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5768
+  completion_tokens: 4148
+  total_tokens: 9916
+  wall_time_seconds: 242.46900000001187

@@ -1,0 +1,135 @@
+sample:
+  id: 323:10266
+  article_id: 323
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: 'It''s so encouraging to see this kind of combination: intelligence and
+    technical prowess plus pride (the right kind of pride - i.e., in one''s history
+    and tradition). This is exactly the kind of person who gets projects like this
+    done, and he''s an articulate spokesperson for its widespread support. Keep up
+    the great work!'
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: he
+    - role: endorsed_claim
+      text: widespread support
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'It''s so encouraging to see this kind of combination: intelligence and technical
+      prowess plus pride (the right kind of pride - i.e., in one''s history and tradition).
+      This is exactly'
+    - the kind of person who gets projects like this done, and he's an articulate
+      spokesperson for its widespread support. Keep up the great work!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Praising an individual for their intelligence, technical prowess,
+      and appropriate pride.
+    candidate: null
+    supporting_reason: The passage cites the individual's combination of intelligence,
+      technical skill, and pride in history and tradition as exactly the kinds of
+      qualities that enable successful project completion and serve as a persuasive
+      spokesperson for broad support.
+    support_relation: The reason (the qualities listed) is employed to establish the
+      conclusion that the person is exemplary and worthy of encouragement.
+    label_justification: The statement merely describes and commends the person’s
+      attributes; it does not employ any logical fallacy by using the reason to justify
+      an otherwise unsupported claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'It''s so encouraging to see this kind of combination: intelligence and technical
+      prowess plus pride (the right kind of pride - i.e., in one''s history and tradition).
+      This is exactly'
+    - the kind of person who gets projects like this done, and he's an articulate
+      spokesperson for its widespread support. Keep up the great work!
+  counterargument:
+    decisive_counterargument: The passage singles out one person and infers that any
+      person who combines intelligence, technical skill, and pride in history will
+      naturally get projects done and be a good spokesperson. This leap from a single
+      anecdote to a universal claim is unwarranted.
+    candidate: null
+    challenged_inference: The claim that people with intelligence, technical prowess,
+      and pride in history invariably succeed in projects and can speak persuasively
+      for their widespread support.
+    label_justification: The argument draws a general conclusion about all such individuals
+      from a single example, committing a hasty generalization. It treats that one
+      successful person as representative of a whole class without sufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'It''s so encouraging to see this kind of combination: intelligence and technical
+      prowess plus pride (the right kind of pride - i.e., in one''s history and tradition).
+      This is exactly'
+    - the kind of person who gets projects like this done, and he's an articulate
+      spokesperson for its widespread support. Keep up the great work!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present an argument that a claim is true
+    or valid solely because an authority figure endorses it; it merely praises the
+    person’s qualities and role. Hence, it fails the structural predicate of an appeal
+    to authority and is not a fallacious inference.
+  decision_reason: The text contains no justificatory reliance on the authority’s
+    endorsement to support a claim. Thus the claim does not meet the mandatory structural
+    condition for an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - 'It''s so encouraging to see this kind of combination: intelligence and technical
+    prowess plus pride (the right kind of pride - i.e., in one''s history and tradition).
+    This is exactly'
+  - the kind of person who gets projects like this done, and he's an articulate spokesperson
+    for its widespread support. Keep up the great work!
+  verified: false
+  rejection_reason: The text contains no justificatory reliance on the authority’s
+    endorsement to support a claim. Thus the claim does not meet the mandatory structural
+    condition for an appeal to authority.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4051
+  completion_tokens: 2580
+  total_tokens: 6631
+  wall_time_seconds: 142.65600000000268

@@ -1,0 +1,130 @@
+sample:
+  id: 66:3646
+  article_id: 66
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: No one wants to lose someone to something that should be a celebration.
+    There are much better ways to celebrate.  Let's learn from these tragedies. We
+    can have wonderful parties without guns and possible tragedy. All parties should
+    be gun free.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: tragedies at parties with guns
+    - role: observed_property
+      text: possible tragedy
+    - role: target_population
+      text: All parties should be gun free
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - No one wants to lose someone to something that should be a celebration. There
+      are much better ways to celebrate.  Let's learn from these tragedies. We can
+      have wonderful parties
+    - without guns and possible tragedy. All parties should be gun free.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: All parties should be gun free
+    candidate: null
+    supporting_reason: The argument points to the harm caused when guns are present
+      at celebrations and suggests that because people do not want to lose someone
+      to a tragedy at a party, safer alternatives exist, thereby justifying the recommendation
+      to hold parties without guns
+    support_relation: The claim that tragedies occur at parties with guns is used
+      as evidence that such gatherings should be gun‑free to avoid harm
+    label_justification: The reasoning does not employ a fallacious use of evidence;
+      it offers a straightforward causal link and a normative recommendation based
+      on that link
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - No one wants to lose someone to something that should be a celebration. There
+      are much better ways to celebrate.  Let's learn from these tragedies. We can
+      have wonderful parties
+    - without guns and possible tragedy. All parties should be gun free.
+  counterargument:
+    decisive_counterargument: The argument treats a handful of tragic incidents involving
+      guns at parties as evidence that every party must be gun‑free. It leaps from
+      a few specific cases to a universal rule, ignoring the fact that many parties
+      allow guns without incident, that safety protocols can mitigate risk, and that
+      the cited tragedies are not necessarily representative of all parties. Therefore
+      the claim that all parties should be gun‑free is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: All parties should be gun‑free because tragedies have occurred
+      when guns are present.
+    label_justification: 'The objection directly contests the inference that a small
+      sample of gun‑related tragedies justifies a blanket ban on guns at all parties.
+      This matches the definition of a hasty generalization: extrapolating a universal
+      rule from a limited set of examples.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - No one wants to lose someone to something that should be a celebration. There
+      are much better ways to celebrate.  Let's learn from these tragedies. We can
+      have wonderful parties
+    - without guns and possible tragedy. All parties should be gun free.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that all parties should be gun‑free based
+    on a few examples of tragedies involving guns at parties, thus generalizing from
+    a limited sample to a universal claim, matching the structure of a hasty generalization.
+  decision_reason: The target makes a blanket statement that every party must be gun‑free,
+    drawing on unspecified incident(s) where guns caused tragedy at parties. This
+    extrapolates a universal rule from a minimal number of observed cases, satisfying
+    the structural definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - No one wants to lose someone to something that should be a celebration. There
+    are much better ways to celebrate.  Let's learn from these tragedies. We can have
+    wonderful parties
+  - without guns and possible tragedy. All parties should be gun free.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4126
+  completion_tokens: 3555
+  total_tokens: 7681
+  wall_time_seconds: 125.79700000002049

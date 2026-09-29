@@ -1,0 +1,128 @@
+sample:
+  id: 133:9697
+  article_id: 133
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: He clearly did something awful if he was arrested so quickly. There is no
+    other reason for the government to move so swiftly. But don't always use one example
+    as proof for the whole system.
+  target: What evidence has been offered? The human rights situation in Azerbaijan
+    is horrible right now. The way they are treating Mr. Aslan is unconscionable.
+    We need to keep our attention on him and his family.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the way they are treating Mr. Aslan
+    - role: observed_property
+      text: unconscionable
+    - role: target_population
+      text: the human rights situation in Azerbaijan
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - What evidence has been offered? The human rights situation in Azerbaijan is
+      horrible right now. The way they are treating Mr. Aslan is unconscionable. We
+      need to keep our attention
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: We need to keep our attention on him and his family
+    candidate: null
+    supporting_reason: The human rights situation in Azerbaijan is horrible right
+      now, and the way they are treating Mr. Aslan is unconscionable
+    support_relation: These facts are invoked to justify that the public should continue
+      to focus on Mr. Aslan and his family’s case
+    label_justification: The argument presents legitimate moral evidence to support
+      the conclusion; it does not commit a recognized fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What evidence has been offered? The human rights situation in Azerbaijan is
+      horrible right now. The way they are treating Mr. Aslan is unconscionable. We
+      need to keep our attention
+    - on him and his family.
+  counterargument:
+    decisive_counterargument: The Target statement merely states that there is a lack
+      of evidence, that the human‑rights situation is horrible, and that attention
+      should be kept on Mr. Aslan and his family. It does not advance a logical chain
+      of inference from premises to a conclusion—it simply expresses concern. Because
+      no specific inference or claim is being made, there is nothing for a counterargument
+      to attack. Consequently, no fallacious reasoning is identifiable.
+    candidate: null
+    challenged_inference: null
+    label_justification: The argument does not present an inferential structure that
+      could commit any of the fallacies listed (hasty generalization, slippery slope,
+      false dilemma, appeal to authority, majority, nature, tradition, or worse problems).
+      Without a claim that follows from stated premises, there is no logical defect
+      to attribute to the Target. Therefore, the conclusion is that no fallacy is
+      committed.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What evidence has been offered? The human rights situation in Azerbaijan is
+      horrible right now. The way they are treating Mr. Aslan is unconscionable. We
+      need to keep our attention
+    - on him and his family.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a general claim that the human rights situation
+    in Azerbaijan is horrible based on the single, specific instance of the treatment
+    of Mr. Aslan, thereby violating the structural requirement for a hasty generalization.
+    Evidence supports this conclusion.
+  decision_reason: 'The passage cites the treatment of Mr. Aslan as unconscionable
+    and then extends that to a claim that the overall human rights situation in Azerbaijan
+    is horrible, using a single example to generalize to the whole population. This
+    meets the structure of a sample-to-population fallacy (sample: Mr. Aslan, population:
+    human rights situation in Azerbaijan).'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - What evidence has been offered? The human rights situation in Azerbaijan is horrible
+    right now. The way they are treating Mr. Aslan is unconscionable. We need to keep
+    our attention
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4014
+  completion_tokens: 3713
+  total_tokens: 7727
+  wall_time_seconds: 155.2029999999795

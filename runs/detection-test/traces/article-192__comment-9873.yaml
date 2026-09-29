@@ -1,0 +1,179 @@
+sample:
+  id: 192:9873
+  article_id: 192
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: Are we really getting bothered about soccer matches? Especially, the right
+    to illegally stream soccer matches? I mean, if they start abusing the law to go
+    after what its intended purpose, that would be bad of course, but don't people,
+    particularly Turkish people, have far bigger problems to worry about? This sort
+    of 'censorship' is hardly meaningful in the face of what Turkey's current dictator
+    is doing.
+  target: I see your point here, why should we care over the censorship of soccer
+    matches being broadcast? That is very fair, but I think there is a bigger point
+    being made here that you are potentially overlooking. This may seem like a small
+    thing, but it is just a symptom of the growing authoritarian government style
+    in Turkey. Even if it is not the most major problem in all of Turkey, there is
+    plenty of resources to deal with all problems. The more problems we can address
+    then the better the society in general will function. That is the hope at least,
+    that if we can bring back even small freedoms to Turkey that larger ones will
+    follow.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: bring back even small freedoms to Turkey
+    - role: intermediate_consequence
+      text: the society in general will function better
+    - role: final_consequence
+      text: larger freedoms will follow
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - it is not the most major problem in all of Turkey, there is plenty of resources
+      to deal with all problems. The more problems we can address then the better
+    - the society in general will function. That is the hope at least, that if we
+      can bring back even small freedoms to Turkey that larger ones will follow.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Establish that the censorship of soccer matches is a significant
+      issue because it signals a broader trend toward authoritarianism in Turkey,
+      and that addressing it—even if small—will lead to larger improvements in governmental
+      freedoms.
+    candidate: null
+    supporting_reason: The claim that small censorship measures are symptomatic of
+      an authoritarian government and that mitigating these small freedoms will ultimately
+      foster larger rights.
+    support_relation: The reason is used to justify the importance of addressing censorship
+      as a step toward broader democratic reforms.
+    label_justification: The argument does not commit a recognized logical fallacy;
+      it makes a causal claim that small reforms can lead to larger ones, which is
+      a legitimate, albeit unproven, inference rather than a fallacious pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - I see your point here, why should we care over the censorship of soccer matches
+      being broadcast? That is very fair, but I think there is a bigger point being
+    - made here that you are potentially overlooking. This may seem like a small thing,
+      but it is just a symptom of the growing authoritarian government style in Turkey.
+      Even if
+    - the society in general will function. That is the hope at least, that if we
+      can bring back even small freedoms to Turkey that larger ones will follow.
+  counterargument:
+    decisive_counterargument: The claim that the censorship of soccer matches is a
+      symptom of Turkey’s growing authoritarian government style is an over‑generalisation
+      based on a single example. It assumes a causal link between one regulatory action
+      and the overall political character of the state without presenting additional
+      evidence that this action reflects a broader pattern of authoritarianism. In
+      reality, the restriction could stem from licensing, broadcast‑rights, or other
+      non‑political considerations, and one instance is insufficient to substantiate
+      a sweeping claim about the government’s style.
+    candidate: Hasty Generalization
+    challenged_inference: Censorship of soccer matches is a symptom of the growing
+      authoritarian government style in Turkey
+    label_justification: The objection demonstrates that the argument extrapolates
+      from one isolated instance (soccer match broadcasting restriction) to a general
+      claim about a complex phenomenon (authoritarian government style). This is precisely
+      the definition of a hasty generalization. No other listed fallacy (e.g., slippery
+      slope, false dilemma, appeals) applies to the structure of the inference.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - made here that you are potentially overlooking. This may seem like a small thing,
+      but it is just a symptom of the growing authoritarian government style in Turkey.
+      Even if
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires explicit cases/sample -> broader
+      population/class. Slippery Slope requires action/condition -> progressively
+      worse consequences.
+    loser_failure: The target attributes the censorship of soccer matches to a broader
+      authoritarian style based solely on one instance, which is an extrapolation
+      from a single sample to a general claim about the government. It does not describe
+      a progressive chain of negative outcomes, only a positive expectation that small
+      freedoms will lead to larger ones. Thus it meets the definition of a hasty generalization
+      but not a slippery‑slope fallacy.
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - made here that you are potentially overlooking. This may seem like a small thing,
+      but it is just a symptom of the growing authoritarian government style in Turkey.
+      Even if
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target extrapolates from the single instance of soccer‑match
+    censorship to a blanket claim that this is a symptom of Turkey’s growing authoritarian
+    style, meeting the structural requirement for a hasty generalization.
+  decision_reason: The argument draws a broad conclusion about the political character
+    of the government based on one isolated regulatory action, satisfying the pattern
+    of a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - made here that you are potentially overlooking. This may seem like a small thing,
+    but it is just a symptom of the growing authoritarian government style in Turkey.
+    Even if
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6868
+  completion_tokens: 4010
+  total_tokens: 10878
+  wall_time_seconds: 223.31300000000192

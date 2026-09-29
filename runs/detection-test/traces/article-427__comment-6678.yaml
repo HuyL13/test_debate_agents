@@ -1,0 +1,127 @@
+sample:
+  id: 427:6678
+  article_id: 427
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: Once you let them dictate rules against fairness, they will continue the
+    problem. It only gets worse. Rights will be trampled and compromised.
+  target: I understand why you think having a rule that you believe is unfair would
+    be troubling and lead to more unfairness. I think we  need to look at the bigger
+    picture here. A rule that you see is unfair might seem very fair to another person.
+    Fairness is a very subjective issue and all of us will see it differently based
+    on our experiences. Can you think of a rule or law that has been widely praised
+    that you might see as unfair to yourself or others? Sometimes we need to look
+    outside our own biases and see that other people can see things quite differently.
+    Once we can see those differences we can then come together and find solutions
+    that can meet all of our needs. I suggest that all of us meet with others with
+    different opinions and listen to their views. That will be a great step for us
+    all.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - I suggest that all of us meet with others with different opinions and listen
+      to their views. That will be a great step for us all.
+    slots: []
+    structure_complete: false
+    structure_type: none
+    candidate: null
+  goal:
+    candidate: Appeal to Nature
+    conclusion_or_goal: The target aims to encourage collaborative dialogue among
+      people with diverse opinions to reach solutions that address everyone’s needs.
+    evidence_spans:
+    - Fairness is a very subjective issue and all of us will see it differently based
+      on our experiences.
+    - Once we can see those differences we can then come together and find solutions
+      that can meet all of our needs.
+    - I suggest that all of us meet with others with different opinions and listen
+      to their views. That will be a great step for us all.
+    label_justification: The argument simply presents the subjectivity of fairness
+      as a rationale for encouraging dialogue; this does not meet the definition of
+      an appeal to nature (which would link naturalness to moral/positive status).
+      Therefore, no fallacy is present and the appropriate label is ‘null’.
+    mechanism_supports_goal: true
+    support_relation: uses the perceived subjectivity of fairness to persuade the
+      reader that a broader, inclusive discussion is necessary for finding equitable
+      solutions.
+    supporting_reason: It claims that fairness is a subjective issue and differences
+      in perception should lead to broader discussion and consensus.
+  counterargument:
+    candidate: null
+    challenged_inference: The claim that a rule is unfair cannot be dismissed simply
+      on the basis of subjectivity; fairness can be evaluated against objective criteria
+      such as fairness principles, rights protection, or evidence of harm.
+    decisive_counterargument: The target’s reasoning ignores that an unfair rule can
+      have objectively harmful consequences that affect people’s wellbeing regardless
+      of individual perceptions of fairness. The argument merely asks the other person
+      to re‑evaluate their prejudice but offers no logical basis for dismissing the
+      claim that the rule is unfair. It therefore leaves the claim unverified rather
+      than logically undermined.
+    evidence_spans:
+    - Fairness is a very subjective issue and all of us will see it differently based
+      on our experiences.
+    - Can you think of a rule or law that has been widely praised that you might see
+      as unfair to yourself or others?
+    - Once we can see those differences we can then come together and find solutions
+      that can meet all of our needs.
+    failure_exposed: false
+    label_justification: Target’s reasoning does not employ any of the known fallacy
+      types (Appeal to Authority, Majority, Nature, Tradition, Worse Problems, False
+      Dilemma, Slippery Slope, or Hasty Generalization). Instead, it presents an argument
+      that is undecided and thus no specific fallacy is exposed.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  decision_reason: No appeal to nature is present in the target; the argument merely
+    encourages inclusive discussion based on subjective perceptions of fairness.
+  decisive_condition: The target makes no claim that something is good, right, or
+    desirable because it is natural; instead it discusses the subjectivity of fairness
+    and recommends dialogue. This lacks the defining link of an appeal to nature (natural→good/right/acceptable).
+    Therefore, the structural condition for that fallacy is not met and no fallacious
+    inference is present.
+  evidence_spans:
+  - Fairness is a very subjective issue and all of us will see it differently based
+    on our experiences.
+  - Once we can see those differences we can then come together and find solutions
+    that can meet all of our needs.
+  - I suggest that all of us meet with others with different opinions and listen to
+    their views. That will be a great step for us all.
+  selected_candidate: null
+  verified: false
+  rejection_reason: No appeal to nature is present in the target; the argument merely
+    encourages inclusive discussion based on subjective perceptions of fairness.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 0
+  cache_hits: 4
+  retries: 0
+  prompt_tokens: 3918
+  completion_tokens: 3374
+  total_tokens: 7292
+  wall_time_seconds: 0.0

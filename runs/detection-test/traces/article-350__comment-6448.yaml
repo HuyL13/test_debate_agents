@@ -1,0 +1,132 @@
+sample:
+  id: 350:6448
+  article_id: 350
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: The countries taking in refugees have more to worry about. Making sure they
+    are accounted for, is essential. The problem of invisible refugees outweighs their
+    privacy in a country they breached.
+  target: I think I agree, but I think that's more something the people of the country
+    should decide. It sounds like this is more a move by the UN than the actual countries
+    themselves. Why don't their people put it to a vote? Majority opinion should be
+    the deciding factor here, like everything else in a true democracy.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the people of the country
+    - role: popularity_claim
+      text: majority opinion should be the deciding factor
+    - role: target_claim
+      text: the decision on the issue should be decided by a vote
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The decision about the UN initiative should be determined
+      by a vote of the country’s people.
+    candidate: Appeal to Majority
+    supporting_reason: The argument asserts that the majority opinion should be the
+      deciding factor in a true democracy and therefore that the issue should be put
+      to a public vote.
+    support_relation: The conclusion is justified by appealing to the majority as
+      the ultimate authority.
+    label_justification: The reasoning uses the majority’s will as a warrant for the
+      decision, which is the characteristic of an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+  counterargument:
+    decisive_counterargument: A minority can be injustice-laden; majority preference
+      can lead to discrimination and suppress rights. The fact that a larger portion
+      of the population votes for a policy does not make the policy correct, legal,
+      or ethically sound. Therefore, using the majority opinion as a deciding factor
+      is a fallacious argument.
+    candidate: Appeal to Majority
+    challenged_inference: Appealing to majority opinion as the basis for political
+      decisions
+    label_justification: The target argument asserts that majority sentiment should
+      dictate policy, which is an argumentum ad populum (appeal to majority). The
+      reasoning relies on the size of a demographic group rather than on principles,
+      evidence or rights. The statement “majority opinion should be the deciding factor”
+      demonstrates the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I agree, but I think that's more something the people of the country
+      should decide. It sounds like this is more a move by the UN than the
+    - actual countries themselves. Why don't their people put it to a vote? Majority
+      opinion should be the deciding factor here, like everything else in a true democracy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly asserts that ‘majority opinion should
+    be the deciding factor’, using the size/popularity of a demographic group as the
+    sole warrant for the policy, which is the defining feature of an appeal to majority.
+  decision_reason: The target’s claim that the majority’s will should determine the
+    decision exemplifies an appeal to majority. It offers no alternative justification
+    but relies on the fact that most people favor it, satisfying the structural requirement
+    of the fallacy. The supporting passages (T1 and T2) verify this claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think I agree, but I think that's more something the people of the country should
+    decide. It sounds like this is more a move by the UN than the
+  - actual countries themselves. Why don't their people put it to a vote? Majority
+    opinion should be the deciding factor here, like everything else in a true democracy.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4693
+  completion_tokens: 3225
+  total_tokens: 7918
+  wall_time_seconds: 224.54700000000594

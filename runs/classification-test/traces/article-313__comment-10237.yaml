@@ -1,0 +1,133 @@
+sample:
+  id: 313:10237
+  article_id: 313
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: Having students protest nationwide, it's pretty clear Bangladesh issue is
+    serious issue and needs addressing. And it's hard to ignore when the majority
+    are echoing the same sentiment - their numbers surely can't be wrong, right? It's
+    high time to adhere to the protesters' demands in order to bring back peace.
+  target: When you have that many people agreeing on something there is no way it
+    can't be the right thing to do. The number of people have a lot of sway. Collective
+    wisdom as some would say.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: many people / the majority
+    - role: popularity_claim
+      text: the number of people have a lot of sway
+    - role: target_claim
+      text: something with many people agreeing is the right thing to do
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: To accept that the action (e.g., meeting the protesters' demands)
+      is the correct thing to do based on the number of people who agree.
+    candidate: Appeal to Majority
+    supporting_reason: The number of people have a lot of sway. Collective wisdom
+      as some would say.
+    support_relation: provides the justificatory basis for the claim that a widely
+      agreed position is necessarily correct
+    label_justification: The argument uses the sheer size of the agreeing group as
+      evidence of truth, which is the definition of an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+  counterargument:
+    decisive_counterargument: Just because a large number of people agree does not
+      guarantee that the conclusion is correct; history is full of mass misconceptions,
+      such as the widespread belief in a geocentric universe or the notion that vaccines
+      cause autism. Popularity alone provides no evidence that a viewpoint is truthful
+      or well-supported.
+    candidate: Appeal to Majority
+    challenged_inference: The reasoning that a large consensus guarantees the correctness
+      of a conviction.
+    label_justification: The argument uses the sheer number of supporters as evidence
+      of truth, which is the hallmark of an Appeal to Majority (argumentum ad populum).
+      The counterargument demonstrates that factual accuracy must be evaluated independently
+      of popularity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that because many people agree on something,
+    it must be right, supplying a population group (many people/majority) and a popularity
+    claim (the number of people have a lot of sway) that directly supports the target
+    claim that consensus equals correctness— a classic appeal to majority structure.
+  decision_reason: The passage explicitly claims that the large number of people who
+    agree confers validity to the action, which is precisely the definition of an
+    Appeal to Majority (argumentum ad populum).
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you have that many people agreeing on something there is no way it can't
+    be the right thing to do. The number of people have a lot of sway.
+  - Collective wisdom as some would say.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4468
+  completion_tokens: 2420
+  total_tokens: 6888
+  wall_time_seconds: 125.93799999999464

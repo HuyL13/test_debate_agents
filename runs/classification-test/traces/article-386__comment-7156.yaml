@@ -1,0 +1,174 @@
+sample:
+  id: 386:7156
+  article_id: 386
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: It seems like these sorts of conflicts are just eternal. Tribalism just
+    seems too innate and natural in people for it to ever truly be defeated. Peaceful
+    coexistence really seems like the rare exception to the rule, when you look at
+    human history as a whole.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Tribalism just seems too innate and natural in people for it to ever truly
+        be defeated.
+    - role: evaluative_conclusion
+      text: Peaceful coexistence really seems like the rare exception to the rule,
+        when you look at human history as a whole.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like these sorts of conflicts are just eternal. Tribalism just seems
+      too innate and natural in people for it to ever truly be defeated. Peaceful
+      coexistence really seems
+    - like the rare exception to the rule, when you look at human history as a whole.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Tribal conflicts are inevitable and peaceful coexistence is
+      a rare exception.
+    candidate: Appeal to Nature
+    supporting_reason: Because tribalism is innate and natural in people, it cannot
+      be truly defeated.
+    support_relation: The argument uses the claim of naturalness/innateness of tribalism
+      to justify the conclusion that conflicts are eternal and peaceful coexistence
+      is unlikely.
+    label_justification: The reasoning infers that the natural state of tribalism
+      makes conflict inevitable, which is an appeal to the idea that natural conditions
+      determine impossible change.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems like these sorts of conflicts are just eternal. Tribalism just seems
+      too innate and natural in people for it to ever truly be defeated. Peaceful
+      coexistence really seems
+  counterargument:
+    decisive_counterargument: While conflict has indeed been a part of human activity,
+      the claim that tribalism and warfare are inevitable and that peaceful coexistence
+      is always the exception ignores substantial evidence of historical change. Throughout
+      the last few centuries, many societies have established legal frameworks, international
+      norms, diplomatic institutions, and social movements that have dramatically
+      reduced violence and fostered sustained peace—examples include the expansion
+      of democratic governance, the creation of the United Nations, and the widespread
+      adoption of human rights conventions. These developments show that human societies
+      can—and do—alter previously entrenched patterns of conflict, contradicting the
+      assertion that tribalism is “too innate and natural” to ever be defeated.
+    candidate: Hasty Generalization
+    challenged_inference: It seems like these sorts of conflicts are just eternal.
+    label_justification: The target draws a universal conclusion about the inevitability
+      of conflict based solely on historical observation, treating a limited set of
+      historical examples as proof that peace is always the exception. That is exactly
+      the hallmark of a hasty generalization, where a small or non-representative
+      sample is extended to a blanket statement.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like these sorts of conflicts are just eternal. Tribalism just seems
+      too innate and natural in people for it to ever truly be defeated. Peaceful
+      coexistence really seems
+    - like the rare exception to the rule, when you look at human history as a whole.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: The target explicitly states that tribalism is “too innate and
+      natural in people” and concludes that peaceful coexistence is a rare exception,
+      satisfying the required naturalness premise‑to‑evaluation structure. The target
+      does not present a clear sample followed by an over‑broad conclusion necessary
+      for a hasty generalization; instead it offers a universal claim based on naturalness,
+      not a limited evidence set. Hence Appeal to Nature is the only candidate whose
+      mandatory structural condition is directly supported.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It seems like these sorts of conflicts are just eternal. Tribalism just seems
+      too innate and natural in people for it to ever truly be defeated. Peaceful
+      coexistence really seems
+    - like the rare exception to the rule, when you look at human history as a whole.
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents tribalism as “innate and natural” and concludes
+    that this naturalness means conflicts are inevitable and peaceful coexistence
+    is rare. This follows the appeal‑to‑nature pattern of using naturalness to justify
+    a negative value or inevitability, meeting the structure required for the fallacy.
+  decision_reason: The argument uses the claim that tribalism is innate and natural
+    to justify that conflicts are eternal and peace is unlikely. The structure matches
+    an appeal to nature, so the fallacy is correctly identified.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It seems like these sorts of conflicts are just eternal. Tribalism just seems
+    too innate and natural in people for it to ever truly be defeated. Peaceful coexistence
+    really seems
+  - like the rare exception to the rule, when you look at human history as a whole.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5724
+  completion_tokens: 4551
+  total_tokens: 10275
+  wall_time_seconds: 149.79699999999139

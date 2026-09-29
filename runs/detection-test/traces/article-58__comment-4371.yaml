@@ -1,0 +1,135 @@
+sample:
+  id: 58:4371
+  article_id: 58
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: Some companies, and countries think it is acceptable to experiment on africans.
+    They've done it in africa, as well as in United states. It's time for that to
+    end. I'm not sure what would make it seem Africa was the place to start. Other
+    countries must have been experiencing similar numbers. So why was it not more
+    evenly spread out? Articles like this are helpful. We need to be aware of what
+    is happening and that is the beginning of fixing it.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Some companies, and countries think it is acceptable to experiment on africans.
+      They've done it in africa, as well as in United states. It's time for that to
+      end. I'm
+    - not sure what would make it seem Africa was the place to start. Other countries
+      must have been experiencing similar numbers. So why was it not more evenly spread
+      out?
+    - Articles like this are helpful. We need to be aware of what is happening and
+      that is the beginning of fixing it.
+    candidate: null
+  goal:
+    conclusion_or_goal: End unethical experiments on Africans
+    candidate: null
+    supporting_reason: The text notes that companies and countries conduct experiments
+      on Africans, that such experiments have occurred in Africa and the United States,
+      and calls for the practice to cease, implying that the occurrence of these experiments
+      justifies stopping them.
+    support_relation: The stated occurrence and call to end them serve as justification
+      for the intended goal.
+    label_justification: The argument does not employ any fallacious reasoning; the
+      premise is simply used to support the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Some companies, and countries think it is acceptable to experiment on africans.
+      They've done it in africa, as well as in United states. It's time for that to
+      end. I'm
+    - not sure what would make it seem Africa was the place to start. Other countries
+      must have been experiencing similar numbers. So why was it not more evenly spread
+      out?
+    - Articles like this are helpful. We need to be aware of what is happening and
+      that is the beginning of fixing it.
+  counterargument:
+    decisive_counterargument: The claim that some companies and countries find it
+      acceptable to conduct experiments on Africans is made without presenting any
+      evidence that this view is widespread or based on systematic reasoning. The
+      text cites a handful of instances and then strings them together to imply a
+      universal stance, which is a classic case of drawing a general conclusion from
+      an insufficient sample.
+    candidate: Hasty Generalization
+    challenged_inference: Some companies, and countries think it is acceptable to
+      experiment on Africans.
+    label_justification: The inference extends a few observed instances of experimentation
+      (in Africa and the United States) to a sweeping claim about the norms of companies
+      and countries worldwide. This leap from limited evidence to a universal claim
+      is exactly what defines a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Some companies, and countries think it is acceptable to experiment on africans.
+      They've done it in africa, as well as in United states. It's time for that to
+      end. I'm
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage merely states that a *subset* of companies
+    and countries think it is acceptable to experiment on Africans, based on a few
+    mentioned instances. It does not draw a sweeping, universal conclusion about all
+    companies or all countries from that limited evidence. Thus the necessary structural
+    condition for a Hasty Generalization—drawing a broad general claim from an insufficient
+    sample—is not met, so no fallacy is present.
+  decision_reason: The passage lacks a universal generalization based on limited evidence;
+    it only claims that some companies and countries view experimentation as acceptable,
+    which does not satisfy the criterion for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Some companies, and countries think it is acceptable to experiment on africans.
+    They've done it in africa, as well as in United states. It's time for that to
+    end. I'm
+  verified: false
+  rejection_reason: The passage lacks a universal generalization based on limited
+    evidence; it only claims that some companies and countries view experimentation
+    as acceptable, which does not satisfy the criterion for a Hasty Generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4430
+  completion_tokens: 3913
+  total_tokens: 8343
+  wall_time_seconds: 263.9689999999973

@@ -1,0 +1,134 @@
+sample:
+  id: 127:9677
+  article_id: 127
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: Not allowing people to communicate with each other is just as evil and unnatural.
+    Humans are social beings and we all need to communicate with one another, especially
+    in trying times like what the people of Myanmar are going through. They need their
+    internet access back! They are already being displaced and killed, but taking
+    away their right to talk to their loved ones as well?
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Humans are social beings
+    - role: evaluative_conclusion
+      text: Not allowing people to communicate with each other is just as evil and
+        unnatural.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Not allowing people to communicate with each other is just as evil and unnatural.
+      Humans are social beings and we all need to communicate with one another, especially
+      in trying
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: People, especially those in Myanmar, should not be prevented
+      from communicating via the internet; internet access should be restored because
+      it is necessary during crises.
+    candidate: Appeal to Nature
+    supporting_reason: Humans are social beings and need to communicate with one another,
+      especially in trying times.
+    support_relation: The claim that humans require communication is used to argue
+      that an Internet shutdown is morally wrong and should be avoided.
+    label_justification: The statement equates the lack of communication with being
+      ‘evil and unnatural,’ implying that something is wrong simply because it is
+      not natural. This fits the definition of an appeal to nature, where naturalness
+      is used as the basis for moral judgment.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not allowing people to communicate with each other is just as evil and unnatural.
+      Humans are social beings and we all need to communicate with one another, especially
+      in trying
+    - times like what the people of Myanmar are going through. They need their internet
+      access back! They are already being displaced and killed, but taking away their
+      right to talk
+  counterargument:
+    decisive_counterargument: The argument that cutting off internet access is ‘evil
+      and unnatural’ relies solely on the premise that naturalness equals moral correctness.
+      Natural does not imply good or just. In crisis situations, curtailing communications
+      can be a deliberate choice made to protect people, safeguard security, or prevent
+      the spread of misinformation. Thus, the claim that denying communication is
+      inherently evil lacks a valid normative link and merely appeals to the idea
+      that what is natural is inherently good.
+    candidate: Appeal to Nature
+    challenged_inference: preventing communication is evil because it is unnatural
+    label_justification: The objection directly targets the argument’s reliance on
+      the naturalness of communication as a moral standard, exposing the Appeal to
+      Nature fallacy by showing that naturalness does not entail moral goodness or
+      necessity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Not allowing people to communicate with each other is just as evil and unnatural.
+      Humans are social beings and we all need to communicate with one another, especially
+      in trying
+    - times like what the people of Myanmar are going through. They need their internet
+      access back! They are already being displaced and killed, but taking away their
+      right to talk
+    - to their loved ones as well?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that humans are inherently social beings and
+    that not allowing communication is ‘evil and unnatural.’ The argument uses the
+    natural status of communication to judge its moral value, which constitutes an
+    appeal to nature.
+  decision_reason: The TARGET explicitly relies on naturalness (humans being social)
+    to argue that preventing communication is morally wrong, matching the structure
+    of an Appeal to Nature.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Not allowing people to communicate with each other is just as evil and unnatural.
+    Humans are social beings and we all need to communicate with one another, especially
+    in trying
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4728
+  completion_tokens: 3153
+  total_tokens: 7881
+  wall_time_seconds: 136.57800000000861

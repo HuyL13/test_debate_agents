@@ -1,0 +1,145 @@
+sample:
+  id: 323:6967
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: It's great that these people are making efforts to preserve their language.
+    If such things aren't done, the languages just die out, as many have already.
+    And where does that end? It extends to everything from music to literature to
+    recipes to basic traditions. Before you know it, the culture is just a thing for
+    the history books.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: people are making efforts to preserve their language.
+    - role: intermediate_consequence
+      text: languages just die out, as many have already.
+    - role: final_consequence
+      text: the culture is just a thing for the history books.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that these people are making efforts to preserve their language.
+      If such things aren't done, the languages just die out, as many have already.
+      And where does that
+    - end? It extends to everything from music to literature to recipes to basic traditions.
+      Before you know it, the culture is just a thing for the history books.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Preserving language is necessary to prevent the loss of culture
+      and its associated aspects (music, literature, recipes, traditions).
+    candidate: null
+    supporting_reason: If such things aren't done, the languages just die out, as
+      many have already. It extends to everything from music to literature to recipes
+      to basic traditions. Before you know it, the culture is just a thing for the
+      history books.
+    support_relation: mechanism_supports_goal
+    label_justification: The target presents a causal link between language preservation
+      and cultural continuity, using the urgency of language death as evidence. No
+      fallacious reasoning is evident (e.g., no hasty generalization, slippery slope,
+      or appeal to authority), so the argument serves a legitimate goal rather than
+      committing a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that these people are making efforts to preserve their language.
+      If such things aren't done, the languages just die out, as many have already.
+      And where does that
+    - end? It extends to everything from music to literature to recipes to basic traditions.
+      Before you know it, the culture is just a thing for the history books.
+  counterargument:
+    decisive_counterargument: The claim that not preserving a language inevitably
+      triggers the disappearance of music, literature, recipes, and basic traditions—so
+      that the culture becomes solely a historical relic—is an extreme extrapolation
+      without evidence. Historical evidence shows that linguistic loss does not always
+      lead to the wholesale loss of cultural practices; traditions can survive or
+      be transmitted through other forms even when the original language fades. Thus,
+      the argument assumes a chain of inevitable, escalating consequences without
+      substantiating each link, making the inference logically unwarranted.
+    candidate: Slippery Slope
+    challenged_inference: Failure to preserve a language automatically causes loss
+      of all associated cultural domains, ultimately rendering the entire culture
+      extinct and limited to history books.
+    label_justification: The objection demonstrates that the argument jumps from a
+      single premise (language loss) to a series of highly adverse, a priori consequences
+      without demonstrating any causal connection or acknowledging that some cultural
+      elements may persist independently. This is a textbook example of a slippery‑slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's great that these people are making efforts to preserve their language.
+      If such things aren't done, the languages just die out, as many have already.
+      And where does that
+    - end? It extends to everything from music to literature to recipes to basic traditions.
+      Before you know it, the culture is just a thing for the history books.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target asserts a causal chain—failure to preserve a language
+    leads to language extinction, which then is claimed to cause the loss of music,
+    literature, recipes, and traditions, ultimately reducing the culture to a historical
+    relic. This progression of increasingly adverse consequences lacks supporting
+    evidence, satisfying the structural criteria for a slippery‑slope fallacy.
+  decision_reason: The passage explicitly predicts that not preserving a language
+    inevitably leads to the degradation of all cultural facets, culminating in the
+    culture being reduced to a historical artifact. The claim presents an unwarranted,
+    escalating sequence of outcomes, which meets the definition of a slippery‑slope
+    argument. Evidence is drawn from passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's great that these people are making efforts to preserve their language. If
+    such things aren't done, the languages just die out, as many have already. And
+    where does that
+  - end? It extends to everything from music to literature to recipes to basic traditions.
+    Before you know it, the culture is just a thing for the history books.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4411
+  completion_tokens: 3331
+  total_tokens: 7742
+  wall_time_seconds: 179.75

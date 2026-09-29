@@ -1,0 +1,133 @@
+sample:
+  id: 399:6595
+  article_id: 399
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: What can be done here? The government needs to drastically step up their
+    internet infrastructure or they need to force the ISPs to lower prices so their
+    people can have access. What else is there? I think the best option is for them
+    to invest as much as possible in their infrastructure.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: step up their internet infrastructure
+    - role: alternative_b
+      text: force the ISPs to lower prices
+    - role: exhaustiveness_commitment
+      text: What else is there?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What can be done here? The government needs to drastically step up their internet
+      infrastructure or they need to force the ISPs to lower prices so their people
+      can have
+    - access. What else is there? I think the best option is for them to invest as
+      much as possible in their infrastructure.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The government should invest as much as possible in internet
+      infrastructure.
+    candidate: null
+    supporting_reason: The government needs to drastically step up their internet
+      infrastructure or force ISPs to lower prices so their people can have access.
+    support_relation: The reason is presented to justify the recommendation that the
+      government invest heavily in infrastructure.
+    label_justification: The argument makes a straightforward recommendation without
+      employing a fallacious reasoning pattern. No false dilemma, hasty generalization,
+      appeal to authority, or other fallacy is detectable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What can be done here? The government needs to drastically step up their internet
+      infrastructure or they need to force the ISPs to lower prices so their people
+      can have
+    - access. What else is there? I think the best option is for them to invest as
+      much as possible in their infrastructure.
+  counterargument:
+    decisive_counterargument: The claim that only two actions—(1) massive investment
+      in infrastructure or (2) forcing ISPs to cut prices—can solve the problem ignores
+      other plausible strategies such as fostering competition, supporting community
+      broadband initiatives, providing subsidies for low‑income households, or implementing
+      digital skills programs. Thus the argument presents an incomplete set of options
+      and incorrectly asserts they are exhaustive.
+    candidate: False Dilemma
+    challenged_inference: The government’s sole options to improve internet access
+      are either to drastically boost infrastructure or to compel ISPs to lower prices.
+    label_justification: This objection directly targets the inference that the argument’s
+      choice set is exhaustive. By pointing out legitimate alternatives that the claim
+      omits, it reveals the fallacy of false dilemma—treating a restricted list of
+      options as if it covered all possibilities.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What can be done here? The government needs to drastically step up their internet
+      infrastructure or they need to force the ISPs to lower prices so their people
+      can have
+    - access. What else is there? I think the best option is for them to invest as
+      much as possible in their infrastructure.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target lists exactly two options—(1) drastically step up
+    internet infrastructure, or (2) force ISPs to lower prices—and then states “What
+    else is there?” implying these are the only possibilities, which matches the structural
+    pattern of a false dilemma.
+  decision_reason: The passage 100% follows the exhaustive alternatives structure,
+    presenting a restricted choice set as if it covers all options.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What can be done here? The government needs to drastically step up their internet
+    infrastructure or they need to force the ISPs to lower prices so their people
+    can have
+  - access. What else is there? I think the best option is for them to invest as much
+    as possible in their infrastructure.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4283
+  completion_tokens: 2193
+  total_tokens: 6476
+  wall_time_seconds: 158.31299999999464

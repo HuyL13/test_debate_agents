@@ -1,0 +1,144 @@
+sample:
+  id: 515:8742
+  article_id: 515
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: What does the government expect, when they're putting in an appointment
+    that so many of the local people are against? It's natural for people to want
+    to choose their own leadership that actually represents their interests. The government
+    should understand that and act appropriately instead of trying to quash their
+    concerns.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's natural for people to want to choose their own leadership that actually
+        represents their interests.
+    - role: evaluative_conclusion
+      text: The government should understand that and act appropriately instead of
+        trying to quash their concerns.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The government should understand that people naturally want
+      to choose local representatives and therefore act appropriately instead of quashing
+      their concerns.
+    candidate: Appeal to Nature
+    supporting_reason: It is natural for people to want to choose their own leadership
+      that actually represents their interests.
+    support_relation: The argument claims that because a desire for local representation
+      is a natural human tendency, the government has a moral obligation to respect
+      that desire and act properly.
+    label_justification: The reasoning relies on the naturalness of a preference to
+      justify a normative claim about what the government must do, which is the structure
+      of an appeal to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+  counterargument:
+    decisive_counterargument: The claim that it is natural for people to want to choose
+      their own leadership does not logically justify that the government should adjust
+      its appointments accordingly; naturalness is an irrelevant appeal to moral rightness.
+    candidate: Appeal to Nature
+    challenged_inference: Author's inference that the natural desire of people for
+      representation mandates government action (i.e., the government should act appropriately
+      instead of quashing concerns).
+    label_justification: The counterargument directly attacks the logical link between
+      the natural preference for local representation and the normative conclusion
+      that the government must act appropriately. By pointing out that naturalness
+      is an irrelevant basis for a normative claim, it exposes an Appeal to Nature
+      fallacy rather than merely criticizing the argument’s content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states a naturalness premise—“It’s natural for people
+    to want to choose their own leadership”—and immediately draws a normative conclusion
+    that the government should act appropriately, meeting the structure of an appeal‑to‑nature
+    (naturalness → value).
+  decision_reason: 'The target’s logical form satisfies the mandatory structural condition
+    for an appeal to nature: a claim about what is natural followed by a claim about
+    what the government ought to do. Thus the surviving candidate Appeal to Nature
+    is substantiated by the target passages T1 and T2.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What does the government expect, when they're putting in an appointment that so
+    many of the local people are against? It's natural for people to want to choose
+    their own
+  - leadership that actually represents their interests. The government should understand
+    that and act appropriately instead of trying to quash their concerns.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4465
+  completion_tokens: 2432
+  total_tokens: 6897
+  wall_time_seconds: 36.67200000002049

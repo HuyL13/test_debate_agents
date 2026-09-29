@@ -1,0 +1,138 @@
+sample:
+  id: 76:4424
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: The violence done against other is relentless between these factions. There
+    seems to be no limits on who they can attack. Nations should unite for peace.
+  target: That's very true, we need to stand united against this threat. If the whole
+    world doesn't come together to do something about this, in the most concrete,
+    direct manner, it will only spiral out of control and result in far more death
+    and destruction. Either we work together and solve all this immediately or let
+    chaos reign. There's no real alternative.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: work together and solve all this immediately
+    - role: alternative_b
+      text: let chaos reign
+    - role: exhaustiveness_commitment
+      text: There's no real alternative
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That's very true, we need to stand united against this threat. If the whole
+      world doesn't come together to do something about this, in the most concrete,
+      direct manner, it
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+    - alternative.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: We must unite globally to prevent chaos caused by the ongoing
+      violent threat.
+    candidate: False Dilemma
+    supporting_reason: Either we work together and solve all this immediately or let
+      chaos reign – there is no real alternative.
+    support_relation: The speaker frames the situation as having only two possible
+      outcomes, using this limited framing to justify the urgent call for worldwide
+      unity.
+    label_justification: The argument posits a binary choice (cooperation or chaos)
+      while excluding any other plausible responses, thereby committing a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+    - alternative.
+  counterargument:
+    decisive_counterargument: 'The assertion that the only viable responses are either
+      global unity to immediately resolve the conflict or complete abandonment of
+      effort (chaos reigns) ignores many other plausible strategies—such as targeted
+      sanctions, diplomatic initiatives, local peacebuilding, or gradual multilateral
+      engagement—that could also reduce violence. By presenting only two extreme,
+      mutually exclusive outcomes, the argument forces an artificial choice and dismisses
+      legitimate alternatives. This is a textbook false dilemma: it assumes there
+      are only two options when, in reality, a spectrum of actions is possible.'
+    candidate: null
+    challenged_inference: Either we work together and solve all this immediately or
+      let chaos reign. There's no real alternative.
+    label_justification: The rebuttal directly shows that the claim restricts the
+      choice to only two mutually exclusive options, thereby disclosing the false
+      dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - will only spiral out of control and result in far more death and destruction.
+      Either we work together and solve all this immediately or let chaos reign. There's
+      no real
+    - alternative.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly lists two alternatives—“work together
+    and solve all this immediately” versus “let chaos reign”—and asserts “There’s
+    no real alternative,” satisfying the structural conditions for a false dilemma.
+  decision_reason: The target frames the situation as admitting only two possible
+    outcomes, thereby committing a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - That's very true, we need to stand united against this threat. If the whole world
+    doesn't come together to do something about this, in the most concrete, direct
+    manner, it
+  - will only spiral out of control and result in far more death and destruction.
+    Either we work together and solve all this immediately or let chaos reign. There's
+    no real
+  - alternative.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4476
+  completion_tokens: 2992
+  total_tokens: 7468
+  wall_time_seconds: 85.23400000005495

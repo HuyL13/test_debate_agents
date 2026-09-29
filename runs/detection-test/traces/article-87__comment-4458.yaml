@@ -1,0 +1,122 @@
+sample:
+  id: 87:4458
+  article_id: 87
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: The news on this topic is interesting to me. The internet 'news' makes it
+    seem like Hong Kong wants nothing to do with China and that these protests truly
+    represent the popular will. I have a few friends from Hong Kong, and they all
+    love China. Strange. Seems like the news isn't interested in reporting what the
+    people actually think.
+  target: We all have seen situations like the one you speak of. Your friends do not
+    represent the entire country or the majority of people in Hong Kong though. Perhaps
+    they have it good so why would they not say they love the Chinese government.
+    We cannot conclude things based on a small example of people. I am sure there
+    are some who love the Chinese government, but they are not the only voice in that
+    country. From everything that I have seen and read, the majority are not fans
+    of the Chinese government.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - We all have seen situations like the one you speak of. Your friends do not represent
+      the entire country or the majority of people in Hong Kong though. Perhaps they
+    - have it good so why would they not say they love the Chinese government. We
+      cannot conclude things based on a small example of people. I am sure there are
+    - some who love the Chinese government, but they are not the only voice in that
+      country. From everything that I have seen and read, the majority are not fans
+      of
+    candidate: null
+  goal:
+    conclusion_or_goal: The majority of people in Hong Kong are not fans of the Chinese
+      government.
+    candidate: null
+    supporting_reason: The speaker asserts that based on their personal observations
+      and readings, the majority of Hong Kong residents are opposed to the Chinese
+      government.
+    support_relation: This reason is used to justify the conclusion that the friends'
+      views are not representative of Hong Kong's overall sentiment, implying most
+      residents are not supportive of the Chinese government.
+    label_justification: The argument does not meet the formal criteria of a hasty
+      generalization, as it lacks an explicit, finite sample from which a broad conclusion
+      is drawn. It also does not appeal to authority, tradition, nature, or a disastrous
+      progression. Thus no specific fallacy is warranted for the reasoning presented.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - have it good so why would they not say they love the Chinese government. We
+      cannot conclude things based on a small example of people. I am sure there are
+    - some who love the Chinese government, but they are not the only voice in that
+      country. From everything that I have seen and read, the majority are not fans
+      of
+  counterargument:
+    decisive_counterargument: 'The target’s claim that “the majority are not fans
+      of Chinese government” is based only on vague references to what the speaker
+      has “seen and read” without providing concrete or representative evidence.  Claiming
+      a majority stance from such insufficient, anecdotal data is a classic hasty‑generalization—
+      extrapolating a broad population inference from an unverified, small‑scale observation.  This
+      demonstrates that the target’s conclusion is not supported by adequate evidence.  '
+    candidate: null
+    challenged_inference: Target concludes that the majority of Hong Kong residents
+      are not favored by the Chinese government based solely on limited, non‑representative
+      anecdotes.
+    label_justification: The objection directly points out that the target’s reasoning
+      moves from an insufficient, anecdotal base to a broad population claim, which
+      is the hallmark of a Hasty Generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - some who love the Chinese government, but they are not the only voice in that
+      country. From everything that I have seen and read, the majority are not fans
+      of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 5
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3447
+  completion_tokens: 2485
+  total_tokens: 5932
+  wall_time_seconds: 132.5

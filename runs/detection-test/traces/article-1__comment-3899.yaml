@@ -1,0 +1,126 @@
+sample:
+  id: 1:3899
+  article_id: 1
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: It is quite troubling to say the least that the Chinese government continues
+    to deny the real extent of the events that unfolded at the Tiananmen Massacre.
+    Many people died that day and to not even acknowledge the facts about the event
+    is just absurd by the Chinese government and to censure the information regarding
+    it is even worse. This event did take place whether the Chinese government acknowledges
+    it or not.
+  target: It is definitely the issue with communist governments. They can push the
+    narrative that they want. And it works for a lot of the citizens because they
+    aren't allowed to seek outside sources.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is definitely the issue with communist governments. They can push the narrative
+      that they want. And it works for a lot of the citizens because they aren't allowed
+      to
+    - seek outside sources.
+    candidate: null
+  goal:
+    conclusion_or_goal: It is definitely the issue with communist governments.
+    candidate: Hasty Generalization
+    supporting_reason: They can push the narrative that they want. And it works for
+      a lot of the citizens because they aren't allowed to seek outside sources.
+    support_relation: supports
+    label_justification: The statement generalizes from the single example of the
+      Chinese government’s control over information to all communist governments without
+      sufficient evidence, fitting the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is definitely the issue with communist governments. They can push the narrative
+      that they want. And it works for a lot of the citizens because they aren't allowed
+      to
+    - seek outside sources.
+  counterargument:
+    decisive_counterargument: The claim that ‘communist governments can push the narrative
+      they want and this works for a lot of citizens’ is an overgeneralization based
+      solely on the China example. The evidence provided (T1 and T2) only describes
+      the situation in China; it offers no data on other communist regimes or on whether
+      the same narrative control is equally successful elsewhere. Generalizing from
+      this single context to all communist governments is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: It is definitely the issue with communist governments. They
+      can push the narrative that they want. And it works for a lot of the citizens
+      because they aren't allowed to seek outside sources.
+    label_justification: The objection targets the generalization that holds for all
+      communist governments, derived from a single case. This directly matches the
+      fallacy definition of Hasty Generalization, where a conclusion about a whole
+      class is inferred from an insufficient sample.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is definitely the issue with communist governments. They can push the narrative
+      that they want. And it works for a lot of the citizens because they aren't allowed
+      to
+    - seek outside sources.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement generalizes the situation of one communist
+    government (China) to all communist governments, asserting that 'It is definitely
+    the issue with communist governments' based solely on evidence about China, which
+    fits the structure of a hasty generalization.
+  decision_reason: The claim extrapolates from the single example of China’s information
+    control to all communist governments without sufficient supporting evidence, thereby
+    committing a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is definitely the issue with communist governments. They can push the narrative
+    that they want. And it works for a lot of the citizens because they aren't allowed
+    to
+  - seek outside sources.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4399
+  completion_tokens: 2221
+  total_tokens: 6620
+  wall_time_seconds: 93.67199999999139

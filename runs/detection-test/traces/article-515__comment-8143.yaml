@@ -1,0 +1,135 @@
+sample:
+  id: 515:8143
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: I don't really understand why this is even at this point. I mean, why are
+    governors being appointed? What ever happened to elections? The country's president
+    shouldn't decide who the governor of a certain province is. That should be up
+    to the majority of the people living there.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the people living in the province
+    - role: popularity_claim
+      text: governors should be elected by the majority
+    - role: target_claim
+      text: the president should not decide who the governor is; it should be up to
+        the majority
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't really understand why this is even at this point. I mean, why are governors
+      being appointed? What ever happened to elections? The country's president shouldn't
+      decide who the
+    - governor of a certain province is. That should be up to the majority of the
+      people living there.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Governors should be elected, not appointed by the president
+    candidate: null
+    supporting_reason: The governor should be decided by the majority of the people
+    support_relation: the reason is used to support the claim that governors should
+      be elected
+    label_justification: The statement expresses an opinion and a normative claim
+      without invoking an improper justificatory premise, so no logical fallacy is
+      present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't really understand why this is even at this point. I mean, why are governors
+      being appointed? What ever happened to elections? The country's president shouldn't
+      decide who the
+    - governor of a certain province is. That should be up to the majority of the
+      people living there.
+  counterargument:
+    decisive_counterargument: Arranging governors through appointments can be justified
+      when elections are impractical, when a rapid response to security threats is
+      needed, or when expertise and experience are critical for effective local governance.
+      These legitimate scenarios demonstrate that appointments are not inherently
+      wrong and can serve the broader public interest.
+    candidate: null
+    challenged_inference: Presidential appointments of governors are inherently wrong
+      because they bypass the people’s will.
+    label_justification: The objection points out that the original claim ignores
+      legitimate situations where appointments are necessary; it does not expose a
+      specific logical fallacy such as a false dilemma or appeal to authority. Therefore,
+      no fallacy label is appropriate.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't really understand why this is even at this point. I mean, why are governors
+      being appointed? What ever happened to elections? The country's president shouldn't
+      decide who the
+    - governor of a certain province is. That should be up to the majority of the
+      people living there.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that governors should be elected
+    by the majority of people living in a province, thus appealing to the majority’s
+    preference as justification for the claim that the president should not decide
+    who the governor is. This satisfies the mandatory structure (population group,
+    popularity claim, target claim) and demonstrates an appeal to majority fallacy.
+  decision_reason: The target contains an appeal to majority by asserting that the
+    governor should be chosen by the majority of the people living there, and then
+    concluding that the president’s appointment is therefore wrong. The mandatory
+    structural conditions are fulfilled with the provided evidence passages T1 and
+    T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I don't really understand why this is even at this point. I mean, why are governors
+    being appointed? What ever happened to elections? The country's president shouldn't
+    decide who the
+  - governor of a certain province is. That should be up to the majority of the people
+    living there.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3976
+  completion_tokens: 3108
+  total_tokens: 7084
+  wall_time_seconds: 129.76600000000326

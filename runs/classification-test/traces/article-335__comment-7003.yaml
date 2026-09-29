@@ -1,0 +1,132 @@
+sample:
+  id: 335:7003
+  article_id: 335
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: Most people know the massacre was a travesty. Any government to do that
+    should be removed. Time will judge the perpetrators of tragic killings.
+  target: Most residents of the area don't feel so harshly on what happened. Perhaps
+    their views should be listened to as well. Everyone should recognize there are
+    differing views out their and should be given a fair hearing.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most residents of the area
+    - role: popularity_claim
+      text: don't feel so harshly on what happened
+    - role: target_claim
+      text: their views should be listened to as well
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+    - and should be given a fair hearing.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Everyone should recognize differing views and be given a fair
+      hearing.
+    candidate: Appeal to Majority
+    supporting_reason: Most residents of the area don't feel so harshly on what happened.
+    support_relation: The argument uses the fact that a majority of residents feel
+      a certain way to justify that their perspectives deserve attention, implying
+      that if most people hold a view, it should influence how decisions are made.
+    label_justification: Reference to the majority of residents is employed to warrant
+      listening to them, which is an appeal to majority. The reason is used to support
+      the broader conclusion, making it a fallacious appeal to popularity.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+  counterargument:
+    decisive_counterargument: Even if most residents hold a less harsh view, that
+      does not logically give them priority or justify a fair hearing; a majority
+      opinion is not a moral or factual justification for how everyone should treat
+      that view.
+    candidate: Appeal to Majority
+    challenged_inference: Because most residents of the area don’t feel harshly about
+      the massacre, their views should be listened to as well and everyone should
+      give them a fair hearing.
+    label_justification: The objection demonstrates that the inference improperly
+      uses the majority’s sentiment as a basis for giving their perspective special
+      consideration. This is a case of appealing to the majority (argumentum ad populum)
+      rather than presenting an objective reason for the fair hearing.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+    - and should be given a fair hearing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly employs the position of the majority (“Most
+    residents of the area…”) to justify that their views deserve listening and a fair
+    hearing, which meets the structural definition of an Appeal to Majority argument.
+  decision_reason: The target supplies evidence (T1, T2) containing the majority claim
+    and the resultant claim that those majority views should be heeded, thereby satisfying
+    the required structure of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most residents of the area don't feel so harshly on what happened. Perhaps their
+    views should be listened to as well. Everyone should recognize there are differing
+    views out their
+  - and should be given a fair hearing.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4395
+  completion_tokens: 3298
+  total_tokens: 7693
+  wall_time_seconds: 139.34299999999348

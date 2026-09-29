@@ -1,0 +1,140 @@
+sample:
+  id: 2:3904
+  article_id: 2
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: All religions need to be more supportive of each other.   The White Rose
+    campaign is the perfect example of this.  The likelihood of one group converting
+    is very small.  Supporting each other is the only way people will find piece.  Unity
+    and finding ways to harmonize will lead to peace.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: White Rose campaign
+    - role: observed_property
+      text: Supporting each other is the only way people will find peace
+    - role: target_population
+      text: All religions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All religions need to be more supportive of each other.   The White Rose campaign
+      is the perfect example of this.  The likelihood of one group converting is very
+      small.  Supporting
+    - each other is the only way people will find piece.  Unity and finding ways to
+      harmonize will lead to peace.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: All religions need to be more supportive of each other.
+    candidate: Hasty Generalization
+    supporting_reason: The White Rose campaign is presented as a perfect example of
+      inter‑religious support, implying that because this single example occurred,
+      all religions should act similarly.
+    support_relation: The reason is used to generalize from a single instance (the
+      White Rose campaign) to a universal claim about all religions. This evidential
+      leap does not logically warrant the conclusion, representing a hasty generalization.
+    label_justification: The argument derives a blanket claim from one specific case
+      without sufficient evidence that the case is representative of all religions,
+      meet­ing the criteria for a hasty generalization.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All religions need to be more supportive of each other.   The White Rose campaign
+      is the perfect example of this.  The likelihood of one group converting is very
+      small.  Supporting
+    - each other is the only way people will find piece.  Unity and finding ways to
+      harmonize will lead to peace.
+  counterargument:
+    decisive_counterargument: The White Rose campaign is only a single, context‑specific
+      example of interfaith goodwill. Concluding that every religion must support
+      one another—and that this is the exclusive path to peace—requires applying the
+      same outcome from one situation to all religious contexts, ignoring the many
+      other political, economic, and social factors that can also create or prevent
+      peace.
+    candidate: Hasty Generalization
+    challenged_inference: All religions need to be more supportive of each other,
+      and that this mutual support is the sole way people will find peace.
+    label_justification: The argument bases a sweeping normative claim on a single
+      illustrative instance (the White Rose campaign) and therefore commits a hasty
+      generalization by extending the implication from that one example to all religions.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All religions need to be more supportive of each other.   The White Rose campaign
+      is the perfect example of this.  The likelihood of one group converting is very
+      small.  Supporting
+    - each other is the only way people will find piece.  Unity and finding ways to
+      harmonize will lead to peace.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument uses the single instance of the White Rose campaign
+    as a sample and then asserts that all religions need to be more supportive of
+    each other and that mutual support is the sole path to peace, thereby generalizing
+    from a single example to a universal claim.
+  decision_reason: 'The structure demonstrates a classic hasty generalization: a single
+    observed case (the White Rose campaign) is used to support a sweeping normative
+    claim about all religions.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - All religions need to be more supportive of each other.   The White Rose campaign
+    is the perfect example of this.  The likelihood of one group converting is very
+    small.  Supporting
+  - each other is the only way people will find piece.  Unity and finding ways to
+    harmonize will lead to peace.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4256
+  completion_tokens: 3804
+  total_tokens: 8060
+  wall_time_seconds: 72.04699999996228

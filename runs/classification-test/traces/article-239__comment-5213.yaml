@@ -1,0 +1,143 @@
+sample:
+  id: 239:5213
+  article_id: 239
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: If you live in one of those Caribbean areas, I assume you should be more
+    worried about food, violence, shelter, etc, more than you should be worried about
+    climate change. The other things have consequences right now as opposed to the
+    future with climate change. Most of the climate change-related stuff is just predictions!
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: climate change
+    - role: worse_issue
+      text: food, violence, shelter, etc
+    - role: deprioritizing_conclusion
+      text: you should be more worried about the immediate issues than about climate
+        change
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The speaker argues that people in Caribbean areas should prioritize
+      immediate concerns such as food, violence, and shelter over worries about climate
+      change.
+    candidate: null
+    supporting_reason: Climate change is presented as future predictions with delayed
+      consequences, whereas other issues have immediate impacts.
+    support_relation: The reason justifies shifting attention from long‑term climate
+      risk to current, tangible threats.
+    label_justification: The argument does not fit any of the listed fallacies. It
+      simply compares the immediacy of the impacts of different concerns to prioritize
+      them. Therefore no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+  counterargument:
+    decisive_counterargument: Climate change is not merely a distant prediction—it
+      already amplifies the very food, security, and shelter crises the speaker deems
+      immediate. Ignoring it forces Caribbean residents to confront a worsening situation
+      that is directly tied to climate impacts, so prioritizing only short‑term threats
+      while discarding climate concerns is a false split.
+    candidate: False Dilemma
+    challenged_inference: Caribbean residents should focus only on immediate local
+      issues (food, violence, shelter) rather than also addressing climate change.
+    label_justification: 'The inference frames climate change as an optional, peripheral
+      concern and presents the choice as exclusive: either worry about present local
+      problems or worry about climate change. This neglects the possibility that both
+      concerns coexist, thereby committing a false dilemma.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly prioritizes immediate concerns (food,
+    violence, shelter) over climate change, using their urgency to argue that climate
+    change can be ignored, which matches the structural pattern of an Appeal to Worse
+    Problems.
+  decision_reason: 'The argument presented in the target text conforms to the structure
+    of an Appeal to Worse Problems: it identifies climate change as the focal issue,
+    lists more urgent immediate problems such as food, violence, and shelter as worse
+    issues, and concludes that the reader should be more worried about these immediate
+    problems than about climate change.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If you live in one of those Caribbean areas, I assume you should be more worried
+    about food, violence, shelter, etc, more than you should be worried about climate
+    change.
+  - The other things have consequences right now as opposed to the future with climate
+    change. Most of the climate change-related stuff is just predictions!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4058
+  completion_tokens: 3747
+  total_tokens: 7805
+  wall_time_seconds: 166.7039999999979

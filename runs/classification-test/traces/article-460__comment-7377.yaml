@@ -1,0 +1,206 @@
+sample:
+  id: 460:7377
+  article_id: 460
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Combating fake news is important, but this happened during covid, when thousands
+    of people were dying. The government was focused on punishing journalists and
+    not spending all their time and effort on helping control the virus and save the
+    people? Absurd. Shows they don't care for their own people!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the government was focused on punishing journalists and not spending all
+        their time and effort on helping control the virus and save the people
+    - role: observed_property
+      text: they don't care for their own people
+    - role: target_population
+      text: the government
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The target argues that the Malaysian government does not care
+      for its own people during the Covid‑19 pandemic.
+    candidate: Appeal to Authority
+    supporting_reason: The target asserts that because the government punished journalists
+      (which the target claims diverted resources away from fighting the virus) it
+      shows that the government does not care for its people.
+    support_relation: The reasoning links the government’s action (punishing journalists)
+      with a negative consequence (inattention to pandemic) and uses that as evidence
+      that the government lacks care.
+    label_justification: The argument employs an Appeal to Consequences (argumentum
+      ad consequentiam); it presumes that the government’s punitive actions on journalists
+      automatically imply a disregard for public welfare, which is a fallacious causal
+      inference rather than a warranted conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+  counterargument:
+    decisive_counterargument: Punishing journalists does not exclude the simultaneous
+      use of resources for virus control, so the conclusion that the government does
+      not care for its people is an unjustified inference.
+    candidate: False Dilemma
+    challenged_inference: The government was focused on punishing journalists instead
+      of helping control the virus, so it doesn’t care for its people.
+    label_justification: The objection directly shows that the argument treats the
+      punishment of journalists and control of the virus as mutually exclusive options,
+      ignoring the possibility that both were pursued concurrently.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    - False Dilemma
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - Hasty Generalization
+    - False Dilemma
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: false dilemma is directly supported by the target. The claim forces
+      a binary choice between punishing journalists and caring for the population,
+      ignoring other possibilities.
+    loser_failure: Appeal to Authority is unsupported as the target makes no reference
+      to any authority, merely stating an opinion about the government's priorities.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: sample_to_population
+    loser_failure: The argument does not present only two mutually exclusive options
+      characteristic of a False Dilemma, but rather generalizes a specific observation
+      about the government's actions to a broad claim about their care for the people.
+      This aligns with a Hasty Generalization structure.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Combating fake news is important, but this happened during covid, when thousands
+      of people were dying. The government was focused on punishing journalists and
+      not spending all their time and
+    - effort on helping control the virus and save the people? Absurd. Shows they
+      don't care for their own people!
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims that because the government punished journalists
+    (a specific observation about the government’s behavior), it does not care for
+    its people. This inference applies a single sample of the government’s actions
+    to a broader claim about the government’s overall disposition, satisfying the
+    structure of a hasty generalization.
+  decision_reason: The target uses a concrete instance of government action (punishing
+    journalists) to assert a general property (“doesn’t care for its own people”),
+    which is a classic sample‑to‑population inference characteristic of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Combating fake news is important, but this happened during covid, when thousands
+    of people were dying. The government was focused on punishing journalists and
+    not spending all their time and
+  - effort on helping control the virus and save the people? Absurd. Shows they don't
+    care for their own people!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 6
+  provider_calls: 8
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6761
+  completion_tokens: 6035
+  total_tokens: 12796
+  wall_time_seconds: 256.0779999999795

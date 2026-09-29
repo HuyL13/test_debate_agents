@@ -1,0 +1,204 @@
+sample:
+  id: 162:9782
+  article_id: 162
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: They are doing this because they plan to commit genocide against their people.
+    There is no other explanation for why they would want this bill enacted! Any country
+    that wants to censor info and shut down dissent has genocide on their agenda!
+  target: While this probably isn't a good step for the country, isn't that a bit
+    much? I mean, there's no other imaginable reason to censor online content except
+    to commit genocide? If that were the case, we'd have a few more hundred genocides
+    going on in all the countries that in some way censor info.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: censor online content
+    - role: intermediate_consequence
+      text: commit genocide
+    - role: final_consequence
+      text: many more genocides across all the countries that censor info
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this probably isn't a good step for the country, isn't that a bit much?
+      I mean, there's no other imaginable reason to censor online content except to
+      commit genocide?
+    - If that were the case, we'd have a few more hundred genocides going on in all
+      the countries that in some way censor info.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: That the only reasonable explanation for online content censorship
+      is a desire to commit genocide.
+    candidate: Hasty Generalization
+    supporting_reason: While this probably isn't a good step for the country, isn't
+      that a bit much? I mean, there's no other imaginable reason to censor online
+      content except to commit genocide? If that were the case, we'd have a few more
+      hundred genocides going on in all the countries that in some way censor info.
+    support_relation: supports
+    label_justification: The argument takes the single observation of Myanmar’s censorship
+      and generalizes it to all countries that censor, asserting that genocide is
+      the sole motive. This leap lacks sufficient evidence and fits the pattern of
+      a Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this probably isn't a good step for the country, isn't that a bit much?
+      I mean, there's no other imaginable reason to censor online content except to
+      commit genocide?
+    - If that were the case, we'd have a few more hundred genocides going on in all
+      the countries that in some way censor info.
+  counterargument:
+    decisive_counterargument: The claimant assumes censorship can only arise as a
+      tool for genocide, ignoring all other plausible motives such as national security,
+      public safety, or political stability. This narrows the set of possibilities
+      to just two extremes and presumes one of them is the cause when the other remains
+      entirely plausible.
+    candidate: False Dilemma
+    challenged_inference: There is no other imaginable reason to censor online content
+      except to commit genocide
+    label_justification: The objection targets the argument’s exclusive dichotomy—censorship
+      is portrayed as either a genocidal tool or nonexistent—thereby exposing a classic
+      false dilemma that eliminates legitimate alternative explanations.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - While this probably isn't a good step for the country, isn't that a bit much?
+      I mean, there's no other imaginable reason to censor online content except to
+      commit genocide?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    - False Dilemma
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - False Dilemma
+    - Hasty Generalization
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires explicit cases/sample -> broader
+      population/class. Slippery Slope requires action/condition -> progressively
+      worse consequences. The argument uses the single observation of Myanmar’s censorship
+      and generalizes it to all countries that censor, asserting that genocide is
+      the sole motive. This leap lacks sufficient evidence and fits the pattern of
+      a Hasty Generalization.
+    loser_failure: The argument does not present an action (censoring) that inevitably
+      leads to a chain of increasingly severe consequences; it merely states that
+      censorship equals genocide. Thus it does not satisfy the structural requirement
+      for a Slippery Slope.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While this probably isn't a good step for the country, isn't that a bit much?
+      I mean, there's no other imaginable reason to censor online content except to
+      commit genocide?
+    - If that were the case, we'd have a few more hundred genocides going on in all
+      the countries that in some way censor info.
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: There is no other imaginable reason to censor online content except
+      to commit genocide.
+    loser_failure: The Hasty Generalization interpretation requires an explicit brief
+      sample from one case and an unqualified leap in generality; while the target
+      does make a general inference, it also explicitly limits the possibilities to
+      only two (genocide or nothing), which directly satisfies the False Dilemma structure.
+      Thus Hasty Generalization is not the most directly supported fallacy.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - While this probably isn't a good step for the country, isn't that a bit much?
+      I mean, there's no other imaginable reason to censor online content except to
+      commit genocide?
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target statement presents a dichotomy—censorship is possible
+    only if the purpose is genocide, otherwise no censorship would occur—thereby excluding
+    other plausible reasons such as national security or public safety. This aligns
+    with the structure of a false dilemma, and evidence T1 contains the claim that
+    “there’s no other imaginable reason to censor online content except to commit
+    genocide.” The inference is therefore a false dilemma.
+  decision_reason: The target relies on an exclusively binary framing (genocide or
+    nothing) while multiple other motives are possible, satisfying the structural
+    requirements for a false dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - While this probably isn't a good step for the country, isn't that a bit much?
+    I mean, there's no other imaginable reason to censor online content except to
+    commit genocide?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 6
+  provider_calls: 7
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 7098
+  completion_tokens: 5071
+  total_tokens: 12169
+  wall_time_seconds: 243.65600000000268

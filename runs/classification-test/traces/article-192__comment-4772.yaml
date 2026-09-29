@@ -1,0 +1,159 @@
+sample:
+  id: 192:4772
+  article_id: 192
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: It is natural to jump to the conclusion that all censorship is wrong. We
+    have to stop attributing our own culture to totally different countries. What
+    is right in one culture may not necessarily be the same in another.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is natural to jump to the conclusion that all censorship is wrong.
+    - role: evaluative_conclusion
+      text: All censorship is wrong.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Recognize that not all censorship is wrong and avoid imposing
+      our own cultural norms on other societies.
+    candidate: Slippery Slope
+    supporting_reason: What is right in one culture may not necessarily be the same
+      in another.
+    support_relation: The reason explains that cultural differences invalidate a blanket
+      claim that all censorship is wrong.
+    label_justification: The argument legitimately uses the premise of cultural relativism
+      to justify its conclusion; no logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+    - culture may not necessarily be the same in another.
+  counterargument:
+    decisive_counterargument: Naturalness does not guarantee truth; many things that
+      people find natural or intuitive can be false or unjust. The fact that you feel
+      it is natural to think all censorship is wrong does not make that conclusion
+      correct.
+    candidate: Appeal to Nature
+    challenged_inference: Because it is natural to jump to the conclusion that all
+      censorship is wrong.
+    label_justification: The argument relies on the premise that a conclusion is justified
+      simply because it feels natural, which is the quintessential appeal‑to‑nature
+      fallacy. The counter‑argument demonstrates that natural feeling is not a valid
+      basis for truth.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Slippery Slope
+    conflict: appeal-to-nature__vs__slippery-slope
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature's mandatory structure (naturalness premise + evaluative
+      conclusion) is directly supported by the target text. The excerpt states “It
+      is natural to jump to the conclusion that all censorship is wrong,” providing
+      the naturalness premise, followed by the evaluative claim that “All censorship
+      is wrong.” No progressive chain of consequences is present for a Slippery Slope
+      argument. Therefore Appeal to Nature is the correct label.
+    loser_failure: Slippery Slope requires a progression toward increasingly adverse
+      consequences, which is absent in the target. The argument does not predict a
+      sequence of negative outcomes from a single action; it merely presents a cultural
+      relativist stance. Hence the Slippery Slope condition is not met.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is natural to jump to the conclusion that all censorship is wrong. We have
+      to stop attributing our own culture to totally different countries. What is
+      right in one
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that it is natural to conclude that all censorship
+    is wrong, directly linking a naturalness premise to a value judgment, satisfying
+    the nature-to-value structure.
+  decision_reason: The argument commits an Appeal to Nature by claiming that because
+    something (jumping to the conclusion that all censorship is wrong) is natural,
+    the conclusion (all censorship is wrong) must be true or desirable.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is natural to jump to the conclusion that all censorship is wrong. We have
+    to stop attributing our own culture to totally different countries. What is right
+    in one
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5067
+  completion_tokens: 4248
+  total_tokens: 9315
+  wall_time_seconds: 128.06299999999464

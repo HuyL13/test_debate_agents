@@ -11,7 +11,7 @@ from src.io_utils import write_json
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data-dir', default='data/cocolofa')
-    parser.add_argument('--output', default='reports/dataset_verification.json')
+    parser.add_argument('--output', default='runs/dataset_verification.json')
     args = parser.parse_args()
     report = verify_dataset(args.data_dir)
     write_json(args.output, report)

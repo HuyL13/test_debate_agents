@@ -1,0 +1,117 @@
+sample:
+  id: 347:6439
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: I can see Fico's point of view. Up until recently, all countries have had
+    the tradition of really only allowing their own people to work and live in their
+    country. Now more and more countries are going against that and importing tons
+    of foreigners which will eventually lead to the erosion of even more traditions
+    in the country, Traditions are important. We all have them for a reason!
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Up until recently, all countries have had the tradition of really only allowing
+      their own people to work and live in their country.
+    - Traditions are important. We all have them for a reason!
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Up until recently, all countries have had the tradition of really only
+        allowing their own people to work and live in their country.
+    - role: preservation_conclusion
+      text: Traditions are important. We all have them for a reason!
+    structure_complete: true
+    candidate: Appeal to Tradition
+  goal:
+    evidence_spans:
+    - Traditions are important. We all have them for a reason!
+    conclusion_or_goal: Countries should oppose the importation of foreigners in order
+      to preserve traditions because such immigration is claimed to erode traditions.
+    candidate: Appeal to Tradition
+    supporting_reason: Traditions are important.
+    support_relation: Uses the stated importance of traditions as the justification
+      for rejecting foreign immigration, implying that the erosion of these traditions
+      makes the policy undesirable.
+    label_justification: The argument invokes the value of traditions to support a
+      policy position about foreign immigration, which constitutes an Appeal to Tradition
+      fallacy, since it relies on the presumed goodness of a tradition without further
+      evidence or logical link.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - Up until recently, all countries have had the tradition of really only allowing
+      their own people to work and live in their country.
+    - Traditions are important. We all have them for a reason!
+    decisive_counterargument: The argument assumes that immigration inevitably erodes
+      traditions and therefore uses that to justify restricting foreigners. In reality,
+      many societies that have welcomed immigrants—e.g., the United States, Canada,
+      and countless European nations—have seen their core traditions survive and even
+      flourish, adapting to new cultural inputs. Cultural exchange strengthens, rather
+      than destroys, the traditions that define a community. Thus the supposed link
+      between foreign influx and erosion of tradition is unsupported, and the appeal
+      to tradition is unsubstantiated.
+    candidate: Appeal to Tradition
+    challenged_inference: Using tradition as a reason to oppose immigration, based
+      on the claim that immigration will erode traditions.
+    label_justification: The counterargument directly attacks the appeal‑to‑tradition
+      premise—that traditions must be preserved by keeping foreigners out—by showing
+      that traditions can survive and even thrive amid immigration. Therefore the
+      objection targets the specific fallacy of relying on tradition to justify policy
+      decisions.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  evidence_spans:
+  - Up until recently, all countries have had the tradition of really only allowing
+    their own people to work and live in their country.
+  - Traditions are important. We all have them for a reason!
+  decisive_condition: The argument uses an asserted tradition (only natives allowed)
+    and claims that traditions are inherently good and must be preserved, thereby
+    justifying opposition to foreign immigration. This meets the structural criteria
+    for an Appeal to Tradition fallacy.
+  decision_reason: The TARGET includes a clear statement about a longstanding tradition
+    of restricting immigration and then asserts that traditions are inherently good
+    and must be preserved, which is the classic pattern of an Appeal to Tradition
+    argument. No other fallacious structure is present, and the structure condition
+    is satisfied.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3748
+  completion_tokens: 3162
+  total_tokens: 6910
+  wall_time_seconds: 32.46900000004098

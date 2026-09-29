@@ -1,0 +1,138 @@
+sample:
+  id: 411:10531
+  article_id: 411
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: Their government has got to be hiding something nefarious if they think
+    its worth going through all this trouble. Maybe they are actively committing genocide
+    on their people or something. Why else censor everything? Bottom line is that
+    censoring the internet is to hide what they are doing to their people and prevent
+    them from speaking out.
+  target: I think you're jumping to conclusions. Turkmenistan isn't blocking the internet
+    because it is committing genocide, as far as anyone knows. It's just that they
+    are an authoritarian government, and like all authoritarian governments, they
+    can only remain in power through suppression of its citizens, by controlling them
+    economically and through propaganda. A free internet is a threat to their existence,
+    which is why they block so much of it.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think you're jumping to conclusions. Turkmenistan isn't blocking the internet
+      because it is committing genocide, as far as anyone knows. It's just that they
+      are an authoritarian government, and
+    - like all authoritarian governments, they can only remain in power through suppression
+      of its citizens, by controlling them economically and through propaganda. A
+      free internet is a threat to their
+    - existence, which is why they block so much of it.
+    candidate: null
+  goal:
+    conclusion_or_goal: Oppose the claim that internet censorship in Turkmenistan
+      is due to genocide, instead attributing it to authoritarian suppression and
+      threat to regime stability.
+    candidate: null
+    supporting_reason: Because Turkmenistan is an authoritarian government that needs
+      to suppress citizens to maintain power, and free internet would threaten that
+      existence, they block it.
+    support_relation: The reasoning presents a general factual claim about authoritarian
+      regimes and applies it to Turkmenistan, thereby supporting the conclusion that
+      censorship is a tool of power maintenance rather than a cover for genocide.
+    label_justification: The argument provides a general principle about authoritarian
+      governments and uses it to explain Turkmenistan’s censorship; it does not commit
+      an explicit fallacy such as hasty generalization or false dilemma, so no fallacy
+      label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - like all authoritarian governments, they can only remain in power through suppression
+      of its citizens, by controlling them economically and through propaganda. A
+      free internet is a threat to their
+    - existence, which is why they block so much of it.
+  counterargument:
+    decisive_counterargument: You are sweeping all authoritarian regimes into a single
+      category – that they all form their rule solely through citizen suppression
+      and that a free internet is therefore a direct threat to every authoritarian
+      government. This blanket claim ignores the diversity of authoritarian practices
+      and uses a single example (Turkmenistan) to justify a universal statement. Consequently,
+      it commits a hasty generalization by making a broad claim about all authoritarian
+      governments without sufficient evidence.
+    candidate: Hasty Generalization
+    challenged_inference: All authoritarian governments suppress the internet as the
+      primary means of power retention and that this alone explains Turkmenistan’s
+      censorship.
+    label_justification: The objection points out that the target’s reasoning relies
+      on an overly broad, unsubstantiated statement about a class of governments.
+      By asserting that every authoritarian state follows the exact same pattern,
+      the target commits a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - like all authoritarian governments, they can only remain in power through suppression
+      of its citizens, by controlling them economically and through propaganda. A
+      free internet is a threat to their
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states a broad claim that all authoritarian governments
+    suppress the internet to maintain power, based solely on the example of Turkmenistan—a
+    single case that is used to make a universal assertion about a diverse class of
+    governments, which meets the structural requirement for a hasty generalization.
+  decision_reason: The target’s assertion that “like all authoritarian governments,
+    they can only remain in power through suppression of its citizens, by controlling
+    them economically and through propaganda” uses Turkmenistan as a single instance
+    to support a sweeping statement about all authoritarian regimes, thereby committing
+    a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - like all authoritarian governments, they can only remain in power through suppression
+    of its citizens, by controlling them economically and through propaganda. A free
+    internet is a threat to their
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4632
+  completion_tokens: 4433
+  total_tokens: 9065
+  wall_time_seconds: 334.5470000000205

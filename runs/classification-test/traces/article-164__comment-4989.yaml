@@ -1,0 +1,134 @@
+sample:
+  id: 164:4989
+  article_id: 164
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: COVID is nothing compared to Ebola, and as mentioned in the article, it
+    has not been 42 days yet, so it could still come back. They should focus on making
+    sure that doesn't happen and not on COVID. Just look at the infection rate and
+    severity between the 2 and tell me why you should not still focus on Ebola!
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: COVID
+    - role: worse_issue
+      text: Ebola
+    - role: deprioritizing_conclusion
+      text: not focus on COVID
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - COVID is nothing compared to Ebola, and as mentioned in the article, it has
+      not been 42 days yet, so it could still come back. They should focus on making
+    - sure that doesn't happen and not on COVID. Just look at the infection rate and
+      severity between the 2 and tell me why you should not still focus on Ebola!
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Not to focus on Ebola
+    candidate: null
+    supporting_reason: COVID is nothing compared to Ebola, and it has not been 42
+      days yet, so it could still come back.
+    support_relation: support
+    label_justification: The provided reason simply compares the prevalence and severity
+      of COVID and Ebola and is used to argue that Ebola should not be the focus,
+      which does not correspond to any of the specified fallacies; hence no fallacy
+      label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - COVID is nothing compared to Ebola, and as mentioned in the article, it has
+      not been 42 days yet, so it could still come back. They should focus on making
+    - sure that doesn't happen and not on COVID. Just look at the infection rate and
+      severity between the 2 and tell me why you should not still focus on Ebola!
+  counterargument:
+    decisive_counterargument: 'The user’s claim effectively sets up an artificial
+      choice: we must either devote all attention to preventing Ebola’s return or
+      ignore COVID, overlooking the reality that resources can be directed toward
+      both diseases simultaneously or that COVID remains a pressing public health
+      priority even if its 42‑day rule has not yet passed. This framing commits a
+      false dilemma, presenting only two mutually exclusive options when a broader
+      spectrum of strategies is feasible.'
+    candidate: False Dilemma
+    challenged_inference: They should focus on ensuring Ebola doesn’t come back and
+      not on COVID, because COVID is nothing compared to Ebola.
+    label_justification: The objection points out the deliberate omission of alternate
+      possibilities—namely, allocating resources to both Ebola and COVID—thereby exposing
+      the false dilemma fallacy in the reasoning.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - COVID is nothing compared to Ebola, and as mentioned in the article, it has
+      not been 42 days yet, so it could still come back. They should focus on making
+    - sure that doesn't happen and not on COVID. Just look at the infection rate and
+      severity between the 2 and tell me why you should not still focus on Ebola!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly states COVID is insignificant compared
+    to Ebola and concludes that focus should therefore shift toward Ebola and away
+    from COVID, fitting the appeal to a worse problem structure.
+  decision_reason: The argument compares COVID to Ebola, claiming the latter is more
+    severe and therefore worth focusing on, while de-emphasizing COVID—a classic appeal
+    to a worse problem.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - COVID is nothing compared to Ebola, and as mentioned in the article, it has not
+    been 42 days yet, so it could still come back. They should focus on making
+  - sure that doesn't happen and not on COVID. Just look at the infection rate and
+    severity between the 2 and tell me why you should not still focus on Ebola!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 4119
+  completion_tokens: 4462
+  total_tokens: 8581
+  wall_time_seconds: 240.42199999999139

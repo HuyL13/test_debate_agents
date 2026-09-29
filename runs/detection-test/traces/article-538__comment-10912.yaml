@@ -1,0 +1,118 @@
+sample:
+  id: 538:10912
+  article_id: 538
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: Its no wonder there's little trust in the government with what's going on
+    here. There shouldn't be this much divide when it comes to the trustworthiness
+    of the federal and local governments. They all need to work together if they want
+    to get through their many crises. What's the saying? A divided house can't stand?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: A divided house can't stand
+    - role: preservation_conclusion
+      text: They all need to work together
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - local governments. They all need to work together if they want to get through
+      their many crises. What's the saying? A divided house can't stand?
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Expressing that the government lacks trust and that unity
+      between federal and local governments is necessary.
+    candidate: Appeal to Tradition
+    supporting_reason: The target cites the proverb “a divided house can’t stand”
+      as evidence that division is undesirable and that unity is required.
+    support_relation: The proverb is used to justify the claim that unity is needed.
+    label_justification: The argument relies on a traditional saying rather than empirical
+      evidence or reasoning, which fits an appeal to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Its no wonder there's little trust in the government with what's going on here.
+      There shouldn't be this much divide when it comes to the trustworthiness of
+      the federal and
+    - local governments. They all need to work together if they want to get through
+      their many crises. What's the saying? A divided house can't stand?
+  counterargument:
+    decisive_counterargument: The target’s claim that division erodes trust is supported
+      solely by the proverb 'A divided house can't stand.' This relies on a traditional
+      saying rather than empirical evidence or a logical linkage, simply substituting
+      a long‑held belief for proof that division causes mistrust.
+    candidate: Appeal to Tradition
+    challenged_inference: The division in government causes low trust because a traditional
+      saying declares a divided house cannot stand.
+    label_justification: The argument uses a proverb from tradition to justify a causal
+      conclusion—exactly the hallmark of an Appeal to Tradition, where authority is
+      claimed from long‑established wisdom rather than from evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Its no wonder there's little trust in the government with what's going on here.
+      There shouldn't be this much divide when it comes to the trustworthiness of
+      the federal and
+    - local governments. They all need to work together if they want to get through
+      their many crises. What's the saying? A divided house can't stand?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target cites a well‑known traditional saying—“A divided
+    house can’t stand”— to support the conclusion that federal and local governments
+    must work together. This personal reliance on a traditional proverb, rather than
+    any empirical evidence or logical reasoning, satisfies the structural definition
+    of an Appeal to Tradition.
+  decision_reason: The argument’s sole justification for unity is the proverb, a traditional
+    claim, thus demonstrating an Appeal to Tradition.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - local governments. They all need to work together if they want to get through
+    their many crises. What's the saying? A divided house can't stand?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4398
+  completion_tokens: 3686
+  total_tokens: 8084
+  wall_time_seconds: 152.375

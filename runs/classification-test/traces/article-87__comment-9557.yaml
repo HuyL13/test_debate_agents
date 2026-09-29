@@ -1,0 +1,138 @@
+sample:
+  id: 87:9557
+  article_id: 87
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: Chow Hin is wrong, in my view. You have to come down on one side or the
+    other. Yellow all the way, or Blue all the way. Dabbling in both can only cause
+    confusion in the minds of those who want to do business but wish to stand against
+    the mainland government. Decisiveness is required in situations like these, especially
+    when others are trying to suss out whether they can trust you.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: Yellow all the way
+    - role: alternative_b
+      text: Blue all the way
+    - role: exhaustiveness_commitment
+      text: You have to come down on one side or the other
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Chow Hin is wrong, in my view. You have to come down on one side or the other.
+      Yellow all the way, or Blue all the way. Dabbling in both
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: You must choose one side (Yellow all the way or Blue all the
+      way) rather than dabble in both
+    candidate: False Dilemma
+    supporting_reason: Dabbling in both can only cause confusion in the minds of those
+      who want to do business but wish to stand against the mainland government.
+    support_relation: The reason is used to justify the conclusion that indecision
+      is detrimental and that a single side must be chosen
+    label_justification: The argument presents only two extreme options—Yellow all
+      the way or Blue all the way—while dismissing any middle or mixed positions,
+      thus it commits a False Dilemma by implying these options exhaust all possibilities
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Chow Hin is wrong, in my view. You have to come down on one side or the other.
+      Yellow all the way, or Blue all the way. Dabbling in both
+    - can only cause confusion in the minds of those who want to do business but wish
+      to stand against the mainland government. Decisiveness is required in situations
+      like these, especially
+  counterargument:
+    decisive_counterargument: The assertion that leaders must choose strictly between
+      a ‘Yellow all the way’ or ‘Blue all the way’ stance assumes that no other reasonable
+      positions exist and that any departure from these extremes inherently causes
+      confusion. In practice, policymakers and businesses routinely adopt nuanced,
+      mixed positions that balance concerns over governance with economic interests.
+      Such balanced approaches can be communicated clearly and do not necessarily
+      erode trust. Therefore, the claim that a middle‑ground stance leads to inevitable
+      confusion is unfounded.
+    candidate: False Dilemma
+    challenged_inference: There are only two viable positions—complete Yellow or complete
+      Blue—and any other stance causes confusion.
+    label_justification: 'The objection isolates the logical relation that the target
+      relies on: it presents the situation as a binary choice with no legitimate alternatives.
+      The counterargument demonstrates that additional, viable options exist, invalidating
+      the binary framing. This directly exposes the false dilemma reasoning rather
+      than merely criticizing the conclusion.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Chow Hin is wrong, in my view. You have to come down on one side or the other.
+      Yellow all the way, or Blue all the way. Dabbling in both
+    - can only cause confusion in the minds of those who want to do business but wish
+      to stand against the mainland government. Decisiveness is required in situations
+      like these, especially
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents only two exhaustive alternatives—‘Yellow
+    all the way’ or ‘Blue all the way’—and argues that a choice between them is required,
+    thereby committing a false dilemma.
+  decision_reason: The argument forces a binary choice and dismisses any middle or
+    mixed position, satisfying the structural requirement for a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Chow Hin is wrong, in my view. You have to come down on one side or the other.
+    Yellow all the way, or Blue all the way. Dabbling in both
+  - can only cause confusion in the minds of those who want to do business but wish
+    to stand against the mainland government. Decisiveness is required in situations
+    like these, especially
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4555
+  completion_tokens: 3035
+  total_tokens: 7590
+  wall_time_seconds: 328.53100000001723

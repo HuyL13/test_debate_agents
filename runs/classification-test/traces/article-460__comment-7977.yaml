@@ -1,0 +1,145 @@
+sample:
+  id: 460:7977
+  article_id: 460
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: This kind of censorship is always only the start. Today it's so-called misinformation
+    related to the pandemic, but what about tomorrow? As the article demonstrates,
+    it's already being stretched to cover some criticism of government behavior. Before
+    you know it, it's not just pandemic related. Anything bad about the government
+    is suddenly 'misinformation'.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: censorship labeling pandemic-related misinformation
+    - role: intermediate_consequence
+      text: stretching of censorship to cover criticism of government behavior
+    - role: final_consequence
+      text: any criticism of the government suddenly labeled as misinformation
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker warns that censorship currently aimed at pandemic
+      misinformation will expand to suppress all criticism of the government.
+    candidate: Slippery Slope
+    supporting_reason: The claim that censorship is already being stretched to cover
+      criticism of government behavior, and the suggestion that it will soon apply
+      to any negative commentary, establishes a projected escalation.
+    support_relation: mechanism_supports_goal
+    label_justification: The reasoning presents a rise from one type of censorship
+      to an extreme, broader suppression of dissent, which is characteristic of a
+      slippery‑slope argument. The text explicitly predicts a chain of escalating
+      consequences, thereby satisfying the definition of this fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+  counterargument:
+    decisive_counterargument: The claim that the current pandemic‑related misinformation
+      censorship will inevitably expand to label every criticism of the government
+      as ‘misinformation’ lacks any supporting evidence. No data or prior policy outcomes
+      demonstrate such a causal chain; it is merely a speculative projection about
+      an unknown future. Because the argument relies on an unsubstantiated, feared
+      progression rather than concrete facts, the inference is logically invalid.
+    candidate: Slippery Slope
+    challenged_inference: The inference that present censorship of pandemic misinformation
+      will inevitably expand to label all government criticism as misinformation.
+    label_justification: The counterargument rejects the presupposed causal link that
+      the argument hinges on. The target’s reasoning proposes an unverified chain
+      of increasingly negative outcomes—a classic hallmark of the slippery‑slope fallacy,
+      where the claim of inevitable expansion is made without evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This kind of censorship is always only the start. Today it's so-called misinformation
+      related to the pandemic, but what about tomorrow? As the article demonstrates,
+      it's already being stretched to
+    - cover some criticism of government behavior. Before you know it, it's not just
+      pandemic related. Anything bad about the government is suddenly 'misinformation'.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target text predicts that the current practice of labeling
+    pandemic‐related misinformation will inevitably expand to label any criticism
+    of government as misinformation, presenting a progression of escalating consequences
+    without empirical support, which satisfies the necessary structure of a slippery‑slope
+    argument.
+  decision_reason: The argument explicitly forecasts a linear escalation—from pandemic
+    misinformation to broader criticism to all negative commentary—notably a chain
+    of increasing effects that is the defining characteristic of a slippery‑slope
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This kind of censorship is always only the start. Today it's so-called misinformation
+    related to the pandemic, but what about tomorrow? As the article demonstrates,
+    it's already being stretched to
+  - cover some criticism of government behavior. Before you know it, it's not just
+    pandemic related. Anything bad about the government is suddenly 'misinformation'.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4593
+  completion_tokens: 3114
+  total_tokens: 7707
+  wall_time_seconds: 74.93699999997625

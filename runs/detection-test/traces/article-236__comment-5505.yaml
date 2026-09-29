@@ -1,0 +1,139 @@
+sample:
+  id: 236:5505
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Most people in the world want positive action to combat climate change -
+    79% to be exact as surveys have shown. There is a cry for robust action on this
+    issue from the collective voice. Such an overwhelming consensus signifies the
+    magnitude and urgency we are facing. It's just too big and widespread to ignore
+    anymore. Because of this, we must act to ensure the future of the planet is a
+    good one for humanity. With so many united in this belief, doesn't this prove
+    that imminent action is a necessity for preserving the world for future generations?
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people in the world
+    - role: popularity_claim
+      text: 79% want positive action to combat climate change
+    - role: target_claim
+      text: action is a necessity for preserving the world for future generations
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - issue from the collective voice. Such an overwhelming consensus signifies the
+      magnitude and urgency we are facing. It's just too big and widespread to ignore
+      anymore. Because of this, we
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: We must act to ensure the future of the planet is good for
+      humanity and preserve it for future generations.
+    candidate: Appeal to Majority
+    supporting_reason: Most people in the world want positive action to combat climate
+      change (79% from surveys).
+    support_relation: because of this, action is necessary
+    label_justification: The argument uses the observed majority of people’s preference
+      for action as the justification for the necessity of that action, which is an
+      appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - issue from the collective voice. Such an overwhelming consensus signifies the
+      magnitude and urgency we are facing. It's just too big and widespread to ignore
+      anymore. Because of this, we
+    - must act to ensure the future of the planet is a good one for humanity. With
+      so many united in this belief, doesn't this prove that imminent action is a
+  counterargument:
+    decisive_counterargument: Because 79 % of people want action does not prove that
+      the action is necessary or the best way to preserve the planet. The number of
+      supporters is independent of whether robust, cost‑effective, and scientifically
+      sound measures actually exist or will succeed; a majority can be misinformed,
+      or the desired action could have unintended adverse consequences. Therefore
+      the consensus alone is not sufficient grounds to conclude that imminent action
+      is required.
+    candidate: Appeal to Majority
+    challenged_inference: That an overwhelming public consensus (79 % wanting action)
+      necessarily demonstrates the urgency and necessity of immediate action to protect
+      the planet.
+    label_justification: The argument relies solely on the proportion of people who
+      support action to justify that action must be taken, which is the classic structure
+      of an Appeal to Majority. The reasoning thus commits this specific logical‑fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people in the world want positive action to combat climate change - 79%
+      to be exact as surveys have shown. There is a cry for robust action on this
+    - issue from the collective voice. Such an overwhelming consensus signifies the
+      magnitude and urgency we are facing. It's just too big and widespread to ignore
+      anymore. Because of this, we
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument presents a majority claim (79 % want action) and
+    uses this as justification for the necessity of action, fitting the structural
+    requirement of an Appeal to Majority.
+  decision_reason: The target explicitly states that 79 % of people want positive
+    action against climate change and then concludes that such action is a necessity,
+    thereby employing the majority as the sole basis for the claim. This meets the
+    structural criterion for an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most people in the world want positive action to combat climate change - 79% to
+    be exact as surveys have shown. There is a cry for robust action on this
+  - issue from the collective voice. Such an overwhelming consensus signifies the
+    magnitude and urgency we are facing. It's just too big and widespread to ignore
+    anymore. Because of this, we
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5094
+  completion_tokens: 2186
+  total_tokens: 7280
+  wall_time_seconds: 234.23399999993853

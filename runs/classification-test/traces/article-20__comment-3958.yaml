@@ -1,0 +1,135 @@
+sample:
+  id: 20:3958
+  article_id: 20
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: 'Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine'
+  parent: ''
+  target: Well, either Armenia publicly condemns Russia, which would mean making a
+    powerful enemy, or they remain neutral and have other countries hate them for
+    it. Its a lose-lose. Why do what everyone else is doing and take a side? They
+    get nothing out of it.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: Armenia publicly condemns Russia, which would mean making a powerful enemy
+    - role: alternative_b
+      text: Armenia remains neutral and other countries hate them for it
+    - role: exhaustiveness_commitment
+      text: It’s a lose‑lose; taking a side yields nothing
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, either Armenia publicly condemns Russia, which would mean making a powerful
+      enemy, or they remain neutral and have other countries hate them for it. Its
+      a lose-lose. Why do
+    - what everyone else is doing and take a side? They get nothing out of it.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Armenia should not condemn Russia and instead remain neutral,
+      as both options are portrayed as harmful with no benefit.
+    candidate: False Dilemma
+    supporting_reason: The argument presents only two mutually exclusive options—publicly
+      condemning Russia (creating a powerful enemy) or remaining neutral (being hated
+      by other countries)—and portrays both as lose-lose situations, thereby implying
+      those are the only possible courses of action.
+    support_relation: the binary framing of the situation (either condemn or remain
+      neutral) is used to justify the conclusion that Armenia should stay neutral
+      because any action results in negative consequences
+    label_justification: The use of an exclusive and exhaustive set of alternatives
+      that ignores other options constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, either Armenia publicly condemns Russia, which would mean making a powerful
+      enemy, or they remain neutral and have other countries hate them for it. Its
+      a lose-lose. Why do
+    - what everyone else is doing and take a side? They get nothing out of it.
+  counterargument:
+    decisive_counterargument: Armenia can adopt a nuanced stance—expressing concerns,
+      imposing targeted sanctions, or supporting Ukrainian sovereignty—while preserving
+      strategic relations with Russia and avoiding widespread condemnation. Therefore,
+      the situation is not a strict lose‑lose dilemma.
+    candidate: False Dilemma
+    challenged_inference: 'Armenia has only two options: publicly condemn Russia,
+      making a powerful enemy, or remain neutral and be hated by other countries.'
+    label_justification: The objection demonstrates that the argument assumes only
+      two mutually exclusive outcomes and dismisses other diplomatic possibilities,
+      which is the hallmark of a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well, either Armenia publicly condemns Russia, which would mean making a powerful
+      enemy, or they remain neutral and have other countries hate them for it. Its
+      a lose-lose. Why do
+    - what everyone else is doing and take a side? They get nothing out of it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents two exclusive alternatives – publicly condemning
+    Russia or remaining neutral – and argues that both lead to negative outcomes,
+    implicitly asserting these are the only possible courses of action, which satisfies
+    the structural criteria for a false dilemma.
+  decision_reason: The target explicitly frames the situation as an either‑or choice
+    with both possibilities portrayed as negative, meeting the structural requirement
+    for a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Well, either Armenia publicly condemns Russia, which would mean making a powerful
+    enemy, or they remain neutral and have other countries hate them for it. Its a
+    lose-lose. Why do
+  - what everyone else is doing and take a side? They get nothing out of it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4451
+  completion_tokens: 4460
+  total_tokens: 8911
+  wall_time_seconds: 123.92200000002049

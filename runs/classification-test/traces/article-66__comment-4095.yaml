@@ -1,0 +1,170 @@
+sample:
+  id: 66:4095
+  article_id: 66
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+    This type of effort is the most effective way to address the gun violence issue.
+    Listening to concerned citizens is the only way to end this type of gun violence.
+    This may not always be the case, but this issue is a perfect usage of grassroots
+    organization.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: Listening to concerned citizens
+    - role: alternative_b
+      text: Other unmentioned methods
+    - role: exhaustiveness_commitment
+      text: The only way to end this type of gun violence
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+      This type of effort is the most effective way to address the gun violence issue.
+      Listening to concerned citizens is
+    - the only way to end this type of gun violence. This may not always be the case,
+      but this issue is a perfect usage of grassroots organization.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Grassroots efforts will eliminate celebratory gunfire entirely.
+    candidate: False Dilemma
+    supporting_reason: Listening to concerned citizens is the only way to end this
+      type of gun violence.
+    support_relation: The reason that listening to concerned citizens is the sole
+      solution is used to justify the claim that grassroots efforts will completely
+      eliminate celebratory gunfire.
+    label_justification: The argument presents only one way to end gun violence—listening
+      to concerned citizens—while denying the existence of any other viable solutions,
+      which is a classic false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+      This type of effort is the most effective way to address the gun violence issue.
+      Listening to concerned citizens is
+    - the only way to end this type of gun violence. This may not always be the case,
+      but this issue is a perfect usage of grassroots organization.
+  counterargument:
+    decisive_counterargument: The claim that grassroots efforts will eliminate celebratory
+      gunfire entirely lacks supporting evidence or data; asserting such a universal
+      outcome without empirical backing is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: Grassroots efforts will eliminate celebratory gunfire one
+      hundred percent.
+    label_justification: The objection points out the absence of evidence for a universal
+      outcome, exposing a hasty overgeneralization from an unstated or unverified
+      sample to the entire population.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+      This type of effort is the most effective way to address the gun violence issue.
+      Listening to concerned citizens is
+    - the only way to end this type of gun violence. This may not always be the case,
+      but this issue is a perfect usage of grassroots organization.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: The target does not have an explicit sample or narrow set of cases
+      from which a generalization is inferred, so the mandatory structural condition
+      for Hasty Generalization is not met.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+      This type of effort is the most effective way to address the gun violence issue.
+      Listening to concerned citizens is
+    - the only way to end this type of gun violence. This may not always be the case,
+      but this issue is a perfect usage of grassroots organization.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents an exclusive claim that listening to concerned
+    citizens is the only way to end the gun violence, framing it as an exhaustive
+    alternative between “listening to concerned citizens” and all other unmentioned
+    methods, thereby satisfying the structural conditions of a false dilemma.
+  decision_reason: The target states that “Listening to concerned citizens is the
+    only way to end this type of gun violence,” limiting the viable options to a single
+    approach and implicitly excluding all others. This exclusivity and binary framing
+    match the definition of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The grassroots efforts will eliminate celebratory gunfire one hundred percent.
+    This type of effort is the most effective way to address the gun violence issue.
+    Listening to concerned citizens is
+  - the only way to end this type of gun violence. This may not always be the case,
+    but this issue is a perfect usage of grassroots organization.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5799
+  completion_tokens: 4116
+  total_tokens: 9915
+  wall_time_seconds: 101.18799999999464

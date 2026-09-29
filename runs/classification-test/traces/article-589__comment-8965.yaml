@@ -1,0 +1,155 @@
+sample:
+  id: 589:8965
+  article_id: 589
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: These countries are so far behind the majority of the world. Surely they
+    see the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+    make them think about the way they act and make them want to be like us? Its so
+    sad. So many countries have made gay marriage legal and more over the past 10
+    years, and they continue to ignore that and act like this??
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of the world
+    - role: popularity_claim
+      text: progress on LGBT issues, including the legalization of gay marriage in
+        many countries over the past decade
+    - role: target_claim
+      text: countries behind the majority should rethink their actions and aspire
+        to be like others
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: These countries should adopt LGBT rights and practices similar
+      to those of the majority of the world.
+    candidate: Appeal to Majority
+    supporting_reason: The argument asserts that because most countries have made
+      progress on LGBT issues (e.g., legalising gay marriage), those behind should
+      emulate this progress.
+    support_relation: appeal to majority
+    label_justification: The argument relies on the popularity or widespread acceptance
+      of LGBT rights among most countries as a justification for another group to
+      follow suit. This is a classic bandwagon style appeal to majority, which is
+      a recognized logical fallacy when used to establish a normative conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+  counterargument:
+    decisive_counterargument: A majority of countries legalizing gay marriage does
+      not provide a moral or practical reason for the lagging countries to follow
+      suit. Decisions about legal rights should be based on principles such as equality,
+      human dignity, and societal readiness, not merely on what most other countries
+      do. The argument therefore relies on the bandwagon effect, asserting that because
+      most countries now accept gay marriage, the others must also want to emulate
+      them. This is an Appeal to Majority.
+    candidate: Appeal to Majority
+    challenged_inference: They should think about the way they act and want to be
+      like us because the majority of the world has legalized gay marriage.
+    label_justification: The counterargument points out that the target’s reasoning
+      depends only on the fact that most other countries have adopted gay marriage,
+      without providing any substantive justification tied to the lagging countries’
+      own contexts or values. This demonstrates the classic appeal to majority (bandwagon)
+      fallacy, as the target claims that the majority’s action itself constitutes
+      a reason for others to follow.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - These countries are so far behind the majority of the world. Surely they see
+      the progress the rest of us have made with LGBT issues, yes? Shouldn't that
+      make them
+    - think about the way they act and make them want to be like us? Its so sad. So
+      many countries have made gay marriage legal and more over the past
+    - 10 years, and they continue to ignore that and act like this??
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target argument uses the popularity of LGBT rights among
+    “the majority of the world” as the sole basis for the conclusion that lagging
+    countries should adopt similar policies. This is a classic bandwagon (appeal to
+    majority) fallacy, as it asserts that the majority’s actions provide sufficient
+    reason for the target to adjust its behavior. The target’s text directly states
+    that because most countries have legalized gay marriage and made progress on LGBT
+    issues, the lagging countries should think about and want to emulate this progression.
+    Evidence supporting this conclusion is found in passages T1 and T2. '
+  decision_reason: The target demonstrates an Appeal to Majority by basing its normative
+    claim on the prevalence of LGBT rights in most countries. The validity of the
+    conclusion is not grounded in any substantive principles beyond the mere fact
+    of majority acceptance, thereby satisfying the structural conditions of an Appeal
+    to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These countries are so far behind the majority of the world. Surely they see the
+    progress the rest of us have made with LGBT issues, yes? Shouldn't that make them
+  - think about the way they act and make them want to be like us? Its so sad. So
+    many countries have made gay marriage legal and more over the past
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4888
+  completion_tokens: 3417
+  total_tokens: 8305
+  wall_time_seconds: 63.375

@@ -1,0 +1,135 @@
+sample:
+  id: 2:3902
+  article_id: 2
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: While it is very wholesome of the White Rose movement to be pushing for
+    solidarity between Muslims and Buddhists, I think we need to make sure we are
+    getting to the root of the actual issue here. Peace is great but what good does
+    it do while our planet is dying? Climate change is real, and so I think we should
+    be checking into our leaders to see if they are looking out for what's best for
+    all, and not just for themselves.
+  target: The root of the actual issue cannot be climate change. That is another subject
+    that should be discussed but it has nothing to due with the White Rose campaign
+    or the need for it in Myanmar. The root cause is more than likely due to ignorance
+    and religious intolerance by Buddhist extremist in the country.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The root of the actual issue cannot be climate change. That is another subject
+      that should be discussed but it has nothing to due with the White Rose campaign
+      or
+    - the need for it in Myanmar. The root cause is more than likely due to ignorance
+      and religious intolerance by Buddhist extremist in the country.
+    candidate: null
+  goal:
+    conclusion_or_goal: The root cause of the White Rose movement in Myanmar is not
+      climate change, but rather ignorance and religious intolerance among Buddhist
+      extremists.
+    candidate: null
+    supporting_reason: The argument asserts that climate change is unrelated to the
+      White Rose campaign and presents ignorance and religious intolerance as the
+      more likely root cause.
+    support_relation: direct assertion
+    label_justification: No logical fallacy is apparent; the target simply states
+      an alternative causal explanation without misusing logical structures.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The root of the actual issue cannot be climate change. That is another subject
+      that should be discussed but it has nothing to due with the White Rose campaign
+      or
+    - the need for it in Myanmar. The root cause is more than likely due to ignorance
+      and religious intolerance by Buddhist extremist in the country.
+  counterargument:
+    decisive_counterargument: The target’s claim that ‘climate change cannot be the
+      root of the issue’ is a false dilemma that limits the discussion to only two
+      mutually exclusive explanations—climate change or ignorance/religious intolerance.
+      By dismissing climate change as irrelevant without considering other possible
+      factors (such as political, economic, or social dynamics) and by asserting that
+      only ignorance and intolerance remain, the argument forces a binary choice and
+      ignores the broader range of plausible causes.
+    candidate: False Dilemma
+    challenged_inference: The inference that the root cause of the White Rose campaign
+      cannot be climate change and must instead be ignorance and religious intolerance.
+    label_justification: This inference presents an incomplete, forced dichotomy between
+      climate change and ignorance, presenting only two options as if they exhaust
+      all possibilities. This is characteristic of a False Dilemma, as it assigns
+      exclusivity to two causes while ignoring other legitimate explanations.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The root of the actual issue cannot be climate change. That is another subject
+      that should be discussed but it has nothing to due with the White Rose campaign
+      or
+    - the need for it in Myanmar. The root cause is more than likely due to ignorance
+      and religious intolerance by Buddhist extremist in the country.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target’s inference limits the discussion to only two mutually
+    exclusive explanations—climate change and ignorance/religious intolerance—by dismissing
+    climate change as irrelevant and presenting ignorance/intolerance as the sole
+    likely cause, thereby creating a false dilemma. Evidence T1 and T2 support this
+    claim.
+  decision_reason: The target establishes an incomplete dichotomy between climate
+    change and ignorance/religious intolerance as the sole root causes of the White
+    Rose campaign, ignoring other plausible factors, which satisfies the structural
+    definition of a False Dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The root of the actual issue cannot be climate change. That is another subject
+    that should be discussed but it has nothing to due with the White Rose campaign
+    or
+  - the need for it in Myanmar. The root cause is more than likely due to ignorance
+    and religious intolerance by Buddhist extremist in the country.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4455
+  completion_tokens: 3306
+  total_tokens: 7761
+  wall_time_seconds: 135.03100000000268

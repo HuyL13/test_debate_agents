@@ -1,0 +1,136 @@
+sample:
+  id: 238:4911
+  article_id: 238
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Clearly, this visit was made at the wrong time. It is only natural to be
+    suspicious of an Armenian visit to Iran on such a horrific anniversary. Suspicious
+    will be roused in such strange timing. Armenia should have thought the visit out
+    first. A visit at a better planned time likely would have led to less controversy.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is only natural to be suspicious of an Armenian visit to Iran on such
+        a horrific anniversary.
+    - role: evaluative_conclusion
+      text: Suspicious will be roused in such strange timing.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+    - roused in such strange timing. Armenia should have thought the visit out first.
+      A visit at a better planned time likely would have led to less controversy.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The speaker is asserting that it is justified to suspect the
+      timing of an Armenian visit to Iran on a significant anniversary, and that a
+      better-timed visit would have avoided controversy.
+    candidate: Appeal to Nature
+    supporting_reason: It is only natural to be suspicious of an Armenian visit to
+      Iran on such a horrific anniversary.
+    support_relation: the speaker uses the idea that being suspicious is a natural
+      reaction to justify why the visit should be viewed with suspicion, implying
+      that naturalness meaning is morally or logically correct in this context.
+    label_justification: This use of the naturalness of suspicion as a reason for
+      exercising suspicion constitutes an appeal to nature fallacy, as it assumes
+      that what is natural is the appropriate or correct emotional response.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+  counterargument:
+    decisive_counterargument: The claim that it is ‘natural’ to be suspicious gives
+      no objective reason to think the visit was inappropriate. Natural reactions
+      are not evidence of factual correctness, so the inference that the visit was
+      made at the wrong time simply because it evokes a natural suspicion is a non‑sequitur.
+    candidate: Appeal to Nature
+    challenged_inference: Suspicion is warranted merely because it is natural to feel
+      suspicious
+    label_justification: The argument uses the naturalness of a feeling as if it were
+      a valid reason to judge the timing of the visit, which fits the definition of
+      an Appeal to Nature fallacy. It does not use naturalness to describe a state
+      of affairs but to validate a claim about the visit’s propriety.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument asserts that because it is ‘only natural’ to be
+    suspicious of an Armenian visit to Iran on the anniversary of a horrific event,
+    such suspicion is justified in evaluating the appropriateness of the visit; the
+    premise ‘It is only natural to be suspicious’ is used to support the evaluative
+    conclusion that the timing of the visit is wrong, fitting the structure of an
+    Appeal to Nature fallacy.
+  decision_reason: The target text explicitly links a natural premise, “It is only
+    natural to be suspicious of an Armenian visit ...,” to the evaluative claim that
+    the visit’s timing is inappropriate, thereby using naturalness as the sole justification
+    for the conclusion.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+    of an Armenian visit to Iran on such a horrific anniversary. Suspicious will be
+  - roused in such strange timing. Armenia should have thought the visit out first.
+    A visit at a better planned time likely would have led to less controversy.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4509
+  completion_tokens: 2573
+  total_tokens: 7082
+  wall_time_seconds: 73.53100000001723

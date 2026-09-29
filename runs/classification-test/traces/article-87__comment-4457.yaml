@@ -1,0 +1,145 @@
+sample:
+  id: 87:4457
+  article_id: 87
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: People in Hong Kong should understand that this is not the path to peace.
+    How do they think China will react to things like this, by just letting it go?
+    No, they will only clamp down more and more. More impositions, more repressive
+    laws, probably culminating in violent, military action. Hong Kong will only hasten
+    it becoming the next Xinjiang with these kinds of actions.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: these kinds of actions
+    - role: intermediate_consequence
+      text: clamp down more and more, more impositions, more repressive laws
+    - role: final_consequence
+      text: violent, military action culminating in Hong Kong becoming the next Xinjiang
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+    - with these kinds of actions.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Hong Kong residents should avoid actions that will provoke
+      Chinese retaliation, because such actions will lead to escalating repression
+      and eventually violent military suppression, turning Hong Kong into the next
+      Xinjiang.
+    candidate: Slippery Slope
+    supporting_reason: China will clamp down more and more, culminating in violent
+      military action, thereby hastening Hong Kong’s transformation into a repressive
+      region like Xinjiang.
+    support_relation: The argument presents a causal chain in which protest inevitably
+      results in escalating repression and violent outcome, implying the conclusion
+      that protest will cause the worst possible consequence.
+    label_justification: The reasoning assumes a series of inevitable, escalating
+      events—clamping down, imposing repressive laws, culminating in violent action—without
+      evidence that each step follows from the previous one. This lack of support
+      for the causal chain commits a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+  counterargument:
+    decisive_counterargument: To claim that Hong Kong protests will inevitably trigger
+      ever‑increasing clamp‑downs, culminating in violent military action and a Xinjiang‑style
+      crackdown, requires evidence that each step in the proposed chain actually follows
+      from the previous one. Nothing in the passage demonstrates that the Hong Kong
+      government has a historical pattern of moving from dissent to violent intervention,
+      nor does it provide any specific data or precedent showing that these measures
+      would necessarily unfold in this order. The argument therefore rests on an unjustified
+      assumption that escalation is inevitable, not on any demonstrated causal link.
+    candidate: Slippery Slope
+    challenged_inference: The assertion that Hong Kong protests will inevitably lead
+      to more repressive laws, violent military action, and ultimately a Xinjiang‑style
+      situation.
+    label_justification: The objection shows that the argument assumes a chain of
+      events (protests → clamp‑down → violent action → Xinjiang‑style crackdown) without
+      presenting evidence that each link is established or necessarily follows. This
+      is precisely the hallmark of a slippery‑slope fallacy – predicting an extreme
+      outcome by linking an unproven series of intermediate steps.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - No, they will only clamp down more and more. More impositions, more repressive
+      laws, probably culminating in violent, military action. Hong Kong will only
+      hasten it becoming the next Xinjiang
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The passage presents a predictive chain of escalating consequences—from
+    protests to mounting clampdowns, repressive laws, violent military action, and
+    ultimately a Xinjiang‑style situation—without providing evidence that each step
+    inevitably follows the preceding one. This satisfies the structural definition
+    of a slippery slope argument.
+  decision_reason: The target explicitly states that any pro‑democracy action will
+    lead inevitably to increasingly severe government responses, culminating in violent
+    repression and a transition toward Xinjiang‑style control. This is a classic slippery‑slope
+    structure, and the evidence supporting the chain is contained in passages T2 and
+    T3.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - No, they will only clamp down more and more. More impositions, more repressive
+    laws, probably culminating in violent, military action. Hong Kong will only hasten
+    it becoming the next Xinjiang
+  - with these kinds of actions.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4809
+  completion_tokens: 3285
+  total_tokens: 8094
+  wall_time_seconds: 347.1720000000205

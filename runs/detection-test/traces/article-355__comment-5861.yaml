@@ -1,0 +1,122 @@
+sample:
+  id: 355:5861
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: If the rapes happen, then there should be protests. If they are false, there
+    should be allegations. These days, everything is rape. Physical contact.. rape.
+    Eye contact... rape.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Physical contact, eye contact
+    - role: observed_property
+      text: rape
+    - role: target_population
+      text: everything
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the rapes happen, then there should be protests. If they are false, there
+      should be allegations. These days, everything is rape. Physical contact.. rape.
+      Eye contact... rape.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: All or most bodily or eye contact is considered rape.
+    candidate: Hasty Generalization
+    supporting_reason: The passage uses specific instances—physical contact and eye
+      contact—to suggest that everything is rape, generalizing from these limited
+      examples.
+    support_relation: Reason is used to justify the broad claim that all such interactions
+      qualify as rape.
+    label_justification: The argument draws a sweeping conclusion (everything is rape)
+      from a few illustrative cases, lacking sufficient evidence to support the generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the rapes happen, then there should be protests. If they are false, there
+      should be allegations. These days, everything is rape. Physical contact.. rape.
+      Eye contact... rape.
+  counterargument:
+    decisive_counterargument: The claim that 'everything is rape' rests on the unjustified
+      premise that every form of contact—whether physical touch or eye contact—represents
+      rape. In reality, contact can be consensual, friendly, or entirely nonsexual,
+      and eye contact alone never constitutes a sexual act. By equating all contact
+      with rape the argument wrongly treats a specific definition (rape as a non-consensual
+      sexual act) as if it applied to all interactions. Such a sweeping conclusion
+      drawn from the few examples of contact mentioned is precisely the kind of improper
+      generalization that a Hasty Generalization fallacy represents.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that if any contact occurs, it is rape (and
+      therefore protests or allegations should follow).
+    label_justification: This objection points out that the target’s conclusion extends
+      from a limited set of instances (physical contact and eye contact) to an unconditional
+      statement that all contact is rape. That is a classic overgeneralization, exposing
+      the Hasty Generalization fault rather than merely criticizing the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the rapes happen, then there should be protests. If they are false, there
+      should be allegations. These days, everything is rape. Physical contact.. rape.
+      Eye contact... rape.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage compares a few illustrative examples—physical contact
+    and eye contact—to a sweeping claim that everything is rape, thereby generalizing
+    from a limited set of cases to the entire population, which satisfies the sample‑to‑population
+    structure of a Hasty Generalization.
+  decision_reason: The target text explicitly cites limited instances (physical contact,
+    eye contact) as rape and then declares that everything is rape, showing an overgeneralization
+    characteristic of a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If the rapes happen, then there should be protests. If they are false, there should
+    be allegations. These days, everything is rape. Physical contact.. rape. Eye contact...
+    rape.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4181
+  completion_tokens: 3008
+  total_tokens: 7189
+  wall_time_seconds: 139.8279999999795

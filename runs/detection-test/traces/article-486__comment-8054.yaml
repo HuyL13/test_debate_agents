@@ -1,0 +1,125 @@
+sample:
+  id: 486:8054
+  article_id: 486
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: Hackers need to be dealt with in a strict and harsh manner as there is no
+    telling what damage they could one day cause. If you make hackers scared of getting
+    caught due to the harsh consequences there will be less of them willing to risk
+    their freedom. At least that is what I believe would happen if the consequences
+    where harsh.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Hackers need to be dealt with in a strict and harsh manner as there is no telling
+      what damage they could one day cause. If you make hackers scared of
+    - getting caught due to the harsh consequences there will be less of them willing
+      to risk their freedom. At least that is what I believe would happen if the consequences
+    - where harsh.
+    candidate: null
+  goal:
+    conclusion_or_goal: Hackers need to be dealt with in a strict and harsh manner.
+    candidate: Hasty Generalization
+    supporting_reason: If you make hackers scared of getting caught due to the harsh
+      consequences there will be less of them willing to risk their freedom, so strict
+      punishment will deter them.
+    support_relation: The reason that harsh penalties will deter hacking is used to
+      justify the conclusion of strict punishment.
+    label_justification: The argument generalizes a broad policy stance (criminalizing
+      hackers harshly) based on a single unverified possibility of future harm, thereby
+      committing a hasty generalization from limited evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Hackers need to be dealt with in a strict and harsh manner as there is no telling
+      what damage they could one day cause. If you make hackers scared of
+    - getting caught due to the harsh consequences there will be less of them willing
+      to risk their freedom. At least that is what I believe would happen if the consequences
+  counterargument:
+    decisive_counterargument: The argument assumes that harsher punishments will automatically
+      reduce hacking, yet it offers no evidence that such a cause-and-effect relationship
+      actually holds. Empirical studies of cybercrime deterrence show mixed or negligible
+      effects of punitive severity, suggesting that motivation for hacking is often
+      driven by factors such as financial gain, ideological beliefs, or skill testing
+      rather than the threat of punishment. Consequently, the claim that harsh legal
+      consequences will simply make hackers fewer in number is an unsupported, generalized
+      assumption.
+    candidate: Hasty Generalization
+    challenged_inference: A harsher punishment regime will reduce the number of hackers.
+    label_justification: The target’s reasoning leaps from an unsubstantiated causal
+      belief to a broad conclusion about all hackers, failing to back the claim with
+      evidence or a representative sample. This typifies a hasty generalization, where
+      a single inferred outcome is taken as if it applies universally.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - getting caught due to the harsh consequences there will be less of them willing
+      to risk their freedom. At least that is what I believe would happen if the consequences
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target concludes that harsh punishment will deter hacking
+    without providing any empirical evidence or specific examples; it generalized
+    from a single assumed possibility of future damage to all hackers. This satisfies
+    the structural requirement of a hasty generalization: a broad claim derived from
+    insufficient evidence.'
+  decision_reason: The target states that strict, harsh penalties will reduce the
+    number of hackers based solely on an abstract possibility of damage, with no supporting
+    data or representative sample, thereby committing a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Hackers need to be dealt with in a strict and harsh manner as there is no telling
+    what damage they could one day cause. If you make hackers scared of
+  - getting caught due to the harsh consequences there will be less of them willing
+    to risk their freedom. At least that is what I believe would happen if the consequences
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4474
+  completion_tokens: 3503
+  total_tokens: 7977
+  wall_time_seconds: 130.59400000004098

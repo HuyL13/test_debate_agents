@@ -1,0 +1,127 @@
+sample:
+  id: 164:4689
+  article_id: 164
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: I have heard many groups online say COVID is a hoax. Are we even sure this
+    is a problem? There is an article where a doctor known for alternative perspectives
+    stated most of the positive tests are false. I think we need to look into this
+    more before we panic.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: doctor known for alternative perspectives
+    - role: endorsed_claim
+      text: most of the positive tests are false
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I have heard many groups online say COVID is a hoax. Are we even sure this is
+      a problem? There is an article where a doctor known for alternative perspectives
+    - stated most of the positive tests are false. I think we need to look into this
+      more before we panic.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Encourage further investigation into COVID test reliability
+      before panicking
+    candidate: null
+    supporting_reason: The target references a doctor’s claim that most positive tests
+      are false, using it to justify the recommendation to investigate further
+    support_relation: The claim about false positives is presented as a reason for
+      conducting additional inquiry
+    label_justification: The target does not employ any of the recognized logical
+      fallacies; it merely cites a claim and proposes further examination, so no fallacious
+      reasoning is present
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - stated most of the positive tests are false. I think we need to look into this
+      more before we panic.
+  counterargument:
+    decisive_counterargument: The doctor’s statement that most positive COVID‑19 tests
+      are false is a claim that can only be confirmed by empirical data, not by the
+      reputation of a single individual—especially one known for alternative viewpoints.
+      Without peer‑reviewed evidence, the assertion lacks credibility, and it is inappropriate
+      to use this claim as a reason to postpone widespread public health measures.
+      Relying on an unqualified source does not establish the reliability of the claim.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that we should delay action because a doctor
+      who is typically an alternative‑medicine advocate says most COVID tests are
+      false.
+    label_justification: The objection shows that the argument’s validity depends
+      on the unwarranted authority of a single, non‑specialized individual. By demonstrating
+      that the source is not reliable evidence, it exposes the logical flaw that the
+      inference is based on an appeal to authority, rather than on unbiased data.
+      The counterargument specifically targets the fallacious reliance on said authority,
+      showing why the argument is invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I have heard many groups online say COVID is a hoax. Are we even sure this is
+      a problem? There is an article where a doctor known for alternative perspectives
+    - stated most of the positive tests are false. I think we need to look into this
+      more before we panic.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The TARGET references a single specialist—‘a doctor known for
+    alternative perspectives’—who asserts that most positive tests are false, and
+    this claim is invoked as a reason to suggest further investigation before panicking,
+    forming an argument that relies on that authority’s statement without empirical
+    evidence.
+  decision_reason: The target’s argument structure fits the appeal‑to‑authority fallacy,
+    supported by passages T1 and T2 that provide the authority and the asserted claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I have heard many groups online say COVID is a hoax. Are we even sure this is
+    a problem? There is an article where a doctor known for alternative perspectives
+  - stated most of the positive tests are false. I think we need to look into this
+    more before we panic.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4254
+  completion_tokens: 3548
+  total_tokens: 7802
+  wall_time_seconds: 249.92199999999866

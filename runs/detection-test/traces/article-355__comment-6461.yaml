@@ -1,0 +1,102 @@
+sample:
+  id: 355:6461
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: There are issues like wars going on. While this is important, it comes second.
+    Victims should get justice, but equitably.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are issues like wars going on. While this is important, it comes second.
+      Victims should get justice, but equitably.
+    candidate: null
+  goal:
+    conclusion_or_goal: Victims should get justice, but equitably.
+    candidate: null
+    supporting_reason: There are issues like wars going on. While this is important,
+      it comes second.
+    support_relation: The passage states that wars are important yet considered a
+      secondary concern, implying that justice for victims should be prioritized and
+      done equitably.
+    label_justification: The argument does not invoke a formal fallacy pattern (e.g.,
+      hasty generalization, false dilemma, appeal to authority, etc.). It merely asserts
+      a prioritization without constructing a logically flawed link. Hence, no fallacy
+      is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are issues like wars going on. While this is important, it comes second.
+      Victims should get justice, but equitably.
+  counterargument:
+    decisive_counterargument: 'The target’s claim that wars are important but of secondary
+      priority relative to victims’ justice is unsupported: it merely lists two concerns
+      without evidence that the first must be less urgent than the second. Without
+      a basis for ranking these issues—such as data on urgency, frequency, or impact—the
+      conclusion that war is ’second’ wanders into an unfounded assertion.  This exposes
+      no formal logical fallacy beyond an unsubstantiated claim, so we set the fallacy
+      label to null and fail to find a specific reasoning defect.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: There are issues like wars going on. While this is important,
+      it comes second. Victims should get justice, but equitably.
+    label_justification: The objection points out that the target arbitrarily ranks
+      wars as less important than justice for victims without evidence or justification.
+      This does not commit a formal fallacy such as a false dilemma or hasty generalization,
+      but it demonstrates that the inference lacks a valid basis. Consequently, the
+      fallacy label is set to null and failure_exposed=false.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are issues like wars going on. While this is important, it comes second.
+      Victims should get justice, but equitably.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2565
+  completion_tokens: 2354
+  total_tokens: 4919
+  wall_time_seconds: 117.82799999997951

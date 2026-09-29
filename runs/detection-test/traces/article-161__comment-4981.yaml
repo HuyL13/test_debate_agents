@@ -1,0 +1,138 @@
+sample:
+  id: 161:4981
+  article_id: 161
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: If the refugees get expelled, there will be issues. First it's muslims,
+    later others. We can't tolerate religious bias which puts some people at a disadvantage
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the refugees get expelled
+    - role: intermediate_consequence
+      text: issues affecting Muslims
+    - role: final_consequence
+      text: religious bias impacting other groups
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker is warning that expelling refugees will lead to
+      problems, specifically religious bias that disadvantages some people, and therefore
+      should not be done.
+    candidate: Slippery Slope
+    supporting_reason: The argument predicts that expelling refugees will trigger
+      a sequence of negative outcomes—first affecting Muslims, then others—culminating
+      in religious bias that disadvantages people.
+    support_relation: The predictive chain from expulsion to bias is used to justify
+      the conclusion that expulsion should be avoided.
+    label_justification: The claim links an initial action (expulsion) to a series
+      of escalating adverse consequences (biased treatment of successive groups) without
+      evidence or intermediate justification, fitting the definition of a slippery‑slope
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+  counterargument:
+    decisive_counterargument: 'The claim that expelling refugees will inevitably trigger
+      a hierarchy of religious bias—first against Muslims and subsequently against
+      other groups—is a purely speculative projection with no evidence of any causal
+      link. It presumes that an expulsive policy will, by virtue of itself, lead to
+      targeted discrimination without demonstrating how such discrimination would
+      arise or be systematically escalated.
+
+
+      In other words, the statement moves from a single action (expulsion) to a series
+      of disastrous consequences (religious bias against progressively larger populations)
+      without establishing a credible mechanism or empirical support. This is an unstated,
+      unverified escalation that the argument presents as inevitable.
+
+
+      Hence the argument commits a slippery‑slope fallacy: it predicts a chain of
+      worsening outcomes that are not supported by evidence, merely by suggestion.
+      This undermines the logical validity of the claim that expulsion necessarily
+      leads first to Muslim bias and then to broader discrimination.
+
+      '
+    candidate: Slippery Slope
+    challenged_inference: If the refugees get expelled, religious bias will ensue
+      first against Muslims and later against other groups
+    label_justification: The objection demonstrates that the TARGET makes an unsupported
+      claim that a single policy change (expulsion of refugees) will inevitably produce
+      a sequence of worsening consequences, characteristic of a slippery‑slope reasoning
+      defect. By pointing out the lack of evidence for such a causal chain, the counterargument
+      exposes the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the refugees get expelled, there will be issues. First it's muslims, later
+      others. We can't tolerate religious bias which puts some people at a disadvantage
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The TARGET explicitly presents a causal chain: the initial
+    action (expelling refugees) is said to lead to a first set of issues affecting
+    Muslims, followed by further issues for other groups, and culminates in religious
+    bias that disadvantages some people. This structure matches the defining characteristics
+    of a slippery‑slope argument, namely an implied progression from a single event
+    to a series of worsening consequences without providing evidence of the causal
+    link.'
+  decision_reason: The TARGET contains an initial event, an intermediate consequence
+    (issues affecting Muslims), and a final consequence (bias against other groups).
+    This stepwise escalation is justified solely by speculation, fitting the slippery‑slope
+    definition.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If the refugees get expelled, there will be issues. First it's muslims, later
+    others. We can't tolerate religious bias which puts some people at a disadvantage
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4251
+  completion_tokens: 4114
+  total_tokens: 8365
+  wall_time_seconds: 348.1560000000027

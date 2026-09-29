@@ -1,0 +1,142 @@
+sample:
+  id: 645:9132
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: It's not a good look when a company like Facebook sets up auto-flagging
+    protocols like this. However, a bigger problem is those countries in which Facebook
+    is not even allowed. What's worse, the problem described in this story (auto-flagging)
+    or a complete social media blackout? Let's keep our priorities in view at all
+    times. It seems there's always a bigger fish to fry.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: auto-flagging protocols
+    - role: worse_issue
+      text: complete social media blackout
+    - role: deprioritizing_conclusion
+      text: keep our priorities in view at all times; there's always a bigger fish
+        to fry
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's not a good look when a company like Facebook sets up auto-flagging protocols
+      like this. However, a bigger problem is those countries in which Facebook is
+      not even allowed.
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+    - fish to fry.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: No explicit argumentative conclusion is presented in the target.
+    candidate: null
+    supporting_reason: The target consists of commentary that observes Facebook’s
+      auto‑flagging protocol and remarks that a larger issue in some countries is
+      the ban on Facebook. It does not assert a claim that is being justified, nor
+      does it present premises that lead to a thesis.
+    support_relation: none
+    label_justification: No logical fallacy is evident because the target contains
+      no clear conclusion or argumentative structure to evaluate.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's not a good look when a company like Facebook sets up auto-flagging protocols
+      like this. However, a bigger problem is those countries in which Facebook is
+      not even allowed.
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+    - fish to fry.
+  counterargument:
+    decisive_counterargument: The argument reduces a complex spectrum of policy responses
+      to only two extreme options—auto‑flagging versus a complete social media blackout—while
+      ignoring many feasible alternatives such as targeted moderation, legal frameworks,
+      or platform reforms. This oversimplification presents a false dilemma, misrepresenting
+      the true scope of choices.
+    candidate: Appeal to Worse Problems
+    challenged_inference: What's worse, the problem described in this story (auto‑flagging)
+      or a complete social media blackout?  Let's keep our priorities in view at all
+      times.  It seems there's always a bigger fish to fry.
+    label_justification: The objection points out that the reasoning forces the reader
+      into a binary choice, neglecting other viable options, which is the hallmark
+      of the false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - What's worse, the problem described in this story (auto-flagging) or a complete
+      social media blackout? Let's keep our priorities in view at all times. It seems
+      there's always a bigger
+    - fish to fry.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target presents a focal issue (auto‑flagging) and a worse
+    issue (complete social media blackout), then suggests deprioritizing the focal
+    issue by asserting that a bigger problem exists. The structure matches the appeal
+    to worse problems fallacy, with the relevant passages T1, T2, and T3 supporting
+    the inference.
+  decision_reason: The text directly compares the severity of two problems and dismisses
+    the lesser one as less worthy of concern, fitting the appeal to worse problems
+    structure.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's not a good look when a company like Facebook sets up auto-flagging protocols
+    like this. However, a bigger problem is those countries in which Facebook is not
+    even allowed.
+  - What's worse, the problem described in this story (auto-flagging) or a complete
+    social media blackout? Let's keep our priorities in view at all times. It seems
+    there's always a bigger
+  - fish to fry.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4540
+  completion_tokens: 3365
+  total_tokens: 7905
+  wall_time_seconds: 264.5

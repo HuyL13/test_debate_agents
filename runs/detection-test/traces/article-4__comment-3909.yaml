@@ -1,0 +1,149 @@
+sample:
+  id: 4:3909
+  article_id: 4
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: I think it's pretty clear the government simply couldn't do more and those
+    complaints are not really reasonable. It's easy for armchair experts with no understanding
+    of the actual issue to make those kinds of comments, but it's not fair. Either
+    they did what they did, which probably saved millions, or they did nothing and
+    many more would have died. It's hard to see any other options.
+  target: It's wild to me that you think the government couldn't do more. We are talking
+    about the Chinese government. Of course they could do more since they had information
+    they were more than likely trying t suppress from the world about this virus and
+    what it would do to a city. They could have used that information to begin to
+    mobilize the equipment they would need in order to better support the residents
+    of Wuhan once they knew they would quarantine and shit down the city. We all should
+    stand with Wuhan and its residents at this moment. They have been let down by
+    their government, and that saddens me.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's wild to me that you think the government couldn't do more. We are talking
+      about the Chinese government. Of course they could do more since they had information
+      they
+    - were more than likely trying t suppress from the world about this virus and
+      what it would do to a city. They could have used that information to begin to
+    - mobilize the equipment they would need in order to better support the residents
+      of Wuhan once they knew they would quarantine and shit down the city. We all
+      should stand
+    candidate: null
+  goal:
+    conclusion_or_goal: The target argues that the Chinese government had information
+      and could have done more to protect Wuhan.
+    candidate: null
+    supporting_reason: They had information and could have used it to mobilize equipment
+      and support residents.
+    support_relation: provides justification for the claim that the government should
+      have done more.
+    label_justification: No recognized fallacy is present; the argument makes an unsupported
+      claim but does not rely on a recognized fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's wild to me that you think the government couldn't do more. We are talking
+      about the Chinese government. Of course they could do more since they had information
+      they
+    - were more than likely trying t suppress from the world about this virus and
+      what it would do to a city. They could have used that information to begin to
+  counterargument:
+    decisive_counterargument: Even if the Chinese authorities possessed information
+      that could have allowed them to act more decisively, that fact does not logically
+      invalidate criticism that they, in fact, failed to protect Wuhan’s residents.
+      The mere possibility of an alternate action does not prove that the actual actions
+      taken were adequate; it only suggests a hypothetical scenario. Therefore the
+      conclusion that the criticism is unjustified does not follow from the premise
+      that they could have acted differently, representing a non‑sequitur.
+    candidate: Appeal to Tradition
+    challenged_inference: They could have done more, therefore criticism is unfair
+    label_justification: 'The argument ignores the gap between potential capability
+      and actual conduct, equating a hypothetical capability with a negation of past
+      criticism. This leap from possibility to invalidation of criticism is a classic
+      non‑sequitur: the premise does not logically support the conclusion.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's wild to me that you think the government couldn't do more. We are talking
+      about the Chinese government. Of course they could do more since they had information
+      they
+    - were more than likely trying t suppress from the world about this virus and
+      what it would do to a city. They could have used that information to begin to
+    - mobilize the equipment they would need in order to better support the residents
+      of Wuhan once they knew they would quarantine and shit down the city. We all
+      should stand
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage makes no claim that something should be done
+    or not because it has historically been done; it does not invoke tradition as
+    a justification. Therefore the Appeal to Tradition fallacy fails its mandatory
+    structural condition (argument must reference tradition to claim it is right or
+    necessary). No fallacious inference of that type is present.
+  decision_reason: The target text lacks any reference to tradition or historical
+    practice as the basis for its argument, so the Appeal to Tradition claim does
+    not fit the structural requirements, meaning no logical fallacy is present.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's wild to me that you think the government couldn't do more. We are talking
+    about the Chinese government. Of course they could do more since they had information
+    they
+  - were more than likely trying t suppress from the world about this virus and what
+    it would do to a city. They could have used that information to begin to
+  - mobilize the equipment they would need in order to better support the residents
+    of Wuhan once they knew they would quarantine and shit down the city. We all should
+    stand
+  verified: false
+  rejection_reason: The target text lacks any reference to tradition or historical
+    practice as the basis for its argument, so the Appeal to Tradition claim does
+    not fit the structural requirements, meaning no logical fallacy is present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5143
+  completion_tokens: 2693
+  total_tokens: 7836
+  wall_time_seconds: 331.5630000000019

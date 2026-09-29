@@ -1,0 +1,135 @@
+sample:
+  id: 565:7691
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: Books like these are supremely important, even when they're about other
+    countries. The lessons they teach us are applicable everywhere, even in America.
+    Especially in America maybe even, given the insanity of our media. We should always
+    take every opportunity to learn, without exception. If not, we're doomed to repeat
+    history. It's our responsibility and our only choice to keep society healthy.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: not take every opportunity to learn
+    - role: intermediate_consequence
+      text: doom to repeat history
+    - role: final_consequence
+      text: society unhealthy
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Books like these are supremely important, even when they're about other countries.
+      The lessons they teach us are applicable everywhere, even in America. Especially
+      in America maybe even, given the
+    - insanity of our media. We should always take every opportunity to learn, without
+      exception. If not, we're doomed to repeat history. It's our responsibility and
+      our only choice to keep
+    - society healthy.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We should always take every opportunity to learn, without
+      exception.
+    candidate: null
+    supporting_reason: Books like these are supremely important, and the lessons they
+      teach us are applicable everywhere; the insanity of our media makes such learning
+      essential.
+    support_relation: provides justification for the conclusion
+    label_justification: No fallacious reasoning is evident; the claim merely presents
+      a persuasive justification for the stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Books like these are supremely important, even when they're about other countries.
+      The lessons they teach us are applicable everywhere, even in America. Especially
+      in America maybe even, given the
+    - insanity of our media. We should always take every opportunity to learn, without
+      exception. If not, we're doomed to repeat history. It's our responsibility and
+      our only choice to keep
+  counterargument:
+    decisive_counterargument: Society can remain healthy through a variety of actions
+      besides continually reading foreign books; for example, pursuing local education,
+      policy reforms, and promoting media literacy can also prevent repeating history.
+    candidate: False Dilemma
+    challenged_inference: The only way to keep society healthy is to always take every
+      opportunity to learn from these books and, if not, society is doomed to repeat
+      history.
+    label_justification: The argument presents a binary choice—either learn from these
+      books or doom society—to keep society healthy, ignoring many other possible
+      ways to maintain societal well‑being. By claiming that no other means exist,
+      it commits a false dilemma fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - insanity of our media. We should always take every opportunity to learn, without
+      exception. If not, we're doomed to repeat history. It's our responsibility and
+      our only choice to keep
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target presents only one adverse outcome after the initial
+    event; there is no explicit progression to increasingly severe consequences, failing
+    the structural requirement for a slippery‑slope argument.
+  decision_reason: The claim of a slippery slope would require at least a series of
+    escalating negative consequences emanating from the initial action. In the target
+    text, the only consequence given is that failing to learn results in being 'doomed
+    to repeat history.' No intermediate or further adverse outcomes are explicitly
+    stated, so the structural condition for a slippery slope is unmet.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - insanity of our media. We should always take every opportunity to learn, without
+    exception. If not, we're doomed to repeat history. It's our responsibility and
+    our only choice to keep
+  verified: false
+  rejection_reason: The claim of a slippery slope would require at least a series
+    of escalating negative consequences emanating from the initial action. In the
+    target text, the only consequence given is that failing to learn results in being
+    'doomed to repeat history.' No intermediate or further adverse outcomes are explicitly
+    stated, so the structural condition for a slippery slope is unmet.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4234
+  completion_tokens: 3113
+  total_tokens: 7347
+  wall_time_seconds: 96.10899999999674

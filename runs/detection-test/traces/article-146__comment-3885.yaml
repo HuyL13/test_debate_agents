@@ -1,0 +1,111 @@
+sample:
+  id: 146:3885
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: ''
+  target: The families of the victims in this travesty should continue to seek justice
+    against those who committed those crimes. The government allowed this violence
+    to play to some extend it appears. I feel more investigation is needed before
+    this is pinned solely on the government.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The families of the victims in this travesty should continue to seek justice
+      against those who committed those crimes. The government allowed this violence
+      to play to some extend it
+    - appears. I feel more investigation is needed before this is pinned solely on
+      the government.
+    candidate: null
+  goal:
+    conclusion_or_goal: The families of the victims should continue to seek justice
+      against those who committed those crimes.
+    candidate: null
+    supporting_reason: The government allowed this violence to some extent, suggesting
+      that the families have legitimate grievances that merit pursuit of justice.
+    support_relation: This reason is presented as justification for the families’
+      pursuit of justice.
+    label_justification: The target expresses a straightforward viewpoint and offers
+      a claim (the government’s partial responsibility) to support that viewpoint.
+      This does not constitute a logical fallacy; it is a normal argumentative stance.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The families of the victims in this travesty should continue to seek justice
+      against those who committed those crimes. The government allowed this violence
+      to play to some extend it
+  counterargument:
+    decisive_counterargument: The passage claims, without evidence, that the government
+      ‘allowed this violence to play to some extent.’ From the single statement that
+      an alleged travesty occurred, the conclusion that governmental inaction or complicity
+      occurred is an unwarranted generalization; it leaps from an isolated observation
+      (the riots) to a broad assertion about the government’s role. This is unsupported
+      by any data or analysis presented, and therefore the inference constitutes a
+      hasty generalization.
+    candidate: null
+    challenged_inference: The government allowed this violence to some extent.
+    label_justification: The argument draws a general conclusion about the government’s
+      culpability from a single, unsubstantiated account of the riots, fitting the
+      definition of a hasty generalization. The inference relies on insufficient evidence
+      and overextends a specific instance to an entire claim about the government’s
+      behavior.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The families of the victims in this travesty should continue to seek justice
+      against those who committed those crimes. The government allowed this violence
+      to play to some extend it
+    - appears. I feel more investigation is needed before this is pinned solely on
+      the government.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2763
+  completion_tokens: 1891
+  total_tokens: 4654
+  wall_time_seconds: 28.23399999999674

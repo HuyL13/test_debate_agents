@@ -1,0 +1,103 @@
+sample:
+  id: 470:10706
+  article_id: 470
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: I am glad that Biden won the election. Glad to see Latin America having
+    fun with the election as well. Politics can always do with a bit of levity.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I am glad that Biden won the election. Glad to see Latin America having fun
+      with the election as well. Politics can always do with a bit of levity.
+    candidate: null
+  goal:
+    conclusion_or_goal: Politics can always do with a bit of levity.
+    candidate: null
+    supporting_reason: Glad to see Latin America having fun with the election as well.
+    support_relation: supporting
+    label_justification: No logical fallacy is present; the statement simply expresses
+      an opinion or observation and the mention of Latin American fun is an anecdotal
+      illustration rather than a flawed argumentative tactic.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I am glad that Biden won the election. Glad to see Latin America having fun
+      with the election as well. Politics can always do with a bit of levity.
+  counterargument:
+    decisive_counterargument: Your claim that ‘politics can always do with a bit of
+      levity’ is drawn solely from the fact that Biden won the U.S. election and Latin‑American
+      internet users made memes about it. That single observation does not provide
+      a representative sample of political contexts, and therefore the universal conclusion
+      that every instance of politics benefits from levity is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: Politics can always do with a bit of levity
+    label_justification: The argument generalizes a broad, universal claim about politics
+      based on a single specific example (Biden’s election and Latin American memes).
+      This meets the definition of a hasty‑generalization fallacy, where a sweeping
+      conclusion is drawn from an unrepresentative or too few cases.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I am glad that Biden won the election. Glad to see Latin America having fun
+      with the election as well. Politics can always do with a bit of levity.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target concludes that “politics can always do with a bit
+    of levity” based solely on the single instance of Biden’s election and Latin American
+    memes, meeting the structural requirement of a hasty generalization.
+  decision_reason: The claim generalizes a broad, universal statement about all politics
+    from one specific example, satisfying the definition of a hasty‑generalization
+    fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I am glad that Biden won the election. Glad to see Latin America having fun with
+    the election as well. Politics can always do with a bit of levity.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3766
+  completion_tokens: 1867
+  total_tokens: 5633
+  wall_time_seconds: 139.92199999999139

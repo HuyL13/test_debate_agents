@@ -1,0 +1,139 @@
+sample:
+  id: 515:7541
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: The federal government needs to resolve this fast before other regions mimic
+    this kind of behavior. Failing to get this guy replaced successfully is basically
+    the end of the government. When lower level leaders can just defy their superiors,
+    that's the only outcome that can occur. The government has to get this done by
+    any means. They have no alternative.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: replace him quickly
+    - role: alternative_b
+      text: the government collapses
+    - role: exhaustiveness_commitment
+      text: there are no other viable options
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The federal government must replace the individual immediately
+      to prevent governmental collapse.
+    candidate: False Dilemma
+    supporting_reason: When lower level leaders can just defy their superiors, that's
+      the only outcome that can occur. They have no alternative.
+    support_relation: The argument presents only two perceived options—replace or
+      collapse—ignoring any other possible courses of action.
+    label_justification: This usage misrepresents the decision space by asserting
+      that the only viable alternatives are replacement or systemic failure, fitting
+      the definition of a False Dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+  counterargument:
+    decisive_counterargument: The claim that a lower‑level leader’s defiance inevitably
+      leads to the end of the government ignores countless legitimate alternatives—such
+      as internal discipline, diplomatic resolution, or a gradual transition of power—making
+      the argument an unjustified false dilemma.
+    candidate: False Dilemma
+    challenged_inference: The only outcome of lower‑level leaders defying superiors
+      is the collapse of the government.
+    label_justification: The counterargument directly exposes that the target limits
+      the situation to either a rapid replacement or total governmental failure, omitting
+      reasonable middle‑ground options. This exclusion of alternatives is precisely
+      the definition of a false dilemma, demonstrating that the reasoning relies on
+      an artificial bifurcation of possibilities.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The federal government needs to resolve this fast before other regions mimic
+      this kind of behavior. Failing to get this guy replaced successfully is basically
+      the end of the government.
+    - When lower level leaders can just defy their superiors, that's the only outcome
+      that can occur. The government has to get this done by any means. They have
+      no alternative.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states that failing to replace the individual will
+    end the government and that lower‑level leaders’ defiance will only lead to that
+    collapse, claiming ‘they have no alternative.’ This explicitly presents only two
+    possible outcomes—replacement or governmental failure—while ignoring any other
+    viable courses of action, satisfying the structure of a false dilemma.
+  decision_reason: The argument limits the choice to either immediate replacement
+    or collapse, asserting there are no other options, which is the defining pattern
+    of a false dilemma. The evidence supports this exclusive framing.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The federal government needs to resolve this fast before other regions mimic this
+    kind of behavior. Failing to get this guy replaced successfully is basically the
+    end of the government.
+  - When lower level leaders can just defy their superiors, that's the only outcome
+    that can occur. The government has to get this done by any means. They have no
+    alternative.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4580
+  completion_tokens: 3453
+  total_tokens: 8033
+  wall_time_seconds: 238.42200000000594

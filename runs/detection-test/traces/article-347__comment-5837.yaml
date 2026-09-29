@@ -1,0 +1,112 @@
+sample:
+  id: 347:5837
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: From an American perspective, this just sounds like a good idea. How much
+    has Russia and China and so on interfered in our elections? I bet Slovakia and
+    most other countries probably have the same experience. Probably a very standard
+    thing globally. Everyone should be able to identify all foreign interference in
+    their internal affairs.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Russia and China and so on interfered in our elections
+    - foreign interference
+    - Slovakia and most other countries
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Russia and China and so on interfered in our elections
+    - role: observed_property
+      text: foreign interference
+    - role: target_population
+      text: Slovakia and most other countries
+    structure_complete: true
+    candidate: Hasty Generalization
+  goal:
+    evidence_spans:
+    - How much has Russia and China and so on interfered in our elections? I bet Slovakia
+      and most other countries probably have the same experience.
+    conclusion_or_goal: Everyone should be able to identify all foreign interference
+      in their internal affairs.
+    candidate: Hasty Generalization
+    supporting_reason: How much has Russia and China and so on interfered in our elections?
+      I bet Slovakia and most other countries probably have the same experience.
+    support_relation: The speaker generalizes from the U.S. election interference
+      to all countries, then uses that to justify that everyone should identify foreign
+      interference.
+    label_justification: The argument extends a claim from a single, specific example
+      to all countries without sufficient evidence, exemplifying a Hasty Generalization.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - I bet Slovakia and most other countries probably have the same experience
+    - Probably a very standard thing globally.
+    decisive_counterargument: There’s no reason to assume that foreign‑interference
+      patterns in the United States automatically mirror those in Slovakia or other
+      nations; every country’s political culture, electoral system, and security environment
+      differ, so generalizing from one case to all others is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: Slovakia and most other countries probably have the same
+      experience of foreign interference as the United States
+    label_justification: The objection shows that the argument leans on limited evidence
+      (U.S. experience) to assert a blanket claim about all countries’ experiences.
+      This leap from a small sample to a universal conclusion exemplifies a Hasty
+      Generalization.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  evidence_spans:
+  - Russia and China and so on interfered in our elections
+  - foreign interference
+  - Slovakia and most other countries
+  decisive_condition: The comment explicitly cites a specific instance of interference
+    in the U.S. elections as a sample and then infers that Slovakia and all other
+    nations have the same experience, thereby generalizing from a single example to
+    a universal claim, which satisfies the structural requirements of a hasty generalization.
+  decision_reason: 'The argument extends a single, concrete case of U.S. election
+    interference to a blanket statement about all countries without sufficient evidence.
+    This satisfies the structural pattern of a hasty generalization: a sample (U.S.
+    interference) used to support a claim about a broader population (Slovakia and
+    most other countries).'
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3607
+  completion_tokens: 3487
+  total_tokens: 7094
+  wall_time_seconds: 68.39100000000326

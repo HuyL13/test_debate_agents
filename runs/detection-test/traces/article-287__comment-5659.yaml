@@ -1,0 +1,127 @@
+sample:
+  id: 287:5659
+  article_id: 287
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: If the country has been peaceful for nearly three decades, why stop it.
+    Its methods must be working to some degree and shouldn't be punished. Other aspects
+    of rights shouldn't be ignored but don't forget about peace being a large positive.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the country has been peaceful for nearly three decades, why stop it. Its
+      methods must be working to some degree and shouldn't be punished. Other aspects
+      of rights shouldn't
+    candidate: null
+  goal:
+    conclusion_or_goal: Justify that the country’s methods should not be stopped or
+      punished because it has maintained peace for nearly three decades.
+    candidate: null
+    supporting_reason: The country’s prolonged peace is presented as evidence that
+      its methods are working and peace itself is a significant positive outcome.
+    support_relation: This reasoning is employed to support the claim that the methods
+      should continue and not be punished.
+    label_justification: The argument simply presents a consequence-based justification
+      without committing a fallical structure from the provided list; it does not
+      violate any outlined fallacy patterns.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the country has been peaceful for nearly three decades, why stop it. Its
+      methods must be working to some degree and shouldn't be punished. Other aspects
+      of rights shouldn't
+    - be ignored but don't forget about peace being a large positive.
+  counterargument:
+    decisive_counterargument: The argument equates a country’s long‐term peaceful
+      status with the moral and legitimate effectiveness of the methods it has used
+      to achieve that peace.  Peace can coexist with systemic oppression, arbitrary
+      repression, or human‑rights violations – history provides many examples.  Therefore,
+      the fact that the country has long been peaceful does not in itself prove that
+      its methods are just or that it should be left alone.  It simply shows that,
+      whatever methods were employed, they were at least sufficient to prevent large‑scale
+      violence, not that they respect rights or are morally defensible.  The claim
+      conflates political stability with moral validity, and this inference is logically
+      unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: If the country has been peaceful for nearly three decades,
+      its methods must be working to some degree and shouldn’t be punished.
+    label_justification: 'The objection targets the leap from a single observed fact—that
+      the country has maintained peace for decades—to a sweeping conclusion that the
+      governing methods are inherently effective and acceptable.  This move exemplifies
+      a hasty generalization: the argument uses one specific outcome (peace) as definitive
+      evidence for the broader claim that the methods used to maintain that peace
+      are working and justified, without considering other crucial criteria such as
+      rights and legitimate governance.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the country has been peaceful for nearly three decades, why stop it. Its
+      methods must be working to some degree and shouldn't be punished. Other aspects
+      of rights shouldn't
+    - be ignored but don't forget about peace being a large positive.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: the argument presents the country’s long‐term peace as the sole
+    sample and then generalizes that the governing methods are therefore effective
+    and unjustifiable to stop, without further evidence
+  decision_reason: The TARGET concludes that because the country has maintained peace
+    for nearly three decades, its methods must be working and should not be punished;
+    this jump from a single specific fact to a broad claim about the methods’ moral
+    validity is a classic hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the country has been peaceful for nearly three decades, why stop it. Its methods
+    must be working to some degree and shouldn't be punished. Other aspects of rights
+    shouldn't
+  - be ignored but don't forget about peace being a large positive.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4064
+  completion_tokens: 3606
+  total_tokens: 7670
+  wall_time_seconds: 235.42199999999139

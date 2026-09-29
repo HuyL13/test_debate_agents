@@ -1,0 +1,138 @@
+sample:
+  id: 174:5018
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: Having religious and free speech is natural need of people all over the
+    world. We need to stop government censorship. Government censorship is never a
+    good thing, it leads to discontent in many other areas as well.
+  target: Do you think all people agree with that? There are lots who prefer security
+    over things like free speech. Whether they expand or restrict free speech for
+    their people should be a matter that the majority of people in those countries
+    decide, not what some people think is a natural need.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of people in those countries
+    - role: popularity_claim
+      text: should decide
+    - role: target_claim
+      text: whether they expand or restrict free speech for their people should be
+        a matter decided by the majority, not by what some people think is a natural
+        need.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The target argues that the decision to expand or restrict
+      free speech should rest with the majority of people in each country, rather
+      than with individuals who claim free speech is a natural need.
+    candidate: null
+    supporting_reason: It asserts that many people prefer security over free speech
+      and that such policy choices must be determined by majority rule, rejecting
+      the notion that a minority of people identify free speech as a natural right.
+    support_relation: The stated appeal to majority serves as the justification for
+      the target’s normative conclusion that policy should be decided by the majority.
+    label_justification: The reasoning does not commit a fallacy because it treats
+      majority rule as a legitimate procedural principle rather than using the majority
+      as evidence of truth.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+  counterargument:
+    decisive_counterargument: Even if a large portion of a population prefers stricter
+      controls for the sake of security, majority preference does not override fundamental
+      rights or protections for minorities. History shows that majority‑driven decisions
+      can and have eroded civil liberties.
+    candidate: Appeal to Majority
+    challenged_inference: Free‑speech policy should be decided solely by the majority’s
+      preference.
+    label_justification: The target asserts that policy on free speech should be determined
+      by the majority, implying that majority opinion provides justification for the
+      decision. This is a classic appeal to majority fallacy, where popularity or
+      numerical superiority is used as a reason to accept an argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not use majority popularity as the justification
+    for a claim; it merely states that the policy decision should be made by the majority.
+    This does not satisfy the structural requirement for an Appeal to Majority fallacy.
+  decision_reason: The target lacks an inference that majority opinion is the truth
+    or solution, which is necessary for an Appeal to Majority. Therefore no fallacy
+    is detected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Do you think all people agree with that? There are lots who prefer security over
+    things like free speech. Whether they expand or restrict free speech for their
+    people should
+  - be a matter that the majority of people in those countries decide, not what some
+    people think is a natural need.
+  verified: false
+  rejection_reason: The target lacks an inference that majority opinion is the truth
+    or solution, which is necessary for an Appeal to Majority. Therefore no fallacy
+    is detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4381
+  completion_tokens: 4063
+  total_tokens: 8444
+  wall_time_seconds: 135.32800000000861

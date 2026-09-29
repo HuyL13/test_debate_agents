@@ -1,0 +1,146 @@
+sample:
+  id: 347:6439
+  article_id: 347
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: I can see Fico's point of view. Up until recently, all countries have had
+    the tradition of really only allowing their own people to work and live in their
+    country. Now more and more countries are going against that and importing tons
+    of foreigners which will eventually lead to the erosion of even more traditions
+    in the country, Traditions are important. We all have them for a reason!
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Up until recently, all countries have had the tradition of really only
+        allowing their own people to work and live in their country.
+    - role: preservation_conclusion
+      text: Traditions are important. We all have them for a reason!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I can see Fico's point of view. Up until recently, all countries have had the
+      tradition of really only allowing their own people to work and live in their
+      country.
+    - Now more and more countries are going against that and importing tons of foreigners
+      which will eventually lead to the erosion of even more traditions in the country,
+      Traditions are
+    - important. We all have them for a reason!
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: To argue that increased foreign immigration erodes traditions
+      and therefore should be opposed or restricted.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument claims that importing many foreigners will lead
+      to the erosion of traditions, and then states that traditions are important
+      and exist for a reason, using the value of tradition as a basis to oppose this
+      trend.
+    support_relation: mechanism_supports_goal
+    label_justification: The reasoning relies on the assertion that traditions hold
+      value and that their erosion is harmful; this is a classic Appeal to Tradition
+      fallacy, where the mere existence and importance of a tradition are used to
+      justify a particular stance or policy against immigration.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - Now more and more countries are going against that and importing tons of foreigners
+      which will eventually lead to the erosion of even more traditions in the country,
+      Traditions are
+    - important. We all have them for a reason!
+  counterargument:
+    decisive_counterargument: The claim that allowing more foreigners will inevitably
+      erode a nation's traditions is unsupported. Empirical evidence shows that societies
+      can maintain, adapt, and even strengthen cultural traditions while integrating
+      newcomers. Thus, the argument fails to establish a causal link between immigration
+      and tradition loss.
+    candidate: Appeal to Tradition
+    challenged_inference: Importing more foreigners will eventually lead to the erosion
+      of even more traditions in the country.
+    label_justification: 'The objection directly confronts the reliance on tradition
+      as justification for restricting immigration. By demonstrating that traditions
+      can persist amid change, the counterargument shows that the appeal to tradition
+      is fallacious: it treats tradition as inherently valuable without providing
+      evidence that immigration undermines it.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Now more and more countries are going against that and importing tons of foreigners
+      which will eventually lead to the erosion of even more traditions in the country,
+      Traditions are
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The argument follows the classic structure of an Appeal to
+    Tradition: it asserts that traditions are inherently valuable (“Traditions are
+    important. We all have them for a reason!”) and then uses that value to imply
+    that policies (here, the increase in foreign immigration) that threaten those
+    traditions are undesirable or should be opposed. The premises in T1 (the tradition
+    of allowing only natives) and T2 (the erosion of traditions through immigration)
+    provide the causal link, while T3 supplies the normative claim. The fallacy is
+    therefore correctly identified, and the selected evidence supports the structure.”,'
+  decision_reason: The argument clearly leverages the worth of tradition to justify
+    opposition to immigration, matching the Appeal to Tradition structure.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I can see Fico's point of view. Up until recently, all countries have had the
+    tradition of really only allowing their own people to work and live in their country.
+  - Now more and more countries are going against that and importing tons of foreigners
+    which will eventually lead to the erosion of even more traditions in the country,
+    Traditions are
+  - important. We all have them for a reason!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4696
+  completion_tokens: 4126
+  total_tokens: 8822
+  wall_time_seconds: 89.7960000000021

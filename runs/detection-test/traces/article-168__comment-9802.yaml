@@ -1,0 +1,147 @@
+sample:
+  id: 168:9802
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: Saying they have racial bias loses a bit of nuance. Just like in the developed
+    countries like America, people who come from a certain group understand and care
+    about the issues relating to that group more than people outside of it. Macedonians
+    voting for a Macedonian who they feel represents them well is no different from
+    African Americans voting for African American candidates. Of course it would be
+    ideal if the entire world were colorblind, but that's not the real world and people
+    have to look out for their own interests in what ways they can.
+  target: That's part of the point I think. It seems that only one side seems to think
+    it is okay to vote along racial lines, just like in the US. African Americans
+    are said to be "supportive of their race" when they vote for candidates that are
+    the same race that they are, but if whites vote for white people then they are
+    seen as "racist". I think it is a bit more than just "voting for someone that
+    is of the same race I am because they know what I go through" I think if more
+    people were in fact color blind as you said, it would be better, but I think there
+    is a lot of outside forces that make it seem like it is a both sides type issue.
+    That is what seems to be happening here there is one side that is only supported
+    by their own racial similars and a backlash of non-similars instead of looking
+    at policies that would benefit everyone. Hopefully Macedonians and people all
+    over the world can start looking at inclusivity as a norm that all people take
+    part in instead of forcing it from whichever race or creed happens to have a majority
+    in the country. Only then can a democracy flourish.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: voting along racial lines
+    - role: alternative_b
+      text: being judged racist if voting along racial lines
+    - role: exhaustiveness_commitment
+      text: only one side seems to think it is okay to vote along racial lines, so
+        the other side is the only alternative
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's part of the point I think. It seems that only one side seems to think
+      it is okay to vote along racial lines, just like in the US. African
+    - Americans are said to be "supportive of their race" when they vote for candidates
+      that are the same race that they are, but if whites vote for white people then
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Promote inclusivity and move away from voting strictly along
+      racial lines in Macedonian elections.
+    candidate: null
+    supporting_reason: Voting along racial lines is perceived differently across groups—some
+      see it as supportive while others consider it racist—leading to unequal treatment
+      and backlash.
+    support_relation: mechanism_supports_goal
+    label_justification: The target utilizes observations about differential perceptions
+      of racial voting to argue for a more inclusive approach. This reasoning serves
+      the stated goal without relying on a fallacious move; therefore, no fallacy
+      is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T5
+    evidence_spans:
+    - Americans are said to be "supportive of their race" when they vote for candidates
+      that are the same race that they are, but if whites vote for white people then
+    - make it seem like it is a both sides type issue. That is what seems to be happening
+      here there is one side that is only supported by their own
+  counterargument:
+    decisive_counterargument: 'The target claims that it is acceptable for Africans
+      to vote for African candidates while white voters are labeled racist when they
+      vote along racial lines. This sets up a false dichotomy: it implies that only
+      one group can vote on racial identity without criticism, and that all others
+      are automatically condemned. In reality, both groups face scrutiny, and many
+      voters decide based on policy, not race. By framing the issue as a simple two‑choice
+      ‘acceptable vs. racist’ split, the target overlooks the broader context and
+      the fact that these judgments are not absolute.'
+    candidate: False Dilemma
+    challenged_inference: That it is acceptable for one racial group to vote along
+      racial lines while such voting by another group is automatically labeled racist.
+    label_justification: 'The objection points to an erroneous dichotomy presented
+      by the target argument, demonstrating a False Dilemma fallacy. The analysis
+      does not merely criticize the argument but identifies the specific logical failure:
+      the proposal of only two mutually exclusive positions (acceptability vs. racism)
+      that pretend to cover all possible attitudes toward racial voting.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - Americans are said to be "supportive of their race" when they vote for candidates
+      that are the same race that they are, but if whites vote for white people then
+    - they are seen as "racist". I think it is a bit more than just "voting for someone
+      that is of the same race I am because they know what I
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present two mutually exclusive alternatives
+    as exhaustively covering all possibilities; it merely describes perceived attitudes
+    and does not construct a binary either/or framework. Thus the structural condition
+    for a False Dilemma fallacy is not satisfied.
+  decision_reason: No exhaustive two‑option structure is evident in the target passage,
+    so the candidate false dilemma claim is rejected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - That's part of the point I think. It seems that only one side seems to think it
+    is okay to vote along racial lines, just like in the US. African
+  verified: false
+  rejection_reason: No exhaustive two‑option structure is evident in the target passage,
+    so the candidate false dilemma claim is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6792
+  completion_tokens: 3905
+  total_tokens: 10697
+  wall_time_seconds: 125.71899999999732

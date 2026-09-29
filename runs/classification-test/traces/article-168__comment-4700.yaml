@@ -1,0 +1,134 @@
+sample:
+  id: 168:4700
+  article_id: 168
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: ''
+  target: If a presidential candidate is going to be voted on just by people of their
+    ethnicity that means that Macedonia is a divided country susceptible to bias.
+    Perhaps this is something they should work on so that they can choose candidates
+    based on merit rather than their genes. Racial bias is something that should be
+    addressed all over the world so that we can move forward as a human race.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: If a presidential candidate is going to be voted on just by people of
+        their ethnicity
+    - role: observed_property
+      text: Macedonia is a divided country susceptible to bias
+    - role: target_population
+      text: Macedonia
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If a presidential candidate is going to be voted on just by people of their
+      ethnicity that means that Macedonia is a divided country susceptible to bias.
+      Perhaps this is
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Macedonia should address racial bias so that its presidential
+      elections can be based on merit rather than ethnicity, promoting overall progress
+      as a human race.
+    candidate: null
+    supporting_reason: If a presidential candidate is voted on just by people of their
+      ethnicity, that means that Macedonia is a divided country susceptible to bias.
+    support_relation: provides causal justification for the recommendation to address
+      racial bias.
+    label_justification: No logical fallacy is present; the reasoning legitimately
+      supports the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If a presidential candidate is going to be voted on just by people of their
+      ethnicity that means that Macedonia is a divided country susceptible to bias.
+      Perhaps this is
+    - something they should work on so that they can choose candidates based on merit
+      rather than their genes. Racial bias is something that should be addressed all
+      over the world
+  counterargument:
+    decisive_counterargument: The claim that Macedonia is a divided country susceptible
+      to bias follows from a single, hypothetically isolated case of ethnic voting—a
+      classic over‑generalization that ignores other evidence of cross‑ethnic political
+      participation. Therefore the conclusion is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: Macedonia is a divided country susceptible to bias if a
+      presidential candidate is voted on just by people of their ethnicity.
+    label_justification: The objection shows that the argument jumps from a specific
+      instance (ethnic voting of one candidate) to a blanket claim about the entire
+      nation, which is precisely the definition of a Hasty Generalization. The counterargument
+      isolates the over‑generalized reasoning, so this fallacy label is warranted.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If a presidential candidate is going to be voted on just by people of their
+      ethnicity that means that Macedonia is a divided country susceptible to bias.
+      Perhaps this is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a blanket conclusion that “Macedonia is a
+    divided country susceptible to bias” from a single instance (or hypothetical scenario)
+    of ethnic voting, thereby over‑generalizing from a specific case to the entire
+    population.
+  decision_reason: 'The claim about Macedonia follows from the single scenario that
+    a presidential candidate is voted on just by people of their ethnicity, which
+    is the classic structure of a hasty generalization: sample → population with observed
+    property. This generalization ignores other evidence of cross‑ethnic participation,
+    making the inference unwarranted.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If a presidential candidate is going to be voted on just by people of their ethnicity
+    that means that Macedonia is a divided country susceptible to bias. Perhaps this
+    is
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4430
+  completion_tokens: 4134
+  total_tokens: 8564
+  wall_time_seconds: 102.46899999998277

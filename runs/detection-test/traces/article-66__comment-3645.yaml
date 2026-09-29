@@ -1,0 +1,130 @@
+sample:
+  id: 66:3645
+  article_id: 66
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: You can't tell people how to celebrate.  Just because some people are too
+    stupid and irresponsible to fire guns doesn't mean this right should be taken
+    away from everyone. It  will spiral out of control.  It might get so out of hand,
+    one can't even burn leaves in their front yard lest they burn down everyone's
+    property.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Taking away the right to fire guns
+    - role: intermediate_consequence
+      text: Prohibiting burning leaves in front yards
+    - role: final_consequence
+      text: Risk of burning down everyone's property
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You can't tell people how to celebrate.  Just because some people are too stupid
+      and irresponsible to fire guns doesn't mean this right should be taken away
+      from everyone. It
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The right to celebrate (by firing guns) should not be taken
+      away from everyone.
+    candidate: Slippery Slope
+    supporting_reason: Allowing some irresponsible individuals to fire guns will inevitably
+      spiral out of control, leading to extreme restrictions such as forbidding the
+      burning of leaves in yards.
+    support_relation: The slippery‑slope claim is used by the speaker to justify that
+      the right must be preserved.
+    label_justification: The argument asserts that a single legislative allowance
+      will lead, without evidence, to progressively worse and impossible outcomes,
+      which is a classic slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You can't tell people how to celebrate.  Just because some people are too stupid
+      and irresponsible to fire guns doesn't mean this right should be taken away
+      from everyone. It
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+  counterargument:
+    decisive_counterargument: Laws can be narrowly tailored to address the specific
+      harmful behavior of firing fireworks while leaving unrelated celebratory activities
+      undisputed. There's no logical or empirical evidence that regulating the use
+      of guns for a small subset of people would necessitate banning an entirely different
+      practice like burning leaves in a front yard.
+    candidate: Slippery Slope
+    challenged_inference: The claim that restricting fireworks for irresponsible individuals
+      will inevitably lead to restrictions on unrelated celebratory activities (e.g.,
+      banning leaf burning).
+    label_justification: The counterargument directly refutes the unsupported escalation
+      from one restriction to a cascade of unrelated prohibitions, illustrating the
+      slippery‑slope fallacy present in the target.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - will spiral out of control.  It might get so out of hand, one can't even burn
+      leaves in their front yard lest they burn down everyone's property.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target makes an unwarranted claim that limiting the right
+    to fire guns for irresponsible individuals would inevitably lead to extreme and
+    unrelated restrictions (e.g., prohibiting leaf burning to prevent property damage),
+    thereby establishing the structural chain required for a slippery‑slope fallacy.
+  decision_reason: The argument presents a progression from restricting fireworks
+    to a series of escalating prohibitions, without evidence that such a causal chain
+    would occur. This satisfies the mandatory structure of a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - You can't tell people how to celebrate.  Just because some people are too stupid
+    and irresponsible to fire guns doesn't mean this right should be taken away from
+    everyone. It
+  - will spiral out of control.  It might get so out of hand, one can't even burn
+    leaves in their front yard lest they burn down everyone's property.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4492
+  completion_tokens: 4150
+  total_tokens: 8642
+  wall_time_seconds: 124.64000000001397

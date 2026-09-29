@@ -1,0 +1,131 @@
+sample:
+  id: 359:10373
+  article_id: 359
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: This lockdown seems serious, doesn't it? When something like this happens
+    it really makes you wonder if there's a better alternative. Are there just only
+    two options - gritting teeth and bearing through or causing a full-blown revolt
+    with potentially serious consequences? But, surely these aren't the only options
+    during such a crisis. There must be other ways to navigate such difficult times.
+    It's easy to feel trapped between gritting teeth and causing a revolt, but perhaps
+    the real challenge is charting a different, more sustainable path through adversity.
+    After all, aren't human beings capable of innovation and adaptability?
+  target: If the majority of the people accept the lockdown, maybe it is the best
+    solution. The power of the people can often give a good result. The government
+    often does the will of the people and maybe this solution is the best option.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of the people
+    - role: popularity_claim
+      text: accept the lockdown
+    - role: target_claim
+      text: the lockdown is the best solution
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of the people accept the lockdown, maybe it is the best solution.
+      The power of the people can often give a good result. The government often does
+    - the will of the people and maybe this solution is the best option.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The lockdown is the best solution if the majority of people
+      accept it.
+    candidate: Appeal to Majority
+    supporting_reason: The argument uses the fact that the majority accept the lockdown
+      to justifiably claim it is the best option.
+    support_relation: appeal to majority (majority acceptance is used as evidence
+      for best choice)
+    label_justification: The reasoning relies on the number of people who accept the
+      lockdown as the basis for its validity, which is the hallmark of an Appeal to
+      Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of the people accept the lockdown, maybe it is the best solution.
+      The power of the people can often give a good result. The government often does
+    - the will of the people and maybe this solution is the best option.
+  counterargument:
+    decisive_counterargument: Just because the majority of people accept something
+      does not prove that it is the best or most effective solution. Many factors—including
+      misinformation, pressure, and lack of critical scrutiny—can influence public
+      opinion, and a large number of people can still be wrong or unaware of the harms
+      of a policy. Therefore, the argument that majority acceptance guarantees quality
+      is logically unsound.
+    candidate: Appeal to Majority
+    challenged_inference: If the majority of the people accept the lockdown, then
+      it is the best solution.
+    label_justification: The objection shows that the inference relies on the popularity
+      of a view as evidence for its validity, which is precisely the definition of
+      an Appeal to Majority fallacy. The argument does not provide independent justification
+      for the lockdown’s effectiveness, only that many people accept it, thus exposing
+      the appeal to the majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of the people accept the lockdown, maybe it is the best solution.
+      The power of the people can often give a good result. The government often does
+    - the will of the people and maybe this solution is the best option.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that because the majority accept the lockdown,
+    it is therefore the best solution, directly using majority acceptance as evidence
+    for the claim, which meets the structural condition for an appeal to majority.
+  decision_reason: The target explicitly rests the argument for the lockdown’s effectiveness
+    on the fact that the majority accept it, without providing independent justification.
+    This meets the definition of an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the majority of the people accept the lockdown, maybe it is the best solution.
+    The power of the people can often give a good result. The government often does
+  - the will of the people and maybe this solution is the best option.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4770
+  completion_tokens: 2167
+  total_tokens: 6937
+  wall_time_seconds: 97.48399999999674

@@ -1,0 +1,117 @@
+sample:
+  id: 174:5320
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: Most people believe the radio station should be banned. So the will of the
+    people should be enforced. The majority has a say, and the courts should not take
+    that away.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people believe the radio station should be banned
+    - role: target_claim
+      text: the will of the people should be enforced by courts
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe the radio station should be banned. So the will of the people
+      should be enforced. The majority has a say, and the courts should not take that
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The courts should not override the will of the majority; the
+      majority’s opinion should be enforced regarding banning the radio station.
+    candidate: Appeal to Majority
+    supporting_reason: Most people believe the radio station should be banned.
+    support_relation: The majority’s belief is used as a justification for enforcing
+      their will and for limiting court intervention.
+    label_justification: The argument relies on the majority’s opinion as decisive
+      proof for a policy decision, which constitutes an appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe the radio station should be banned. So the will of the people
+      should be enforced. The majority has a say, and the courts should not take that
+  counterargument:
+    decisive_counterargument: Just because most people think the radio station should
+      be banned does not give the courts a legal or moral obligation to enforce that
+      view. Majority opinion can be based on misinformation, prejudice, or incomplete
+      arguments; laws must protect individual rights and ensure due process, not simply
+      mirror popular sentiment.
+    candidate: Appeal to Majority
+    challenged_inference: The claim that the will of the majority justifies banning
+      the station and that courts should not override it.
+    label_justification: The argument treats the majority’s preference as a sufficient
+      basis for legal authority, which is precisely the definition of the Appeal to
+      Majority fallacy. The counterargument demonstrates that majority opinion is
+      not inherently binding, exposing the reasoning defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people believe the radio station should be banned. So the will of the people
+      should be enforced. The majority has a say, and the courts should not take that
+    - away.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument employs the majority’s belief as conclusive proof
+    for a policy decision—i.e., it claims that because most people think the radio
+    station should be banned, the courts must enforce that will and cannot override
+    it. This is the classic form of an Appeal to Majority fallacy, as the structure
+    processor identifies a popularity-to-claim inference from the target passage.
+    The evidence supporting this inference is contained in passage T1.
+  decision_reason: The inference that the majority’s opinion is sufficient justification
+    for the courts to enforce a ban constitutes an appeal to majority, which is a
+    fallacious appeal to popularity.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people believe the radio station should be banned. So the will of the people
+    should be enforced. The majority has a say, and the courts should not take that
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4202
+  completion_tokens: 2713
+  total_tokens: 6915
+  wall_time_seconds: 130.95300000000861

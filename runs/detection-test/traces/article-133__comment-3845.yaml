@@ -1,0 +1,118 @@
+sample:
+  id: 133:3845
+  article_id: 133
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: He clearly did something awful if he was arrested so quickly. There is no
+    other reason for the government to move so swiftly. But don't always use one example
+    as proof for the whole system.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - He clearly did something awful if he was arrested so quickly. There is no other
+      reason for the government to move so swiftly. But don't always use one example
+      as
+    - proof for the whole system.
+    candidate: null
+  goal:
+    conclusion_or_goal: That the person was arrested quickly signifies he did something
+      awful.
+    candidate: Hasty Generalization
+    supporting_reason: There is no other reason for the government to move so swiftly.
+    support_relation: The perceived lack of an alternate motive is used to infer the
+      individual's guilt.
+    label_justification: The argument infers wrongdoing solely from the single observation
+      of swift arrest without broader evidence, thus committing a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - He clearly did something awful if he was arrested so quickly. There is no other
+      reason for the government to move so swiftly. But don't always use one example
+      as
+  counterargument:
+    decisive_counterargument: The mere fact that an arrest was carried out quickly
+      does not logically prove that the individual committed an awful crime. Arrest
+      speed depends on many factors—police resources, the presence of evidence, administrative
+      priorities, or even political pressure. Concluding guilt from a single procedural
+      detail ignores these alternative explanations and overstates the causality between
+      speed and wrongdoing.
+    candidate: Hasty Generalization
+    challenged_inference: He clearly did something awful if he was arrested so quickly.
+    label_justification: The target draws a causal conclusion (a person committed
+      something awful) from a single instance (fast arrest) without providing other
+      evidence. This is an overgeneralization from a single case to a general claim
+      about the individual’s criminality, which is the textbook definition of a Hasty
+      Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - He clearly did something awful if he was arrested so quickly. There is no other
+      reason for the government to move so swiftly. But don't always use one example
+      as
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target’s claim—‘He clearly did something awful if he was
+    arrested so quickly’—draws a conclusion about a single individual from one instance.
+    For a Hasty Generalization the argument must extrapolate from a small sample to
+    a broader population or class, but the target does not make such a generalization;
+    it only infers the individual’s guilt. Hence the mandatory structural condition
+    for Hasty Generalization is unmet, so the target is not fallacious under this
+    label.
+  decision_reason: The target lack of a broader extrapolation means the Hasty Generalization
+    structure is absent.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - He clearly did something awful if he was arrested so quickly. There is no other
+    reason for the government to move so swiftly. But don't always use one example
+    as
+  verified: false
+  rejection_reason: The target lack of a broader extrapolation means the Hasty Generalization
+    structure is absent.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4104
+  completion_tokens: 4436
+  total_tokens: 8540
+  wall_time_seconds: 365.5470000000205

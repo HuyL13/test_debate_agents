@@ -1,0 +1,148 @@
+sample:
+  id: 409:7225
+  article_id: 409
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: They should choose a religious figure to find a solution this problem of
+    violence against women in Jamaica.  Who could be a better authority to decide
+    such a thing other than a man of God?  It would help these women certainly.  But
+    since not everyone follow the same religion, we should consult a diverse group
+    of people including women.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: a man of God
+    - role: endorsed_claim
+      text: They should choose a religious figure to find a solution to this problem
+        of violence against women in Jamaica.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+    - than a man of God?  It would help these women certainly.  But since not everyone
+      follow the same religion, we should consult a diverse group of people including
+      women.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: They should choose a religious figure to find a solution to
+      the problem of violence against women in Jamaica.
+    candidate: Appeal to Authority
+    supporting_reason: Who could be a better authority to decide such a thing other
+      than a man of God?
+    support_relation: The reason presents a religious figure as the most credible
+      authority, thereby justifying the decision to consult a religious figure for
+      the solution.
+    label_justification: The argument relies on the presumed authority of a religious
+      figure rather than on evidence or expertise, attributing superiority solely
+      to religious status. This is a classic example of an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+    - than a man of God?  It would help these women certainly.  But since not everyone
+      follow the same religion, we should consult a diverse group of people including
+      women.
+  counterargument:
+    decisive_counterargument: The claim that a religious figure—specifically, ‘a man
+      of God’—is the best authority to solve violence against women in Jamaica requires
+      no evidence that such a figure’s guidance leads to effective policy or justice.
+      Selecting a religious leader merely because of status or faith is an arbitrary
+      endorsement of authority rather than a reasoned solution. Effective responses
+      to violence need empirical data, legal expertise, gender‑justice frameworks,
+      and community‑driven interventions, none of which are guaranteed by simply appointing
+      a religious figure. Therefore the inference that a man of God is the optimal
+      authority is logically unsupported.
+    candidate: Appeal to Authority
+    challenged_inference: The argument that a religious figure is the best authority
+      for addressing violence against women in Jamaica.
+    label_justification: The objection targets the appeal to a religious authority’s
+      inherent expertise, showing that the reasoning relies on the figure’s status
+      rather than evidence of effective problem‑solving. This matches the definition
+      of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+    - than a man of God?  It would help these women certainly.  But since not everyone
+      follow the same religion, we should consult a diverse group of people including
+      women.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument claims that a religious figure—specifically a “man
+    of God”—holds superior authority to solve violence against women in Jamaica, presenting
+    the religious status as justification without supporting evidence. This meets
+    the structural definition of an Appeal to Authority.
+  decision_reason: The target explicitly invokes the authority of a religious figure
+    as the basis for choosing a solution, which constitutes an Appeal to Authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They should choose a religious figure to find a solution this problem of violence
+    against women in Jamaica.  Who could be a better authority to decide such a thing
+    other
+  - than a man of God?  It would help these women certainly.  But since not everyone
+    follow the same religion, we should consult a diverse group of people including
+    women.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4617
+  completion_tokens: 3292
+  total_tokens: 7909
+  wall_time_seconds: 158.09400000001187

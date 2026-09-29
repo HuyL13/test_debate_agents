@@ -1,0 +1,191 @@
+sample:
+  id: 416:6046
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: These are very dangerous protests happening on the campuses in Hong Kong.
+    These types of anti government protest could potentially spark a countrywide revolution
+    if not contained. It is necessary to allow protests of the government, but this
+    may end up getting out of control given the fact that these protests are becoming
+    increasingly violent on both the police and protester sides.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: anti-government protests on campus in Hong Kong
+    - role: intermediate_consequence
+      text: getting out of control / becoming increasingly violent
+    - role: final_consequence
+      text: spark a countrywide revolution
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The passage argues that the current protests are dangerous
+      and may spiral out of control if not contained.
+    candidate: null
+    supporting_reason: The protests are increasingly violent on both police and protester
+      sides, and they could potentially spark a countrywide revolution if not contained.
+    support_relation: The cited increase in violence and potential for revolution
+      is used to justify the claim that protests may get out of control.
+    label_justification: The argument presents a straightforward cause‑effect relationship
+      between rising violence and the risk of an uncontrolled situation. No logical
+      fallacy is identified; the reasoning is coherent and directly supports the stated
+      conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+    - protester sides.
+  counterargument:
+    decisive_counterargument: The passage assumes that because the campus protests
+      in Hong Kong have become violent, all anti‑government protests can be expected
+      to become equally dangerous and even spark a countrywide revolution. This extrapolation
+      from one limited set of events to all similar protests lacks sufficient evidence
+      and therefore overgeneralizes. Such a leap violates the logical requirement
+      that a general claim be supported by a representative sample, so the inference
+      commits a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that the dangerous nature of Hong Kong campus
+      protests implies that all anti‑government protests will inevitably spark a countrywide
+      revolution and spiral out of control.
+    label_justification: The objection directly points out that the argument draws
+      a sweeping conclusion about all anti‑government protests from the observed violence
+      in a specific, small group of campus protests. This is a textbook example of
+      a hasty generalization, as it extends findings from a limited sample to a broader
+      class without adequate supporting evidence. The counterargument therefore justifies
+      labeling the fallacy as hasty generalization rather than merely criticizing
+      the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: The argument presents a chain of events where campus anti‑government
+      protests (initial event) could spill over into more violent unrest (intermediate
+      consequence) and ultimately trigger a countrywide revolution (final consequence).
+      This progressive escalation toward an extreme outcome satisfies the requirement
+      for a slippery‑slope argument. It does not assert that every anti‑government
+      protest will necessarily cause a revolution, which is the typical target of
+      a hasty generalization. Therefore the fallacy is Slippery Slope, not Hasty Generalization.
+    loser_failure: A hasty generalization would require the argument to draw a sweeping
+      conclusion about all anti‑government protests based on a limited sample. The
+      passage does not make such a broad claim; it focuses on the specific case of
+      Hong Kong campus protests and the possibility that they could lead to revolution
+      if not contained. Thus the evidence does not support a hasty generalization.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not contain an explicit multi-step causal chain
+    showing how the initial event (anti-government protests on campus) leads through
+    an intermediate consequence (becoming increasingly violent/out of control) to
+    the final consequence (spark a countrywide revolution); thus the required structural
+    condition for a slippery slope claim is not met.
+  decision_reason: The evidence lacks a coherent, successive chain of events linking
+    protests to revolution as required for a slippery-slope fallacy. Consequently,
+    the surviving candidate does not qualify, and no fallacy is detected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These are very dangerous protests happening on the campuses in Hong Kong. These
+    types of anti government protest could potentially spark a countrywide revolution
+    if not contained. It is necessary
+  - to allow protests of the government, but this may end up getting out of control
+    given the fact that these protests are becoming increasingly violent on both the
+    police and
+  verified: false
+  rejection_reason: The evidence lacks a coherent, successive chain of events linking
+    protests to revolution as required for a slippery-slope fallacy. Consequently,
+    the surviving candidate does not qualify, and no fallacy is detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5655
+  completion_tokens: 5048
+  total_tokens: 10703
+  wall_time_seconds: 75.57800000000861

@@ -1,0 +1,133 @@
+sample:
+  id: 15:3191
+  article_id: 15
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: It's strange that this article tries to point to their traditions as something
+    bad that they should abandon. Traditions become traditions for a reason, and if
+    corporal punishment is part of their traditions, then there was a good reason
+    for it. And I don't think foreigners should be able to dictate that they abandon
+    their traditions either.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Traditions become traditions for a reason
+    - role: preservation_conclusion
+      text: I don't think foreigners should be able to dictate that they abandon their
+        traditions either
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's strange that this article tries to point to their traditions as something
+      bad that they should abandon. Traditions become traditions for a reason, and
+      if corporal punishment is part
+    - of their traditions, then there was a good reason for it. And I don't think
+      foreigners should be able to dictate that they abandon their traditions either.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: To defend the continuation of traditional corporal punishment
+      by claiming it has a valid reason and that foreigners should not dictate its
+      abandonment.
+    candidate: Appeal to Tradition
+    supporting_reason: Traditions become traditions for a reason, so there is a good
+      reason for corporal punishment.
+    support_relation: The reason justifies the conclusion that the tradition should
+      not be abandoned.
+    label_justification: The argument uses the premise that traditions exist because
+      they serve a purpose to claim that a specific tradition—corporeal punishment—is
+      justified, which is a classic appeal to tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's strange that this article tries to point to their traditions as something
+      bad that they should abandon. Traditions become traditions for a reason, and
+      if corporal punishment is part
+    - of their traditions, then there was a good reason for it. And I don't think
+      foreigners should be able to dictate that they abandon their traditions either.
+  counterargument:
+    decisive_counterargument: The mere fact that a practice has survived as a cultural
+      tradition does not prove its moral worth or its effectiveness. Many long‑standing
+      customs—such as certain rites of passage or gender‑based segregation—have been
+      abandoned precisely because newer evidence and ethical reflection show they
+      are harmful. By equating tradition with a “good reason,” the argument ignores
+      any contradictory data about the damaging effects of corporal punishment and
+      overstates the value of antiquity.
+    candidate: Appeal to Tradition
+    challenged_inference: It is a true, good reason to continue a practice simply
+      because it is part of a tradition.
+    label_justification: The objection directly targets the reliance on tradition
+      as a justificatory basis, which is characteristic of the Appeal to Tradition
+      fallacy. It shows the target’s inference is invalidated because tradition alone
+      is insufficient grounds for moral or practical acceptance.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's strange that this article tries to point to their traditions as something
+      bad that they should abandon. Traditions become traditions for a reason, and
+      if corporal punishment is part
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target contains a premise that traditions exist for a reason
+    and a conclusion that they should not be abandoned, thereby using the fact of
+    a tradition to justify its continuation—an Appeal to Tradition fallacy.
+  decision_reason: The argument states that because a tradition (corporeal punishment)
+    exists, there must have been a good reason for it, and therefore foreigners should
+    not dictate its abandonment. This structure uses the existence of a tradition
+    as the sole evidence for its value, which is precisely an Appeal to Tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's strange that this article tries to point to their traditions as something
+    bad that they should abandon. Traditions become traditions for a reason, and if
+    corporal punishment is part
+  - of their traditions, then there was a good reason for it. And I don't think foreigners
+    should be able to dictate that they abandon their traditions either.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4485
+  completion_tokens: 2922
+  total_tokens: 7407
+  wall_time_seconds: 178.71899999998277

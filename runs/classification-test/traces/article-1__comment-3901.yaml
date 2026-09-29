@@ -1,0 +1,175 @@
+sample:
+  id: 1:3901
+  article_id: 1
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: You know how China is with dissent, so if I were in Hong Kong, I would quit
+    it with this or they will be killed by the Chinese. They kill their own people,
+    so they will kill you to seeing as they already sort of consider HK theirs. Especially
+    when you are trying to bring attention to something that they have been trying
+    to bury for decades!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: China kills its own people
+    - role: observed_property
+      text: they will kill you if you continue dissent
+    - role: target_population
+      text: you (anyone who tries to bring attention to dissident issues in Hong Kong)
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: It is safer to quit dissent in Hong Kong to avoid being killed
+      by the Chinese.
+    candidate: False Dilemma
+    supporting_reason: China’s history of killing dissenters and its view of Hong Kong
+      as its own territory create a perception that dissenters will be executed if
+      they do not quit.
+    support_relation: The claim that China kills dissidents and considers Hong Kong
+      to be part of its territory serves to justify the conclusion that dissenters
+      risk death and should therefore quit (presenting only two options).
+    label_justification: The argument presents a binary choice—either one quits or
+      one gets killed—without acknowledging other possible courses of action, which
+      fits the definition of a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+  counterargument:
+    decisive_counterargument: There is no reason to assume that staying in Hong Kong
+      inevitably leads to death—the Chinese authorities are not guaranteed to kill
+      every dissent‑seeker, and many people have expressed concerns or organized events
+      there without being executed. The argument therefore gives only two options—quit
+      or be killed—when in reality a range of alternatives exist.
+    candidate: False Dilemma
+    challenged_inference: The claim treats staying in Hong Kong as a binary choice
+      between quitting or facing lethal danger, ignoring other possible outcomes such
+      as safe activism or non‑violent protest.
+    label_justification: The objection demonstrates that the reasoning commits the
+      False Dilemma fallacy by presenting only two mutually exclusive options (quit
+      or be killed) while failing to acknowledge the existence of many other legitimate
+      alternatives. This specific flaw in the reasoning (reducing a spectrum of possibilities
+      to an artificial dichotomy) supports labeling the target as a False Dilemma
+      instance.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: Compare only these candidates. Select the one whose mandatory structural
+      condition is directly supported by TARGET.
+    loser_failure: The target presents a clear binary choice—either quit dissent or
+      face killing—without acknowledging other possible courses of action, satisfying
+      the false dilemma condition. While it also contains an instance of generalizing
+      from China’s past violence to all dissenters, the explicit “quit or be killed”
+      claim directly matches the false dilemma’s structural requirement, making it
+      the more appropriate label.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The argument presents only two mutually exclusive options, thereby
+    ignoring other possible courses of action.
+  decision_reason: The passage states that in Hong Kong a person would either quit
+    dissent or be killed, without mentioning any intermediate or alternative possibilities.
+    This binary framing matches the definition of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - You know how China is with dissent, so if I were in Hong Kong, I would quit it
+    with this or they will be killed by the Chinese. They kill
+  - their own people, so they will kill you to seeing as they already sort of consider
+    HK theirs. Especially when you are trying to bring attention to something that
+    they
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6269
+  completion_tokens: 5594
+  total_tokens: 11863
+  wall_time_seconds: 256.43700000003446

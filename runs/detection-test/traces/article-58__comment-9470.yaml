@@ -1,0 +1,147 @@
+sample:
+  id: 58:9470
+  article_id: 58
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: They need to get over what happened in the past and realize they are needed
+    for testing if they want vaccines for their people. If they don't comply with
+    testing vaccines, their people will end up dying. How don't they get this? They
+    can't just complain about what happened decades ago if they want progress, can
+    they? Lives are on the line!
+  target: Why exactly are they the ones that need to be experimented on if they want
+    vaccines for their people? Africans should get tested on so that Africans, Europeans,
+    and Americans get vaccines? Why not conduct these fairly risky trials on Americans
+    and then all those groups could get vaccines? The disparity in treatment is the
+    whole point of the article.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why exactly are they the ones that need to be experimented on if they want vaccines
+      for their people? Africans should get tested on so that Africans, Europeans,
+      and Americans
+    - get vaccines? Why not conduct these fairly risky trials on Americans and then
+      all those groups could get vaccines? The disparity in treatment is the whole
+      point of the article.
+    candidate: null
+  goal:
+    conclusion_or_goal: The target argues that the selective testing of African populations
+      for COVID‑19 vaccines is unjust and that the same trials could be conducted
+      on Americans, making the disparity unacceptable.
+    candidate: Appeal to Nature
+    supporting_reason: Because other groups such as Americans could be used for the
+      risky trials and then all groups would receive vaccines, Africans should not
+      have to be the ones experimented on.
+    support_relation: The reason is employed to back the claim that the disparity
+      is wrong by showing that an alternative, equally effective, approach exists.
+    label_justification: The argument presents a legitimate objection to the selective
+      testing without any of the recognized fallacies—the claim is neither a hasty
+      generalization, slippery slope, false dilemma, appeal to authority, majority,
+      tradition, nature, or worse‑problems argument. Thus the reasoning legitimately
+      supports the conclusion rather than constituting a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why exactly are they the ones that need to be experimented on if they want vaccines
+      for their people? Africans should get tested on so that Africans, Europeans,
+      and Americans
+    - get vaccines? Why not conduct these fairly risky trials on Americans and then
+      all those groups could get vaccines? The disparity in treatment is the whole
+      point of the article.
+  counterargument:
+    decisive_counterargument: The claim that Africans must be the sole population
+      in whom vaccines are tested rests on the false premise that a single demographic
+      group can provide sufficient safety and efficacy data for all other groups.
+      Vaccine trials are intentionally designed to include diverse populations in
+      order to capture differences in immune response, genetics, and disease prevalence.
+      Conducting trials exclusively in one group would limit generalizability and
+      could potentially endanger the very populations that rely on the resulting vaccines.
+      Therefore, the inference that the disparity in treatment is justified is invalid.
+    candidate: null
+    challenged_inference: The inference that Africans should be uniquely tested on
+      to benefit all peoples (Africans, Europeans, and Americans) because it serves
+      as a means to provide vaccines for everyone.
+    label_justification: No fallacy is present in the target text; the claim is based
+      on a false premise but does not commit any of the specified fallacies (false
+      dilemma, hasty generalization, appeal to authority, etc.). Therefore, the appropriate
+      label is null.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why exactly are they the ones that need to be experimented on if they want vaccines
+      for their people? Africans should get tested on so that Africans, Europeans,
+      and Americans
+    - get vaccines? Why not conduct these fairly risky trials on Americans and then
+      all those groups could get vaccines? The disparity in treatment is the whole
+      point of the article.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: Target passage does not contain an appeal to nature (i.e., a
+    claim that something is good because it is natural or aligns with nature). It
+    merely questions the fairness of selective testing, lacking the required naturalness
+    premise, so no fallacy is present.
+  decision_reason: The target content does not articulate or imply that the use of
+    Africans for testing is preferable because it is natural or inherently right.
+    Therefore, the surviving hypothesis “Appeal to Nature” does not fit the evidence,
+    and no fallacy is detected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why exactly are they the ones that need to be experimented on if they want vaccines
+    for their people? Africans should get tested on so that Africans, Europeans, and
+    Americans
+  - get vaccines? Why not conduct these fairly risky trials on Americans and then
+    all those groups could get vaccines? The disparity in treatment is the whole point
+    of the article.
+  verified: false
+  rejection_reason: The target content does not articulate or imply that the use of
+    Africans for testing is preferable because it is natural or inherently right.
+    Therefore, the surviving hypothesis “Appeal to Nature” does not fit the evidence,
+    and no fallacy is detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4439
+  completion_tokens: 3297
+  total_tokens: 7736
+  wall_time_seconds: 158.59399999999732

@@ -1,0 +1,132 @@
+sample:
+  id: 554:8258
+  article_id: 554
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: Unfortunately, it is the nature of politicians to squabble and vie for power
+    like this. It's embarrassing and frustrating, yes, but it's probably the right
+    way to govern, since this desire to acquire (and more importantly, to keep) power
+    is innate among those who make up the political class.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T2
+    - role: evaluative_conclusion
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Unfortunately, it is the nature of politicians to squabble and vie for power
+      like this. It's embarrassing and frustrating, yes, but it's probably the right
+      way to govern, since this
+    - desire to acquire (and more importantly, to keep) power is innate among those
+      who make up the political class.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Squabbling for power is the right way to govern.
+    candidate: Appeal to Nature
+    supporting_reason: Desire to acquire and keep power is innate among those who
+      make up the political class.
+    support_relation: The speaker uses the claim that politicians naturally seek power
+      as justification for the conclusion that their squabbling for power is the correct
+      governing method.
+    label_justification: The argument infers that because a natural desire to hold
+      power exists, the resulting behavior (squabbles and power struggles) is appropriate
+      and thus the proper way to govern. This is an appeal to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Unfortunately, it is the nature of politicians to squabble and vie for power
+      like this. It's embarrassing and frustrating, yes, but it's probably the right
+      way to govern, since this
+    - desire to acquire (and more importantly, to keep) power is innate among those
+      who make up the political class.
+  counterargument:
+    decisive_counterargument: It is not logical to conclude that squabbling is the
+      best way to govern simply because politicians naturally desire power. The fact
+      that a motive is common or innate does not establish that the behaviors it drives
+      are appropriate or effective for governance. Other systems can manage the pursuit
+      of power constructively; the naturalness of power-seeking alone does not justify
+      conflict as the correct method of ruling.
+    candidate: Appeal to Nature
+    challenged_inference: The argument infers that because politicians innately seek
+      power, squabbling and vying for power are the proper ways to govern.
+    label_justification: The objection exposes an Appeal to Nature fallacy, because
+      it shows that the reasoning incorrectly assumes that natural motives (desire
+      for power) inherently make the resulting behaviors (political squabbling) correct
+      or suitable for governance.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Unfortunately, it is the nature of politicians to squabble and vie for power
+      like this. It's embarrassing and frustrating, yes, but it's probably the right
+      way to govern, since this
+    - desire to acquire (and more importantly, to keep) power is innate among those
+      who make up the political class.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument states that politicians’ innate desire to acquire
+    and keep power justifies squabbling for power as the right way to govern, which
+    is a classic appeal‑to‑nature structure (naturalness premise → value conclusion).
+  decision_reason: The TARGET presents a naturalness premise (“desire to acquire …
+    is innate”) and concludes that squabbling for power is the right way to govern.
+    This matches the appeal to nature pattern. The evidence supporting this is T2
+    (naturalness premise) and T1 (evaluative conclusion).
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Unfortunately, it is the nature of politicians to squabble and vie for power like
+    this. It's embarrassing and frustrating, yes, but it's probably the right way
+    to govern, since this
+  - desire to acquire (and more importantly, to keep) power is innate among those
+    who make up the political class.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4466
+  completion_tokens: 3159
+  total_tokens: 7625
+  wall_time_seconds: 134.68799999999828

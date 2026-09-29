@@ -1,0 +1,142 @@
+sample:
+  id: 465:7393
+  article_id: 465
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: This issue, particularly on the gender gap, is undeniably a crucial matter
+    that requires effort not only from leaders but from every individual as well.
+    I'm reminded of a great philosopher I once looked up to, Aristotle, who asserted
+    that components of the society ought to be treated on equal grounds. Despite him
+    living eons ago, his ideas are still relevant and insightful to this day. While
+    it can't be ignored that there are inherent biological differences between genders,
+    that ought not to translate into disparities in societal opportunities and treatment.
+    This renders Aristotle's notions even more significant as they underline the need
+    for every individual, irrespective of their gender, to be on equal ground.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Aristotle
+    - role: endorsed_claim
+      text: components of the society ought to be treated on equal grounds
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T4
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+    - treatment. This renders Aristotle's notions even more significant as they underline
+      the need for every individual, irrespective of their gender, to be on equal
+      ground.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The gender gap is an urgent issue that requires collective
+      action, and everyone—regardless of gender—must be treated equally.
+    candidate: Appeal to Authority
+    supporting_reason: Aristotle asserted that components of society ought to be treated
+      on equal grounds.
+    support_relation: Appeal to Authority
+    label_justification: The argument relies on Aristotle’s authority to justify the
+      claim that equal treatment is essential, even though Aristotle’s expertise is
+      not directly relevant to contemporary gender equality. This use of an authority
+      to support the conclusion, without corroborating evidence, constitutes an appeal
+      to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+  counterargument:
+    decisive_counterargument: Reliance on Aristotle’s authority alone does not establish
+      the modern relevance of his ideas; scholars can still argue that contemporary
+      evidence—social, economic, and psychological—must be examined to support claims
+      about gender equality.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that because Aristotle advocated for equality,
+      it should guide current actions on the gender gap.
+    label_justification: The argument bases its conclusion on an authoritative statement
+      from a historical philosopher to validate a contemporary claim, which exemplifies
+      an Appeal to Authority rather than genuine evidence or logical reasoning.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    - T4
+    evidence_spans:
+    - philosopher I once looked up to, Aristotle, who asserted that components of
+      the society ought to be treated on equal grounds. Despite him living eons ago,
+      his ideas are still
+    - treatment. This renders Aristotle's notions even more significant as they underline
+      the need for every individual, irrespective of their gender, to be on equal
+      ground.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Appeal to authority requires that the referenced authority is
+    *irrelevant* or *questionable* for the claim. The target explicitly states Aristotle’s
+    ideas are still relevant today and uses his statement about equal treatment as
+    support for the gender‑gap argument. Since Aristotle is a legitimate authority
+    on philosophical and societal principles, the reliance on his viewpoint is not
+    a fallacy. Therefore the claim that this argument commits an appeal to authority
+    fallacy is unfounded.
+  decision_reason: The argument cites Aristotle’s view on equality to support the
+    claim, and the target itself affirms his relevance. There is no evidence of irrelevance
+    or bias that would make the appeal to authority fallacious. Thus the alleged fallacy
+    is not present.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - philosopher I once looked up to, Aristotle, who asserted that components of the
+    society ought to be treated on equal grounds. Despite him living eons ago, his
+    ideas are still
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4986
+  completion_tokens: 2811
+  total_tokens: 7797
+  wall_time_seconds: 83.26600000000326

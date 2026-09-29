@@ -1,0 +1,138 @@
+sample:
+  id: 323:6366
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: Preserving one's own language through time and change is indeed the right
+    thing to do, and it's encouraging to see such dedication. Traditionally, respecting
+    and upholding an ancestral language has always been thought of as a testament
+    to our identity and heritage - a sentiment that's been held true for generations.
+    Isn't it reassuring to believe in the unchanging truth of our traditions, regardless
+    of whether or not it has universal applicability? This should inspire us all to
+    keep the flame of our linguistic heritage alive for future generations to appreciate
+    and engage with. After all, isn't tradition what makes us who we are?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Traditionally, respecting and upholding an ancestral language has
+    - role: preservation_conclusion
+      text: After all, isn't tradition what makes us who we are?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - Preserving one's own language through time and change is indeed the right thing
+      to do, and it's encouraging to see such dedication. Traditionally, respecting
+      and upholding an ancestral language has
+    - appreciate and engage with. After all, isn't tradition what makes us who we
+      are?
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Preserving one's own language through time and change is the
+      right thing to do.
+    candidate: Appeal to Tradition
+    supporting_reason: Traditionally respecting and upholding an ancestral language
+      has always been thought of as a testament to identity and heritage, so it is
+      inherently right to preserve it.
+    support_relation: Appeal to Tradition
+    label_justification: The reasoning uses the long-standing historical practice
+      of valuing ancestral language to justify the claim that preserving the language
+      is inherently correct, which satisfies the definition of an Appeal to Tradition
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Preserving one's own language through time and change is indeed the right thing
+      to do, and it's encouraging to see such dedication. Traditionally, respecting
+      and upholding an ancestral language has
+    - always been thought of as a testament to our identity and heritage - a sentiment
+      that's been held true for generations. Isn't it reassuring to believe in the
+      unchanging truth
+  counterargument:
+    decisive_counterargument: The claim that preserving a language is inherently the
+      right thing because tradition has always favored it is an appeal to tradition.
+      Tradition alone does not establish moral correctness; it merely reflects what
+      people have historically valued. Without evidence that preservation actually
+      benefits society or individuals today, the argument is unsupported.
+    candidate: Appeal to Tradition
+    challenged_inference: Preserving a language is right because tradition has always
+      valued it.
+    label_justification: The objection directly attacks the reasoning that tradition
+      is sufficient justification, exposing the specific failure of an appeal to tradition
+      rather than a more general flaw in the argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - Preserving one's own language through time and change is indeed the right thing
+      to do, and it's encouraging to see such dedication. Traditionally, respecting
+      and upholding an ancestral language has
+    - always been thought of as a testament to our identity and heritage - a sentiment
+      that's been held true for generations. Isn't it reassuring to believe in the
+      unchanging truth
+    - appreciate and engage with. After all, isn't tradition what makes us who we
+      are?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly states that preserving a language is right
+    because traditional values have always supported it, with no empirical or moral
+    justification beyond the tradition itself. This matches the definition of an appeal
+    to tradition, and the evidence from T1 and T4 confirms the premise and conclusion.
+  decision_reason: The argument relies on long-standing tradition to claim that preserving
+    a language is inherently good, which constitutes an Appeal to Tradition fallacy.
+  evidence_ids:
+  - T1
+  - T4
+  evidence_spans:
+  - Preserving one's own language through time and change is indeed the right thing
+    to do, and it's encouraging to see such dedication. Traditionally, respecting
+    and upholding an ancestral language has
+  - appreciate and engage with. After all, isn't tradition what makes us who we are?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5148
+  completion_tokens: 1991
+  total_tokens: 7139
+  wall_time_seconds: 97.32799999999406

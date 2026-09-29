@@ -1,0 +1,163 @@
+sample:
+  id: 161:9780
+  article_id: 161
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: Why change the law now when its been unchanged since 1955? Talk about doing
+    away with tradition. No wonder people are upset. This will change large parts
+    of India! India is not used to bringing in so many different kinds of refugees!
+  target: I agree completely. They had a system that, while flawed, more or less worked
+    since before most of us were even alive. Did they not expect that radical change
+    would lead to a radical response? This is what happens when like you say, they
+    do away with tradition.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: They had a system that, while flawed, more or less worked since before
+        most of us were even alive.
+    - role: preservation_conclusion
+      text: They should not do away with tradition.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. They had a system that, while flawed, more or less worked
+      since before most of us were even alive. Did they not expect that radical change
+      would
+    - lead to a radical response? This is what happens when like you say, they do
+      away with tradition.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Radical change that removes tradition will provoke a radical
+      response.
+    candidate: null
+    supporting_reason: Radical change leads to a radical response because tradition
+      is taken away.
+    support_relation: causal
+    label_justification: The statement presents a direct causal claim rather than
+      a known fallote (e.g., it does not rely on an unsupported sample, a false dilemma,
+      or any appeal to authority). Therefore no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. They had a system that, while flawed, more or less worked
+      since before most of us were even alive. Did they not expect that radical change
+      would
+    - lead to a radical response? This is what happens when like you say, they do
+      away with tradition.
+  counterargument:
+    decisive_counterargument: The text claims that abandoning tradition inevitably
+      produces a radical response, but offers no evidence, examples or intermediate
+      steps to support this causal link.
+    candidate: Slippery Slope
+    challenged_inference: Radical change by discontinuing a tradition will necessarily
+      provoke a radical, destabilizing response.
+    label_justification: The argument presents a single outcome (radical response)
+      as a guaranteed consequence of a single action (do away with tradition) without
+      demonstrating the intermediate steps or acknowledging alternative explanations.
+      This is the classic structure of a slippery‑slope argument, where one action
+      is linked to a chain of increasingly severe, but unsubstantiated, outcomes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. They had a system that, while flawed, more or less worked
+      since before most of us were even alive. Did they not expect that radical change
+      would
+    - lead to a radical response? This is what happens when like you say, they do
+      away with tradition.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Slippery Slope
+    conflict: appeal-to-tradition__vs__slippery-slope
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: appeal-to-tradition__vs__slippery-slope
+    loser_failure: The Slippery Slope argument requires a chain of progressively worsening
+      consequences triggered by a single action. In the target only one outcome— a
+      radical response—is mentioned, with no sequence, intermediate steps, or evidence
+      of escalating effects. Thus, it lacks the necessary structure to qualify as
+      a slippery‑slope argument.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree completely. They had a system that, while flawed, more or less worked
+      since before most of us were even alive. Did they not expect that radical change
+      would
+    - lead to a radical response? This is what happens when like you say, they do
+      away with tradition.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: Both a tradition premise and a preservation conclusion are present.
+  decision_reason: The target cites a longstanding system that has worked and warns
+    that radical change will cause problems, concluding that tradition should be preserved,
+    which fits the appeal to tradition structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree completely. They had a system that, while flawed, more or less worked
+    since before most of us were even alive. Did they not expect that radical change
+    would
+  - lead to a radical response? This is what happens when like you say, they do away
+    with tradition.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5561
+  completion_tokens: 3753
+  total_tokens: 9314
+  wall_time_seconds: 222.07800000000134

@@ -1,0 +1,131 @@
+sample:
+  id: 427:6079
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Hopefully the country of Spain can provide women generalists opportunities
+    after they complete schooling. Currently it looks like their prospects are not
+    so bright. Pedro Sánchez, president of Spain is probably already working on this.
+    They can Institute new legislation in order to balance the field for women.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Pedro Sánchez, president of Spain
+    - role: endorsed_claim
+      text: They can institute new legislation in order to balance the field for women
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Hopefully the country of Spain can provide women generalists opportunities after
+      they complete schooling. Currently it looks like their prospects are not so
+      bright. Pedro Sánchez, president of Spain is
+    - probably already working on this. They can Institute new legislation in order
+      to balance the field for women.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Spain can provide women generalists with opportunities after
+      schooling.
+    candidate: null
+    supporting_reason: The president of Spain is probably already working on this
+      issue and could institute new legislation to balance the field for women.
+    support_relation: Appeal to authority as a plausible claim that the president
+      can enact legislation.
+    label_justification: The reasoning uses an appropriate authority (the national
+      president) to support a reasonable policy outcome, and does not constitute a
+      logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Hopefully the country of Spain can provide women generalists opportunities after
+      they complete schooling. Currently it looks like their prospects are not so
+      bright. Pedro Sánchez, president of Spain is
+    - probably already working on this. They can Institute new legislation in order
+      to balance the field for women.
+  counterargument:
+    decisive_counterargument: Speculating that the president of Spain is already working
+      on new legislation and concluding that this will automatically lead to balanced
+      opportunities for women ignores the complexity of gender discrimination, the
+      many steps required for legislation to be effective, and the fact that the president’s
+      intention or action does not guarantee desirable outcomes.
+    candidate: Appeal to Authority
+    challenged_inference: Because Pedro Sánchez, president of Spain, is probably already
+      working on this, Spain can institute new legislation to balance the field for
+      women.
+    label_justification: The inference relies on the president’s position as an unquestioned
+      authority and assumes his potential actions will solve the problem, without
+      presenting any evidence that he will enact such legislation or that it will
+      effectively address women's opportunities.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Hopefully the country of Spain can provide women generalists opportunities after
+      they complete schooling. Currently it looks like their prospects are not so
+      bright. Pedro Sánchez, president of Spain is
+    - probably already working on this. They can Institute new legislation in order
+      to balance the field for women.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target statement relies on Pedro Sánchez’s position as president
+    to claim that legislation can be enacted to address women’s opportunities, presenting
+    his authority as the sole justification without supporting evidence.
+  decision_reason: The evidence shows an explicit structure where the authority (President
+    Pedro Sánchez) endorses a claim (new legislation will balance the field for women).
+    This uses the authority to support the claim without evidence, which is the hallmark
+    of an appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Hopefully the country of Spain can provide women generalists opportunities after
+    they complete schooling. Currently it looks like their prospects are not so bright.
+    Pedro Sánchez, president of Spain is
+  - probably already working on this. They can Institute new legislation in order
+    to balance the field for women.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4151
+  completion_tokens: 3539
+  total_tokens: 7690
+  wall_time_seconds: 65.23499999998603

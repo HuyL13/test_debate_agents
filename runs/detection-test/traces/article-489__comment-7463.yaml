@@ -1,0 +1,133 @@
+sample:
+  id: 489:7463
+  article_id: 489
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: Well this is deeply disturbing. When you grant the police permission to
+    commit violence against citizens, you find out what kind of policemen you have.
+    It sounds like a nightmare. Nothing short of a complete overhaul of the system
+    is warranted.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well this is deeply disturbing. When you grant the police permission to commit
+      violence against citizens, you find out what kind of policemen you have. It
+      sounds like a nightmare.
+    - Nothing short of a complete overhaul of the system is warranted.
+    candidate: null
+  goal:
+    conclusion_or_goal: Nothing short of a complete overhaul of the system is warranted.
+    candidate: null
+    supporting_reason: When you grant the police permission to commit violence against
+      citizens, you find out what kind of policemen you have. It sounds like a nightmare.
+    support_relation: The statement about police violence is used to justify the claim
+      that a system overhaul is necessary.
+    label_justification: The argument is a straightforward opinion that police violence
+      reveals problematic policing, thereby arguing for an overhaul. No logical fallacy
+      appears; the reason directly supports the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well this is deeply disturbing. When you grant the police permission to commit
+      violence against citizens, you find out what kind of policemen you have. It
+      sounds like a nightmare.
+    - Nothing short of a complete overhaul of the system is warranted.
+  counterargument:
+    decisive_counterargument: The claim that simply allowing the police to use violence
+      automatically reveals their character and so demands a complete system overhaul
+      rests on an unwarranted leap from a single, hypothetical scenario to a sweeping
+      claim about the entire police force and the system. One can assess police behavior
+      through oversight, transparent reporting, and investigative reviews without
+      granting them any new discretionary violence. Moreover, even if a few officers
+      abused such permission, it does not logically follow that the entire system
+      must be overhauled; reforms could target those officers or the specific procedures
+      that enable abuse. Hence the conclusion is an over‑broad generalization unsupported
+      by evidence.
+    candidate: Hasty Generalization
+    challenged_inference: Granting the police permission to commit violence against
+      citizens intrinsically reveals the kind of policemen they are, and this alone
+      warrants a complete overhaul of the system.
+    label_justification: The argument extrapolates a sweeping conclusion about all
+      police and the entire system from an unsubstantiated, single-condition premise,
+      fitting the pattern of a Hasty Generalization. The inference is unsupported
+      by empirical evidence or broader samples, thus exposing this specific reasoning
+      failure.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Well this is deeply disturbing. When you grant the police permission to commit
+      violence against citizens, you find out what kind of policemen you have. It
+      sounds like a nightmare.
+    - Nothing short of a complete overhaul of the system is warranted.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not provide an explicit sample or
+    cases from which to generalize about the entire police force, violating the structural
+    requirement of a hasty generalization. The claim is based on a hypothetical scenario
+    rather than empirical evidence. Therefore the claim is not a hasty generalization.
+  decision_reason: The target lacks the necessary sample or evidence to justify a
+    sweeping conclusion about all police. Without an explicit example or population
+    subset, the inference does not meet the structure required for a hasty generalization
+    fallacy. Hence the survivor hypothesis is rejected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Well this is deeply disturbing. When you grant the police permission to commit
+    violence against citizens, you find out what kind of policemen you have. It sounds
+    like a nightmare.
+  - Nothing short of a complete overhaul of the system is warranted.
+  verified: false
+  rejection_reason: The target lacks the necessary sample or evidence to justify a
+    sweeping conclusion about all police. Without an explicit example or population
+    subset, the inference does not meet the structure required for a hasty generalization
+    fallacy. Hence the survivor hypothesis is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4059
+  completion_tokens: 3422
+  total_tokens: 7481
+  wall_time_seconds: 159.5779999999795

@@ -1,0 +1,140 @@
+sample:
+  id: 442:10622
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: 'Great story about Elias Atayi and his dedication to making music to amplify
+    human rights. I think it''s a great idea and I''m certain that there are vast
+    amounts of people who agree to me. I mean, think about it, who is against human
+    rights? I have never heard anyone come out against them, so that has to mean it''s
+    nearly universal in support! Just having that sort of backing shows that defending
+    human rights is the correct thing to do, we all need to step up and spread this
+    message far and wide. With how many people are behind this it is sure to be a
+    success! #HumanRights'
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: vast amounts of people who agree to me
+    - role: popularity_claim
+      text: nearly universal in support
+    - role: target_claim
+      text: defending human rights is the correct thing to do
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Defending human rights is the correct thing to do (and should
+      be widely promoted).
+    candidate: Appeal to Majority
+    supporting_reason: The argument claims that because a vast majority of people
+      support human rights and no one has opposed them, this proves that defending
+      human rights is correct.
+    support_relation: The perceived universal agreement is presented as evidence that
+      the conclusion is valid.
+    label_justification: The argument appeals to the popularity of human rights to
+      justify their correctness, which is the definition of an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+  counterargument:
+    decisive_counterargument: 'The argument assumes that the sheer number of people
+      who agree makes defending human rights inherently correct and bound to succeed.
+      That is a classic *appeal to majority*: just because many people think something
+      is right, that itself is an adequate justification, ignoring the strength of
+      the idea, evidence, or alternative viewpoints. The claim also conflates the
+      presumed majority with the idea’s truth, which is a flawed inference. Hence
+      it exemplifies an appeal to majority fallacy.'
+    candidate: Appeal to Majority
+    challenged_inference: Because many people support human rights, defending them
+      is the correct thing to do and will succeed.
+    label_justification: The counterargument directly attacks the inference that majority
+      support equates to correctness, which is exactly the hallmark of an appeal to
+      majority fallacy. No other fallacy type better fits this reasoning error, so
+      the label is supported.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Great story about Elias Atayi and his dedication to making music to amplify
+      human rights. I think it's a great idea and I'm certain that there are vast
+      amounts of
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that human rights are universally
+    supported (based on lack of observed opposition) and then uses this popularity
+    claim to conclude that defending human rights is correct and will succeed. This
+    is the classic structure of an Appeal to Majority, where the widespread agreement
+    is taken as evidence of the claim’s truth.
+  decision_reason: The argument relies on the claimed population agreement (‘vast
+    amounts of people who agree’, ‘nearly universal in support’) to justify the conclusion
+    (‘defending human rights is correct’), thereby committing an Appeal to Majority
+    fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - people who agree to me. I mean, think about it, who is against human rights? I
+    have never heard anyone come out against them, so that has to mean it's
+  - nearly universal in support! Just having that sort of backing shows that defending
+    human rights is the correct thing to do, we all need to step up and spread this
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5261
+  completion_tokens: 2172
+  total_tokens: 7433
+  wall_time_seconds: 76.54599999997299

@@ -1,0 +1,142 @@
+sample:
+  id: 589:8365
+  article_id: 589
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: If bloggers and social media influencers are allowed to incite violence
+    against one group of people for whatever reason it is only a matter of time before
+    another group is targeted for another reason. Nobody is safe if law enforcement
+    and decent citizens and the government look the other way at violence against
+    any group. There needs to be strict regulations against hate speech of any kind.
+  target: Absolutely right! It's amazing that so many social media influencers have
+    the power to incite violence, but lets not assume they are all eager to focus
+    on once group and cause issue with them. We're seen so many influencers are the
+    opposite and work to fight against injustices, many more are joining protests
+    and and against the actions of hate groups. Of course, it's safe to say that all
+    these influencers genuinely care about social justice and are not just doing it
+    for the image and follows, right? We shouldn't lump them all together, okay? On
+    the other hand, I saw an influencer last week who barely showed any interests
+    in these issues until it started trending. It makes you wonder if they are just
+    following trends or are they socially aware?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: We're seeing so many influencers are the opposite and work to fight against
+        injustices, many more are joining protests and against the actions of hate
+        groups.
+    - role: observed_property
+      text: they genuinely care about social justice and are not just doing it for
+        the image and follows
+    - role: target_population
+      text: all these influencers
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - cause issue with them. We're seen so many influencers are the opposite and work
+      to fight against injustices, many more are joining protests and and against
+      the actions of hate
+    - groups. Of course, it's safe to say that all these influencers genuinely care
+      about social justice and are not just doing it for the image and follows, right?
+      We shouldn't
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: We shouldn't lump all influencers together as potential agitators.
+    candidate: Hasty Generalization
+    supporting_reason: All these influencers genuinely care about social justice and
+      are not doing it for image and follows.
+    support_relation: The reason directly supports the conclusion that influencers
+      are largely positive social actors, contrary to the suggestion that they all
+      incite violence.
+    label_justification: The target makes a broad claim about all influencers’ motives
+      based on scant anecdotes, a classic instance of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - groups. Of course, it's safe to say that all these influencers genuinely care
+      about social justice and are not just doing it for the image and follows, right?
+      We shouldn't
+  counterargument:
+    decisive_counterargument: The claim that every social‑media influencer genuinely
+      cares about social justice is drawn from only a handful of examples and therefore
+      cannot be accepted as a universal truth.  In order for a generalization to be
+      valid it must be based on a representative sample of the whole population, which
+      is not the case here—the statement relies on an anecdotal observation of a few
+      individuals who happen to be politically active.
+    candidate: Hasty Generalization
+    challenged_inference: The assertion that all influencers genuinely care about
+      social justice and are not motivated by image or follows.
+    label_justification: This objection shows that the argument makes an overbroad,
+      universal claim about all influencers based on a limited set of observations.  That
+      is the defining feature of a hasty generalization, rather than a mere critique
+      of the argument’s veracity.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - groups. Of course, it's safe to say that all these influencers genuinely care
+      about social justice and are not just doing it for the image and follows, right?
+      We shouldn't
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts a universal claim about all influencers’
+    motives based on a limited anecdotal sample, satisfying the structural requirement
+    of a sample‑to‑population hasty generalization.
+  decision_reason: The target’s claim that “all these influencers genuinely care about
+    social justice and are not just doing it for the image and follows” is drawn from
+    only a few examples and applies to the entire population of influencers, which
+    is a classic illustration of a hasty generalization.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - cause issue with them. We're seen so many influencers are the opposite and work
+    to fight against injustices, many more are joining protests and and against the
+    actions of hate
+  - groups. Of course, it's safe to say that all these influencers genuinely care
+    about social justice and are not just doing it for the image and follows, right?
+    We shouldn't
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5729
+  completion_tokens: 4070
+  total_tokens: 9799
+  wall_time_seconds: 185.5779999999977

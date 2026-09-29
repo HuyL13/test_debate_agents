@@ -1,0 +1,133 @@
+sample:
+  id: 367:10399
+  article_id: 367
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: It's understandable that the gay community want to be treated equally, but
+    why make such public shows of it?  It would be better if they tried to get things
+    done quietly behind the scenes without making a fuss. In addition, they would
+    probably have people cooperate more which would yield better results.  The old
+    traditional way of handling things is often best.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: The old traditional way of handling things is often best.
+    - role: preservation_conclusion
+      text: It would be better if they tried to get things done quietly behind the
+        scenes without making a fuss.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - quietly behind the scenes without making a fuss. In addition, they would probably
+      have people cooperate more which would yield better results.  The old traditional
+      way of handling things is
+    - often best.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The gay community should avoid public advocacy and instead
+      work quietly behind the scenes using traditional approaches.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument that the old traditional way of handling things
+      is often best justifies the claim of quiet, behind‑the‑scenes advocacy.
+    support_relation: Applies an appeal to tradition by asserting that the old way
+      is best, thereby supporting the conclusion.
+    label_justification: The reason explicitly endorses tradition as superior, using
+      it to justify the preference for quiet, traditional advocacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - quietly behind the scenes without making a fuss. In addition, they would probably
+      have people cooperate more which would yield better results.  The old traditional
+      way of handling things is
+    - often best.
+  counterargument:
+    decisive_counterargument: The argument claims that quiet, behind‑the‑scenes actions
+      will be more effective simply because the 'old traditional way' is better, yet
+      it offers no evidence that such secrecy actually produces better outcomes or
+      that public visibility undermines progress.
+    candidate: Appeal to Tradition
+    challenged_inference: Public activism is unnecessary and ineffective; the traditional,
+      quiet approach is preferable.
+    label_justification: The objection directly targets the appeal to tradition fallacy
+      by pointing out the unsubstantiated leap from 'tradition is better' to the superiority
+      of quiet methods. It shows that the conclusion does not follow from the premise
+      but relies on a preference for historical practice.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - quietly behind the scenes without making a fuss. In addition, they would probably
+      have people cooperate more which would yield better results.  The old traditional
+      way of handling things is
+    - often best.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'Appeal to Tradition structure: premise (old traditional way
+    is often best) leads to conclusion (prefer quiet, behind‑the‑scenes advocacy)
+    as per TARGET passages'
+  decision_reason: The passage explicitly states “The old traditional way of handling
+    things is often best.” and concludes that it would be better for the gay community
+    to act quietly behind the scenes, which is a classic Appeal to Tradition structure.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - quietly behind the scenes without making a fuss. In addition, they would probably
+    have people cooperate more which would yield better results.  The old traditional
+    way of handling things is
+  - often best.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4585
+  completion_tokens: 3128
+  total_tokens: 7713
+  wall_time_seconds: 107.92199999999139

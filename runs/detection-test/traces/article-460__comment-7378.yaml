@@ -1,0 +1,168 @@
+sample:
+  id: 460:7378
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: I think I kind of agree with the government here. It felt like every other
+    article I was ever linked about COVID was some denialist fake news. Extend that
+    to the world and there were probably billions of fabricated articles spread around
+    globally. Some action does need to be taken.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the government
+    - role: endorsed_claim
+      text: Some action does need to be taken.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I kind of agree with the government here. It felt like every other article
+      I was ever linked about COVID was some denialist fake news. Extend that to
+    - the world and there were probably billions of fabricated articles spread around
+      globally. Some action does need to be taken.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: There were probably billions of fabricated articles spread
+      globally.
+    candidate: Hasty Generalization
+    supporting_reason: The author observes a number of denialist fake‑news articles
+      about COVID and generalizes that to the entire world, asserting that billions
+      of fabricated articles exist.
+    support_relation: It uses the observed sample of fake news to justify a universal
+      claim about the global volume of fabricated articles.
+    label_justification: The jump from a few observed examples to a massive global
+      figure is an unwarranted generalization, matching the fallacy of Hasty Generalization.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I kind of agree with the government here. It felt like every other article
+      I was ever linked about COVID was some denialist fake news. Extend that to
+    - the world and there were probably billions of fabricated articles spread around
+      globally. Some action does need to be taken.
+  counterargument:
+    decisive_counterargument: The claim that there were probably billions of fabricated
+      COVID articles worldwide is based solely on the speaker’s limited personal experience
+      with a handful of online pieces.  From an unrepresentative sample one cannot
+      conclude that a massive global phenomenon exists – the inference leaps from
+      a few observed cases to a quantitative global total.
+    candidate: Hasty Generalization
+    challenged_inference: It felt like every other article I was ever linked about
+      COVID was some denialist fake news. Extend that to the world and there were
+      probably billions of fabricated articles spread around globally.
+    label_justification: The objection directly targets the unjustified jump from
+      a small, anecdotal sample to a sweeping, quantitative global claim, which is
+      the hallmark of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I kind of agree with the government here. It felt like every other article
+      I was ever linked about COVID was some denialist fake news. Extend that to
+    - the world and there were probably billions of fabricated articles spread around
+      globally. Some action does need to be taken.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The claim that there were probably billions of fabricated COVID
+      articles worldwide is a conclusion drawn from the speaker’s limited experience
+      with a few pieces of online content.  The passage moves from the specific observation
+      that “every other article I was ever linked about COVID” was fake news to a
+      sweeping quantitative global statement, which is the classic structure of a
+      hasty generalization.
+    loser_failure: Appeal to Authority would require the target to explicitly present
+      the government’s statement as a justified reason for action; the passage merely
+      states personal agreement with the government, not an authority-based argument
+      for specific claims.  Thus Appeal to Authority lacks the mandatory structural
+      support evident in the text.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think I kind of agree with the government here. It felt like every other article
+      I was ever linked about COVID was some denialist fake news. Extend that to
+    - the world and there were probably billions of fabricated articles spread around
+      globally. Some action does need to be taken.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims that 'every other article I was ever linked
+    about COVID was some denialist fake news' and then 'extends that to the world
+    and there were probably billions of fabricated articles spread around globally.'
+    This leap from a handful of personal observations to a massive global figure is
+    an unsubstantiated generalization, satisfying the structural conditions of a Hasty
+    Generalization. The inference is unsupported by sufficient evidence and is based
+    solely on a limited sample, constituting a fallacious overgeneralization.
+  decision_reason: The inference rises from a small, anecdotal sample to an extensive,
+    quantitative global claim without adequate evidence, which is the hallmark of
+    a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think I kind of agree with the government here. It felt like every other article
+    I was ever linked about COVID was some denialist fake news. Extend that to
+  - the world and there were probably billions of fabricated articles spread around
+    globally. Some action does need to be taken.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5369
+  completion_tokens: 3133
+  total_tokens: 8502
+  wall_time_seconds: 236.29699999999139

@@ -1,0 +1,162 @@
+sample:
+  id: 287:6859
+  article_id: 287
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: The man seems to know what he's doing. Populism is taking over in so many
+    countries recently because people are fed up with the status quo. I would trust
+    Bukele over whomever was in power prior to this. I've read about what he's done
+    to lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Bukele
+    - role: endorsed_claim
+      text: lower crime
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The comment endorses Bukele’s leadership and implicitly supports
+      the idea that a little authoritarianism may be necessary.
+    candidate: Slippery Slope
+    supporting_reason: The author claims that Bukele has lowered crime, which he uses
+      to justify trusting him over prior leaders and to suggest that authoritarian
+      measures may be needed.
+    support_relation: The crime‑reduction claim is presented as evidence that Bukele’s
+      authoritarian approach is effective, thereby supporting the overall endorsement
+      of his leadership.
+    label_justification: The argument presents a single historical outcome (crime
+      reduction) as evidence that the broader, future consequence (authoritarian governance)
+      is beneficial, suggesting an implicit slippery‑slope reasoning that success
+      in one area implies success in an increasingly authoritarian direction. No other
+      fallacies are present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+  counterargument:
+    decisive_counterargument: The argument accepts Bukele’s authoritarian rule simply
+      because the speaker has read about his positive impact on crime, without critically
+      examining the evidence or considering other causes. This reliance on the alleged
+      authority’s claims to justify a political stance is an *Appeal to Authority*—the
+      choice to trust Bukele is supported solely by the authority he claims to have
+      over crime reduction, without independent verification or acknowledgement that
+      the evidence may be incomplete or biased.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that Bukele’s rule is inherently positive
+      and therefore preferable relies exclusively on authority claims («I read… his
+      crime‑reducing measures are great») rather than on verifiable, impartial evidence.
+    label_justification: The counterargument directly points out that the justification
+      for preferring Bukele derives from authoritative claims—specifically, the speaker’s
+      unverified reading of Bukele’s success in lowering crime—rather than from objective
+      facts, which conforms to the definition of an *Appeal to Authority* fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Slippery Slope
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: 'Slippery Slope does not meet its mandatory structural condition:
+      the text merely links a single outcome (lower crime) with a possible endorsement
+      of authoritarianism, but does not present a progressive chain of increasingly
+      adverse consequences that constitute a true slippery‑slope argument. The target
+      only suggests one potential benefit, not a slippery‑slope sequence. '
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument cites Bukele, the leader of the country, as a source
+    of authority for his claim of lowering crime, thereby using his position as authority
+    to justify trusting him. The structure matches an authority‑to‑claim pattern and
+    the evidence is provided in passages T1 and T2.
+  decision_reason: 'The target contains an appeal to authority: the speaker defers
+    to Bukele’s authority as president to support a claim about crime reduction.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The man seems to know what he's doing. Populism is taking over in so many countries
+    recently because people are fed up with the status quo. I would trust Bukele
+  - over whomever was in power prior to this. I've read about what he's done to lower
+    crime, and its great! Maybe that country NEEDED a little authoritarianism?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5375
+  completion_tokens: 3560
+  total_tokens: 8935
+  wall_time_seconds: 143.78099999998813

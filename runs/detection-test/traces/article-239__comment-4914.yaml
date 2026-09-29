@@ -1,0 +1,131 @@
+sample:
+  id: 239:4914
+  article_id: 239
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: I agree with what they are doing, people need to step out and help out with
+    global warming. Good things are being done with planting trees to help the environment.
+    Even helping a little makes a different and it's not that hard to plant a tree.
+    We end up appreciated even the little bit that people do for the environment.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with what they are doing, people need to step out and help out with
+      global warming. Good things are being done with planting trees to help the environment.
+    - Even helping a little makes a different and it's not that hard to plant a tree.
+      We end up appreciated even the little bit that people do for the environment.
+    candidate: null
+  goal:
+    conclusion_or_goal: People should step out and help with global warming by planting
+      trees.
+    candidate: null
+    supporting_reason: Planting trees is an effective and easy way to help the environment;
+      even small actions make a difference.
+    support_relation: The reason that planting trees is beneficial and easy is used
+      to justify the conclusion that people should help with global warming.
+    label_justification: The argument presents a straightforward claim supported by
+      a logical reason without any fallacious reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with what they are doing, people need to step out and help out with
+      global warming. Good things are being done with planting trees to help the environment.
+    - Even helping a little makes a different and it's not that hard to plant a tree.
+      We end up appreciated even the little bit that people do for the environment.
+  counterargument:
+    decisive_counterargument: The target claims that planting a single tree—or any
+      small act of helping—will make a measurable difference in combating global warming
+      and that this effort is sufficiently easy and widely appreciated to warrant
+      widespread participation. This reasoning projects the perceived benefit of one
+      or a few individual actions onto the entire environmental outcome without evidence
+      that such isolated actions collectively produce the asserted effect. The argument
+      therefore generalizes from a very limited experience or assumption (a single
+      tree kills a few CO₂ molecules) to a broad claim about the overall global temperature,
+      which is a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Even helping a little makes a difference and is not hard
+      to plant a tree.
+    label_justification: 'The objection targets the target’s assumption that a single
+      or few tree plantings substantially mitigate global warming, a claim unsupported
+      by evidence. By attributing a large-scale outcome to minimal individual actions,
+      the argument exemplifies a hasty generalization: it generalizes from very small
+      examples to a broad population conclusion.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with what they are doing, people need to step out and help out with
+      global warming. Good things are being done with planting trees to help the environment.
+    - Even helping a little makes a different and it's not that hard to plant a tree.
+      We end up appreciated even the little bit that people do for the environment.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not provide a concrete minimal sample (e.g.,
+    a single instance of tree planting) that is then generalized to a broad claim
+    about vast global warming mitigation. It merely states that small actions can
+    help, without claiming that a single tree is sufficient for large-scale outcomes.
+    Therefore, the structural prerequisites for a hasty generalization are not met.
+  decision_reason: The target does not explicitly claim that an isolated act (one
+    tree) will produce a measurable global effect; it merely affirms that small efforts
+    are worthwhile. This lacks the necessary leap from limited evidence to a broad
+    universal claim, so the Hasty Generalization fallacy is not present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree with what they are doing, people need to step out and help out with global
+    warming. Good things are being done with planting trees to help the environment.
+  - Even helping a little makes a different and it's not that hard to plant a tree.
+    We end up appreciated even the little bit that people do for the environment.
+  verified: false
+  rejection_reason: The target does not explicitly claim that an isolated act (one
+    tree) will produce a measurable global effect; it merely affirms that small efforts
+    are worthwhile. This lacks the necessary leap from limited evidence to a broad
+    universal claim, so the Hasty Generalization fallacy is not present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4164
+  completion_tokens: 3566
+  total_tokens: 7730
+  wall_time_seconds: 228.34400000004098

@@ -1,0 +1,124 @@
+sample:
+  id: 416:7246
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: There's no denying that on the surface level, it's a choice between continuing
+    to protest or going to jail or adhering to the law and halting protests.   They
+    could have constructive dialogues, too.  How about that?
+  target: Maybe going along with what has been done in the past in one of the largest
+    countries in the world. Tradition has power to it and can be very rewarding. Old
+    is gold, as they say.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: what has been done in the past in one of the largest countries in the
+        world
+    - role: preservation_conclusion
+      text: Tradition has power to it and can be very rewarding
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Maybe going along with what has been done in the past in one of the largest
+      countries in the world. Tradition has power to it and can be very rewarding.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Protesters should not continue protesting but instead follow
+      what has been traditionally done in the past.
+    candidate: Appeal to Tradition
+    supporting_reason: Tradition has power and can be very rewarding.
+    support_relation: The argument justifies abandoning the protest by citing the
+      value of tradition as the basis for its recommendation.
+    label_justification: The target relies on the continued practice of past actions
+      to justify its stance, which is the defining feature of an Appeal to Tradition
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Maybe going along with what has been done in the past in one of the largest
+      countries in the world. Tradition has power to it and can be very rewarding.
+    - Old is gold, as they say.
+  counterargument:
+    decisive_counterargument: Target reasoning claims that following what has been
+      done historically (because it is a tradition in a large country) is justified
+      and rewarding, implying that the past itself is a sufficient basis for the present
+      action.  This ignores the possibility that the tradition may have originated
+      under different circumstances, that it could be ineffective or harmful today,
+      or that the long‑standing practice might be the very cause of the problems being
+      addressed.  Therefore the inference that tradition alone warrants continuing
+      protests (or any other specific action) is unwarranted.
+    candidate: Appeal to Tradition
+    challenged_inference: If we are to determine the best response, we should rely
+      on current evidence and relevant values—not simply adopt a past practice for
+      its historical continuity.
+    label_justification: The objection directly addresses the case where the target
+      sets the precedent “old is gold” as proof of sufficiency for the present decision.  By
+      arguing that past practice does not automatically confer correctness or desirability,
+      we expose the logical flaw that the target’s conclusion rests on an appeal to
+      tradition rather than on reasons pertinent to the current situation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Maybe going along with what has been done in the past in one of the largest
+      countries in the world. Tradition has power to it and can be very rewarding.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target’s reasoning bases its recommendation on the idea
+    that following historical practice (“what has been done in the past … Tradition
+    has power … Old is gold”) without providing independent justification.
+  decision_reason: The target’s argument treats tradition itself as evidence that
+    the action is good, satisfying the structure of an Appeal to Tradition. Evidence
+    supporting this claim is found in passages T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Maybe going along with what has been done in the past in one of the largest countries
+    in the world. Tradition has power to it and can be very rewarding.
+  - Old is gold, as they say.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4471
+  completion_tokens: 2631
+  total_tokens: 7102
+  wall_time_seconds: 85.5

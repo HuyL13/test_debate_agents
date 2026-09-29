@@ -1,0 +1,132 @@
+sample:
+  id: 560:8876
+  article_id: 560
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: The state of abortion access in these areas is terrible and this article
+    highlights why well. As experts have repeatedly told us, banning abortion doesn't
+    really reduce abortions, it just causes harm to women. As the UNFPA recently said,
+    restricting abortion access doesn't prevent them, it just makes them more deadly.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The state of abortion access in these areas is terrible and this article highlights
+      why well. As experts have repeatedly told us, banning abortion doesn't really
+      reduce abortions, it just
+    - causes harm to women. As the UNFPA recently said, restricting abortion access
+      doesn't prevent them, it just makes them more deadly.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Banning abortion does not reduce abortions; it simply causes
+      harm to women.
+    candidate: Appeal to Authority
+    supporting_reason: Statements from experts and the UNFPA that banning/restricting
+      abortion does not prevent abortions but causes harm.
+    support_relation: The expert opinions are invoked to justify the claim that abortion
+      bans are ineffective and harmful, functioning as the primary evidence for the
+      conclusion.
+    label_justification: The argument relies on the authority of experts and an organization
+      (UNFPA) rather than on empirical evidence or logical reasoning, which exemplifies
+      an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The state of abortion access in these areas is terrible and this article highlights
+      why well. As experts have repeatedly told us, banning abortion doesn't really
+      reduce abortions, it just
+    - causes harm to women. As the UNFPA recently said, restricting abortion access
+      doesn't prevent them, it just makes them more deadly.
+  counterargument:
+    decisive_counterargument: The target relies on expert statements as the sole evidence
+      that banning abortion fails to reduce abortions and causes harm, without presenting
+      independent data or logical reasoning to support the causal claim.
+    candidate: Appeal to Authority
+    challenged_inference: Banning abortion doesn't reduce abortions and causes harm
+      because experts insist.
+    label_justification: The target uses expert authority—the UNFPA and unspecified
+      experts—to justify its conclusion, without providing additional evidence or
+      analysis, which is the classic pattern of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The state of abortion access in these areas is terrible and this article highlights
+      why well. As experts have repeatedly told us, banning abortion doesn't really
+      reduce abortions, it just
+    - causes harm to women. As the UNFPA recently said, restricting abortion access
+      doesn't prevent them, it just makes them more deadly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that banning abortion does not reduce abortions
+    and causes harm by citing ‘experts’ and the UNFPA, without presenting independent
+    evidence or logical reasoning—meeting the structural condition of an appeal to
+    authority.
+  decision_reason: The argument relies solely on the authority of experts and the
+    UNFPA to justify its claim, lacking additional empirical support, which constitutes
+    an Appeal to Authority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The state of abortion access in these areas is terrible and this article highlights
+    why well. As experts have repeatedly told us, banning abortion doesn't really
+    reduce abortions, it just
+  - causes harm to women. As the UNFPA recently said, restricting abortion access
+    doesn't prevent them, it just makes them more deadly.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4312
+  completion_tokens: 2316
+  total_tokens: 6628
+  wall_time_seconds: 103.5

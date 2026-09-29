@@ -1,0 +1,129 @@
+sample:
+  id: 486:7454
+  article_id: 486
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: What's with all the baseless speculation? It was the opposition, Greeks,
+    Russians, etc., etc. Seemingly with no evidence for any of them being the culprits.
+    Seems smarter to not just throw out every name out there and cause unnecessary
+    derision towards whatever group.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What's with all the baseless speculation? It was the opposition, Greeks, Russians,
+      etc., etc. Seemingly with no evidence for any of them being the culprits. Seems
+      smarter to not just
+    - throw out every name out there and cause unnecessary derision towards whatever
+      group.
+    candidate: null
+  goal:
+    conclusion_or_goal: Avoid naming or speculating about unverified groups to prevent
+      unnecessary derision.
+    candidate: null
+    supporting_reason: The argument points out that there is no evidence for the opposition,
+      Greeks, Russians, etc., being the culprits.
+    support_relation: The lack of evidence is used to justify the recommendation to
+      refrain from naming those groups.
+    label_justification: The reasoning is not a formal fallacy; it simply argues for
+      caution based on the absence of evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What's with all the baseless speculation? It was the opposition, Greeks, Russians,
+      etc., etc. Seemingly with no evidence for any of them being the culprits. Seems
+      smarter to not just
+    - throw out every name out there and cause unnecessary derision towards whatever
+      group.
+  counterargument:
+    decisive_counterargument: The claim that, because no evidence currently exists
+      against the opposition, Greeks, Russians, etc., we should not blame any of them
+      is an argument from ignorance. It assumes that absence of proof equals proof
+      of innocence, yet new evidence or overlooked data could still implicate any
+      of those groups. Merely withholding blame in the face of insufficient information
+      does not logically preclude the possibility that one of those parties is indeed
+      responsible.
+    candidate: Appeal to Authority
+    challenged_inference: Since there is no evidence for any of the named groups being
+      culprits, it is smarter not to quote them as responsible.
+    label_justification: The objection stresses that the inference rests on the absence
+      of evidence to conclude the groups are innocent. This directly attacks the shaky
+      reasoning that non‑evidence serves as proof of absence, thereby exposing an
+      appeal to ignorance rather than a legitimate appeal to authority or other fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What's with all the baseless speculation? It was the opposition, Greeks, Russians,
+      etc., etc. Seemingly with no evidence for any of them being the culprits. Seems
+      smarter to not just
+    - throw out every name out there and cause unnecessary derision towards whatever
+      group.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not invoke or rely on an authority
+    figure or expert; it merely criticizes speculation. Therefore the structure required
+    for an Appeal to Authorityfallacy is missing, making the surviving candidate not
+    applicable.
+  decision_reason: The target contains no appeal to an authority; it merely expresses
+    that baseless speculation should be avoided. No appeal‑to‑authority inference
+    is present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What's with all the baseless speculation? It was the opposition, Greeks, Russians,
+    etc., etc. Seemingly with no evidence for any of them being the culprits. Seems
+    smarter to not just
+  - throw out every name out there and cause unnecessary derision towards whatever
+    group.
+  verified: false
+  rejection_reason: The target contains no appeal to an authority; it merely expresses
+    that baseless speculation should be avoided. No appeal‑to‑authority inference
+    is present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4080
+  completion_tokens: 3109
+  total_tokens: 7189
+  wall_time_seconds: 100.23399999999674

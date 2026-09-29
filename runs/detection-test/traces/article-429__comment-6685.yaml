@@ -1,0 +1,183 @@
+sample:
+  id: 429:6685
+  article_id: 429
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: Obviously this would negatively impact the vast majority of politically
+    active citizens while only helping the politicians. This should have been withdrawn
+    and it never should be introduced again.  You would have a hard time finding a
+    citizen okay with this, but I'm sure there are a few of the couple hundred politicians
+    who are. Citizens outnumber them by a mile.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: citizens
+    - role: popularity_claim
+      text: citizens outnumber politicians by a mile
+    - role: target_claim
+      text: this should have been withdrawn and never be introduced again
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+    - mile.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The statement that the policy should be withdrawn and never
+      introduced again.
+    candidate: Appeal to Majority
+    supporting_reason: It would negatively impact the vast majority of politically
+      active citizens while only benefiting politicians, so it should not be adopted.
+    support_relation: appeal to majority
+    label_justification: The argument uses the size of the affected majority (citizens
+      outnumbering politicians by a mile) as the sole reason for rejecting the policy,
+      which is the classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+    - mile.
+  counterargument:
+    decisive_counterargument: You cannot conclude that a law is wrong simply because
+      an unquantified majority of citizens would not be pleased with it. The value
+      or legality of a policy depends on its merits, intent, and broader societal
+      benefit, not merely on the composition of supportive versus opposing groups.
+      A minority of politicians might favor it, but that does not automatically make
+      the policy unjust or ineffective. Moreover, the claim that most citizens would
+      be dissatisfied is an unverified assertion and does not provide sufficient reason
+      to reject the proposal outright.
+    candidate: Slippery Slope
+    challenged_inference: Because most citizens would not agree with the proposal,
+      it should not be introduced.
+    label_justification: The target argues that the law should be rejected simply
+      because a majority of citizens presumably oppose it, relying on the number of
+      supporters rather than the evidence or merits of the policy. This is an Appeal
+      to Majority, a misapplication of a majority vote to judge validity. The counterargument
+      exposes that majority disapproval does not logically entail the proposal’s falsity
+      or invalidity, addressing the identified fallacy directly.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Slippery Slope
+    conflict: appeal-to-majority__vs__slippery-slope
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: Slippery Slope requires a predicted escalation from an initial
+      action toward increasingly adverse outcomes; the target does not supply such
+      a progressive chain, it only claims a majority opposes the policy, not a slippery
+      chain of consequences.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Obviously this would negatively impact the vast majority of politically active
+      citizens while only helping the politicians. This should have been withdrawn
+      and it never should be introduced again.  You
+    - would have a hard time finding a citizen okay with this, but I'm sure there
+      are a few of the couple hundred politicians who are. Citizens outnumber them
+      by a
+    - mile.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target explicitly cites that the vast majority of politically
+    active citizens would be negatively impacted and that citizens outnumber the few
+    politicians who support the policy, then uses this demographic fact alone as the
+    sole justification for rejecting the policy, which meets the structural criteria
+    for an appeal to majority fallacy. Evidence: T1, T2, T3.'
+  decision_reason: The target’s argument relies solely on the majority’s opposition
+    to justify rejecting the policy, constituting a classic appeal to majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Obviously this would negatively impact the vast majority of politically active
+    citizens while only helping the politicians. This should have been withdrawn and
+    it never should be introduced again.  You
+  - would have a hard time finding a citizen okay with this, but I'm sure there are
+    a few of the couple hundred politicians who are. Citizens outnumber them by a
+  - mile.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6151
+  completion_tokens: 3904
+  total_tokens: 10055
+  wall_time_seconds: 343.5309999999954

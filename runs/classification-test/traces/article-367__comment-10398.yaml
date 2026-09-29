@@ -1,0 +1,145 @@
+sample:
+  id: 367:10398
+  article_id: 367
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: LGBT people in Georgia may be unable to have their parades without the irritation
+    of "counter-protesters," which isn't great, but in places throughout the Middle
+    East and parts of Africa and Asia, being part of LGBT will literally get you killed
+    - stoned, buried alive, burned alive, etc. The concerns of this group in Georgia
+    shouldn't be overestimated. The world, and that includes people who are LGBT,
+    has bigger problems.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: The concerns of this group in Georgia
+    - role: worse_issue
+      text: The world, and that includes people who are LGBT, has bigger problems
+    - role: deprioritizing_conclusion
+      text: The concerns of this group in Georgia shouldn't be overestimated
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+    - and that includes people who are LGBT, has bigger problems.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The concerns of LGBT people in Georgia should not be overestimated.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The prevalence of more severe LGBT persecution worldwide is
+      used to minimize the relative importance of Georgian concerns.
+    support_relation: Uses a higher severity of global problems to downplay local
+      concerns.
+    label_justification: The target reasoning appeals to the existence of worse problems
+      worldwide to dismiss a lesser issue, which is the definition of an appeal to
+      worse problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+    - and that includes people who are LGBT, has bigger problems.
+  counterargument:
+    decisive_counterargument: Arguing that LGBT people in Georgia should not receive
+      adequate support simply because there are more severe problems elsewhere commits
+      an Appeal to Worse Problems; the mere existence of other hardships does not
+      negate or trivialize the legitimate grievances faced locally. Each group’s situation
+      must be judged on its own merits, not compared to distant crises. Reducing Georgian
+      concerns to an afterthought merely shifts focus without addressing the underlying
+      issues of discrimination and marginalization.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The concerns of LGBT people in Georgia should not be overestimated
+      because the world has bigger problems.
+    label_justification: The objection shows that the reasoning relies on the existence
+      of other, more extreme problems as a reason to downplay the Georgian situation.
+      This is precisely the structure of an Appeal to Worse Problems, where the relative
+      magnitude of problem sets is used to dismiss the importance of the issue at
+      hand.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - LGBT people in Georgia may be unable to have their parades without the irritation
+      of "counter-protesters," which isn't great, but in places throughout the Middle
+      East and parts of Africa
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+    - and that includes people who are LGBT, has bigger problems.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly contrasts the concerns of LGBT people
+    in Georgia with the existence of far worse global antisocial persecution and concludes
+    that the Georgian concerns should not be overestimated. This matches the canonical
+    structure of an Appeal to Worse Problems (focal issue = Georgian concerns, worse
+    issue = worldwide severe problems, conclusion = deprioritization). The relevant
+    evidence is collected in passages T2 and T3.
+  decision_reason: The fallacy is present because the target uses a comparison to
+    a worse problem to downplay a local issue.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - and Asia, being part of LGBT will literally get you killed - stoned, buried alive,
+    burned alive, etc. The concerns of this group in Georgia shouldn't be overestimated.
+    The world,
+  - and that includes people who are LGBT, has bigger problems.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4888
+  completion_tokens: 3428
+  total_tokens: 8316
+  wall_time_seconds: 268.5940000000119

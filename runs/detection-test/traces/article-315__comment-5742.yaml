@@ -1,0 +1,110 @@
+sample:
+  id: 315:5742
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: Most people believe local languages are key to identity. So it is a good
+    thing to preserve. With time, they will gain some prominence.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people believe local languages are key to identity
+    - role: target_claim
+      text: It is a good thing to preserve local languages
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Preserving local languages is a good thing.
+    candidate: Appeal to Majority
+    supporting_reason: The statement asserts that most people believe local languages
+      are key to identity, and then uses that belief as justification for saying it
+      is good to preserve them.
+    support_relation: The majority belief is employed to support the conclusion that
+      preserving local languages is desirable.
+    label_justification: Using the belief of the majority to justify the value of
+      preserving local languages is an Appeal to Popularity (Appeal to Majority) fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+  counterargument:
+    decisive_counterargument: A belief’s popularity does not itself prove that preserving
+      local languages is objectively good or that they will eventually flourish; the
+      argument relies solely on how many people think they’re important, which is
+      insufficient evidence for the claim.
+    candidate: Appeal to Majority
+    challenged_inference: Because most people think local languages are key to identity,
+      it is therefore a good thing to preserve them; over time they will gain prominence.
+    label_justification: The objection targets the reliance on majority belief as
+      justification—an Appeal to Majority fallacy—rather than merely critiquing the
+      argument’s substance.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target includes a claim that a majority belief (“most people
+    believe local languages are key to identity”) is used to support the conclusion
+    that preserving local languages is good. This satisfies the structural requirement
+    for an Appeal to Majority argument.
+  decision_reason: 'The passage employs the popularity of a belief as direct justification
+    for a proposal, fitting the appeal to majority fallacy. Evidence support: T1.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people believe local languages are key to identity. So it is a good thing
+    to preserve. With time, they will gain some prominence.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3953
+  completion_tokens: 2464
+  total_tokens: 6417
+  wall_time_seconds: 51.078000000008615

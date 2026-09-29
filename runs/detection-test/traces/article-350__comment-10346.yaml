@@ -1,0 +1,134 @@
+sample:
+  id: 350:10346
+  article_id: 350
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: What a spot to occupy, truly that between a rock and a hard place. On the
+    one hand you need safety and the things required to survive, and on the other
+    you would like to protect your private (biometric) data. This system doesn't seem
+    tolerant of people who lean a little more toward the latter. That seems like a
+    real problem, one which demands attention.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - What a spot to occupy, truly that between a rock and a hard place. On the one
+      hand you need safety and the things required to survive, and on the
+    - other you would like to protect your private (biometric) data. This system doesn't
+      seem tolerant of people who lean a little more toward the latter. That seems
+      like a real
+    - problem, one which demands attention.
+    candidate: null
+  goal:
+    conclusion_or_goal: The situation described is a real problem that requires attention.
+    candidate: null
+    supporting_reason: The argument notes a tension between the need for safety and
+      the desire to protect private biometric data, and observes that the system is
+      not tolerant of those prioritizing privacy, thereby identifying a real issue
+      that demands attention.
+    support_relation: The tension between safety and privacy, coupled with the system’s
+      intolerance of privacy‑centric users, serves to establish that this is a legitimate
+      problem that merits attention.
+    label_justification: The argument is a straightforward identification of a dilemma
+      without misrepresenting alternatives, authorities, or nature; no fallacious
+      reasoning is employed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - What a spot to occupy, truly that between a rock and a hard place. On the one
+      hand you need safety and the things required to survive, and on the
+    - other you would like to protect your private (biometric) data. This system doesn't
+      seem tolerant of people who lean a little more toward the latter. That seems
+      like a real
+    - problem, one which demands attention.
+  counterargument:
+    decisive_counterargument: The claim that the system is intolerant toward those
+      who prioritize privacy lacks any supporting evidence. The statement merely asserts
+      a perceived problem without presenting data, examples, or analysis that shows
+      how the system actually fails to accommodate privacy concerns. Without such
+      evidence, the claim is baseless and potentially misleading.
+    candidate: False Dilemma
+    challenged_inference: This system doesn't seem tolerant of people who lean a little
+      more toward the latter.
+    label_justification: 'The objection points out that the argument presents a binary
+      choice—safety versus privacy—while no proof is offered that the system actually
+      forces a strict trade‑off. This omission of evidence and the implication that
+      only two mutually exclusive options exist exemplifies a false dilemma: an oversimplified
+      dichotomy unsupported by facts.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - other you would like to protect your private (biometric) data. This system doesn't
+      seem tolerant of people who lean a little more toward the latter. That seems
+      like a real
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a binary trade‑off between safety and online
+    privacy (“On the one hand … on the other …”), implicitly implying that only these
+    two mutually exclusive options exist and that the system forces a choice between
+    them. This satisfies the structural condition for a False Dilemma. The claim that
+    the system is intolerant of privacy‑focused users, without providing evidence
+    of such a forced choice, further supports the fallacious inference.
+  decision_reason: The target text explicitly frames the situation as a dichotomy,
+    satisfying the structural requirement for a false dilemma and presenting an unsupported
+    claim that the system imposes a strict trade‑off.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What a spot to occupy, truly that between a rock and a hard place. On the one
+    hand you need safety and the things required to survive, and on the
+  - other you would like to protect your private (biometric) data. This system doesn't
+    seem tolerant of people who lean a little more toward the latter. That seems like
+    a real
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4303
+  completion_tokens: 3121
+  total_tokens: 7424
+  wall_time_seconds: 141.36000000000058

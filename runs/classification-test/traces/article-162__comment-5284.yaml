@@ -1,0 +1,173 @@
+sample:
+  id: 162:5284
+  article_id: 162
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: They are doing this because they plan to commit genocide against their people.
+    There is no other explanation for why they would want this bill enacted! Any country
+    that wants to censor info and shut down dissent has genocide on their agenda!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Any country that wants to censor info and shut down dissent
+    - role: observed_property
+      text: has genocide on their agenda
+    - role: target_population
+      text: countries that want to censor info and shut down dissent
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: They are planning genocide and therefore the bill is an attempt
+      to commit it.
+    candidate: Hasty Generalization
+    supporting_reason: The argument claims that any country that wants to censor info
+      and shut down dissent must have a genocide agenda, presented as the sole explanation
+      for the bill’s enactment.
+    support_relation: justifies
+    label_justification: The speaker generalizes from a single or unspecified instance
+      of a government’s censorship actions to a universal claim that all such governments
+      aim to commit genocide. This leap lacks supporting evidence and unjustifiably
+      extends the conclusion beyond the given facts, matching the definition of a
+      hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+  counterargument:
+    decisive_counterargument: The thesis that a country’s decision to enact a censorship
+      bill must stem from a genocide agenda ignores other viable motivations, such
+      as legitimate national‑security concerns, public‑health safeguards, or compliance
+      with genuine legal frameworks. By asserting there is no other explanation, the
+      claim constructs an unjustified binary that equates censorship with intent to
+      exterminate the populace—a logical shortcut that overlooks many other possibilities.
+    candidate: False Dilemma
+    challenged_inference: Censorship/anti‑information legislation is only indicative
+      of a genocide agenda.
+    label_justification: 'The argument explicitly states that there is ‘no other explanation’
+      for the bill, thereby presenting only two mutually exclusive options: genocide
+      or none. This exclusivity collapses legitimate alternative motives into a single
+      cause, fitting the False Dilemma form rather than merely a critical or nonspecific
+      critique.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: 'Evidence T1 and T2 directly support a sample‑to‑population generalization
+      (“Any country that wants to censor info and shut down dissent has genocide on
+      their agenda”), whereas the claim “there is no other explanation for why they
+      would want this bill enacted” does not explicitly establish a binary choice
+      required for a False Dilemma. The False Dilemma’s structural condition is therefore
+      not satisfied, whereas the Hasty Generalization’s is. '
+    loser_failure: 'False Dilemma requires presenting a clear binary of mutually exclusive
+      alternatives. The text states only that genocide is the sole explanation, not
+      that only two options exist, and thus fails to meet the mandatory structure. '
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts a universal claim that any country censoring
+    information to shut down dissent has a genocide agenda, generalizing from a single
+    instance without supporting evidence, which matches the definition of a hasty
+    generalization.
+  decision_reason: The argument makes a sweeping generalization from one example (the
+    Myanmar bill) to all countries engaging in censorship, without sufficient evidence,
+    satisfying the hasty generalization structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They are doing this because they plan to commit genocide against their people.
+    There is no other explanation for why they would want this bill enacted! Any country
+    that wants
+  - to censor info and shut down dissent has genocide on their agenda!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5631
+  completion_tokens: 4415
+  total_tokens: 10046
+  wall_time_seconds: 152.98499999998603

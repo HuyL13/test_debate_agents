@@ -1,0 +1,152 @@
+sample:
+  id: 76:4426
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: I find it incredible that this nation cannot come together after years and
+    years of occupation and infighting, all in the name of religion. I find it very
+    hard to understand why people who profess to be of the same religion cannot get
+    along in any real way. There is a real need for unity in this situation - in the
+    natural world, all things tend to live in harmony and peace and it should be this
+    way in religious communities as well. After all you are the SAME religion with
+    various practices within the sects. Think of the animal kingdom and various species
+    that live in groups and they do not have the issues humans have - we are a part
+    of that same animal kingdom so why can't we do the same, especially amongst those
+    who base their participation in human life on religion? Humans need to learn how
+    to live together, in spite of and because of our individual differences.
+  target: You mention religion, and I think religious difference is the root of the
+    problem. But I'm less optimistic about these groups finding any unity in their
+    faith and thus a way to live in harmony. All religions are like this -- they serve
+    to divide by magnifying differences instead of finding points of commonality.
+    Historically, there have been attempts to bring these groups together, and it
+    always falls apart on the basis of religion. Unfortunately, that means there is
+    no path to religious harmony in this or any region of the world.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: religions
+    - role: observed_property
+      text: serve to divide by magnifying differences instead of finding points of
+        commonality
+    - role: target_population
+      text: all religions
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - way to live in harmony. All religions are like this -- they serve to divide
+      by magnifying differences instead of finding points of commonality. Historically,
+      there have been attempts to
+    - bring these groups together, and it always falls apart on the basis of religion.
+      Unfortunately, that means there is no path to religious harmony in this or any
+      region of
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: No path to religious harmony exists in this or any region.
+    candidate: Hasty Generalization
+    supporting_reason: All religions divide by magnifying differences instead of finding
+      points of commonality, making unity impossible.
+    support_relation: The categorical claim that every religion operates in this divisive
+      way is used to support the conclusion that unity is unattainable.
+    label_justification: The argument adopts a broad, absolute statement about all
+      religions based on limited examples, exemplifying the hasty generalization fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - way to live in harmony. All religions are like this -- they serve to divide
+      by magnifying differences instead of finding points of commonality. Historically,
+      there have been attempts to
+    - bring these groups together, and it always falls apart on the basis of religion.
+      Unfortunately, that means there is no path to religious harmony in this or any
+      region of
+  counterargument:
+    decisive_counterargument: Your argument that every religion inherently magnifies
+      differences and that religious harmony is impossible is an overgeneralization,
+      unsupported by specific evidence or a representative sample. The statement conflates
+      some cases—where divisions have indeed occurred—with a universal claim that
+      applies to all religions, ignoring instances of shared values, cooperation,
+      and successful interfaith dialogue.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that all religions serve to divide and that
+      no path exists toward religious harmony, based on unspecified historical attempts
+      and negative outcomes.
+    label_justification: The objection specifically addresses the leap from limited
+      or anecdotal observations to a universal conclusion about all religions, which
+      is the hallmark of a hasty generalization fallacy. By pointing out that the
+      claim is too sweeping and lacks representative evidence, the counterargument
+      directly undermines the logical connection required for this fallacy label.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - way to live in harmony. All religions are like this -- they serve to divide
+      by magnifying differences instead of finding points of commonality. Historically,
+      there have been attempts to
+    - bring these groups together, and it always falls apart on the basis of religion.
+      Unfortunately, that means there is no path to religious harmony in this or any
+      region of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument makes a sweeping claim that all religions serve
+    to divide and that no path exists to religious harmony, based on limited historical
+    examples. This over‑generalization from specific instances to an absolute conclusion
+    about the entire group of religions constitutes a Hasty Generalization.
+  decision_reason: The target asserts that all religions magnify differences instead
+    of finding common ground, citing only a few historical attempts that failed. This
+    universally negative statement about the whole population of religions is an overgeneralization
+    supported by T2 and T3.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - way to live in harmony. All religions are like this -- they serve to divide by
+    magnifying differences instead of finding points of commonality. Historically,
+    there have been attempts to
+  - bring these groups together, and it always falls apart on the basis of religion.
+    Unfortunately, that means there is no path to religious harmony in this or any
+    region of
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5732
+  completion_tokens: 2382
+  total_tokens: 8114
+  wall_time_seconds: 80.375

@@ -1,0 +1,114 @@
+sample:
+  id: 565:8891
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: Most people believe in freedom of expression. That means that it must be
+    always the right thing in life.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: Most people believe in freedom of expression.
+    - role: target_claim
+      text: It must always be the right thing in life.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Freedom of expression must always be right in life.
+    candidate: Appeal to Majority
+    supporting_reason: Most people believe in freedom of expression.
+    support_relation: The reason is used to justify the conclusion by attributing
+      its truth to widespread belief.
+    label_justification: The argument hinges on the majority belief that people accept
+      freedom of expression as inherently correct, which is a classic appeal to popularity
+      (appeal to majority) fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+  counterargument:
+    decisive_counterargument: The fact that most people endorse freedom of expression
+      does not prove that it is always the correct or best course of action. Popular
+      opinion can be based on prejudice, misinformation, or incomplete information,
+      as history shows with many widely held misconceptions. Therefore the conclusion
+      that freedom of expression is universally right is unsupported by the mere popularity
+      of the idea.
+    candidate: Appeal to Majority
+    challenged_inference: Most people believe in freedom of expression. That means
+      that it must be always the right thing in life.
+    label_justification: The argument takes the fact that most people hold a belief
+      and concludes that the belief is always correct; this is a textbook appeal to
+      majority (argumentum ad populum), where popularity is treated as evidence of
+      truth.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe in freedom of expression. That means that it must be always
+      the right thing in life.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument states that because most people believe in freedom
+    of expression, it must always be right. This satisfies the structural form of
+    appeal to majority (popularity to claim) using T1 as evidence.
+  decision_reason: The target contains a majority claim “Most people believe in freedom
+    of expression” followed by a conclusion “It must always be the right thing in
+    life.” This is the textbook structure of an appeal to majority. Evidence T1 directly
+    supports this mapping.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people believe in freedom of expression. That means that it must be always
+    the right thing in life.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3897
+  completion_tokens: 1588
+  total_tokens: 5485
+  wall_time_seconds: 68.98500000000058

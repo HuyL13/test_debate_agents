@@ -1,0 +1,149 @@
+sample:
+  id: 433:6696
+  article_id: 433
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: The killing of Amadou Diallo was tragic it is not isolated. We need to look
+    at police brutality and profiling on a larger scale. These men George Floyd and
+    Amadou Diallo did not deserve what they received from police. But neither do the
+    hundreds of thousands of black Americans who to deal with police brutality on
+    a daily basis. This was all horrible. None of this should have happened.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T1
+    - role: observed_property
+      text: T2
+    - role: target_population
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The killing of Amadou Diallo was tragic it is not isolated. We need to look
+      at police brutality and profiling on a larger scale. These men George Floyd
+      and Amadou
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Police brutality and profiling are widespread systemic problems
+      that should not have happened.
+    candidate: null
+    supporting_reason: The specific deaths of Amadou Diallo and George Floyd, along
+      with the reference to the hundreds of thousands of Black Americans who experience
+      daily police brutality, are used to illustrate a pattern of police misconduct.
+    support_relation: 'Inferential reasoning: the cited cases are taken as evidence
+      that the phenomenon is not isolated, thereby justifying the broader claim about
+      systemic abuse.'
+    label_justification: The target does not employ any of the listed logical fallacies;
+      the examples serve a legitimate illustrative purpose in supporting the general
+      conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The killing of Amadou Diallo was tragic it is not isolated. We need to look
+      at police brutality and profiling on a larger scale. These men George Floyd
+      and Amadou
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+    - was all horrible. None of this should have happened.
+  counterargument:
+    decisive_counterargument: The argument draws a sweeping conclusion about the experience
+      of all Black Americans—‘hundreds of thousands who daily deal with police brutality’—based
+      on just two high‑profile cases. That leap from a handful of examples to a general
+      population is an overgeneralization that commits a hasty‑generalization fallacy.
+      A single reasoning step cannot establish the broader claim without sufficient
+      evidence covering the whole group.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that black Americans routinely face daily
+      police brutality derived solely from the incidents involving Amadou Diallo and
+      George Floyd.
+    label_justification: The counterargument demonstrates that the target’s conclusion
+      about a large population is based on a limited, non‑representative sample. This
+      aligns precisely with the definition of a Hasty Generalization—moving from specific
+      cases to a broad claim without adequate evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The killing of Amadou Diallo was tragic it is not isolated. We need to look
+      at police brutality and profiling on a larger scale. These men George Floyd
+      and Amadou
+    - Diallo did not deserve what they received from police. But neither do the hundreds
+      of thousands of black Americans who to deal with police brutality on a daily
+      basis. This
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a sweeping claim that a large population of
+    Black Americans routinely faces police brutality, based solely on the cases of
+    Amadou Diallo and George Floyd. This is a sample‑to‑population generalization
+    that lacks sufficient evidence to justify the broad conclusion.
+  decision_reason: Target moves from the specific evidence of two high‑profile incidents
+    to a broad claim about hundreds of thousands of Black Americans, satisfying the
+    structural requirements for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The killing of Amadou Diallo was tragic it is not isolated. We need to look at
+    police brutality and profiling on a larger scale. These men George Floyd and Amadou
+  - Diallo did not deserve what they received from police. But neither do the hundreds
+    of thousands of black Americans who to deal with police brutality on a daily basis.
+    This
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4581
+  completion_tokens: 4049
+  total_tokens: 8630
+  wall_time_seconds: 112.79699999996228

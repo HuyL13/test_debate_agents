@@ -1,0 +1,135 @@
+sample:
+  id: 162:4682
+  article_id: 162
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: Military governments are cannot work for any civilized country. Myanmar
+    should pursue democracy like we have in order to appeal to human nature. This
+    will help things to work better as it causes humans to thrive.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: in order to appeal to human nature
+    - role: evaluative_conclusion
+      text: This will help things to work better as it causes humans to thrive
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Military governments are cannot work for any civilized country. Myanmar should
+      pursue democracy like we have in order to appeal to human nature. This will
+      help things to work better
+    - as it causes humans to thrive.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Myanmar should pursue democracy
+    candidate: Appeal to Nature
+    supporting_reason: Because democracy appeals to human nature and thus causes humans
+      to thrive, which the speaker uses as justification for its adoption
+    support_relation: mechanism_supports_goal
+    label_justification: The argument employs a natural appeal—democracy is presented
+      as being in accordance with human nature and therefore superior—constituting
+      an Appeal to Nature fallacy. The reason is used to support the conclusion that
+      Myanmar should adopt democracy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Military governments are cannot work for any civilized country. Myanmar should
+      pursue democracy like we have in order to appeal to human nature. This will
+      help things to work better
+    - as it causes humans to thrive.
+  counterargument:
+    decisive_counterargument: Because the argument’s justification for democracy rests
+      on the claim that it 'appeals to human nature,' it is making an appeal to nature
+      fallacy for the arbitrary assumption that people naturally thrive only under
+      democratic governance. There is no evidence that human nature intrinsically
+      favors democracy over any other form of government, so the premise does not
+      support the conclusion.
+    candidate: Appeal to Nature
+    challenged_inference: Military governments cannot work for any civilized country,
+      so Myanmar should pursue democracy since democracy appeals to human nature and
+      causes humans to thrive.
+    label_justification: The objection directly challenges the assumption that aligning
+      with 'human nature' is a sufficient reason for adopting a particular political
+      system. This exposes the fallacy where a notion of 'natural goodness' is used
+      to justify democracy without empirical support, i.e., an Appeal to Nature.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Military governments are cannot work for any civilized country. Myanmar should
+      pursue democracy like we have in order to appeal to human nature. This will
+      help things to work better
+    - as it causes humans to thrive.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a premise that democracy “appeals to human
+    nature” and cites that this will make things work better because it causes humans
+    to thrive.  The argument uses a naturalness claim to support a value‑laden conclusion,
+    fitting the structure of an Appeal to Nature fallacy.  Evidence T1 and T2 provide
+    the naturalness premise and its evaluative conclusion.
+  decision_reason: The target explicitly states that pursuing democracy is justified
+    by its alignment with human nature and its positive outcomes, which constitutes
+    a natural appeal to justify the conclusion.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Military governments are cannot work for any civilized country. Myanmar should
+    pursue democracy like we have in order to appeal to human nature. This will help
+    things to work better
+  - as it causes humans to thrive.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4257
+  completion_tokens: 2901
+  total_tokens: 7158
+  wall_time_seconds: 130.46899999998277

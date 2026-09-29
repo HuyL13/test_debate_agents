@@ -1,0 +1,170 @@
+sample:
+  id: 287:6258
+  article_id: 287
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: The country had been so peaceful throughout the years, wonder what changed?
+    Could be the uptick of crime and violence that have to be stopped. I had an old
+    co-worker that came from El Salvador and he would tell me how great it was to
+    live there before he moved. In 1985, he came to America for a better life. It
+    was much more calm then. His cousin, although he isn't an expert officially, has
+    been in law enforcement there for years. He claims that the crime rates are unbelievably
+    high. I think his views on the situation really lend weight on my belief of what
+    is happening.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: T3
+    - role: endorsed_claim
+      text: T3
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker believes that crime rates in El Salvador are high.
+    candidate: Appeal to Authority
+    supporting_reason: The cousin’s testimony that crime rates are 'unbelievably high'
+      is used to support this belief.
+    support_relation: The cousin’s statements provide the primary evidence for the
+      speaker’s claim about high crime rates.
+    label_justification: The argument relies on testimony from a person who is not
+      an official expert (despite having law‐enforcement experience). Citing this
+      individual's unqualified views as decisive evidence constitutes an Appeal to
+      Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    - high. I think his views on the situation really lend weight on my belief of
+      what is happening.
+  counterargument:
+    decisive_counterargument: The conclusion that crime is now high is based solely
+      on a single informal observation from one person’s cousin, not on any systematic
+      data.  Bringing up one co‑worker’s family member’s reports does not give a representative
+      picture, and therefore it is a weak, anecdotal basis for a sweeping claim about
+      the entire country.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that El Salvador’s crime rates have risen
+      because the cousin says they are ‘unbelievably high’
+    label_justification: This objection targets the use of a single anecdotal claim
+      to support a broad conclusion about the whole country—exactly the hallmark of
+      a hasty generalization.  It fails to provide evidence that the claim reflects
+      the overall situation rather than an isolated perspective.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+    - high. I think his views on the situation really lend weight on my belief of
+      what is happening.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: The target explicitly cites a law‑enforcement cousin’s statement
+      about crime rates and notes that this testimony lends weight to the speaker’s
+      belief about the situation. This meets the mandatory structural condition for
+      an Appeal to Authority—an authority’s claim is used to support a conclusion—whereas
+      a clear, explicitly stated hasty generalization is not as directly presented
+      in the text. The evidence for Appeal to Authority is T3.
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - It was much more calm then. His cousin, although he isn't an expert officially,
+      has been in law enforcement there for years. He claims that the crime rates
+      are unbelievably
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument cites the cousin—who is not an official expert
+    but has law‑enforcement experience—and relies on his testimony to substantiate
+    the claim that crime rates are high, thereby appealing to his authority.
+  decision_reason: The target includes T3, where the cousin claims that crime rates
+    are ‘unbelievably high’, and T4, where the speaker says that his cousin’s views
+    ‘lend weight’ to his belief, establishing the typical structure of an Appeal to
+    Authority.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - It was much more calm then. His cousin, although he isn't an expert officially,
+    has been in law enforcement there for years. He claims that the crime rates are
+    unbelievably
+  - high. I think his views on the situation really lend weight on my belief of what
+    is happening.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6530
+  completion_tokens: 4770
+  total_tokens: 11300
+  wall_time_seconds: 129.14000000001397

@@ -1,0 +1,132 @@
+sample:
+  id: 359:10375
+  article_id: 359
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: Kashmir is in a region known for political instability. A 2-month lockdown
+    is extreme, because what happens if something happens in the future and you decide
+    to lock down, how long then? They can stop public transportation? How long? A
+    day, a month, a year?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Kashmir is in a region known for political instability. A 2-month lockdown is
+      extreme, because what happens if something happens in the future and you decide
+      to lock down, how
+    - long then? They can stop public transportation? How long? A day, a month, a
+      year?
+    candidate: null
+  goal:
+    conclusion_or_goal: A 2-month lockdown is extreme
+    candidate: Slippery Slope
+    supporting_reason: Future lockdown decisions could lead to longer or indefinite
+      lockdowns, potentially stopping public transportation
+    support_relation: The reason is used to justify the conclusion that a 2‑month
+      lockdown is extreme
+    label_justification: The argument projects an escalating chain of adverse consequences—indefinite
+      lockdowns and the cessation of public transport—stemming from the initial 2‑month
+      measure, fitting the slippery‑slope pattern
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Kashmir is in a region known for political instability. A 2-month lockdown is
+      extreme, because what happens if something happens in the future and you decide
+      to lock down, how
+    - long then? They can stop public transportation? How long? A day, a month, a
+      year?
+  counterargument:
+    decisive_counterargument: The claim that a 2‑month lockdown is extreme because
+      future lockdowns might be longer, shorter, or indefinite is an uncertain, hypothetical
+      worry that is not supported by any concrete evidence or logical necessity. Each
+      lockdown is a decision that can be made with clear criteria, predetermined durations,
+      and expiration dates; the possibility of a future lockdown does not automatically
+      imply that it will be longer or that the original 2‑month lockdown is inherently
+      extreme. The argument assumes a chain of escalating, undesired outcomes without
+      demonstrating a realistic progression or causal link between the initial 2‑month
+      lockdown and subsequent indefinite restrictions. In short, the worry is used
+      as the sole justification for declaring the 2‑month restriction extreme, without
+      linking it to any proven risk.
+    candidate: Slippery Slope
+    challenged_inference: A 2‑month lockdown is extreme because, if a future lockdown
+      occurs, its length could vary and potentially be indefinite
+    label_justification: The objection demonstrates that the reasoning relies on an
+      implied continuation of restrictive measures that may increase in severity or
+      duration, a classic slippery‑slope premise. The argument fails to provide any
+      evidence that a single 2‑month lockdown leads to such a cascade, making the
+      fallacy explicit.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Kashmir is in a region known for political instability. A 2-month lockdown is
+      extreme, because what happens if something happens in the future and you decide
+      to lock down, how
+    - long then? They can stop public transportation? How long? A day, a month, a
+      year?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target asserts that a two‑month lockdown is extreme because
+    it may set a precedent for longer or indefinite future lockdowns, implying an
+    escalating chain of increasingly restrictive measures. This demonstrates the slippery‑slope
+    structure—arguing that an initial extreme action will inevitably lead to worse
+    outcomes—supported by passages T1 and T2.
+  decision_reason: Target contains an argument that a temporary lockdown is extreme
+    because it may lead to longer or indefinite lockdowns, forming a causal chain
+    of escalating restrictions, which satisfies the slippery‑slope pattern.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Kashmir is in a region known for political instability. A 2-month lockdown is
+    extreme, because what happens if something happens in the future and you decide
+    to lock down, how
+  - long then? They can stop public transportation? How long? A day, a month, a year?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4353
+  completion_tokens: 3491
+  total_tokens: 7844
+  wall_time_seconds: 197.54699999999866

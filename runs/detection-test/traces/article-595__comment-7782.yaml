@@ -1,0 +1,115 @@
+sample:
+  id: 595:7782
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: People for the most part have always cared about wildlife and this should
+    be no different. People need to make sure that they are doing what they can to
+    protect animals and the environment because even if you say you don't care at
+    some point it is going to affect you and the people that you care about. The present
+    condition of the Earth should be alarming to all and make us all want to do better.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: People for the most part have always cared about wildlife
+    - role: preservation_conclusion
+      text: People need to make sure that they are doing what they can to protect
+        animals and the environment
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Encourage people to take action to protect wildlife and the
+      environment.
+    candidate: null
+    supporting_reason: People’s lack of care about wildlife will eventually harm themselves
+      and those they care about.
+    support_relation: The causal link between personal indifference and future harm
+      is presented as justification for the exhortation to protect nature.
+    label_justification: The claim that future harm will be caused by indifference
+      is a legitimate causal claim, not a fallacious appeal to emotion or majority.
+      Thus the reasoning does not warrant a fallacy label.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - animals and the environment because even if you say you don't care at some point
+      it is going to affect you and the people that you care about. The present
+  counterargument:
+    decisive_counterargument: Just because people have historically cared about wildlife
+      does not obligate us to behave the same way today; past practice is irrelevant
+      without current evidence that such behavior remains beneficial or necessary.
+    candidate: Appeal to Tradition
+    challenged_inference: People should care about wildlife simply because people
+      in the past have cared.
+    label_justification: The argument relies on the fact that a behavior has been
+      performed historically to justify the same present‐day action; it commits the
+      formal fallacy of Appeal to Tradition, as it treats tradition itself as a legitimate
+      reason for the current conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People for the most part have always cared about wildlife and this should be
+      no different. People need to make sure that they are doing what they can to
+      protect
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument presents a tradition premise—“People for the most
+    part have always cared about wildlife”—and uses that to justify the current action
+    of protecting animals and the environment, meeting the structural requirement
+    for Appeal to Tradition.
+  decision_reason: The target text explicitly states that historical caring about
+    wildlife should continue, which is a classic appeal to tradition fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - People for the most part have always cared about wildlife and this should be no
+    different. People need to make sure that they are doing what they can to protect
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4390
+  completion_tokens: 3596
+  total_tokens: 7986
+  wall_time_seconds: 143.71899999999732

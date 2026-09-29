@@ -1,0 +1,118 @@
+sample:
+  id: 239:5514
+  article_id: 239
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: Mia Mottley says she expects people to be refugees if the climate crisis
+    isn't solved. Because she thinks that the islands are vulnerable. This is very
+    concerning. Which island will survive this? Will any of them? This may even reach
+    further than just the caribbean.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Mia Mottley says she expects people to be refugees if the climate crisis isn't
+      solved. Because she thinks that the islands are vulnerable. This is very concerning.
+      Which island will
+    - survive this? Will any of them? This may even reach further than just the caribbean.
+    candidate: null
+  goal:
+    conclusion_or_goal: Expect that people will become refugees if the climate crisis
+      isn’t solved.
+    candidate: Appeal to Authority
+    supporting_reason: Because Mia Mottley thinks the islands are vulnerable, she
+      expects people to be refugees.
+    support_relation: The reason (Mottley’s claim of vulnerability) is used to justify
+      the conclusion that refugees will result.
+    label_justification: The argument relies on a single authority’s statement without
+      providing independent evidence, making the claim an Appeal to Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Mia Mottley says she expects people to be refugees if the climate crisis isn't
+      solved. Because she thinks that the islands are vulnerable. This is very concerning.
+      Which island will
+    - survive this? Will any of them? This may even reach further than just the caribbean.
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The target statement merely presents an unsubstantiated claim
+      that Mia Mottley believes people will become refugees if the climate crisis
+      isn’t solved. It contains no explicit reasoning chain or premises to evaluate,
+      so no specific fallacy or reasoning defect can be identified.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Mia Mottley says she expects people to be refugees if the climate crisis isn't
+      solved. Because she thinks that the islands are vulnerable. This is very concerning.
+      Which island will
+    - survive this? Will any of them? This may even reach further than just the caribbean.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target text merely reports Mia Mottley’s expectation that
+    people will become refugees if the climate crisis isn’t solved; it contains no
+    argument that relies on her authority to support a claim. Thus the conditions
+    for an Appeal to Authority are not met. No fallacy is detected.
+  decision_reason: The target does not present an argument that uses Mia Mottley’s
+    statement as justificatory evidence; it simply reports her claim. Therefore the
+    Appeal to Authority is not warranted.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Mia Mottley says she expects people to be refugees if the climate crisis isn't
+    solved. Because she thinks that the islands are vulnerable. This is very concerning.
+    Which island will
+  - survive this? Will any of them? This may even reach further than just the caribbean.
+  verified: false
+  rejection_reason: The target does not present an argument that uses Mia Mottley’s
+    statement as justificatory evidence; it simply reports her claim. Therefore the
+    Appeal to Authority is not warranted.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3997
+  completion_tokens: 2681
+  total_tokens: 6678
+  wall_time_seconds: 296.73399999993853

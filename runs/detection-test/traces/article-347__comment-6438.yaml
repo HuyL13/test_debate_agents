@@ -1,0 +1,116 @@
+sample:
+  id: 347:6438
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: From an American perspective, this just sounds like a good idea. How much
+    has Russia and China and so on interfered in our elections? I bet Slovakia and
+    most other countries probably have the same experience. Probably a very standard
+    thing globally. Everyone should be able to identify all foreign interference in
+    their internal affairs.
+  target: Yes.  Let's worry about election interference and not homelessness.  Lets
+    be real here.  NGOs do serve an important purpose, like providing essential services
+    to those in need.  Of all the problems that governments should worry about,  NGOs
+    influencing elections is not in the top 10.     Not even in the top 100,  really.    Lets
+    focus on skyrocketing healthcare costs instead.  Or how about out crumbling educational
+    system?  I guess kids don't need to go to school,  though,  and it's fine if Grandma
+    has to sell her house to pay for her medicine.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - NGOs influencing elections
+    - skyrocketing healthcare costs
+    - Lets focus on skyrocketing healthcare costs instead.
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: NGOs influencing elections
+    - role: worse_issue
+      text: skyrocketing healthcare costs
+    - role: deprioritizing_conclusion
+      text: Lets focus on skyrocketing healthcare costs instead.
+    structure_complete: true
+    candidate: Appeal to Worse Problems
+  goal:
+    evidence_spans:
+    - NGOs influencing elections is not in the top 10.     Not even in the top 100,  really.
+    conclusion_or_goal: Governments should prioritise skyrocketing healthcare costs
+      and a crumbling educational system rather than concerns about NGOs influencing
+      elections.
+    candidate: null
+    supporting_reason: NGOs influencing elections is not in the top 10. Not even in
+      the top 100,  really.
+    support_relation: The argument uses the ranking claim to justify deprioritising
+      concerns about NGO interference in favour of more pressing economic and educational
+      issues.
+    label_justification: No fallacy is apparent. The reasoning simply employs a comparative
+      ranking to support the conclusion; this does not constitute an illegal inference
+      according to the fallacy list.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - NGOs influencing elections is not in the top 10
+    decisive_counterargument: NGO interference can directly undermine electoral integrity,
+      erode public trust, and jeopardize democratic outcomes—substantial harms that
+      can outweigh or even precipitate crises in healthcare, education, or homelessness.
+    candidate: Appeal to Worse Problems
+    challenged_inference: NGOs influencing elections is not in the top 10
+    label_justification: The target dismisses election interference as a low‑priority
+      issue by contrastively invoking more pressing concerns (healthcare costs, education
+      collapse, homelessness). This pattern of devaluing one problem purely because
+      an ostensibly worse problem exists commits the ‘Appeal to Worse Problems’ fallacy,
+      wherein a larger or more severe issue is used to dismiss or minimize a smaller
+      one.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  evidence_spans:
+  - NGOs influencing elections is not in the top 10
+  - Lets focus on skyrocketing healthcare costs instead.
+  decisive_condition: The target draws a direct comparison between the focal issue
+    of NGO election interference and a more pressing issue of skyrocketing healthcare
+    costs, concluding that the former should be ignored in favor of the latter – the
+    standard structural pattern of an Appeal to Worse Problems.
+  decision_reason: The target explicitly qualifies NGOs influencing elections as low
+    priority, then prioritizes skyrocketing healthcare costs instead, thereby using
+    a bigger problem to dismiss the smaller one. This aligns with the structure of
+    an Appeal to Worse Problems.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3923
+  completion_tokens: 4717
+  total_tokens: 8640
+  wall_time_seconds: 138.9529999999795

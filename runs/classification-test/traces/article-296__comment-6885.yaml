@@ -1,0 +1,133 @@
+sample:
+  id: 296:6885
+  article_id: 296
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: It's natural to question the status quo. So people will need better definitions
+    of data sensitivity. Privacy is always paramount in protecting individual liberties.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to question the status quo. So people will need better definitions
+      of data sensitivity. Privacy is always paramount in protecting individual liberties.
+    candidate: null
+  goal:
+    conclusion_or_goal: Privacy is always paramount in protecting individual liberties.
+    candidate: null
+    supporting_reason: So people will need better definitions of data sensitivity.
+    support_relation: provides justification for
+    label_justification: The TARGET passage does not contain any of the recognized
+      logical fallacies listed (e.g., Hasty Generalization, Slippery Slope, False
+      Dilemma, Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to
+      Tradition, Appeal to Worse Problems). The statement about privacy being paramount
+      follows from the preceding claim about needing better definitions of data sensitivity,
+      but the reasoning does not violate the structural criteria for these fallacies.
+      Therefore no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to question the status quo. So people will need better definitions
+      of data sensitivity. Privacy is always paramount in protecting individual liberties.
+  counterargument:
+    decisive_counterargument: Naturalness is a descriptive fact, not a normative one.
+      Merely stating that it is natural to question the status quo does not justify
+      the need for better definitions of data sensitivity nor that privacy should
+      be regarded as the paramount concern. The argument relies on the assumption
+      that because something is natural, it is preferable or necessary, which is a
+      classic appeal to nature.
+    candidate: null
+    challenged_inference: Using the premise that questioning the status quo is natural
+      to conclude that better definitions of data sensitivity are required and that
+      privacy is always paramount.
+    label_justification: 'The target says that because people naturally question status
+      quo, privacy must be paramount and definitions must improve. This turns a natural
+      tendency into a normative claim without evidence. That is precisely the fallacy
+      of Appeal to Nature: equating naturalness with desirability or necessity. No
+      other fallacy from the given list matches the reasoning structure.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to question the status quo. So people will need better definitions
+      of data sensitivity. Privacy is always paramount in protecting individual liberties.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: Appeal to Nature
+  decision_reason: The target links a descriptive claim about natural human behavior
+    (“It’s natural to question the status quo”) to a normative conclusion that privacy
+    must always be paramount, implicitly asserting that naturalness justifies the
+    conclusion. This is precisely the logical pattern of Appeal to Nature, where a
+    claim about what is natural is used to support a value judgment without further
+    justification.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's natural to question the status quo. So people will need better definitions
+    of data sensitivity. Privacy is always paramount in protecting individual liberties.
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4015
+  completion_tokens: 3437
+  total_tokens: 7452
+  wall_time_seconds: 118.5

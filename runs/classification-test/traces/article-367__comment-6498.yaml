@@ -1,0 +1,139 @@
+sample:
+  id: 367:6498
+  article_id: 367
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: I think most people would agree everyone deserves equal rights to believe
+    what they believe. We need to support equality. This is not just about being fair,
+    it is about individual rights. I think most people agree that is an ideal we all
+    strive for.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: would agree
+    - role: target_claim
+      text: everyone deserves equal rights to believe what they believe
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think most people would agree everyone deserves equal rights to believe what
+      they believe. We need to support equality. This is not just about being fair,
+      it is about
+    - individual rights. I think most people agree that is an ideal we all strive
+      for.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Everyone deserves equal rights to believe what they believe.
+    candidate: Appeal to Majority
+    supporting_reason: most people would agree
+    support_relation: uses the presumed consensus of most people as justification
+      for equality
+    label_justification: The speaker bases the claim on an assumed majority opinion,
+      which is an appeal to popularity and therefore constitutes an Appeal to Majority
+      fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think most people would agree everyone deserves equal rights to believe what
+      they believe. We need to support equality. This is not just about being fair,
+      it is about
+    - individual rights. I think most people agree that is an ideal we all strive
+      for.
+  counterargument:
+    decisive_counterargument: The reasoning fails because it assumes that a moral
+      position is justified simply because a large number of people hold that view.
+      Merely citing presumed widespread agreement provides no evidence that the position
+      is right, necessary, or backed by facts. To establish that everyone deserves
+      equal rights one must offer logical, empirical, and ethical support rather than
+      rely on what people think. Praise for popularity does not justify the claim.
+    candidate: null
+    challenged_inference: Premising that because most people believe people deserve
+      equal rights, this belief itself proves the claim is correct and should guide
+      policy.
+    label_justification: 'The objection exploits an appeal-to-popularity (ad populum)
+      fallacy: using the supposed common agreement of many people as evidence for
+      the truth of a moral claim. This directly undermines the target’s inference
+      that majority agreement is sufficient justification. The counterargument departs
+      from the target’s logic by pointing out that popularity is not evidence, thereby
+      exposing the fallacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think most people would agree everyone deserves equal rights to believe what
+      they believe. We need to support equality. This is not just about being fair,
+      it is about
+    - individual rights. I think most people agree that is an ideal we all strive
+      for.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The statement explicitly cites that ‘most people would agree’
+    everyone deserves equal rights, using majority popularity to support the claim,
+    meeting the structural definition of an Appeal to Majority
+  decision_reason: The claim relies on an asserted majority opinion to justify equal
+    rights, which is a classic appeal to majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think most people would agree everyone deserves equal rights to believe what
+    they believe. We need to support equality. This is not just about being fair,
+    it is about
+  - individual rights. I think most people agree that is an ideal we all strive for.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3948
+  completion_tokens: 2740
+  total_tokens: 6688
+  wall_time_seconds: 131.75

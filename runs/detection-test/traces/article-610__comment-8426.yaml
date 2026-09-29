@@ -1,0 +1,120 @@
+sample:
+  id: 610:8426
+  article_id: 610
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: We need to get a system in place. Everyone knows that bottles being littered
+    along the ground is bad for us all, so we need to do something. Lets get more
+    places to dispose of them, lets pay people to clean them up, ect. There is plenty
+    we can do.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: everyone
+    - role: popularity_claim
+      text: Everyone knows that bottles being littered along the ground is bad for
+        us all
+    - role: target_claim
+      text: We need to get a system in place or do something to address it
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: We need to get a system in place to address bottle littering
+    candidate: Appeal to Majority
+    supporting_reason: Everyone knows that bottles being littered along the ground
+      is bad for us all
+    support_relation: supports
+    label_justification: The argument uses the claim that everyone knows something
+      to justify the conclusion, which is a classic Appeal to Majority (bandwagon)
+      fallacy, as it appeals to widespread belief rather than providing independent
+      evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+  counterargument:
+    decisive_counterargument: Stating that everyone knows a fact is not the same as
+      proving that fact. The claim that bottle litter is harmful and therefore requires
+      action is made without any empirical evidence; it merely relies on the popularity
+      of the belief. This appeal to a widely held opinion does not substantiate the
+      conclusion, so the reasoning is fundamentally unsound.
+    candidate: Appeal to Majority
+    challenged_inference: Everyone knows that bottles being littered along the ground
+      is bad for us all, so we need to do something.
+    label_justification: The argument exploits the widespread consensus that litter
+      is bad as the sole justification for action, which is a classic appeal to the
+      majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We need to get a system in place. Everyone knows that bottles being littered
+      along the ground is bad for us all, so we need to do something. Lets get
+    - more places to dispose of them, lets pay people to clean them up, ect. There
+      is plenty we can do.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target text states that ‘Everyone knows that bottles being
+    littered along the ground is bad for us all’, and immediately follows this claim
+    with a conclusion that we ‘need to do something’ to address it. This satisfies
+    the structural requirements of an Appeal to Majority: a purportedly widespread
+    belief is used to justify a specific course of action. The evidence supporting
+    this inference is found in passage T1.'
+  decision_reason: The target explicitly invokes the knowledge of the entire population
+    to support the claim that action is necessary, meeting the necessary structural
+    condition for an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - We need to get a system in place. Everyone knows that bottles being littered along
+    the ground is bad for us all, so we need to do something. Lets get
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4378
+  completion_tokens: 3256
+  total_tokens: 7634
+  wall_time_seconds: 270.2649999999994

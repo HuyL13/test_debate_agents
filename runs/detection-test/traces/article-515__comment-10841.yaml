@@ -1,0 +1,157 @@
+sample:
+  id: 515:10841
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: This is a troubling story, I can't even imagine a Governor just refusing
+    to go and ordering the arrest of his replacement. It is such a fantastic story
+    it is almost hard to believe that this has actually occurred. Even with how crazy
+    of an event it is, I am thinking that Afghanistan have much bigger fishes to fry
+    than this stubborn Governor. The Taliban for one is obviously a major ongoing
+    problem that should be taken on immediately. The economy, poverty and the treatment
+    of women all need to come before this issue as well. I understand that this story
+    will make a splash and attract a lot of interest, but Afghanistan needs to stay
+    focused on these major issues. Politics are always messy and we can't find ourselves
+    caught in the circus when so much needs to be done already. I sincerely hope that
+    the Afghan leadership will lead here and do the right thing for the whole country.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Governor refusing to go and ordering the arrest of his replacement
+    - role: worse_issue
+      text: The Taliban, the economy, poverty, and the treatment of women
+    - role: deprioritizing_conclusion
+      text: Afghanistan should focus on these major issues and not on the Governor
+        incident
+    structure_complete: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+    - come before this issue as well. I understand that this story will make a splash
+      and attract a lot of interest, but Afghanistan needs to stay focused on these
+      major
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Afghanistan needs to stay focused on major issues instead
+      of following the sensational governor story.
+    candidate: null
+    supporting_reason: The argument claims that there are far more pressing issues
+      (Taliban, economy, poverty, women's rights) than the governor incident, thus
+      Afghan leadership should devote its attention to these instead of the sensational
+      story, a legitimate prioritization choice.
+    support_relation: mechanism_supports_goal
+    label_justification: The explanation provides relevant justification for the goal
+      and does not commit a listed fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is a troubling story, I can't even imagine a Governor just refusing to
+      go and ordering the arrest of his replacement. It is such a fantastic story
+      it is
+    - almost hard to believe that this has actually occurred. Even with how crazy
+      of an event it is, I am thinking that Afghanistan have much bigger fishes to
+      fry than
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+  counterargument:
+    decisive_counterargument: The inference that Afghanistan should prioritize larger
+      issues like the Taliban, the economy, or gender inequality over addressing a
+      governor’s blatant misuse of authority conflates significance with urgency.
+      A governor refusing to comply with lawful orders and attempting to arrest his
+      replacement threatens the rule of law and public trust. Ignoring such abuses
+      can erode institutional integrity, embolden future misconduct, and ultimately
+      undermine the very larger challenges the author cites. Both the pursuit of justice
+      in governance and the tackling of systemic problems can and should be pursued
+      simultaneously; deferring one because the other is ‘larger’ is a false priority
+      shift.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Afghanistan should focus on the Taliban, economy, poverty,
+      and women’s rights instead of confronting the governor’s misconduct because
+      those issues are ‘bigger’
+    label_justification: The counterargument directly targets the premise that larger
+      problems justify ignoring the governor’s wrongdoing, revealing that this reasoning
+      is an appeal to worse problems—a fallacy that dismisses a legitimate concern
+      solely because another issue appears more significant.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - This is a troubling story, I can't even imagine a Governor just refusing to
+      go and ordering the arrest of his replacement. It is such a fantastic story
+      it is
+    - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+      that should be taken on immediately. The economy, poverty and the treatment
+      of women all need to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target presents the governor incident as the focal issue,
+    lists more serious problems (the Taliban, economy, poverty, treatment of women)
+    as the worse issue, and concludes that Afghanistan should focus on these major
+    issues rather than the governor incident, fulfilling the structure of an Appeal
+    to Worse Problems.
+  decision_reason: The target contains explicit statements that, although the governor
+    event is dramatic, Afghanistan has more significant problems (Taliban, economy,
+    poverty, women's treatment), and therefore the governor issue should be deprioritised.
+    This corresponds to the logical‐fallacy structure of Appeal to Worse Problems.
+  evidence_ids:
+  - T3
+  - T4
+  evidence_spans:
+  - this stubborn Governor. The Taliban for one is obviously a major ongoing problem
+    that should be taken on immediately. The economy, poverty and the treatment of
+    women all need to
+  - come before this issue as well. I understand that this story will make a splash
+    and attract a lot of interest, but Afghanistan needs to stay focused on these
+    major
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5330
+  completion_tokens: 3468
+  total_tokens: 8798
+  wall_time_seconds: 125.31299999999464

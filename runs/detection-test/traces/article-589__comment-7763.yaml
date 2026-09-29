@@ -1,0 +1,155 @@
+sample:
+  id: 589:7763
+  article_id: 589
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: The struggles of the LGBTQ+ community are so heartbreaking and it seems
+    they never catch a break in some countries. It's understandable that the people
+    in the countries feel uneasy about breaking what is traditionally done. It can
+    sometimes be a tightrope walk to rethink a tradition with what's right and what's
+    traditionally wrong. If you gave LGBTQ+ more freedoms, who can say what community
+    is next with wanting the same rights? This could end up being a snowball effect
+    of the worst people in the world wanting rights owed to them. It could be a pathway
+    to more uneasy changes, we should be treading lightly on these changes.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: giving more freedoms to LGBTQ+ community
+    - role: intermediate_consequence
+      text: a snowball effect of the worst people in the world wanting rights owed
+        to them
+    - role: final_consequence
+      text: a pathway to more uneasy changes
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - about breaking what is traditionally done. It can sometimes be a tightrope walk
+      to rethink a tradition with what's right and what's traditionally wrong. If
+      you gave LGBTQ+ more freedoms,
+    - who can say what community is next with wanting the same rights? This could
+      end up being a snowball effect of the worst people in the world wanting rights
+      owed
+    - to them. It could be a pathway to more uneasy changes, we should be treading
+      lightly on these changes.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We should tread lightly on these changes (i.e., be reluctant
+      to grant more freedoms to LGBTQ+ individuals).
+    candidate: Slippery Slope
+    supporting_reason: If you gave LGBTQ+ more freedoms, who can say what community
+      is next with wanting the same rights? This could end up being a snowball effect
+      of the worst people in the world wanting rights owed to them.
+    support_relation: The supporting reason presents a chain of increasingly undesirable
+      consequences—granting rights to one group leads to a broader, potentially dangerous
+      movement—without providing evidence for that progression, thereby justifying
+      the conclusion through a slippery slope.
+    label_justification: The passage argues that allowing LGBTQ+ rights will inevitably
+      trigger a cascade of further requests for rights from increasingly undesirable
+      groups, a classic unsubstantiated slippery slope claim. This fallacy involves
+      asserting a causal progression that is either highly unlikely or unsupported,
+      fitting the evidence from passages T2 and T3.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - about breaking what is traditionally done. It can sometimes be a tightrope walk
+      to rethink a tradition with what's right and what's traditionally wrong. If
+      you gave LGBTQ+ more freedoms,
+    - who can say what community is next with wanting the same rights? This could
+      end up being a snowball effect of the worst people in the world wanting rights
+      owed
+  counterargument:
+    decisive_counterargument: The claim that extending rights to the LGBTQ+ community
+      will inevitably trigger a chain reaction of other groups demanding the same
+      rights – ultimately leading to a negative ‘snowball effect’ – is unfounded.
+      History and empirical evidence show that granting rights to one minority group
+      does not automatically provoke widespread backlash or enable harmful actors.
+      Ban­ing that claim exposes a slippery‑slope fallacy, as it assumes a cascade
+      of undesirable outcomes without any evidential link or realistic mechanism.
+    candidate: Slippery Slope
+    challenged_inference: The claim that granting LGBTQ+ rights will inevitably lead
+      to a chain reaction of other groups’ demands for rights and consequent negative
+      consequences.
+    label_justification: The argument predicts an escalating series of negative outcomes
+      from a single policy change without providing evidence or a credible causal
+      pathway. This type of unjustified escalation fits the definition of a slippery‑slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - about breaking what is traditionally done. It can sometimes be a tightrope walk
+      to rethink a tradition with what's right and what's traditionally wrong. If
+      you gave LGBTQ+ more freedoms,
+    - who can say what community is next with wanting the same rights? This could
+      end up being a snowball effect of the worst people in the world wanting rights
+      owed
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target passage explicitly presents a chain of increasingly
+    undesirable consequences—granting LGBTQ+ freedoms → a snowball effect of other
+    groups demanding rights → more uneasy changes—constituting a slippery‑slope claim.
+  decision_reason: The target expresses the belief that extending rights to LGBTQ+
+    will inevitably trigger a cascade of further, increasingly negative demands for
+    rights, presenting a progression from the initial event to subsequent undesirable
+    outcomes. This satisfies the structural requirement for a slippery slope fallacy.
+  evidence_ids:
+  - T2
+  - T3
+  - T4
+  evidence_spans:
+  - about breaking what is traditionally done. It can sometimes be a tightrope walk
+    to rethink a tradition with what's right and what's traditionally wrong. If you
+    gave LGBTQ+ more freedoms,
+  - who can say what community is next with wanting the same rights? This could end
+    up being a snowball effect of the worst people in the world wanting rights owed
+  - to them. It could be a pathway to more uneasy changes, we should be treading lightly
+    on these changes.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5333
+  completion_tokens: 2683
+  total_tokens: 8016
+  wall_time_seconds: 106.95300000000134

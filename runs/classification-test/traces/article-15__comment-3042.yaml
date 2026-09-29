@@ -1,0 +1,143 @@
+sample:
+  id: 15:3042
+  article_id: 15
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: Do children deserve to be protected or harmed?  It is shocking that this
+    is happening to these unfortunate children.  It is a natural state that children
+    are to be loved and protected, not harmed by their care takers.  Mothers usually
+    have an inborn need to protect their offspring, hormones can be a very powerful
+    evolutionary force.  We should step in now that we know this is happening and
+    get these children out.  How far should we go to help these children?  As much
+    as they need us to.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is a natural state that children are to be loved and protected, not
+        harmed by their caretakers.
+    - role: evaluative_conclusion
+      text: Children ought to be protected.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do children deserve to be protected or harmed?  It is shocking that this is
+      happening to these unfortunate children.  It is a natural state that children
+      are to be loved
+    - and protected, not harmed by their care takers.  Mothers usually have an inborn
+      need to protect their offspring, hormones can be a very powerful evolutionary
+      force.  We should step in
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Children should be protected rather than harmed
+    candidate: Appeal to Nature
+    supporting_reason: The statement that it is a natural state for children to be
+      loved and protected, and that mothers have an inborn need to protect offspring,
+      is used to justify the conclusion that children deserve protection
+    support_relation: The appeal to nature reason is employed as the justificatory
+      basis for the claim that we should intervene and protect the children
+    label_justification: The argument connects the naturalness of protecting children
+      to the moral obligation to do so, exemplifying an appeal to nature fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do children deserve to be protected or harmed?  It is shocking that this is
+      happening to these unfortunate children.  It is a natural state that children
+      are to be loved
+    - and protected, not harmed by their care takers.  Mothers usually have an inborn
+      need to protect their offspring, hormones can be a very powerful evolutionary
+      force.  We should step in
+  counterargument:
+    decisive_counterargument: Just because something is natural does not make it morally
+      right or warrant intervention; the natural state of children can include suffering,
+      and moral duties cannot be derived solely from what is natural.
+    candidate: Appeal to Nature
+    challenged_inference: The argument concludes that children should be protected
+      on the basis that it is a natural state for them to be loved and not harmed.
+    label_justification: The objection shows the argument relies on an appeal to nature—using
+      the fact that protecting children is natural as a reason for moral action—without
+      additional justification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do children deserve to be protected or harmed?  It is shocking that this is
+      happening to these unfortunate children.  It is a natural state that children
+      are to be loved
+    - and protected, not harmed by their care takers.  Mothers usually have an inborn
+      need to protect their offspring, hormones can be a very powerful evolutionary
+      force.  We should step in
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise – “It is a natural
+    state that children are to be loved and protected” – and directly infers a moral
+    requirement – “Children ought to be protected” – without additional justification.
+    This satisfies the structural condition of an appeal to nature (nature_to_value)
+    and exhibits the characteristic flawed inference that naturalness equates to moral
+    value.
+  decision_reason: The argument applies a natural-state claim about children to justify
+    protecting them, which is an Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Do children deserve to be protected or harmed?  It is shocking that this is happening
+    to these unfortunate children.  It is a natural state that children are to be
+    loved
+  - and protected, not harmed by their care takers.  Mothers usually have an inborn
+    need to protect their offspring, hormones can be a very powerful evolutionary
+    force.  We should step in
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4940
+  completion_tokens: 3221
+  total_tokens: 8161
+  wall_time_seconds: 88.09399999998277

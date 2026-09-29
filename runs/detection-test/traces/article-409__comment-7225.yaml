@@ -1,0 +1,126 @@
+sample:
+  id: 409:7225
+  article_id: 409
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: They should choose a religious figure to find a solution this problem of
+    violence against women in Jamaica.  Who could be a better authority to decide
+    such a thing other than a man of God?  It would help these women certainly.  But
+    since not everyone follow the same religion, we should consult a diverse group
+    of people including women.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: man of God
+    - role: endorsed_claim
+      text: They should choose a religious figure to find a solution to this problem
+        of violence against women in Jamaica
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: They should choose a religious figure to find a solution to
+      violence against women in Jamaica.
+    candidate: Appeal to Authority
+    supporting_reason: Being a man of God is presented as a better authority for deciding
+      how to solve the problem.
+    support_relation: The claim that a man of God is the most suitable authority is
+      used to justify the conclusion that a religious figure should be chosen to address
+      the issue.
+    label_justification: The argument appeals to the presumed expertise or moral authority
+      of a religious figure to solve a social problem, without providing evidence
+      of effectiveness. This is a classic appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+  counterargument:
+    decisive_counterargument: The claim that a religious figure is the optimal authority
+      for solving violence against women in Jamaica relies solely on the person's
+      religious status, not on any demonstrated expertise in social justice or crisis
+      intervention. Without evidence that such a figure can address the complex causes
+      of violence, the argument merely uses the figure’s perceived moral authority
+      to justify a solution.
+    candidate: Appeal to Authority
+    challenged_inference: A religious figure is inherently the best authority to solve
+      violence against women in Jamaica.
+    label_justification: The argument appeals to the religious person's status as
+      a ‘man of God’ to establish credibility, a classic form of appeal to authority
+      where the authority’s domain of expertise is not relevant to the claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They should choose a religious figure to find a solution this problem of violence
+      against women in Jamaica.  Who could be a better authority to decide such a
+      thing other
+    - than a man of God?  It would help these women certainly.  But since not everyone
+      follow the same religion, we should consult a diverse group of people including
+      women.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target presents a claim that a religious figure (a man of
+    God) is the sole suitable authority to solve violence against women in Jamaica,
+    using his religious status as justification without providing relevant evidence
+    of competence, satisfying the authority-to-claim structure of an appeal to authority
+    fallacy.
+  decision_reason: The argument relies on the presumed moral authority of a religious
+    figure to legitimize the proposed solution, lacking evidence of relevant expertise.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - They should choose a religious figure to find a solution this problem of violence
+    against women in Jamaica.  Who could be a better authority to decide such a thing
+    other
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4479
+  completion_tokens: 2704
+  total_tokens: 7183
+  wall_time_seconds: 192.09400000004098

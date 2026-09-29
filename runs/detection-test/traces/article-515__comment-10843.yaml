@@ -1,0 +1,136 @@
+sample:
+  id: 515:10843
+  article_id: 515
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: 'This kind of infighting is only natural among political predators. Notions
+    like compromise, negotiation, humility, public service: they don''t even occur
+    to such figures because it is not in their nature to engage in such behaviors,
+    any more than it''s in the nature of an elephant to climb trees. Let''s hope things
+    turn out the way Afghans want it to. They have been through a lot!'
+  target: This doesn't seem very natural. I mean, how many other countries are there
+    where you can say such a situation is happening? Definitely never heard of any
+    kind of crazy situation like this in the US. But we can agree, hope Afghans get
+    to move past all this craziness and get what they want.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This doesn't seem very natural. I mean, how many other countries are there where
+      you can say such a situation is happening? Definitely never heard of any kind
+      of crazy
+    - situation like this in the US. But we can agree, hope Afghans get to move past
+      all this craziness and get what they want.
+    candidate: null
+  goal:
+    conclusion_or_goal: Hope that the Afghans can move past the craziness and get
+      what they want.
+    candidate: Appeal to Nature
+    supporting_reason: This situation is not natural / not seen elsewhere, i.e., it
+      has never happened in the US.
+    support_relation: The speaker uses the fact that the situation is atypical to
+      highlight its unusualness, but the statement that it is natural or not does
+      not serve to justify the hope for the Afghans.
+    label_justification: No fallacy is present. The argument merely states that the
+      situation is unusual, and then expresses a wish for the Afghans. This does not
+      employ an informal logical fallacy such as an Appeal to Nature, nor does it
+      provide a warrant for the conclusion. The relationship is explanatory but not
+      causative, so the conclusion is not supported by a fallacious premises. The
+      correct label is therefore null.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This doesn't seem very natural. I mean, how many other countries are there where
+      you can say such a situation is happening? Definitely never heard of any kind
+      of crazy
+    - situation like this in the US. But we can agree, hope Afghans get to move past
+      all this craziness and get what they want.
+  counterargument:
+    decisive_counterargument: The author assumes that because similar political infighting
+      has not been seen in other countries, the situation in Afghanistan is 'unnatural'
+      and therefore undesirable.  Lack of comparable examples does not imply that
+      the situation is abnormal or wrong; it merely indicates different reporting
+      or contextual factors.  Therefore, using naturalness as a criterion for judging
+      the situation commits a fallacy.
+    candidate: Appeal to Nature
+    challenged_inference: Because Afghanistan’s political infighting is rare elsewhere,
+      it is not natural and thus should be deemed unacceptable.
+    label_justification: The objection shows that the argument treats lack of natural
+      occurrence as evidence of wrongness, which is precisely the definition of an
+      appeal to nature.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This doesn't seem very natural. I mean, how many other countries are there where
+      you can say such a situation is happening? Definitely never heard of any kind
+      of crazy
+    - situation like this in the US. But we can agree, hope Afghans get to move past
+      all this craziness and get what they want.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target explicitly states that the situation “doesn't seem
+    very natural” and uses its lack of naturalness to imply it is undesirable or problematic,
+    thereby treating naturalness as a criterion for judgment—characteristic of an
+    appeal to nature.
+  decision_reason: 'The target claims that because the Afghanistan situation is not
+    natural, it is crazy and therefore should be avoided. This exemplifies the appeal
+    to nature fallacy: evaluating a situation’s merit based on whether it is natural
+    or unnatural.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This doesn't seem very natural. I mean, how many other countries are there where
+    you can say such a situation is happening? Definitely never heard of any kind
+    of crazy
+  - situation like this in the US. But we can agree, hope Afghans get to move past
+    all this craziness and get what they want.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4454
+  completion_tokens: 3387
+  total_tokens: 7841
+  wall_time_seconds: 183.81200000000536

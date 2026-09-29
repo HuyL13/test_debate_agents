@@ -1,0 +1,129 @@
+sample:
+  id: 416:6645
+  article_id: 416
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: There's no denying that on the surface level, it's a choice between continuing
+    to protest or going to jail or adhering to the law and halting protests.   They
+    could have constructive dialogues, too.  How about that?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+    candidate: null
+  goal:
+    conclusion_or_goal: Suggests that constructive dialogue is a viable alternative
+      to the perceived binary choice between continued protest (and possible jail)
+      or compliance with the law and halting protests.
+    candidate: null
+    supporting_reason: They could have constructive dialogues, too.
+    support_relation: provides an alternative to the implied dilemma
+    label_justification: The target commentary neither promises that only the options
+      listed constitute the entire set of possibilities nor forces a hard-choice conclusion;
+      it expands the set of options. There is no logical fallacy present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+  counterargument:
+    decisive_counterargument: The claim reduces the situation to only three mutually
+      exclusive options—protest, imprisonment, or obeying the law—yet in reality a
+      range of alternative courses (e.g., non‑violent civil disobedience, strategic
+      boycotts, international advocacy, covert actions, or even a negotiated settlement)
+      are available. By presenting an incomplete set of choices, the statement forces
+      the reader to accept an oversimplified view of the conflict and obscures other
+      viable paths to address grievances.
+    candidate: False Dilemma
+    challenged_inference: The target asserts a limited, mutually exclusive set of
+      actions governing the protest situation.
+    label_justification: 'The objection shows that the target’s reasoning relies on
+      a false dilemma: it presents only three options while ignoring many other plausible
+      actions, thereby weakening the argument’s validity. The counterargument directly
+      targets that faulty structure rather than simply criticizing the claim’s content.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's no denying that on the surface level, it's a choice between continuing
+      to protest or going to jail or adhering to the law and halting protests.   They
+      could have
+    - constructive dialogues, too.  How about that?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a limited, mutually exclusive set of options—continuing
+    to protest, going to jail, or obeying the law and halting protests—while ignoring
+    many other plausible courses of action, thereby establishing a false dilemma.
+    Evidence is found in passages T1 and T2.
+  decision_reason: The argument overstates the set of choices, presenting only three
+    mutually exclusive options, and thus commits the false dilemma fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There's no denying that on the surface level, it's a choice between continuing
+    to protest or going to jail or adhering to the law and halting protests.   They
+    could have
+  - constructive dialogues, too.  How about that?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3991
+  completion_tokens: 3028
+  total_tokens: 7019
+  wall_time_seconds: 84.125

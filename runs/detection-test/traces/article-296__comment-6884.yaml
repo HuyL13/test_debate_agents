@@ -1,0 +1,145 @@
+sample:
+  id: 296:6884
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: It sounds like much of the criticisms about all this are pretty minor and
+    not something to be that concerned about. The country has to pass laws related
+    to all this kind of stuff. Like most laws, it's probably not going to be perfect,
+    but what else can they do? Whatever they do, someone will complain about it, so
+    they either do nothing or just let the courts go through with the process.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: do nothing
+    - role: alternative_b
+      text: let the courts go through with the process
+    - role: exhaustiveness_commitment
+      text: They either do nothing or just let the courts go through with the process.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Proceed with passing laws despite criticisms because the criticisms
+      are minor and complaints are inevitable.
+    candidate: null
+    supporting_reason: The passage claims that criticisms are minor and that laws
+      will inevitably face complaints, implying that these criticisms justify proceeding
+      with regulation.
+    support_relation: The reason is used as a justificatory argument to support the
+      conclusion that the country should enact laws notwithstanding criticism.
+    label_justification: The argument does not instantiate any of the listed logical-fallacy
+      patterns; it presents a straightforward policy justification based on perceived
+      minor criticism and inevitable complaints.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It sounds like much of the criticisms about all this are pretty minor and not
+      something to be that concerned about. The country has to pass laws related to
+      all
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+  counterargument:
+    decisive_counterargument: The target’s claim that because criticism will inevitably
+      arise, the only viable paths are either inaction or letting courts decide, is
+      a False Dilemma—it unjustifiably narrows the range of possible responses to
+      just two extremes. In reality, a state can enact improved laws, establish oversight
+      mechanisms, engage stakeholders, and revise policies in response to criticism,
+      thereby addressing concerns proactively rather than defaulting to silence or
+      judicial deferment.
+    candidate: False Dilemma
+    challenged_inference: The inference that because criticism is inevitable, the
+      only options for the country are to do nothing or let the courts dictate the
+      process.
+    label_justification: The objection points out that the target limits choices to
+      a binary outlook, ignoring viable alternatives such as refining legislation,
+      implementing safeguards, or conducting public consultations, which amounts to
+      presenting a false dilemma. The argument does not merely criticize the content
+      of the claim; it exposes a specific reasoning defect—an artificially constrained
+      decision space.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It sounds like much of the criticisms about all this are pretty minor and not
+      something to be that concerned about. The country has to pass laws related to
+      all
+    - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+      what else can they do? Whatever they do, someone will complain about it, so
+      they
+    - either do nothing or just let the courts go through with the process.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly limits the country’s responsive options
+    to a binary choice—‘do nothing’ or ‘let the courts go through’—thereby asserting
+    that these two options exhaust all possibilities. This satisfies the structural
+    requirement for a False Dilemma, and the relevant passage appears in T2 and T3.
+  decision_reason: The target’s wording ‘Whatever they do, someone will complain about
+    it, so they either do nothing or just let the courts go through with the process’
+    presents a false dilemma by providing only two alternatives and implicitly claiming
+    that no other alternative exists. Evidence supporting this inference is found
+    in T2 and T3.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - this kind of stuff. Like most laws, it's probably not going to be perfect, but
+    what else can they do? Whatever they do, someone will complain about it, so they
+  - either do nothing or just let the courts go through with the process.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4587
+  completion_tokens: 3529
+  total_tokens: 8116
+  wall_time_seconds: 208.375

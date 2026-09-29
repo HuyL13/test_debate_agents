@@ -1,0 +1,148 @@
+sample:
+  id: 335:6402
+  article_id: 335
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: This person is not only advocating for a violent revolution, but for foreign
+    nations to wage war to remove the government that they don't like? Frankly, as
+    bad as the government of China is in many ways, they're still in ways a lot more
+    palatable to me than people who say things like this. If you're faced with the
+    nearly billion plus 'brainwashed' and 'ignorant' population and can't manage to
+    convince anyone but a tiny minority to support your ideas, the response shouldn't
+    be inciting violence.
+  target: Yes, its not smart what he's doing. If enough people hear his rhetoric in
+    China, it could lead to them actually trying something which would obviously lead
+    to tons of death. Once China finds out they tried something due to his rhetoric,
+    the CCP could kill everyone he knows.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: enough people hear his rhetoric in China
+    - role: intermediate_consequence
+      text: they actually try something which would lead to tons of death
+    - role: final_consequence
+      text: CCP could kill everyone he knows
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker argues that the other person’s rhetoric is unwise
+      because it could ultimately lead to widespread violence and even the death of
+      those who support the rhetoric.
+    candidate: Slippery Slope
+    supporting_reason: If enough people hear his rhetoric in China, it could lead
+      to them actually trying something which would obviously lead to tons of death.
+      Once China finds out they tried something due to his rhetoric, the CCP could
+      kill everyone he knows.
+    support_relation: The reasoning posits a causal chain where the initial act (the
+      rhetoric) triggers a gradual sequence of increasingly severe consequences (violence,
+      death, and government retaliation), implying that the moderator or speaker’s
+      position is dangerous without providing strong evidence for each step.
+    label_justification: The argument presents a speculative, stepwise escalation
+      from a moderate statement to extreme outcomes, matching the classic ‘slippery
+      slope’ fallacy pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+  counterargument:
+    decisive_counterargument: No evidence shows that the individual’s rhetoric actually
+      leads to mass violence in China or that the CCP will retaliate by killing his
+      acquaintances; the causal chain from speech to widespread death and personal
+      retribution is unsupported.
+    candidate: Slippery Slope
+    challenged_inference: The speaker’s rhetoric inevitably causes widespread violence
+      and prompts the CCP to kill everyone the speaker knows.
+    label_justification: The argument assumes a chain of increasingly severe outcomes
+      from a single event—the speech—without evidence, which is the hallmark of a
+      slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+      it could lead to them actually trying something which would obviously lead to
+      tons of
+    - death. Once China finds out they tried something due to his rhetoric, the CCP
+      could kill everyone he knows.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains a speculative, stepwise escalation from
+    the speaker’s rhetoric to widespread deaths and personal retaliation by the CCP,
+    forming a coherent consequence chain characteristic of a slippery‑slope argument.
+  decision_reason: 'The target explicitly posits that if enough people hear the rhetoric,
+    it could cause violent acts leading to many deaths, which further could prompt
+    the CCP to kill the speaker’s acquaintances. This chain satisfies the structural
+    requirements of a slippery‑slope fallacy. Evidence: T1, T2.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Yes, its not smart what he's doing. If enough people hear his rhetoric in China,
+    it could lead to them actually trying something which would obviously lead to
+    tons of
+  - death. Once China finds out they tried something due to his rhetoric, the CCP
+    could kill everyone he knows.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4891
+  completion_tokens: 2702
+  total_tokens: 7593
+  wall_time_seconds: 90.82799999997951

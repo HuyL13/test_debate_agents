@@ -1,0 +1,138 @@
+sample:
+  id: 15:9343
+  article_id: 15
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: Corporal punishment used to be entirely normal in America as well. Can we
+    really judge them for the same traditions that we also had up until very recently?
+    It really is a challenge, as the article notes, for such deep-rooted tradition
+    to be broken. We should offer our help, not make any judgments.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Corporal punishment used to be entirely normal in America as well. Can
+        we really judge them for the same traditions that we also had up until very
+        recently? It really is a challenge, as the article notes, for such deep-rooted
+        tradition to  
+    - role: preservation_conclusion
+      text: We should offer our help, not make any judgments.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Corporal punishment used to be entirely normal in America as well. Can we really
+      judge them for the same traditions that we also had up until very recently?
+      It really
+    - is a challenge, as the article notes, for such deep-rooted tradition to be broken.
+      We should offer our help, not make any judgments.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: We should not judge other cultures for using corporal punishment.
+    candidate: Appeal to Tradition
+    supporting_reason: The fact that corporal punishment was normal in America until
+      recently was used to disqualify judgments.
+    support_relation: grounds
+    label_justification: The argument explicitly leverages a shared, historical tradition
+      (corporal punishment in America) to suggest that other cultures should not be
+      judged for similar practices, a classic appeal to tradition, which serves the
+      conclusion even though it is logically flawed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Corporal punishment used to be entirely normal in America as well. Can we really
+      judge them for the same traditions that we also had up until very recently?
+      It really
+  counterargument:
+    decisive_counterargument: The critique that corporal punishment was historically
+      normal and deeply rooted does not make the practice morally acceptable or shield
+      it from criticism. Moral standards can—and often do—change over time; past prevalence
+      is not a sufficient reason to justify or to resist moral evaluation. Therefore
+      the argument fails by relying on an unsubstantiated assumption that tradition
+      itself furnishes moral legitimacy.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that we should not judge the use of corporal
+      punishment because it was historically normal and deeply rooted in tradition.
+    label_justification: The objection directly addresses the reasoning that a long‑standing
+      practice justifies the absence of moral judgment, which is the classic appeal
+      to tradition fallacy—asserting that a practice is right solely on the basis
+      of its historical prevalence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Corporal punishment used to be entirely normal in America as well. Can we really
+      judge them for the same traditions that we also had up until very recently?
+      It really
+    - is a challenge, as the article notes, for such deep-rooted tradition to be broken.
+      We should offer our help, not make any judgments.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly claims that because corporal punishment
+    was historically normal in America, we should not judge it and should instead
+    offer help, invoking tradition as the justification.
+  decision_reason: 'The argument uses the historical fact that corporal punishment
+    was once widely accepted to argue against judging current usage. This is a classic
+    appeal‑to‑tradition structure: a premise about long‑standing practice is used
+    to conclude that the practice should be preserved or not criticized.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Corporal punishment used to be entirely normal in America as well. Can we really
+    judge them for the same traditions that we also had up until very recently? It
+    really
+  - is a challenge, as the article notes, for such deep-rooted tradition to be broken.
+    We should offer our help, not make any judgments.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4511
+  completion_tokens: 3411
+  total_tokens: 7922
+  wall_time_seconds: 117.25

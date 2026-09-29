@@ -1,0 +1,132 @@
+sample:
+  id: 161:5281
+  article_id: 161
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Because the accord has worked for thirty years, there is no need to believe
+    that it was right or correct in its aims. The new act is just as bad but people
+    seem to have a real issue with it now. People always lean on what is familar so
+    they tend to want to dismiss the new act. The old accord sought to expel refugees
+    based on religion and did so while the new act allows these people to stay and
+    change the culture. I think that people are upset because they had a framework
+    for years on how to deal with refugees and now that may be gone with this new
+    act. Perhaps we need to take a step back and look at the past accord and see how
+    bad this was for refugees and realize that we have evolved beyond this and should
+    accept people regardless. the new act does not seek to change the country or its
+    traditions but to merely allow for asylum seekers to have a home. Shouldn't this
+    be our new aim for the country?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Because the accord has worked for thirty years
+    - role: preservation_conclusion
+      text: there is no need to believe that it was right or correct in its aims
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The old accord was acceptable and need not be evaluated for
+      correctness
+    candidate: Appeal to Tradition
+    supporting_reason: Because the accord has worked for thirty years
+    support_relation: provides justification
+    label_justification: 'Appeal to Tradition: asserting that longevity alone proves
+      correctness'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+  counterargument:
+    decisive_counterargument: The mere fact that the accord was in place for thirty
+      years does not prove that its aims were right or that it was morally or ethically
+      acceptable. Policies can persist for long periods while becoming outdated or
+      unjust; the longevity of a practice does not itself establish its correctness.
+      Evaluating a policy should involve a substantive assessment of its outcomes
+      and ethical implications, not a primitive reliance on how long it has existed.
+    candidate: Appeal to Tradition
+    challenged_inference: Because the accord has worked for thirty years, this guarantees
+      its correctness.
+    label_justification: The objection directly undermines the reasoning that longevity
+      implies moral correctness, a classic hallmark of the Appeal to Tradition fallacy.
+      By refusing to accept the premise that thirty years of operation equals correctness,
+      the counterargument shows that the inference is invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+    - accord sought to expel refugees based on religion and did so while the new act
+      allows these people to stay and change the culture. I think that people are
+      upset
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target uses longevity ('worked for thirty years') as sole
+    justification for the accord’s correctness, invoking tradition without substantive
+    evaluation, which fulfills the definition of an Appeal to Tradition fallacy. evidence_ids:[
+  decision_reason: The target states, ‘Because the accord has worked for thirty years,
+    there is no need to believe that it was right or correct in its aims,’ which demonstrates
+    a reliance on tradition alone for justification—exactly the form of an appeal
+    to tradition.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Because the accord has worked for thirty years, there is no need to believe that
+    it was right or correct in its aims. The new act is just as bad
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5963
+  completion_tokens: 3223
+  total_tokens: 9186
+  wall_time_seconds: 334.6719999999914

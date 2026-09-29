@@ -1,0 +1,169 @@
+sample:
+  id: 168:5302
+  article_id: 168
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: People are  naturally distrustful of new things like this political system.
+    It makes sense that people may not want to vote. It is important to encourage
+    people to vote in order to achieve what the people want.
+  target: For sure, not participating in democratic processes like voting doesn't
+    just lead to social chaos and regret, it can potentially pave the way for unqualified
+    leaders to take power. We've seen this happen in various countries around the
+    globe. Inexperienced leadership leads to poorly drafted policies that fail to
+    reflect the public's needs, thus triggering economic downturns and inflation.
+    This can further balloon into increased unemployment rate, widening gap between
+    the rich and poor, and could even escalate into mass unrests and protests. This
+    snowball effect could ultimately result in the complete collapse of societal order.
+    Hence, it is crucial that we don't underestimate the power of a single vote.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: T1
+    - role: intermediate_consequence
+      text: T2
+    - role: final_consequence
+      text: T4
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - For sure, not participating in democratic processes like voting doesn't just
+      lead to social chaos and regret, it can potentially pave the way for unqualified
+      leaders to take power. We've
+    - seen this happen in various countries around the globe. Inexperienced leadership
+      leads to poorly drafted policies that fail to reflect the public's needs, thus
+      triggering economic downturns and inflation. This
+    - the complete collapse of societal order. Hence, it is crucial that we don't
+      underestimate the power of a single vote.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Voting is essential because not voting can lead to societal
+      collapse.
+    candidate: Slippery Slope
+    supporting_reason: If people do not participate in voting, it will lead to unqualified
+      leaders, poor policies, economic downturns, unemployment, inequality, mass unrest,
+      and ultimately the collapse of societal order.
+    support_relation: The argument builds a chain of increasingly severe consequences
+      from the simple act of not voting, implying inevitability of a catastrophic
+      outcome.
+    label_justification: 'The reasoning presents a slippery‑slope claim: it asserts
+      that a single step (not voting) will inevitably lead to a chain of disastrous
+      events, without sufficient evidence for the causal link between each step or
+      the final outcome.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - For sure, not participating in democratic processes like voting doesn't just
+      lead to social chaos and regret, it can potentially pave the way for unqualified
+      leaders to take power. We've
+    - can further balloon into increased unemployment rate, widening gap between the
+      rich and poor, and could even escalate into mass unrests and protests. This
+      snowball effect could ultimately result in
+    - the complete collapse of societal order. Hence, it is crucial that we don't
+      underestimate the power of a single vote.
+  counterargument:
+    decisive_counterargument: The argument claims that simply not voting will inevitably
+      lead to the selection of unqualified leaders, which then triggers a domino of
+      economic and social failure until societal collapse. This chain of events is
+      presented as a certainty, yet there is no evidence that low turnout invariably
+      produces unqualified officials; many democracies with poor participation still
+      elect competent leaders. Thus the inference that a single act of abstention
+      will cause a collapse is unjustified.
+    candidate: Slippery Slope
+    challenged_inference: Not voting leads, via a series of inevitable consequences,
+      to the collapse of societal order.
+    label_justification: 'The argument traces a series of successive effects—from
+      abstention to unqualified leadership to poor policy to economic downturn to
+      social unrest to collapse—without providing evidence that each step is mandatory
+      or that the chain is unavoidable. This is precisely the slippery‑slope structure:
+      an undesired outcome is claimed to follow inevitably from an initial action.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - For sure, not participating in democratic processes like voting doesn't just
+      lead to social chaos and regret, it can potentially pave the way for unqualified
+      leaders to take power. We've
+    - seen this happen in various countries around the globe. Inexperienced leadership
+      leads to poorly drafted policies that fail to reflect the public's needs, thus
+      triggering economic downturns and inflation. This
+    - can further balloon into increased unemployment rate, widening gap between the
+      rich and poor, and could even escalate into mass unrests and protests. This
+      snowball effect could ultimately result in
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target text lays out a clear chain of escalating negative
+    consequences stemming from the single act of not voting, implicitly claiming inevitability,
+    which satisfies the structure and reasoning criteria for a slippery‑slope fallacy.
+  decision_reason: The argument presents a progressive series of effects—unqualified
+    leadership, poorly drafted policies, economic downturn, unemployment, inequality,
+    mass unrest, and societal collapse—implying a causal chain that will invariably
+    occur without evidence, fulfilling the definition of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  - T4
+  evidence_spans:
+  - For sure, not participating in democratic processes like voting doesn't just lead
+    to social chaos and regret, it can potentially pave the way for unqualified leaders
+    to take power. We've
+  - seen this happen in various countries around the globe. Inexperienced leadership
+    leads to poorly drafted policies that fail to reflect the public's needs, thus
+    triggering economic downturns and inflation. This
+  - the complete collapse of societal order. Hence, it is crucial that we don't underestimate
+    the power of a single vote.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5564
+  completion_tokens: 3132
+  total_tokens: 8696
+  wall_time_seconds: 82.76600000000326

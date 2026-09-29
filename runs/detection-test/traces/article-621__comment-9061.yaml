@@ -1,0 +1,157 @@
+sample:
+  id: 621:9061
+  article_id: 621
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: If we are finding two headed snakes then there must be something in the
+    water, I bet man is polluting the area. There is no other possible answer. When
+    weird shit happens, its always us that causes it.
+  target: I agree, it is very odd to find two-headed snakes in the same area. It reminds
+    me of research that Dr. Jake Jacobson has done over the years. He had published
+    a famed paper on this subject about how the water is so contaminated that there
+    was traces of nuclear waste. I agreed with him until Janie Janet released her
+    evidence against there being any nuclear waste in the water there. It's hard to
+    believe that Jacobson knows what he is talking about when he claims such a thing
+    that can easily be proven wrong. Comparing both conclusions, you really don't
+    know what to believe. I guess we need more studies on the topic. I wonder if there
+    are other tests out there that can be done?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Dr. Jake Jacobson
+    - role: endorsed_claim
+      text: the water is contaminated with nuclear waste
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree, it is very odd to find two-headed snakes in the same area. It reminds
+      me of research that Dr. Jake Jacobson has done over the years. He had
+    - published a famed paper on this subject about how the water is so contaminated
+      that there was traces of nuclear waste. I agreed with him until Janie Janet
+      released her
+    - evidence against there being any nuclear waste in the water there. It's hard
+      to believe that Jacobson knows what he is talking about when he claims such
+      a thing that
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: There is uncertainty about whether the water contains nuclear
+      waste, so additional studies are needed.
+    candidate: null
+    supporting_reason: Janie Janet released evidence that there is no nuclear waste
+      in the water, contradicting Dr. Jake Jacobson’s previously asserted contaminated‑water
+      claim.
+    support_relation: The presence of counter‑evidence undermines the earlier claim,
+      prompting the speaker to conclude that the present state of knowledge is inconclusive
+      and further research is warranted.
+    label_justification: The argument proceeds from a claim to a refuting piece of
+      evidence and then draws the conclusion that more studies are needed; this is
+      a legitimate inference without a fallacious structure. No fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - published a famed paper on this subject about how the water is so contaminated
+      that there was traces of nuclear waste. I agreed with him until Janie Janet
+      released her
+    - evidence against there being any nuclear waste in the water there. It's hard
+      to believe that Jacobson knows what he is talking about when he claims such
+      a thing that
+    - can easily be proven wrong. Comparing both conclusions, you really don't know
+      what to believe. I guess we need more studies on the topic. I wonder if there
+      are other
+  counterargument:
+    decisive_counterargument: The claim that it is hard to believe Dr. Jacobson knows
+      what he is talking about is presented without evidence. It merely attacks the
+      authority’s credibility rather than addressing the actual claim that the water
+      is contaminated. Such an attack relies on the person’s identity rather than
+      the merits of his findings, which is a classic Appeal to Authority (or ad‑hominem)
+      fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: It is hard to believe that Jacobson knows what he is talking
+      about
+    label_justification: The objection shows that the TARGET’s reasoning dismisses
+      Jacobson’s claim solely because it can be disproved, without providing evidence
+      of Jacobson’s fallibility. This is a classic appeal to authority/credibility,
+      not a sound argument.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - published a famed paper on this subject about how the water is so contaminated
+      that there was traces of nuclear waste. I agreed with him until Janie Janet
+      released her
+    - evidence against there being any nuclear waste in the water there. It's hard
+      to believe that Jacobson knows what he is talking about when he claims such
+      a thing that
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: TARGET does not employ an authority to support a claim (nor
+    to dismiss it as a fallacy); rather it merely expresses skepticism toward the
+    authority, which is not an appeal to authority.
+  decision_reason: The target text does not establish the mandatory structural form
+    of an appeal to authority. It references Dr. Jake Jacobson, but uses his credibility
+    only to question him, not to rely on his assertion to justify a conclusion. Hence
+    the argument does not meet the definition of this fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I agree, it is very odd to find two-headed snakes in the same area. It reminds
+    me of research that Dr. Jake Jacobson has done over the years. He had
+  - published a famed paper on this subject about how the water is so contaminated
+    that there was traces of nuclear waste. I agreed with him until Janie Janet released
+    her
+  - evidence against there being any nuclear waste in the water there. It's hard to
+    believe that Jacobson knows what he is talking about when he claims such a thing
+    that
+  verified: false
+  rejection_reason: The target text does not establish the mandatory structural form
+    of an appeal to authority. It references Dr. Jake Jacobson, but uses his credibility
+    only to question him, not to rely on his assertion to justify a conclusion. Hence
+    the argument does not meet the definition of this fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5437
+  completion_tokens: 3908
+  total_tokens: 9345
+  wall_time_seconds: 219.28099999995902

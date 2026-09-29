@@ -1,0 +1,124 @@
+sample:
+  id: 645:9131
+  article_id: 645
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: Whenever I hear about automated censorship on social media platforms, it's
+    always targeting the wrong people. It clearly is a system that doesn't work well,
+    and probably never will. Companies should just ditch the idea and get back to
+    human moderation.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Whenever I hear about automated censorship on social media platforms
+    - role: observed_property
+      text: targeting the wrong people
+    - role: target_population
+      text: automated censorship systems on social media platforms
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Whenever I hear about automated censorship on social media platforms, it's always
+      targeting the wrong people. It clearly is a system that doesn't work well, and
+      probably never will. Companies
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Automated censorship on social media should be abandoned in
+      favor of human moderation.
+    candidate: Hasty Generalization
+    supporting_reason: Whenever I hear about automated censorship on social media
+      platforms, it's always targeting the wrong people.
+    support_relation: The reason is used to justify the conclusion by arguing that
+      automated systems are always wrong, thus implying they should be replaced by
+      human moderators.
+    label_justification: The argument assumes that all instances of automated censorship
+      inherently target wrong people, based on limited personal observations. This
+      generalization is not supported by systematic evidence and therefore represents
+      a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Whenever I hear about automated censorship on social media platforms, it's always
+      targeting the wrong people. It clearly is a system that doesn't work well, and
+      probably never will. Companies
+  counterargument:
+    decisive_counterargument: The claim that automated censorship 'always' targets
+      the wrong people lacks evidence and ignores documented cases where automated
+      systems successfully filter harmful content or can be tuned to improve precision.
+      Therefore, concluding that the system never works and must be abandoned is a
+      sweeping generalization, not a justified decision.
+    candidate: Hasty Generalization
+    challenged_inference: Companies should ditch automated censorship and revert to
+      human moderation.
+    label_justification: The objection shows that the speaker extrapolates a universal
+      failure from unspecified instances, generalizing that automated censorship always
+      misidentifies targets. This is exactly the structure of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Whenever I hear about automated censorship on social media platforms, it's always
+      targeting the wrong people. It clearly is a system that doesn't work well, and
+      probably never will. Companies
+    - should just ditch the idea and get back to human moderation.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The statement “Whenever I hear about automated censorship on
+    social media platforms, it’s always targeting the wrong people” treats a limited
+    set of anecdotal observations as evidence that *all* automated censorship systems
+    on social media invariably target the wrong users, a classic sample‑to‑population
+    generalization. This satisfies the structural requirement for a hasty generalization. '
+  decision_reason: The TARGET provides a sample of observed failures and extrapolates
+    a universal claim without systematic evidence, which is the hallmark of a hasty
+    generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Whenever I hear about automated censorship on social media platforms, it's always
+    targeting the wrong people. It clearly is a system that doesn't work well, and
+    probably never will. Companies
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4258
+  completion_tokens: 4062
+  total_tokens: 8320
+  wall_time_seconds: 196.43799999999464

@@ -1,0 +1,138 @@
+sample:
+  id: 19:3204
+  article_id: 19
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: To me this just seems to want to placate a blind belief that more press
+    access equals good. I find it perfectly acceptable that Papua New Guinea doesn't
+    want to blindly open the floodgates to journalists given their situation. Western
+    countries know very little about Papua New Guinea and anything happening there.
+    This results in journalists almost entirely framing the debate of what to think.
+    Lots of journalists are simply going to exacerbate anything they find to drum
+    up interest
+  target: Why are we putting in more restrictions? Does this really provide a benefit
+    or is it a way to distract from something else?  Are there any benefits I am unaware
+    of? It seems to go against a need for freedom of expression, a natural want/need
+    for all people. What problem is this actually solving? What do these restrictions
+    improve? What do you think?
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T2
+    - role: evaluative_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - of? It seems to go against a need for freedom of expression, a natural want/need
+      for all people. What problem is this actually solving? What do these restrictions
+      improve? What
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Question the justification and benefits of media restrictions
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: The target consists solely of rhetorical questions that request
+      evidence for benefits of restrictions; no premise or fallacious reasoning is
+      presented, so no fallacy is warranted.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why are we putting in more restrictions? Does this really provide a benefit
+      or is it a way to distract from something else?  Are there any benefits I am
+      unaware
+    - of? It seems to go against a need for freedom of expression, a natural want/need
+      for all people. What problem is this actually solving? What do these restrictions
+      improve? What
+    - do you think?
+  counterargument:
+    decisive_counterargument: Freedom of expression is indeed valuable, but it can
+      be reasonably limited when such restrictions protect public safety, prevent
+      violent or defamatory speech, or forestall the spread of harmful misinformation.
+      A natural desire alone does not override legitimate societal duties, so the
+      claim that restrictions are automatically unjustified because they “go against
+      a natural want” is unfounded.
+    candidate: Appeal to Nature
+    challenged_inference: The argument assumes that because restrictions conflict
+      with a natural desire for freedom of expression, they cannot be justified.
+    label_justification: 'The objection identifies that the target’s reasoning relies
+      on the premise that something “natural” is inherently good, framing the restrictions
+      as unjust merely because they diverge from a natural preference. This is the
+      classic appeal to nature fallacy: claiming moral superiority based solely on
+      naturalness without substantive justification. The counterargument directly
+      counters this by pointing out that naturalness does not preclude justified limits
+      on expression.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - of? It seems to go against a need for freedom of expression, a natural want/need
+      for all people. What problem is this actually solving? What do these restrictions
+      improve? What
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target identifies a natural desire for freedom of expression
+    and concludes that restrictions are unjust because they conflict with this naturalness,
+    matching the classic structure of an appeal to nature fallacy.
+  decision_reason: The argument uses the premise that 'freedom of expression is a
+    natural want/need for all people' to argue restrictions are wrong, which is an
+    appeal to the intrinsic value of something being natural.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - of? It seems to go against a need for freedom of expression, a natural want/need
+    for all people. What problem is this actually solving? What do these restrictions
+    improve? What
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4787
+  completion_tokens: 3188
+  total_tokens: 7975
+  wall_time_seconds: 55.562000000005355

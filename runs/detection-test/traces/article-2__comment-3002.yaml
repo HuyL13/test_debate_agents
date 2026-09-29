@@ -1,0 +1,107 @@
+sample:
+  id: 2:3002
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: The fact that he’s a Buddhist monk means that he’s reliable. I would agree
+    with his campaign based on the fact that he’s a monk who demonstrates peace and
+    love.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Buddhist monk
+    - role: endorsed_claim
+      text: He is reliable; I would agree with his campaign.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: I would agree with his campaign
+    candidate: Appeal to Authority
+    supporting_reason: The fact that he’s a Buddhist monk and demonstrates peace and
+      love is presented as proof of his reliability
+    support_relation: The reason is invoked to justify approving the campaign, attributing
+      the monk’s moral standing to lend credibility to the argument
+    label_justification: The argument relies on the monk’s religious identity as an
+      authority to assert reliability, which is an appeal to authority fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+  counterargument:
+    decisive_counterargument: Simply being a Buddhist monk does not prove that this
+      individual is reliable or that his campaign is effective; there is no evidence
+      presented that links his monk status to the desired outcome.
+    candidate: null
+    challenged_inference: That a person’s status as a Buddhist monk guarantees his
+      reliability and moral authority to endorse a campaign.
+    label_justification: The objection displays the appeal to authority fallacy by
+      basing the claim of reliability on the monk’s position rather than on substantive
+      evidence. The advertiser assumes the monk’s moral authority alone is enough
+      to justify agreement, which is a classic appeal to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+      his campaign based on the fact that he’s a monk who demonstrates peace and love.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: Appeal to Authority argument pattern present
+  decision_reason: The claim that the person’s Buddhist monk status guarantees reliability
+    and warrants agreement with his campaign is an appeal to the monk’s religious
+    authority rather than to evidence, satisfying the structural criteria for this
+    fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The fact that he’s a Buddhist monk means that he’s reliable. I would agree with
+    his campaign based on the fact that he’s a monk who demonstrates peace and love.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3841
+  completion_tokens: 2630
+  total_tokens: 6471
+  wall_time_seconds: 149.71899999999732

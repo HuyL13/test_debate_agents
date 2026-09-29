@@ -1,0 +1,174 @@
+sample:
+  id: 460:7376
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Covid-19 affects a lot of people. The majority of people want to know that
+    the information they read on covid-19 is accurate. In fact all people who take
+    the time to read something with covid-19 want it to be accurate. 12 in 19 is a
+    very important topic. We need to make sure there is no fake news.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: majority of people want to know the information they read on covid‑19
+        is accurate
+    - role: target_claim
+      text: information should be accurate / there should be no fake news
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker concludes that there must be no fake news about
+      COVID‑19—i.e., that accurate information should be ensured.
+    candidate: Hasty Generalization
+    supporting_reason: The argument asserts that the majority of people want accurate
+      COVID‑19 information and that all people who take the time to read about it
+      want it to be accurate, and then uses this claim to warrant the action of eliminating
+      fake news.
+    support_relation: The sweeping claim that all people who read about COVID‑19 want
+      accurate information is presented as evidence for the need to eliminate fake
+      news, thereby justifying the conclusion.
+    label_justification: The premise makes an absolute claim (all people who read
+      want accuracy) without providing evidence or a specific sample, which constitutes
+      a hasty generalization.  The claim is then used to support the conclusion, so
+      the fallacy underlies the reasoning.  No other fallacy description fits better.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+  counterargument:
+    decisive_counterargument: The statement that 'all people who take the time to
+      read something with covid‑19 want it to be accurate' is an overgeneralization
+      made without any supporting evidence. It asserts a universal claim about every
+      reader’s desire, yet no data, survey, or sample is provided to confirm that
+      every such person actually holds this belief. This lack of evidence makes the
+      claim a hasty generalization. Instead of saying everyone wants accurate information,
+      the argument should present empirical data or at least acknowledge that different
+      readers may have varied motivations or levels of scrutiny.
+    candidate: Hasty Generalization
+    challenged_inference: In fact all people who take the time to read something with
+      covid‑19 want it to be accurate.
+    label_justification: The objection directly targets the universal claim that all
+      readers desire accurate information, identifying the fallacy as a hasty generalization
+      because it extrapolates a blanket conclusion from no specific evidence or sample.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: Hasty Generalization occurs only when a conclusion is drawn from
+      a specific, insufficient sample to a general population. The target provides
+      no sample or evidence, only a blanket claim that all readers want accuracy.
+      Therefore its structural condition is not met, whereas Appeal to Majority’s
+      popularity claim is directly supported by the text.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target contains a population group ('people'), a popularity
+    claim ('the majority want accurate information'), and a normative conclusion ('there
+    should be no fake news'), matching the structural definition of an Appeal to Majority.
+  decision_reason: The argument uses the majority’s preference for accurate COVID‑19
+    information to justify the claim that no fake news should exist. This satisfies
+    the structural requirements for an Appeal to Majority fallacy. No other fallacies
+    are present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Covid-19 affects a lot of people. The majority of people want to know that the
+    information they read on covid-19 is accurate. In fact all people who take the
+    time
+  - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+    topic. We need to make sure there is no fake news.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5874
+  completion_tokens: 3566
+  total_tokens: 9440
+  wall_time_seconds: 289.10899999999674

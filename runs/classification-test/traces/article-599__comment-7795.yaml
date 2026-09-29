@@ -1,0 +1,154 @@
+sample:
+  id: 599:7795
+  article_id: 599
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: It is good to see that an unsolved murder seems to be closer to being solved.
+    I am concerned with all the jubilation over someone being charged in this case.
+    Everyone seems to be acting as this person is guilty when it is just a charge.
+    It is very frightening when we are immediately assumed to be guilty on just an
+    accusation. What comes next after this? Will we just put people in jail for life
+    upon being accused? After that seems to be accepted, will we just execute them
+    before any trial? I understand people wanting justice but we must be careful when
+    throwing out systems that protect the innocent. I hope we will all think about
+    this and have discussion with others to make sure we don't lead ourselves down
+    this dark path.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: a person is charged in an unsolved murder case
+    - role: intermediate_consequence
+      text: immediate assumption of guilt and potential life imprisonment
+    - role: final_consequence
+      text: execution before trial
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - It is good to see that an unsolved murder seems to be closer to being solved.
+      I am concerned with all the jubilation over someone being charged in this case.
+    - an accusation. What comes next after this? Will we just put people in jail for
+      life upon being accused? After that seems to be accepted, will we just execute
+      them
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker wants to warn that charging a suspect may lead
+      to a dangerous slide toward harsh, unjust punishments, so we must defend the
+      protections of the innocent.
+    candidate: Slippery Slope
+    supporting_reason: The comment predicts that the current trend of quickly assuming
+      guilt will inevitably result in extreme outcomes such as life imprisonment or
+      execution without trial.
+    support_relation: The predicted escalation is used by the speaker to justify caution
+      and to argue against premature conviction and the erosion of legal safeguards.
+    label_justification: The speaker argues that an initial action (charging someone)
+      could lead, without evidence, to a chain of increasingly severe consequences.
+      This is a classic slippery‑slope claim lacking intermediate justification.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - Everyone seems to be acting as this person is guilty when it is just a charge.
+      It is very frightening when we are immediately assumed to be guilty on just
+    - an accusation. What comes next after this? Will we just put people in jail for
+      life upon being accused? After that seems to be accepted, will we just execute
+      them
+    - before any trial? I understand people wanting justice but we must be careful
+      when throwing out systems that protect the innocent. I hope we will all think
+      about this and
+  counterargument:
+    decisive_counterargument: The claim that simply charging a person will inevitably
+      lead to life imprisonment or execution is an unfounded extrapolation. In most
+      legal systems, a charge triggers a due‑process procedure that includes trials,
+      defense representation, possible appeals, and the right to remain innocent until
+      proven guilty. There is no evidence that a charge automatically becomes a conviction,
+      conviction into a life sentence, or execution without a fair trial. Therefore
+      the argument relies on an unsupported escalation rather than a concrete causal
+      link.
+    candidate: Slippery Slope
+    challenged_inference: The inference that charging someone automatically leads
+      to life imprisonment and, ultimately, execution.
+    label_justification: The target argument predicts a progressive chain of extreme
+      consequences (life jail, execution) based solely on the initial action of charging,
+      without establishing causal steps—characteristic of a Slippery Slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - Everyone seems to be acting as this person is guilty when it is just a charge.
+      It is very frightening when we are immediately assumed to be guilty on just
+    - an accusation. What comes next after this? Will we just put people in jail for
+      life upon being accused? After that seems to be accepted, will we just execute
+      them
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target argument presents an unsubstantiated chain—charging
+    a suspect → immediate assumption of guilt → life imprisonment → execution—without
+    evidence that each step follows logically, fitting the structure of a slippery‑slope
+    claim.
+  decision_reason: The comment predicts a progressive escalation of severe punishments
+    based solely on the initial action of charging someone, lacking causal justification,
+    which matches the classic slippery‑slope structure.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - It is good to see that an unsolved murder seems to be closer to being solved.
+    I am concerned with all the jubilation over someone being charged in this case.
+  - an accusation. What comes next after this? Will we just put people in jail for
+    life upon being accused? After that seems to be accepted, will we just execute
+    them
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5599
+  completion_tokens: 3348
+  total_tokens: 8947
+  wall_time_seconds: 74.23500000001513

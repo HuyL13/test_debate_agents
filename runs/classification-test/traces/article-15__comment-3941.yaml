@@ -1,0 +1,151 @@
+sample:
+  id: 15:3941
+  article_id: 15
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: No one wants to see children hurt. I think anyone would say stopping this
+    violence is important. This is a worldwide issue. I am sure the general consensus
+    is children should never have violence perpetuated against them. We cannot use
+    claims of tradition to continue this. If tradition is the excuse then these traditions
+    need to end.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the general consensus
+    - role: popularity_claim
+      text: children should never have violence perpetuated against them
+    - role: target_claim
+      text: We cannot use claims of tradition to continue this. If tradition is the
+        excuse then these traditions need to end.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - No one wants to see children hurt. I think anyone would say stopping this violence
+      is important. This is a worldwide issue. I am sure the general consensus is
+      children
+    - should never have violence perpetuated against them. We cannot use claims of
+      tradition to continue this. If tradition is the excuse then these traditions
+      need to end.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Children should never be subjected to violence; traditions
+      cannot be used to justify such violence.
+    candidate: null
+    supporting_reason: No one wants to see children hurt. I think anyone would say
+      stopping this violence is important. This is a worldwide issue. I am sure the
+      general consensus is children should never have violence perpetuated against
+      them. We cannot use claims of tradition to continue this. If tradition is the
+      excuse then these traditions need to end.
+    support_relation: The presented moral stance and universal consensus are used
+      to support the conclusion that child violence must end and that tradition is
+      an invalid excuse.
+    label_justification: The argument does not commit a logical fallacy; it simply
+      dismisses an appeal to tradition and appeals to a universal moral consensus.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - No one wants to see children hurt. I think anyone would say stopping this violence
+      is important. This is a worldwide issue. I am sure the general consensus is
+      children
+    - should never have violence perpetuated against them. We cannot use claims of
+      tradition to continue this. If tradition is the excuse then these traditions
+      need to end.
+  counterargument:
+    decisive_counterargument: 'The argument hinges on the claim that because a presumed
+      general consensus exists that children should never be harmed, we must reject
+      any tradition that justifies violence. This is a classic appeal to the majority
+      or popularity: the reasoning assumes that widespread agreement automatically
+      justifies the conclusion, without providing any substantive evidence that the
+      tradition is harmful or that the consensus is based on a sound analysis. Merely
+      knowing that most people think something is wrong does not, in itself, constitute
+      a valid argument for abandoning the tradition. The argument would be stronger
+      if it addressed the merits of the tradition, the actual harms involved, or provided
+      empirical evidence that the tradition indeed causes harm, rather than relying
+      on presumed consensus.'
+    candidate: Appeal to Majority
+    challenged_inference: Because there is a general consensus that children should
+      never be hurt, we must not allow any tradition that permits violence against
+      them.
+    label_justification: The objection directly highlights that the argument misuses
+      a presumed consensus as justificatory evidence, which is the hallmark of the
+      Appeal to Majority fallacy. It does not merely critique the argument; it points
+      out the specific reasoning error—substituting widespread agreement for logical
+      proof—thereby confirming the fallacy label.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - No one wants to see children hurt. I think anyone would say stopping this violence
+      is important. This is a worldwide issue. I am sure the general consensus is
+      children
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that because there is a general consensus
+    that children should never be harmed, any tradition that permits violence against
+    them must be rejected. This structure – using the presumed majority view as justification
+    for the conclusion – satisfies the required structure for an Appeal to Majority
+    fallacy, supported by the evidence passages T1 and T2.
+  decision_reason: The target uses an assumed general consensus to justify rejecting
+    a tradition, which matches the definition of an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - No one wants to see children hurt. I think anyone would say stopping this violence
+    is important. This is a worldwide issue. I am sure the general consensus is children
+  - should never have violence perpetuated against them. We cannot use claims of tradition
+    to continue this. If tradition is the excuse then these traditions need to end.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4377
+  completion_tokens: 2762
+  total_tokens: 7139
+  wall_time_seconds: 96.35900000002584

@@ -1,0 +1,124 @@
+sample:
+  id: 411:6030
+  article_id: 411
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: The government is in the position to supply all with easy access to the
+    internet. To prohibit that is a violation of their authority.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the government
+    - role: endorsed_claim
+      text: to prohibit that is a violation of their authority
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government is in the position to supply all with easy access to the internet.
+      To prohibit that is a violation of their authority.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The government should provide easy internet access to all,
+      and prohibiting such access is a violation of its authority.
+    candidate: null
+    supporting_reason: Because the government is in a position to supply all with
+      easy access to the internet, denying or prohibiting that access contradicts
+      its legitimate authority to do so.
+    support_relation: The claim that the government can supply easy access is used
+      as the foundation to argue that any prohibition of such supply breaches that
+      fundamental authority.
+    label_justification: The passage states a normative claim based on an assumption
+      about governmental authority; it does not invoke any logical fallacy. Therefore,
+      no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government is in the position to supply all with easy access to the internet.
+      To prohibit that is a violation of their authority.
+  counterargument:
+    decisive_counterargument: Even if the government does have the technical or legal
+      capacity to provide universal internet access, that does not oblige it to do
+      so, nor does it mean that stopping such access violates its authority. Governments
+      routinely exercise their power to restrict certain freedoms or services—such
+      as censoring content for security or public‑order reasons—without that action
+      being a breach of their sovereign authority. The mere assertion that the state
+      could supply easy internet access does not establish a legal or moral requirement
+      to do so, and therefore the claim that prohibiting it constitutes a violation
+      of authority is logically unsupported.
+    candidate: Appeal to Authority
+    challenged_inference: Prohibiting internet access is a violation of government
+      authority.
+    label_justification: The argument relies on the government's authority as a purported
+      justification for claiming that any restriction of internet access violates
+      that authority. It mistakenly treats the state’s capacity to provide access
+      as a binding obligation, thereby improperly invoking authority to support the
+      conclusion. This misuse of the authority premise constitutes an appeal‑to‑authority
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government is in the position to supply all with easy access to the internet.
+      To prohibit that is a violation of their authority.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that because the government has the authority
+    to provide easy internet access, forbidding that access constitutes a violation
+    of their authority. The argument uses the possession of governmental authority
+    as a basis to claim that the prohibition is wrong, treating the government's status
+    itself as evidence that the action is illegitimate. This reliance on the authority
+    of the government for justification matches the definition of an appeal to authority,
+    satisfying the required structural pattern (authority → claim).
+  decision_reason: The TARGET explicitly invokes the government's authority as justification
+    for the claim that prohibiting internet access violates that authority, thereby
+    constituting an appeal to authority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government is in the position to supply all with easy access to the internet.
+    To prohibit that is a violation of their authority.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3871
+  completion_tokens: 4050
+  total_tokens: 7921
+  wall_time_seconds: 265.2820000000065

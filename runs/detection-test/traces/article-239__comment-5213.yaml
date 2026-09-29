@@ -1,0 +1,175 @@
+sample:
+  id: 239:5213
+  article_id: 239
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: If you live in one of those Caribbean areas, I assume you should be more
+    worried about food, violence, shelter, etc, more than you should be worried about
+    climate change. The other things have consequences right now as opposed to the
+    future with climate change. Most of the climate change-related stuff is just predictions!
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: climate change
+    - role: worse_issue
+      text: food, violence, shelter, etc
+    - role: deprioritizing_conclusion
+      text: more worried about food, violence, shelter, etc, than you should be worried
+        about climate change
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: People living in Caribbean areas should prioritize immediate
+      concerns such as food, violence, and shelter over worrying about climate change.
+    candidate: null
+    supporting_reason: The text argues that the impacts of food scarcity, violence,
+      and shelter issues are presently real and pressing, whereas climate change effects
+      are future predictions and therefore less urgent.
+    support_relation: This reasoning is used to justify the claim that immediate concerns
+      outweigh longer‑term climate risks for Caribbean residents.
+    label_justification: No logical fallacy is present; the argument simply presents
+      a preference for addressing present hardships over future predictions.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+  counterargument:
+    decisive_counterargument: Climate change is not a separate, future‑only threat;
+      it is already driving the very food shortages, violence and shelter crises the
+      prompt highlights. Therefore the claim that one should prioritize immediate
+      local problems over climate change is a false dichotomy—the two concerns are
+      not mutually exclusive, and dismissing climate change ignores its present‑day
+      impact.
+    candidate: False Dilemma
+    challenged_inference: You should be more worried about immediate Caribbean concerns
+      than about climate change.
+    label_justification: The target argument presents only two options—immediate local
+      concerns versus climate change—and claims the former should be prioritized.
+      It fails to recognise that the consequences of climate change are already manifest
+      as food insecurity, violence, and shelter problems. This creates an artificial
+      split between the two issues, a classic false dilemma. By showing that climate
+      change directly contributes to the immediate problems mentioned, the counter‑argument
+      demonstrates that the dichotomy is unfounded, thus exposing the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: 'The target explicitly presents a comparative prioritization: the
+      immediate concerns of food, violence, and shelter are framed as more pressing
+      than climate change. This matches the mandatory structure of the appeal to worse
+      problems (identifying a focal issue—climate change—and a worse issue—food, violence,
+      shelter—while arguing that the latter should be deprioritized). The “false dilemma”
+      structure is not directly supported, because the target does not present an
+      exclusive binary choice that forces one to pick only one concern. Hence, Appeal
+      to Worse Problems satisfies its required condition better than False Dilemma.'
+    loser_failure: False Dilemma requires a clear and exclusive two‑option split with
+      a claim that one must be chosen. The target’s statement expresses a recommendation
+      that local issues be prioritized over climate change rather than an obligatory
+      exclusive choice; thus the false dilemma structure is not directly evident.
+      Conversely, Appeal to Worse Problems is fully supported by the text’s content.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you live in one of those Caribbean areas, I assume you should be more worried
+      about food, violence, shelter, etc, more than you should be worried about climate
+      change.
+    - The other things have consequences right now as opposed to the future with climate
+      change. Most of the climate change-related stuff is just predictions!
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target’s structure presents a present‑day pressing issue
+    (food, violence, shelter, etc.) as ‘worse’ and thus more urgent than the future‑oriented
+    concern of climate change—leading to the conclusion that the latter should receive
+    less worry.
+  decision_reason: The target directly argues that immediate problems in Caribbean
+    areas are more important than climate change (“more worried about food, violence,
+    shelter, etc., than you should be worried about climate change”) and labels climate‑change
+    arguments as mere predictions, fitting the pattern of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If you live in one of those Caribbean areas, I assume you should be more worried
+    about food, violence, shelter, etc, more than you should be worried about climate
+    change.
+  - The other things have consequences right now as opposed to the future with climate
+    change. Most of the climate change-related stuff is just predictions!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5415
+  completion_tokens: 4007
+  total_tokens: 9422
+  wall_time_seconds: 262.56299999996554

@@ -1,0 +1,171 @@
+sample:
+  id: 442:6123
+  article_id: 442
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: Why do we take the word and opinions of artists so seriously? If people
+    keep listening to them and basing their opinions off theirs, none of us will have
+    our own way of thinking. Plus, they are all rich and the rich don't have our interests
+    in mind. Why rely on what this one guy says?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: artists
+    - role: observed_property
+      text: rich
+    - role: target_population
+      text: all artists
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why do we take the word and opinions of artists so seriously? If people keep
+      listening to them and basing their opinions off theirs, none of us will have
+      our
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: To dissuade people from taking the word and opinions of artists
+      seriously.
+    candidate: Hasty Generalization
+    supporting_reason: the claim that all artists are rich and that the rich do not
+      have the public’s interests in mind.
+    support_relation: This over‑generalization is used to justify dismissing artists’
+      opinions in order to protect individual independent thinking.
+    label_justification: The argument relies on a sweeping claim about all artists’
+      wealth and motives, which is unsupported by evidence and serves as the basis
+      for the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+  counterargument:
+    decisive_counterargument: The blanket claim that all artists are wealthy—and therefore
+      their viewpoints cannot reflect the interests of ordinary people—rests on unsubstantiated
+      generalization. Wealth status does not automatically determine whether an artist’s
+      message is valuable or aligned with public concerns; many artists, regardless
+      of wealth, speak passionately about human rights, equality, and community issues.
+      Therefore, dismissing their opinions purely on the basis of assumed affluence
+      is an unfounded leap.
+    candidate: False Dilemma
+    challenged_inference: Because artists are rich, their opinions are worthless or
+      do not represent the interests of non‑wealthy people.
+    label_justification: The objection demonstrates that the argument relies on a
+      false dichotomy—assuming that artists are either wealthy and therefore untrustworthy,
+      or not wealthy and therefore trustworthy—without accounting for the possibility
+      that artists can be of varied socioeconomic backgrounds and still hold credible,
+      people‑oriented viewpoints. This mischaracterization aligns with a **False Dilemma**
+      fallacy, as it construes an oversimplified, exclusive choice between wealth
+      and ideological value.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: False Dilemma lacks an exclusive, exhaustive binary choice between
+      options in the target; the argument does not present two mutually exclusive
+      outcomes but rather questions the legitimacy of artists’ opinions and asserts
+      an unfounded claim about all artists’ wealth. Hence a false dilemma is not supported.
+      Hasty Generalization, however, is directly supported by the blanket claim “they
+      are all rich,” which generalizes from an implicit sample (the artists discussed)
+      to the entire population of artists, meeting the fallacy’s structural condition.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why do we take the word and opinions of artists so seriously? If people keep
+      listening to them and basing their opinions off theirs, none of us will have
+      our
+    - own way of thinking. Plus, they are all rich and the rich don't have our interests
+      in mind. Why rely on what this one guy says?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement generalizes that all artists are rich (and
+    that the rich do not have our interests in mind) based on a single example (‘this
+    one guy’) without supporting evidence, matching the structure of a hasty generalization.
+  decision_reason: The TARGET includes an unsupported sweeping claim that all artists
+    are rich, derived from a single anecdotal reference, which satisfies the mandatory
+    structural condition of a hasty generalization. Thus the surviving candidate is
+    accepted.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Why do we take the word and opinions of artists so seriously? If people keep listening
+    to them and basing their opinions off theirs, none of us will have our
+  - own way of thinking. Plus, they are all rich and the rich don't have our interests
+    in mind. Why rely on what this one guy says?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5788
+  completion_tokens: 5242
+  total_tokens: 11030
+  wall_time_seconds: 284.4690000000119

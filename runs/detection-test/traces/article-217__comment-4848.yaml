@@ -1,0 +1,194 @@
+sample:
+  id: 217:4848
+  article_id: 217
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: I understand that everyone wants women to be treated correctly and with
+    respect. We also must listen to them when they speak about the behaviors that
+    they are dealing with from men. With that said, we need to be careful that we
+    don't to our due diligence and investigate these accusations. So these three men
+    who has questionable behaviors should be looked into and dealt with is it is found
+    to be true. So lets listen to all sides and learn the facts of the stories to
+    make sure we get them right.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T1
+    - role: observed_property
+      text: T1
+    - role: target_population
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I understand that everyone wants women to be treated correctly and with respect.
+      We also must listen to them when they speak about the behaviors that they are
+      dealing with
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Investigate and potentially prosecute the three men with questionable
+      behaviors to ensure fair treatment of women.
+    candidate: Appeal to Majority
+    supporting_reason: Everyone wants women to be treated correctly and with respect.
+    support_relation: The majority sentiment “everyone wants women treated correctly”
+      is invoked as justification for pursuing investigations against the alleged
+      men.
+    label_justification: The argument uses a claim that the general consensus or majority
+      desire (women treated correctly) to justify a specific action (investigation).
+      This is the classic Appeal to Majority (Ad Populum), which is a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I understand that everyone wants women to be treated correctly and with respect.
+      We also must listen to them when they speak about the behaviors that they are
+      dealing with
+    - from men. With that said, we need to be careful that we don't to our due diligence
+      and investigate these accusations. So these three men who has questionable behaviors
+      should
+    - be looked into and dealt with is it is found to be true. So lets listen to all
+      sides and learn the facts of the stories to make sure we
+  counterargument:
+    decisive_counterargument: 'The claim that ‘everyone wants women to be treated
+      correctly and with respect’ is used to justify listening to all sides and investigating
+      the accusations against the three men. This relies on an appeal‑to‑majority
+      claim: it assumes that because a purported large group holds a view, that view
+      itself is a valid reason to act. The target provides no evidence that this group
+      really exists or that its preference determines the correct course of action.
+      Therefore the inference that we must proceed based on this supposed majority
+      sentiment lacks substantiation and is a fallacious argument, specifically an
+      appeal to majority.'
+    candidate: Appeal to Majority
+    challenged_inference: The statement that because ‘everyone wants women to be treated
+      correctly and with respect’ implies that investigators should act accordingly
+      is unsupported.
+    label_justification: 'The assistant’s objection shows that the Target uses a generalized
+      claim about a broad group—‘everyone’—to justify its reasoning about investigating
+      the men. This is a classic appeal to majority fallacy: the argument treats the
+      popularity of an opinion as evidence for its truth or as a sufficient basis
+      for action, which is precisely the reasoning defect identified.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I understand that everyone wants women to be treated correctly and with respect.
+      We also must listen to them when they speak about the behaviors that they are
+      dealing with
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Majority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: 'The target explicitly appeals to the idea that a broad group—“everyone”—wants
+      women treated correctly and with respect, and then uses that widespread sentiment
+      to justify investigating and acting against the three men. This is a classic
+      appeal to majority, where the popularity of a view is treated as reason to act.
+      The structure of the argument is: majority view → justification for action,
+      without any evidence that the majority actually exists or that its preference
+      constitutes a rational basis for the specific action. The target does not present
+      a sample or a portion of the population that is being generalized to the whole
+      (the structural condition for hasty generalization). Hence the mandatory structural
+      condition for headline “appeal to majority” is directly satisfied, whereas the
+      condition for hasty generalization is not met, because no explicit sample →
+      claim transition is present.'
+    loser_failure: Hasty generalization requires an explicit sample or observation
+      that is then generalized to a whole, but the target makes a blanket claim about
+      “everyone” without providing or referencing a specific sample. Therefore the
+      evidence does not support the structural prerequisites of a hasty generalization.
+      The target’s use of the majority sentiment itself is the place of the appeal
+      to majority.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I understand that everyone wants women to be treated correctly and with respect.
+      We also must listen to them when they speak about the behaviors that they are
+      dealing with
+    - from men. With that said, we need to be careful that we don't to our due diligence
+      and investigate these accusations. So these three men who has questionable behaviors
+      should
+    - be looked into and dealt with is it is found to be true. So lets listen to all
+      sides and learn the facts of the stories to make sure we
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target uses a claim that a generalized group (“everyone”)
+    wants women to be treated correctly—an appeal to majority— to justify the recommendation
+    that accusations against three men be investigated and addressed.
+  decision_reason: The passage states that because everyone wants women treated correctly,
+    we must listen to women and investigate alleged misconduct, thereby using a majority
+    claim to justify action, which meets the structural requirements for an Appeal
+    to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I understand that everyone wants women to be treated correctly and with respect.
+    We also must listen to them when they speak about the behaviors that they are
+    dealing with
+  - from men. With that said, we need to be careful that we don't to our due diligence
+    and investigate these accusations. So these three men who has questionable behaviors
+    should
+  - be looked into and dealt with is it is found to be true. So lets listen to all
+    sides and learn the facts of the stories to make sure we
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6663
+  completion_tokens: 4101
+  total_tokens: 10764
+  wall_time_seconds: 334.219000000041

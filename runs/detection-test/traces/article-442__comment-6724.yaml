@@ -1,0 +1,158 @@
+sample:
+  id: 442:6724
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: Why should we listen to this musician?  What does he know about how a country
+    should be run?  I understand having sympathy for those who are abused and neglected
+    and am not belittling it, but let the real experts handle it. Let's leave these
+    delicate topics to policy makers who invest their lives working on these issues.
+  target: I completely agree that many celebs don't have fully accurate information.
+    Think about their influence they have in being a positive force for change. Dr.
+    Mary Monroe, a well known psychologist and speaker, had a lecture on this topic
+    not too long ago and said that even if a celeb doesn't have all the information,
+    their words will cause someone to want to have that information. Of course, it's
+    important to bring unbiased information that is accurate, but even if starting
+    the conversation could lead that "one person" who could bring change, wouldn't
+    that be worth it? The ripple effect that starts from a single stone is always
+    massive, don't you think?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Dr. Mary Monroe
+    - role: endorsed_claim
+      text: even if a celeb doesn't have all the information, their words will cause
+        someone to want to have that information, leading to potential change
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I completely agree that many celebs don't have fully accurate information. Think
+      about their influence they have in being a positive force for change. Dr. Mary
+      Monroe, a well known
+    - psychologist and speaker, had a lecture on this topic not too long ago and said
+      that even if a celeb doesn't have all the information, their words will cause
+      someone
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Celebrities, even with incomplete knowledge, can spark a ripple
+      effect leading people to seek accurate information, making their influence worth
+      it.
+    candidate: Appeal to Authority
+    supporting_reason: Dr. Mary Monroe, a well‑known psychologist and speaker, claimed
+      that even if a celebrity lacks full information, their words will motivate someone
+      to pursue accurate knowledge.
+    support_relation: The authority’s endorsement is used as the justification for
+      believing the celebrity’s influence is beneficial and worth engaging in policy
+      discussions.
+    label_justification: The argument relies on a presumed expert opinion (Dr. Monroe)
+      to support the claim, constituting an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I completely agree that many celebs don't have fully accurate information. Think
+      about their influence they have in being a positive force for change. Dr. Mary
+      Monroe, a well known
+    - psychologist and speaker, had a lecture on this topic not too long ago and said
+      that even if a celeb doesn't have all the information, their words will cause
+      someone
+    - to want to have that information. Of course, it's important to bring unbiased
+      information that is accurate, but even if starting the conversation could lead
+      that "one person" who could
+  counterargument:
+    decisive_counterargument: While Dr. Monroe’s lecture suggests celebrities can
+      spark discussion, the target argues the ripple effect from a single inaccurate
+      comment is automatically beneficial. This reasoning treats an expert’s statement
+      as conclusive proof for a general claim, without showing that all such celebrity
+      remarks actually lead to unbiased, widespread knowledge or meaningful change.
+      Thus the claim is supported not by evidence but by appealing to an authority’s
+      perceived credibility in a context where her expertise on this specific influence
+      is unclear.
+    candidate: null
+    challenged_inference: Even if a celebrity does not have all the information, their
+      words can generate a massive ripple effect that ultimately leads to significant
+      change by inspiring at least one person.
+    label_justification: The objection directly targets the fallacy of 'Appeal to
+      Authority' by pointing out that citing Dr. Mary Monroe’s lecture on psychology
+      is used as decisive support for the claim that celebrity influence inevitably
+      leads to positive outcomes, which is not logically warranted. The argument lacks
+      any demonstration that the authority’s statement applies to this specific scenario.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I completely agree that many celebs don't have fully accurate information. Think
+      about their influence they have in being a positive force for change. Dr. Mary
+      Monroe, a well known
+    - psychologist and speaker, had a lecture on this topic not too long ago and said
+      that even if a celeb doesn't have all the information, their words will cause
+      someone
+    - to want to have that information. Of course, it's important to bring unbiased
+      information that is accurate, but even if starting the conversation could lead
+      that "one person" who could
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target cites Dr. Mary Monroe—an expert in psychology—as
+    the source of the claim that celebrities’ words inspire others to seek accurate
+    information, using that endorsement as the sole justification for the argument
+    that celebrities can foster positive change.
+  decision_reason: The argument employs Dr. Monroe’s testimony as authorititative
+    proof that celebrity influence is beneficial, fitting the structure of an Appeal
+    to Authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I completely agree that many celebs don't have fully accurate information. Think
+    about their influence they have in being a positive force for change. Dr. Mary
+    Monroe, a well known
+  - psychologist and speaker, had a lecture on this topic not too long ago and said
+    that even if a celeb doesn't have all the information, their words will cause
+    someone
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5326
+  completion_tokens: 2584
+  total_tokens: 7910
+  wall_time_seconds: 80.81299999996554

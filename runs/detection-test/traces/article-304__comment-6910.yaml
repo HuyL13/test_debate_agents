@@ -1,0 +1,132 @@
+sample:
+  id: 304:6910
+  article_id: 304
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: They are already making progress, much more so than other countries are.
+    Why try to push harder which will just lead to animosity and will end up being
+    counterproductive? Either take what progress you're getting now and continue on
+    this pace, or push harder and risk losing it all. The balance approach of just
+    going at the current pace will yield the best results and result in fewer enemies.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: take what progress you're getting now and continue on this pace
+    - role: alternative_b
+      text: push harder and risk losing it all
+    - role: exhaustiveness_commitment
+      text: These are the only options available
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The argument concludes that one should maintain the current
+      pace of progress rather than push harder, because the latter would produce animosity
+      and be counterproductive.
+    candidate: False Dilemma
+    supporting_reason: The target presents a binary choice—continue as is or push
+      harder—a framing that excludes other possible strategies and thus commits to
+      an artificial two‑option structure.
+    support_relation: The binary framing is used to justify selecting the ‘maintain
+      current pace’ option by implying it is the only viable alternative that yields
+      positive outcomes.
+    label_justification: Presenting an exclusive dichotomy that attempts to exhaust
+      all options constitutes a false dilemma, thereby misguiding the reader toward
+      the advocated conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are already making progress, much more so than other countries are. Why
+      try to push harder which will just lead to animosity and will end up being counterproductive?
+      Either
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+    - yield the best results and result in fewer enemies.
+  counterargument:
+    decisive_counterargument: The claim forces an exclusive binary choice between
+      keeping the status quo or pushing harder, implying that any effort to intensify
+      will inevitably wipe out progress. In practice, a calibrated, incremental approach
+      could both sustain gains and reduce animosity, showing that the situation is
+      not limited to just the two options presented.
+    candidate: False Dilemma
+    challenged_inference: 'The argument asserts that the only possible courses of
+      action are: continue the current pace, or push harder and risk losing all progress,
+      implying that these are the sole viable options.'
+    label_justification: By presenting only two mutually exclusive alternatives—maintain
+      the current pace or push harder with disastrous consequences—the argument commits
+      the False Dilemma fallacy. It ignores other practical strategies that could
+      balance progress and engagement.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The argument presents only two alternatives—continue at the
+    current pace or push harder and risk losing all progress—and explicitly frames
+    them as the exclusive options, thereby committing the false dilemma fallacy.
+  decision_reason: The target text contains the sentence ‘Either take what progress
+    you're getting now and continue on this pace, or push harder and risk losing it
+    all. The balance approach of just going at the current pace will…’ which establishes
+    an exhaustive dichotomy and the claim that no other options exist, satisfying
+    the structural requirements of a false dilemma.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - take what progress you're getting now and continue on this pace, or push harder
+    and risk losing it all. The balance approach of just going at the current pace
+    will
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4684
+  completion_tokens: 2747
+  total_tokens: 7431
+  wall_time_seconds: 91.76500000001397

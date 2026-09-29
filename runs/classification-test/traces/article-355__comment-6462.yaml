@@ -1,0 +1,135 @@
+sample:
+  id: 355:6462
+  article_id: 355
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: This is a great message and I hope everyone takes it to heart. As our greatest
+    minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+    And it's not an anti-man thing at all. As Laura Bates pointed out, it's not a
+    men versus women issue. It's a people versus prejudice issue.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: our greatest minds, Laura Bates
+    - role: endorsed_claim
+      text: sexism and discrimination is bad for everyone
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The message is great and should be taken to heart.
+    candidate: Appeal to Authority
+    supporting_reason: The claim that sexism and discrimination are bad for everyone,
+      not an anti‑man stance, and not a men‑vs‑women issue is attributed to ‘our greatest
+      minds’ and Laura Bates.
+    support_relation: Using authority’s statements as justification for the message’s
+      worthiness and correctness.
+    label_justification: The argument appeals to the opinions of authority figures
+      (Laura Bates and an unnamed group of ‘greatest minds’) to substantiate the claim
+      that the message is good and should be embraced. This is a flat appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+  counterargument:
+    decisive_counterargument: Citing authorities does not by itself prove sexism harms
+      everyone; without empirical evidence or concrete examples, the argument relies
+      solely on the credibility of the speakers.
+    candidate: Appeal to Authority
+    challenged_inference: That sexism and discrimination are bad for everyone, inferred
+      from the statements of unspecified 'greatest minds' and from Laura Bates.
+    label_justification: The objection directly addresses the fact that the claim
+      is justified only by appeals to authority rather than presented evidence, which
+      is the defining feature of the Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument uses the statements of 'our greatest minds' and
+    Laura Bates to support the claim that sexism and discrimination are bad for everyone,
+    thereby committing the Appeal to Authority fallacy. The evidence IDs supporting
+    this analysis are T1 and T2.
+  decision_reason: The quotation explicitly relies on authority figures’ statements
+    to justify the claim, meeting the structural requirement of the Appeal to Authority
+    fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is a great message and I hope everyone takes it to heart. As our greatest
+    minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+    And it's
+  - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+    women issue. It's a people versus prejudice issue.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4485
+  completion_tokens: 2992
+  total_tokens: 7477
+  wall_time_seconds: 89.31299999999464

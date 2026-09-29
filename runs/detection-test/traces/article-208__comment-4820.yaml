@@ -1,0 +1,133 @@
+sample:
+  id: 208:4820
+  article_id: 208
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: The use of natural elements in her work is inspiring. More artists should
+    focus on using the things the world has gifted us instead of all these modern
+    day, computer assisted works. Art is so much more meaningful when it's made of
+    the raw materials the Earth has gifted us rather than some synthetic stuff.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: The use of natural elements in her work is inspiring. More artists should
+        focus on using the things the world has gifted us instead of all these modern
+        day, computer assisted works.
+    - role: evaluative_conclusion
+      text: Art is so much more meaningful when it's made of the raw materials the
+        Earth has gifted us rather than some synthetic stuff.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The use of natural elements in her work is inspiring. More artists should focus
+      on using the things the world has gifted us instead of all these modern day,
+      computer
+    - assisted works. Art is so much more meaningful when it's made of the raw materials
+      the Earth has gifted us rather than some synthetic stuff.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Artists should focus on using natural materials rather than
+      modern, computer-assisted or synthetic materials.
+    candidate: Appeal to Nature
+    supporting_reason: Art is so much more meaningful when it's made of the raw materials
+      the Earth has gifted us.
+    support_relation: the reason is offered to justify why artists should prefer natural
+      materials; it frames natural materials as inherently better.
+    label_justification: The argument relies on the perception that natural materials
+      are intrinsically good or more valuable, using this appeal to nature to support
+      the recommendation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The use of natural elements in her work is inspiring. More artists should focus
+      on using the things the world has gifted us instead of all these modern day,
+      computer
+    - assisted works. Art is so much more meaningful when it's made of the raw materials
+      the Earth has gifted us rather than some synthetic stuff.
+  counterargument:
+    decisive_counterargument: Meaningfulness of art depends on intent, context, and
+      audience interpretation, not on whether the medium is natural or synthetic.
+      Synthetic materials can convey powerful ideas and aesthetic possibilities just
+      as effectively as natural ones, and many celebrated works are made entirely
+      from synthetic media.
+    candidate: Appeal to Nature
+    challenged_inference: Art is more meaningful when made of raw, natural materials
+      from the Earth than when made of synthetic materials.
+    label_justification: The target assert that naturalness automatically confers
+      greater meaning on art is an appeal to nature. It presumes that a property of
+      the medium (natural/raw) is inherently superior, ignoring other factors that
+      contribute to artistic value. This precisely matches the definition of the Appeal
+      to Nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The use of natural elements in her work is inspiring. More artists should focus
+      on using the things the world has gifted us instead of all these modern day,
+      computer
+    - assisted works. Art is so much more meaningful when it's made of the raw materials
+      the Earth has gifted us rather than some synthetic stuff.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The passage asserts that natural materials are intrinsically
+    better and more meaningful, using the status of being natural as the sole justification
+    for preferring them over synthetic or computer-assisted materials, which matches
+    the structural definition of an Appeal to Nature fallacy.
+  decision_reason: The target explicitly links the naturalness of materials with their
+    superior value, rendering the argument an Appeal to Nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The use of natural elements in her work is inspiring. More artists should focus
+    on using the things the world has gifted us instead of all these modern day, computer
+  - assisted works. Art is so much more meaningful when it's made of the raw materials
+    the Earth has gifted us rather than some synthetic stuff.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4502
+  completion_tokens: 2208
+  total_tokens: 6710
+  wall_time_seconds: 55.5

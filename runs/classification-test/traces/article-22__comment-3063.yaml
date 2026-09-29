@@ -1,0 +1,144 @@
+sample:
+  id: 22:3063
+  article_id: 22
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: There is too much emotional pleasing in this article simply because most
+    people allegedly believe in it. This isn't even true butt the article tries to
+    frame it that way in a soft manner. Ot tries to act as though the majority are
+    for it but this is merely the case at best with the tiny minority of people involved.
+    This is a problem with all special interests. The average person doesn't care
+    enough to be this involved.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+    - This is a problem with all special interests. The average person doesn't care
+      enough to be this involved.
+    candidate: null
+  goal:
+    conclusion_or_goal: The article’s claim that “most people believe in it” is misrepresented
+      and used to lend emotional appeal, making the argument fallacious.
+    candidate: Appeal to Majority
+    supporting_reason: The article relies on the assertion that a majority of people
+      support the issue to justify its emotional framing.
+    support_relation: The asserted majority belief is used as a premises to legitimize
+      emotional persuasion, rather than presenting substantive evidence.
+    label_justification: A claim that widespread approval exists, used to persuade
+      readers, matches the definition of an Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+  counterargument:
+    decisive_counterargument: The claim that the article’s content is overly emotional
+      simply because it asserts that most people allegedly believe the underlying
+      idea is unfounded. No part of the article demonstrates a causal link between
+      the supposed majority belief and the use of emotional language; moreover, the
+      statement that a majority actually exists is presented without evidence. Thus,
+      the inference that the article is ‘too emotional’ rests on an unsupported appeal
+      to popularity.
+    candidate: Appeal to Majority
+    challenged_inference: The article is overly emotional because it claims that a
+      majority of people believe in the topic, thereby suggesting that the emotional
+      framing is justified by majority belief.
+    label_justification: The argument elevates the alleged majority belief to justify
+      the emotional quality of the article, presuming that the viewpoint of the mass
+      is a reason to accept the emotional framing. This reflects the classic logical
+      pattern of appealing to the popularity of a view as evidence for its merit,
+      thus constituting an Appeal to Majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is too much emotional pleasing in this article simply because most people
+      allegedly believe in it. This isn't even true butt the article tries to frame
+      it that way
+    - in a soft manner. Ot tries to act as though the majority are for it but this
+      is merely the case at best with the tiny minority of people involved.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target passage does not present the popularity claim as
+    evidence to support or justify a claim. It merely criticizes an article that allegedly
+    uses a majority belief claim, and provides no explicit argument that the majority
+    belief serves as justification. Consequently, the essential structure required
+    for an Appeal to Majority fallacy is absent, so the classification should not
+    be accepted.
+  decision_reason: The target does not contain a premise that the majority’s belief
+    justifies the emotional framing; it merely refutes the majority claim. Therefore,
+    the Appeal to Majority fault is not demonstrably present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There is too much emotional pleasing in this article simply because most people
+    allegedly believe in it. This isn't even true butt the article tries to frame
+    it that way
+  - in a soft manner. Ot tries to act as though the majority are for it but this is
+    merely the case at best with the tiny minority of people involved.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4678
+  completion_tokens: 3663
+  total_tokens: 8341
+  wall_time_seconds: 150.10899999999674

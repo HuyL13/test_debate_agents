@@ -1,0 +1,163 @@
+sample:
+  id: 387:5959
+  article_id: 387
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: At least they have some freedom of press. What about countries where media
+    has no freedom at all?  This is important for media freedom however, this is just
+    not a problem in one country. We should make this a goal for freedom of press
+    in as many countries instead of focusing on just one.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At least they have some freedom of press. What about countries where media has
+      no freedom at all?  This is important for media freedom however, this is just
+      not a
+    - problem in one country. We should make this a goal for freedom of press in as
+      many countries instead of focusing on just one.
+    candidate: null
+  goal:
+    conclusion_or_goal: Expand the goal of press freedom to many countries instead
+      of focusing on just one.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Highlighting that many countries lack press freedom makes it
+      clear this is not a problem confined to a single nation, thereby justifying
+      a broader objective.
+    support_relation: used to justify the broader goal
+    label_justification: The argument does not present an argument from a single case,
+      nor does it propose a false choice between only two options. The speaker merely
+      compares the situation in one nation with others to strengthen the case for
+      a more expansive aim; this is a legitimate and non‑fallacious line of reasoning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At least they have some freedom of press. What about countries where media has
+      no freedom at all?  This is important for media freedom however, this is just
+      not a
+    - problem in one country. We should make this a goal for freedom of press in as
+      many countries instead of focusing on just one.
+  counterargument:
+    decisive_counterargument: While media freedom is essential, the claim that we
+      must broaden the goal to many countries instead of concentrating on one does
+      not follow logically. It presents only two alternatives—focus on a single country
+      or expand to many—ignoring other credible strategies such as targeted reforms
+      in that one country or collaborative regional initiatives. Hence the argument
+      relies on a false dichotomy rather than a justified inference.
+    candidate: False Dilemma
+    challenged_inference: The inference that we should expand the goal to freedom
+      of press in as many countries as possible instead of focusing on just one country.
+    label_justification: The objection demonstrates that the reasoning narrows the
+      available options to two extreme choices, sidelining other feasible approaches,
+      which is precisely the hallmark of a false dilemma.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At least they have some freedom of press. What about countries where media has
+      no freedom at all?  This is important for media freedom however, this is just
+      not a
+    - problem in one country. We should make this a goal for freedom of press in as
+      many countries instead of focusing on just one.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: False Dilemma
+    loser_failure: The passage never presents a strict binary choice or claims that
+      the only options are focusing on one country or expanding to all. It merely
+      criticizes the narrow focus by highlighting more problematic cases, without
+      ordering other strategies as mutually exclusive. Because a false dilemma requires
+      the writer to establish an exclusive, exhaustive set of alternatives, the argument
+      does not satisfy that structural condition.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - At least they have some freedom of press. What about countries where media has
+      no freedom at all?  This is important for media freedom however, this is just
+      not a
+    - problem in one country. We should make this a goal for freedom of press in as
+      many countries instead of focusing on just one.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not present an argument that a more
+    serious or larger problem outweighs the issue at hand, nor does it frame the current
+    situation as trivial due to a worse problem. Therefore the structural condition
+    for an Appeal to Worse Problems is not met, and no fallacious inference can be
+    identified in the target.
+  decision_reason: No surviving candidate meets the required structural criteria for
+    a fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - At least they have some freedom of press. What about countries where media has
+    no freedom at all?  This is important for media freedom however, this is just
+    not a
+  - problem in one country. We should make this a goal for freedom of press in as
+    many countries instead of focusing on just one.
+  verified: false
+  rejection_reason: No surviving candidate meets the required structural criteria
+    for a fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5539
+  completion_tokens: 3282
+  total_tokens: 8821
+  wall_time_seconds: 245.43700000000536

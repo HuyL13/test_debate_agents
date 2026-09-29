@@ -1,0 +1,189 @@
+sample:
+  id: 133:4596
+  article_id: 133
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: I would think the government of Azerbaijan has more important issues than
+    arresting a civil rights journalist who had not been in the country for awhile.
+    All they have done is create even bigger issues over one that did not exist to
+    begin with. They really need to get their act together.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: arresting a civil rights journalist who had not been in the country for
+        a while
+    - role: worse_issue
+      text: more important issues
+    - role: deprioritizing_conclusion
+      text: They really need to get their act together
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The speaker argues that the Azerbaijani government should
+      not arrest the civil rights journalist, claiming that other matters are more
+      important and that the arrest has produced bigger problems.
+    candidate: null
+    supporting_reason: The statement that the government has more important issues
+      than arresting the journalist.
+    support_relation: This reason is used to justify the criticism of the arrest,
+      asserting that the act is unwarranted and disproportionate.
+    label_justification: The argument does not employ any of the specified fallacies;
+      it presents a straightforward, non‑fallacious critique.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+  counterargument:
+    decisive_counterargument: The target assumes from a single arrest that the Azerbaijani
+      government’s priority is misplaced and that this act alone has amplified a non‑existent
+      problem, yet this leap relies on one isolated incident to generalize about the
+      government’s conduct and priorities. It therefore commits a hasty generalization
+      by treating a single action as evidence of a broader failing without any systematic
+      evidence. If the government did arrest a civil‑rights journalist, the justification
+      for that act, the extent of the alleged ‘bigger problems’ it causes, or any
+      broader pattern in its decision‑making remains unexamined. Thus the reasoning
+      that the arrest indicates the government has more important issues and has created
+      bigger problems is unsupported and can be rejected.
+    candidate: Hasty Generalization
+    challenged_inference: <The assertion that Azerbaijan’s arrest of a lawyer is a
+      sign of misplaced priorities and that it has created larger problems than existed.>
+    label_justification: 'The argument jars a single incident into a sweeping claim
+      about the entire government’s priorities, a textbook example of a hasty generalization:
+      an isolated case is taken as proof of an entire class’s characteristics. The
+      counterargument demonstrates why this reasoning is insufficiently supported,
+      thus justifying the label. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: 'The target text explicitly presents the structure of an Appeal
+      to Worse Problems: it states that “the government of Azerbaijan” has “more important
+      issues” (the worse issue) when compared to “arresting a civil‑rights journalist”
+      (the focal issue). This directly satisfies the mandatory structure of this fallacy—presenting
+      a worse problem to de‑prioritize the focal issue. In contrast, while the text
+      could be seen as a hasty generalization (saying that one arrest indicates overall
+      misplaced priorities), it does not clearly provide the necessary explicit sample-to-generalization
+      pattern that defines a Hasty Generalization, and its evidence does not satisfy
+      that structure as directly as it does for Appeal to Worse Problems. Therefore,
+      Appeal to Worse Problems is the correct labeling.'
+    loser_failure: Hasty Generalization fails because the target does not explicitly
+      present a small sample explicitly leading to a sweeping general rule; rather,
+      it merely compares two aspects of the issue and de‑prioritizes the focal one
+      by pointing to a more important problem. The structural proof for Hasty Generalization
+      is not directly evident.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I would think the government of Azerbaijan has more important issues than arresting
+      a civil rights journalist who had not been in the country for awhile. All they
+      have done
+    - is create even bigger issues over one that did not exist to begin with. They
+      really need to get their act together.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target contrasts the arrest of the journalist with a broader
+    set of 'more important issues', implying the former is less significant; this
+    is an instance of appealing to a worse problem.
+  decision_reason: The target explicitly contrasts a more serious issue (arresting
+    the journalist) with 'more important issues', implying the arrest is less critical—a
+    classic appeal to worse problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I would think the government of Azerbaijan has more important issues than arresting
+    a civil rights journalist who had not been in the country for awhile. All they
+    have done
+  - is create even bigger issues over one that did not exist to begin with. They really
+    need to get their act together.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5515
+  completion_tokens: 4308
+  total_tokens: 9823
+  wall_time_seconds: 177.21799999999348

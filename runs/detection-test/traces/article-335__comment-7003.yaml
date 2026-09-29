@@ -1,0 +1,108 @@
+sample:
+  id: 335:7003
+  article_id: 335
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: Most people know the massacre was a travesty. Any government to do that
+    should be removed. Time will judge the perpetrators of tragic killings.
+  target: Most residents of the area don't feel so harshly on what happened. Perhaps
+    their views should be listened to as well. Everyone should recognize there are
+    differing views out their and should be given a fair hearing.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+    - and should be given a fair hearing.
+    candidate: null
+  goal:
+    conclusion_or_goal: Everyone should recognize there are differing views and be
+      given a fair hearing.
+    candidate: null
+    supporting_reason: Most residents of the area don't feel as harshly about what
+      happened; therefore their perspectives should be listened to, which supports
+      the claim that differing views deserve a fair hearing.
+    support_relation: mechanism_supports_goal
+    label_justification: The target makes a legitimate claim of fairness based on
+      the majority’s differing feelings; it does not employ a faulty reasoning pattern.
+      No logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+    - and should be given a fair hearing.
+  counterargument:
+    decisive_counterargument: The claim that the majority of residents’ views must
+      be listened to rests solely on the fact that they are the majority, not on any
+      substantive argument about the truth or merit of those views. Believing that
+      because a large number of people hold a certain perspective it should be automatically
+      accorded special consideration or priority is a classic appeal to majority.
+      It substitutes the size of the group for evidence that the perspective is right
+      or that it deserves unequal weight.
+    candidate: Appeal to Majority
+    challenged_inference: Because most residents do not feel harshly about the massacre,
+      we should listen to and give due weight to their views.
+    label_justification: The objection demonstrates that the argument uses the majority
+      status of the residents’ opinion as its sole justificatory basis, which is precisely
+      the definition of an appeal to majority fallacy. No other form of fallacy (hasty
+      generalization, slippery slope, etc.) is invoked or relevant here.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most residents of the area don't feel so harshly on what happened. Perhaps their
+      views should be listened to as well. Everyone should recognize there are differing
+      views out their
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2796
+  completion_tokens: 1651
+  total_tokens: 4447
+  wall_time_seconds: 66.96899999998277

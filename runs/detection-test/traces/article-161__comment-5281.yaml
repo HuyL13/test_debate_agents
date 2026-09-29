@@ -1,0 +1,158 @@
+sample:
+  id: 161:5281
+  article_id: 161
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Because the accord has worked for thirty years, there is no need to believe
+    that it was right or correct in its aims. The new act is just as bad but people
+    seem to have a real issue with it now. People always lean on what is familar so
+    they tend to want to dismiss the new act. The old accord sought to expel refugees
+    based on religion and did so while the new act allows these people to stay and
+    change the culture. I think that people are upset because they had a framework
+    for years on how to deal with refugees and now that may be gone with this new
+    act. Perhaps we need to take a step back and look at the past accord and see how
+    bad this was for refugees and realize that we have evolved beyond this and should
+    accept people regardless. the new act does not seek to change the country or its
+    traditions but to merely allow for asylum seekers to have a home. Shouldn't this
+    be our new aim for the country?
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Because the accord has worked for thirty years
+    - role: preservation_conclusion
+      text: the new act is just as bad and there is no need to consider it
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: To accept the new act and argue that dismissing it due to
+      unfamiliarity is unjustified, thereby advocating for inclusion of refugees.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that people always lean on what is familiar so they
+      tend to want to dismiss the new act.
+    support_relation: The generalization about people’s preference for familiar practices
+      is used as a justification for rejecting the dismissal of the new act.
+    label_justification: The statement asserts a universal claim about all people’s
+      behavior without evidence and is used to support the argument that dismissing
+      the new act is unwarranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - but people seem to have a real issue with it now. People always lean on what
+      is familar so they tend to want to dismiss the new act. The old
+  counterargument:
+    decisive_counterargument: The argument mistakenly assumes that a policy’s long‑term
+      success automatically makes it morally right or that its shortcomings do not
+      matter; it conflates effectiveness with ethical justification.  Just because
+      the old accord functioned for thirty years does not negate its wrongful expulsion
+      of refugees or prove that the new act is equally bad.  Moral evaluation requires
+      more than tradition or longevity – the new act may be more just even if it is
+      unfamiliar. The reasoning therefore commits an appeal to tradition by using
+      longevity as evidence of correctness.
+    candidate: Appeal to Tradition
+    challenged_inference: Because the accord worked for thirty years, there is no
+      need to believe that it was right or correct in its aims, so the new act is
+      just as bad.
+    label_justification: The objection directly targets the fallacy that standardizing
+      success as proof of moral soundness, which is the core of an appeal to tradition.  It
+      refutes the premise that longevity alone can establish a policy’s ethical validity,
+      which is the specific reasoning failure the target argument presents.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Hasty Generalization
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: Hasty Generalization fails to meet its required structural condition
+      because the target does not present an explicit sample or specific case that
+      the speaker generalizes from; it merely asserts a sweeping statement about “people
+      always lean on what is familiar” without providing evidence or a demonstrably
+      limited group to justify the universal claim.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Because the accord has worked for thirty years, there is no need to believe
+      that it was right or correct in its aims. The new act is just as bad
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument claims that because the older accord has operated
+    for thirty years, it was right and therefore the new act is likewise just as bad;
+    this logical structure of invoking persistence for correctness and deriving a
+    preservation conclusion satisfies the criteria for an appeal to tradition.
+  decision_reason: The target explicitly attributes the tradition of the old accord’s
+    thirty‑year operation as proof of its correctness, then infers that the new act
+    must be just as bad and that no need exists to evaluate it. This satisfies the
+    structure of an appeal to tradition and the underlying fallacy is therefore present.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Because the accord has worked for thirty years, there is no need to believe that
+    it was right or correct in its aims. The new act is just as bad
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 7759
+  completion_tokens: 5777
+  total_tokens: 13536
+  wall_time_seconds: 437.76600000000326

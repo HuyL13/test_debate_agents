@@ -1,0 +1,126 @@
+sample:
+  id: 2:3003
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: While it is very wholesome of the White Rose movement to be pushing for
+    solidarity between Muslims and Buddhists, I think we need to make sure we are
+    getting to the root of the actual issue here. Peace is great but what good does
+    it do while our planet is dying? Climate change is real, and so I think we should
+    be checking into our leaders to see if they are looking out for what's best for
+    all, and not just for themselves.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - While it is very wholesome of the White Rose movement to be pushing for solidarity
+      between Muslims and Buddhists, I think we need to make sure we are getting to
+    - the root of the actual issue here. Peace is great but what good does it do while
+      our planet is dying? Climate change is real, and so I think we
+    - should be checking into our leaders to see if they are looking out for what's
+      best for all, and not just for themselves.
+    candidate: null
+  goal:
+    conclusion_or_goal: We should be checking into our leaders to see if they are
+      looking out for what's best for all, and not just for themselves.
+    candidate: null
+    supporting_reason: Climate change is real.
+    support_relation: reason supports conclusion
+    label_justification: The claim that climate change is real is used to justify
+      scrutiny of leaders, which is a legitimate reasoning step rather than a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the root of the actual issue here. Peace is great but what good does it do while
+      our planet is dying? Climate change is real, and so I think we
+    - should be checking into our leaders to see if they are looking out for what's
+      best for all, and not just for themselves.
+  counterargument:
+    decisive_counterargument: The argument mistakenly treats solidarity work as a
+      rival to climate action. In reality, building trust and cooperation between
+      Muslims and Buddhists can create the social cohesion needed to mobilize communities
+      for climate‑change mitigation and adaptation. Focusing on human‑rights solidarity
+      does not preclude addressing climate change; both agendas can reinforce each
+      other rather than compete.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Peace and solidarity between Muslims and Buddhists are less
+      important or irrelevant because climate change is a greater threat.
+    label_justification: The target undermines the value of solidarity by elevating
+      climate change as a ‘worse’ problem and thereby suggesting that attention to
+      the former should be abandoned. This is precisely the structure of an Appeal
+      to Worse Problems, where a more serious issue is used to discredit or diminish
+      the importance of another.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the root of the actual issue here. Peace is great but what good does it do while
+      our planet is dying? Climate change is real, and so I think we
+    - should be checking into our leaders to see if they are looking out for what's
+      best for all, and not just for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly lowers the importance of peace and solidarity
+    by presenting climate change as a more pressing issue, thereby implying that attention
+    to the former is less important or should be abandoned. This is the key structural
+    feature of an Appeal to Worse Problems.
+  decision_reason: The argument uses climate change as a more serious problem to diminish
+    the value of solidarity between Muslims and Buddhists, satisfying the fallacy’s
+    definition.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - the root of the actual issue here. Peace is great but what good does it do while
+    our planet is dying? Climate change is real, and so I think we
+  - should be checking into our leaders to see if they are looking out for what's
+    best for all, and not just for themselves.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4458
+  completion_tokens: 3593
+  total_tokens: 8051
+  wall_time_seconds: 195.10899999999674

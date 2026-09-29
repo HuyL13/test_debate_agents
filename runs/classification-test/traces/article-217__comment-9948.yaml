@@ -1,0 +1,225 @@
+sample:
+  id: 217:9948
+  article_id: 217
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: It seems like this area of the world has had years and years where this
+    kind of behavior was tolerated and things ran smoothly. I see no reason why anyone
+    would want to make drastic changes just to suit some special interest group. Even
+    if people may question them due to their accusations that does not necessarily
+    mean that they would make bad leaders and that is what past elections have allowed
+    people to decide about the character of leader they want. Look at the success
+    of Bill Clinton in the US. He is hailed a great American president that served
+    two terms after having multiple charges of improper relationships with women.
+    "If the wagon runs fine, why change the wheels?", like my grandfather used to
+    say.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T3
+    - T4
+    slots:
+    - role: authority
+      text: Bill Clinton
+    - role: endorsed_claim
+      text: If the wagon runs fine, why change the wheels?
+    structure_complete: true
+    structure_type: authority_to_claim
+    evidence_spans:
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+    candidate: Appeal to Authority
+  goal:
+    candidate: Appeal to Tradition
+    conclusion_or_goal: The argument claims there is no need for drastic changes in
+      the area’s behavior, suggesting that maintaining the status quo is preferable.
+    evidence_ids:
+    - T1
+    - T3
+    label_justification: The argument relies on the fact that long-standing practice
+      has not caused problems, which is a classic Appeal to Tradition.
+    mechanism_supports_goal: true
+    support_relation: This reason is used to support the conclusion that the behavior
+      should remain unchanged.
+    supporting_reason: Citing that for years this type of behavior has been tolerated
+      and things have run smoothly to justify keeping the same practices.
+    evidence_spans:
+    - It seems like this area of the world has had years and years where this kind
+      of behavior was tolerated and things ran smoothly. I see no reason why anyone
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+  counterargument:
+    candidate: Hasty Generalization
+    challenged_inference: that similar accusations of misconduct do not require reforms
+      because a single historical example (Bill Clinton) shows successful leadership
+      after such accusations
+    decisive_counterargument: 'The argument infers that because one, prominent, and
+      widely-celebrated leader (Bill Clinton) was elected and served successfully
+      despite accusations of misconduct, it follows that similar accusations in the
+      current context should be ignored and no reforms are necessary. This is a classic
+      hasty generalization: a single example is taken as evidence that the same conditions
+      apply universally, without addressing the different circumstances, scales, or
+      types of misconduct that may be present today. Merely citing Clinton’s case
+      does not establish that the behavior in this area is harmless or that past elections
+      prove the adequacy of current office‑holders; it fails to show that the alleged
+      misconduct actually had no detrimental effect on governance in any comparable
+      situation.'
+    evidence_ids:
+    - T3
+    - T4
+    failure_exposed: true
+    label_justification: The objection demonstrates that the inference is based on
+      one specific instance to support a universal claim, which meets the definition
+      of a hasty generalization. The argument does not provide sufficient evidence
+      that the same conditions hold in other contexts, thus the reasoning falls under
+      this fallacy.
+    evidence_spans:
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+    - the US. He is hailed a great American president that served two terms after
+      having multiple charges of improper relationships with women. "If the wagon
+      runs fine, why change the
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Appeal to Tradition
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Appeal to Tradition
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__appeal-to-tradition
+    winner: Appeal to Tradition
+    after:
+    - Hasty Generalization
+    - Appeal to Tradition
+  - before:
+    - Hasty Generalization
+    - Appeal to Tradition
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    decisive_test: 'Appeal to Tradition''s mandatory condition—citing long-standing
+      practice as justification—is supported by the text, which states that this area
+      has tolerated the described behavior for years and observed smooth operation.
+      No such explicit authority claim is necessary to satisfy that condition, whereas
+      the authority claim is less directly evident. '
+    evidence_ids:
+    - T1
+    - T3
+    loser_failure: Appeal to Authority does not have a clearly stipulated authority
+      endorsing the specific conclusion; the mention of Bill Clinton serves more as
+      an illustrative anecdote than a formal authority citation needed to satisfy
+      its mandatory structure.
+    winner: Appeal to Tradition
+    evidence_spans:
+    - It seems like this area of the world has had years and years where this kind
+      of behavior was tolerated and things ran smoothly. I see no reason why anyone
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: The target explicitly cites a long‑standing practice—“years and
+      years where this kind of behavior was tolerated and things ran smoothly”—to
+      justify keeping the status quo. This directly satisfies the mandatory condition
+      of an Appeal to Tradition, whereas a hasty generalization would require a narrow
+      sample being used to support a universal claim, which is less directly evident.
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - It seems like this area of the world has had years and years where this kind
+      of behavior was tolerated and things ran smoothly. I see no reason why anyone
+    - would make bad leaders and that is what past elections have allowed people to
+      decide about the character of leader they want. Look at the success of Bill
+      Clinton in
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument uses historical tolerance and past success (Bill
+    Clinton) as justification for maintaining the status quo, which is a classic appeal
+    to tradition.
+  decision_reason: The claim that the behavior should remain unchanged because it
+    has been tolerated for years and because a former leader succeeded despite accusations
+    supports an appeal to tradition.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - It seems like this area of the world has had years and years where this kind of
+    behavior was tolerated and things ran smoothly. I see no reason why anyone
+  - would make bad leaders and that is what past elections have allowed people to
+    decide about the character of leader they want. Look at the success of Bill Clinton
+    in
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 6
+  provider_calls: 3
+  cache_hits: 4
+  retries: 1
+  prompt_tokens: 8321
+  completion_tokens: 5871
+  total_tokens: 14192
+  wall_time_seconds: 130.53099999998813

@@ -1,0 +1,133 @@
+sample:
+  id: 515:8741
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: If you have an election and the losing party does not leave office how can
+    you trust them? Most politicians are crooked and should not be trusted. People
+    need to make sure to stay on top of these people because they all do what is in
+    their best interest and not your best interest. People need to stay alert and
+    informed.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: losing party that does not leave office
+    - role: observed_property
+      text: crooked
+    - role: target_population
+      text: politicians
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+    - make sure to stay on top of these people because they all do what is in their
+      best interest and not your best interest. People need to stay alert and
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: People should stay alert and informed about politicians.
+    candidate: Hasty Generalization
+    supporting_reason: Most politicians are crooked and should not be trusted.
+    support_relation: The reason is used to justify the conclusion that people need
+      to stay vigilant.
+    label_justification: The speaker generalizes about all politicians based on the
+      claim that a losing party remained in power, without presenting specific evidence.
+      This overgeneralization fits the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+    - make sure to stay on top of these people because they all do what is in their
+      best interest and not your best interest. People need to stay alert and
+  counterargument:
+    decisive_counterargument: 'The claim that ''most politicians are crooked and should
+      not be trusted'' is not justified—there is no evidence that the majority of
+      politicians are dishonest, and that single statement cannot be used to conclude
+      that all politicians are untrustworthy.  This is a classic hasty generalization:
+      an unsupported broad claim drawn from an unclear or insufficient sample.'
+    candidate: Hasty Generalization
+    challenged_inference: Most politicians are crooked and should not be trusted.
+    label_justification: The objection points out that the argument leaps from an
+      unspecified or anecdotal observation (some politicians are dishonest) to a sweeping
+      assertion that the majority, i.e., most, of all politicians are dishonest. This
+      is the hallmark of a hasty generalization, where an insufficient or unrepresentative
+      sample is used to justify a broad claim about an entire class.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If you have an election and the losing party does not leave office how can you
+      trust them? Most politicians are crooked and should not be trusted. People need
+      to
+    - make sure to stay on top of these people because they all do what is in their
+      best interest and not your best interest. People need to stay alert and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target contains a general claim that most politicians are
+    crooked (target population: politicians) based on an insufficient sample—here,
+    the observation that a losing party remains in power and is implied untrustworthy.
+    This satisfies the sample-to-population structure required for a hasty generalization.
+    Evidence supporting this structure is present in passages T1 and T2.'
+  decision_reason: The argument generalizes that most politicians are dishonest and
+    should not be trusted from the limited example of a losing party that stays in
+    office, without providing broader evidence. This constitutes a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If you have an election and the losing party does not leave office how can you
+    trust them? Most politicians are crooked and should not be trusted. People need
+    to
+  - make sure to stay on top of these people because they all do what is in their
+    best interest and not your best interest. People need to stay alert and
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4612
+  completion_tokens: 3784
+  total_tokens: 8396
+  wall_time_seconds: 148.73500000000058

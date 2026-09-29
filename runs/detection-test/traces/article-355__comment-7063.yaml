@@ -1,0 +1,134 @@
+sample:
+  id: 355:7063
+  article_id: 355
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: so much attention is drawn when there is an allegation or accusation. this
+    makes it hard because it brings so much attention and provides an easy out for
+    someone to falsely accuse someone. there should be harsh penalties for women who
+    make false allegations for one reason or the other.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - so much attention is drawn when there is an allegation or accusation. this makes
+      it hard because it brings so much attention and provides an easy out for someone
+      to
+    - falsely accuse someone. there should be harsh penalties for women who make false
+      allegations for one reason or the other.
+    candidate: null
+  goal:
+    conclusion_or_goal: There should be harsh penalties for women who make false allegations.
+    candidate: null
+    supporting_reason: Soft but representative statement that because allegations
+      draw a lot of attention and provide an easy "out" it is easy for someone to
+      falsely accuse, therefore women who make false allegations should face harsh
+      penalties.
+    support_relation: The reason is presented to justify the conclusion that women
+      who file false accusations deserve harsh penalties.
+    label_justification: The argument does not violate any identified fallacy pattern.
+      The reasoning is speculative and unsupported but does not constitute a formal
+      fallacy, so the label is null.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - so much attention is drawn when there is an allegation or accusation. this makes
+      it hard because it brings so much attention and provides an easy out for someone
+      to
+    - falsely accuse someone. there should be harsh penalties for women who make false
+      allegations for one reason or the other.
+  counterargument:
+    decisive_counterargument: The argument assumes that because accusations attract
+      excessive media or public attention, they automatically create an ‘easy out’
+      for false claims and that women who file such claims should face harsh penalties.
+      This leap from a general claim about attention to a policy recommendation lacks
+      any empirical support that higher attention causes more false accusations, nor
+      that women who accuse are disproportionately guilty of false claims. Consequently
+      the conclusion that women should be harshly punished is unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: Because accusations draw a lot of attention and provide
+      an easy exit for false allegations, harsh penalties should be imposed on women
+      who make false accusations.
+    label_justification: 'The argument generalizes from a vague observation about
+      attention to a sweeping policy stance regarding all women who file accusations,
+      without evidence that the observed effect applies to that broad group. This
+      meets the definition of a hasty generalization: an unsubstantiated leap from
+      specific (attention leading to false allegations) to a universal claim (punishing
+      all women who make false allegations).'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - so much attention is drawn when there is an allegation or accusation. this makes
+      it hard because it brings so much attention and provides an easy out for someone
+      to
+    - falsely accuse someone. there should be harsh penalties for women who make false
+      allegations for one reason or the other.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes from the specific observation that
+    attention drawn by accusations creates an ‘easy out’ for false claims to a sweeping
+    conclusion that all women who file allegations should face harsh penalties, without
+    evidence supporting that the observation applies universally.
+  decision_reason: The target states that attention drawn by allegations “provides
+    an easy out for someone to falsely accuse” and then proposes punitive measures
+    for all women making false accusations, thereby moving from a particular case
+    to a universal claim about a whole class.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - so much attention is drawn when there is an allegation or accusation. this makes
+    it hard because it brings so much attention and provides an easy out for someone
+    to
+  - falsely accuse someone. there should be harsh penalties for women who make false
+    allegations for one reason or the other.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4135
+  completion_tokens: 2894
+  total_tokens: 7029
+  wall_time_seconds: 235.26600000000326

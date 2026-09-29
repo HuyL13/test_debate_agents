@@ -1,0 +1,137 @@
+sample:
+  id: 645:8533
+  article_id: 645
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: So true! It is hard to believe that this censorship that Facebook is doing
+    is still happening.  What happens next? Do they censor all political names so
+    when anyone talks about any figure they get censored? This is going to lead to
+    mass hysteria when no one can get any truthful information. Chaos will reign!
+    Everyone being blindsided by what is and isn't true, the government wants to confuse
+    people to have total control over them. Let's not let this happen! We have to
+    fight this!
+  target: Totally agree. If it happened here, it is undoubtedly happening everywhere
+    across the world. Maybe Facebook should do away with any form of moderation or
+    censorship. We should of course consider the consequences, but in this case the
+    pros may outweigh the cons.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: target_population
+      text: everywhere across the world
+    - role: sample
+      text: it happened here
+    - role: observed_property
+      text: happened
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: We dismiss the claim that the policy should be carried forward
+      because it is based on an unjustified generalization that Facebook’s particular
+      case implies that censorship is happening everywhere. This generalization is
+      unsupported by evidence for global prevalence and therefore constitutes a fallacy.
+    candidate: Hasty Generalization
+    supporting_reason: The arguer asserts “If it happened here, it is undoubtedly
+      happening everywhere across the world,” thereby extending a single instance
+      to a universal claim without sufficient evidence.
+    support_relation: mechanism_supports_goal
+    label_justification: The statement uses an overgeneralization to justify a policy
+      recommendation, which is the hallmark of a Hasty Generalization. The sentence
+      directly supports the conclusion and is a fallacious reasoning step, so the
+      label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+  counterargument:
+    decisive_counterargument: The target claims that because Facebook’s censorship
+      occurs in one context, it must occur everywhere, and therefore censorship should
+      be eliminated. This leaps from a single observed instance to a universal conclusion
+      and ignores the possibility that other platforms do not practice the same censorship
+      or that moderation may have benefits. It is therefore a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Assumes censorship on Facebook in one setting implies universal
+      censorship worldwide and that removing all moderation is the best solution.
+    label_justification: The target extrapolates from a single example to a global
+      claim without sufficient evidence, a textbook hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+      the world. Maybe Facebook should do away with any form of moderation or censorship.
+      We should of course
+    - consider the consequences, but in this case the pros may outweigh the cons.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The TARGET contains the sentence “If it happened here, it is
+    undoubtedly happening everywhere across the world.” which matches the structure
+    of a hasty generalization: a single instance (‘it happened here’) is extrapolated
+    to all instances (‘everywhere across the world’). The evidence supporting this
+    is passage T1. Therefore the fallacy is present.'
+  decision_reason: The TARGET indeed includes a statement that extends a single observed
+    case to a universal claim without sufficient evidence, satisfying the structural
+    condition for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Totally agree. If it happened here, it is undoubtedly happening everywhere across
+    the world. Maybe Facebook should do away with any form of moderation or censorship.
+    We should of course
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4760
+  completion_tokens: 4105
+  total_tokens: 8865
+  wall_time_seconds: 279.31200000003446

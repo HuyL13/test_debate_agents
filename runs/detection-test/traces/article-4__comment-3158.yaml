@@ -1,0 +1,140 @@
+sample:
+  id: 4:3158
+  article_id: 4
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: Its very sad that that China and its weak response to the pandemic has led
+    the people of Wuhan down by not  giving them the appropriate medical and food
+    supplies necessary to combat this disease. Fudging the numbers or ignoring the
+    problem doesn't make it go away and to shutdown an entire city because of the
+    pandemic it just makes the situation worse. Access to resources like medical treatments
+    to those that need it the most is the appropriate action as oppose to shutting
+    everything down.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Its very sad that that China and its weak response to the pandemic has led the
+      people of Wuhan down by not  giving them the appropriate medical and food supplies
+    - necessary to combat this disease. Fudging the numbers or ignoring the problem
+      doesn't make it go away and to shutdown an entire city because of the pandemic
+      it just makes
+    - the situation worse. Access to resources like medical treatments to those that
+      need it the most is the appropriate action as oppose to shutting everything
+      down.
+    candidate: null
+  goal:
+    conclusion_or_goal: The author rejects China’s lockdown policy and argues that
+      providing medical resources is the appropriate response rather than shutting
+      down the city.
+    candidate: null
+    supporting_reason: Fudging the numbers or ignoring the problem doesn't make it
+      go away and shutting an entire city because of the pandemic just makes the situation
+      worse.
+    support_relation: The reason is used to claim that shutting down is ineffective
+      and harmful, thus supporting the conclusion that resource provision is better.
+    label_justification: The reasoning is a straightforward argumentative claim; it
+      does not instantiate any of the specified logical fallacies. No false dilemma,
+      slippery slope, or other fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - necessary to combat this disease. Fudging the numbers or ignoring the problem
+      doesn't make it go away and to shutdown an entire city because of the pandemic
+      it just makes
+    - the situation worse. Access to resources like medical treatments to those that
+      need it the most is the appropriate action as oppose to shutting everything
+      down.
+  counterargument:
+    decisive_counterargument: The claim that shutting down an entire city is the sole
+      correct policy ignores a range of alternative approaches—such as targeted quarantines,
+      ramped-up testing, contact tracing, or partial lockdowns—which could mitigate
+      the spread without the economic and humanitarian costs the author attributes
+      to a blanket shutdown. By framing the issue as a binary choice between a complete
+      shutdown and simply providing resources, the argument unjustifiably dismisses
+      all other viable strategies.
+    candidate: False Dilemma
+    challenged_inference: The argument concludes that shutting down the city is inherently
+      harmful and that the only appropriate policy is to supply medical resources,
+      implying those are the only two options.
+    label_justification: The reasoning relies on presenting a dichotomy of options—shut
+      everything down versus supply resources—while ignoring or dismissing other plausible
+      alternatives. This restrictive framing commits a false dilemma, as it falsely
+      limits the range of solutions to an exhaustive set of two opposites.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - necessary to combat this disease. Fudging the numbers or ignoring the problem
+      doesn't make it go away and to shutdown an entire city because of the pandemic
+      it just makes
+    - the situation worse. Access to resources like medical treatments to those that
+      need it the most is the appropriate action as oppose to shutting everything
+      down.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly frames the policy choice as either shutting
+    down the city or providing medical resources, presenting these two options as
+    mutually exclusive and implying the shutdown is wholly detrimental while resource
+    provision is the sole appropriate solution, which constitutes a false dilemma.
+  decision_reason: The target limits the argument to only two strategic responses—complete
+    lockdown versus resource allocation—without acknowledging other viable alternatives,
+    thereby committing a false dilemma.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - necessary to combat this disease. Fudging the numbers or ignoring the problem
+    doesn't make it go away and to shutdown an entire city because of the pandemic
+    it just makes
+  - the situation worse. Access to resources like medical treatments to those that
+    need it the most is the appropriate action as oppose to shutting everything down.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4484
+  completion_tokens: 3187
+  total_tokens: 7671
+  wall_time_seconds: 182.95300000000134

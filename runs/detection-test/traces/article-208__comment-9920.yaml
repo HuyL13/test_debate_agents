@@ -1,0 +1,163 @@
+sample:
+  id: 208:9920
+  article_id: 208
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: Art is either abstract or impactful. I think her art leans to the latter.
+    She can harness traumatic colonial past experiences to express a pain and emotion.
+  target: Are you saying that abstract art can't have an impact? I have to disagree
+    there for sure, as many people, myself included, have been impacted by abstract
+    works. In fact, based on the descriptions of Thomas-Girvan's work, much of it
+    can be said to be abstract. We can often be heavily impacted when our mind fills
+    in the blanks of what the artist really wants to represent or say.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: many people, myself included
+    - role: popularity_claim
+      text: have been impacted by abstract works
+    - role: target_claim
+      text: abstract art can have an impact
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Are you saying that abstract art can't have an impact? I have to disagree there
+      for sure, as many people, myself included, have been impacted by abstract works.
+      In fact,
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Abstract art can have an impact.
+    candidate: Hasty Generalization
+    supporting_reason: Many people, including the speaker, have been impacted by abstract
+      works.
+    support_relation: The anecdotal evidence of personal experience is used to generalize
+      that abstract art, in general, can produce impact.
+    label_justification: The reasoning relies on a limited sample (the speaker’s own
+      experience and a few others) to make a broad statement about all abstract art,
+      which fits the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Are you saying that abstract art can't have an impact? I have to disagree there
+      for sure, as many people, myself included, have been impacted by abstract works.
+      In fact,
+  counterargument:
+    decisive_counterargument: 'Saying that many people claim abstract art has impacted
+      them does not logically confirm that abstract art always or generally has an
+      impact. The appeal to the sheer number of people who feel affected is an Argument
+      from Popularity (Appeal to Majority): it treats popularity as evidence of truth.
+      Without objective criteria or systematic evidence showing that abstract art
+      actually affects viewers, the claim remains unsupported.'
+    candidate: Appeal to Majority
+    challenged_inference: That abstract art has an impact because many people have
+      been impacted by it.
+    label_justification: The objection points out that the target’s reasoning relies
+      on the popularity of subjective experiences (many people claiming impact) to
+      establish truth for all abstract art, which is a classic Appeal to Majority
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Are you saying that abstract art can't have an impact? I have to disagree there
+      for sure, as many people, myself included, have been impacted by abstract works.
+      In fact,
+    - based on the descriptions of Thomas-Girvan's work, much of it can be said to
+      be abstract. We can often be heavily impacted when our mind fills in the blanks
+      of
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: The target sentence explicitly cites a specific population group—‘many
+      people, myself included’—and states that they have been impacted by abstract
+      works. This population-based claim is directly used to support the claim that
+      abstract art can have an impact, fulfilling the mandatory structural condition
+      of an Appeal to Majority argument (population group, popularity claim, target
+      claim). The hasty generalization structure is not explicitly required here,
+      as the sample claim is framed in terms of a large group rather than a narrowly
+      limited anecdote, making the Appeal to Majority the stronger match.
+    loser_failure: While the target does generalize from a sample to a broader claim,
+      it does so based on a population-level popularity statement rather than a limited
+      anecdotal case. The argument’s justification hinges on the number of people
+      affected, not on an insufficiently representative sample, which is the defining
+      feature of a hasty generalization.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Are you saying that abstract art can't have an impact? I have to disagree there
+      for sure, as many people, myself included, have been impacted by abstract works.
+      In fact,
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that abstract art has an impact because many
+    people, including the speaker, have said they have been impacted, thereby basing
+    the claim on popularity rather than objective evidence.
+  decision_reason: 'It is an Appeal to Majority: a claim that abstract art can have
+    an impact is justified solely by stating that many people claim to have been impacted.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Are you saying that abstract art can't have an impact? I have to disagree there
+    for sure, as many people, myself included, have been impacted by abstract works.
+    In fact,
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6258
+  completion_tokens: 4588
+  total_tokens: 10846
+  wall_time_seconds: 49.85899999999674

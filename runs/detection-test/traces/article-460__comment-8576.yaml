@@ -1,0 +1,129 @@
+sample:
+  id: 460:8576
+  article_id: 460
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: Covid-19 affects a lot of people. The majority of people want to know that
+    the information they read on covid-19 is accurate. In fact all people who take
+    the time to read something with covid-19 want it to be accurate. 12 in 19 is a
+    very important topic. We need to make sure there is no fake news.
+  target: And you trust the governments, especially relatively authoritarian and corrupt
+    governments like these, to tell people what is fake and what isn't? The article
+    notes out all the problems with that. This sort of rhetoric often just leads to
+    suppressing political dissent.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And you trust the governments, especially relatively authoritarian and corrupt
+      governments like these, to tell people what is fake and what isn't? The article
+      notes out all the problems with
+    - that. This sort of rhetoric often just leads to suppressing political dissent.
+    candidate: null
+  goal:
+    conclusion_or_goal: Questioning the legitimacy of trusting governments—especially
+      authoritarian and corrupt ones—to discern fake news.
+    candidate: null
+    supporting_reason: Governments are characterized as relatively authoritarian and
+      corrupt, implying they lack the integrity to objectively differentiate truth
+      from falsehood.
+    support_relation: The negative attributes of the governments are used to justify
+      skepticism toward their authority on fake‑news identification.
+    label_justification: The argument does not employ an identified logical fallacy;
+      the claim is directly supported by its premises about government characteristics.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And you trust the governments, especially relatively authoritarian and corrupt
+      governments like these, to tell people what is fake and what isn't? The article
+      notes out all the problems with
+    - that. This sort of rhetoric often just leads to suppressing political dissent.
+  counterargument:
+    decisive_counterargument: The claim that trusting authoritarian and corrupt governments
+      will always suppress political dissent when verifying information is an unwarranted
+      generalization. There is no evidence that every such government engages in censorship
+      in this context; some may operate with more nuance or allow dissenting views.
+      The conclusion therefore overextends a few instances to all authoritarian regimes,
+      lacking supported empirical basis.
+    candidate: Hasty Generalization
+    challenged_inference: Trusting authoritarian and corrupt governments to spot fake
+      news inevitably leads to suppressing political dissent.
+    label_justification: The objection reveals that the argument wrongly applies a
+      universal claim about all authoritarian and corrupt governments based on a presumed
+      pattern of behavior. This is a classic Hasty Generalization, as it extends an
+      unfounded pattern to an entire population without sufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - And you trust the governments, especially relatively authoritarian and corrupt
+      governments like these, to tell people what is fake and what isn't? The article
+      notes out all the problems with
+    - that. This sort of rhetoric often just leads to suppressing political dissent.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement makes a universal claim that trusting authoritarian
+    and corrupt governments necessarily leads to suppression of political dissent,
+    without providing any specific evidence or examples to support that conclusion.
+    This is a classic hasty‑generalization structure—an unwarranted extension from
+    a single asserted pattern to all such governments.
+  decision_reason: The RAW TARGET contains a general claim about authoritarian and
+    corrupt governments leading to suppression, lacking supporting evidence. This
+    satisfies the structural conditions for a Hasty Generalization. Therefore the
+    surviving candidate “Hasty Generalization” is valid.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - And you trust the governments, especially relatively authoritarian and corrupt
+    governments like these, to tell people what is fake and what isn't? The article
+    notes out all the problems with
+  - that. This sort of rhetoric often just leads to suppressing political dissent.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4304
+  completion_tokens: 3730
+  total_tokens: 8034
+  wall_time_seconds: 509.6719999999914

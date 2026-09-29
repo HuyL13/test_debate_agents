@@ -1,0 +1,125 @@
+sample:
+  id: 87:3707
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: The news on this topic is interesting to me. The internet 'news' makes it
+    seem like Hong Kong wants nothing to do with China and that these protests truly
+    represent the popular will. I have a few friends from Hong Kong, and they all
+    love China. Strange. Seems like the news isn't interested in reporting what the
+    people actually think.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: a few friends from Hong Kong
+    - role: observed_property
+      text: they all love China
+    - role: target_population
+      text: the people actually think
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The news coverage does not reflect what the people of Hong Kong
+      actually think about China.
+    candidate: Hasty Generalization
+    supporting_reason: The author cites a few friends from Hong Kong who love China
+      to argue against the news portrayal that Hong Kong wants nothing to do with
+      China.
+    support_relation: The small, anecdotal sample is used to support a claim about
+      the entire population.
+    label_justification: Using a limited personal observation to generalize about
+      the beliefs of an entire group constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The news on this topic is interesting to me. The internet 'news' makes it seem
+      like Hong Kong wants nothing to do with China and that these protests truly
+      represent
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+  counterargument:
+    decisive_counterargument: The conclusion that the news is not reporting what people
+      actually think follows from only a few friends, which is a non‑representative
+      sample. A handful of observations cannot justify a blanket statement about the
+      entire population’s views, so the inference overgeneralizes.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that the news isn’t interested in reporting what
+      the people actually think.
+    label_justification: The counterargument demonstrates that the inference is based
+      on an insufficient, non-representative sample, which is the hallmark of a hasty
+      generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The news on this topic is interesting to me. The internet 'news' makes it seem
+      like Hong Kong wants nothing to do with China and that these protests truly
+      represent
+    - the popular will. I have a few friends from Hong Kong, and they all love China.
+      Strange. Seems like the news isn't interested in reporting what the people actually
+      think.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The inference draws a conclusion about the whole population
+    from a non‑representative sample.
+  decision_reason: The author cites a few friends to assert that all Hong Kong people
+    feel the same towards China, which is a classic over‑generalization based on an
+    insufficient sample.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - the popular will. I have a few friends from Hong Kong, and they all love China.
+    Strange. Seems like the news isn't interested in reporting what the people actually
+    think.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4467
+  completion_tokens: 3355
+  total_tokens: 7822
+  wall_time_seconds: 91.43700000000536

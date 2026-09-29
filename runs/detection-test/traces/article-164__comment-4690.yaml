@@ -1,0 +1,166 @@
+sample:
+  id: 164:4690
+  article_id: 164
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve
+    a break? I'm sure that the lessons from Ebola will get them through covid. The
+    people must be strong to have eradicated ebola. Because they deserve not to have
+    to endure covid now. I'm sure the people are strong enough to get through it.
+    Maybe maybe covid quarantine will be successful.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the lessons from Ebola
+    - role: endorsed_claim
+      text: they will get through covid/quarantine
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve
+      a break? I'm sure that the lessons from Ebola will get them through
+    - covid. The people must be strong to have eradicated ebola. Because they deserve
+      not to have to endure covid now. I'm sure the people are strong enough to get
+      through
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: That the people will be able to get through covid/quarantine
+    candidate: Hasty Generalization
+    supporting_reason: the lessons from Ebola and the people’s strength from eradicating
+      Ebola will help them through covid
+    support_relation: causal
+    label_justification: The argument draws a broad conclusion about the people’s
+      ability to handle a new pandemic based on a single preceding successful outbreak,
+      thereby generalizing from an insufficient sample.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve
+      a break? I'm sure that the lessons from Ebola will get them through
+    - covid. The people must be strong to have eradicated ebola. Because they deserve
+      not to have to endure covid now. I'm sure the people are strong enough to get
+      through
+    - it. Maybe maybe covid quarantine will be successful.
+  counterargument:
+    decisive_counterargument: The fact that the public health system managed to curtail
+      Ebola does not logically entail that it will be equally equipped to handle COVID‑19.
+      Ebola and COVID‑19 differ in transmission dynamics, required resources, and
+      immune responses; success in one outbreak informs limited aspects but cannot
+      guarantee success in another. Thus, the inference that past success in eradicating
+      Ebola automatically equips the same population to get through COVID is unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: Because the people eradicated Ebola, they must be strong
+      enough to get through COVID, so lessons from Ebola will get them through COVID.
+    label_justification: The argument infers a general capability of a broad population—‘getting
+      through COVID’—from a single example of successful disease control (‘eradicated
+      Ebola’). This extrapolation from one sample (the Ebola outbreak) to a wider
+      claim about future pandemic resilience fits the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve
+      a break? I'm sure that the lessons from Ebola will get them through
+    - covid. The people must be strong to have eradicated ebola. Because they deserve
+      not to have to endure covid now. I'm sure the people are strong enough to get
+      through
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: Appeal to Authority fails because the target does not present an
+      authority figure endorsing a claim; it merely cites past experience (the lessons
+      from Ebola) without attributing the claim to an expert's authority.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve
+      a break? I'm sure that the lessons from Ebola will get them through
+    - covid. The people must be strong to have eradicated ebola. Because they deserve
+      not to have to endure covid now. I'm sure the people are strong enough to get
+      through
+    - it. Maybe maybe covid quarantine will be successful.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The claim generalizes the population’s ability to manage COVID
+    from a single past success with Ebola, which satisfies the structural requirement
+    of an explicit sample (Ebola outbreak) leading to a broad conclusion about a larger
+    group.
+  decision_reason: The argument draws a blanket conclusion about the people’s ability
+    to get through COVID based solely on the single data point of having eradicated
+    Ebola, a classic hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Oh no, is it Ebola or covid, is it just one or the other? Don't they deserve a
+    break? I'm sure that the lessons from Ebola will get them through
+  - covid. The people must be strong to have eradicated ebola. Because they deserve
+    not to have to endure covid now. I'm sure the people are strong enough to get
+    through
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6264
+  completion_tokens: 5384
+  total_tokens: 11648
+  wall_time_seconds: 270.3439999999973

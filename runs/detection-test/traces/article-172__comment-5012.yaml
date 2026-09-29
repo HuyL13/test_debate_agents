@@ -1,0 +1,146 @@
+sample:
+  id: 172:5012
+  article_id: 172
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: Is this really helpful? I mean coal mines have always been a source of income
+    for the local economy. For years they have provided jobs and supported the economy.
+    Aren't we just creating a new problem by stopping them?
+  target: Dumping pollution into rivers and having the entire sky over every major
+    city filled with toxic fumes also provided jobs and supported the economy for
+    years. It being that way isn't a strong argument for it to continue being that
+    way. You're right that problems will emerge as a result, but it's people's right
+    to prioritize the climate in this specific area and try to alleviate the lost
+    jobs and economic harm in other ways.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Dumping pollution into rivers and having the entire sky over every major city
+      filled with toxic fumes also provided jobs and supported the economy for years.
+      It being that way
+    - isn't a strong argument for it to continue being that way. You're right that
+      problems will emerge as a result, but it's people's right to prioritize the
+      climate in this
+    - specific area and try to alleviate the lost jobs and economic harm in other
+      ways.
+    candidate: null
+  goal:
+    conclusion_or_goal: People do not need to accept pollution just because it created
+      jobs; they can and should prioritize climate protection and find alternative
+      ways to address job loss.
+    candidate: null
+    supporting_reason: Coal pollution has historically provided jobs and supported
+      the economy.
+    support_relation: The reason is used to show that the economic benefit of pollution
+      is not a valid justification for continuing it, thereby supporting the conclusion
+      that climate should take precedence.
+    label_justification: The target does not employ an invalid or misleading argumentative
+      tactic; it legitimately counters an economic argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Dumping pollution into rivers and having the entire sky over every major city
+      filled with toxic fumes also provided jobs and supported the economy for years.
+      It being that way
+    - isn't a strong argument for it to continue being that way. You're right that
+      problems will emerge as a result, but it's people's right to prioritize the
+      climate in this
+  counterargument:
+    decisive_counterargument: The target conflates the fact that pollution historically
+      supplied jobs with the moral claim that we must abandon it solely because it
+      harms the climate; it treats the existence of a negative consequence as a decisive
+      reason to reject the economic benefit without evaluating whether a balanced,
+      evidence-based transition can replace those jobs rather than an outright dismissal.
+      The target therefore commits an *Appeal to Consequences*—assuming that because
+      pollution has undesirable effects we must stop it, ignoring the complexity of
+      weighing costs and benefits and the possibility of mitigating harms while still
+      maintaining economic security.
+    candidate: Appeal to Tradition
+    challenged_inference: The argument that we should discontinue pollution solely
+      because it harms the environment despite its past economic benefits
+    label_justification: The objection shows that the target infers that the negative
+      environmental outcomes are sufficient to override the economic benefits, which
+      is precisely the fallacious appeal to consequences; therefore the specific fallacy
+      is identifying an *Appeal to Consequences* rather than merely critiquing the
+      argument.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Dumping pollution into rivers and having the entire sky over every major city
+      filled with toxic fumes also provided jobs and supported the economy for years.
+      It being that way
+    - isn't a strong argument for it to continue being that way. You're right that
+      problems will emerge as a result, but it's people's right to prioritize the
+      climate in this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target explicitly rejects the traditional justification
+    (Historical practice as a sufficient reason), and does not argue that the tradition
+    alone justifies continuing polluting; hence it does not commit an Appeal to Tradition
+    fallacy.
+  decision_reason: The target’s claim that the historical role of pollution in providing
+    jobs does not warrant its continuation is a refutation of an appeal to tradition,
+    not an instance of that fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Dumping pollution into rivers and having the entire sky over every major city
+    filled with toxic fumes also provided jobs and supported the economy for years.
+    It being that way
+  - isn't a strong argument for it to continue being that way. You're right that problems
+    will emerge as a result, but it's people's right to prioritize the climate in
+    this
+  verified: false
+  rejection_reason: The target’s claim that the historical role of pollution in providing
+    jobs does not warrant its continuation is a refutation of an appeal to tradition,
+    not an instance of that fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4603
+  completion_tokens: 3571
+  total_tokens: 8174
+  wall_time_seconds: 200.75

@@ -1,0 +1,144 @@
+sample:
+  id: 22:3963
+  article_id: 22
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: There is too much emotional pleasing in this article simply because most
+    people allegedly believe in it. This isn't even true butt the article tries to
+    frame it that way in a soft manner. Ot tries to act as though the majority are
+    for it but this is merely the case at best with the tiny minority of people involved.
+    This is a problem with all special interests. The average person doesn't care
+    enough to be this involved.
+  target: This is very true. That's because most normal people have much bigger concerns
+    than things like this. Hard to be worried about something like the relatively
+    minuscule effects of one little coal plant when you are struggling to get by,
+    paycheck to paycheck. The government should be focused on the more important things.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most normal people
+    - role: popularity_claim
+      text: most normal people have much bigger concerns than things like this
+    - role: target_claim
+      text: the government should be focused on the more important things
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The government should focus on more important issues than
+      a small coal plant.
+    candidate: Appeal to Majority
+    supporting_reason: Because most normal people have much bigger concerns than the
+      relatively minuscule effects of one little coal plant.
+    support_relation: The majority opinion is used as justification for prioritizing
+      other policy areas.
+    label_justification: The argument relies on the popularity of the viewpoint that
+      most people are more concerned about other matters to assert a policy stance,
+      which is an Appeal to Majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+  counterargument:
+    decisive_counterargument: Even if most people are busy with other concerns, that
+      does not mean the coal plant’s effects are trivial or that the government should
+      neglect them. Minor immediate impacts can aggregate into significant environmental
+      and health risks, and policy decisions should be based on objective risk, not
+      on what most people happen to care about at the moment.
+    candidate: Appeal to Majority
+    challenged_inference: Governments should ignore coal plant problems because most
+      normal people have bigger concerns
+    label_justification: The target relies on the claim that the majority’s priorities
+      justify dismissing an issue, which is a classic appeal to majority fallacy.
+      The counterargument shows that majority opinion is not a valid basis for policy
+      decisions, exposing that specific reasoning flaw.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that because most normal people
+    have bigger concerns, the government should focus on more important issues, using
+    the popularity claim to justify the policy conclusion—a classic appeal to majority
+    structure.
+  decision_reason: The argument employs the majority’s priorities as evidence that
+    the government must prioritize other matters, fitting the appeal to majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is very true. That's because most normal people have much bigger concerns
+    than things like this. Hard to be worried about something like the relatively
+    minuscule effects of one
+  - little coal plant when you are struggling to get by, paycheck to paycheck. The
+    government should be focused on the more important things.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4814
+  completion_tokens: 2560
+  total_tokens: 7374
+  wall_time_seconds: 55.703000000008615

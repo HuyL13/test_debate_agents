@@ -1,0 +1,143 @@
+sample:
+  id: 470:8607
+  article_id: 470
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Latin American Facebook users weigh in on US election results with memes
+  parent: ''
+  target: 'This was a fun article but here is a nitpick: the popularity of online
+    memes and Facebook posts is not a reliable guide to public opinion. What would
+    be helpful is a citation from an expert in Latin American culture and political
+    opinion, someone who studies the trends and knows the numbers - someone like Dr.
+    Pablo Gomez, for instance. But there''s nothing like that in this piece, so while
+    I enjoyed it, I take it with a boulder of salt.'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    - is a citation from an expert in Latin American culture and political opinion,
+      someone who studies the trends and knows the numbers - someone like Dr. Pablo
+      Gomez, for instance.
+    - But there's nothing like that in this piece, so while I enjoyed it, I take it
+      with a boulder of salt.
+    candidate: null
+  goal:
+    conclusion_or_goal: Express a skeptical stance toward the article, arguing that
+      its findings should be taken with caution.
+    candidate: null
+    supporting_reason: The author claims that online memes and Facebook posts are
+      not a reliable guide to public opinion and thus the article’s conclusions lack
+      authoritative support.
+    support_relation: The reasoning is used to justify the skeptical attitude expressed
+      in the conclusion.
+    label_justification: No fallacy is present; the author merely critiques the article’s
+      methodology and calls for expert evidence, which is a valid argumentative stance.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    - is a citation from an expert in Latin American culture and political opinion,
+      someone who studies the trends and knows the numbers - someone like Dr. Pablo
+      Gomez, for instance.
+    - But there's nothing like that in this piece, so while I enjoyed it, I take it
+      with a boulder of salt.
+  counterargument:
+    decisive_counterargument: The absence of a single named expert in the article
+      does not invalidate the claim that meme popularity is not a reliable proxy for
+      public opinion. Many peer‑reviewed studies rely on methodological evidence rather
+      than on the testimony of a particular individual, and the article itself may
+      present rigorous data or analysis that supports its conclusion. Therefore, rejecting
+      the argument because it lacks a citation from Dr. Pablo Gomez is a faulty inference.
+    candidate: Appeal to Authority
+    challenged_inference: the lack of an expert citation makes the article’s claim
+      unreliable
+    label_justification: The objection targets the target’s reliance on the presence
+      of expert authority as a condition for accepting the argument, which is precisely
+      the conditional structure of an Appeal to Authority fallacy. The target’s reasoning
+      fails because it assumes that only expert endorsement can validate a claim,
+      whereas academic reasoning can be justified by data and methodology without
+      naming a single authority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This was a fun article but here is a nitpick: the popularity of online memes
+      and Facebook posts is not a reliable guide to public opinion. What would be
+      helpful'
+    - is a citation from an expert in Latin American culture and political opinion,
+      someone who studies the trends and knows the numbers - someone like Dr. Pablo
+      Gomez, for instance.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target states that the claim would be acceptable only if
+    a citation from an expert were provided, implying that the presence of authority
+    is required to validate the claim, which is the defining structure of an Appeal
+    to Authority fallacy.
+  decision_reason: The target’s argument hinges on the lack of expert endorsement
+    to dismiss the claim that meme popularity is unreliable for gauging public opinion,
+    thereby relying on authority as a necessary condition for a claim’s validity.
+    This meets the mandatory structural condition for Appeal to Authority and is directly
+    evidenced by the passage stating a desire for an expert citation and the subsequent
+    dismissal when none is present.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - 'This was a fun article but here is a nitpick: the popularity of online memes
+    and Facebook posts is not a reliable guide to public opinion. What would be helpful'
+  - is a citation from an expert in Latin American culture and political opinion,
+    someone who studies the trends and knows the numbers - someone like Dr. Pablo
+    Gomez, for instance.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4475
+  completion_tokens: 3181
+  total_tokens: 7656
+  wall_time_seconds: 124.35899999999674

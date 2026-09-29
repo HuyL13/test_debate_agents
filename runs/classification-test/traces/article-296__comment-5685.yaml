@@ -1,0 +1,146 @@
+sample:
+  id: 296:5685
+  article_id: 296
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: All this commotion over some mild disputes on privacy versus security? Doesn't
+    India have more pressing problems? I mean, data privacy is important, but I feel
+    like the Indian government should be more focused on things like the extreme poverty
+    they've got, the violent campaigns against minorities, and other such things that
+    seem a lot more important.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: data privacy
+    - role: worse_issue
+      text: extreme poverty, violent campaigns against minorities, and other pressing
+        problems
+    - role: deprioritizing_conclusion
+      text: the government should prioritize these worse problems over data privacy
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The Indian government should focus on more pressing problems—such
+      as extreme poverty and violent campaigns against minorities—rather than prioritising
+      data privacy concerns.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The argument cites more severe issues (extreme poverty, violent
+      campaigns) to argue that privacy is less important.
+    support_relation: The reason is used to justify deprioritising privacy in favour
+      of addressing these more urgent problems.
+    label_justification: The reasoning treats the existence of more severe problems
+      as sufficient justification for ignoring a less severe problem, which is the
+      defining structure of an Appeal to Worse Problems fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+  counterargument:
+    decisive_counterargument: 'While poverty and violent campaigns are undeniably
+      serious, data privacy is far from a mild dispute: lack of privacy can enable
+      unchecked state surveillance, erode individuals’ rights, and exacerbate social
+      injustices. Ignoring privacy can weaken democratic safeguards and magnify abuses,
+      thereby worsening the very issues the target prioritizes. Therefore, privacy
+      matters equally—and in fact, protecting it is essential to addressing the other
+      pressing problems, not sidelining them.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The argument dismisses data privacy as merely a mild dispute
+      because there are more pressing problems like poverty and minority violence.
+    label_justification: The objection shows that the target’s reasoning relies on
+      presenting a superior, more severe issue to discount the importance of data
+      privacy. This is precisely the ‘Appeal to Worse Problems’ fallacy, where the
+      seriousness of another issue is used to minimize or dismiss the relevance of
+      the first.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All this commotion over some mild disputes on privacy versus security? Doesn't
+      India have more pressing problems? I mean, data privacy is important, but I
+      feel like the Indian government
+    - should be more focused on things like the extreme poverty they've got, the violent
+      campaigns against minorities, and other such things that seem a lot more important.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The argument treats data privacy as a mild dispute and cites
+    more serious issues—extreme poverty and violent campaigns against minorities—as
+    evidence that the government should deprioritise privacy, matching the structure
+    of an Appeal to Worse Problems fallacy.
+  decision_reason: The target explicitly claims that because there are larger problems,
+    privacy concerns can be ignored, which is the defining reasoning pattern of the
+    Appeal to Worse Problems fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - All this commotion over some mild disputes on privacy versus security? Doesn't
+    India have more pressing problems? I mean, data privacy is important, but I feel
+    like the Indian government
+  - should be more focused on things like the extreme poverty they've got, the violent
+    campaigns against minorities, and other such things that seem a lot more important.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4603
+  completion_tokens: 2784
+  total_tokens: 7387
+  wall_time_seconds: 98.18799999999464

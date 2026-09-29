@@ -1,0 +1,177 @@
+sample:
+  id: 442:6723
+  article_id: 442
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: We should listen to artists like this man.  Artists throughout history have
+    made it a habit to bring attention to social causes.  It has a long history and
+    tradition that I am glad to see still in place.  Artists like Picasso made art
+    that spurred societal change.  Let's continue to allow this and embrace it.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Artists throughout history have made it a habit to bring attention to
+        social causes.  It has a long history and tradition.
+    - role: preservation_conclusion
+      text: We should continue to allow this and embrace it.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: We should listen to artists who address social causes and
+      continue to value this practice.
+    candidate: Appeal to Tradition
+    supporting_reason: Artists throughout history have had a long tradition of bringing
+      attention to social causes, a legacy that still exists today.
+    support_relation: The tradition is invoked as justification for the recommendation
+      to listen to contemporary socially minded artists.
+    label_justification: The argument relies on the historical continuity of artists'
+      engagement with social issues as a basis for the present endorsement, which
+      is the standard form of an appeal to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+  counterargument:
+    decisive_counterargument: The mere fact that artists have historically highlighted
+      social issues does not prove that listening to them now will actually spur meaningful
+      societal change. A long‑standing practice by itself offers no evidence that
+      the approach still yields the same outcomes or that it is the best way to address
+      contemporary problems. Traditions can persist for reasons unrelated to their
+      effectiveness, and adopting them without evaluating their current relevance
+      is unfounded.
+    candidate: Slippery Slope
+    challenged_inference: Artists throughout history have made a habit of bringing
+      attention to social causes, thus we should continue to embrace artists to spur
+      societal change.
+    label_justification: The objection exposes a *slippery slope* fallacy because
+      the argument takes the historical habit of artists raising social causes and
+      implicitly claims that continuing this practice will inevitably or inevitably
+      lead to positive societal change. This links a single initial action (listening
+      to artists) to a far‑reaching, unverified consequence (social change) without
+      demonstrating a necessary causal chain. The reasoning assumes that because the
+      pattern existed in the past, it will unfold similarly in the future, which is
+      precisely the slippery‑slope logic.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Slippery Slope
+    conflict: appeal-to-tradition__vs__slippery-slope
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-tradition__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Compare only these candidates. Select the one whose mandatory structural
+      condition is directly supported by TARGET.
+    loser_failure: The Slippery Slope fallacy requires demonstrating a progressive
+      chain of consequences that follows from an initial action; the TARGET does not
+      contain such a causal progression, only a claim that because artists have historically
+      engaged with social causes, we should continue to do so—an appeal to tradition.
+      The conventional structure of a slippery slope (initial step → inevitable chain
+      of adverse outcomes) is therefore unsupported.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - We should listen to artists like this man.  Artists throughout history have
+      made it a habit to bring attention to social causes.  It has a long history
+      and tradition that
+    - I am glad to see still in place.  Artists like Picasso made art that spurred
+      societal change.  Let's continue to allow this and embrace it.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument invokes the long-standing tradition of artists
+    addressing social causes to justify continuing to support such artists, which
+    matches the structure and criteria of an appeal to tradition.
+  decision_reason: The argument cites the historical tradition of artists engaging
+    in social causes as the reason to keep doing so, fitting the definition of an
+    appeal to tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - We should listen to artists like this man.  Artists throughout history have made
+    it a habit to bring attention to social causes.  It has a long history and tradition
+    that
+  - I am glad to see still in place.  Artists like Picasso made art that spurred societal
+    change.  Let's continue to allow this and embrace it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5929
+  completion_tokens: 2952
+  total_tokens: 8881
+  wall_time_seconds: 241.13999999998487

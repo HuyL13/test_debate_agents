@@ -1,0 +1,172 @@
+sample:
+  id: 433:7295
+  article_id: 433
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Remembering Amadou Diallo, a Guinean victim of police brutality in the USA
+  parent: ''
+  target: The fact that these cops were acquitted means that more cops are going to
+    think they can get away with murder and end up killing innocents just because
+    they think they can! If you don't punish people, obviously others will feel emboldened!
+    Soon the cops will be the criminals! Who will stop them at that point?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: not punishing people (i.e., failing to hold cops accountable)
+    - role: intermediate_consequence
+      text: others feel emboldened
+    - role: final_consequence
+      text: cops will become criminals and no one will be able to stop them
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The argument claims that because some cops were acquitted,
+      more cops will think they can get away with murder and consequently kill innocents
+    candidate: Hasty Generalization
+    supporting_reason: The fact that these cops were acquitted
+    support_relation: the acquittal is used as a representative example to blanketly
+      predict the behaviour of all cops
+    label_justification: Only a single acquitted case is cited, yet the argument extrapolates
+      to all members of the police force, which is a classic instance of hasty generalization
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+  counterargument:
+    decisive_counterargument: Acquittal of a few officers does not logically cause
+      other officers to commit more violent acts; there is no causal evidence linking
+      the two. Police behavior depends on many factors beyond a single court outcome.
+    candidate: null
+    challenged_inference: That because these cops were acquitted, more cops will think
+      they can get away with murder and kill innocents, leading eventually to cops
+      becoming criminals.
+    label_justification: The argument assumes a chain of unlikely consequences—starting
+      from an acquittal and ending with widespread police criminality—without evidence.
+      This is a textbook slippery‑slope fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires explicit cases/sample -> broader
+      population/class. Slippery Slope requires action/condition -> progressively
+      worse consequences. The argument extrapolates from a single acquitted cop to
+      all cops, fitting Hasty Generalization. Though it includes a chain, the central
+      claim is the generalization.
+    loser_failure: The Slippery Slope interpretation fails because the argument does
+      not present a clearly progressive series of linked adverse outcomes; the emphasis
+      is on the leap from a single case to all cops rather than a stepwise escalation.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that these cops were acquitted means that more cops are going to think
+      they can get away with murder and end up killing innocents just because they
+      think
+    - they can! If you don't punish people, obviously others will feel emboldened!
+      Soon the cops will be the criminals! Who will stop them at that point?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a sweeping conclusion that all cops will
+    act with impunity based on a single instance of police acquittal. This is a classic
+    case of hasty generalization, as it extrapolates from a limited sample to the
+    entire population.
+  decision_reason: The target contains a single example (“these cops were acquitted”)
+    and then claims that this proves a universal outcome for all police officers.
+    The conclusion that “more cops are going to think they can get away with murder”
+    is an overgeneralization from that limited case, satisfying the structural condition
+    for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that these cops were acquitted means that more cops are going to think
+    they can get away with murder and end up killing innocents just because they think
+  - they can! If you don't punish people, obviously others will feel emboldened! Soon
+    the cops will be the criminals! Who will stop them at that point?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5497
+  completion_tokens: 5096
+  total_tokens: 10593
+  wall_time_seconds: 116.85899999999674

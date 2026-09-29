@@ -1,0 +1,141 @@
+sample:
+  id: 4:9309
+  article_id: 4
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: This is the expected consequence of taking such drastic, abnormal measures
+    to try to contain a pandemic. We have immune systems for a reason. Of course,
+    sensible measures like taking vaccines when they're available and not coughing
+    in other people's faces and all that are great, but we should also let nature
+    run its course before we put the entire world under such authoritarian measures.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: We have immune systems for a reason.
+    - role: evaluative_conclusion
+      text: we should also let nature run its course before we put the entire world
+        under such authoritarian measures.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+    - vaccines when they're available and not coughing in other people's faces and
+      all that are great, but we should also let nature run its course before we put
+      the entire
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Let nature run its course and avoid authoritarian measures
+      rather than impose drastic, abnormal containment actions.
+    candidate: Appeal to Nature
+    supporting_reason: The argument appeals to the natural immune system and inherent
+      natural processes as justification for resisting restrictive measures.
+    support_relation: The reason ‘we have immune systems for a reason’ and the claim
+      to let nature run are used to support the conclusion of preferring natural immunity
+      over authoritarian policies.
+    label_justification: The reasoning relies on naturalness (immune systems, nature)
+      to argue for policy, which is an Appeal to Nature fallacy. The conclusion is
+      directly derived from the naturalistic premise, making this a classic appeal
+      to nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+    - vaccines when they're available and not coughing in other people's faces and
+      all that are great, but we should also let nature run its course before we put
+      the entire
+  counterargument:
+    decisive_counterargument: Believing that a pandemic must be allowed to run its
+      natural course because it is ‘natural’ ignores the evidence that such uncontrolled
+      spread can overwhelm health systems, cause large numbers of deaths, and inflict
+      severe economic and social harm. Vaccination, mask‑wearing, testing, and border
+      controls have repeatedly proven effective at reducing mortality and spread.
+      Therefore, the claim that we should let nature run its course is unsupported
+      rather than logically forced by the immune system’s existence.
+    candidate: Appeal to Nature
+    challenged_inference: The argument that allowing the infection to spread naturally
+      is preferable because the immune system is designed for it and nature is inherently
+      good.
+    label_justification: The objection specifically targets the appeal to naturalness
+      that a ‘drastic, authoritarian’ approach is unnecessary, exposing the argument’s
+      reliance on the premise that natural processes are inherently better—a classic
+      Appeal to Nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - This is the expected consequence of taking such drastic, abnormal measures to
+      try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+      measures like taking
+    - world under such authoritarian measures.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target cites a natural premise—‘we have immune systems for
+    a reason’—and derives a normative conclusion—‘let nature run its course before
+    imposing authoritarian measures’—thereby fitting the structure of an appeal to
+    nature. The premise is purely naturalistic and the conclusion promotes a policy
+    based on that naturalness, satisfying the mandatory structural requirements for
+    the appeal to nature fallacy.
+  decision_reason: The argument builds on the naturalness of immune systems to claim
+    that the pandemic should be allowed to run its course, which is a classic appeal
+    to nature. No other eligibility condition fails.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is the expected consequence of taking such drastic, abnormal measures to
+    try to contain a pandemic. We have immune systems for a reason. Of course, sensible
+    measures like taking
+  - vaccines when they're available and not coughing in other people's faces and all
+    that are great, but we should also let nature run its course before we put the
+    entire
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4705
+  completion_tokens: 2756
+  total_tokens: 7461
+  wall_time_seconds: 145.5

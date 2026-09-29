@@ -1,0 +1,119 @@
+sample:
+  id: 538:8810
+  article_id: 538
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: I get that the author/s of this article conducted their surveys, but something
+    important is missing here. There is no certification of these findings (and more
+    importantly, their meaning) by an expert on the local politics of the region.
+    Without that it's difficult to onboard these "results" with anything more than
+    skepticism. If they had recruited someone like Professor Z, who is actually from
+    the region himself, into the project, then I would more readily accept these findings.
+  target: Why do you need an expert for this? Would a certain professor make people
+    answer questions differently or something? I don't see this as a good reason to
+    be skeptical of the results. This is how all studies/surveys for the news are
+    done.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why do you need an expert for this? Would a certain professor make people answer
+      questions differently or something? I don't see this as a good reason to be
+      skeptical
+    - of the results. This is how all studies/surveys for the news are done.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Disregard the lack of expert certification as a valid reason
+      for skepticism, arguing that such studies are routinely conducted without expert
+      approval.
+    candidate: Appeal to Tradition
+    supporting_reason: This is how all studies/surveys for the news are done.
+    support_relation: The reason is invoked to justify dismissing skepticism, claiming
+      that the common (traditional) practice of conducting studies in this manner
+      legitimates the results.
+    label_justification: The argument appeals to the mere fact that the methodology
+      is widely used as a reason to accept the findings, which is the classic definition
+      of an appeal to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - of the results. This is how all studies/surveys for the news are done.
+  counterargument:
+    decisive_counterargument: The claim that an expert is unnecessary because “all
+      studies are done this way” commits an Appeal to Tradition. Just because most
+      surveys lack local expert involvement does not guarantee that the results are
+      reliable—experts can provide essential contextual knowledge that shapes survey
+      design, question wording, and interpretation of findings. Therefore, skepticism
+      is warranted until those expert insights are incorporated.
+    candidate: Appeal to Tradition
+    challenged_inference: Appeal to Tradition
+    label_justification: The objection directly undermines the target’s reliance on
+      tradition by pointing out that tradition does not ensure validity; thus the
+      argument fails by Appeal to Tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why do you need an expert for this? Would a certain professor make people answer
+      questions differently or something? I don't see this as a good reason to be
+      skeptical
+    - of the results. This is how all studies/surveys for the news are done.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target statement argues that skepticism is unwarranted because
+    conducting studies without expert certification is the conventional, widely practiced
+    method for news surveys, thereby using the mere fact of tradition to justify dismissal
+    of doubt.
+  decision_reason: The target relies on the traditional practice of conducting studies
+    in the news context as a reason to avoid skepticism, which matches the definition
+    of an appeal to tradition.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - of the results. This is how all studies/surveys for the news are done.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4549
+  completion_tokens: 3510
+  total_tokens: 8059
+  wall_time_seconds: 325.60899999999674

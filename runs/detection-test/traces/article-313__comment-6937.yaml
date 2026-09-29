@@ -1,0 +1,120 @@
+sample:
+  id: 313:6937
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: These kids are in college and they think its a good use of their time to
+    harass other kids due to politics? They have tests and whatnot to worry about.
+    Politics is for when you're older. Idiots! There are many more problems to worry
+    about at your age. Your future, climate change, etc.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: College students should not engage in political harassment
+      because it is not appropriate for their age.
+    candidate: null
+    supporting_reason: Politics is for when you're older.
+    support_relation: directly supports the conclusion by presenting age as a reason
+      to deem such activity inappropriate
+    label_justification: The provided reason is used legitimately to justify the conclusion;
+      no standard logical‑fallacy is evident.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are in college and they think its a good use of their time to harass
+      other kids due to politics? They have tests and whatnot to worry about.
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+  counterargument:
+    decisive_counterargument: The statement dismisses all college students as idiots
+      simply because a subset of them are engaging in political harassment, yet there
+      is no evidence that every college student shares those views or behaviors. Without
+      data showing a representative sample or a causal link between university age
+      and political harassment, the claim is an overgeneralization. Many college students
+      focus on studies, public service, or activism aimed at addressing urgent issues
+      such as climate change. Thus, the blanket judgment lacks support and exhibits
+      a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: All college students think it is worthwhile to harass others
+      for political reasons.
+    label_justification: The objection shows that the claim generalizes from a specific,
+      unrepresentative observation (some college kids harassing others) to a universal
+      statement about all college students, which is precisely the pattern of a hasty
+      generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These kids are in college and they think its a good use of their time to harass
+      other kids due to politics? They have tests and whatnot to worry about.
+    - Politics is for when you're older. Idiots! There are many more problems to worry
+      about at your age. Your future, climate change, etc.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The statement extrapolates the behavior of a specific group
+    of college students—harassing others for political reasons—to all college students,
+    without evidence that the sample is representative of the entire population.
+  decision_reason: The passage asserts that all college students engage in political
+    harassment and are therefore idiots, which is an overgeneralization lacking sufficient
+    evidence. This matches the structure of a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - These kids are in college and they think its a good use of their time to harass
+    other kids due to politics? They have tests and whatnot to worry about.
+  - Politics is for when you're older. Idiots! There are many more problems to worry
+    about at your age. Your future, climate change, etc.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4142
+  completion_tokens: 3298
+  total_tokens: 7440
+  wall_time_seconds: 160.875

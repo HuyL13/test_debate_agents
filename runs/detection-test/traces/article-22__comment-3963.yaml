@@ -1,0 +1,141 @@
+sample:
+  id: 22:3963
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: There is too much emotional pleasing in this article simply because most
+    people allegedly believe in it. This isn't even true butt the article tries to
+    frame it that way in a soft manner. Ot tries to act as though the majority are
+    for it but this is merely the case at best with the tiny minority of people involved.
+    This is a problem with all special interests. The average person doesn't care
+    enough to be this involved.
+  target: This is very true. That's because most normal people have much bigger concerns
+    than things like this. Hard to be worried about something like the relatively
+    minuscule effects of one little coal plant when you are struggling to get by,
+    paycheck to paycheck. The government should be focused on the more important things.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most normal people
+    - role: popularity_claim
+      text: most normal people have much bigger concerns than things like this
+    - role: target_claim
+      text: the government should be focused on the more important things
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker argues that ordinary people should not worry about
+      a small coal plant and that the government should focus on more important issues.
+    candidate: Appeal to Majority
+    supporting_reason: most normal people have much bigger concerns than the effects
+      of a small coal plant
+    support_relation: The reason is used to justify the claim that it is unreasonable
+      to worry about the coal plant, implying the government should prioritize other
+      matters.
+    label_justification: The argument employs the popularity/frequency of ordinary
+      people's larger concerns as the basis for the conclusion, which is the classic
+      structure of an Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+  counterargument:
+    decisive_counterargument: 'The argument that the government should prioritise
+      other matters simply because most people have bigger concerns is an appeal to
+      majority: it assumes an issue’s importance is determined by how many citizens
+      are presently worried about it, ignoring the possibility that the coal plant’s
+      environmental, health, and economic effects matter irrespective of current public
+      attention.'
+    candidate: Appeal to Majority
+    challenged_inference: the importance of the coal plant is determined by how many
+      normal people have bigger concerns than it
+    label_justification: The counterargument directly criticises the premise that
+      widespread indifference makes an issue unimportant; this demonstrates the appeal‑to‑majority
+      (populist) fallacy, rather than other failures such as a hasty generalisation
+      or appeal to emotion.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is very true. That's because most normal people have much bigger concerns
+      than things like this. Hard to be worried about something like the relatively
+      minuscule effects of one
+    - little coal plant when you are struggling to get by, paycheck to paycheck. The
+      government should be focused on the more important things.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that because “most normal people have much
+    bigger concerns than things like this” the government should be focused on the
+    more important things, which directly uses a popularity claim to justify the conclusion
+    – the classic structure of an Appeal to Majority fallacy.
+  decision_reason: The target’s premise that most normal people’s concerns outweigh
+    the coal plant’s effects is employed to justify the claim that the government
+    should prioritize other matters. This is the exact structure of an appeal to majority,
+    satisfying all required conditions for that fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is very true. That's because most normal people have much bigger concerns
+    than things like this. Hard to be worried about something like the relatively
+    minuscule effects of one
+  - little coal plant when you are struggling to get by, paycheck to paycheck. The
+    government should be focused on the more important things.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4823
+  completion_tokens: 2940
+  total_tokens: 7763
+  wall_time_seconds: 176.125

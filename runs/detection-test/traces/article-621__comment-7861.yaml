@@ -1,0 +1,121 @@
+sample:
+  id: 621:7861
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: If we are finding two headed snakes then there must be something in the
+    water, I bet man is polluting the area. There is no other possible answer. When
+    weird shit happens, its always us that causes it.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: man is polluting the area
+    - role: alternative_b
+      text: other causes
+    - role: exhaustiveness_commitment
+      text: There is no other possible answer.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+    - shit happens, its always us that causes it.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Humans are polluting the water, which explains the appearance
+      of two‑headed snakes.
+    candidate: False Dilemma
+    supporting_reason: There is no other possible answer.
+    support_relation: mechanism_supports_goal
+    label_justification: The speaker explicitly excludes all other explanations by
+      asserting “There is no other possible answer,” which commits the false dilemma
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+    - shit happens, its always us that causes it.
+  counterargument:
+    decisive_counterargument: The claim that humans must be polluting the water because
+      two‑headed snakes appear ignores other legitimate explanations—genetic mutation,
+      disease, or other environmental toxins may produce such anomalies. The argument
+      assumes only one cause and dismisses any other possibility.
+    candidate: False Dilemma
+    challenged_inference: If we are finding two headed snakes then there must be something
+      in the water, I bet man is polluting the area. There is no other possible answer.
+      When weird shit happens, its always us that causes it.
+    label_justification: The inference presents only two options—human pollution or
+      nothing—implying that one must be true. This exclusivity is a false dilemma,
+      as the argument disregards other plausible causes.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If we are finding two headed snakes then there must be something in the water,
+      I bet man is polluting the area. There is no other possible answer. When weird
+    - shit happens, its always us that causes it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly limits possible explanations to human
+    pollution—“There is no other possible answer”—thereby presenting a single alternative
+    (humans polluting the water) and excluding all others. This satisfies the False
+    Dilemma structural requirement of two alternatives plus an exhaustiveness commitment,
+    demonstrating the fallacy.
+  decision_reason: The argument commits a false dilemma by asserting that the only
+    possible cause of two‑headed snakes is human pollution and denying any other plausible
+    explanations, as evidenced in the passage.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If we are finding two headed snakes then there must be something in the water,
+    I bet man is polluting the area. There is no other possible answer. When weird
+  - shit happens, its always us that causes it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4252
+  completion_tokens: 3196
+  total_tokens: 7448
+  wall_time_seconds: 136.01499999995576

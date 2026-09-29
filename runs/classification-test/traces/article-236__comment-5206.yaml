@@ -1,0 +1,188 @@
+sample:
+  id: 236:5206
+  article_id: 236
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: Not become one with mother nature is no way to go in the world. Everyone
+    should be for nature and keeping the environment great. Lets protect what we have
+    in this world as nature intended.
+  target: I think the majority of people are getting on board with climate action.  Everyone
+    is seeing the changes as they happen.  Even older folks, the most anti-climate
+    group are seeing this and starting to think they should support it.  They are
+    the ones that remember when it was colder.  For example my state is very conservative
+    but even older people know that is not snowing anymore like it was when they were
+    kids.  I think that it the key and the younger people are leading the way with
+    this.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of people
+    - role: popularity_claim
+      text: majority of people are getting on board with climate action
+    - role: target_claim
+      text: climate action should be supported
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: claim that the majority of people are supporting climate action
+    candidate: Hasty Generalization
+    supporting_reason: Older individuals, who are the most anti‑climate group, are
+      noticing temperature changes and are starting to reconsider their stance; this
+      observation is used to support the claim about overall public support.
+    support_relation: the observation of a small, specific group (older conservatives
+      who remember colder winters) is generalized to argue that the majority of people
+      support climate action
+    label_justification: The argument extrapolates from a limited, non‑representative
+      sample (older conservatives) to assert a broad claim about the entire population,
+      fitting the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    - this and starting to think they should support it.  They are the ones that remember
+      when it was colder.  For example my state is very conservative but even older
+      people
+  counterargument:
+    decisive_counterargument: While many people may think climate action is a good
+      idea, popular opinion does not in itself prove that the action is warranted,
+      effective, or necessary. A majority’s belief is not evidence of truth; it merely
+      reflects a trend or sentiment. To justify pursuing climate action one must provide
+      empirical data, risk assessments, and cost‑benefit analyses that demonstrate
+      its real-world benefits, rather than relying solely on how many people feel
+      it is right.
+    candidate: Appeal to Majority
+    challenged_inference: That the popularity of climate action guarantees its correctness
+      or necessity
+    label_justification: The objection shows that the reasoning depends on a majority
+      vote or sentiment as if it were factual proof, which is the hallmark of the
+      Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The mandatory structural condition for a Hasty Generalization—inferring
+      a broader claim about a population from a limited, non‐representative sample—is
+      directly present in the TARGET passage.  The speaker cites observations of older
+      conservatives in a single state (T1, T2) and generalizes that these individuals,
+      and by extension a wider majority, are shifting their stance on climate action.  This
+      inference from a small sample to a broad conclusion satisfies the structural
+      criterion for a Hasty Generalization.  The Appeal to Majority structure, which
+      requires using the popularity of a claim as evidence for its truth or necessity,
+      is not explicitly employed in the passage; it merely recounts that a majority
+      are getting on board, without treating that popularity as justificatory proof.
+    loser_failure: The Appeal to Majority fallacy iteratively demands that the argument’s
+      conclusion is supported by the fact that many people hold a certain view.  The
+      target statement only reports that a majority appear to support climate action,
+      but it does not argue that this popularity proves the action’s correctness or
+      necessity.  Therefore, the structural requirement for Appeal to Majority is
+      not met, making the Hasty Generalization the correct classification.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of people are getting on board with climate action.  Everyone
+      is seeing the changes as they happen.  Even older folks, the most anti-climate
+      group are seeing
+    - this and starting to think they should support it.  They are the ones that remember
+      when it was colder.  For example my state is very conservative but even older
+      people
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a broad claim that “the majority of people
+    are getting on board with climate action” based on observations of a small, specific
+    group—older conservatives who remember colder winters—who are now starting to
+    support climate action. This extrapolation from the behaviors of that limited
+    sample to the entire population satisfies the definition of a hasty generalization.
+  decision_reason: The argument generalizes from the noted shift among older, previously
+    skeptical individuals to claim that the majority of the population shares that
+    stance, thereby violating the structural requirement of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think the majority of people are getting on board with climate action.  Everyone
+    is seeing the changes as they happen.  Even older folks, the most anti-climate
+    group are seeing
+  - this and starting to think they should support it.  They are the ones that remember
+    when it was colder.  For example my state is very conservative but even older
+    people
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6376
+  completion_tokens: 4047
+  total_tokens: 10423
+  wall_time_seconds: 102.34400000001187

@@ -1,0 +1,134 @@
+sample:
+  id: 174:4720
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: The Tunisian government should either make LGBT stuff legal or make it all
+    illegal. This would do away with any similar lawsuits being brought up. You can't
+    make being gay illegal and then allow an LGBT radio station. Mixed signals. Either
+    legalize it all or not!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: make LGBT stuff legal
+    - role: alternative_b
+      text: make it all illegal
+    - role: exhaustiveness_commitment
+      text: Either legalize it_all or not!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Tunisian government should either make LGBT stuff legal or make it all illegal.
+      This would do away with any similar lawsuits being brought up. You can't make
+      being gay
+    - illegal and then allow an LGBT radio station. Mixed signals. Either legalize
+      it all or not!
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The Tunisian government should either fully legalize LGBT
+      matters or fully outlaw them.
+    candidate: False Dilemma
+    supporting_reason: Mixed signals – you can’t have LGBT content legal in some contexts
+      and illegal in others, so only a clear all‑legal or all‑illegal stance is acceptable.
+    support_relation: The claim that mixed signals are unacceptable is used to justify
+      the dichotomous conclusion that only a total legalisation or a total prohibition
+      is viable.
+    label_justification: The argument explicitly limits the options to two mutually
+      exclusive possibilities (full legality or full illegality) and dismisses any
+      intermediate or nuanced positions, thus presenting a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Tunisian government should either make LGBT stuff legal or make it all illegal.
+      This would do away with any similar lawsuits being brought up. You can't make
+      being gay
+    - illegal and then allow an LGBT radio station. Mixed signals. Either legalize
+      it all or not!
+  counterargument:
+    decisive_counterargument: 'The Tunisian government could adopt a nuanced, incremental
+      approach: regulate specific aspects of LGBT expression (e.g., radio broadcasts)
+      while protecting others (e.g., employment non‑discrimination). Such partial
+      policies can reduce legal conflicts without resorting to a blanket ban or full
+      legalization, demonstrating that mixed or middle‑ground solutions are feasible
+      and do not constitute “mixed signals.”'
+    candidate: False Dilemma
+    challenged_inference: The Tunisian government should either make LGBT stuff legal
+      or make it all illegal.
+    label_justification: The argument forces a binary choice—full legalisation or
+      outright prohibition—while ignoring the spectrum of intermediate, workable policies.
+      This is exactly the structure of a false dilemma, where only two mutually exclusive
+      options are presented as the only viable ones.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Tunisian government should either make LGBT stuff legal or make it all illegal.
+      This would do away with any similar lawsuits being brought up. You can't make
+      being gay
+    - illegal and then allow an LGBT radio station. Mixed signals. Either legalize
+      it all or not!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The argument explicitly limits the options to two mutually exclusive
+    possibilities—either full legalization of LGBT content or complete prohibition—and
+    claims that mixed signals are unacceptable, thereby eliminating any intermediate
+    or nuanced alternatives.
+  decision_reason: The target text presents a binary choice (legalize all or ban all)
+    and dismisses intermediate options, satisfying the structural requirement for
+    a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The Tunisian government should either make LGBT stuff legal or make it all illegal.
+    This would do away with any similar lawsuits being brought up. You can't make
+    being gay
+  - illegal and then allow an LGBT radio station. Mixed signals. Either legalize it
+    all or not!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4432
+  completion_tokens: 1984
+  total_tokens: 6416
+  wall_time_seconds: 77.06299999999464

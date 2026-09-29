@@ -1,0 +1,174 @@
+sample:
+  id: 386:7155
+  article_id: 386
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: The fact that the authorities haven't provided an explanation is suspect.
+    This makes me think they either have something to do with it or are hiding something
+    big. Why else would they not inform the people? If they have nothing to hide,
+    come clean about who is responsible!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the authorities have something to do with it
+    - role: alternative_b
+      text: the authorities are hiding something big
+    - role: exhaustiveness_commitment
+      text: the lack of explanation implies that the authorities either have something
+        to do with it or are hiding something big
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The authorities are suspected of having something to hide
+      or being involved.
+    candidate: Appeal to Authority
+    supporting_reason: The argument claims that the lack of an explanation is proof
+      of wrongdoing, implying that if the authorities had nothing to hide, they would
+      disclose the responsible party.
+    support_relation: provides justification for the suspicion about the authorities.
+    label_justification: The reason uses the absence of evidence as evidence of guilt,
+      which is an appeal to ignorance rather than a sound argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+  counterargument:
+    decisive_counterargument: The authorities’ silence does not prove they are hiding
+      wrongdoing. Their lack of explanation may simply reflect uncertainty, pending
+      investigations, bureaucracy, or a decision to withhold information until credible
+      evidence is available. Therefore, concluding that they must be complicit is
+      unfounded.
+    candidate: Appeal to Authority
+    challenged_inference: Because authorities have not provided an explanation, they
+      must be involved or hiding something.
+    label_justification: The argument claims guilt solely based on the absence of
+      information, a classic appeal to ignorance (argumentum ad ignorantiam). It uses
+      the lack of explanation as evidence of hidden wrongdoing, which is an inferential
+      mistake.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Appeal to Authority
+  transitions:
+  - before:
+    - False Dilemma
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: The mandatory structural condition of False Dilemma requires presenting
+      exhaustive alternatives and implying no other options are possible. The target
+      text explicitly lists two mutually exclusive alternatives – the authorities
+      either “have something to do with it” or they are “hiding something big. Why
+      else would they not inform the people?” – and commits to the exhaustiveness
+      of this dichotomy. This satisfies the false dilemma structure. In contrast,
+      the target does not appeal to the authority of the officials for their reasons;
+      it merely asserts suspicion based on their silence, which is an argument from
+      ignorance rather than an appeal to authority. Therefore, False Dilemma is the
+      correct label.
+    loser_failure: Appeal to Authority claims that a statement is justified because
+      it comes from an authority or because authority is referenced. The target statement
+      does not invoke the authority’s expertise or credibility as justification; it
+      instead presents a dichotomy of possibilities, so it fails to satisfy the structural
+      requirement of Appeal to Authority.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents only two alternatives – authorities
+    have something to do with it or are hiding something big – and asserts that these
+    exhaust all possible explanations for the lack of an official statement, constituting
+    an unjustified false dilemma.
+  decision_reason: The target commits a false dilemma by limiting the possible reasons
+    to two exhaustive options, ignoring other plausible explanations.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that the authorities haven't provided an explanation is suspect. This
+    makes me think they either have something to do with it or are hiding something
+    big. Why else
+  - would they not inform the people? If they have nothing to hide, come clean about
+    who is responsible!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5462
+  completion_tokens: 4211
+  total_tokens: 9673
+  wall_time_seconds: 132.21899999992456

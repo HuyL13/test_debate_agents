@@ -1,0 +1,162 @@
+sample:
+  id: 19:3955
+  article_id: 19
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: To me this just seems to want to placate a blind belief that more press
+    access equals good. I find it perfectly acceptable that Papua New Guinea doesn't
+    want to blindly open the floodgates to journalists given their situation. Western
+    countries know very little about Papua New Guinea and anything happening there.
+    This results in journalists almost entirely framing the debate of what to think.
+    Lots of journalists are simply going to exacerbate anything they find to drum
+    up interest
+  target: So you bring up Western countries and their lack of knowledge of the country.
+    They you say that lack of knowledge leads to them writing stories in which they
+    entirely frame the debate. Don't you think that this whole issue of making it
+    harder for the foreign journalist to come in, is going to make this a bigger issue?
+    How are they supposed to learn about the country and its issues in order to write
+    more balanced stories so they don't frame their from their own point of view?
+    I think that the PM should be worried about more important things that the media.
+    Or perhaps he is, and slicing the media or making it tougher for them to get access
+    will ease those worries. Hence the corruption issues. Maybe if he was more transparent,
+    the media would not be clamoring for access?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: making it harder for foreign journalists to come in
+    - role: intermediate_consequence
+      text: they are unable to learn about the country and its issues in order to
+        write more balanced stories and thus frame their own point of view
+    - role: final_consequence
+      text: the issue becomes bigger than it already is
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - frame the debate. Don't you think that this whole issue of making it harder
+      for the foreign journalist to come in, is going to make this a bigger issue?
+      How
+    - are they supposed to learn about the country and its issues in order to write
+      more balanced stories so they don't frame their from their own point of view?
+      I
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The PM should not restrict foreign journalist access to Papua
+      New Guinea, because it will worsen knowledge gaps and lead to biased reporting.
+    candidate: null
+    supporting_reason: Restricting foreign journalists will make the issue of limited
+      knowledge bigger, leading to worse, biased coverage.
+    support_relation: The reason is used to argue that limiting access aggravates
+      the problem.
+    label_justification: The argument presents a causal link between restricting media
+      access and negative consequences. This is a legitimate reasoning strategy and
+      does not exhibit a recognized logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So you bring up Western countries and their lack of knowledge of the country.
+      They you say that lack of knowledge leads to them writing stories in which they
+      entirely
+    - frame the debate. Don't you think that this whole issue of making it harder
+      for the foreign journalist to come in, is going to make this a bigger issue?
+      How
+    - are they supposed to learn about the country and its issues in order to write
+      more balanced stories so they don't frame their from their own point of view?
+      I
+  counterargument:
+    decisive_counterargument: Restricting access to foreign journalists does not guarantee
+      a more balanced or accurate coverage of Papua New Guinea. Journalists can rely
+      on local experts, secondary sources, and on‑the‑ground reports that are not
+      contingent on unrestricted access. Rather than causing a larger problem, limitations
+      could encourage journalists to seek alternative, perhaps even more reliable,
+      information channels, so the inference that restriction will inevitably worsen
+      the situation is unsupported.
+    candidate: Slippery Slope
+    challenged_inference: limiting foreign journalists’ access will inevitably make
+      the debate bigger, hinder balanced reporting, and exacerbate corruption or other
+      negative outcomes
+    label_justification: The target argument proposes a causal chain—restricting press
+      leads to a larger problem without providing evidence for the intermediate steps.
+      This classic unwarranted escalation of consequences embodies a Slippery Slope
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T4
+    - T5
+    evidence_spans:
+    - frame the debate. Don't you think that this whole issue of making it harder
+      for the foreign journalist to come in, is going to make this a bigger issue?
+      How
+    - think that the PM should be worried about more important things that the media.
+      Or perhaps he is, and slicing the media or making it tougher for them to get
+    - access will ease those worries. Hence the corruption issues. Maybe if he was
+      more transparent, the media would not be clamoring for access?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: target presents an unwarranted escalation from restricting foreign
+    journalist access to a larger debate, lack of balanced reporting, and corruption,
+    meeting the structural conditions of a slippery slope
+  decision_reason: it contains a causal chain of escalating adverse outcomes without
+    evidence, qualifying as a slippery slope fallacy
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - frame the debate. Don't you think that this whole issue of making it harder for
+    the foreign journalist to come in, is going to make this a bigger issue? How
+  - are they supposed to learn about the country and its issues in order to write
+    more balanced stories so they don't frame their from their own point of view?
+    I
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5808
+  completion_tokens: 4318
+  total_tokens: 10126
+  wall_time_seconds: 175.18799999999464

@@ -1,0 +1,138 @@
+sample:
+  id: 599:7793
+  article_id: 599
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is a great step in the right direction. Imagine how bad it could get
+    if nothing ever came of these killings and these corrupt figures just found out
+    they could get away with this kind of behavior. What eventually comes is practically
+    a mafia state. Corruption and violence at every level.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: nothing ever came of these killings
+    - role: intermediate_consequence
+      text: these corrupt figures just found out they could get away with this kind
+        of behavior
+    - role: final_consequence
+      text: what eventually comes is practically a mafia state. Corruption and violence
+        at every level.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The step of holding the corrupt figures accountable is a positive
+      (right‑directional) action.
+    candidate: Slippery Slope
+    supporting_reason: If nothing ever came of these killings and the corrupt figures
+      found out they could get away with this kind of behavior, a mafia state would
+      eventually arise, leading to corruption and violence at every level.
+    support_relation: The speaker uses the potential escalation to a mafia state as
+      evidence that the action is necessary and therefore a step in the right direction.
+    label_justification: The argument predicts a drastic negative outcome (a mafia
+      state) from the mere absence of accountability, thereby implying a causal progression
+      from one event to an extreme consequence. This is a classic slippery‑slope claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+  counterargument:
+    decisive_counterargument: The prediction that an unpunished killing will inevitably
+      lead to a mafia‑style state is a speculative, worst‑case scenario that assumes
+      a direct, unavoidable causal chain. No evidence links a single act of impunity
+      with whole‑scale corruption or violence; other legal, political, or social safeguards
+      could intervene. Thus the inference is a classic slippery‑slope fallacy.
+    candidate: null
+    challenged_inference: An inference that if nothing comes of these killings, a
+      mafia state with ubiquitous corruption and violence will result.
+    label_justification: slippery_slope
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great step in the right direction. Imagine how bad it could get if
+      nothing ever came of these killings and these corrupt figures just found out
+      they
+    - could get away with this kind of behavior. What eventually comes is practically
+      a mafia state. Corruption and violence at every level.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The argument presents a causal progression: if nothing ever
+    happens to the killings, corrupt individuals would get away with their behavior,
+    leading to a mafia state, which exemplifies a slippery‑slope claim.'
+  decision_reason: The target provides a chain of consequences—initial lack of accountability
+    yields unchecked corruption, which culminates in a mafia state—meeting the structural
+    requirement for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is a great step in the right direction. Imagine how bad it could get if nothing
+    ever came of these killings and these corrupt figures just found out they
+  - could get away with this kind of behavior. What eventually comes is practically
+    a mafia state. Corruption and violence at every level.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4302
+  completion_tokens: 3564
+  total_tokens: 7866
+  wall_time_seconds: 108.79699999999139

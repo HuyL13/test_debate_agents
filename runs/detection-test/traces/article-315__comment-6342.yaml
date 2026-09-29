@@ -1,0 +1,109 @@
+sample:
+  id: 315:6342
+  article_id: 315
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: The indigenous people have had it rough. This is common in most of the world.
+    Others take over your lands and then erode your culture and life.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The indigenous people have had it rough. This is common in most of the world.
+      Others take over your lands and then erode your culture and life.
+    candidate: null
+  goal:
+    conclusion_or_goal: Indigenous peoples have had rough experiences, commonly due
+      to others taking over their lands and eroding their culture and life.
+    candidate: null
+    supporting_reason: Others take over your lands and then erode your culture and
+      life.
+    support_relation: provides the causal explanation for why indigenous people have
+      had it rough
+    label_justification: The passage presents a straightforward cause‑effect relation;
+      it does not invoke an unsupported generalization, false dilemma, appeal to authority,
+      or any other recognized logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The indigenous people have had it rough. This is common in most of the world.
+      Others take over your lands and then erode your culture and life.
+  counterargument:
+    decisive_counterargument: Just because a few indigenous communities have experienced
+      cultural erosion doesn’t prove that such erasure by outsiders is a worldwide
+      norm. The passage offers only one example and no data to support the blanket
+      claim that this happens in most of the world.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that erosion of culture by outsiders is common
+      worldwide.
+    label_justification: The argument draws a sweeping conclusion about global patterns
+      of cultural erosion based on a single anecdote. This failure to provide sufficient
+      evidence violates the requirement for a representative sample, meeting the definition
+      of a hasty generalization. The counterargument specifically targets that unsupported
+      extrapolation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The indigenous people have had it rough. This is common in most of the world.
+      Others take over your lands and then erode your culture and life.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The passage claims that erosion of indigenous culture by outsiders
+    is common worldwide while providing only a single, unspecified instance of hardship
+    (“The indigenous people have had it rough”), which lacks sufficient evidence to
+    justify a sweeping generalization. Thus it constitutes a hasty generalization.
+    Evidence: T1.'
+  decision_reason: The claim “This is common in most of the world” is an unsupported
+    generalization drawn from insufficient evidence, meeting the definition of a hasty
+    generalization. Evidence T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The indigenous people have had it rough. This is common in most of the world.
+    Others take over your lands and then erode your culture and life.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3694
+  completion_tokens: 2922
+  total_tokens: 6616
+  wall_time_seconds: 73.43700000000536

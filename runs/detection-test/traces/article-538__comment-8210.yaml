@@ -1,0 +1,151 @@
+sample:
+  id: 538:8210
+  article_id: 538
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: Of course these people don't really care all that much about what flag is
+    above the government buildings. Actual security and prosperity is much more important
+    to most. Both sides should tone down the nationalist rhetoric and focus on what
+    actually matters - the well-being of the people.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+    - should tone down the nationalist rhetoric and focus on what actually matters
+      - the well-being of the people.
+    candidate: null
+  goal:
+    conclusion_or_goal: Both sides should tone down nationalist rhetoric and focus
+      on what actually matters – the well‑being of the people.
+    candidate: Appeal to Majority
+    supporting_reason: Actual security and prosperity is much more important to most.
+    support_relation: use of majority opinion as justification for recommendation
+    label_justification: The argument relies on an unsubstantiated claim that most
+      people prioritize security and prosperity, using that supposed majority preference
+      as the basis for suggesting that nationalist rhetoric be toned down. This appeal
+      to a popular sentiment without evidence is a fallacious justification.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+  counterargument:
+    decisive_counterargument: The assertion that ‘most people do not care about the
+      flag’ is a blanket generalization with no supporting evidence; many individuals
+      place great importance on national symbols, so the claim overgeneralizes. This
+      lack of evidence makes the conclusion that nationalist rhetoric should be toned
+      down unjustified.
+    candidate: Hasty Generalization
+    challenged_inference: People don’t care about flags
+    label_justification: The argument makes a sweeping statement about the entire
+      population’s attitudes toward flags without providing any empirical support,
+      thereby committing a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+    - should tone down the nationalist rhetoric and focus on what actually matters
+      - the well-being of the people.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: (Appeal to Majority)
+    loser_failure: Hasty Generalization requires a problematic inference drawn from
+      a sample. The TARGET does not cite any sample; it merely claims what most people
+      think. Therefore it does not meet the Hasty Generalization pattern, whereas
+      it clearly appeals to a majority opinion. The evidence supporting the Appeal
+      to Majority is [T1].
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Of course these people don't really care all that much about what flag is above
+      the government buildings. Actual security and prosperity is much more important
+      to most. Both sides
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The comment asserts that “most people” prioritize security over
+    symbolic displays, and then uses that majority preference as the basis for recommending
+    that both sides reduce nationalist rhetoric. This satisfies the structural requirement
+    of an Appeal to Majority, where a purported majority view is invoked to justify
+    a conclusion. The claim about the majority is made without evidence and directly
+    supports the recommendation.
+  decision_reason: The RAW TARGET states ‘Actual security and prosperity is much more
+    important to most’ and concludes that both sides should tone down nationalist
+    rhetoric – i.e., it relies on an unsubstantiated majority preference to justify
+    an action, which is the classic Appeal to Majority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Of course these people don't really care all that much about what flag is above
+    the government buildings. Actual security and prosperity is much more important
+    to most. Both sides
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5271
+  completion_tokens: 3969
+  total_tokens: 9240
+  wall_time_seconds: 184.01600000000326

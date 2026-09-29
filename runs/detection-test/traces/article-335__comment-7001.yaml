@@ -1,0 +1,159 @@
+sample:
+  id: 335:7001
+  article_id: 335
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: It's natural to feel a need for justice when wronged. The survivors will
+    continue to seek what's right. The CCP on the other hand will continue to suppress
+    any opposition to their agenda.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It's natural to feel a need for justice when wronged.
+    - role: evaluative_conclusion
+      text: The survivors will continue to seek what's right. The CCP on the other
+        hand will continue to suppress any opposition to their agenda.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to feel a need for justice when wronged. The survivors will continue
+      to seek what's right. The CCP on the other hand will continue to suppress any
+      opposition
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The survivors will continue to seek what's right, while the
+      CCP will continue to suppress any opposition to its agenda.
+    candidate: Appeal to Nature
+    supporting_reason: It is natural to feel a need for justice when wronged.
+    support_relation: The naturalness of the urge to seek justice is used as a justification
+      that survivors will act to pursue what is right, implying that this natural
+      feeling warrants their continued pursuit of justice.
+    label_justification: The argument relies on the fact that something is ‘natural’
+      to claim it is morally justified or necessary, a classic appeal to nature. The
+      natural feeling is presented as a normative reason for the survivors’ actions,
+      thereby constituting the fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to feel a need for justice when wronged. The survivors will continue
+      to seek what's right. The CCP on the other hand will continue to suppress any
+      opposition
+  counterargument:
+    decisive_counterargument: The assertion that the CCP will persistently suppress
+      any opposition is an unsubstantiated projection; no evidence is offered that
+      future suppression will resemble past actions, so the claim rests on an unjustified
+      generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The CCP will continue to suppress any opposition to their
+      agenda.
+    label_justification: The reasoning extends a pattern observed in the past to a
+      blanket claim about future CCP behavior without demonstrating that the same
+      conditions will hold, which matches the definition of a hasty generalization.  Failure_exposed:true
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to feel a need for justice when wronged. The survivors will continue
+      to seek what's right. The CCP on the other hand will continue to suppress any
+      opposition
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature is the only fallacy whose structural condition—using
+      a naturalness premise to support an evaluative conclusion—is directly satisfied
+      by the target passage.  The sentence “It’s natural to feel a need for justice
+      when wronged” serves as the naturalness premise; the following clause “The survivors
+      will continue to seek what’s right” is the evaluative conclusion derived from
+      that premise, matching the classic “nature‑to‑value” pattern.  The candidate
+      “Hasty Generalization” fails because the target contains no explicit sample
+      or observed pattern from which a broader claim about the CCP can be derived;
+      it merely presents a single projection about future suppression without a demonstrable
+      case-based generalization.  Thus Appeal to Nature satisfies the mandatory structure,
+      whereas Hasty Generalization does not.
+    loser_failure: The target does not provide a sample or specific evidence that
+      the CCP has suppressed opposition in the past, nor does it frame the claim as
+      “people who—” or “most” etc., which is required for a hasty generalization.  Without
+      such a sample‑to‑conclusion link, the claim cannot be properly classified as
+      a hasty generalization.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's natural to feel a need for justice when wronged. The survivors will continue
+      to seek what's right. The CCP on the other hand will continue to suppress any
+      opposition
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target text presents a naturalness premise (“It’s natural
+    to feel a need for justice when wronged”) followed by a moral evaluative conclusion
+    that survivors will continue to seek what is right, thereby using naturalness
+    to justify a value judgment, which satisfies the structure of an appeal to nature
+    fallacy.
+  decision_reason: The supplied evidence from T1 demonstrates the fallacious link
+    between the natural feeling and the normative claim that seeking justice is justified,
+    fulfilling the mandatory structure for an appeal to nature.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It's natural to feel a need for justice when wronged. The survivors will continue
+    to seek what's right. The CCP on the other hand will continue to suppress any
+    opposition
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5453
+  completion_tokens: 3950
+  total_tokens: 9403
+  wall_time_seconds: 172.3289999999979

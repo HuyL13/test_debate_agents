@@ -1,0 +1,144 @@
+sample:
+  id: 565:7692
+  article_id: 565
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: The media over all is owned by governments who are able to push their own
+    agendas as something that is fact instead of being unbiased. The media is no less
+    corrupt then the ruling government parties and the elites. It is certainly no
+    coincidence that the media stories generally align with the popular government
+    opinions.  Between the government and the big corporation's it's a wonder if we
+    hear anything on the news that is truly truthful.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: media ownership by governments
+    - role: observed_property
+      text: alignment of media stories with government opinions
+    - role: target_population
+      text: media stories in general
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+    - big corporation's it's a wonder if we hear anything on the news that is truly
+      truthful.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Media is corrupt, biased, and does not provide truthful reporting.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that 'the media over all is owned by governments
+      who are able to push their own agendas as something that is fact instead of
+      being unbiased' is used to imply that all media acts in this way.
+    support_relation: The sweeping statement about media ownership directly supports
+      the conclusion that media is biased and corrupt.
+    label_justification: The target generalizes from an unproven assertion that all
+      media outlets are owned by governments to claim widespread corruption and bias
+      across the entire media landscape, which is a classic example of hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+  counterargument:
+    decisive_counterargument: Even if a portion of media is government‑owned, there
+      are numerous independent outlets and professional journalists who adhere to
+      standards of impartiality and fact‑checking. Hence, it is incorrect to infer
+      that every news story serves government agendas, an overgeneralisation based
+      on insufficient evidence.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that because some media outlets are governed or
+      corporate‑owned, all media stories are biased and untruthful.
+    label_justification: The objection exposes the leap from a particular instance
+      (some government‑controlled media) to a universal claim about all media, which
+      illustrates a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+    - big corporation's it's a wonder if we hear anything on the news that is truly
+      truthful.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a universal claim that all media are owned
+    by governments and inherently biased without providing supporting evidence for
+    this broad generalization. The claim extrapolates from a limited statement about
+    some media to the entire media landscape, meeting the structural criteria for
+    a hasty generalization.
+  decision_reason: The target’s sweeping assertion that the entire media is government-owned
+    and aligns with government opinions is a hasty generalization because it draws
+    a universal conclusion from insufficient sample evidence.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - The media over all is owned by governments who are able to push their own agendas
+    as something that is fact instead of being unbiased. The media is no less
+  - corrupt then the ruling government parties and the elites. It is certainly no
+    coincidence that the media stories generally align with the popular government
+    opinions.  Between the government and the
+  - big corporation's it's a wonder if we hear anything on the news that is truly
+    truthful.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4821
+  completion_tokens: 4454
+  total_tokens: 9275
+  wall_time_seconds: 205.70299999999406

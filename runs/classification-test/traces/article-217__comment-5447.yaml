@@ -1,0 +1,148 @@
+sample:
+  id: 217:5447
+  article_id: 217
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Trinidad & Tobago NGO identifies treatment of women as key issue in upcoming
+    elections
+  parent: ''
+  target: There are only two reasons for this. Women want control, not equality. The
+    aggressive demands like a change in constitution is a bit odd. Sure, they should
+    do something, but maybe a bit down to earth.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: Women want control
+    - role: alternative_b
+      text: Women want equality
+    - role: exhaustiveness_commitment
+      text: Only two reasons for this
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Women want control, not equality
+    candidate: Hasty Generalization
+    supporting_reason: Women want control, not equality
+    support_relation: provides
+    label_justification: The claim asserts a sweeping statement about all women’s
+      motives with no evidence or specific sample, fitting the definition of a hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+  counterargument:
+    decisive_counterargument: The claim that all women want control instead of equality
+      is unsupported; it ignores the documented political mobilization of women for
+      equal rights and instead relies on a biased stereotype.
+    candidate: null
+    challenged_inference: Women want control, not equality.
+    label_justification: No provided evidence or sample leads to the broad conclusion,
+      and the argument does not fit any of the defined fallacy patterns (Hasty Generalization
+      requires an explicit sample; Slippery Slope, False Dilemma, Appeals, etc. are
+      absent). Therefore the reasoning cannot be classified as a specific fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+    - maybe a bit down to earth.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: exhaustive_alternatives
+    loser_failure: missing explicit sample for generalization
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There are only two reasons for this. Women want control, not equality. The aggressive
+      demands like a change in constitution is a bit odd. Sure, they should do something,
+      but
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly claims “There are only two reasons for
+    this” and presents those two reasons (women want control versus women want equality)
+    as the exhaustive set of possibilities.
+  decision_reason: The target foregrounds a binary choice and asserts it exhausts
+    all reasons, meeting the structural criteria for a false dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There are only two reasons for this. Women want control, not equality. The aggressive
+    demands like a change in constitution is a bit odd. Sure, they should do something,
+    but
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5027
+  completion_tokens: 5260
+  total_tokens: 10287
+  wall_time_seconds: 252.06299999999464

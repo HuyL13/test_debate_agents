@@ -1,0 +1,140 @@
+sample:
+  id: 355:6462
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: This is a great message and I hope everyone takes it to heart. As our greatest
+    minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+    And it's not an anti-man thing at all. As Laura Bates pointed out, it's not a
+    men versus women issue. It's a people versus prejudice issue.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: our greatest minds
+    - role: endorsed_claim
+      text: sexism and discrimination is bad for everyone
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Sexism and discrimination are harmful to everyone, and the
+      issue should be framed as people versus prejudice rather than an anti‑male stance.
+    candidate: Appeal to Authority
+    supporting_reason: Citing 'our greatest minds' and Laura Bates as authorities
+      to validate the claim that sexism is detrimental for all and is not a men‑versus‑women
+      conflict
+    support_relation: The author relies on statements attributed to presumed experts
+      to establish and reinforce the moral conclusion about sexism
+    label_justification: The argument uses unqualified authorities ('our greatest
+      minds' and the public figure Laura Bates) to justify the claim, which is the
+      classic pattern of an Appeal to Authority. The cited authorities are not identified
+      or substantively proven, yet their endorsement is taken as decisive proof.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+  counterargument:
+    decisive_counterargument: The argument assumes that sexism and discrimination
+      are bad for everyone simply because “our greatest minds” have asserted it, and
+      relies on Laura Bates’ statements to dismiss any male‑specific concerns. This
+      rests entirely on the opinion of an authority figure rather than on empirical
+      evidence or logical reasoning supporting the claim. Consequently the premise
+      that “sexism and discrimination is bad for everyone” is asserted without any
+      substantiating data, and the whole claim is supported by an Appeal to Authority.
+      This fallacy arises because the argument does not provide independent evidence
+      for the claim, merely cites a reputed source whose endorsement does not, by
+      itself, establish truth.
+    candidate: Appeal to Authority
+    challenged_inference: sexism and discrimination is bad for everyone
+    label_justification: The objection targets the lack of independent support for
+      the claim and the reliance on authoritative statements. Because the argument
+      depends solely on authority to validate its premise and does not supply evidence,
+      it exhibits an Appeal to Authority rather than merely criticizing the argument.
+      The provided evidence ID(s) from the target passage that contains this appeal
+      are T1 and T2.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a great message and I hope everyone takes it to heart. As our greatest
+      minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+      And it's
+    - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+      women issue. It's a people versus prejudice issue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: 'The target makes a claim that ‘sexism and discrimination is
+    bad for everyone’ and supports it solely by citing unspecified authorities – ‘our
+    greatest minds’ – and a named public figure, Laura Bates, without providing independent
+    evidence. This meets the requirement for an Appeal to Authority, as the argument’s
+    justification depends on endorsing these figures rather than on substantive proof.
+    Evidence: T1, T2.'
+  decision_reason: Supports the Appeal to Authority fallacy because the claim relies
+    on unqualified authority citations without corroborating evidence.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is a great message and I hope everyone takes it to heart. As our greatest
+    minds have repeatedly pointed out, sexism and discrimination is bad for everyone.
+    And it's
+  - not an anti-man thing at all. As Laura Bates pointed out, it's not a men versus
+    women issue. It's a people versus prejudice issue.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4609
+  completion_tokens: 3036
+  total_tokens: 7645
+  wall_time_seconds: 129.73399999999674

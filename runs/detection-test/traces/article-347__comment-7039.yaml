@@ -1,0 +1,92 @@
+sample:
+  id: 347:7039
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: I can see Fico's point of view. Up until recently, all countries have had
+    the tradition of really only allowing their own people to work and live in their
+    country. Now more and more countries are going against that and importing tons
+    of foreigners which will eventually lead to the erosion of even more traditions
+    in the country, Traditions are important. We all have them for a reason!
+  target: It is best to overlook the situation and then make a decision. It can be
+    wiser to overlook all aspects of the situation and then decide how to proceed.
+    No rushing of conclusions without knowing the full picture.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - It can be wiser to overlook all aspects of the situation and then decide how
+      to proceed.
+    - No rushing of conclusions without knowing the full picture.
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - It is best to overlook the situation and then make a decision. It can be wiser
+      to overlook all aspects of the situation and then decide how to proceed. No
+      rushing of conclusions without knowing the full picture.
+    conclusion_or_goal: It is best to overlook the situation and then make a decision.
+      It can be wiser to overlook all aspects of the situation and then decide how
+      to proceed. No rushing of conclusions without knowing the full picture.
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: No fallacy detected.
+    mechanism_supports_goal: false
+  counterargument:
+    evidence_spans:
+    - It is best to overlook the situation and then make a decision
+    decisive_counterargument: The claim that overlooking the situation leads to a
+      wiser decision is unsupported; there is no evidence that waiting for a ‘full
+      picture’ improves outcomes, and ignoring aspects can foster bad decisions. Without
+      a link between the proposed action and its purported benefit, the reasoning
+      is empty.
+    candidate: null
+    challenged_inference: It is best to overlook the situation and then make a decision
+    label_justification: The target makes a blanket claim with no premises or evidence,
+      but it does not fit any of the specified fallacy categories. Thus no particular
+      fallacy is exposed.
+    failure_exposed: false
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2457
+  completion_tokens: 2197
+  total_tokens: 4654
+  wall_time_seconds: 76.01600000000326

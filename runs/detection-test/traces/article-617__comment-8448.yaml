@@ -1,0 +1,116 @@
+sample:
+  id: 617:8448
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: All those thousands of dead, for no good reason. I feel like the only real
+    choice here is to have an international coalition intervene. That is the only
+    way to avoid more mass death and destruction.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: international coalition intervention
+    - role: alternative_b
+      text: other options or no intervention
+    - role: exhaustiveness_commitment
+      text: only the international coalition is the real choice
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - All those thousands of dead, for no good reason. I feel like the only real choice
+      here is to have an international coalition intervene. That is the only way to
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The only viable option to prevent further loss of life is
+      for an international coalition to intervene.
+    candidate: False Dilemma
+    supporting_reason: The argument claims that intervention is the sole effective
+      means to avert additional mass death and destruction.
+    support_relation: justifies
+    label_justification: The claim presents two exclusive possibilities—intervention
+      or continued suffering—thereby treating other potential alternatives as nonexistent.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All those thousands of dead, for no good reason. I feel like the only real choice
+      here is to have an international coalition intervene. That is the only way to
+    - avoid more mass death and destruction.
+  counterargument:
+    decisive_counterargument: The claim that an international coalition is the only
+      realistic choice to avoid further mass death ignores other feasible options
+      such as diplomatic negotiations, local peacebuilding efforts, or targeted humanitarian
+      aid. These alternatives also aim to reduce casualties, showing that the argument
+      limits the possible solutions to a single option.
+    candidate: False Dilemma
+    challenged_inference: The only real choice to avoid more mass death and destruction
+      is an international coalition intervention.
+    label_justification: The objection points out that the argument presents a limited
+      set of alternatives (intervention vs none) while overlooking other viable strategies,
+      illustrating the false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - All those thousands of dead, for no good reason. I feel like the only real choice
+      here is to have an international coalition intervene. That is the only way to
+    - avoid more mass death and destruction.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The TARGET explicitly states that the only real choice is international
+    coalition intervention, presenting a binary choice between intervention and no
+    intervention while excluding other viable options, satisfying the structure of
+    a false dilemma.
+  decision_reason: The claim frames international coalition intervention as the sole
+    viable solution to avoid further loss of life, committing that no other alternatives
+    exist, which matches the definition of a false dilemma.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - All those thousands of dead, for no good reason. I feel like the only real choice
+    here is to have an international coalition intervene. That is the only way to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4168
+  completion_tokens: 3162
+  total_tokens: 7330
+  wall_time_seconds: 152.35899999999674

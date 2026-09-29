@@ -1,0 +1,136 @@
+sample:
+  id: 172:5313
+  article_id: 172
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: Most people will agree that while being more responsible for our actions
+    that affect the environment is important, so is the fact that people should be
+    able to provide for their families. Jobs are important as well.
+  target: Both things can be done at once. Too often, concerns about jobs and how
+    workers in these sorts of industries will be negatively affected are used to push
+    back against protecting the environment. There should be more focus on talking
+    about how to create whatever combination of job training, welfare, and other such
+    transition programs to help these people while we make the necessary changes,
+    like stopping new coal plants.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Both things can be done at once. Too often, concerns about jobs and how workers
+      in these sorts of industries will be negatively affected are used to push back
+      against
+    - protecting the environment. There should be more focus on talking about how
+      to create whatever combination of job training, welfare, and other such transition
+      programs to help these people while
+    - we make the necessary changes, like stopping new coal plants.
+    candidate: null
+  goal:
+    conclusion_or_goal: Both protecting the environment and maintaining jobs can be
+      achieved simultaneously; policy should focus on transition programs for workers.
+    candidate: null
+    supporting_reason: Evokes that concerns about job loss are often used to oppose
+      environmental measures.
+    support_relation: This reason is used to justify pursuing transition programs
+      as a way to reconcile environmental goals with job security.
+    label_justification: No fallacy is committed; the reason legitimately supports
+      the stated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Both things can be done at once. Too often, concerns about jobs and how workers
+      in these sorts of industries will be negatively affected are used to push back
+      against
+    - protecting the environment. There should be more focus on talking about how
+      to create whatever combination of job training, welfare, and other such transition
+      programs to help these people while
+    - we make the necessary changes, like stopping new coal plants.
+  counterargument:
+    decisive_counterargument: The claim that workers’ concerns about jobs are “often
+      used to push back against protecting the environment” is an overgeneralisation.
+      It asserts a universal pattern of political strategy without presenting evidence
+      that such concerns are always weaponised to avoid environmental policy, or that
+      this is the main or only motive behind opposition. Without data showing that
+      the vast majority of job‑related arguments are actually attacks on environmental
+      goals, the statement falls into the hasty‑generalization fallacy.
+    candidate: Hasty Generalization
+    challenged_inference: The claim that concerns about jobs are frequently used to
+      push back against protecting the environment.
+    label_justification: The objection directly targets the reasoning that uses a
+      vague and unsubstantiated general claim (“Too often … are used to push back
+      against”) to support the argument. This exemplifies a hasty generalization because
+      the argument extrapolates a broad conclusion (all or most job concerns serve
+      as a political shield) from no specific evidence. All other aspects of the target’s
+      reasoning are adequately supported or are merely normative claims, so the fallacy
+      identified is specific to this generalisation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Both things can be done at once. Too often, concerns about jobs and how workers
+      in these sorts of industries will be negatively affected are used to push back
+      against
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes an unqualified claim that concerns about jobs
+    are frequently employed to oppose environmental protection, without providing
+    evidence that this is a common or dominant tactic; the statement is thus a broad
+    generalization lacking specific support.
+  decision_reason: The passage asserts that “Too often, concerns about jobs… are used
+    to push back against protecting the environment,” which extrapolates a universal
+    or frequent pattern from no specific evidence, meeting the structural requirement
+    for a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Both things can be done at once. Too often, concerns about jobs and how workers
+    in these sorts of industries will be negatively affected are used to push back
+    against
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4547
+  completion_tokens: 2057
+  total_tokens: 6604
+  wall_time_seconds: 175.48400000005495

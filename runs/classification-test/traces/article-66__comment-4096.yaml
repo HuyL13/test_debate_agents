@@ -1,0 +1,157 @@
+sample:
+  id: 66:4096
+  article_id: 66
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: No one wants to lose someone to something that should be a celebration.
+    There are much better ways to celebrate.  Let's learn from these tragedies. We
+    can have wonderful parties without guns and possible tragedy. All parties should
+    be gun free.
+  target: I have to disagree. As the popular saying goes, guns don't kill people -
+    people kill people. Gun owners, by and large, are responsible citizens, a fact
+    that no one can really argue. The majority of gun owners are law-abiding citizens
+    who are just as concerned about safety, if not moreso, than non gun owners. Statistics
+    about violent crime bear this out, since most gun owners have clean records. That's
+    why the second amendment is so widely supported.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: gun owners
+    - role: popularity_claim
+      text: the majority of gun owners are law‑abiding citizens who have clean records
+    - role: target_claim
+      text: the Second Amendment is so widely supported
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I have to disagree. As the popular saying goes, guns don't kill people - people
+      kill people. Gun owners, by and large, are responsible citizens, a fact that
+      no one
+    - can really argue. The majority of gun owners are law-abiding citizens who are
+      just as concerned about safety, if not moreso, than non gun owners. Statistics
+      about violent crime bear
+    - this out, since most gun owners have clean records. That's why the second amendment
+      is so widely supported.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker asserts that gun owners are largely responsible
+      citizens and that this fact justifies the widespread support for the Second
+      Amendment.
+    candidate: Appeal to Majority
+    supporting_reason: The majority of gun owners are law‑abiding citizens, and statistics
+      about violent crime bear this out because most gun owners have clean records.
+    support_relation: The majority status of gun owners is used as empirical support
+      for the claim that gun ownership is safe and the Second Amendment is justified.
+    label_justification: The argument relies on the fact that the majority of a population
+      holds a certain property (law‑abiding behavior) to support a conclusion about
+      a political right, which is the classic Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - can really argue. The majority of gun owners are law-abiding citizens who are
+      just as concerned about safety, if not moreso, than non gun owners. Statistics
+      about violent crime bear
+    - this out, since most gun owners have clean records. That's why the second amendment
+      is so widely supported.
+  counterargument:
+    decisive_counterargument: The fact that most gun owners have clean records and
+      that most people support the Second Amendment does not logically prove that
+      guns do not contribute to violence. A sizeable proportion of gun‑related deaths
+      involve guns that are in the hands of non‑owners, criminals, or used in accidental
+      or self‑harm incidents. Therefore the conclusion that 'guns don’t kill people'
+      and the policy support for the Second Amendment are based on an unsupported
+      leap from a majority stance to the truth of the claim.
+    candidate: Appeal to Majority
+    challenged_inference: The target concludes that because the majority of gun owners
+      are law‑abiding and that the Second Amendment is widely supported, guns are
+      safe and do not cause violence.
+    label_justification: 'The argument explicitly uses the fact that a majority hold
+      a position (law‑abiding gun owners, widespread support for the Second Amendment)
+      to justify the policy claim that guns are safe, which fits the definition of
+      an appeal to majority: leveraging popularity or number as certifying evidence.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I have to disagree. As the popular saying goes, guns don't kill people - people
+      kill people. Gun owners, by and large, are responsible citizens, a fact that
+      no one
+    - can really argue. The majority of gun owners are law-abiding citizens who are
+      just as concerned about safety, if not moreso, than non gun owners. Statistics
+      about violent crime bear
+    - this out, since most gun owners have clean records. That's why the second amendment
+      is so widely supported.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target premise states that the majority of gun owners are
+    law‑abiding, and this demographic fact is used to justify the widespread support
+    for the Second Amendment, satisfying the structural pattern of appeal to majority.
+    The claim that gun owners are responsible is treated as evidence that makes the
+    Second Amendment legitimate.
+  decision_reason: The argument relies on the fact that the majority of a population
+    holds a property (law‑abiding gun owners) to support a conclusion (the Second
+    Amendment is justified).
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - can really argue. The majority of gun owners are law-abiding citizens who are
+    just as concerned about safety, if not moreso, than non gun owners. Statistics
+    about violent crime bear
+  - this out, since most gun owners have clean records. That's why the second amendment
+    is so widely supported.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5198
+  completion_tokens: 4275
+  total_tokens: 9473
+  wall_time_seconds: 53.953999999997905

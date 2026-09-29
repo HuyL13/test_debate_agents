@@ -1,0 +1,106 @@
+sample:
+  id: 347:5838
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: NGOs often operate for self-enrichment. Most don't do much more than burn
+    cash on admin cost. While those in need get little to nothing.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - NGOs often operate for self-enrichment. Most don't do much more than burn cash
+      on admin cost.
+    structure_type: sample_to_population
+    slots: []
+    structure_complete: false
+    candidate: Hasty Generalization
+  goal:
+    evidence_spans:
+    - NGOs often operate for self-enrichment.
+    - Most don't do much more than burn cash on admin cost.
+    conclusion_or_goal: NGOs generally operate for self-enrichment and use funds primarily
+      on administrative costs, resulting in minimal impact on those in need.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that ‘NGOs often operate for self-enrichment’ and
+      that ‘most don’t do much more than burn cash on admin cost’ is presented as
+      general evidence to support the overall assertion that NGOs are ineffective.
+    support_relation: The cited generalization is used as evidence to establish the
+      overarching claim about the overall effectiveness of NGOs.
+    label_justification: The argument draws a broad conclusion about all NGOs based
+      on limited or unstated evidence, which satisfies the definition of a Hasty Generalization.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - NGOs often operate for self-enrichment. Most don't do much more than burn cash
+      on admin cost.
+    decisive_counterargument: The assertion that NGOs primarily enrich themselves
+      and expend most of their resources on administration is a sweeping claim that
+      ignores factual data. Numerous audits and impact reports demonstrate that many
+      NGOs keep administrative expenses below 15–20 % and channel the majority of
+      funds to programs that directly benefit targeted populations. Hence, the blanket
+      statement is not justified by evidence.
+    candidate: Hasty Generalization
+    challenged_inference: NGOs often operate for self-enrichment. Most don't do much
+      more than burn cash on admin cost.
+    label_justification: The rebuttal exposes that the target’s conclusion is drawn
+      from an unsupported sweeping claim, which is precisely the hallmark of a hasty
+      generalization.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  evidence_spans:
+  - NGOs often operate for self-enrichment.
+  - Most don't do much more than burn cash on admin cost.
+  decisive_condition: The target makes a sweeping claim about all NGOs but provides
+    no explicit sample or specific case to support the generalization. Therefore,
+    the structural requirement for a Hasty Generalization—explicit sample/cases →
+    broader conclusion—is not met.
+  decision_reason: The target’s claim about NGOs is a broad generalization but contains
+    no explicit sample or case to support it. Because a Hasty Generalization requires
+    an explicit sample or observation that is generalized to the entire group, the
+    structural condition is unmet; thus the claim is not sufficiently supported as
+    a Hasty Generalization.
+  verified: false
+  rejection_reason: The target’s claim about NGOs is a broad generalization but contains
+    no explicit sample or case to support it. Because a Hasty Generalization requires
+    an explicit sample or observation that is generalized to the entire group, the
+    structural condition is unmet; thus the claim is not sufficiently supported as
+    a Hasty Generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3381
+  completion_tokens: 4170
+  total_tokens: 7551
+  wall_time_seconds: 84.875

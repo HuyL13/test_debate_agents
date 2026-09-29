@@ -1,0 +1,185 @@
+sample:
+  id: 595:8383
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: There is something else at play here, an underlying and perhaps unseen cause,
+    as is often the case in situations like these. We should prepare for similar scenes
+    all around the world where flamingos live (and die). This event signals not only
+    the underlying cause but that it will soon likely manifest in many tragedies in
+    various former flamingo paradises. Expect a global phenomenon, and prepare for
+    it.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There is something else at play here, an underlying and perhaps unseen cause,
+      as is often the case in situations like these. We should prepare for similar
+      scenes all around
+    - the world where flamingos live (and die). This event signals not only the underlying
+      cause but that it will soon likely manifest in many tragedies in various former
+      flamingo paradises.
+    - Expect a global phenomenon, and prepare for it.
+    candidate: null
+  goal:
+    conclusion_or_goal: Expect a global phenomenon, and prepare for it.
+    candidate: Hasty Generalization
+    supporting_reason: There is something else at play here, an underlying and perhaps
+      unseen cause, as is often the case in situations like these.
+    support_relation: The argument infers that a single observed tragedy indicates
+      an unseen cause which will imminently manifest in many future tragedies worldwide,
+      thereby generalizing from one case to an unwarranted global prediction.
+    label_justification: The reasoning overextends a singular event to a broad, future
+      claim about all flamingo habitats, which is a classic instance of Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is something else at play here, an underlying and perhaps unseen cause,
+      as is often the case in situations like these. We should prepare for similar
+      scenes all around
+    - the world where flamingos live (and die). This event signals not only the underlying
+      cause but that it will soon likely manifest in many tragedies in various former
+      flamingo paradises.
+  counterargument:
+    decisive_counterargument: The claim that a single, unexplained death of flamingos
+      will inevitably trigger similar tragedies worldwide assumes a causal chain that
+      has no empirical support. It leaps from one isolated incident to a sweeping,
+      global outcome without any evidence of how the underlying cause would spread
+      or manifest in other regions. This is an unwarranted escalation—predicting an
+      increasingly severe, widespread consequence simply because one event occurred—rather
+      than a substantiated causal connection.
+    candidate: Slippery Slope
+    challenged_inference: The inference that the current event will automatically
+      precipitate a global phenomenon of flamingo deaths; it relies on an unjustified
+      chain of causes where each step is neither demonstrated nor logically necessary.
+      The objection demonstrates that the conclusion depends on an unsupported escalation,
+      which exemplifies a Slippery Slope fallacy. No other specified fallacy (such
+      as Hasty Generalization, Appeal to Authority, etc.) better captures this deficiency.
+    label_justification: The argument elevates a single incident into a global threat
+      without providing any intermediate conditions or evidence, fitting the definition
+      of a Slippery Slope—an unjustified prediction of escalating adverse outcomes.
+      The counterargument reasons directly against that causal leap, thereby exposing
+      the specific failure. Other fallacies like Hasty Generalization would require
+      an explicit sample-to-population transfer, which is not present in the target
+      passage. Therefore the most appropriate label is Slippery Slope.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There is something else at play here, an underlying and perhaps unseen cause,
+      as is often the case in situations like these. We should prepare for similar
+      scenes all around
+    - the world where flamingos live (and die). This event signals not only the underlying
+      cause but that it will soon likely manifest in many tragedies in various former
+      flamingo paradises.
+    - Expect a global phenomenon, and prepare for it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The passage advances a single observed tragedy to an unwarranted
+      global prediction, extending from one case (the Central Anatolia flamingo deaths)
+      to all flamingo habitats worldwide. This is a classic sample‑to‑population generalization.
+      The text does not describe an action or condition that leads to a chain of progressively
+      worse outcomes—a key feature of a Slippery Slope fallacy. Hence the argument
+      satisfies the Hasty Generalization structural requirement and fails to meet
+      the Slippery Slope condition.
+    loser_failure: The candidate Slippery Slope requires an implicit causal chain
+      or escalation, but the passage simply leaps from one incident to a worldwide
+      occurrence without outlining intermediate steps or escalating consequences.
+      Therefore it does not meet the required structure of a Slippery Slope.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There is something else at play here, an underlying and perhaps unseen cause,
+      as is often the case in situations like these. We should prepare for similar
+      scenes all around
+    - the world where flamingos live (and die). This event signals not only the underlying
+      cause but that it will soon likely manifest in many tragedies in various former
+      flamingo paradises.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes a single observed flamingo death in
+    Central Anatolia to a worldwide phenomenon and mandate for global preparedness
+    based on an unproven unseen cause, which satisfies the structure of a hasty generalization.
+    The claim extrapolates from that lone event to a broad future prediction without
+    sufficient evidence.
+  decision_reason: The target makes an unwarranted generalization from a single event
+    (“this event”) to a global future occurrence (“Expect a global phenomenon, and
+    prepare for it.”) and thus commits a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There is something else at play here, an underlying and perhaps unseen cause,
+    as is often the case in situations like these. We should prepare for similar scenes
+    all around
+  - the world where flamingos live (and die). This event signals not only the underlying
+    cause but that it will soon likely manifest in many tragedies in various former
+    flamingo paradises.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5961
+  completion_tokens: 3457
+  total_tokens: 9418
+  wall_time_seconds: 156.32799999999406

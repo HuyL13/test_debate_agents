@@ -1,0 +1,97 @@
+sample:
+  id: 347:7037
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: It's natural for ousted leaders to call foul play. He does not think he
+    was bad in office. It is easier to blame a conspiracy for his loss of power.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - It's natural for ousted leaders to call foul play. He does not think he was
+      bad in office. It is easier to blame a conspiracy for his loss of power.
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - It's natural for ousted leaders to call foul play.
+    - He does not think he was bad in office.
+    - It is easier to blame a conspiracy for his loss of power.
+    conclusion_or_goal: It's natural for ousted leaders to call foul play.
+    candidate: null
+    supporting_reason: He does not think he was bad in office.
+    support_relation: provides justification for the conclusion that ousted leaders
+      naturally blame foul play.
+    label_justification: No logical fallacy is evident; the statement is a straightforward
+      causal justification explaining why an ousted leader would naturally call foul
+      play.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - It's natural for ousted leaders to call foul play
+    decisive_counterargument: The claim that it is 'natural' for ousted leaders to
+      blame foul play does not demonstrate that such allegations are justified; it
+      merely states a preference. Naturalness alone provides no evidence that the
+      accusations are true or that the leaders' motives are credible. Therefore, the
+      argument fails to establish a logical basis for the blame and relies on an unsubstantiated
+      appeal to what is 'natural.'
+    candidate: Appeal to Nature
+    challenged_inference: The inference that ousted leaders’ tendency to blame foul
+      play is justified because it is natural,
+    label_justification: This objection directly targets the fallacious use of naturalness
+      as a justification for the claim, which is the hallmark of the appeal to nature
+      fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  evidence_spans:
+  - It's natural for ousted leaders to call foul play
+  decisive_condition: The target states that "It is natural for ousted leaders to
+    call foul play" and uses that naturalness to support blaming a conspiracy, thereby
+    appealing to naturalness as justification. This satisfies the structural condition
+    for an Appeal to Nature fallacy.
+  decision_reason: The text judges the natural tendency of ousted leaders to blame
+    foul play as evidence that such claims are justified, which constitutes an appeal
+    to nature.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3231
+  completion_tokens: 4202
+  total_tokens: 7433
+  wall_time_seconds: 114.14100000000326

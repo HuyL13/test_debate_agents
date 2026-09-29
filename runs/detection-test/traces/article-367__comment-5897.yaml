@@ -1,0 +1,120 @@
+sample:
+  id: 367:5897
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: There is a conflict of tradition and progressiveness. The people have to
+    be on either side. Not everyone will be on board with the pride parades, and that's
+    fine.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: tradition
+    - role: alternative_b
+      text: progressiveness
+    - role: exhaustiveness_commitment
+      text: The people have to be on either side.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Not everyone will be on board with the pride parades, and
+      that's fine.
+    candidate: null
+    supporting_reason: There is a conflict of tradition and progressiveness. The people
+      have to be on either side.
+    support_relation: The reason explains that because tradition and progressiveness
+      are in tension, it is understandable—and acceptable—if some people choose neither
+      side.
+    label_justification: The argument does not rely on a faulty logical structure;
+      it merely acknowledges a legitimate conflict and the resulting diversity of
+      views. No fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+  counterargument:
+    decisive_counterargument: The inference that people must choose exclusively between
+      tradition and progressiveness is a false dilemma. It presents only two mutually
+      exclusive options and ignores the possibility that individuals can support pride
+      parades while still respecting traditional values or find a middle ground. This
+      artificial binary misrepresents the range of positions people can hold.
+    candidate: False Dilemma
+    challenged_inference: The people have to be on either side.
+    label_justification: The objection directly targets the claim that there are only
+      two possible positions (tradition or progressiveness) and forces a choice between
+      them. This demonstrates the classic false dilemma device, which limits the scope
+      of options to an artificial binary.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target states “The people have to be on either side,” establishing
+    an exhaustive pair of alternatives (tradition vs. progressiveness) and implying
+    a mutually exclusive binary choice, which matches the structural definition of
+    a false dilemma.
+  decision_reason: The target phrase presents a claim that people must choose exclusively
+    between tradition and progressiveness, satisfying the requirements for a false
+    dilemma. This is supported by evidence T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There is a conflict of tradition and progressiveness. The people have to be on
+    either side. Not everyone will be on board with the pride parades, and that's
+    fine.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3880
+  completion_tokens: 2625
+  total_tokens: 6505
+  wall_time_seconds: 46.54599999997299

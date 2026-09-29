@@ -1,0 +1,132 @@
+sample:
+  id: 460:7976
+  article_id: 460
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: The government should have no control over the media. If the government
+    could be trusted that would be a different story but governments across the globe
+    have proven time and again that they can't be so we need to have many opinions
+    and freedom of press. A free and diverse media allows for a informed public and
+    keeps everyone free.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: governments across the globe
+    - role: observed_property
+      text: they can't be so
+    - role: target_population
+      text: all governments
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government should have no control over the media. If the government could
+      be trusted that would be a different story but governments across the globe
+      have proven time and
+    - again that they can't be so we need to have many opinions and freedom of press.
+      A free and diverse media allows for a informed public and keeps everyone free.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The government should have no control over the media.
+    candidate: Hasty Generalization
+    supporting_reason: Governments across the globe have proven time and again that
+      they can't be trusted.
+    support_relation: Generalizes the untrustworthiness of all governments to justify
+      no media control
+    label_justification: The argument extrapolates from a claim about some governments
+      to a blanket statement about all governments without sufficient evidence, constituting
+      a Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government should have no control over the media. If the government could
+      be trusted that would be a different story but governments across the globe
+      have proven time and
+  counterargument:
+    decisive_counterargument: 'The argument assumes that because some governments
+      have failed to be trustworthy, all governments are untrustworthy and therefore
+      should have no control over the media. This is an unjustified overgeneralization:
+      the examples of government failure are neither exhaustive nor represent all
+      cases, yet the claim draws a blanket conclusion about every government. A counterexample
+      is that many democracies grant limited editorial oversight while maintaining
+      a free press, proving that control and freedom can coexist. The fallacy lies
+      in extending a few instances to a universal assertion.'
+    candidate: Hasty Generalization
+    challenged_inference: The inference that all governments are untrustworthy based
+      on the limited evidence that some governments have proven otherwise. This treats
+      a few problematic cases as representative of all governments.
+    label_justification: The conclusion draws a universal statement (‘governments
+      across the globe have proven they can’t be trusted’) from non-exhaustive evidence,
+      which is classic Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government should have no control over the media. If the government could
+      be trusted that would be a different story but governments across the globe
+      have proven time and
+    - again that they can't be so we need to have many opinions and freedom of press.
+      A free and diverse media allows for a informed public and keeps everyone free.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument extrapolates a universal claim (“all governments”
+    cannot be trusted and therefore should not control the media) from a non‑exhaustive
+    sample (“governments across the globe have proven time and again they can’t be
+    trusted”), satisfying the structure of a sample‑to‑population hasty generalization.
+  decision_reason: The target makes a blanket statement about all governments based
+    on limited anecdotal evidence, matching the structure of a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The government should have no control over the media. If the government could
+    be trusted that would be a different story but governments across the globe have
+    proven time and
+  - again that they can't be so we need to have many opinions and freedom of press.
+    A free and diverse media allows for a informed public and keeps everyone free.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 8
+  cache_hits: 0
+  retries: 4
+  prompt_tokens: 4508
+  completion_tokens: 3069
+  total_tokens: 7577
+  wall_time_seconds: 728.8589999999967

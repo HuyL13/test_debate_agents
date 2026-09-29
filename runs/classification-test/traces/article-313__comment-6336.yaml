@@ -1,0 +1,118 @@
+sample:
+  id: 313:6336
+  article_id: 313
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: People will naturally protest injustice. The students have every reason
+    to. The death of their fellow student is major.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+    candidate: null
+  goal:
+    conclusion_or_goal: Students have every reason to protest injustice (i.e., the
+      students will naturally protest).
+    candidate: null
+    supporting_reason: People will naturally protest injustice.
+    support_relation: This descriptive statement is used to justify that the students
+      have a legitimate basis for protesting; it serves as a premise explaining why
+      the students are motivated to protest.
+    label_justification: The claim that people naturally protest injustice is used
+      substantively to support the conclusion about the students’ motivation. It does
+      not invoke naturalness as a value judgment or moral justification (no “is good
+      / should be done” implication). Therefore no logical‑fallacy category applies;
+      the argument is a straightforward, non‑fallacious descriptive inference.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+  counterargument:
+    decisive_counterargument: The assertion that ‘people will naturally protest injustice’
+      assumes that every instance of injustice automatically elicits a protest, which
+      is unsupported by evidence. In reality, responses to injustice vary widely—some
+      individuals may stay silent, seek legal remedies, or simply ignore the issue.
+      Therefore, the claim that students will protest solely because a fellow student
+      died is an unjustified generalization.
+    candidate: Hasty Generalization
+    challenged_inference: People will naturally protest injustice.
+    label_justification: The objection demonstrates that the conclusion extends the
+      premise—that injustice exists—to assert a universal and inevitable response
+      (protest by all people) without sufficient evidence that such a reaction will
+      indeed occur. This is precisely the pattern of a hasty generalization, where
+      a specific situation is generalized to an entire population or set of people.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People will naturally protest injustice. The students have every reason to.
+      The death of their fellow student is major.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: proposed_candidates
+    candidates:
+    - Hasty Generalization
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The claim asserts that ‘people will naturally protest injustice’—a
+    universal statement about all people’s behavior—without providing evidence or
+    exception cases, thereby generalizing from a specific instance (the students)
+    to all people. This is the hallmark of a hasty generalization.
+  decision_reason: The passage makes a blanket assumption that all people will protest
+    injustice, which is a broad generalization unsupported by evidence, satisfying
+    the structural condition of the hasty generalization fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - People will naturally protest injustice. The students have every reason to. The
+    death of their fellow student is major.
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4084
+  completion_tokens: 2959
+  total_tokens: 7043
+  wall_time_seconds: 513.3280000000086

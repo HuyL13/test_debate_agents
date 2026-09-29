@@ -1,0 +1,129 @@
+sample:
+  id: 76:9525
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: If the majority of journalists feel threatened by this and speak out, it
+    would be a good thing.  They do have a voice, even though terrorists are attempting
+    to silence them as well.  Listen to these men and women.  Hopefully, their words
+    will make a difference.  A collective voice has the power to shift perspectives
+    and push for change.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: journalists
+    - role: popularity_claim
+      text: majority of journalists feel threatened by this and speak out
+    - role: target_claim
+      text: it would be a good thing
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: If the majority of journalists feel threatened by this and
+      speak out, it would be a good thing. A collective voice has the power to shift
+      perspectives and push for change.
+    candidate: null
+    supporting_reason: The collective voice of journalists can influence viewpoints
+      and drive change.
+    support_relation: reason supports conclusion
+    label_justification: The argument presents a credible reason (the power of a collective
+      voice) to support the stated conclusion; it does not fall into any of the defined
+      logical‑fallacy categories.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    - them as well.  Listen to these men and women.  Hopefully, their words will make
+      a difference.  A collective voice has the power to shift perspectives and push
+      for change.
+  counterargument:
+    decisive_counterargument: Even if most journalists feel threatened and speak out,
+      there's no proof that their collective voice will effectively shift perspectives
+      or push for change; many influential voices are already ignored or actively
+      suppressed, so asserting that it would be a good thing is unjustified.
+    candidate: null
+    challenged_inference: If the majority of journalists feel threatened by this and
+      speak out, it would be a good thing.
+    label_justification: The objection highlights that the claim lacks supporting
+      evidence for causation; it assumes a positive outcome without justification,
+      but it does not reveal any of the defined logical fallacies (appeal to majority,
+      ad hominem, etc.). Therefore, the reasoning failure is an unsupported premise
+      rather than a specific fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    - them as well.  Listen to these men and women.  Hopefully, their words will make
+      a difference.  A collective voice has the power to shift perspectives and push
+      for change.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states ‘If the majority of journalists feel threatened
+    by this and speak out, it would be a good thing.’ This follows the classic Appeal
+    to Majority pattern (popularity of a view used to justify that it is good), meeting
+    the structural requirement, so the claim is fallaciously justified by majority.
+  decision_reason: The target text explicitly uses the majority of journalists as
+    the basis for claiming it would be a good thing, satisfying the mandatory popularity-to-claim
+    structure identified in the surviving candidate.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If the majority of journalists feel threatened by this and speak out, it would
+    be a good thing.  They do have a voice, even though terrorists are attempting
+    to silence
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4051
+  completion_tokens: 2693
+  total_tokens: 6744
+  wall_time_seconds: 31.82799999997951

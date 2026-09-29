@@ -1,0 +1,113 @@
+sample:
+  id: 133:4297
+  article_id: 133
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: He clearly did something awful if he was arrested so quickly. There is no
+    other reason for the government to move so swiftly. But don't always use one example
+    as proof for the whole system.
+  target: Correlation is not causation. Therefore, being arrested and detained doesn't
+    mean he did something wrong to begin with. The authorities should have provided
+    detailed reasons why he was being detained. They did not.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - Correlation is not causation. Therefore, being arrested and detained doesn't
+      mean he did something wrong to begin with. The authorities should have provided
+      detailed reasons why he was being detained.
+    - They did not.
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: The arrest and detention of the individual do not constitute
+      proof of wrongdoing, and the authorities failed to provide detailed reasons
+      for the detention.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: No fallacy is present; the argument correctly applies the
+      principle that correlation does not imply causation and uses it to question
+      the validity of the arrest as evidence of guilt.
+    mechanism_supports_goal: true
+    support_relation: used to justify the conclusion that arrest ≠ proof of wrongdoing.
+    supporting_reason: Correlation is not causation.
+    evidence_spans:
+    - Correlation is not causation. Therefore, being arrested and detained doesn't
+      mean he did something wrong to begin with. The authorities should have provided
+      detailed reasons why he was being detained.
+    - They did not.
+  counterargument:
+    decisive_counterargument: The claim that 'correlation is not causation, therefore
+      an arrest is incompatible with any causal wrongdoing' overlooks that arrest
+      is itself a causal action taken on the belief—or evidence—that wrongdoing occurred.
+      The fact that correlation does not automatically provide proof of causation
+      does not negate the possibility that the arrest was caused by legitimate suspicion.
+      A more accurate inference is that while an arrest alone does not *prove* guilt,
+      it is evidence of a substantial suspicion that warrants further investigation.
+      As such, the arrest can legitimately be regarded as an initial step in the causal
+      chain leading to a crime, not as evidence against causation.
+    candidate: Hasty Generalization
+    challenged_inference: Correlation is not causation. Therefore, being arrested
+      and detained doesn't mean he did something wrong to begin with.
+    label_justification: The target assumes that because arrest and detention are
+      correlated with criminality, the lack of correlation implies no wrongdoing.
+      This generalizes from a single instance (an arrest) to all arrests, claiming
+      that all arrests cannot signify wrongdoing. Such a sweeping conclusion from
+      one case constitutes a Hasty Generalization, violating the rule that one sample
+      does not represent the entire population of arrests.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Correlation is not causation. Therefore, being arrested and detained doesn't
+      mean he did something wrong to begin with. The authorities should have provided
+      detailed reasons why he was being detained.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 1
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 2814
+  completion_tokens: 2251
+  total_tokens: 5065
+  wall_time_seconds: 39.5

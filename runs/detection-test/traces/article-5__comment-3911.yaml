@@ -1,0 +1,142 @@
+sample:
+  id: 5:3911
+  article_id: 5
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: So if you are arrested in Japan you are held under "hostage justice" until
+    you confess.  That seems to me like torturing prisoners until they confess.  I
+    guess in Japan, you are guilty until proven innocent the reverse of the US justice
+    system.  I don't see how a coerced confession can even be tried fairly.
+  target: If the system was not innocent until proven guilty, do you think they would
+    have given him bail and let him out on house arrest? To me that seems like they
+    were going to let him at least have a say in court. Even Japanese legal scholar
+    Ichiro Suzuki has come out and said that the Japanese judicial system is lax,
+    especially for the wealthy. So that should be an indication that defendant had
+    rights and was granted them.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Japanese legal scholar Ichiro Suzuki
+    - role: endorsed_claim
+      text: the Japanese judicial system is lax, especially for the wealthy
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The Japanese judicial system granted the defendant rights,
+      such as bail or house arrest.
+    candidate: Appeal to Authority
+    supporting_reason: The speaker cites Japanese legal scholar Ichiro Suzuki, who
+      claims the system is lax, especially for the wealthy, to infer that the defendant’s
+      rights were recognized.
+    support_relation: An appeal to authority is used to support the claim that the
+      defendant had rights.
+    label_justification: The argument relies solely on the authority of Ichiro Suzuki
+      without providing direct evidence of the defendant’s rights, constituting an
+      appeal to authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+  counterargument:
+    decisive_counterargument: The fact that the Japanese judicial system is described
+      as lax for the wealthy and that the defendant in this case happened to be wealthy
+      does not logically demonstrate that the defendant’s individual rights were respected
+      or that bail was granted for that reason. Bail can be secured even when defendants’
+      rights are violated, and generalized claims of laxity may even reflect difficulties
+      in holding powerful individuals accountable. Therefore, the inference that the
+      defendant had rights and were granted them is unsupported.
+    candidate: Appeal to Authority
+    challenged_inference: That the Japanese judicial system granting bail or being
+      lax for wealthy defendants necessarily means the defendant had rights and was
+      granted them.
+    label_justification: The argument relies on the testimony of a single Japanese
+      legal scholar (Ichiro Suzuki) to support the claim about the defendant’s rights.
+      This dependence on an authority figure to justify a conclusion about a specific
+      case exemplifies an appeal‑to‑authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the system was not innocent until proven guilty, do you think they would
+      have given him bail and let him out on house arrest? To me that seems like
+    - they were going to let him at least have a say in court. Even Japanese legal
+      scholar Ichiro Suzuki has come out and said that the Japanese judicial system
+      is
+    - lax, especially for the wealthy. So that should be an indication that defendant
+      had rights and was granted them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument cites Japanese legal scholar Ichiro Suzuki’s claim
+    that the Japanese judicial system is lax, especially for the wealthy, to infer
+    that the defendant had rights and were granted them. This use of a single authority
+    to support a specific claim about a defendant, without direct evidence for that
+    claim, constitutes an appeal‑to‑authority fallacy.
+  decision_reason: The TARGET relies on Ichiro Suzuki’s statement (T2 & T3) to substantiate
+    a conclusion about the defendant’s rights, meeting the structural requirement
+    of an appeal to authority and lacking independent support for the conclusion.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - they were going to let him at least have a say in court. Even Japanese legal scholar
+    Ichiro Suzuki has come out and said that the Japanese judicial system is
+  - lax, especially for the wealthy. So that should be an indication that defendant
+    had rights and was granted them.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5081
+  completion_tokens: 3912
+  total_tokens: 8993
+  wall_time_seconds: 75.03100000001723

@@ -1,0 +1,142 @@
+sample:
+  id: 460:7376
+  article_id: 460
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Covid-19 affects a lot of people. The majority of people want to know that
+    the information they read on covid-19 is accurate. In fact all people who take
+    the time to read something with covid-19 want it to be accurate. 12 in 19 is a
+    very important topic. We need to make sure there is no fake news.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people
+    - role: popularity_claim
+      text: majority of people want accurate info
+    - role: target_claim
+      text: we need to make sure there is no fake news
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: We need to make sure there is no fake news.
+    candidate: null
+    supporting_reason: Covid-19 affects a lot of people, and the majority want accurate
+      information about it.
+    support_relation: The reason that many people desire accurate information is used
+      to justify the conclusion that fake news should be eliminated.
+    label_justification: No logical fallacy is identified; the argument is a straightforward
+      appeal to the general desire for accuracy and the need to prevent misinformation.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+  counterargument:
+    decisive_counterargument: The argument appeals to the fact that most people want
+      accurate COVID‑19 information as a reason to ensure no fake news, but majority
+      preference does not establish the truth of a claim or the necessity of a particular
+      policy. Just because many people desire accuracy does not prove that fake news
+      is prevalent or that the best way to satisfy that desire is to guarantee no
+      fake news.
+    candidate: Appeal to Majority
+    challenged_inference: Because a majority of people want accurate COVID‑19 information,
+      we must ensure that no fake news exists.
+    label_justification: This reasoning directly uses the popularity of a viewpoint
+      (that most people want accurate information) as justification for an action
+      (ensuring no fake news). This is a classic Appeal to Majority fallacy, where
+      the majority’s preference is treated as evidence for a claim or presumption
+      of necessity.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Covid-19 affects a lot of people. The majority of people want to know that the
+      information they read on covid-19 is accurate. In fact all people who take the
+      time
+    - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+      topic. We need to make sure there is no fake news.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target provides a popularity claim—‘the majority of people
+    want accurate information about Covid‑19’—and directly follows it with a claim
+    that ‘we need to make sure there is no fake news,’ thereby using the majority’s
+    preference as justification for a policy. This matches the structure of an Appeal
+    to Majority (popularity → target). Evidence: T1, T2.'
+  decision_reason: The target explicitly states a majority preference for accurate
+    info and then asserts that this preference obliges us to eliminate fake news.
+    This is the classic appeal to majority fallacy; the evidence IDs T1 and T2 support
+    both the popularity claim and the target claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Covid-19 affects a lot of people. The majority of people want to know that the
+    information they read on covid-19 is accurate. In fact all people who take the
+    time
+  - to read something with covid-19 want it to be accurate. 12 in 19 is a very important
+    topic. We need to make sure there is no fake news.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4432
+  completion_tokens: 3190
+  total_tokens: 7622
+  wall_time_seconds: 134.21799999999348

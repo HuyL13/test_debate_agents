@@ -11,7 +11,7 @@ class ModelConfig:
     api_key_env: str = 'OPENAI_API_KEY'
     temperature: float | None = 0.0
     max_completion_tokens: int = 1200
-    timeout_seconds: float = 90.0
+    timeout_seconds: float = 1800.0
     max_attempts: int = 3
     backoff_seconds: float = 1.0
     structured_output: bool = True

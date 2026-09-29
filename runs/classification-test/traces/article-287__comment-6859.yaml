@@ -1,0 +1,174 @@
+sample:
+  id: 287:6859
+  article_id: 287
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: The man seems to know what he's doing. Populism is taking over in so many
+    countries recently because people are fed up with the status quo. I would trust
+    Bukele over whomever was in power prior to this. I've read about what he's done
+    to lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Bukele
+    - role: endorsed_claim
+      text: He has lowered crime effectively, proving his leadership is deserved and
+        possibly requiring some authoritarian measures
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The argument is advocating for trust in President Bukele and
+      suggesting that the country needs authoritarian solutions.
+    candidate: Hasty Generalization
+    supporting_reason: Because the speaker asserts that “Populism is taking over in
+      so many countries recently because people are fed up with the status quo” –
+      a broad causal claim made without specific evidence – and then uses that generalized
+      observation to justify trusting Bukele and preferring authoritarianism.
+    support_relation: The generalized claim about populism is employed to support
+      the conclusion that Bukele and authoritarianism are desirable.
+    label_justification: The argument generalizes from an unspecified appearance of
+      populism in many countries to a universal cause (fed‑up citizens) and uses that
+      generalization to justify a specific political choice, which is characteristic
+      of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+  counterargument:
+    decisive_counterargument: The only evidence presented is a single anecdote that
+      a particular leader’s crackdown on crime led to lower crime rates, yet the conclusion
+      that a country universally needs an authoritarian leader follows from it. This
+      leaps from one specific case to a blanket endorsement of authoritarianism without
+      considering other relevant factors or alternative solutions.
+    candidate: Hasty Generalization
+    challenged_inference: argues that because Bukele’s actions appeared to lower crime,
+      an authoritarian approach is justified for any country.
+    label_justification: The objection pinpoints a single empirical instance (crime
+      reduction under Bukele) and draws a universal conclusion (all countries need
+      authoritarianism). That constitutes a hasty generalization, as the argument
+      takes one sample and applies it to the whole population.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Appeal to Authority
+    loser_failure: 'Appeal to Authority is unsupported because the text does not attribute
+      a claim or endorsement to an identifiable authority whose position is used to
+      justify the conclusion. The speaker simply states personal trust in Bukele,
+      without citing an authoritative source or referencing a known expert. The required
+      structural condition of an authority claim being marshaled to support the argument
+      is not satisfied. In contrast, Hasty Generalization is directly supported: the
+      passage makes a broad claim that “Populism is taking over in so many countries
+      recently because people are fed up with the status quo” and then applies that
+      generalization to argue that a specific country needs authoritarianism, thereby
+      leaping from a limited observation to a universal conclusion.'
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The man seems to know what he's doing. Populism is taking over in so many countries
+      recently because people are fed up with the status quo. I would trust Bukele
+    - over whomever was in power prior to this. I've read about what he's done to
+      lower crime, and its great! Maybe that country NEEDED a little authoritarianism?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes that because Bukele's authoritarian
+    measures allegedly lowered crime, any country should adopt authoritarianism, drawing
+    a universal conclusion from a single specific case.
+  decision_reason: The target applies one example – Bukele’s crime‑reduction success
+    – to justify a broad claim that 'that country needed a little authoritarianism,'
+    which is the hallmark of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The man seems to know what he's doing. Populism is taking over in so many countries
+    recently because people are fed up with the status quo. I would trust Bukele
+  - over whomever was in power prior to this. I've read about what he's done to lower
+    crime, and its great! Maybe that country NEEDED a little authoritarianism?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 9
+  cache_hits: 0
+  retries: 4
+  prompt_tokens: 6139
+  completion_tokens: 4831
+  total_tokens: 10970
+  wall_time_seconds: 267.5320000000065

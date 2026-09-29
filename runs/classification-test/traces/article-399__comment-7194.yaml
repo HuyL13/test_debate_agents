@@ -1,0 +1,165 @@
+sample:
+  id: 399:7194
+  article_id: 399
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '‘A day without internet is a day in the dark’: The Gambia''s growing digital
+    divide'
+  parent: ''
+  target: The country really needs to prioritize internet access. Nearly the whole
+    world considers it a basic necessity these days, and for good reason. Surely most
+    of the people in the country also understand this and demand functioning infrastructure
+    for the net. Give the people what they want!
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: world
+    - role: popularity_claim
+      text: Nearly the whole world considers it a basic necessity
+    - role: target_claim
+      text: the country should prioritize internet access
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The country really needs to prioritize internet access.
+    candidate: Appeal to Majority
+    supporting_reason: Nearly the whole world considers it a basic necessity these
+      days, and for good reason.
+    support_relation: This popularity claim is used to justify that most people in
+      the country also want improved internet infrastructure, thereby supporting the
+      need to prioritize it.
+    label_justification: The argument appeals to the widespread agreement that internet
+      is a basic necessity as evidence that most local people demand it, which is
+      a bandwagon (Appeal to Majority) fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+  counterargument:
+    decisive_counterargument: The claim that most people in the country understand
+      and demand internet infrastructure is unsupported; we have no evidence that
+      the entire or even a majority of the local population share this view or prioritise
+      it over other needs. Global consensus does not automatically translate into
+      local consensus.
+    candidate: Hasty Generalization
+    challenged_inference: Most people in the country also understand and demand functioning
+      internet infrastructure.
+    label_justification: The counterargument directly points out that the inference
+      is made without evidence and generalises from a global majority to the local
+      population, revealing the hasty generalization fallacy. It does not merely critique
+      the argument; it isolates the reasoning defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+    - country also understand this and demand functioning infrastructure for the net.
+      Give the people what they want!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The target does not provide a concrete sample or limited evidence
+      from which the claim that most of the people in the country want improved internet
+      infrastructure is derived. It merely extends a global consensus to the local
+      population. Therefore the necessary structural condition for a Hasty Generalization—evidence
+      of a specific sample leading to a blanket conclusion—is not present. Conversely,
+      the target explicitly presents a popularity claim (“Nearly the whole world considers
+      it a basic necessity”) that is used to support a claim about the local population,
+      satisfying the structural requirement for an Appeal to Majority.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The country really needs to prioritize internet access. Nearly the whole world
+      considers it a basic necessity these days, and for good reason. Surely most
+      of the people in the
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument presents a popularity claim – that nearly the whole
+    world considers internet access a basic necessity – and uses this to justify that
+    the country should prioritize internet access, matching the structure and reasoning
+    of an Appeal to Majority fallacy.
+  decision_reason: The target explicitly states a widespread consensus, then applies
+    that consensus to local policy, meeting the structural criteria for an Appeal
+    to Majority fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The country really needs to prioritize internet access. Nearly the whole world
+    considers it a basic necessity these days, and for good reason. Surely most of
+    the people in the
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5580
+  completion_tokens: 3630
+  total_tokens: 9210
+  wall_time_seconds: 261.43799999996554

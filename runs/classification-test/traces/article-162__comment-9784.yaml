@@ -1,0 +1,175 @@
+sample:
+  id: 162:9784
+  article_id: 162
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: They have a coup going on right now. Maybe they should be organizing to
+    take control over their government first and focus on the internet after! What's
+    more important, the internet or the military trampling over everyone?
+  target: There are a host of human rights violations being committed systematically,
+    but throttling the internet is a catastrophic blow to transparency, information
+    access, and other very basic needs. This isn't just about sharing cat videos.
+    This is about keeping a population under control, like North Korea. Addressing
+    the internet ban doesn't diminish other human rights issues, which are very important;
+    in fact, a free internet could expose those issues to a wide audience. Government-imposed
+    internet blackouts need to be called out wherever they crop up.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There are a host of human rights violations being committed systematically,
+      but throttling the internet is a catastrophic blow to transparency, information
+      access, and other very basic needs. This isn't
+    - just about sharing cat videos. This is about keeping a population under control,
+      like North Korea. Addressing the internet ban doesn't diminish other human rights
+      issues, which are very important;
+    - in fact, a free internet could expose those issues to a wide audience. Government-imposed
+      internet blackouts need to be called out wherever they crop up.
+    candidate: null
+  goal:
+    conclusion_or_goal: Throttling the internet is a catastrophic blow to transparency,
+      information access, and other basic human rights, and therefore should be called
+      out and opposed.
+    candidate: null
+    supporting_reason: Internet throttling causes severe harm to societal transparency,
+      freedom of information, and basic needs, and if addressed it can expose broader
+      human rights violations.
+    support_relation: The reason justifies the conclusion that internet suppression
+      must be opposed.
+    label_justification: The argument contains no logical fallacies; it merely states
+      a claim and supports it with a general statement about harms.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There are a host of human rights violations being committed systematically,
+      but throttling the internet is a catastrophic blow to transparency, information
+      access, and other very basic needs. This isn't
+    - just about sharing cat videos. This is about keeping a population under control,
+      like North Korea. Addressing the internet ban doesn't diminish other human rights
+      issues, which are very important;
+    - in fact, a free internet could expose those issues to a wide audience. Government-imposed
+      internet blackouts need to be called out wherever they crop up.
+  counterargument:
+    decisive_counterargument: The claim that throttling the internet inevitably leads
+      to a catastrophic loss of transparency, information access, and basic needs
+      is an overgeneralization. Not all throttling measures are equal; some can be
+      targeted or intermittent, permitting limited information flow and maintaining
+      essential services. The text offers no empirical evidence that every instance
+      of throttling results in such severe consequences, yet it concludes that any
+      throttling is catastrophic.
+    candidate: null
+    challenged_inference: throttling the internet results in a catastrophic blow to
+      transparency, information access, and other basic needs
+    label_justification: The argument moves directly from the premise that internet
+      throttling occurs to the sweeping conclusion that this action always causes
+      catastrophic harm, without acknowledging variations in implementation or context.
+      This demonstrates a hasty generalization, as it applies a broad negative consequence
+      to all cases of internet throttling.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - There are a host of human rights violations being committed systematically,
+      but throttling the internet is a catastrophic blow to transparency, information
+      access, and other very basic needs. This isn't
+    - just about sharing cat videos. This is about keeping a population under control,
+      like North Korea. Addressing the internet ban doesn't diminish other human rights
+      issues, which are very important;
+    - in fact, a free internet could expose those issues to a wide audience. Government-imposed
+      internet blackouts need to be called out wherever they crop up.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: []
+  recovery:
+    triggered: true
+    reason: no_viable_survivor
+    mode: full_label_space
+    candidates:
+    - Appeal to Authority
+    - Appeal to Majority
+    - Appeal to Nature
+    - Appeal to Tradition
+    - Appeal to Worse Problems
+    - False Dilemma
+    - Hasty Generalization
+    - Slippery Slope
+  final_survivors:
+  - Appeal to Authority
+  - Appeal to Majority
+  - Appeal to Nature
+  - Appeal to Tradition
+  - Appeal to Worse Problems
+  - False Dilemma
+  - Hasty Generalization
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims that throttling the internet inevitably causes
+    a catastrophic blow to transparency, information access, and basic needs, presenting
+    this as an absolute outcome for all instances of throttling without providing
+    qualifying evidence or distinctions among different contexts. This universal and
+    unqualified assertion overgeneralizes a specific claim to all cases, which aligns
+    with the definition of a hasty generalization.
+  decision_reason: The target’s sweeping statement that every instance of internet
+    throttling results in catastrophic harm lacks specific evidence or qualifiers
+    and applies broadly, indicating a hasty generalization. Evidence from T1, T2,
+    and T3 supports this claim without differentiation.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - There are a host of human rights violations being committed systematically, but
+    throttling the internet is a catastrophic blow to transparency, information access,
+    and other very basic needs. This isn't
+  - just about sharing cat videos. This is about keeping a population under control,
+    like North Korea. Addressing the internet ban doesn't diminish other human rights
+    issues, which are very important;
+  - in fact, a free internet could expose those issues to a wide audience. Government-imposed
+    internet blackouts need to be called out wherever they crop up.
+  verified: true
+  rejection_reason: null
+  status: classification_recovery
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5207
+  completion_tokens: 3810
+  total_tokens: 9017
+  wall_time_seconds: 228.8279999999795

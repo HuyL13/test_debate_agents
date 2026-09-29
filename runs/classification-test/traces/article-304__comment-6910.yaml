@@ -1,0 +1,147 @@
+sample:
+  id: 304:6910
+  article_id: 304
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: They are already making progress, much more so than other countries are.
+    Why try to push harder which will just lead to animosity and will end up being
+    counterproductive? Either take what progress you're getting now and continue on
+    this pace, or push harder and risk losing it all. The balance approach of just
+    going at the current pace will yield the best results and result in fewer enemies.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: take what progress you're getting now and continue on this pace
+    - role: alternative_b
+      text: push harder and risk losing it all
+    - role: exhaustiveness_commitment
+      text: Either ... or ...
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are already making progress, much more so than other countries are. Why
+      try to push harder which will just lead to animosity and will end up being counterproductive?
+      Either
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Continuing the current pace (balance approach) will yield
+      the best results and fewer enemies.
+    candidate: False Dilemma
+    supporting_reason: Pushing harder will lead to animosity and be counterproductive,
+      risking the loss of progress.
+    support_relation: The reason is used to justify the conclusion that maintaining
+      the current pace is preferable.
+    label_justification: The argument presents only two mutually exclusive options—continue
+      at the current pace or push harder—and implies that these are the only possibilities,
+      which is a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are already making progress, much more so than other countries are. Why
+      try to push harder which will just lead to animosity and will end up being counterproductive?
+      Either
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+  counterargument:
+    decisive_counterargument: 'The argument incorrectly assumes there are only two
+      possible approaches – either maintain the status quo or take a risky, hard‑push
+      stance that will destroy all progress. In reality, numerous alternative strategies
+      exist: a measured acceleration, phased expansion, or adaptive adjustments that
+      could increase momentum without provoking animosity. Therefore, the claim that
+      the only way to avoid loss is to remain at the current pace is not supported
+      by the evidence and represents a false dichotomy.'
+    candidate: False Dilemma
+    challenged_inference: The premise that the strategy of maintaining the current
+      pace is the sole viable solution to preserve progress and avoid animosity, while
+      the alternative of pushing harder inevitably leads to loss of all gains.
+    label_justification: The objection exposes a false dilemma because the argument
+      presents the situation as a choice between two mutually exclusive options (current
+      pace vs. hard push), ignoring other feasible middle grounds or alternative strategies.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are already making progress, much more so than other countries are. Why
+      try to push harder which will just lead to animosity and will end up being counterproductive?
+      Either
+    - take what progress you're getting now and continue on this pace, or push harder
+      and risk losing it all. The balance approach of just going at the current pace
+      will
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The argument presents only two mutually exclusive options—continue
+    at the current pace or push harder—and implies that these are the only possibilities,
+    excluding any alternative approaches. This satisfies the structural requirement
+    of an exhaustive either‑or claim.
+  decision_reason: The TARGET uses an explicit either‑or construction (“Either take
+    what progress you're getting now and continue on this pace, or push harder and
+    risk losing it all”), which imposes exclusivity and exhaustiveness on the choices,
+    thereby constituting a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They are already making progress, much more so than other countries are. Why try
+    to push harder which will just lead to animosity and will end up being counterproductive?
+    Either
+  - take what progress you're getting now and continue on this pace, or push harder
+    and risk losing it all. The balance approach of just going at the current pace
+    will
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4780
+  completion_tokens: 3188
+  total_tokens: 7968
+  wall_time_seconds: 176.81299999999464

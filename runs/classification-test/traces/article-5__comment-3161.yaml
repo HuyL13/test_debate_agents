@@ -1,0 +1,189 @@
+sample:
+  id: 5:3161
+  article_id: 5
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: Everyone who knows about Japans criminal justice system knows its insane
+    and should be illegal. Even the tough on crime people in the US would say their
+    process for holding suspects with no bail, indefinitely is absurd. He had every
+    right to escape. I've read about this before and all the commenters agree that
+    their system is BROKEN.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Everyone who knows about the Japanese criminal justice system
+    - role: popularity_claim
+      text: knows it is insane and should be illegal
+    - role: target_claim
+      text: the system is broken
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The Japanese criminal justice system is insane, broken, and
+      should be illegal.
+    candidate: Appeal to Authority
+    supporting_reason: The argument cites the opinions of “tough on crime people in
+      the US” and the unanimous agreement of commenters to assert that the system
+      is absurd, thereby using these authorities to justify the claim that the system
+      is insane.
+    support_relation: The stated authority’s judgment is employed as the evidence
+      that the system is flawed, directly supporting the conclusion.
+    label_justification: The passage explicitly references expert-looking or authoritative
+      figures (tough‑on‑crime proponents) and relies on their “opinion” to substantiate
+      the claim about the Japanese system, meeting the definition of an Appeal to
+      Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+  counterargument:
+    decisive_counterargument: The claim that ‘Everyone who knows about Japan’s criminal
+      justice system knows it is insane and should be illegal’ relies entirely on
+      the subjective opinion of a majority of commenters, without any factual evidence
+      or logical justification. Demonstrating that many people hold a particular view
+      does not establish the truth of that view; it merely reflects its popularity.
+      Therefore, this argument commits the appeal to majority (argumentum ad populum).
+    candidate: Appeal to Majority
+    challenged_inference: Everyone who knows about Japans criminal justice system
+      knows its insane and should be illegal. Even the tough on crime people in the
+      US would say their process for holding suspects with no bail, indefinitely is
+      absurd. He had every right to escape. I've read about this before and all the
+      commenters agree that their system is BROKEN.
+    label_justification: The inference is supported solely by the consensus of commenters,
+      which is a classic appeal to popularity. The argument does not provide substantive
+      evidence; thus the reasoning is fallacious and specifically falls under the
+      appeal to majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: Appeal to Majority
+    loser_failure: The passage does not cite a specific expert, official, or person
+      with recognized authority on criminal justice; instead it refers to a broad
+      group (“everyone who knows …” and “all the commenters”) and insists that their
+      collective agreement justifies the claim. Because the justification relies on
+      the size or consensus of the group rather than on expertise, it commits an appeal
+      to majority rather than an appeal to authority.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Everyone who knows about Japans criminal justice system knows its insane and
+      should be illegal. Even the tough on crime people in the US would say their
+      process for holding
+    - suspects with no bail, indefinitely is absurd. He had every right to escape.
+      I've read about this before and all the commenters agree that their system is
+      BROKEN.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target explicitly states that everyone who knows about
+    Japan’s criminal justice system believes it is insane and that all commenters
+    agree it is broken, thereby using the popularity of this belief to justify the
+    claim that the system is broken. This matches the structural pattern of an appeal
+    to majority: a population group, a popularity claim, and a target claim. The supplied
+    evidence passages (T1 and T2) provide the required population, popularity, and
+    conclusion components. Hence the claim is a fallacious appeal to majority.'
+  decision_reason: The target presents a majority claim (“all the commenters agree”)
+    used to assert the truth of the conclusion that the system is broken, fitting
+    the appeal to majority structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Everyone who knows about Japans criminal justice system knows its insane and should
+    be illegal. Even the tough on crime people in the US would say their process for
+    holding
+  - suspects with no bail, indefinitely is absurd. He had every right to escape. I've
+    read about this before and all the commenters agree that their system is BROKEN.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 6114
+  completion_tokens: 4919
+  total_tokens: 11033
+  wall_time_seconds: 232.18799999999464

@@ -1,0 +1,132 @@
+sample:
+  id: 429:10585
+  article_id: 429
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: It's good that the protests of the people were heard and this bill is being
+    reconsidered.  The bill would have allowed the government and politicians to get
+    away with too much.  There should be a way for people to express their opinions
+    and a bill to criminalize it seems far too much. I hope the Tunisian government
+    will find more democratic ways to combat disinformation, perhaps through better
+    education or stricter protocols for news sites.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's good that the protests of the people were heard and this bill is being
+      reconsidered.  The bill would have allowed the government and politicians to
+      get away with too
+    candidate: null
+  goal:
+    conclusion_or_goal: The writer intends to convey that the bill’s criminalization
+      of speech is overly punitive and should be reconsidered in favor of more democratic
+      approaches.
+    candidate: null
+    supporting_reason: The bill would have allowed the government and politicians
+      to get away with too much; criminalizing expression is too extreme.
+    support_relation: mechanism_supports_goal
+    label_justification: The use of the reason is a straightforward evaluative statement
+      that supports the conclusion about the bill. No fallacious reasoning (e.g.,
+      hasty generalization, slippery slope, false dilemma, appeal to authority, etc.)
+      is present; therefore no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's good that the protests of the people were heard and this bill is being
+      reconsidered.  The bill would have allowed the government and politicians to
+      get away with too
+    - much.  There should be a way for people to express their opinions and a bill
+      to criminalize it seems far too much. I hope the Tunisian government will find
+      more
+    - democratic ways to combat disinformation, perhaps through better education or
+      stricter protocols for news sites.
+  counterargument:
+    decisive_counterargument: There is no evidence that the bill would actually let
+      the government or politicians escape wrongdoing; the claim is speculative and
+      based on a single argument without examples or data. The reasoning thus projects
+      a broad failure onto all governments/politicians from a single, unproven premise,
+      which is an unjustified overgeneralization.
+    candidate: Hasty Generalization
+    challenged_inference: The bill would have allowed the government and politicians
+      to get away with too much.
+    label_justification: 'The objection demonstrates that the target draws a sweeping
+      conclusion about government misconduct based on the mere existence of the bill,
+      without providing supporting evidence. This fits the definition of a hasty generalization:
+      a broad claim drawn from insufficient data.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's good that the protests of the people were heard and this bill is being
+      reconsidered.  The bill would have allowed the government and politicians to
+      get away with too
+    - much.  There should be a way for people to express their opinions and a bill
+      to criminalize it seems far too much. I hope the Tunisian government will find
+      more
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target proposes that the existence of a single bill would
+    broadly enable ‘the government and politicians’ to get away with too much, without
+    providing supporting evidence or examples. This presents a sweeping conclusion
+    about a class (all governments/politicians) derived from a single instance (the
+    bill), satisfying the structural definition of a hasty generalization.
+  decision_reason: The claim overgeneralizes the effect of the bill to all governments
+    and politicians, lacking sufficient evidence. This meets the required structure
+    of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's good that the protests of the people were heard and this bill is being reconsidered.  The
+    bill would have allowed the government and politicians to get away with too
+  - much.  There should be a way for people to express their opinions and a bill to
+    criminalize it seems far too much. I hope the Tunisian government will find more
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4426
+  completion_tokens: 2877
+  total_tokens: 7303
+  wall_time_seconds: 213.2659999999887

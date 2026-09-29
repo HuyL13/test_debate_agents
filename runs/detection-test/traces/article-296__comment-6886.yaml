@@ -1,0 +1,150 @@
+sample:
+  id: 296:6886
+  article_id: 296
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: But the processes are happening exactly because people were complaining
+    in the first place. Public pressure is necessary for systems to act. I don't think
+    it makes much sense to say they should just stop worrying now because the system
+    can sort itself out.
+  target: It's just like if a bunch of people who don't understand medicine tried
+    to diagnose a patient in front of a doctor, they would just complicate the situation.
+    It's more productive to have faith in the skills and knowledge of those we employ
+    to manage these systems. They were trained for this and are the very best at what
+    they do. They were trained for that! Remember, armchair experts often overlook
+    the years of study these professionals have.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: those we employ to manage these systems
+    - role: endorsed_claim
+      text: having faith in the skills and knowledge of those we employ to manage
+        these systems is more productive
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's just like if a bunch of people who don't understand medicine tried to diagnose
+      a patient in front of a doctor, they would just complicate the situation. It's
+      more
+    - productive to have faith in the skills and knowledge of those we employ to manage
+      these systems. They were trained for this and are the very best at what they
+    - do. They were trained for that! Remember, armchair experts often overlook the
+      years of study these professionals have.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker wants the audience to trust that the trained professionals
+      managing the systems are best positioned to handle them, implying that public
+      criticism complicates matters.
+    candidate: Appeal to Authority
+    supporting_reason: The argument cites the professionals' training and expertise
+      as justification for faith in their decisions and for dismissing public input.
+    support_relation: appeal_to_authority
+    label_justification: The argument relies on the experts’ credentials as a primary
+      justification for accepting their actions without further scrutiny, matching
+      the definition of an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's just like if a bunch of people who don't understand medicine tried to diagnose
+      a patient in front of a doctor, they would just complicate the situation. It's
+      more
+    - productive to have faith in the skills and knowledge of those we employ to manage
+      these systems. They were trained for this and are the very best at what they
+    - do. They were trained for that! Remember, armchair experts often overlook the
+      years of study these professionals have.
+  counterargument:
+    decisive_counterargument: The assertion that professional training guarantees
+      safe management of complex systems is unsubstantiated; expertise alone does
+      not preclude systemic failures, biases, or oversight lapses, and it ignores
+      the evidence of past mishaps or public concern. Merely citing professionals
+      as authorities is insufficient to override legitimate calls for scrutiny and
+      regulation.
+    candidate: Appeal to Authority
+    challenged_inference: Because the individuals who run these systems have been
+      trained for their roles and are the best at them, there is no need for additional
+      scrutiny, public input, or regulatory oversight.
+    label_justification: The objection shows that the conclusion rests on the perceived
+      authority and training of professionals rather than on evidence of competence
+      or outcomes, which directly aligns with the Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's just like if a bunch of people who don't understand medicine tried to diagnose
+      a patient in front of a doctor, they would just complicate the situation. It's
+      more
+    - productive to have faith in the skills and knowledge of those we employ to manage
+      these systems. They were trained for this and are the very best at what they
+    - do. They were trained for that! Remember, armchair experts often overlook the
+      years of study these professionals have.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target text argues that because the professionals managing
+    the systems are trained and are ‘the very best’, public faith in them is more
+    productive, using their credentials as the sole justification—meeting the structural
+    definition of an appeal to authority.
+  decision_reason: The passage explicitly appeals to the expertise of professionals
+    to justify trust in their actions, with no evidence of competence beyond their
+    training, matching the appeal to authority structure.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's just like if a bunch of people who don't understand medicine tried to diagnose
+    a patient in front of a doctor, they would just complicate the situation. It's
+    more
+  - productive to have faith in the skills and knowledge of those we employ to manage
+    these systems. They were trained for this and are the very best at what they
+  - do. They were trained for that! Remember, armchair experts often overlook the
+    years of study these professionals have.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5079
+  completion_tokens: 2863
+  total_tokens: 7942
+  wall_time_seconds: 243.46899999999732

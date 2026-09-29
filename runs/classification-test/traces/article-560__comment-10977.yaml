@@ -1,0 +1,139 @@
+sample:
+  id: 560:10977
+  article_id: 560
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: This is insane! Will they have post-birth abortions next? Abortion should
+    be outlawed in any circumstance.
+  target: How is asking to save a woman's life insane? Is it reasonable to ask a woman
+    to carry a pregnancy resulting from rape to term? Causing her further trauma?
+    I think most people would agree that abortion is necessary in some cases like
+    rape or the woman's life being in danger. Someone else's religion or beliefs should
+    not affect another person's life, future and health. We need to focus on empathy
+    and compassion. Maybe focus your energy on punishing those who hurt the women
+    in the first place.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people would agree that abortion is necessary in some cases like
+        rape or the woman's life being in danger
+    - role: target_claim
+      text: abortion is necessary in such cases
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Abortion should be permissible in cases such as rape or when
+      the woman's life is in danger.
+    candidate: Appeal to Majority
+    supporting_reason: most people would agree that abortion is necessary in some
+      cases like rape or the woman's life being in danger
+    support_relation: appeal to popularity is used to justify the permissibility of
+      abortion in these circumstances
+    label_justification: The argument cites the presumed majority opinion as evidence
+      that abortion is necessary, which is an instance of an appeal to majority (argumentum
+      ad populum) and therefore a logical fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+  counterargument:
+    decisive_counterargument: The target asserts that ‘most people agree’ abortion
+      is necessary in cases such as rape or life‑threatening pregnancy, yet provides
+      no demographic study, poll, or statistical evidence. By treating this unverified
+      majority view as fact, the argument relies solely on the popularity of the view,
+      assuming that because many (or a presumed majority) think it suitable, it must
+      be correct. This is a classic Appeal to Majority, where a claim is justified
+      by the presumed opinions of the crowd rather than by empirical support.
+    candidate: Appeal to Majority
+    challenged_inference: Most people agree that abortion is necessary in cases of
+      rape or life‑threatening pregnancy.
+    label_justification: The objection demonstrates that the reasoning in the target
+      depends on a purported majority opinion without evidence, fitting the definition
+      of an Appeal to Majority. It does not merely critique the content of the claim;
+      it exposes the logical requirement that the claim be substantiated, which is
+      missing.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - think most people would agree that abortion is necessary in some cases like
+      rape or the woman's life being in danger. Someone else's religion or beliefs
+      should not affect another
+    - person's life, future and health. We need to focus on empathy and compassion.
+      Maybe focus your energy on punishing those who hurt the women in the first place.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target contains the claim “most people would agree that
+    abortion is necessary in some cases…”, which justifies the claim solely by presumed
+    majority opinion without any supporting evidence. This meets the structural definition
+    of an Appeal to Majority, making the fallacy present.
+  decision_reason: The target states that most people would agree abortion is necessary
+    in cases of rape or danger to the woman's life, appealing to popularity as justification
+    without providing any data. This is a classic Appeal to Majority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - think most people would agree that abortion is necessary in some cases like rape
+    or the woman's life being in danger. Someone else's religion or beliefs should
+    not affect another
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4797
+  completion_tokens: 2752
+  total_tokens: 7549
+  wall_time_seconds: 98.79699999999139

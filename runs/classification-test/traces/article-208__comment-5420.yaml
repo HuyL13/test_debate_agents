@@ -1,0 +1,116 @@
+sample:
+  id: 208:5420
+  article_id: 208
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: Art is either abstract or impactful. I think her art leans to the latter.
+    She can harness traumatic colonial past experiences to express a pain and emotion.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: abstract
+    - role: alternative_b
+      text: impactful
+    - role: exhaustiveness_commitment
+      text: Art is either abstract or impactful.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: her art leans to impactful
+    candidate: False Dilemma
+    supporting_reason: Art is either abstract or impactful.
+    support_relation: The binary classification is used as the basis for categorizing
+      her work as impactful.
+    label_justification: The sentence presents a false dichotomy by claiming art exists
+      only in two mutually exclusive forms and then uses that premise to classify
+      her art, which is a false dilemma fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+  counterargument:
+    decisive_counterargument: The assertion that all art can be boiled down to either
+      abstract or impactful is an overly restrictive binary that ignores art that
+      is both, neither, or falls elsewhere on a spectrum.
+    candidate: False Dilemma
+    challenged_inference: Art is either abstract or impactful. The speaker claims
+      her art leans to the latter.
+    label_justification: The objection exposes the argument’s reliance on a false
+      dichotomy, claiming that the entire range of art is exhausted by only two mutually
+      exclusive categories. This invalid assumption undermines any conclusion drawn
+      about the artist’s work.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Art is either abstract or impactful. I think her art leans to the latter. She
+      can harness traumatic colonial past experiences to express a pain and emotion.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly states a binary, exhaustive claim—‘Art
+    is either abstract or impactful’—and then uses that framework to classify the
+    artist’s work, constituting a false dilemma.
+  decision_reason: The target contains the requisite structure and content of a false
+    dilemma fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Art is either abstract or impactful. I think her art leans to the latter. She
+    can harness traumatic colonial past experiences to express a pain and emotion.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3842
+  completion_tokens: 2158
+  total_tokens: 6000
+  wall_time_seconds: 64.48499999998603

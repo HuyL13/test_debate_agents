@@ -1,0 +1,145 @@
+sample:
+  id: 313:6936
+  article_id: 313
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: Having students protest nationwide, it's pretty clear Bangladesh issue is
+    serious issue and needs addressing. And it's hard to ignore when the majority
+    are echoing the same sentiment - their numbers surely can't be wrong, right? It's
+    high time to adhere to the protesters' demands in order to bring back peace.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority
+    - role: popularity_claim
+      text: echoing the same sentiment
+    - role: target_claim
+      text: the Bangladesh issue is serious and needs addressing; we should adhere
+        to protesters' demands to bring back peace
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The target argues that the protesters’ demands should be met
+      in order to restore peace.
+    candidate: Appeal to Majority
+    supporting_reason: The speaker claims that because most students are protesting
+      and their numbers are large, the demands are justified and should be adhered
+      to.
+    support_relation: The majority’s support is used as the key justificatory premise
+      for the conclusion that the protesters’ demands must be followed.
+    label_justification: Using the size of the protest group as evidence that the
+      demands are correct or urgent is a classic appeal-to-popularity (bandwagon)
+      fallacy, since it relies on the assumption that widespread agreement implies
+      validity rather than presenting independent evidence about the merits of the
+      demands.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+  counterargument:
+    decisive_counterargument: Just because a large number of students are protesting
+      does not automatically prove that the stated problem is genuinely serious, nor
+      that compliance with the protesters’ demands is the most effective or legitimate
+      way to restore peace. Numbers, or popularity, provide no evidence about the
+      accuracy or morality of the claims or the efficacy of the proposed actions.
+    candidate: Appeal to Majority
+    challenged_inference: The argument infers that because many students protest nationwide,
+      their numbers must be correct, so the issue is serious and adherence to their
+      demands is required.
+    label_justification: The inference relies on the popularity of the protests to
+      justify the truth of the claims and the necessity of action, which is the classic
+      definition of an Appeal to Majority (bandwagon) fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+      issue and needs addressing. And it's hard to ignore when the majority are echoing
+      the same sentiment - their
+    - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+      demands in order to bring back peace.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that the number of protesting students—the
+    majority—is proof that the issue is serious and that the protesters’ demands should
+    be met, using the majority’s support as the sole justification, which fits the
+    definition of an Appeal to Majority fallacy.
+  decision_reason: The argument relies on the sheer size of the protest (the majority)
+    to support the conclusion that the issue is serious and that the demands must
+    be followed, without presenting independent evidence of the merits of the demands.
+    The text provides evidence of this appeal (T1 and T2).
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Having students protest nationwide, it's pretty clear Bangladesh issue is serious
+    issue and needs addressing. And it's hard to ignore when the majority are echoing
+    the same sentiment - their
+  - numbers surely can't be wrong, right? It's high time to adhere to the protesters'
+    demands in order to bring back peace.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4491
+  completion_tokens: 2798
+  total_tokens: 7289
+  wall_time_seconds: 144.57800000000861

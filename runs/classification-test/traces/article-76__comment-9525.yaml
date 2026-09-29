@@ -1,0 +1,145 @@
+sample:
+  id: 76:9525
+  article_id: 76
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: If the majority of journalists feel threatened by this and speak out, it
+    would be a good thing.  They do have a voice, even though terrorists are attempting
+    to silence them as well.  Listen to these men and women.  Hopefully, their words
+    will make a difference.  A collective voice has the power to shift perspectives
+    and push for change.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: journalists
+    - role: popularity_claim
+      text: majority of journalists feel threatened
+    - role: target_claim
+      text: it would be a good thing if they speak out and their words will make a
+        difference
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    - them as well.  Listen to these men and women.  Hopefully, their words will make
+      a difference.  A collective voice has the power to shift perspectives and push
+      for change.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: If the majority of journalists feel threatened by this and
+      speak out, it would be a good thing.
+    candidate: null
+    supporting_reason: A collective voice has the power to shift perspectives and
+      push for change.
+    support_relation: mechanism_supports_goal
+    label_justification: The claim that speaking out is a good thing is justified
+      here by stating that a collective voice can shift perspectives and drive change.
+      The argument does not misapply the majority as evidence of truth, nor does it
+      invoke a false dilemma, slippery slope, or other listed fallacies. Thus, no
+      fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    - them as well.  Listen to these men and women.  Hopefully, their words will make
+      a difference.  A collective voice has the power to shift perspectives and push
+      for change.
+  counterargument:
+    decisive_counterargument: If most journalists feel threatened and decide to speak
+      out, that alone does not prove their action is inherently good; majority opinion
+      can be flawed or detrimental, and the value of speaking out must be judged on
+      evidence and ethical standards, not on how many believe it is right.
+    candidate: Appeal to Majority
+    challenged_inference: The claim that majority‐felt threat among journalists speaking
+      out automatically makes the effort a positive outcome.
+    label_justification: The argument uses the size of the journalist group speaking
+      out as justification for its goodness, indicating an appeal to majority justifying
+      the action solely by reference to how many support it.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the majority of journalists feel threatened by this and speak out, it would
+      be a good thing.  They do have a voice, even though terrorists are attempting
+      to silence
+    - them as well.  Listen to these men and women.  Hopefully, their words will make
+      a difference.  A collective voice has the power to shift perspectives and push
+      for change.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument concludes that it is good that journalists speak
+    out solely on the basis that the majority of them feel threatened and choose to
+    speak, thereby justifying the action by the size of the supporting group. This
+    is the classic appeal to majority fallacy, which equates majority support with
+    the intrinsic value of the action.
+  decision_reason: The claim that “if the majority of journalists feel threatened
+    … it would be a good thing” relies on majority sentiment to justify the virtue
+    of speaking out, satisfying the structural criteria for an appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the majority of journalists feel threatened by this and speak out, it would
+    be a good thing.  They do have a voice, even though terrorists are attempting
+    to silence
+  - them as well.  Listen to these men and women.  Hopefully, their words will make
+    a difference.  A collective voice has the power to shift perspectives and push
+    for change.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4353
+  completion_tokens: 3628
+  total_tokens: 7981
+  wall_time_seconds: 67.18700000000536

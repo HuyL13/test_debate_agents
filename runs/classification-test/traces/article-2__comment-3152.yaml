@@ -1,0 +1,140 @@
+sample:
+  id: 2:3152
+  article_id: 2
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: The Buddhists are just following what they know based off various world
+    leaders when it comes to what happens to a country when Muslims come in. They
+    know they are prone to extremism and don't want their country to deal with that.  Intellectuals
+    like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+    Muslims can be, so these Buddhists are just doing what they can do make sure Myanmar
+    doesn't experience that.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Intellectuals like Sam Harris and Presidents like Bush and Trump
+    - role: endorsed_claim
+      text: Muslims can be extremist, so the Buddhists should act to prevent that
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Buddhists are just following what they know based off various world leaders
+      when it comes to what happens to a country when Muslims come in. They know they
+      are
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Buddhists are acting to prevent extremist influence by Muslims
+      in Myanmar based on what they have learned from world leaders.
+    candidate: Appeal to Authority
+    supporting_reason: The argument cites intellectuals like Sam Harris and Presidents
+      like Bush and Trump claiming Muslims can be extremist, using these authorities
+      to justify Buddhists’ actions.
+    support_relation: The claimed authority statements are used to support the conclusion
+      rather than to provide substantive evidence.
+    label_justification: The argument relies on the perceived credibility of external
+      figures (Sam Harris, Bush, Trump) to assert that Muslims are inherently prone
+      to extremism, thereby endorsing Buddhist caution. This is a classic appeal to
+      authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+  counterargument:
+    decisive_counterargument: The Buddhists’ claim that they are acting on the authority
+      of Sam Harris, President Bush, and President Trump is unsupported because those
+      figures are not qualified experts on Muslim extremism and no evidence is provided
+      that their statements are correct.  Their opinions do not establish that Muslims
+      are inherently prone to extremism, so using them to justify the Buddhists’ actions
+      commits an Appeal to Authority.
+    candidate: null
+    challenged_inference: Based on comments from Sam Harris, Bush, and Trump, the
+      Buddhists conclude that Muslims inevitably bring extremism and therefore they
+      must prevent it.
+    label_justification: 'The target argument relies on statements by non‑experts
+      to justify its claim, which is precisely an Appeal to Authority fallacy. This
+      is a specific reasoning failure: the target assumes the truth of the claim because
+      it is asserted by claimed authorities, rather than by evidence or relevant expertise.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - prone to extremism and don't want their country to deal with that.  Intellectuals
+      like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+      Muslims can
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument cites authorities (Sam Harris, Bush, Trump) to
+    support the claim that Muslims are inherently prone to extremism, using their
+    statements to justify the Buddhists’ actions, which satisfies the structure of
+    an appeal to authority.
+  decision_reason: The TARGET presents authority statements as the basis for the conclusion
+    that Muslims can be extremist, thereby justifying the Buddhists’ caution; this
+    is a classic appeal to authority. Evidence supporting this is found in T1 and
+    T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The Buddhists are just following what they know based off various world leaders
+    when it comes to what happens to a country when Muslims come in. They know they
+    are
+  - prone to extremism and don't want their country to deal with that.  Intellectuals
+    like Sam Harris and Presidents like Bush and Trump have all told us how extremist
+    Muslims can
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4549
+  completion_tokens: 3163
+  total_tokens: 7712
+  wall_time_seconds: 95.64100000000326

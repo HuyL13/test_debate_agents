@@ -1,0 +1,124 @@
+sample:
+  id: 515:7543
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: This is crazy to read.  Countries need to adopt democracy and let the majority
+    will of the people rule, period. It may be naive to think so, but I believe that
+    the majority typically chooses the best way forward. People have the ability to
+    sift through the polictical noise and make the right decisions.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of people
+    - role: popularity_claim
+      text: the majority typically chooses the best way forward
+    - role: target_claim
+      text: countries should adopt democracy and let the majority will rule
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is crazy to read.  Countries need to adopt democracy and let the majority
+      will of the people rule, period. It may be naive to think so, but I believe
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Countries need to adopt democracy and let the majority will
+      of the people rule.
+    candidate: Appeal to Majority
+    supporting_reason: the majority typically chooses the best way forward
+    support_relation: mechanism_supports_goal
+    label_justification: The argument relies on the claim that the majority selects
+      best policies to justify democracy, a classic appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+  counterargument:
+    decisive_counterargument: Historical instances abound in which majority rule has
+      produced unjust and harmful outcomes—such as racial segregation, suppression
+      of minorities, and disastrous wars—demonstrating that majority decisions do
+      not inherently select the best or fairest course.
+    candidate: Appeal to Majority
+    challenged_inference: Because the majority typically chooses the best way forward,
+      democracy is necessary and the best governance system.
+    label_justification: The counterargument directly attacks the premise that majority
+      choice is a sufficient proof of the desirability of democracy, exposing the
+      argument’s reliance on an appeal to the majority’s authority rather than on
+      evidence of its efficacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is crazy to read.  Countries need to adopt democracy and let the majority
+      will of the people rule, period. It may be naive to think so, but I believe
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The TARGET explicitly associates the popularity claim that “the
+    majority typically chooses the best way forward” with the normative claim that
+    “countries should adopt democracy and let the majority will rule.” This directly
+    relies on the majority’s presumed wisdom to justify democracy, matching the structure
+    of an appeal to majority fallacy. Evidence from T1 and T2 supports the premises
+    and conclusion of this fallacy.
+  decision_reason: The target presents a claim that democratic rule should be implemented
+    because the majority often chooses the best policy, which is a classic appeal
+    to majority. The supplied evidence fully supports this structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is crazy to read.  Countries need to adopt democracy and let the majority
+    will of the people rule, period. It may be naive to think so, but I believe
+  - that the majority typically chooses the best way forward. People have the ability
+    to sift through the polictical noise and make the right decisions.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4403
+  completion_tokens: 3070
+  total_tokens: 7473
+  wall_time_seconds: 156.875

@@ -1,0 +1,126 @@
+sample:
+  id: 76:9526
+  article_id: 76
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: The biggest issue that the middle east has faced is corrupt and power hungry
+    leaders for generations.   Leaders in the area use religion as a shield to protect
+    them and justify their horrific acts.  Until they sperate religion and politics,
+    these events will continue to plague these countries.  Shia Islam is the 2nd biggest
+    branch of the religion.  However, that doesn't mean that they should make decisions
+    for the country because of that.   God does not want his children to fight no
+    matter the faith.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: God
+    - role: endorsed_claim
+      text: God does not want his children to fight no matter the faith.
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - doesn't mean that they should make decisions for the country because of that.   God
+      does not want his children to fight no matter the faith.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Until they separate religion and politics, these events will
+      continue to plague these countries.
+    candidate: null
+    supporting_reason: Leaders in the area use religion as a shield to protect them
+      and justify their horrific acts.
+    support_relation: The argument uses the reason that leaders weaponize religious
+      justification to support the conclusion that separating religion from politics
+      is necessary to prevent ongoing harm.
+    label_justification: The reason is applied in a standard argumentative manner;
+      it does not misrepresent evidence or create a misleading inference, so no fallacy
+      is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The biggest issue that the middle east has faced is corrupt and power hungry
+      leaders for generations.   Leaders in the area use religion as a shield to protect
+      them and
+    - justify their horrific acts.  Until they sperate religion and politics, these
+      events will continue to plague these countries.  Shia Islam is the 2nd biggest
+      branch of the religion.  However, that
+  counterargument:
+    decisive_counterargument: Citing a divine will that 'God does not want his children
+      to fight no matter the faith' is an appeal to authority and does not establish
+      that Shia Islam should be excluded from political decision‑making. The claim
+      merely invokes a moral or religious premise without any logical or evidential
+      connection to the political situation, so the argument is fallacious.
+    candidate: Appeal to Authority
+    challenged_inference: Shia Islam should not be allowed to serve in political leadership
+      positions because religion is being abused and God forbids fighting, implying
+      that religious identity precludes political authority.
+    label_justification: The objection shows that the reasoning relies on a supernatural
+      authority to justify a political stance, which is a classic example of Appeal
+      to Authority. This fallacy is exposed because the claim does not provide evidence
+      that Shia individuals would cause harm; it merely asserts a moral preference
+      drawn from divine assertion.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - doesn't mean that they should make decisions for the country because of that.   God
+      does not want his children to fight no matter the faith.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: 'The claim invokes a divine authority (God) to support a political
+    standpoint—specifically, that religious leaders should not influence political
+    decisions—without providing evidential support for that claim. This meets the
+    structural condition of an appeal to authority. Evidence ID(s): T3.'
+  decision_reason: The target states, “God does not want his children to fight no
+    matter the faith,” which the author uses to argue that religious involvement in
+    politics is inappropriate. This appeals to a supernatural authority to justify
+    a political proposition, fitting the appeal to authority fallacy.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - doesn't mean that they should make decisions for the country because of that.   God
+    does not want his children to fight no matter the faith.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4640
+  completion_tokens: 4133
+  total_tokens: 8773
+  wall_time_seconds: 218.17199999990407

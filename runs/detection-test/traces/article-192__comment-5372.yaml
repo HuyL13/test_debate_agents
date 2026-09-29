@@ -1,0 +1,148 @@
+sample:
+  id: 192:5372
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: Are we really getting bothered about soccer matches? Especially, the right
+    to illegally stream soccer matches? I mean, if they start abusing the law to go
+    after what its intended purpose, that would be bad of course, but don't people,
+    particularly Turkish people, have far bigger problems to worry about? This sort
+    of 'censorship' is hardly meaningful in the face of what Turkey's current dictator
+    is doing.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: censorship of soccer matches
+    - role: worse_issue
+      text: what Turkey's current dictator is doing
+    - role: deprioritizing_conclusion
+      text: this sort of censorship is hardly meaningful in the face of what Turkey's
+        current dictator is doing
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Are we really getting bothered about soccer matches? Especially, the right to
+      illegally stream soccer matches? I mean, if they start abusing the law to go
+      after what its intended
+    - purpose, that would be bad of course, but don't people, particularly Turkish
+      people, have far bigger problems to worry about? This sort of 'censorship' is
+      hardly meaningful in the face
+    - of what Turkey's current dictator is doing.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Dismiss the concern that government censorship of illegally
+      streaming soccer matches is a significant problem by arguing that Turkish people
+      have far larger issues to worry about.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Turkish people’s more serious issues, especially the political
+      situation under the current dictator, render the censorship of soccer streaming
+      far less meaningful.
+    support_relation: The argument uses the existence of more urgent or severe problems
+      (the dictator’s actions) to undermine the importance of the censorship issue,
+      thereby justifying the dismissal of the concern about soccer streaming.
+    label_justification: The reasoning relies on the comparative weight of two distinct
+      problems; by foregrounding the worse problem, it attempts to diminish the significance
+      of the lesser one, which is the definition of an Appeal to Worse Problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - purpose, that would be bad of course, but don't people, particularly Turkish
+      people, have far bigger problems to worry about? This sort of 'censorship' is
+      hardly meaningful in the face
+    - of what Turkey's current dictator is doing.
+  counterargument:
+    decisive_counterargument: The presence of larger political problems does not nullify
+      the legitimacy or importance of protecting intellectual property rights; ignoring
+      the former while addressing the latter is a separate legitimate concern, and
+      the argument commits a fallacy by suggesting the smaller issue is insignificant
+      because a bigger problem exists.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The claim that concerns over illegally streaming soccer
+      matches are irrelevant because Turkish people face more serious issues such
+      as dictatorship.
+    label_justification: The objection targets the reasoning that the smaller issue
+      (censorship of illegally streamed matches) should be dismissed simply because
+      a bigger problem exists, which is the defining pattern of an Appeal to Worse
+      Problems fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Are we really getting bothered about soccer matches? Especially, the right to
+      illegally stream soccer matches? I mean, if they start abusing the law to go
+      after what its intended
+    - purpose, that would be bad of course, but don't people, particularly Turkish
+      people, have far bigger problems to worry about? This sort of 'censorship' is
+      hardly meaningful in the face
+    - of what Turkey's current dictator is doing.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly states that concerns over censorship of
+    illegally streamed soccer matches are dismissed because Turkish people face far
+    larger problems (the current dictator's actions), matching the definition of an
+    appeal to worse problems.
+  decision_reason: The argument uses the existence of a more significant issue (dictatorship)
+    to undermine the importance of a lesser issue (soccer match censorship), thereby
+    forming a classic appeal to worse problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Are we really getting bothered about soccer matches? Especially, the right to
+    illegally stream soccer matches? I mean, if they start abusing the law to go after
+    what its intended
+  - purpose, that would be bad of course, but don't people, particularly Turkish people,
+    have far bigger problems to worry about? This sort of 'censorship' is hardly meaningful
+    in the face
+  - of what Turkey's current dictator is doing.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4848
+  completion_tokens: 3099
+  total_tokens: 7947
+  wall_time_seconds: 163.03199999999924

@@ -1,0 +1,107 @@
+sample:
+  id: 560:8878
+  article_id: 560
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '#NiñasNoMadres: Argentines protest against the forced pregnancy of young
+    girls'
+  parent: ''
+  target: This is insane! Will they have post-birth abortions next? Abortion should
+    be outlawed in any circumstance.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is insane! Will they have post-birth abortions next? Abortion should be
+      outlawed in any circumstance.
+    candidate: null
+  goal:
+    conclusion_or_goal: Abortion should be outlawed in any circumstance.
+    candidate: null
+    supporting_reason: This is insane! Will they have post-birth abortions next?
+    support_relation: The author uses an emotional reaction and a speculative fear
+      to underpin the claim, but no formal argument or logical structure is provided.
+    label_justification: 'No explicit logical fallacy is present: the passage contains
+      only an emotional appeal and a rhetorical question, lacking the specific pattern
+      (e.g., empirical sample, slippery‑slope progression) required for the listed
+      fallacies.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is insane! Will they have post-birth abortions next? Abortion should be
+      outlawed in any circumstance.
+  counterargument:
+    decisive_counterargument: The argument that outlawing abortion will inevitably
+      lead to post‑birth abortions is an unsupported slippery‑slope claim. It assumes
+      a causal chain—abortion bans → post‑birth abortions—without evidence, simply
+      extrapolating an extreme outcome from the policy change.
+    candidate: Slippery Slope
+    challenged_inference: This reasoning hinges on a causal progression from outlawing
+      abortion to post‑birth abortions, which is not justified.
+    label_justification: The objection directly targets the fallacious progression
+      premise, illustrating that the inference from the policy to the extreme outcome
+      lacks evidence and is characteristic of a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is insane! Will they have post-birth abortions next? Abortion should be
+      outlawed in any circumstance.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target contains a rhetorical claim that outlawing abortion
+    will inevitably lead to post‑birth abortions—a causal progression from a policy
+    to an extreme outcome that is asserted without evidence, matching the structure
+    of a slippery‑slope fallacy.
+  decision_reason: The target explicitly questions whether banning abortion will result
+    in post‑birth abortions, implying a unidirectional causal chain to an extreme
+    consequence. This satisfies the mandatory structural condition for a slippery‑slope
+    inference, and the supporting evidence T1 confirms the presence of this claim.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is insane! Will they have post-birth abortions next? Abortion should be outlawed
+    in any circumstance.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3642
+  completion_tokens: 3147
+  total_tokens: 6789
+  wall_time_seconds: 173.48499999998603

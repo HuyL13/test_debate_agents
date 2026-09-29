@@ -1,0 +1,145 @@
+sample:
+  id: 127:4578
+  article_id: 127
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: Why is the focus on the internet shutdowns, and not that actual human rights
+    abuses from the insecurity caused by the coup. There has been enough evidence
+    based on the statistics to show that Myanmar needs more international intervention.
+    It is important to get news out from the people in Myanmar, but we need to focus
+    on the problem itself which is the insecurity caused by the coup.
+  target: Thank you for pointing out the obvious issue with this article! Why on earth
+    are we focusing on the internet shutdown and not all the humans rights issues
+    that they're attempting to cover up! We will never make any progress on this humanitarian
+    crisis if we pour all of our resources into a symptom, not the cause. I think
+    the world community needs to reassess their priorities!
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - Thank you for pointing out the obvious issue with this article! Why on earth
+      are we focusing on the internet shutdown and not all the humans rights issues
+      that they're
+    - attempting to cover up! We will never make any progress on this humanitarian
+      crisis if we pour all of our resources into a symptom, not the cause. I think
+      the
+    - world community needs to reassess their priorities!
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: The world community needs to reassess its priorities.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The argument presents a logical causal link between focusing
+      on symptoms versus root causes and the effectiveness of humanitarian efforts.
+      It does not exhibit any identified logical fallacy such as a false dilemma,
+      hasty generalization, or appeal to authority. Thus, no fallacy is warranted.
+    mechanism_supports_goal: true
+    support_relation: The reason demonstrates that resource allocation toward the
+      symptom is ineffective, thereby justifying the conclusion that priorities must
+      be shifted.
+    supporting_reason: Focusing on the internet shutdown is merely addressing a symptom
+      of the humanitarian crisis, not the underlying human‑rights abuses; allocating
+      all resources to this symptom will prevent any real progress.
+    evidence_spans:
+    - Thank you for pointing out the obvious issue with this article! Why on earth
+      are we focusing on the internet shutdown and not all the humans rights issues
+      that they're
+    - attempting to cover up! We will never make any progress on this humanitarian
+      crisis if we pour all of our resources into a symptom, not the cause. I think
+      the
+  counterargument:
+    decisive_counterargument: The target’s claim that focusing exclusively on internet
+      shutdowns—treating it merely as a symptom—will inevitably stop all progress
+      in addressing the underlying human‑rights crisis is false.  Internet shutdowns
+      are not just an incidental symptom; they directly conflict with fundamental
+      rights, incapacitate humanitarian aid, and exacerbate insecurity.  Addressing
+      them is a concrete step toward reducing violence and restoring basic services,
+      and it can be pursued alongside broader measures aimed at ending the coup and
+      protecting civil liberties.  Thus, the argument wrongly depicts the two efforts
+      as mutually exclusive options where choosing one leads to total failure, when
+      in fact they are interrelated and can coexist.
+    candidate: False Dilemma
+    challenged_inference: The target claims that focusing solely on the internet shutdown
+      (a symptom) will absolutely prevent any progress toward resolving the core human‑rights
+      abuses caused by the coup.
+    label_justification: This objection demonstrates that the target presents two
+      mutually exclusive options—reducing the shutdown versus addressing the root
+      human‑rights abuses—and asserts that choosing the first will lead to failure,
+      a classic False Dilemma.  The argument ignores the possibility of pursuing both
+      strategies simultaneously.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Thank you for pointing out the obvious issue with this article! Why on earth
+      are we focusing on the internet shutdown and not all the humans rights issues
+      that they're
+    - attempting to cover up! We will never make any progress on this humanitarian
+      crisis if we pour all of our resources into a symptom, not the cause. I think
+      the
+    - world community needs to reassess their priorities!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a dichotomous choice—focusing solely on
+    the internet shutdown (a symptom) versus addressing the root human‑rights abuses—and
+    asserts that the former will inevitably preclude any progress, which is a classic
+    false dilemma.
+  decision_reason: This target statement explicitly claims that investing resources
+    in the symptom will prevent any progress in resolving the underlying humanitarian
+    crisis, thereby treating the symptom and the cause as mutually exclusive options.
+    The evidence for this claim is found in passage T2.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - attempting to cover up! We will never make any progress on this humanitarian crisis
+    if we pour all of our resources into a symptom, not the cause. I think the
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 3
+  cache_hits: 2
+  retries: 1
+  prompt_tokens: 4737
+  completion_tokens: 2760
+  total_tokens: 7497
+  wall_time_seconds: 101.43700000000536

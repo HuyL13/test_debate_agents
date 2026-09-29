@@ -1,0 +1,143 @@
+sample:
+  id: 595:8983
+  article_id: 595
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: That's so sad to think about all of those beautiful birds suffering. Its
+    even sadder to think about how stories like this will become more common as climate
+    change gets worse. At this point, though, I think its unavoidable. We can't undo
+    decades and decades of harm to the environment. But the politicians can make it
+    harder for companies to abuse the environment now.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That's so sad to think about all of those beautiful birds suffering. Its even
+      sadder to think about how stories like this will become more common as climate
+      change gets
+    - worse. At this point, though, I think its unavoidable. We can't undo decades
+      and decades of harm to the environment. But the politicians can make it harder
+      for companies to
+    - abuse the environment now.
+    candidate: null
+  goal:
+    conclusion_or_goal: politicians can still make it harder for companies to abuse
+      the environment now
+    candidate: null
+    supporting_reason: the harm to the environment is unavoidable
+    support_relation: the statement that past harm cannot be undone is used to support
+      the conclusion that there is still room for policy action
+    label_justification: The reasoning does not commit a logical fallacy; it merely
+      acknowledges the inevitability of past harm while indicating that future preventive
+      measures are still possible.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - That's so sad to think about all of those beautiful birds suffering. Its even
+      sadder to think about how stories like this will become more common as climate
+      change gets
+    - worse. At this point, though, I think its unavoidable. We can't undo decades
+      and decades of harm to the environment. But the politicians can make it harder
+      for companies to
+  counterargument:
+    decisive_counterargument: The argument relies on emotional appeal (sadness about
+      dying birds) to support a claim without evidence. The emotional language does
+      not demonstrate that political action will effectively mitigate future harm.
+      Therefore, the reasoning falls short of providing logical support for the recommendation,
+      making it an Appeal to Emotion.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that, because the past damage is unavoidable,
+      current political regulation will nevertheless be able to prevent future environmental
+      abuse of companies (i.e., a political solution can halt a projected trend of
+      worsening bird deaths).
+    label_justification: The attacker uses plain emotive language about the birds
+      suffering and the tragedy of climate change, but provides no empirical evidence
+      that politicians can change the trajectory of harm. Thus the argument appeals
+      to the listeners’ feelings rather than to logical support. This reflects the
+      standard definition of an Appeal to Emotion, where affective arguments are used
+      in lieu of evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - That's so sad to think about all of those beautiful birds suffering. Its even
+      sadder to think about how stories like this will become more common as climate
+      change gets
+    - worse. At this point, though, I think its unavoidable. We can't undo decades
+      and decades of harm to the environment. But the politicians can make it harder
+      for companies to
+    - abuse the environment now.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: No fallacy is present under the allowed fallacy categories;
+    the claim is an emotional appeal, which is not among the recognized fallacies
+    for this task.
+  decision_reason: The argument does not satisfy the structural conditions required
+    for any of the permitted fallacy types (Appeal to Majority, Appeal to Authority,
+    Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, Slippery Slope,
+    False Dilemma, Hasty Generalization); hence no fallacy is detected.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - That's so sad to think about all of those beautiful birds suffering. Its even
+    sadder to think about how stories like this will become more common as climate
+    change gets
+  - worse. At this point, though, I think its unavoidable. We can't undo decades and
+    decades of harm to the environment. But the politicians can make it harder for
+    companies to
+  - abuse the environment now.
+  verified: false
+  rejection_reason: The argument does not satisfy the structural conditions required
+    for any of the permitted fallacy types (Appeal to Majority, Appeal to Authority,
+    Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, Slippery Slope,
+    False Dilemma, Hasty Generalization); hence no fallacy is detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4352
+  completion_tokens: 4241
+  total_tokens: 8593
+  wall_time_seconds: 190.32800000000861

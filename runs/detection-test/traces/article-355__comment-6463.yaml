@@ -1,0 +1,202 @@
+sample:
+  id: 355:6463
+  article_id: 355
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bengali, Pakistani, and Amazon indigenous women perform ‘The rapist is you’
+    song
+  parent: ''
+  target: If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+    of women on a global scale, leading eventually to a society where gender discrimination
+    is the norm. We have to realize that this would undermine the progress we've made
+    in the fight for gender equality, leading to deep-rooted disparities and conflicts.
+    If we don't act now and pressurize our governments to formulate and enforce laws
+    to protect the rights of these women, it could lead to a world marked by increasing
+    social unrest and deep divides. Ignoring this problem is like setting off a chain
+    reaction that continues to marginalize half of the world's population, pushing
+    us all the way back to the dark ages of total inequality.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: continuing to ignore the issue or not acting now
+    - role: intermediate_consequence
+      text: oppression of women leading to gender discrimination becoming the norm,
+        undermining progress and creating deep‑rooted disparities, conflicts, social
+        unrest, and marginalization of half the world's population
+    - role: final_consequence
+      text: pushing society back to the dark ages of total inequality
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+      of women on a global scale, leading eventually to a society where gender discrimination
+      is the
+    - and pressurize our governments to formulate and enforce laws to protect the
+      rights of these women, it could lead to a world marked by increasing social
+      unrest and deep divides.
+    - Ignoring this problem is like setting off a chain reaction that continues to
+      marginalize half of the world's population, pushing us all the way back to the
+      dark ages of
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We must act now and pressure governments to enact laws protecting
+      women to prevent gender discrimination from becoming the norm.
+    candidate: Slippery Slope
+    supporting_reason: The target claims that ignoring women's oppression will trigger
+      a chain reaction leading to societal gender discrimination, deep-rooted disparities,
+      social unrest, and a return to a dark age of inequality.
+    support_relation: supports
+    label_justification: The argument presents a progression of increasingly adverse
+      consequences stemming from a single inaction, which is the essential structure
+      of a slippery slope argument.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+      of women on a global scale, leading eventually to a society where gender discrimination
+      is the
+    - and pressurize our governments to formulate and enforce laws to protect the
+      rights of these women, it could lead to a world marked by increasing social
+      unrest and deep divides.
+    - Ignoring this problem is like setting off a chain reaction that continues to
+      marginalize half of the world's population, pushing us all the way back to the
+      dark ages of
+  counterargument:
+    decisive_counterargument: The target presents a deterministic chain in which ignoring
+      women’s oppression on the ground will inevitably evolve into global gender discrimination
+      and a regression to a ‘dark ages’ of inequality.  No evidence or logical mechanism
+      is supplied that a single form of inaction can trigger that chain; many intervening
+      variables (policy changes, economic shifts, social movements) would be required,
+      and historically societies have often responded to large injustices without
+      collapsing into total inequality.  Therefore, the claim relies on an unsupported
+      causal progression rather than on empirical causality.
+    candidate: Appeal to Authority
+    challenged_inference: If we continue to turn a deaf ear, we are indirectly encouraging
+      the oppression of women on a global scale, leading eventually to a society where
+      gender discrimination is the norm and, ultimately, to the dark ages of total
+      inequality.
+    label_justification: The objection exposes the target’s reliance on an unsubstantiated,
+      unforeseeable escalation—i.e., a slippery‑slope argument—where a single action
+      (or inaction) is claimed to trigger a cascade of increasingly dire outcomes.  This
+      claim lacks empirical support and involves a causal leap from one state to a
+      far‑reaching, global state, fitting the definition of a Slippery‑Slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+      of women on a global scale, leading eventually to a society where gender discrimination
+      is the
+    - norm. We have to realize that this would undermine the progress we've made in
+      the fight for gender equality, leading to deep-rooted disparities and conflicts.
+      If we don't act now
+    - and pressurize our governments to formulate and enforce laws to protect the
+      rights of these women, it could lead to a world marked by increasing social
+      unrest and deep divides.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: directly supported
+    loser_failure: Appeal to Authority lacks supporting evidence for authority claim
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+      of women on a global scale, leading eventually to a society where gender discrimination
+      is the
+    - and pressurize our governments to formulate and enforce laws to protect the
+      rights of these women, it could lead to a world marked by increasing social
+      unrest and deep divides.
+    - Ignoring this problem is like setting off a chain reaction that continues to
+      marginalize half of the world's population, pushing us all the way back to the
+      dark ages of
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target explicitly presents a causal chain from the initial
+    event of ignoring women's oppression to a final negative outcome—pushing society
+    back to a dark age of total inequality—without providing adequate justification
+    for each link, which matches the structural definition of a slippery‑slope argument.
+  decision_reason: 'The argument outlines a stepwise progression of increasingly adverse
+    consequences: ignoring leads to oppression, which normalizes gender discrimination,
+    undermines progress, creates disparities and conflicts, triggers social unrest,
+    marginalizes half the population, and ultimately results in a regression to a
+    dark age of inequality. This fittingly demonstrates a slippery‑slope structure.'
+  evidence_ids:
+  - T1
+  - T3
+  - T4
+  evidence_spans:
+  - If we continue to turn a deaf ear, we are indirectly encouraging the oppression
+    of women on a global scale, leading eventually to a society where gender discrimination
+    is the
+  - and pressurize our governments to formulate and enforce laws to protect the rights
+    of these women, it could lead to a world marked by increasing social unrest and
+    deep divides.
+  - Ignoring this problem is like setting off a chain reaction that continues to marginalize
+    half of the world's population, pushing us all the way back to the dark ages of
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 7362
+  completion_tokens: 4166
+  total_tokens: 11528
+  wall_time_seconds: 274.81300000002375

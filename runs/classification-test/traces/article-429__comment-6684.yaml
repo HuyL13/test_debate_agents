@@ -1,0 +1,139 @@
+sample:
+  id: 429:6684
+  article_id: 429
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: The Tunisian government officials that withdrew the bill made a good decision
+    by pulling it from consideration. It is obvious that a group like the ACLU would
+    definitely denounce this bill, so you know it's a terrible law. I was already
+    skeptical of the bill, but when I realized they would agree with me it became
+    obvious and clear. This sort of restriction on speech is scary and should always
+    be avoided. The more we restrict speech the more problems we always create. While
+    I understand why government officials are concerned with misinformation we must
+    be careful in how we address this. Only with a group effort of experts, government
+    official and civilians can we solve this ongoing problem. Does anyone disagree
+    with this approach? Can we all agree on this and find a middle ground together
+    where free speech is protected and disinformation is eliminated?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: ACLU
+    - role: endorsed_claim
+      text: the bill is a terrible law
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The Tunisian government officials that withdrew the bill made a good decision
+      by pulling it from consideration. It is obvious that a group like the ACLU would
+      definitely denounce this
+    - bill, so you know it's a terrible law. I was already skeptical of the bill,
+      but when I realized they would agree with me it became obvious and clear. This
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The Tunisian government officials that withdrew the bill made
+      a good decision by pulling it from consideration.
+    candidate: Appeal to Authority
+    supporting_reason: It is obvious that a group like the ACLU would denounce this
+      bill, so the bill is terrible.
+    support_relation: The argument asserts that because a respected organization (ACLU)
+      would criticize the bill, the bill is bad, thereby justifying the officials’
+      decision.
+    label_justification: The supporting reason relies on citing the ACLU’s presumed
+      authority to evaluate the bill’s validity, which is an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The Tunisian government officials that withdrew the bill made a good decision
+      by pulling it from consideration. It is obvious that a group like the ACLU would
+      definitely denounce this
+  counterargument:
+    decisive_counterargument: The argument that the bill is terrible because the ACLU
+      would denounce it relies solely on the ACLU’s stance as evidence for the bill’s
+      quality. While the ACLU’s criticism may be legitimate, it does not provide objective
+      justification that the bill is inherently terrible; it merely reflects one organization’s
+      perspective, potentially influenced by its own interests or interpretations.
+      To evaluate the bill’s merits, one would need a systematic analysis of its provisions,
+      legal implications, and impact on speech—not a citation of an authority’s opinion.
+      Therefore, using the ACLU’s position as decisive proof commits an Appeal to
+      Authority fallacy.
+    candidate: Appeal to Authority
+    challenged_inference: The bill is terrible because the ACLU would denounce it.
+    label_justification: The objection directly points out that the inference depends
+      on an authority’s endorsement rather than substantive evidence, which is the
+      hallmark of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The Tunisian government officials that withdrew the bill made a good decision
+      by pulling it from consideration. It is obvious that a group like the ACLU would
+      definitely denounce this
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument asserts that the bill is terrible because the ACLU
+    would denounce it, using the ACLU’s authority to justify the claim.
+  decision_reason: The target cites the ACLU as an authority whose opposition is taken
+    as proof that the bill is bad and that officials’ withdrawal was correct, meeting
+    the structure of an Appeal to Authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The Tunisian government officials that withdrew the bill made a good decision
+    by pulling it from consideration. It is obvious that a group like the ACLU would
+    definitely denounce this
+  - bill, so you know it's a terrible law. I was already skeptical of the bill, but
+    when I realized they would agree with me it became obvious and clear. This
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5650
+  completion_tokens: 3148
+  total_tokens: 8798
+  wall_time_seconds: 196.48399999999674

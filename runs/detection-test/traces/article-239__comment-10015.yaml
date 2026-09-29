@@ -1,0 +1,141 @@
+sample:
+  id: 239:10015
+  article_id: 239
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: Making decisions on climate policy because some KIDS think its best is insane.
+    Adults run the country. They know what to do as they have the experience. Kids
+    are kids and don't know what they're even protesting. There's a reason we don't
+    let kids be politicians.
+  target: 'Adults got us into this mess. Not kids. Maybe just because someone is an
+    "adult" does not make them magically have the best ideas. Just because someone
+    young or old has an idea does not make the idea more or less functional. These
+    kids are out there trying to make a difference by simply planting some trees like
+    Tristan Morgan is. I am pretty sure that is a task that any age group would be
+    capable of to try to help combat climate change. I am sure that more trees is
+    not going to hurt anything. I think if more people stopped and listened to the
+    ideas presented by movements such as #ClimateStrikeTT and #AmazonChallenge, and
+    judge the idea on its own merits instead of worrying about "who" it came from
+    we would all be a lot better off.'
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Adults
+    - role: observed_property
+      text: got us into this mess
+    - role: target_population
+      text: all adults
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Adults got us into this mess. Not kids. Maybe just because someone is an "adult"
+      does not make them magically have the best ideas. Just because someone young
+      or old
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Consider the merits of climate‑change ideas rather than the
+      age of the proposer; specifically, that kids planting trees is a worthwhile
+      action and should be judged on its own merits.
+    candidate: null
+    supporting_reason: Age does not determine the functional value of an idea, and
+      any age group can participate in tree‑planting initiatives that are beneficial
+      or neutral, so the focus should be on the content of the idea rather than on
+      who proposes it.
+    support_relation: The speaker argues that because age is irrelevant to an idea’s
+      value, one should evaluate the idea itself, thereby supporting the conclusion
+      that age should not be a factor.
+    label_justification: The argument does not employ an invalid inference; it legitimately
+      asserts that a neutral factor (age) should be ignored in favor of evaluating
+      merits, so no logical fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Adults got us into this mess. Not kids. Maybe just because someone is an "adult"
+      does not make them magically have the best ideas. Just because someone young
+      or old
+    - has an idea does not make the idea more or less functional. These kids are out
+      there trying to make a difference by simply planting some trees like Tristan
+      Morgan
+    - is. I am pretty sure that is a task that any age group would be capable of to
+      try to help combat climate change. I am sure that more trees
+  counterargument:
+    decisive_counterargument: There is no evidence that all adults, or even a majority,
+      are responsible for the climate crisis; many adults—including scientists, policymakers,
+      and activists—recognize the problem and actively work to mitigate it. The blanket
+      claim that adults caused the problem is unsupported because it generalizes over
+      a group without data, ignoring the contributions and responsibilities shared
+      across generations.
+    candidate: Hasty Generalization
+    challenged_inference: Adults got us into this mess. Not kids.
+    label_justification: The inference attributes the entire blame for a complex social
+      and environmental problem to a single demographic group, adults, without concrete
+      evidence or data. This sweeping negative conclusion about a whole group, drawn
+      from insufficient or non‑representative evidence, fits the definition of a hasty
+      generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Adults got us into this mess. Not kids. Maybe just because someone is an "adult"
+      does not make them magically have the best ideas. Just because someone young
+      or old
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The TARGET states that ''Adults got us into this mess'', a
+    blanket claim about all adults without supporting evidence, which meets the structure
+    of a sample‑to‑population inference (sample: adults, observed property: caused
+    the mess, target population: all adults).'
+  decision_reason: This is a hasty generalization because it attributes the entire
+    blame for the climate crisis to the demographic group 'adults' based on insufficient
+    evidence.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Adults got us into this mess. Not kids. Maybe just because someone is an "adult"
+    does not make them magically have the best ideas. Just because someone young or
+    old
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5431
+  completion_tokens: 3747
+  total_tokens: 9178
+  wall_time_seconds: 436.89099999994505

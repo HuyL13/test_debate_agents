@@ -4,9 +4,7 @@ FALLACIES = (
     'Hasty Generalization', 'Slippery Slope',
 )
 DETECTION = ('Non-Fallacious', 'Fallacious')
-ROLES = ('Factual', 'Logical', 'Contextual')
-DIAGNOSTIC_ROLES = ('Inference', 'Evidence', 'SemanticContext')
-PROTOCOLS = ('round_robin', 'point_counterpoint', 'cross_examination')
+ANALYSTS = ('structure', 'goal', 'counterargument')
 
 
 def labels_for(task):

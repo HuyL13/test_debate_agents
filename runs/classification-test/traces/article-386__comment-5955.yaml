@@ -1,0 +1,118 @@
+sample:
+  id: 386:5955
+  article_id: 386
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: First they start with fake threats. Later they detonate real bombs. These
+    countries have always had problems with such things.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: These countries
+    - role: observed_property
+      text: always had problems with such things
+    - role: target_population
+      text: countries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - First they start with fake threats. Later they detonate real bombs. These countries
+      have always had problems with such things.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: These countries have always had problems with such things.
+    candidate: Hasty Generalization
+    supporting_reason: First they start with fake threats. Later they detonate real
+      bombs.
+    support_relation: reason is cited as the basis for generalizing that these countries
+      always have problems with bomb threats
+    label_justification: The argument infers a universal statement about ‘these countries’
+      from only a few reported incidents, fitting the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - First they start with fake threats. Later they detonate real bombs. These countries
+      have always had problems with such things.
+  counterargument:
+    decisive_counterargument: The claim that 'these countries have always had problems
+      with such things' is not backed by any evidence beyond a single instance; a
+      single occurrence cannot justify a generalization about all similar countries.
+    candidate: Hasty Generalization
+    challenged_inference: These countries always have had problems with such things
+    label_justification: The counterargument shows that the target reasoning draws
+      a sweeping conclusion about an entire group of countries based on an isolated
+      observation, which is the hallmark of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - First they start with fake threats. Later they detonate real bombs. These countries
+      have always had problems with such things.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target statement presents a universal claim—‘These countries
+    have always had problems with such things.’—derived from what amounts to a single
+    pair of anecdotal observations (‘First they start with fake threats. Later they
+    detonate real bombs.’). This satisfies the structural requirement of a hasty generalization:
+    a limited sample (the cited countries and incidents) is used to make a broad claim
+    about all such countries. Accordingly, the fallacy is confirmed.'
+  decision_reason: The text explicitly generalizes from a few examples to all the
+    countries in question, matching the definition of a hasty generalization. The
+    evidence span T1 contains the necessary sample and observed property to support
+    this structure. Therefore the hypothesis ‘Hasty Generalization’ is valid.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - First they start with fake threats. Later they detonate real bombs. These countries
+    have always had problems with such things.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3878
+  completion_tokens: 3244
+  total_tokens: 7122
+  wall_time_seconds: 71.20300000000861

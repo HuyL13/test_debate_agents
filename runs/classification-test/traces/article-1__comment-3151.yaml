@@ -1,0 +1,158 @@
+sample:
+  id: 1:3151
+  article_id: 1
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: The problem with communists government is they always try to tell their
+    own story.  The only way they have been able to stay in power is through fear.  Fear
+    that any challenge to their power will result in more death.  The souls of 202
+    people being lost is sad, but so is the loss of freedom.   This tradition should
+    remain alive, as should the tradition of questioning the truth of what happened
+    on June 4.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: the tradition of questioning the truth of what happened on June 4
+    - role: preservation_conclusion
+      text: This tradition should remain alive
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The tradition of questioning the truth of what happened on
+      June 4 and the broader remembrance of the tragedy should continue to be kept
+      alive.
+    candidate: Appeal to Authority
+    supporting_reason: Communist governments are portrayed as telling solely their
+      own narrative and maintaining power through fear, implying that without questioning
+      and remembrance the public’s freedom would continue to erode.
+    support_relation: The reason that communist regimes suppress alternative narratives
+      and rely on fear is used to justify the need for ongoing tradition of questioning
+      and remembrance.
+    label_justification: The argument appeals to the authority of the government’s
+      self‑congratulatory stance to establish the necessity of preserving the tradition,
+      which is an appealing to authority undermining the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The problem with communists government is they always try to tell their own
+      story.  The only way they have been able to stay in power is through fear.  Fear
+      that
+    - any challenge to their power will result in more death.  The souls of 202 people
+      being lost is sad, but so is the loss of freedom.   This tradition should remain
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+  counterargument:
+    decisive_counterargument: The claim that communist governments only maintain power
+      through fear ignores other feasible means such as political reforms, economic
+      development, or international normalcy. Without evidence that fear is the exclusive
+      mechanism, the argument is undermined.
+    candidate: False Dilemma
+    challenged_inference: Communist governments stay in power solely through fear.
+    label_justification: The obstruction relies on an exclusive causal claim, presenting
+      'fear' as the only route to power, which commits a false dilemma by implying
+      that no other explanations or mechanisms exist. The counterargument demonstrates
+      alternative plausible mechanisms, directly attacking that exclusivity.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The problem with communists government is they always try to tell their own
+      story.  The only way they have been able to stay in power is through fear.  Fear
+      that
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-tradition
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: Appeal to Authority fails because the target does not cite a person,
+      group, or institution as authoritative to justify the conclusion; it merely
+      criticizes communists and states a tradition without invoking an authority figure.
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - alive, as should the tradition of questioning the truth of what happened on
+      June 4.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The passage states that the tradition of questioning the truth
+    of what happened on June 4 should remain alive, using its mere existence as the
+    reason for preservation, which fits the structure of an Appeal to Tradition fallacy.
+  decision_reason: The target explicitly claims that a long‑standing tradition deserves
+    to be maintained, without offering an independent justification beyond that fact.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - alive, as should the tradition of questioning the truth of what happened on June
+    4.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5712
+  completion_tokens: 4060
+  total_tokens: 9772
+  wall_time_seconds: 93.76600000000326

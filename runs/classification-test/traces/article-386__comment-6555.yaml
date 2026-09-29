@@ -1,0 +1,210 @@
+sample:
+  id: 386:6555
+  article_id: 386
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+    However, there is outright war going on, with Russian aggression exerting itself
+    against Ukraine. All threats are threatening, of course, but some pale in comparison
+    to others, especially those which involve rockets being fired into your buildings
+    and killing hundreds or thousands of people. Kosovo is right to consider the potential
+    connections there, but it might also want to reconsider its decision not to place
+    sanctions on Russia, since the ongoing war is a much more severe situation than
+    mere false alerts, and things might get much worse as Russia gets the upper hand
+    in its conflict with Ukraine and then Kosovo may have more to face than scary
+    phone calls and false alerts.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: false alerts
+    - role: worse_issue
+      text: the ongoing war between Russia and Ukraine
+    - role: deprioritizing_conclusion
+      text: false alerts are less important than the war and should be given lower
+        priority
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+      However, there is outright war going on, with Russian aggression exerting itself
+      against Ukraine. All threats
+    - are threatening, of course, but some pale in comparison to others, especially
+      those which involve rockets being fired into your buildings and killing hundreds
+      or thousands of people. Kosovo is
+    - severe situation than mere false alerts, and things might get much worse as
+      Russia gets the upper hand in its conflict with Ukraine and then Kosovo may
+      have more to
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: 'Tell Kosovo to reconsider not placing sanctions on Russia
+      (i.e., to consider imposing sanctions); the war is a more severe threat than
+      false alerts. '
+    candidate: False Dilemma
+    supporting_reason: 'The target argues that the real, ongoing war with Russia is
+      a more severe threat than the false bomb alerts, suggesting that Kosovo should
+      prioritize sanctions against Russia over responding to the false alerts. This
+      frames the situation as a choice between addressing minor false alerts or addressing
+      the serious Russian aggression. '
+    support_relation: The premise (war severity) is used to justify the recommendation
+      (impose sanctions).
+    label_justification: The target frames the matter as a binary choice between the
+      less serious false alerts and the more serious war, implying that Kosovo must
+      choose sanctioning Russia to address the true threat. This framing constitutes
+      a false dilemma, even though the argument itself may be plausible.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+      However, there is outright war going on, with Russian aggression exerting itself
+      against Ukraine. All threats
+    - are threatening, of course, but some pale in comparison to others, especially
+      those which involve rockets being fired into your buildings and killing hundreds
+      or thousands of people. Kosovo is
+    - right to consider the potential connections there, but it might also want to
+      reconsider its decision not to place sanctions on Russia, since the ongoing
+      war is a much more
+  counterargument:
+    decisive_counterargument: The fact that the war with Ukraine is considered a more
+      severe threat does not by itself justify shifting policy focus from false bomb‑alert
+      issues to imposing sanctions on Russia. The target conflate the relative seriousness
+      of two distinct problems – a wartime military threat and the risk of false bomb
+      alerts – and uses that comparison to claim Kosovo should change its sanctions
+      stance. There is no logical link between the severity of the conflict and the
+      appropriateness of sanctions; each matter must be evaluated on its own merits
+      and on relevant policy criteria rather than merely on a relative scale of danger.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Kosovo should reconsider its decision not to place sanctions
+      on Russia because the ongoing war is a much more severe situation than mere
+      false alerts, implying that the lesser issue can be safely ignored.
+    label_justification: The target’s reasoning uses a comparison of severity to dismiss
+      an unrelated problem (false bomb alerts) and to justify a policy change (sanctions).
+      This construction matches the definition of the “Appeal to Worse Problems” fallacy,
+      as it treats a more serious issue as a reason to lower the priority of a different,
+      less severe issue, without establishing any relevant causal or policy linkage.
+      The defensive claim states that severity alone cannot determine policy priorities,
+      which directly refutes the fallacious inference. No other specific fallacy-criteria
+      (e.g., hasty generalization, slippery slope) are invoked by the target’s statement.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T4
+    evidence_spans:
+    - I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+      However, there is outright war going on, with Russian aggression exerting itself
+      against Ukraine. All threats
+    - severe situation than mere false alerts, and things might get much worse as
+      Russia gets the upper hand in its conflict with Ukraine and then Kosovo may
+      have more to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: False Dilemma cannot be directly supported because the target does
+      not explicitly present a set of mutually exclusive alternatives that exhaust
+      all possibilities; it merely compares the relative severity of two problems.
+      Therefore the false dilemma structure is not satisfied.
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+      However, there is outright war going on, with Russian aggression exerting itself
+      against Ukraine. All threats
+    - are threatening, of course, but some pale in comparison to others, especially
+      those which involve rockets being fired into your buildings and killing hundreds
+      or thousands of people. Kosovo is
+    - severe situation than mere false alerts, and things might get much worse as
+      Russia gets the upper hand in its conflict with Ukraine and then Kosovo may
+      have more to
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly identifies false alerts as the focal issue
+    and the war between Russia and Ukraine as the worse issue, then concludes that
+    the false alerts are less important (e.g., “Kosovo may have more to face than
+    scary phone calls and false alerts”). This follows the required structure for
+    an Appeal to Worse Problems fallacy, which the supplied evidence (T1, T4) supports.
+  decision_reason: The target’s comparison of severity between two unrelated problems
+    and its use of that comparison to down‑prioritize one problem satisfies the mandatory
+    structural criteria for Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T4
+  evidence_spans:
+  - I'm sorry to hear about the chaos and confusion aroused by these false alerts.
+    However, there is outright war going on, with Russian aggression exerting itself
+    against Ukraine. All threats
+  - severe situation than mere false alerts, and things might get much worse as Russia
+    gets the upper hand in its conflict with Ukraine and then Kosovo may have more
+    to
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 7574
+  completion_tokens: 3888
+  total_tokens: 11462
+  wall_time_seconds: 130.18700000000536

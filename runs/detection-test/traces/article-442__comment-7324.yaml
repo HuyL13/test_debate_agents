@@ -1,0 +1,145 @@
+sample:
+  id: 442:7324
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: I totally agree, real world change is what we need! Music and art have their
+    place, but changing the world? It really don't make the change that everyone thinks
+    it does. Isn't art more for personal enjoyment, anyway? It might give a handful
+    of people a new thought process, but those same people are likely the internet
+    activists that are going to just change their profile picture to a black box to
+    join a online crusade. It's not helping. It's true real world change that is going
+    to make a difference, not a catchy viral song.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: handful of people
+    - role: observed_property
+      text: might give a new thought process
+    - role: target_population
+      text: art’s impact on societal change / all people
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - does. Isn't art more for personal enjoyment, anyway? It might give a handful
+      of people a new thought process, but those same people are likely the internet
+      activists that are
+    - going to just change their profile picture to a black box to join a online crusade.
+      It's not helping. It's true real world change that is going to make a
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That real‑world, tangible change matters more than art or
+      music, which only offers personal enjoyment and superficial, symbolic activism.
+    candidate: Hasty Generalization
+    supporting_reason: The argument claims that while music or art may spark new thoughts
+      in a handful of people, those same individuals will merely engage in superficial
+      online activism (changing profile pictures) rather than effect substantial real‑world
+      change.
+    support_relation: Uses a small, specific sample (a handful of people) to generalize
+      about the impact of art on society as a whole, implying that because some people
+      respond superficially, art cannot lead to meaningful change.
+    label_justification: The reasoning presents a limited case—‘a handful of people’—and
+      extrapolates that to a blanket assertion that all art’s influence is trivial,
+      fitting the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - does. Isn't art more for personal enjoyment, anyway? It might give a handful
+      of people a new thought process, but those same people are likely the internet
+      activists that are
+    - going to just change their profile picture to a black box to join a online crusade.
+      It's not helping. It's true real world change that is going to make a
+  counterargument:
+    decisive_counterargument: While the comment suggests that only a few people might
+      use music as a superficial gesture, history shows that art and music have repeatedly
+      mobilised large audiences to protest, organize, and influence policy—examples
+      range from protest anthems during civil‑rights movements to modern benefit concerts
+      that raise both awareness and funds for social causes. Therefore, it is unjustified
+      to dismiss the entire artistic sphere for real-world change based on a narrow
+      illustration.
+    candidate: Hasty Generalization
+    challenged_inference: Art only has personal enjoyment and does not lead to real‑world
+      change.
+    label_justification: The objection points out that the speaker generalises from
+      a single anecdote (people changing profile pictures) to a blanket claim about
+      all art. This is a classic hasty‑generalisation, as the inference is drawn from
+      an inadequate sample to the whole population (art’s potential impact). The failure
+      is in the over‑generalisation step, not merely in a critique of the argument’s
+      content. Hence the identification of the fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I totally agree, real world change is what we need! Music and art have their
+      place, but changing the world? It really don't make the change that everyone
+      thinks it
+    - does. Isn't art more for personal enjoyment, anyway? It might give a handful
+      of people a new thought process, but those same people are likely the internet
+      activists that are
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The TARGET explicitly identifies a small sample (‘handful of
+    people’), observes that these individuals may develop a new thought process but
+    participate only in superficial online activism, and then generalizes that art’s
+    overall impact on societal change is trivial. This satisfies the structural requirement
+    for a hasty generalization: sample → observed property → blanket conclusion about
+    the entire population.'
+  decision_reason: The passage uses the limited evidence of a few people’s superficial
+    engagement to assert that art cannot lead to meaningful real‑world change for
+    all people, which is a classic hasty generalization.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - does. Isn't art more for personal enjoyment, anyway? It might give a handful of
+    people a new thought process, but those same people are likely the internet activists
+    that are
+  - going to just change their profile picture to a black box to join a online crusade.
+    It's not helping. It's true real world change that is going to make a
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4881
+  completion_tokens: 3828
+  total_tokens: 8709
+  wall_time_seconds: 160.06299999996554

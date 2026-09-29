@@ -1,0 +1,120 @@
+sample:
+  id: 172:5013
+  article_id: 172
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: Most people will agree that while being more responsible for our actions
+    that affect the environment is important, so is the fact that people should be
+    able to provide for their families. Jobs are important as well.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+    - their families. Jobs are important as well.
+    candidate: null
+  goal:
+    conclusion_or_goal: Both environmental responsibility and ensuring people can
+      provide for their families (via jobs) are important.
+    candidate: Appeal to Majority
+    supporting_reason: Most people will agree that while being more responsible for
+      our actions that affect the environment is important, so is the fact that people
+      should be able to provide for their families. Jobs are important as well.
+    support_relation: Appeal to Majority
+    label_justification: The target justifies the importance of the two aspects by
+      citing the popularity of the view, i.e., that most people agree, which constitutes
+      an appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+  counterargument:
+    decisive_counterargument: The claim simply states two widely held values—environmental
+      responsibility and job provision—without making an inferential link or justification
+      that would render it fallacious. Therefore no logical fallacy is apparent.
+    candidate: null
+    challenged_inference: null
+    label_justification: The target statement contains no erroneous reasoning or unsupported
+      conclusion; it merely expresses conventional values. Consequently, there is
+      no fallacy to identify.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+    - their families. Jobs are important as well.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not use the claim that most people agree as
+    a justification for its argument. It merely reports the alleged consensus without
+    relying on it to prove the claim, so the structural condition for an Appeal to
+    Majority is not met.
+  decision_reason: The target merely states that most people agree on certain points;
+    it does not invoke that popularity as evidence for the correctness of the proposal.
+    Therefore, the structure and reasoning of an Appeal to Majority fallacy are absent,
+    and no fallacy can be detected.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most people will agree that while being more responsible for our actions that
+    affect the environment is important, so is the fact that people should be able
+    to provide for
+  - their families. Jobs are important as well.
+  verified: false
+  rejection_reason: The target merely states that most people agree on certain points;
+    it does not invoke that popularity as evidence for the correctness of the proposal.
+    Therefore, the structure and reasoning of an Appeal to Majority fallacy are absent,
+    and no fallacy can be detected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3865
+  completion_tokens: 2920
+  total_tokens: 6785
+  wall_time_seconds: 119.56200000003446

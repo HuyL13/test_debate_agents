@@ -1,0 +1,175 @@
+sample:
+  id: 1:9301
+  article_id: 1
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: It's great that the people here aren't forgetting their true past. Commemorations
+    have always been an important part of humanity. And that tradition is for good
+    reason as well. This vigil and other events like it are the only way the crimes
+    of the CCP will not be forgotten, and an important part of how they'll be stopped
+    in the future.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Commemorations have always been an important part of humanity.
+    - role: preservation_conclusion
+      text: This vigil and other events like it are the only way the crimes of the
+        CCP will not be forgotten, and an important part of how they'll be stopped
+        in the future.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that the people here aren't forgetting their true past. Commemorations
+      have always been an important part of humanity. And that tradition is for good
+      reason as well. This
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+    - future.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The vigil and other commemorative events are the only effective
+      means to prevent the crimes of the CCP from being forgotten and to help stop
+      them in the future.
+    candidate: Appeal to Tradition
+    supporting_reason: Commemorations have always been an important part of humanity,
+      and that tradition is for good reason as well.
+    support_relation: supports
+    label_justification: The argument uses the historical importance of tradition
+      to justify the necessity and effectiveness of the vigil, appealing to the idea
+      that because a practice has long existed, it is inherently valuable. This reasoning
+      is an Appeal to Tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's great that the people here aren't forgetting their true past. Commemorations
+      have always been an important part of humanity. And that tradition is for good
+      reason as well. This
+  counterargument:
+    decisive_counterargument: There are many other effective means of ensuring that
+      the crimes of the CCP are neither forgotten nor repeated—such as formal education,
+      international legal measures, public media discussions, and policy reforms—so
+      the vigil is not the only way these events will be remembered or prevented.
+    candidate: False Dilemma
+    challenged_inference: The claim that the vigil and similar events are the *only*
+      way the crimes of the CCP will not be forgotten and that they play a crucial
+      role in stopping them.
+    label_justification: The argument stipulates a single existential solution to
+      a problem, implicitly dismissing all other possible solutions. This exclusivity
+      qualifies as a False Dilemma, since it presents a binary (vigil or not remembered/stop)
+      without acknowledging other reasonable alternatives. The counterargument directly
+      challenges the exclusiveness, exposing a fallacious reasoning pattern.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - False Dilemma
+    conflict: appeal-to-tradition__vs__false-dilemma
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-tradition__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: False Dilemma's mandatory structural condition of presenting a
+      binary with exclusive options is not directly supported by the TARGET text,
+      which only states the vigil is the *only* way without explicitly framing a dichotomous
+      choice between two alternatives.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's great that the people here aren't forgetting their true past. Commemorations
+      have always been an important part of humanity. And that tradition is for good
+      reason as well. This
+    - vigil and other events like it are the only way the crimes of the CCP will not
+      be forgotten, and an important part of how they'll be stopped in the
+    - future.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument presents a premise that commemorations have always
+    been important (a historical tradition) and concludes that the current vigil is
+    therefore essential to remember and prevent future crimes.  This matches the classic
+    appeal‑to‑tradition structure, where the fact that a practice has been long‑standing
+    is used to justify its present necessity.
+  decision_reason: The target’s claim uses the historical importance of commemorations
+    to argue that the vigil is the only way to keep the CCP’s crimes from being forgotten
+    and to help stop them, fitting the appeal to tradition pattern.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's great that the people here aren't forgetting their true past. Commemorations
+    have always been an important part of humanity. And that tradition is for good
+    reason as well. This
+  - vigil and other events like it are the only way the crimes of the CCP will not
+    be forgotten, and an important part of how they'll be stopped in the
+  - future.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6024
+  completion_tokens: 4649
+  total_tokens: 10673
+  wall_time_seconds: 209.23399999999674

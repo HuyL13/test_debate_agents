@@ -1,0 +1,132 @@
+sample:
+  id: 296:10186
+  article_id: 296
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: ''
+  target: Governance by committee is no good. Let the people decide. Draft up definitions
+    for the terms in question and an outline of what the restrictions and proscriptions
+    are to be, and let the people vote. The voice of the majority will be the truest
+    guide in a situation like this one. The collective wisdom of the many is more
+    insightful than the few.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority
+    - role: popularity_claim
+      text: the voice of the majority will be the truest guide in a situation like
+        this
+    - role: target_claim
+      text: governance by committee is no good; let the people decide
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Governance by committee is no good. Let the people decide. Draft up definitions
+      for the terms in question and an outline of what the restrictions and proscriptions
+      are to be,
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Governance by committee is no good; let the people decide
+      in a majority‑based vote.
+    candidate: Appeal to Majority
+    supporting_reason: the voice of the majority will be the truest guide and the
+      collective wisdom of the many is more insightful than that of the few
+    support_relation: this reason is used to justify the claim that majority‑based
+      governance is superior to committee governance
+    label_justification: The argument depends solely on the assumption that what the
+      majority chooses is correct or better, a classic fallacious appeal to majority
+      without further evidence.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+    - than the few.
+  counterargument:
+    decisive_counterargument: The claim that ‘the voice of the majority will be the
+      truest guide’ conflates popularity with truth. A majority can be uninformed,
+      misled by propaganda, or guided by prejudice. History offers many cases—flawed
+      public policy, injustices, and harmful social norms—that were popular at the
+      time but later proved wrong. Therefore, appealing to the majority as the sole
+      arbiter of wisdom ignores the danger that a large group can still hold false
+      beliefs and does not guarantee sound decision‑making. This reasoning failure
+      is an example of an Appeal to Majority fallacy.
+    candidate: Appeal to Majority
+    challenged_inference: Governance by committee is no good. Let the people decide.
+      The voice of the majority will be the truest guide in a situation like this
+      one. The collective wisdom of many is more insightful than the few.
+    label_justification: The objection directly targets the argument’s reliance on
+      majority opinion as inherently superior, which is the core of an Appeal to Majority.
+      It does not merely critique the argument but exposes the specific fallacious
+      reasoning that equates majority rule with truth. Evidence supporting this emphasis
+      is found in the passages referencing the majority’s voice and collective wisdom
+      (T2, T3).
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - and let the people vote. The voice of the majority will be the truest guide
+      in a situation like this one. The collective wisdom of the many is more insightful
+    - than the few.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: Deriving truth or authority from the majority’s opinion
+  decision_reason: The target statement asserts that the majority’s voice is the truest
+    guide, treating the popularity of a viewpoint as evidence of its correctness,
+    which is the hallmark of an Appeal to Majority.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - and let the people vote. The voice of the majority will be the truest guide in
+    a situation like this one. The collective wisdom of the many is more insightful
+  - than the few.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4540
+  completion_tokens: 2814
+  total_tokens: 7354
+  wall_time_seconds: 128.28199999999924

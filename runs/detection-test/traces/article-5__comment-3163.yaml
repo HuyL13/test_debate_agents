@@ -1,0 +1,135 @@
+sample:
+  id: 5:3163
+  article_id: 5
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: He wasn't a saviour but I also like to see sometimes that people can work
+    around the system to get their freedom. Reminds me of the stories my granddad
+    told me about people outsmarting the man during prohibition. The good thing is
+    the holes he used for deception will be plugged so the system should be better
+    in the end.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - He wasn't a saviour but I also like to see sometimes that people can work around
+      the system to get their freedom. Reminds me of the stories my granddad told
+    - me about people outsmarting the man during prohibition. The good thing is the
+      holes he used for deception will be plugged so the system should be better in
+      the end.
+    candidate: null
+  goal:
+    conclusion_or_goal: The author believes that because people have historically
+      found ways to out‑maneuver the system and the loopholes they exposed will be
+      closed, the system will ultimately improve.
+    candidate: null
+    supporting_reason: The author cites stories his granddad told about people outsmarting
+      authorities during prohibition to illustrate that people can find free‑paths,
+      and suggests that the holes used for deception will be plugged.
+    support_relation: The historical example is used to provide evidence that loopholes
+      can be identified and removed, thereby supporting the claim that the system
+      will be better after those loopholes are closed.
+    label_justification: The argument does not employ a logical fallacy; it presents
+      historical anecdotes as evidence to support a conclusion about future system
+      improvement.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - He wasn't a saviour but I also like to see sometimes that people can work around
+      the system to get their freedom. Reminds me of the stories my granddad told
+    - me about people outsmarting the man during prohibition. The good thing is the
+      holes he used for deception will be plugged so the system should be better in
+      the end.
+  counterargument:
+    decisive_counterargument: The reasoning assumes that because a few people once
+      outsmarted the system (as in the prohibition stories), and those specific holes
+      will be plugged, the entire system will inevitably become better thereafter.
+      This leap from limited anecdotal incidents to a general claim about future systemic
+      improvement is unjustified; many other weaknesses may remain, plugging some
+      may create new constraints, and the anecdote alone lacks evidence that the system
+      as a whole will improve.
+    candidate: Hasty Generalization
+    challenged_inference: Assuming that because some individuals have worked around
+      the system and those flaws will be addressed, it follows that the system will
+      be better in the end.
+    label_justification: The objection hinges on identifying that the person’s claim
+      extends an observation from a small number of specific cases (granddad’s stories
+      of prohibition-era tricks) to a sweeping conclusion about systemic improvement,
+      which satisfies the definition of a hasty generalization. It does not merely
+      criticize the argument but directly shows the logical misstep.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - He wasn't a saviour but I also like to see sometimes that people can work around
+      the system to get their freedom. Reminds me of the stories my granddad told
+    - me about people outsmarting the man during prohibition. The good thing is the
+      holes he used for deception will be plugged so the system should be better in
+      the end.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a sweeping claim that the system will become
+    better because specific holes used for deception will be plugged, based on a limited
+    anecdotal sample of people outsmarting the system. This meets the structural definition
+    of a hasty generalization—leaving the conclusion about overall systemic improvement
+    unsupported by sufficient evidence.
+  decision_reason: The inference extrapolates from a few individual anecdotes (granddad's
+    prohibition stories) to a general claim about the entire system improving, which
+    is a classic hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - He wasn't a saviour but I also like to see sometimes that people can work around
+    the system to get their freedom. Reminds me of the stories my granddad told
+  - me about people outsmarting the man during prohibition. The good thing is the
+    holes he used for deception will be plugged so the system should be better in
+    the end.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4252
+  completion_tokens: 3392
+  total_tokens: 7644
+  wall_time_seconds: 87.64100000000326

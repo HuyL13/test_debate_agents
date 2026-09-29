@@ -1,0 +1,137 @@
+sample:
+  id: 5:3012
+  article_id: 5
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: So if you are arrested in Japan you are held under "hostage justice" until
+    you confess.  That seems to me like torturing prisoners until they confess.  I
+    guess in Japan, you are guilty until proven innocent the reverse of the US justice
+    system.  I don't see how a coerced confession can even be tried fairly.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: if you are arrested in Japan you are held under 'hostage justice' until
+        you confess
+    - role: observed_property
+      text: torturing prisoners until they confess
+    - role: target_population
+      text: prisoners in Japan
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - So if you are arrested in Japan you are held under "hostage justice" until you
+      confess.  That seems to me like torturing prisoners until they confess.  I guess
+      in Japan,
+    - you are guilty until proven innocent the reverse of the US justice system.  I
+      don't see how a coerced confession can even be tried fairly.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Japan’s "hostage justice" system constitutes torture and unfair
+      trials.
+    candidate: null
+    supporting_reason: The assertion that arrested individuals are held until they
+      confess is used to support the claim that the system tortures prisoners and
+      that coerced confessions cannot be tried fairly.
+    support_relation: provides the factual basis for the conclusion
+    label_justification: No fallacy is present; the argument is a straightforward
+      claim that relies on a factual description rather than a defective reasoning
+      pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - So if you are arrested in Japan you are held under "hostage justice" until you
+      confess.  That seems to me like torturing prisoners until they confess.  I guess
+      in Japan,
+    - you are guilty until proven innocent the reverse of the US justice system.  I
+      don't see how a coerced confession can even be tried fairly.
+  counterargument:
+    decisive_counterargument: The claim that Japanese law’s practice of detaining
+      suspects until they confess must be considered torture with no chance of a fair
+      trial is an over‑generalization. The term “hostage justice” and the notion of
+      being guilty until proven innocent are descriptive labels; they do not by themselves
+      prove that the procedure is torturous or that a coerced confession can never
+      stand in a court. Without evidence that the procedure systematically forces
+      confession through coercion, the argument leaps from a description of policy
+      to a blanket statement about its moral and legal validity.
+    candidate: Hasty Generalization
+    challenged_inference: Japanese suspects are always held under torture until they
+      confess, and thus any coerced confession can never be fairly tried.
+    label_justification: 'The objection shows that the inference draws a broad, universal
+      conclusion about all Japanese arrests from a single, vague description (“hostage
+      justice”). That is exactly the hallmark of a hasty generalization: it applies
+      a specific or limited observation to all cases without sufficient evidence.
+      Hence the fallacy label is Hasty Generalization.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - So if you are arrested in Japan you are held under "hostage justice" until you
+      confess.  That seems to me like torturing prisoners until they confess.  I guess
+      in Japan,
+    - you are guilty until proven innocent the reverse of the US justice system.  I
+      don't see how a coerced confession can even be tried fairly.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that all arrests in Japan involve ‘hostage
+    justice’ and result in torture until confession, making a universal claim based
+    on an unspecified single observation, which satisfies the structural requirements
+    of a hasty generalization.
+  decision_reason: The comment generalizes that every Japanese suspect is coerced
+    into confession and that such confessions cannot be fairly tried, without presenting
+    evidence beyond the claim itself, fitting the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - So if you are arrested in Japan you are held under "hostage justice" until you
+    confess.  That seems to me like torturing prisoners until they confess.  I guess
+    in Japan,
+  - you are guilty until proven innocent the reverse of the US justice system.  I
+    don't see how a coerced confession can even be tried fairly.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4392
+  completion_tokens: 3954
+  total_tokens: 8346
+  wall_time_seconds: 46.70299999997951

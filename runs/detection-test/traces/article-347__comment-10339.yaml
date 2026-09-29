@@ -1,0 +1,148 @@
+sample:
+  id: 347:10339
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: 'Fico sounds like Trump: the anti-immigration stance, the scapegoating of
+    George Soros, the engagement with wild, unprovable conspiracy theories. NGOs play
+    an important role in international affairs and often do a lot of work that governments
+    themselves can''t do. Perhaps more transparency in the government would do more
+    good and build more public trust than targeting NGOs.'
+initial_analysis:
+  structure:
+    evidence_spans:
+    - 'Fico sounds like Trump: the anti-immigration stance, the scapegoating of George
+      Soros, the engagement with wild, unprovable conspiracy theories'
+    - Fico sounds like Trump
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Fico
+    - role: observed_property
+      text: the anti-immigration stance, the scapegoating of George Soros, the engagement
+        with wild, unprovable conspiracy theories
+    - role: target_population
+      text: Trump
+    structure_complete: true
+    candidate: Hasty Generalization
+  goal:
+    evidence_spans:
+    - 'Fico sounds like Trump: the anti-immigration stance, the scapegoating of George
+      Soros, the engagement with wild, unprovable conspiracy theories.'
+    conclusion_or_goal: Argue that requiring a restrictive NGO law is unnecessary
+      and that increased government transparency would be more beneficial and build
+      public trust than targeting NGOs.
+    candidate: Appeal to Authority
+    supporting_reason: The passage asserts that NGOs play an important role and that
+      more transparency would do more good, implying that the authority of NGOs (and
+      by extension the authority of transparency) confers value upon the policy choice.
+      This is a form of appeal to authority because it relies on the presumed status
+      and effectiveness of NGOs to justify the conclusion.
+    support_relation: The supporting reason is used to buttress the conclusion that
+      transparent governance is preferable to restrictive NGO legislation, citing
+      NGOs’ effectiveness as a justification for this policy preference.
+    label_justification: The passage appeals to the perceived authority and credibility
+      of NGOs to argue that restricting them is unnecessary, which is an example of
+      the appeal-to-authority fallacy.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - NGOs play an important role in international affairs and often do a lot of work
+      that governments themselves can't do.
+    - Perhaps more transparency in the government would do more good and build more
+      public trust than targeting NGOs.
+    decisive_counterargument: The argument overstates the benefits of NGOs and of
+      increased transparency without evidence, treating them as inherently proper
+      and the opposition (targeting NGOs) as inherently harmful. This is simply an
+      appeal to an unsubstantiated belief rather than a logical misstep like a known
+      fallacy.
+    candidate: null
+    challenged_inference: Targeting NGOs is a bad policy and transparency will inherently
+      restore trust.
+    label_justification: No evidence of one of the specified fallacies is found. The
+      objection challenges the unsupported blanket claim, but does not reveal a failure
+      such as Hasty Generalization, False Dilemma, Appeal to Authority, etc. Therefore
+      the appropriate minimal response is to note the deficiency without assigning
+      a fallacy label.
+    failure_exposed: false
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    evidence_spans:
+    - 'Fico sounds like Trump: the anti-immigration stance, the scapegoating of George
+      Soros, the engagement with wild, unprovable conspiracy theories.'
+    decisive_test: Hasty Generalization
+    loser_failure: Appeal to Authority cannot be supported because the target does
+      not invoke an authority figure to justify the conclusion; it merely states NGOs’
+      effectiveness and advocates transparency, which does not constitute appeal to
+      authority.
+arbiter:
+  selected_candidate: null
+  evidence_spans:
+  - 'Fico sounds like Trump: the anti-immigration stance, the scapegoating of George
+    Soros, the engagement with wild, unprovable conspiracy theories'
+  decisive_condition: The claim compares Fico to Trump, treating Trump as a single
+    individual rather than a population. Thus the required ‘sample-to-population’
+    structure for a hasty generalization is absent; no broader generalizing inference
+    is made.
+  decision_reason: The evidence does not fit the structural conditions of a hasty
+    generalization because the target ‘Trump’ is not a group but a single person.
+    Therefore the proposed fallacy does not apply.
+  verified: false
+  rejection_reason: The evidence does not fit the structural conditions of a hasty
+    generalization because the target ‘Trump’ is not a group but a single person.
+    Therefore the proposed fallacy does not apply.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4471
+  completion_tokens: 4766
+  total_tokens: 9237
+  wall_time_seconds: 66.03100000001723

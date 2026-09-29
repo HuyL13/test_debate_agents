@@ -1,0 +1,130 @@
+sample:
+  id: 538:7610
+  article_id: 538
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: This isn't surprising to me really. What other choice do these people truly
+    have? They don't have any real control over their governments. Their choices are
+    either to leave their homelands, or just accept whatever comes their way. There
+    isn't any meaningful alternative for them.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: to leave their homelands,
+    - role: alternative_b
+      text: or just accept whatever comes their way
+    - role: exhaustiveness_commitment
+      text: There isn't any meaningful alternative for them.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This isn't surprising to me really. What other choice do these people truly
+      have? They don't have any real control over their governments. Their choices
+      are either to leave their
+    - homelands, or just accept whatever comes their way. There isn't any meaningful
+      alternative for them.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: Those people have no meaningful alternative beyond leaving
+      their homelands or simply accepting whatever their governments impose.
+    candidate: False Dilemma
+    supporting_reason: It limits the options to exactly two—leave or accept—while
+      explicitly stating that no other meaningful possibility exists.
+    support_relation: The poor representation of available choices is used to justify
+      the claim that the people are helpless.
+    label_justification: By presenting only two options and rejecting any others as
+      meaningless, the target commits a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This isn't surprising to me really. What other choice do these people truly
+      have? They don't have any real control over their governments. Their choices
+      are either to leave their
+    - homelands, or just accept whatever comes their way. There isn't any meaningful
+      alternative for them.
+  counterargument:
+    decisive_counterargument: The claim ignores viable alternatives that immigrants
+      can pursue—such as lobbying foreign governments, seeking asylum or refugee status,
+      organising community support networks, or influencing policy from within through
+      civic engagement. These options show the situation is not limited to simply
+      leaving or passive acceptance.
+    candidate: null
+    challenged_inference: The argument states that these people have no meaningful
+      alternative but to leave or accept whatever comes their way.
+    label_justification: The reasoning frames the situation as a binary choice and
+      excludes all other possibilities, which is a classic false dilemma (either/or)
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This isn't surprising to me really. What other choice do these people truly
+      have? They don't have any real control over their governments. Their choices
+      are either to leave their
+    - homelands, or just accept whatever comes their way. There isn't any meaningful
+      alternative for them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target text explicitly lists two alternatives—leaving their
+    homelands or accepting whatever comes their way—and asserts that no other meaningful
+    choice exists, satisfying the structural requirement of an exhaustive dilemma.
+  decision_reason: The two alternatives are presented verbatim (“to leave their homelands,”
+    and “or just accept whatever comes their way”) and the statement “There isn't
+    any meaningful alternative for them” commits to exhaustiveness, confirming a False
+    Dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This isn't surprising to me really. What other choice do these people truly have?
+    They don't have any real control over their governments. Their choices are either
+    to leave their
+  - homelands, or just accept whatever comes their way. There isn't any meaningful
+    alternative for them.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4150
+  completion_tokens: 3326
+  total_tokens: 7476
+  wall_time_seconds: 152.35899999999674

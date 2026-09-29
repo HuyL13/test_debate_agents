@@ -1,0 +1,132 @@
+sample:
+  id: 172:5013
+  article_id: 172
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Australian court's historic rejection of coal mine highlights the impact
+    of climate change
+  parent: ''
+  target: Most people will agree that while being more responsible for our actions
+    that affect the environment is important, so is the fact that people should be
+    able to provide for their families. Jobs are important as well.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: being more responsible for our actions that affect the environment is
+        important and people should be able to provide for their families
+    - role: target_claim
+      text: Jobs are important as well
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+    - their families. Jobs are important as well.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The stance that both environmental responsibility and the
+      ability to provide for one's family (jobs) are important.
+    candidate: null
+    supporting_reason: The text uses the phrase *Most people will agree that…* to
+      express a commonly held view rather than to justify the conclusion.
+    support_relation: none
+    label_justification: The passage does not employ an actual fallacious reason to
+      support a conclusion; it merely states an opinion. The claimed popularity of
+      the view is not used as a basis for asserting its truth.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+    - their families. Jobs are important as well.
+  counterargument:
+    decisive_counterargument: The target states that taking environmental responsibility
+      and providing for family (via jobs) are each important. It does not present
+      a choice between the two, so there is no implied false dilemma, appeal to authority,
+      or other fallacy. The objection merely points out that the sentence is a neutral
+      observation rather than a faulty reasoning pattern.
+    candidate: null
+    challenged_inference: The claim treats environmental responsibility and job provision
+      as if they must be weighed against each other, yet the wording simply affirms
+      both are important and does not create a false dichotomy.
+    label_justification: Because the passage does not exclude any other options or
+      imply a moral conflict, no fallacy exists; thus the appropriate label is null.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Most people will agree that while being more responsible for our actions that
+      affect the environment is important, so is the fact that people should be able
+      to provide for
+    - their families. Jobs are important as well.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target does not employ the popularity claim to justify the
+    conclusion; it simply states that most people agree. Therefore the mandatory structural
+    condition for an Appeal to Majority is not satisfied.
+  decision_reason: The target lacks a justification that relies on majority agreement,
+    so it is not an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Most people will agree that while being more responsible for our actions that
+    affect the environment is important, so is the fact that people should be able
+    to provide for
+  - their families. Jobs are important as well.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3871
+  completion_tokens: 2630
+  total_tokens: 6501
+  wall_time_seconds: 85.78100000001723

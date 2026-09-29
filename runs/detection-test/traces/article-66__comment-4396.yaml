@@ -1,0 +1,122 @@
+sample:
+  id: 66:4396
+  article_id: 66
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: While it is dangerous to shoot guns in the air. This has been done for a
+    long time and is tradition. They can make some changes in sensitizing people about
+    safety, but still preserve the tradition, to avoid needless deaths.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: T1
+    - role: preservation_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While it is dangerous to shoot guns in the air. This has been done for a long
+      time and is tradition. They can make some changes in sensitizing people about
+    - safety, but still preserve the tradition, to avoid needless deaths.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Preserve the tradition of shooting guns in the air.
+    candidate: Appeal to Tradition
+    supporting_reason: This has been done for a long time and is tradition.
+    support_relation: The reason that shooting guns in the air has been a long‑standing
+      tradition is used to justify the goal of preserving that practice.
+    label_justification: The argument asserts that the practice persists solely because
+      it is long‑established, employing a non‑substantiated appeal to tradition as
+      a justificatory basis for continuing a dangerous activity.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While it is dangerous to shoot guns in the air. This has been done for a long
+      time and is tradition. They can make some changes in sensitizing people about
+    - safety, but still preserve the tradition, to avoid needless deaths.
+  counterargument:
+    decisive_counterargument: The fact that shooting guns high into the air has been
+      practiced for a long time does not justify continuing a risky behavior that
+      causes needless deaths. Tradition is historically descriptive, not prescriptive;
+      it does not qualify a practice as safe or morally acceptable. Therefore, the
+      inference that the tradition should be preserved in spite of its danger is fallacious.
+    candidate: Appeal to Tradition
+    challenged_inference: Because shooting guns in the air is a long‑standing tradition,
+      it should be preserved even though it is dangerous.
+    label_justification: The counterargument directly addresses the reasoning that
+      tradition alone warrants the continuation of a harmful practice. This exposes
+      an *Appeal to Tradition* fallacy, where a practice is justified based solely
+      on its historical persistence. The objection fails to defend that tradition
+      justifies danger or that it leads to better outcomes, thus revealing the specific
+      fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - While it is dangerous to shoot guns in the air. This has been done for a long
+      time and is tradition. They can make some changes in sensitizing people about
+    - safety, but still preserve the tradition, to avoid needless deaths.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument claims that shooting guns in the air should be
+    preserved purely because it has been a long‑standing tradition, despite its danger;
+    the premise “This has been done for a long time and is tradition” directly supports
+    the conclusion to preserve the tradition.
+  decision_reason: The target contains an explicit premise that the practice has been
+    long‑established and a conclusion that the tradition be preserved, using tradition
+    as the sole justification for continuing the dangerous activity, which is the
+    classic pattern of an Appeal to Tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - While it is dangerous to shoot guns in the air. This has been done for a long
+    time and is tradition. They can make some changes in sensitizing people about
+  - safety, but still preserve the tradition, to avoid needless deaths.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4048
+  completion_tokens: 2582
+  total_tokens: 6630
+  wall_time_seconds: 117.71799999999348

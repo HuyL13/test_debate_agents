@@ -1,0 +1,100 @@
+sample:
+  id: 350:10348
+  article_id: 350
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: This just has bad news written all over it. Its not safe for anyone really
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This just has bad news written all over it. Its not safe for anyone really
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker claims that the subject is unsafe and bad news.
+    candidate: null
+    supporting_reason: The statement makes a claim without any supporting premises
+      or evidence.
+    support_relation: None
+    label_justification: No argumentative structure or reasoning is present to justify
+      the claim, so no fallacy can be identified.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This just has bad news written all over it. Its not safe for anyone really
+  counterargument:
+    decisive_counterargument: The claim that the system is unsafe for everyone is
+      based only on a vague statement of ‘bad news written all over it’—no specific
+      safety data or evidence is provided. A single, unsubstantiated assertion cannot
+      justify a universal conclusion; more systematic investigation or concrete incident
+      reports would be required to support such a claim.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that the system is unsafe for everyone.
+    label_justification: The argument leaps from an unsupported, general negative
+      statement to a sweeping conclusion applying to all users, which fits the definition
+      of a hasty generalization. The evidence supplied (T1) cannot establish a universal
+      safety claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This just has bad news written all over it. Its not safe for anyone really
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target text does not provide an explicit sample or concrete
+    evidence from which a universal claim is drawn, violating the mandatory structural
+    requirement for a hasty generalization. Without a specific example that is generalized
+    to all users, the inference lacks the necessary form to qualify as a fallacy here.
+  decision_reason: The target lacks an explicit sample or case that is extrapolated
+    to all users; hence it does not satisfy the structural criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This just has bad news written all over it. Its not safe for anyone really
+  verified: false
+  rejection_reason: The target lacks an explicit sample or case that is extrapolated
+    to all users; hence it does not satisfy the structural criteria for a hasty generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3609
+  completion_tokens: 2537
+  total_tokens: 6146
+  wall_time_seconds: 116.10899999999674

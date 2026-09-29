@@ -1,0 +1,127 @@
+sample:
+  id: 645:7933
+  article_id: 645
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Filipino activists decry Facebook’s ‘automated censorship’
+  parent: ''
+  target: Facebook goes too far. Sison means something to a lot of people in the philippines.
+    So they should be allowed to post about him in the philippines. The people respected
+    him, and Facebook should allow people to share. He simply counts as a political
+    figure. Facebook should back down.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: people in the Philippines
+    - role: popularity_claim
+      text: Sison means something to a lot of people and the people respected him
+    - role: target_claim
+      text: they should be allowed to post about him on Facebook
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Facebook goes too far. Sison means something to a lot of people in the philippines.
+      So they should be allowed to post about him in the philippines. The people respected
+    - him, and Facebook should allow people to share. He simply counts as a political
+      figure. Facebook should back down.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Facebook should allow people to post about Sison in the Philippines.
+    candidate: null
+    supporting_reason: Sison is a respected political figure who matters to many people
+      in the Philippines, therefore posts about him should be permitted.
+    support_relation: The reason explains that because Sison is a respected political
+      figure and is meaningful to many, content about him is justified, which supports
+      the claim that Facebook should allow such posts.
+    label_justification: No logical fallacy is evident in the argument; the premises
+      legitimately support the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Facebook goes too far. Sison means something to a lot of people in the philippines.
+      So they should be allowed to post about him in the philippines. The people respected
+    - him, and Facebook should allow people to share. He simply counts as a political
+      figure. Facebook should back down.
+  counterargument:
+    decisive_counterargument: Just because many people respect Sison does not mean
+      that Facebook must lift all restrictions on posts about him. Facebook’s policies
+      are designed to balance free expression with legal and safety obligations; respecting
+      an individual or their political status is an emotional or popularity argument,
+      not a rule of content moderation. Therefore the popularity of Sison doesn’t
+      justify deregulating Facebook’s existing content‑moderation framework.
+    candidate: Appeal to Majority
+    challenged_inference: Because Sison is respected by many people and is merely
+      a political figure, Facebook should allow people to share about him.
+    label_justification: The objection attacks the inference that popular respect
+      for an individual justifies changes in policy. This is a classic 'appeal to
+      majority' or 'appeal to popularity' fallacy, where the argument relies on the
+      number of people who hold a view as the sole justification.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Facebook goes too far. Sison means something to a lot of people in the philippines.
+      So they should be allowed to post about him in the philippines. The people respected
+    - him, and Facebook should allow people to share. He simply counts as a political
+      figure. Facebook should back down.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'Appeal to Majority structure: a claim that because Sison is
+    respected by many people in the Philippines, Facebook should lift restrictions
+    on posts about him.'
+  decision_reason: The target concludes that Facebook must allow posts about Sison
+    solely because many people respect him, which uses the popularity of the individual
+    as the sole justification, i.e., an appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Facebook goes too far. Sison means something to a lot of people in the philippines.
+    So they should be allowed to post about him in the philippines. The people respected
+  - him, and Facebook should allow people to share. He simply counts as a political
+    figure. Facebook should back down.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4253
+  completion_tokens: 3354
+  total_tokens: 7607
+  wall_time_seconds: 166.76600000000326

@@ -1,0 +1,192 @@
+sample:
+  id: 2:3004
+  article_id: 2
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: Moral standards must be clearly defined in society to increase harmony among
+    transcendental groups of a country. Ethical standards are formulated in intrinsic
+    valuations contrasted against moral beliefs that are transcendent. Everyday people
+    are that of a transcendent type and base their everyday modalities on such belief
+    systems. Belief systems are formulated through out centuries simply know as the
+    culture of a people. Deep rooted traditional values are signs and guidelines that
+    maintain a natural order of harmony for the over all totality as universal knowledge
+    and style. This is the vitalism that maintains a viability mode of existence for
+    the populace of a territory. However if such transcendental values are held to
+    tightly a stagnation will occur and the populace will begin to experience strife
+    and violence. Open set of moral values must be accommodated for change to allow
+    for what one might define as metabolism or a respiratory system that allows the
+    culture to digest or breath new life in succession.  Impulse and extreme reflexivity
+    with an excluded middle, meaning, catering to a virtual instead of an actuality
+    of life is a doom loop in the making. The golden ratio must be found.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T3
+    - role: evaluative_conclusion
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Moral standards must be clearly defined in society to increase harmony among
+      transcendental groups of a country. Ethical standards are formulated in intrinsic
+      valuations contrasted against moral beliefs that are
+    - of a people. Deep rooted traditional values are signs and guidelines that maintain
+      a natural order of harmony for the over all totality as universal knowledge
+      and style. This is
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Moral standards must be clearly defined in society to increase
+      harmony among transcendental groups of a country.
+    candidate: null
+    supporting_reason: If moral values are held too rigidly, stagnation and strife
+      will result; an open set of moral values, guided by deep‑rooted traditional
+      values that maintain a natural order of harmony, allows the culture to adapt
+      and preserve societal viability.
+    support_relation: provides a causal link between the clarity and openness of moral
+      standards and the resulting harmony and adaptability of society.
+    label_justification: The argument correctly uses the relationship between traditional
+      value systems and social harmony to justify the need for clearly defined, yet
+      flexible, moral standards. No fallacious reasoning is detected.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    - T4
+    evidence_spans:
+    - Moral standards must be clearly defined in society to increase harmony among
+      transcendental groups of a country. Ethical standards are formulated in intrinsic
+      valuations contrasted against moral beliefs that are
+    - of a people. Deep rooted traditional values are signs and guidelines that maintain
+      a natural order of harmony for the over all totality as universal knowledge
+      and style. This is
+    - the vitalism that maintains a viability mode of existence for the populace of
+      a territory. However if such transcendental values are held to tightly a stagnation
+      will occur and the
+  counterargument:
+    decisive_counterargument: The premise that moral standards must be explicitly
+      defined in order to create harmony simply rests on the historical fact that
+      societies have traditionally relied on shared values for cohesion.  That fact
+      does not prove that the current situation can or should be addressed in the
+      same way, nor that enforcing rigid definitions will prevent strife.  Many cultures
+      show that harmony can be maintained even when moral codes are loosely structured
+      or evolve over time, suggesting that the argument’s appeal to tradition is merely
+      a form of justification rather than evidence.
+    candidate: Appeal to Tradition
+    challenged_inference: Moral standards must be clearly defined in society to increase
+      harmony among transcendental groups of a country.
+    label_justification: 'The argument invokes the long‑standing practice of using
+      traditional values as a basis for social harmony, implying that this historical
+      precedent merely validates the current position.  By treating tradition as a
+      reason to cling to rigid moral definitions, the argument commits the Appeal
+      to Tradition fallacy: it appeals to the fact that a practice has been done or
+      accepted for a long time as proof that it is the best or right approach, without
+      providing any substantive evidence that the practice actually achieves the claimed
+      outcomes.  This fallacy is distinct from merely criticizing the claim; it specifically
+      points out that the reasoning depends on tradition for legitimacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - of a people. Deep rooted traditional values are signs and guidelines that maintain
+      a natural order of harmony for the over all totality as universal knowledge
+      and style. This is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Appeal to Tradition
+    conflict: appeal-to-nature__vs__appeal-to-tradition
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__appeal-to-tradition
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Appeal to Tradition
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: rule-based
+    loser_failure: Appeal to Tradition fails to directly satisfy its mandatory structure;
+      the passage does not explicitly show tradition being used as justification but
+      rather notes naturalness. The naturalness premise and evaluative conclusion
+      are present in the text, satisfying Appeal to Nature’s structure.
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Moral standards must be clearly defined in society to increase harmony among
+      transcendental groups of a country. Ethical standards are formulated in intrinsic
+      valuations contrasted against moral beliefs that are
+    - of a people. Deep rooted traditional values are signs and guidelines that maintain
+      a natural order of harmony for the over all totality as universal knowledge
+      and style. This is
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: 'The target text presents a characteristic nature-to-value structure:
+    it asserts that traditional values maintain a natural order of harmony (naturalness
+    premise captured in T3) and concludes that moral standards must be clearly defined
+    to increase harmony (evaluative conclusion captured in T1). This linkage constitutes
+    an appeal to nature—claiming that because something is natural (or maintains natural
+    harmony), it is desirable or necessary, without independent justification. The
+    evidence IDs supporting both the naturalness premise and evaluative conclusion
+    are T3 and T1, respectively.'
+  decision_reason: Accepted, satisfies structural condition and identifiable in the
+    target.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - Moral standards must be clearly defined in society to increase harmony among transcendental
+    groups of a country. Ethical standards are formulated in intrinsic valuations
+    contrasted against moral beliefs that are
+  - of a people. Deep rooted traditional values are signs and guidelines that maintain
+    a natural order of harmony for the over all totality as universal knowledge and
+    style. This is
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 7648
+  completion_tokens: 4335
+  total_tokens: 11983
+  wall_time_seconds: 248.93799999999464

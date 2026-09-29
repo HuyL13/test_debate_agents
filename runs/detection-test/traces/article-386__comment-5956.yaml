@@ -1,0 +1,123 @@
+sample:
+  id: 386:5956
+  article_id: 386
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: The false bomb threats are a problem but not as bad as other problems that
+    exist. Global warming will end us all. If left unchecked we might not have a world
+    to live in.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: false bomb threats
+    - role: worse_issue
+      text: global warming
+    - role: deprioritizing_conclusion
+      text: false bomb threats are a problem but not as bad as other problems that
+        exist
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The false bomb threats are a problem but not as bad as other problems that exist.
+      Global warming will end us all. If left unchecked we might not have a
+    - world to live in.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: False bomb threats are not as serious as other problems, specifically
+      global warming.
+    candidate: Appeal to Worse Problems
+    supporting_reason: Global warming is a severe and existential threat.
+    support_relation: The argument uses the severity of global warming to downplay
+      the seriousness of false bomb threats.
+    label_justification: The reason that global warming will end us all is employed
+      to diminish the importance of false bomb threats, which is the classic structure
+      of an Appeal to Worse Problems fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The false bomb threats are a problem but not as bad as other problems that exist.
+      Global warming will end us all. If left unchecked we might not have a
+    - world to live in.
+  counterargument:
+    decisive_counterargument: The claim that false bomb threats can be ignored or
+      are merely a lesser problem because global warming is far worse misuses severity
+      comparison to justify inaction. It treats the severity of one issue as a legit
+      reason to overlook another, thereby committing an Appeal to Worse Problems.
+    candidate: Appeal to Worse Problems
+    challenged_inference: False bomb threats are a problem but not as bad as other
+      problems that exist; therefore they can be deprioritized or ignored.
+    label_justification: The reasoning explicitly compares the seriousness of false
+      bomb threats to global warming, using the greater threat to downplay the former.
+      This mirrors the formal structure of the Appeal to Worse Problems fallacy, whereby
+      the existence of a more severe problem is cited as a reason to dismiss a less
+      severe one.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The false bomb threats are a problem but not as bad as other problems that exist.
+      Global warming will end us all. If left unchecked we might not have a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly compares the severity of false bomb threats
+    to the far more severe threat of global warming, implying the former can be ignored
+    or deprioritized. This matches the formal structure of an Appeal to Worse Problems
+    fallacy.
+  decision_reason: The argument states that false bomb threats are a problem but not
+    as bad as other problems that exist, citing global warming—a far worse existential
+    threat—as the reason to diminish the importance of the bomb threats. This comparison
+    misuses the severity of one issue to justify overlooking another, which is the
+    defining feature of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The false bomb threats are a problem but not as bad as other problems that exist.
+    Global warming will end us all. If left unchecked we might not have a
+  - world to live in.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4191
+  completion_tokens: 3361
+  total_tokens: 7552
+  wall_time_seconds: 71.09400000004098

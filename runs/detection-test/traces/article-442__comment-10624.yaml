@@ -1,0 +1,132 @@
+sample:
+  id: 442:10624
+  article_id: 442
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: This man should be an example to all.  He is trying to change things in
+    his country by using his visibility as an artist to champion women's and children's
+    rights.  Hopefully, he will inspire others in his county to go in the same direction
+    in his country, Togo. Elias Atayi is not just an artist, but a catalyst for change.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: This man
+    - role: observed_property
+      text: he is trying to change things in his country by using his visibility as
+        an artist to champion women's and children's rights
+    - role: target_population
+      text: all
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This man should be an example to all.  He is trying to change things in his
+      country by using his visibility as an artist to champion women's and children's
+      rights.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: He should be an example to all
+    candidate: null
+    supporting_reason: He is using his visibility as an artist to champion women’s
+      and children’s rights
+    support_relation: provides justification for the positive judgment that he deserves
+      to be an example
+    label_justification: No fallacy; the reasoning appropriately supports the goal
+      by citing specific actions that align with the praised outcome.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This man should be an example to all.  He is trying to change things in his
+      country by using his visibility as an artist to champion women's and children's
+      rights.
+    - Hopefully, he will inspire others in his county to go in the same direction
+      in his country, Togo. Elias Atayi is not just an artist, but a catalyst for
+      change.
+  counterargument:
+    decisive_counterargument: The claim that Elias Atayi will automatically become
+      a catalyst for widespread change merely because he is a visible artist using
+      his platform to champion women’s and children’s rights is an unwarranted leap.
+      It assumes that one individual’s efforts will inspire and mobilize the entire
+      population of Togo, without any evidence that the rest of the community will
+      respond in that way. The argument generalizes from a single case (Elias’s visibility
+      and advocacy) to a broader claim about collective influence, which is precisely
+      the kind of unsupported extrapolation that constitutes a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: He will inspire others in Togo to follow his example and
+      effect widespread change.
+    label_justification: The counterargument points out that the Text makes a sweeping
+      claim about collective response to the actions of a single individual, without
+      providing evidence of such a response or considering alternative outcomes. This
+      demonstrates a failure to treat the specific instance as a representative sample,
+      a mischaracterization of typical reasoning patterns, and is therefore the hallmark
+      of a hasty generalization. No other fallacy types are indicated by the passage,
+      so the objection is dedicated to the Hasty Generalization label.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This man should be an example to all.  He is trying to change things in his
+      country by using his visibility as an artist to champion women's and children's
+      rights.
+    - Hopefully, he will inspire others in his county to go in the same direction
+      in his country, Togo. Elias Atayi is not just an artist, but a catalyst for
+      change.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The passage includes a statement that generalizes from a single
+    individual (‘This man’) to a universal claim about everyone, meeting the structural
+    criteria for a hasty generalization, and it provides no evidence that the claim
+    holds for all people.
+  decision_reason: The target contains the sentence ‘This man should be an example
+    to all’, which takes a single example and extends it to a claim about the entire
+    population without supporting evidence, thereby exemplifying a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This man should be an example to all.  He is trying to change things in his country
+    by using his visibility as an artist to champion women's and children's rights.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4418
+  completion_tokens: 4097
+  total_tokens: 8515
+  wall_time_seconds: 115.67200000002049

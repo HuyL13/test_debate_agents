@@ -1,0 +1,160 @@
+sample:
+  id: 133:4597
+  article_id: 133
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: I think this is terrible. Once we start silencing people who disagree with
+    us, where does it end? Do we then try to control any form of criticism?
+  target: Agree with your comment. If they will start here with one person, then what
+    is next? Arresting everyone that they don't approve of?
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: one person
+    - role: observed_property
+      text: arrested by authorities
+    - role: target_population
+      text: all people the authorities don't approve of
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The target text argues that once authorities begin arresting
+      a single person, they will eventually arrest everyone they disapprove of.
+    candidate: Slippery Slope
+    supporting_reason: The statement begins with a premise that authorities will start
+      with one person and then immediately predicts the extreme outcome of arresting
+      everyone—an unproven escalation from a single action to a broad, all‑encompassing
+      crackdown.
+    support_relation: The premise about beginning with one arrest is used to justify
+      the claim of a future extreme consequence (arresting everyone), constituting
+      a slippery‑slope argument.
+    label_justification: The argument posits a single, initial event (arresting one
+      individual) will inevitably lead to a drastically more oppressive outcome (arresting
+      all), which is the classic pattern of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+  counterargument:
+    decisive_counterargument: The claim that arresting a single person will inevitably
+      lead to the arrest of everyone the authorities dislike is an unsupported, speculative
+      escalation. No evidence shows a causal chain from one arrest to a systematic
+      crackdown; such a leap requires proof of institutional policy or precedent,
+      which is absent here.
+    candidate: Slippery Slope
+    challenged_inference: If authorities arrest one person, they will inevitably arrest
+      everyone they disapprove of.
+    label_justification: The inference proposes a dramatic escalation from a single
+      action to a drastic end state without evidence of such a progression, which
+      is the defining structure of the slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires explicit cases/sample -> broader
+      population/class. The target explicitly references a single individual (“one
+      person”) and extrapolates a claim about everyone (“arresting everyone that they
+      don't approve of”). This satisfies the mandatory structural condition for Hasty
+      Generalization. It also implies a slippery‑slope shape, but the presence of
+      a concrete sample and an immediate generalization is a stronger match, and the
+      allowed winner set includes Hasty Generalization. Therefore we select it.
+    loser_failure: While the target could be seen as a slippery‑slope argument (one
+      arrest leading to a mass arrest), the structure is a direct sample-to-population
+      jump, which fits the definition of a Hasty Generalization more precisely and
+      does not require the extended progression implied by Slippery Slope.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Agree with your comment. If they will start here with one person, then what
+      is next? Arresting everyone that they don't approve of?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target states that if authorities arrest one person, they
+    will subsequently arrest everyone they disapprove of, thereby generalizing from
+    a single case to the entire population of people the authorities disapprove of.
+    The supporting evidence is T1.
+  decision_reason: The argument commits a hasty generalization by inferring a general
+    rule—‘arresting everyone the authorities don’t approve of’—based on the single
+    instance of ‘one person’ being arrested.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Agree with your comment. If they will start here with one person, then what is
+    next? Arresting everyone that they don't approve of?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5213
+  completion_tokens: 4421
+  total_tokens: 9634
+  wall_time_seconds: 100.07800000000861

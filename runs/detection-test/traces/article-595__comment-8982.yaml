@@ -1,0 +1,155 @@
+sample:
+  id: 595:8982
+  article_id: 595
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: This one bird species had thousands die in one area. That is a dangerous
+    president and is only going to get worse if we don't do something about our farming
+    practices and the environment. Losing animals like this cannot become normal and
+    commonplace.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - This one bird species had thousands die in one area. That is a dangerous president
+      and is only going to get worse if we don't do something about our farming
+    - practices and the environment. Losing animals like this cannot become normal
+      and commonplace.
+    candidate: null
+  goal:
+    candidate: False Dilemma
+    conclusion_or_goal: We must take action on farming practices and the environment
+      to prevent further deaths of the bird species.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The argument presents only two mutually exclusive outcomes
+      (action or worsening) and treats inaction as necessarily catastrophic, thus
+      committing a false dilemma.
+    mechanism_supports_goal: true
+    support_relation: The reason is used to argue that failure to act inevitably leads
+      to worsening conditions, implying only two outcomes—action to prevent harm or
+      inaction leading to worsening—thereby constituting a false dilemma.
+    supporting_reason: is only going to get worse if we don't do something about our
+      farming practices and the environment
+    evidence_spans:
+    - This one bird species had thousands die in one area. That is a dangerous president
+      and is only going to get worse if we don't do something about our farming
+    - practices and the environment. Losing animals like this cannot become normal
+      and commonplace.
+  counterargument:
+    candidate: Hasty Generalization
+    challenged_inference: President is dangerous due to bird deaths
+    decisive_counterargument: The claim that the president is dangerous based solely
+      on the death of thousands of birds in one area is a jump from one specific incident
+      to a broad judgment about a person’s character. The evidence presented (birds
+      dying, farming practices, environmental factors) provides no logical basis for
+      concluding that the president is dangerous; the relationship between the president
+      and the bird deaths is not established. Thus the reasoning commits a hasty generalization—drawing
+      a sweeping conclusion about the president from a single, unrelated event.
+    evidence_ids:
+    - T1
+    failure_exposed: true
+    label_justification: The objection shows that the inference from a single incident
+      to a general statement about the president commits a hasty generalization, which
+      is the relevant fallacy.
+    evidence_spans:
+    - This one bird species had thousands die in one area. That is a dangerous president
+      and is only going to get worse if we don't do something about our farming
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: 'Hasty Generalization is the best fit because the argument leapfrogs
+      from a single observed incident—thousands of birds dying in one area—to a sweeping
+      judgment that a president is dangerous, with no logical connection between the
+      two. This is a classic hasty generalization: a small sample (one bird species,
+      one incident) is used to draw a broad conclusion about a person’s character.
+      The target text explicitly states that the president is dangerous solely based
+      on the bird deaths, meeting the mandatory structural condition for a hasty generalization.
+      False Dilemma would require a clear presentation of only two mutually exclusive
+      options, which the target text does not explicitly provide. The evidence supporting
+      this fallacy is found in passage T1.'
+    loser_failure: False Dilemma is not the correct choice because the passage does
+      not explicitly present only two mutually exclusive outcomes; it merely suggests
+      that failure to act will worsen conditions, but it does not isolate action versus
+      no action as the only alternatives. Therefore, False Dilemma’s key structural
+      condition—explicit mutually exclusive options—is not directly satisfied by the
+      target text.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This one bird species had thousands die in one area. That is a dangerous president
+      and is only going to get worse if we don't do something about our farming
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Jump from one specific event to a general claim about the president’s
+    character
+  decision_reason: The target claims that a single incident of thousands of birds
+    dying leads to the conclusion that the president is dangerous, which is a fallacious
+    leap from a specific case to a broad judgment.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This one bird species had thousands die in one area. That is a dangerous president
+    and is only going to get worse if we don't do something about our farming
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 3
+  cache_hits: 3
+  retries: 1
+  prompt_tokens: 5309
+  completion_tokens: 4177
+  total_tokens: 9486
+  wall_time_seconds: 139.75

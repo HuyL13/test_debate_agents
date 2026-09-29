@@ -1,0 +1,151 @@
+sample:
+  id: 174:5018
+  article_id: 174
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: Having religious and free speech is natural need of people all over the
+    world. We need to stop government censorship. Government censorship is never a
+    good thing, it leads to discontent in many other areas as well.
+  target: Do you think all people agree with that? There are lots who prefer security
+    over things like free speech. Whether they expand or restrict free speech for
+    their people should be a matter that the majority of people in those countries
+    decide, not what some people think is a natural need.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of people in those countries
+    - role: popularity_claim
+      text: they decide
+    - role: target_claim
+      text: the decision should be theirs, not what some people think is a natural
+        need
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The decision about expanding or restricting free speech should
+      be determined by the majority of people in each country, not based on the view
+      that free speech is a natural need.
+    candidate: null
+    supporting_reason: There are many people who prefer security over free speech,
+      indicating that the claim of free speech as a universal natural need is not
+      universally accepted.
+    support_relation: The reason counters the claim that free speech is an unquestionable
+      natural need, thereby justifying the conclusion that the decision should be
+      made by majority consensus instead of by a presumed universal requirement.
+    label_justification: The argument legitimately presents contrary views to dispute
+      the universal natural‑need claim and supports a democratic decision‑making principle;
+      no fallacious reasoning is employed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+  counterargument:
+    decisive_counterargument: The majority’s preference for security does not override
+      the basic claim that freedom of speech is a fundamental human right, not merely
+      a minority or ‘natural‑need’ opinion. Concluding that policy should be decided
+      solely by how many people wish to limit speech treats the will of the majority
+      as an intrinsically moral authority, which is fallacious. The principle of free
+      expression is rooted in principles of human dignity, autonomy, and the necessary
+      plurality of ideas for a vibrant society—arguments that cannot be reduced to
+      a number of supporters. Therefore the inference that the majority’s preference
+      should trump the natural need for free speech is unjustified.
+    candidate: null
+    challenged_inference: the majority’s preference should dictate policy over the
+      natural right to free speech
+    label_justification: 'The argument relies on the mere popularity of a view (security
+      stronger than free speech) to dismiss a normative claim that free speech is
+      a fundamental human right. This is a classic Appeal to Majority: treating a
+      position as correct simply because it is chosen by many, whereas a majority’s
+      preference does not inherently establish moral truth.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Do you think all people agree with that? There are lots who prefer security
+      over things like free speech. Whether they expand or restrict free speech for
+      their people should
+    - be a matter that the majority of people in those countries decide, not what
+      some people think is a natural need.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target does not assert that the majority’s view is true
+    or correct merely because it is held by many; it merely claims that the majority
+    should decide the matter. This fails the structural requirement that an Appeal
+    to Majority must link the majority’s opinion to the validity of the claim, so
+    the labeled fallacy is not present.
+  decision_reason: The target does not provide an explicit popularity-to-claim justification;
+    it merely argues for majority decision authority, not that the majority opinion
+    itself is correct. Therefore the appeal to majority fallacy does not apply.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Do you think all people agree with that? There are lots who prefer security over
+    things like free speech. Whether they expand or restrict free speech for their
+    people should
+  - be a matter that the majority of people in those countries decide, not what some
+    people think is a natural need.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4158
+  completion_tokens: 3729
+  total_tokens: 7887
+  wall_time_seconds: 99.42200000002049

@@ -1,0 +1,135 @@
+sample:
+  id: 460:10677
+  article_id: 460
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Malaysia orders ‘stern action’ against media misreporting government statements
+    on COVID-19
+  parent: ''
+  target: Malaysians should be very wary. Authoritarianism always starts small, like
+    this. First it's just so-called misinformation related to COVID, but what's next?
+    Before you know it, so much as saying you don't think the government is doing
+    a great job is an offense and all dissenting voices will be silenced.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: initial_event
+      text: misinformation related to COVID
+    - role: intermediate_consequence
+      text: any dissent is considered an offense
+    - role: final_consequence
+      text: all dissenting voices will be silenced
+    structure_complete: true
+    structure_type: consequence_chain
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+    candidate: Slippery Slope
+  goal:
+    candidate: Slippery Slope
+    conclusion_or_goal: Warn that authoritarianism coercively escalates from mild
+      infractions such as COVID‑related misinformation to full suppression of dissenting
+      voices
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: It presents a chain of cause and effect—misinformation →
+      offense for dissent → suppression—without substantive evidence, fitting the
+      definition of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    support_relation: The reason (the claim of inevitable escalation) is used to establish
+      the conclusion about the need for warning.
+    supporting_reason: The passage alleges that permitting even minor misinformation
+      will inevitably lead the state to criminalize any criticism and silence all
+      dissent, depicting a direct causal progression from a small act to a large oppressive
+      outcome.
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+  counterargument:
+    candidate: Slippery Slope
+    challenged_inference: Small cases of misinformation inevitably lead to the silencing
+      of dissent.
+    decisive_counterargument: The claim that a brief instance of alleged COVID‑misinformation
+      will inevitably devolve into complete censorship of dissent is unsubstantiated
+      and assumes a causal chain that has no empirical support—the situation could
+      instead unfold without authoritarian escalation.
+    evidence_ids:
+    - T1
+    - T2
+    failure_exposed: true
+    label_justification: The passage predicts an escalating, inevitable sequence—from
+      a minor situation (misinformation about COVID) to a severe outcome (censorship
+      of dissent) without providing evidence of causality, which is the hallmark of
+      a slippery‑slope fallacy.
+    evidence_spans:
+    - Malaysians should be very wary. Authoritarianism always starts small, like this.
+      First it's just so-called misinformation related to COVID, but what's next?
+      Before you know it, so much as saying
+    - you don't think the government is doing a great job is an offense and all dissenting
+      voices will be silenced.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target includes a claim of an inevitable causal chain—from
+    minor “misinformation related to COVID” to the severe outcome that “all dissenting
+    voices will be silenced”—without presenting evidence of such causality, fitting
+    the slippery‑slope form.
+  decision_reason: The passage asserts that a small act (COVID‑misinformation) inevitably
+    escalates to full suppression of dissent, illustrating the required progression
+    and lack of substantiation.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Malaysians should be very wary. Authoritarianism always starts small, like this.
+    First it's just so-called misinformation related to COVID, but what's next? Before
+    you know it, so much as saying
+  - you don't think the government is doing a great job is an offense and all dissenting
+    voices will be silenced.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 1
+  cache_hits: 3
+  retries: 0
+  prompt_tokens: 4530
+  completion_tokens: 2835
+  total_tokens: 7365
+  wall_time_seconds: 120.09399999999732

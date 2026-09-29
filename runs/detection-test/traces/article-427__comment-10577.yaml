@@ -1,0 +1,153 @@
+sample:
+  id: 427:10577
+  article_id: 427
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: Wouldn't protesting to their bosses or on air do more than what the government
+    is doing? The protesting is important, it's just they seem to be yelling at the
+    clouds. What can protesting in the street do to help what's going on in their
+    job's building? Even a famous social scientist Dr. John Doe suggested that targeted
+    dialogue to those directed involved with an issue will be more impactful than
+    public demonstrations in certain cases. I would think the emphasis would remain
+    on dialogue and progress and not public displays that won't really bring the change.
+  target: I think these brave female journalists in Spain can do plenty by protesting
+    in the streets, it's important to get the word out about injustices to the common
+    folk. I also am skeptical about your expert, I have never heard of this 'famous'
+    Dr. John Doe. It honestly sounds like a very generic and made up name and only
+    serves to denigrate your argument. I would hope that next time you would impart
+    some of the qualifications of this Doctor, it would greatly improve the believability
+    of his inclusion. Either way, Spain needs to close this pay gap and up the representation
+    of women in the media. I am hopeful that almost all experts and commoners could
+    find agreement in this!
+initial_analysis:
+  structure:
+    evidence_spans:
+    - experts and commoners
+    - almost all experts and commoners could find agreement in this
+    - Spain needs to close this pay gap and up the representation of women in the
+      media
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: experts and commoners
+    - role: popularity_claim
+      text: almost all experts and commoners could find agreement in this
+    - role: target_claim
+      text: Spain needs to close this pay gap and up the representation of women in
+        the media
+    structure_complete: true
+    candidate: Appeal to Majority
+  goal:
+    evidence_spans:
+    - it's important to get the word out about injustices to the common folk
+    conclusion_or_goal: These female journalists can achieve positive change by protesting
+      in the streets.
+    candidate: Appeal to Authority
+    supporting_reason: it's important to get the word out about injustices to the
+      common folk
+    support_relation: The statement provides a justification for the action of protesting
+      by appealing to its moral value.
+    label_justification: The reason is used as a moral justification, not a fallacious
+      appeal to an authority. No evidence of a logical fallacy is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - I also am skeptical about your expert, I have never heard of this 'famous' Dr.
+      John Doe.
+    decisive_counterargument: The claim that a named expert—Dr. John Doe—serves as
+      a credible authority for endorsing street protests is unsupported; the target
+      itself admits that the expert’s name is not recognizable, suggesting it may
+      be fabricated or at best not an established authority. Without verifiable credentials,
+      the reliance on this figure commits the fallacy of Appeal to Authority, as the
+      argument attributes unwarranted weight to a dubious source.
+    candidate: Appeal to Authority
+    challenged_inference: The target infers that the endorsement of street protests
+      is more effective than dialogue because Dr. John Doe, a purported expert, claims
+      so.
+    label_justification: The objection shows that the argument’s reasoning depends
+      on a supposedly authoritative source whose legitimacy is explicitly called into
+      question right in the target text. This demonstrates the logical defect of presenting
+      an unverified or fictitious authority as proof, which is precisely the Appeal
+      to Authority fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    evidence_spans:
+    - almost all experts and commoners could find agreement in this
+    decisive_test: The target explicitly invokes a broad demographic—‘almost all experts
+      and commoners’—to support its claim, which is characteristic of an appeal to
+      majority. It does not rely on Dr. John Doe’s expertise or credentials, so an
+      appeal to authority is not present.
+    loser_failure: The target’s criticism of Dr. John Doe and question of his credentials
+      mean the argument does not use the expert’s authority to justify street protests;
+      therefore the appeal to authority fallacy does not apply.
+arbiter:
+  selected_candidate: Appeal to Majority
+  evidence_spans:
+  - experts and commoners
+  - almost all experts and commoners could find agreement in this
+  - Spain needs to close this pay gap and up the representation of women in the media
+  decisive_condition: explicitly cites a population group ('experts and commoners')
+    and claims that the majority of that group agrees with the target claim that Spain
+    must close the pay gap and increase women’s representation, thereby using popularity
+    to support the claim
+  decision_reason: The response presents an explicit popularity claim that almost
+    all experts and commoners would agree with the claim that Spain needs to close
+    the pay gap and increase women’s representation. This satisfies the structural
+    conditions for an Appeal to Majority fallacy.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5534
+  completion_tokens: 4541
+  total_tokens: 10075
+  wall_time_seconds: 239.84299999999348

@@ -1,0 +1,116 @@
+sample:
+  id: 174:9818
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: The government ruled that it was alright to keep the radio station going.
+    Might makes right, so the decision is absolutely right!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the government
+    - role: endorsed_claim
+      text: the decision is absolutely right!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: the government's decision to keep the radio station running
+      is absolutely right
+    candidate: Appeal to Authority
+    supporting_reason: might makes right
+    support_relation: the argument uses the authority of the government (its ‘might’)
+      to justify that its decision is correct
+    label_justification: The speaker presents the government's power as the basis
+      for legitimacy, claiming that because the state has the authority, its decision
+      is automatically correct. This is a classic Appeal to Authority/Power fallacy,
+      where authority is invoked without substantive evidence of rightness.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+  counterargument:
+    decisive_counterargument: Just because the government has the political power
+      to keep the radio station running does not prove that the decision is morally
+      or objectively correct. The claim relies solely on the idea that because the
+      authorities exercised might, their choice is right, yet it offers no evidence,
+      reasoning, or ethical justification for why that decision should be considered
+      absolute. Authority or power is not a reliable indicator of correctness; it
+      merely conveys who has the right to decide, not whether the decision is just
+      or justified.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that the government’s decision to keep the
+      radio station running is absolutely right because ‘might makes right’.
+    label_justification: The objection reveals that the target’s conclusion is based
+      on the premise that the government’s power legitimizes its decision, a classic
+      misuse of authority. The target accepts an authority’s claim without supporting
+      evidence, treating the authority’s position as inherently true, which is the
+      defining feature of an appeal to authority fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The government ruled that it was alright to keep the radio station going. Might
+      makes right, so the decision is absolutely right!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly states the government's ruling as a source
+    of authority and concludes that the decision must be right solely because the
+    government has power—meeting the structural requirement that an authority is invoked
+    to justify a claim without independent evidence.
+  decision_reason: The argument presents the government’s authority (‘might’) as sufficient
+    evidence that its decision to keep the radio station running is correct, a textbook
+    example of an Appeal to Authority/Power fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The government ruled that it was alright to keep the radio station going. Might
+    makes right, so the decision is absolutely right!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3742
+  completion_tokens: 2371
+  total_tokens: 6113
+  wall_time_seconds: 106.21899999999732

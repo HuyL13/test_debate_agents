@@ -1,0 +1,138 @@
+sample:
+  id: 15:3942
+  article_id: 15
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: There seems to be too much first world perspective in this argument. Life
+    is rough on the third world and blindly applying child rights from our perspective
+    will lead to worse problems for them. I understand the emotional appeal to things
+    such as beating children and making them work for low pay but you can't just wave
+    a wand from an economic standpoint and make this better like that
+  target: I agree with you completely. Plus, people are acting like they should abandon
+    their traditions. Of course, the extreme forms of violence and sexual exploitation
+    that some kids experience are terrible, but things like kids working in the family
+    business or mild corporal punishment is just something ingrained in many cultures
+    and that's their right.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: things like kids working in the family business or mild corporal punishment
+        is just something ingrained in many cultures
+    - role: preservation_conclusion
+      text: that's their right
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you completely. Plus, people are acting like they should abandon
+      their traditions. Of course, the extreme forms of violence and sexual exploitation
+      that some kids experience are
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Mild corporal punishment and child labor in family business
+      are culturally ingrained practices that should be considered legitimate and
+      protected as the peoples' right.
+    candidate: Appeal to Tradition
+    supporting_reason: T2 – the claim that these practices are ingrained in many cultures
+      and therefore constitute a right.
+    support_relation: Appeal to Tradition
+    label_justification: The argument justifies the practices by appealing to their
+      longstanding cultural entrenchment; this is the classic appeal‑to‑tradition
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+  counterargument:
+    decisive_counterargument: Just because a practice is part of a culture’s tradition
+      does not mean it is morally justified or harmless. Traditions can be rooted
+      in unjust or harmful beliefs, and legal and ethical norms evolve precisely to
+      protect vulnerable populations. Mild corporal punishment, for example, has been
+      linked to long‑term psychological harm, and child labor in family businesses
+      can impede education and development. Therefore, the claim that tradition alone
+      confers a right to such practices is unfounded.
+    candidate: Appeal to Tradition
+    challenged_inference: Things like kids working in the family business or mild
+      corporal punishment is just something ingrained in many cultures and that's
+      their right.
+    label_justification: 'The target’s argument presents an appeal to tradition: it
+      justifies harmful child‑related practices solely on the basis that they are
+      longstanding customs. This directly violates the logical rule that tradition
+      does not by itself provide moral or legal justification.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - terrible, but things like kids working in the family business or mild corporal
+      punishment is just something ingrained in many cultures and that's their right.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target explicitly claims that because mild corporal punishment
+    and child labour in family businesses are ingrained traditions, they are a right.
+    This follows the appeal‑to‑tradition structure (tradition premise → preservation
+    conclusion).
+  decision_reason: The target’s argument uses tradition as the sole justification
+    for practices, matching the appeal to tradition fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I agree with you completely. Plus, people are acting like they should abandon
+    their traditions. Of course, the extreme forms of violence and sexual exploitation
+    that some kids experience are
+  - terrible, but things like kids working in the family business or mild corporal
+    punishment is just something ingrained in many cultures and that's their right.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4739
+  completion_tokens: 3114
+  total_tokens: 7853
+  wall_time_seconds: 104.71799999999348

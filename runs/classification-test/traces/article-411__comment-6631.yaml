@@ -1,0 +1,181 @@
+sample:
+  id: 411:6631
+  article_id: 411
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: New study finds internet censorship in Turkmenistan reaches over 122,000
+    domains
+  parent: ''
+  target: Turkmenistan is censoring the internet and slowing the internet down for
+    its citizens. Who is going to be the next country to do this? And how long before
+    it reaches us here in the United states? If it happens in the united states, it
+    could happen in any country in the west.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Turkmenistan
+    - role: observed_property
+      text: censoring the internet and slowing the internet down for its citizens
+    - role: target_population
+      text: any country in the west
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkmenistan is censoring the internet and slowing the internet down for its
+      citizens. Who is going to be the next country to do this? And how long before
+      it reaches
+    - us here in the United states? If it happens in the united states, it could happen
+      in any country in the west.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The United States (and potentially any country in the West)
+      will next experience internet censorship similar to Turkmenistan.
+    candidate: Hasty Generalization
+    supporting_reason: Turkmenistan is censoring the internet and slowing it for its
+      citizens, so any country in the West could follow suit.
+    support_relation: Generalization
+    label_justification: The argument generalizes from the single example of Turkmenistan
+      to all western nations, implying an inevitable spread of censorship based on
+      one case.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkmenistan is censoring the internet and slowing the internet down for its
+      citizens. Who is going to be the next country to do this? And how long before
+      it reaches
+    - us here in the United states? If it happens in the united states, it could happen
+      in any country in the west.
+  counterargument:
+    decisive_counterargument: The claim that Turkmenistan’s censorship will inevitably
+      spread to the United States and other Western nations relies on an unproven
+      causal link. The fact that one authoritarian regime blocks Internet traffic
+      does not logically entail that a democratic country with robust civil liberties
+      and a free press will follow suit. No evidence is provided that the U.S. is
+      on a trajectory to censor internet access; the assertion merely projects a hypothetical
+      future based on the present situation in an unrelated state.
+    candidate: Slippery Slope
+    challenged_inference: Turkmenistan’s internet censorship will lead to similar
+      censorship in the United States and all other Western countries.
+    label_justification: The objection shows that the reasoning assumes a chain of
+      events—censoring in one country will necessarily set off a series of similar
+      actions elsewhere—without presenting any intermediary steps or evidence, which
+      is the hallmark of a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkmenistan is censoring the internet and slowing the internet down for its
+      citizens. Who is going to be the next country to do this? And how long before
+      it reaches
+    - us here in the United states? If it happens in the united states, it could happen
+      in any country in the west.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Slippery Slope
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Slippery Slope
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization requires an explicit sample → general conclusion
+      about a larger group, which is satisfied by the single case of Turkmenistan
+      leading to a prediction that any country in the West will experience similar
+      censorship. The text does not provide a chain of increasingly negative consequences
+      or intermediate steps that would constitute a Slippery Slope; it merely forecasts
+      a direct spread. Therefore the Slippery Slope interpretation fails because the
+      argument lacks the necessary progressive escalation of outcomes.
+    loser_failure: The Slippery Slope claim is not supported by a sequential causation
+      chain or evidence of intermediary steps. It merely projects one event (Turkmenistan
+      censorship) to an eventual similar event in other countries without demonstrating
+      how each step leads inevitably to the next, so it does not satisfy the structure
+      of a Slippery Slope.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkmenistan is censoring the internet and slowing the internet down for its
+      citizens. Who is going to be the next country to do this? And how long before
+      it reaches
+    - us here in the United states? If it happens in the united states, it could happen
+      in any country in the west.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument generalizes from the single example of Turkmenistan
+    censoring and slowing the internet to the entire population of Western countries,
+    implying inevitable future censorship, satisfying the structure of a sample‑to‑population
+    hasty generalization.
+  decision_reason: 'The text cites Turkmenistan’s censorship and then asserts that
+    any country in the West—including the United States—will face the same, based
+    solely on that single case. This meets the structural requirement of a hasty generalization.
+    Evidence used: T1, T2.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Turkmenistan is censoring the internet and slowing the internet down for its citizens.
+    Who is going to be the next country to do this? And how long before it reaches
+  - us here in the United states? If it happens in the united states, it could happen
+    in any country in the west.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5855
+  completion_tokens: 4109
+  total_tokens: 9964
+  wall_time_seconds: 196.28099999998813

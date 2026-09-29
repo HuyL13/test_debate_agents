@@ -1,0 +1,152 @@
+sample:
+  id: 416:10545
+  article_id: 416
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: '"Where is Carry Lam?" is a great question, and the administration needs
+    to step up. The relationship between China and Hong Kong is a long and complex
+    one, and I don''t see how some riots are going to change that. But meanwhile,
+    the leadership in Hong Kong is weak and ineffectual. It seems protesting for good
+    local government should be a more pressing and achievable goal to those in Hong
+    Kong than trying to gain full autonomy from China.'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - '"Where is Carry Lam?" is a great question, and the administration needs to
+      step up. The relationship between China and Hong Kong is a long and complex
+      one, and I'
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+    candidate: null
+  goal:
+    conclusion_or_goal: The target argues that protesters in Hong Kong should focus
+      their efforts on achieving better local government rather than pursuing full
+      autonomy from China.
+    candidate: False Dilemma
+    supporting_reason: The weakness and ineffectiveness of Hong Kong’s leadership
+      makes full autonomy unrealistic, so a more pressing and achievable goal is to
+      protest for good local government.
+    support_relation: The reason is used to justify the recommendation to prioritize
+      local governance over autonomy.
+    label_justification: The target presents two goals and implies that focusing on
+      local government is preferable, creating a dichotomy that ignores other possible
+      objectives or combinations of goals. This distorts the decision space and commits
+      a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - '"Where is Carry Lam?" is a great question, and the administration needs to
+      step up. The relationship between China and Hong Kong is a long and complex
+      one, and I'
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+  counterargument:
+    decisive_counterargument: The claim that pursuing a more localised governmental
+      reform is inherently better and more achievable than pursuing autonomy implicitly
+      treats these two aims as mutually exclusive alternatives. In practice, Hong Kong
+      residents can simultaneously campaign for improved local governance while also
+      demanding greater autonomy from Beijing. Advocating one does not negate or substitute
+      the other, nor does it preclude pursuing both in tandem. Thus, framing the choice
+      as a simple binary between local‑government reform and full autonomy is misleading.
+    candidate: False Dilemma
+    challenged_inference: protesting for good local government should be a more pressing
+      and achievable goal to those in Hong Kong than trying to gain full autonomy
+      from China
+    label_justification: The objection demonstrates that the speaker presents only
+      two options—improving local governance or seeking full autonomy—while ignoring
+      other genuine possibilities and the fact that both goals could be pursued simultaneously.
+      This satisfies the definition of a false dilemma which is a fallacious reasoning
+      structure. The counterargument directly supports this fallacy label by showing
+      the reasoning is flawed.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - don't see how some riots are going to change that. But meanwhile, the leadership
+      in Hong Kong is weak and ineffectual. It seems protesting for good local government
+      should be
+    - a more pressing and achievable goal to those in Hong Kong than trying to gain
+      full autonomy from China.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target does not explicitly present the two proposed goals
+    as mutually exclusive alternatives or exclude all other possible goals; it merely
+    compares their urgency, so the false dilemma structure is not satisfied.
+  decision_reason: The argument compares the urgency of protesting for local government
+    with pursuing full autonomy but does not claim that one and only one of these
+    can be pursued, nor does it dismiss other possible objectives, so the necessary
+    structure for a false dilemma is absent.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - don't see how some riots are going to change that. But meanwhile, the leadership
+    in Hong Kong is weak and ineffectual. It seems protesting for good local government
+    should be
+  - a more pressing and achievable goal to those in Hong Kong than trying to gain
+    full autonomy from China.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4791
+  completion_tokens: 3587
+  total_tokens: 8378
+  wall_time_seconds: 178.03100000001723

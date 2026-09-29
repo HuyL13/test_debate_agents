@@ -1,0 +1,133 @@
+sample:
+  id: 617:7847
+  article_id: 617
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: This just seems to be another typical result of colonialism. Is it ever
+    any different? I feel like all the news I see suggests not. The impacts of colonial
+    rule are always just that of suffering and injustice.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: news I see
+    - role: observed_property
+      text: impacts of colonial rule are always suffering and injustice
+    - role: target_population
+      text: impacts of colonial rule
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Argues that the impacts of colonial rule are universally suffering
+      and injustice.
+    candidate: Hasty Generalization
+    supporting_reason: References the limited observation that “news I see suggests
+      not different” to claim all colonial impacts are suffering and injustice.
+    support_relation: the cited observation is used to justify the broad conclusion
+    label_justification: The argument generalizes about all colonial rule impacts
+      based on insufficient evidence (the speaker’s limited news exposure), fitting
+      the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+  counterargument:
+    decisive_counterargument: While colonialism largely caused suffering, the claim
+      that it always produces suffering and injustice overgeneralizes based on a limited
+      sample of news coverage. The argument infers a universal truth from selective
+      reports, ignoring the possibility that other reports (or aspects of history
+      not covered by the chosen news) might show different outcomes such as economic
+      development, institutions, or shared governance improvements. Thus, the reasoning
+      connects a narrow observation (negative news headlines) to an unfalsifiable
+      absolute, which is characteristic of a hasty generalization.
+    candidate: null
+    challenged_inference: All impacts of colonial rule are always suffering and injustice.
+    label_justification: The counterargument demonstrates that the inference relies
+      on an unsupported universal claim drawn from a narrow evidentiary set, directly
+      exposing the reasoning defect of hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This just seems to be another typical result of colonialism. Is it ever any
+      different? I feel like all the news I see suggests not. The impacts of colonial
+      rule
+    - are always just that of suffering and injustice.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The premise ‘all the news I see suggests colonial rule always
+    causes suffering and injustice’ is used to generalize that all impacts of colonial
+    rule are suffering and injustice—an insufficient sample leading to an overgeneralized
+    conclusion.
+  decision_reason: The target statement applies a limited observation (‘news I see’)
+    to claim universally that colonial rule’s impacts are always suffering and injustice,
+    which matches the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This just seems to be another typical result of colonialism. Is it ever any different?
+    I feel like all the news I see suggests not. The impacts of colonial rule
+  - are always just that of suffering and injustice.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4036
+  completion_tokens: 2569
+  total_tokens: 6605
+  wall_time_seconds: 179.56199999997625

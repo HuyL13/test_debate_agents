@@ -1,0 +1,174 @@
+sample:
+  id: 617:7849
+  article_id: 617
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: It seems normal for any person or group in power to protect that power.
+    We see this behavior across the animal kingdom, so why are we surprised when it
+    occurs within our own species? In some parts of the world there have been more
+    successful attempts at taming this tendency. But perhaps rule by might has more
+    going for it than people think. Look at Rome and the worldwide peace its rule
+    by might established. And there is more than historical examples, as one can also
+    include the United States in such a list.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: We see this behavior across the animal kingdom
+    - role: evaluative_conclusion
+      text: It seems normal for any person or group in power to protect that power
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+    - than people think. Look at Rome and the worldwide peace its rule by might established.
+      And there is more than historical examples, as one can also include the United
+      States
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Justify the use of rule by might as a legitimate and natural
+      form of governance
+    candidate: Appeal to Nature
+    supporting_reason: Rule by might is normal behavior displayed by animals; therefore
+      it should be accepted in humans
+    support_relation: The claim of naturalness is used to justify power‑holding and
+      coercive governance
+    label_justification: The argument relies on the occurrence of similar behavior
+      in the animal kingdom to support the legitimacy of ruling by might, which is
+      a classic example of an appeal to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+  counterargument:
+    decisive_counterargument: The claim that *rule by might* successfully maintains
+      peace relies on the single example of Rome—an empire that certainly did not
+      achieve lasting worldwide peace but instead engaged in numerous wars and held
+      territorial control through military dominance. By presenting Rome (and the
+      United States) as illustrative cases, the argument treats specific historical
+      instances as sufficient proof that militaristic rule is generally effective
+      in establishing peace, which is an overgeneralization beyond the limited evidence
+      presented.
+    candidate: Hasty Generalization
+    challenged_inference: Rule by might is effective in establishing global peace
+    label_justification: The objection demonstrates that the reasoning leaps from
+      a few specific historical examples—Rome and the United States—to a broad claim
+      about the universal effectiveness of rule by might. This is precisely the failure
+      pattern of a hasty generalization, where limited cases are extrapolated to an
+      entire category.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - than people think. Look at Rome and the worldwide peace its rule by might established.
+      And there is more than historical examples, as one can also include the United
+      States
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: 'The analysis of Hasty Generalization fails because the target
+      passage does not present a clear unjustified generalization from a small set
+      of instances to an entire class; it merely lists examples without explicitly
+      claiming broad effectiveness. The Appeal to Nature argument is directly supported:
+      the passage identifies a natural behavior (''We see this behavior across the
+      animal kingdom'') and then evaluates it as normal (''It seems normal for any
+      person or group in power to protect that power''), satisfying the required structure.'
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+    - than people think. Look at Rome and the worldwide peace its rule by might established.
+      And there is more than historical examples, as one can also include the United
+      States
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The argument presents the natural occurrence of power‑protecting
+    behavior in the animal kingdom as a premise and concludes that such behavior—and
+    therefore rule by might—is normal and acceptable for humans. This structure (naturalness
+    premise → evaluative conclusion) matches the classic appeal to nature fallacy,
+    and the supporting evidence (T1 and T3) corroborates both premises and conclusion,
+    satisfying the mandatory structural condition.
+  decision_reason: The TARGET explicitly uses naturalism (“we see this behavior across
+    the animal kingdom”) to justify ruling by might as legitimate. This fits the appeal
+    to nature pattern and is supported by the cited evidence.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - It seems normal for any person or group in power to protect that power. We see
+    this behavior across the animal kingdom, so why are we surprised when it occurs
+  - than people think. Look at Rome and the worldwide peace its rule by might established.
+    And there is more than historical examples, as one can also include the United
+    States
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6369
+  completion_tokens: 3862
+  total_tokens: 10231
+  wall_time_seconds: 248.51600000000326

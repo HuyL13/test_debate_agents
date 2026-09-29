@@ -1,0 +1,132 @@
+sample:
+  id: 4:3010
+  article_id: 4
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: This is an unprecedented virus and many people have different opinions on
+    what should or should not happen to help protect people. I think too many people
+    are took quick to criticize China without having better solutions. Now more than
+    ever people need to come together and help support each other and focus energy
+    on finding solutions instead of playing the blame game.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is an unprecedented virus and many people have different opinions on what
+      should or should not happen to help protect people. I think too many people
+      are took quick
+    - to criticize China without having better solutions. Now more than ever people
+      need to come together and help support each other and focus energy on finding
+      solutions instead of playing
+    - the blame game.
+    candidate: null
+  goal:
+    conclusion_or_goal: Encourage people to stop blaming China and instead focus collective
+      energy on finding solutions to the pandemic.
+    candidate: null
+    supporting_reason: Many people have been quick to criticize China without having
+      better solutions.
+    support_relation: This observation is used to justify abandoning blame and redirecting
+      focus toward constructive problem‑solving.
+    label_justification: The argument presents a premise that widespread criticism
+      is unproductive, but it does not mislead or rely on an invalid form of reasoning.
+      The premise is merely descriptive and does not constitute a fallacy such as
+      an appeal to majority or a hasty generalization. Therefore, the conclusion is
+      legitimately supported by the reason without any logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is an unprecedented virus and many people have different opinions on what
+      should or should not happen to help protect people. I think too many people
+      are took quick
+  counterargument:
+    decisive_counterargument: The claim that ‘too many people criticize China quickly
+      without having better solutions’ is based on anecdotal observations of a few
+      critics, yet it is generalized to all critics of China – a leap that lacks supporting
+      data. This unsubstantiated generalization undermines the argument’s credibility.
+    candidate: Hasty Generalization
+    challenged_inference: The statement assumes that most or all critics of China
+      act without providing better solutions.
+    label_justification: The objection directly challenges the inference that a limited
+      observation of critics extends to the entire population, which is precisely
+      the hallmark of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is an unprecedented virus and many people have different opinions on what
+      should or should not happen to help protect people. I think too many people
+      are took quick
+    - to criticize China without having better solutions. Now more than ever people
+      need to come together and help support each other and focus energy on finding
+      solutions instead of playing
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not provide explicit evidence of a
+    limited sample being generalized to a broader population, so the necessary structural
+    condition for a Hasty Generalization is not met. The claim is an unsubstantiated
+    assertion, but it lacks the requisite sampling evidence that would qualify it
+    as that fallacy.
+  decision_reason: The claim about ‘too many people criticize China’ does not rest
+    on a specific sample or omitted evidence; thus it fails to demonstrate the structured
+    leap required for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is an unprecedented virus and many people have different opinions on what
+    should or should not happen to help protect people. I think too many people are
+    took quick
+  - to criticize China without having better solutions. Now more than ever people
+    need to come together and help support each other and focus energy on finding
+    solutions instead of playing
+  verified: false
+  rejection_reason: The claim about ‘too many people criticize China’ does not rest
+    on a specific sample or omitted evidence; thus it fails to demonstrate the structured
+    leap required for a Hasty Generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4209
+  completion_tokens: 3533
+  total_tokens: 7742
+  wall_time_seconds: 177.71800000000076

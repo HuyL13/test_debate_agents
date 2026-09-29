@@ -1,0 +1,147 @@
+sample:
+  id: 367:5897
+  article_id: 367
+  task: classification
+  split: test
+  gold: False Dilemma
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: There is a conflict of tradition and progressiveness. The people have to
+    be on either side. Not everyone will be on board with the pride parades, and that's
+    fine.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+    candidate: null
+  goal:
+    conclusion_or_goal: Not everyone will be on board with pride parades, and that's
+      fine.
+    candidate: Appeal to Tradition
+    supporting_reason: There is a conflict of tradition and progressiveness. The people
+      have to be on either side.
+    support_relation: mechanism_supports_goal
+    label_justification: 'No fallacy: The argument simply acknowledges a conflict
+      and accepts tolerance; the reason supports the conclusion without misusing tradition
+      or any other appeal.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+  counterargument:
+    decisive_counterargument: Individuals can hold positions that respect both tradition
+      and progressiveness, so it is not necessary to choose exclusively one side,
+      making the claim of a binary choice invalid.
+    candidate: False Dilemma
+    challenged_inference: People have to be on either side of the conflict between
+      tradition and progressiveness.
+    label_justification: The target reasoning imposes a binary alternative—either
+      tradition or progressiveness—while excluding the possibility of a moderate or
+      integrative stance. The counterargument demonstrates that this inference is
+      a false dilemma by showing that the spectrum of positions is broader than the
+      two options presented.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - False Dilemma
+    conflict: appeal-to-tradition__vs__false-dilemma
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: appeal-to-tradition__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: TARGET presents a binary choice that suggests people must align
+      with either tradition or progressiveness, thereby imposing a false dilemma.
+    loser_failure: Appeal to Tradition requires justification based on tradition itself;
+      TARGET merely acknowledges a conflict without using tradition as a motive.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There is a conflict of tradition and progressiveness. The people have to be
+      on either side. Not everyone will be on board with the pride parades, and that's
+      fine.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a binary choice—everyone must be on either
+    the tradition side or the progressiveness side—while ignoring any moderate or
+    integrative positions, thus committing a false dilemma.
+  decision_reason: The statement implicitly limits the possibilities to two mutually
+    exclusive options, contrary to the notion that others can hold both or a different
+    perspective.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - There is a conflict of tradition and progressiveness. The people have to be on
+    either side. Not everyone will be on board with the pride parades, and that's
+    fine.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4969
+  completion_tokens: 3669
+  total_tokens: 8638
+  wall_time_seconds: 103.57799999997951

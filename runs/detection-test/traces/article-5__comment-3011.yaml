@@ -1,0 +1,191 @@
+sample:
+  id: 5:3011
+  article_id: 5
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Carlos Ghosn's great escape embarrasses Japanese government
+  parent: ''
+  target: Ghost is a foreigner who headed a Japanese company and ended up in trouble
+    with the Japanese government and now has escaped which makes for a dangerous precedent
+    for the Japanese judicial system. What happens if other people try it? How many
+    other foreigners in Japan may be doing things considered illegal only to the japanese?
+    Could they perhaps attempt to escape? It could end up influencing Japanese natives
+    to do the same. This could make Japan look bad.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Ghost escapes from the Japanese judicial system
+    - role: intermediate_consequence
+      text: Other foreigners may attempt to escape
+    - role: final_consequence
+      text: Influence Japanese natives to act similarly, making Japan look bad
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Ghost is a foreigner who headed a Japanese company and ended up in trouble with
+      the Japanese government and now has escaped which makes for a dangerous precedent
+      for the
+    - Japanese judicial system. What happens if other people try it? How many other
+      foreigners in Japan may be doing things considered illegal only to the japanese?
+      Could they perhaps attempt
+    - to escape? It could end up influencing Japanese natives to do the same. This
+      could make Japan look bad.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Ghost’s escape creates a dangerous precedent that may encourage
+      other foreigners in Japan to commit illegal acts and attempt to escape, thereby
+      influencing Japanese natives and tarnishing Japan’s reputation.
+    candidate: Hasty Generalization
+    supporting_reason: Ghost, a foreigner who headed a Japanese company, ended up
+      in trouble with the Japanese government and has now escaped.
+    support_relation: The escape is cited as evidence that the judicial system is
+      unreliable, leading the speaker to infer that many other foreigners might act
+      similarly and that this trend could spread to Japanese nationals, thereby damaging
+      Japan’s image.
+    label_justification: The argument uses a single instance of Ghost’s escape to
+      generalize about the likely behavior of a large, unspecified group of foreigners
+      and the broader impact on Japanese natives, which is a classic case of a hasty
+      generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Ghost is a foreigner who headed a Japanese company and ended up in trouble with
+      the Japanese government and now has escaped which makes for a dangerous precedent
+      for the
+    - Japanese judicial system. What happens if other people try it? How many other
+      foreigners in Japan may be doing things considered illegal only to the japanese?
+      Could they perhaps attempt
+  counterargument:
+    decisive_counterargument: The argument assumes that a single foreign executive’s
+      escape will automatically trigger many more escape attempts by foreigners and
+      even inspire Japanese citizens to act similarly, thereby harming Japan’s reputation.  It
+      links one isolated event to a chain of increasingly serious consequences without
+      any evidence that such a chain will actually occur.  This is an unsupported
+      escalation from a single occurrence to a broad pattern of future wrongdoing
+      and social harm, typical of a slippery‑slope reasoning.
+    candidate: Slippery Slope
+    challenged_inference: Ghost’s escape will set a dangerous precedent that leads
+      to widespread illegal escape attempts by other foreigners and influences Japanese
+      natives to follow, ultimately damaging Japan’s image.
+    label_justification: The counterargument directly exposes the reasoning step that
+      the single escape event will inevitably cause a series of further negative outcomes;
+      this is the hallmark of a slippery‑slope fallacy.  The objection shows that
+      the inference is unjustified and therefore supports the ‘Slippery Slope’ label.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Ghost is a foreigner who headed a Japanese company and ended up in trouble with
+      the Japanese government and now has escaped which makes for a dangerous precedent
+      for the
+    - Japanese judicial system. What happens if other people try it? How many other
+      foreigners in Japan may be doing things considered illegal only to the japanese?
+      Could they perhaps attempt
+    - to escape? It could end up influencing Japanese natives to do the same. This
+      could make Japan look bad.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: Slippery Slope
+    loser_failure: 'The argument does not merely generalize a single observed case
+      (Ghost''s escape) to all foreigners; it presents a chain of escalating consequences:
+      the escape of one individual leads to other foreigners attempting escapes, which
+      in turn could influence Japanese natives and damage Japan''s reputation. This
+      progressive claim fits the definition of a slippery slope, whereas a hasty generalization
+      would only involve a broad inference without a concerning escalation of outcomes.'
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Ghost is a foreigner who headed a Japanese company and ended up in trouble with
+      the Japanese government and now has escaped which makes for a dangerous precedent
+      for the
+    - Japanese judicial system. What happens if other people try it? How many other
+      foreigners in Japan may be doing things considered illegal only to the japanese?
+      Could they perhaps attempt
+    - to escape? It could end up influencing Japanese natives to do the same. This
+      could make Japan look bad.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a chain of increasingly severe consequences—Ghost’s
+    escape → potential for other foreigners to escape → possible influence on Japanese
+    natives—without evidence, constituting a slippery‑slope argument.
+  decision_reason: The argument alleges a single escape event will inevitably trigger
+    a cascade of negative outcomes, fitting the slippery‑slope structure.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Ghost is a foreigner who headed a Japanese company and ended up in trouble with
+    the Japanese government and now has escaped which makes for a dangerous precedent
+    for the
+  - Japanese judicial system. What happens if other people try it? How many other
+    foreigners in Japan may be doing things considered illegal only to the japanese?
+    Could they perhaps attempt
+  - to escape? It could end up influencing Japanese natives to do the same. This could
+    make Japan look bad.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6496
+  completion_tokens: 3564
+  total_tokens: 10060
+  wall_time_seconds: 84.75

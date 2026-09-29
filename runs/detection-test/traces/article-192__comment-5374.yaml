@@ -1,0 +1,130 @@
+sample:
+  id: 192:5374
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: Turkey as a country has pretty bad human rights issues and is overall not
+    a very nice place to live. Focusing their energy on this small issue is not a
+    wise use of their time. Focus on your countries issue with how they treat women
+    and dissent before something like this.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: T1
+    - role: worse_issue
+      text: T2
+    - role: deprioritizing_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkey as a country has pretty bad human rights issues and is overall not a
+      very nice place to live. Focusing their energy on this small issue is not a
+    - wise use of their time. Focus on your countries issue with how they treat women
+      and dissent before something like this.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Turkey should not prioritize the small issue at hand because
+      its broader human‑rights problems make such focus wasteful.
+    candidate: null
+    supporting_reason: Turkey has pretty bad human rights issues and is overall not
+      a very nice place to live.
+    support_relation: supports
+    label_justification: The reason is used to justify the conclusion that Turkey’s
+      small issue is not worth focusing on; it is a straightforward argument, not
+      a fallacious construction such as false dilemma, appeal to authority, or slippery
+      slope.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Turkey as a country has pretty bad human rights issues and is overall not a
+      very nice place to live. Focusing their energy on this small issue is not a
+  counterargument:
+    decisive_counterargument: Even if Turkey has serious human‑rights problems, that
+      fact does not justify dismissing or devaluing a specific issue such as the football
+      federation’s censorship power. The existence of more widespread or severe problems
+      does not make a lesser or separate infringement irrelevant or unimportant; each
+      problem deserves its own attention. Therefore the conclusion that focusing on
+      this small issue is a waste of time is unwarranted.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Focusing their energy on this small issue is not a wise
+      use of their time.
+    label_justification: 'The target argument claims that because Turkey faces very
+      serious human‑rights violations (women’s rights, dissent, etc.), addressing
+      a lesser or separate issue (the censorship power of the football federation)
+      is unwise. This directly exemplifies an Appeal to Worse Problems fallacy: it
+      downplays the importance of a lesser problem by invoking a worse one. The counterargument
+      points out that the presence of larger problems does not logically negate or
+      diminish the relevance of the smaller problem, thereby exposing the failure
+      of the appeal to worse problems reasoning.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Turkey as a country has pretty bad human rights issues and is overall not a
+      very nice place to live. Focusing their energy on this small issue is not a
+    - wise use of their time. Focus on your countries issue with how they treat women
+      and dissent before something like this.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The TARGET contains a structured argument that a more serious
+    issue (Turkey’s human rights problems) should be prioritized over a less serious
+    issue (the specific topic), thereby presenting an appeal to worse problems.
+  decision_reason: The target explicitly identifies a more serious human rights issue
+    and uses that to argue the current issue should not be focused on, matching the
+    structure of an appeal to worse problems.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Turkey as a country has pretty bad human rights issues and is overall not a very
+    nice place to live. Focusing their energy on this small issue is not a
+  - wise use of their time. Focus on your countries issue with how they treat women
+    and dissent before something like this.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3991
+  completion_tokens: 3648
+  total_tokens: 7639
+  wall_time_seconds: 271.32800000000134

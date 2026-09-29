@@ -1,0 +1,120 @@
+sample:
+  id: 174:9819
+  article_id: 174
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: I assume the court had a legal reason for its decision, but it wasn't wrong
+    for the imams to bring forth a suit. Someone needs to uphold traditional values.
+    I understand times inevitably change, and I do value free speech, but it's also
+    true that traditional values have sustained Arab countries for centuries. I think
+    the effort to preserve them is ultimately a noble one.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: traditional values have sustained Arab countries for centuries
+    - role: preservation_conclusion
+      text: effort to preserve them is ultimately a noble one
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - understand times inevitably change, and I do value free speech, but it's also
+      true that traditional values have sustained Arab countries for centuries. I
+      think the effort to preserve them
+    - is ultimately a noble one.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Preserving traditional values is a noble endeavor; the court’s
+      decision to refuse banning was not wrong.
+    candidate: Appeal to Tradition
+    supporting_reason: traditional values have sustained Arab countries for centuries
+    support_relation: the reason is employed to justify the claim that upholding tradition
+      is inherently good
+    label_justification: The argument asserts that because a practice has persisted
+      over centuries, it is inherently valuable—this is an appeal to tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - understand times inevitably change, and I do value free speech, but it's also
+      true that traditional values have sustained Arab countries for centuries. I
+      think the effort to preserve them
+    - is ultimately a noble one.
+  counterargument:
+    decisive_counterargument: Longevity alone does not prove that a tradition is right
+      or valuable; many long‑standing customs are harmful. Therefore, claiming that
+      preserving traditional values is noble merely because they have existed for
+      centuries is a flawed appeal to tradition.
+    candidate: Appeal to Tradition
+    challenged_inference: That upholding traditional values is justified or noble
+      simply because they have persisted for centuries.
+    label_justification: The objection shows the argument uses the fact that these
+      values have endured as evidence of their worth, which is precisely the hallmark
+      of an appeal to tradition fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - understand times inevitably change, and I do value free speech, but it's also
+      true that traditional values have sustained Arab countries for centuries. I
+      think the effort to preserve them
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument states that because traditional values have sustained
+    Arab countries for centuries, the effort to preserve them is ultimately noble.
+    This structure—using the longevity of a practice as evidence of its value—meets
+    the criteria for an appeal to tradition fallacy.
+  decision_reason: The claim connects the persistence of traditional values with a
+    claim that preserving them is noble, which is a classic appeal to tradition.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - understand times inevitably change, and I do value free speech, but it's also
+    true that traditional values have sustained Arab countries for centuries. I think
+    the effort to preserve them
+  - is ultimately a noble one.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4544
+  completion_tokens: 3443
+  total_tokens: 7987
+  wall_time_seconds: 138.32799999999406

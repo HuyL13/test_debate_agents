@@ -1,0 +1,131 @@
+sample:
+  id: 442:6722
+  article_id: 442
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: When you combine the numbers of women and children, they outnumber the men
+    and adults so their needs and rights need to be met. The fact that the country
+    is so poor in this aspect that a singer has to bring attention to it is sad! Their
+    needs hold much more weight, especially since they have been neglected for so
+    long!
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    slots:
+    - role: population_group
+      text: women and children
+    - role: popularity_claim
+      text: they outnumber the men and adults
+    - role: target_claim
+      text: their needs and rights need to be met, and hold much more weight
+    structure_complete: true
+    structure_type: popularity_to_claim
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+    candidate: Appeal to Majority
+  goal:
+    candidate: null
+    conclusion_or_goal: Women and children’s needs and rights should be met and given
+      priority.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The reasoning relies on demographic facts and observed neglect
+      as evidence for prioritization. No fallacious logical pattern (such as hasty
+      generalization, slippery slope, false dilemma, appeal to majority, appeal to
+      authority, nature, tradition, or worse problems) is evident in the provided
+      text, so no fallacy applies.
+    mechanism_supports_goal: true
+    support_relation: justifies the priority of women and children’s rights based
+      on their numerical majority and long‑standing neglect, implying those rights
+      are especially pressing.
+    supporting_reason: Because women and children together outnumber men and adults,
+      their needs have more weight; they have been neglected for a long time and the
+      country is poor enough that a singer must bring attention to the issue.
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+    - so poor in this aspect that a singer has to bring attention to it is sad! Their
+      needs hold much more weight, especially since they have been neglected for so
+  counterargument:
+    decisive_counterargument: "The argument assumes that because women and children\
+      \ outnumber men and adults, their needs automatically have more weight and must\
+      \ be met. The size of a demographic group does not confer higher moral or legal\
+      \ priority; all individuals’ rights should be treated equally.  \n\nThis reasoning\
+      \ is an appeal to number: it concludes that the larger group’s needs hold more\
+      \ weight solely because they are in the majority, which is a logical fallacy."
+    candidate: Appeal to Majority
+    challenged_inference: Because women and children outnumber men and adults, their
+      needs and rights have more weight and must be met.
+    label_justification: The inference rests on the premise that group size determines
+      the relative importance of needs, a classic appeal to majority (argumentum ad
+      numerum) that neglects the independence of individual rights.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you combine the numbers of women and children, they outnumber the men and
+      adults so their needs and rights need to be met. The fact that the country is
+    - so poor in this aspect that a singer has to bring attention to it is sad! Their
+      needs hold much more weight, especially since they have been neglected for so
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that women and children are a larger
+    demographic group (“they outnumber the men and adults”) and concludes that because
+    of this numerical superiority, their needs and rights are more important and must
+    be met. This is an argument that assigns greater value or priority solely on the
+    basis of majority size—an appeal to majority (argumentum ad numerum). Evidence
+    supporting the claim includes passages T1 and T2.
+  decision_reason: The target’s inference rests on the premise that group size determines
+    the relative importance of needs, a classic appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you combine the numbers of women and children, they outnumber the men and
+    adults so their needs and rights need to be met. The fact that the country is
+  - so poor in this aspect that a singer has to bring attention to it is sad! Their
+    needs hold much more weight, especially since they have been neglected for so
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 4405
+  completion_tokens: 3634
+  total_tokens: 8039
+  wall_time_seconds: 65.65700000000652

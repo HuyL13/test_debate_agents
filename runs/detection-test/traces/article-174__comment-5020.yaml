@@ -1,0 +1,125 @@
+sample:
+  id: 174:5020
+  article_id: 174
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Netizen Report: Tunisian Court Refuses to Ban Online LGBTQ Radio Shams Rad'
+  parent: ''
+  target: Although I approve of the actions of the Tunisian government when it comes
+    to their recent rulings, it seems a bit hypocritical in my opinion. I can see
+    it is confusing to some of its citizens as well. If you as a country ban same
+    sex relationships, how are you allowing a radio station to cater to these same
+    individuals? They need to be clear and consistent on where they stand on this
+    issue.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Although I approve of the actions of the Tunisian government when it comes to
+      their recent rulings, it seems a bit hypocritical in my opinion. I can see it
+      is
+    - confusing to some of its citizens as well. If you as a country ban same sex
+      relationships, how are you allowing a radio station to cater to these same individuals?
+    - They need to be clear and consistent on where they stand on this issue.
+    candidate: null
+  goal:
+    conclusion_or_goal: The Tunisian government should articulate a clear and consistent
+      stance on same‑sex relationships, ensuring its policies and actions (e.g., allowing
+      a radio station to cater to LGBTQ audiences) do not contradict one another.
+    candidate: null
+    supporting_reason: They need to be clear and consistent on where they stand on
+      this issue.
+    support_relation: the reason is the premise that underwrites the recommended conclusion
+      about the government’s clarity and consistency, without committing a fallacy.
+    label_justification: The argument merely points out an apparent inconsistency
+      and calls for consistency; it does not employ any recognized logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - They need to be clear and consistent on where they stand on this issue.
+  counterargument:
+    decisive_counterargument: A legal ban on same‑sex relationships and the allowance
+      of an LGBTQ‑friendly radio station are separate regulatory decisions; the presence
+      of one does not automatically negate the other. The argument incorrectly equates
+      the two, creating a false equivalence that assumes the country must be either
+      fully anti‑LGBTQ or entirely pro‑LGBTQ, ignoring that policies can be applied
+      in a nuanced, non‑military way. Consequently, the claim of hypocrisy lacks support
+      and mischaracterizes the state’s policy landscape.
+    candidate: False Dilemma
+    challenged_inference: That banning same‑sex relationships is inconsistent with
+      permitting a radio station for LGBTQ individuals.
+    label_justification: The objection directly addresses the faulty reasoning of
+      treating two distinct policy areas as mutually exclusive, which exemplifies
+      a false dilemma (or a related Tu quoque fallacy).
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - confusing to some of its citizens as well. If you as a country ban same sex
+      relationships, how are you allowing a radio station to cater to these same individuals?
+    - They need to be clear and consistent on where they stand on this issue.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement does not present a binary choice between
+    two mutually exclusive options (e.g., fully anti‑LGBTQ vs. fully pro‑LGBTQ). It
+    raises a question of consistency rather than asserting that only one of two extreme
+    stances is possible. Thus, the False Dilemma structure is not present, so the
+    surviving candidate is rejected.
+  decision_reason: No false dilemma is committed in the target; the argument merely
+    points out perceived inconsistency without offering a limited set of mutually
+    exclusive alternatives.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - confusing to some of its citizens as well. If you as a country ban same sex relationships,
+    how are you allowing a radio station to cater to these same individuals?
+  - They need to be clear and consistent on where they stand on this issue.
+  verified: false
+  rejection_reason: No false dilemma is committed in the target; the argument merely
+    points out perceived inconsistency without offering a limited set of mutually
+    exclusive alternatives.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4394
+  completion_tokens: 3008
+  total_tokens: 7402
+  wall_time_seconds: 121.79699999999139

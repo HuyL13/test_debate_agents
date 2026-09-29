@@ -1,0 +1,121 @@
+sample:
+  id: 315:5742
+  article_id: 315
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: Most people believe local languages are key to identity. So it is a good
+    thing to preserve. With time, they will gain some prominence.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: believe local languages are key to identity
+    - role: target_claim
+      text: preserve them
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: It is a good thing to preserve local languages
+    candidate: Appeal to Majority
+    supporting_reason: Most people believe local languages are key to identity
+    support_relation: The majoritarian belief is used as justification for preserving
+      local languages
+    label_justification: The argument relies solely on the popularity of a belief
+      (that most people consider local languages important for identity) to establish
+      that preserving them is good, which is a logical appeal to majority and therefore
+      fallacious.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+  counterargument:
+    decisive_counterargument: The argument that local languages should be preserved
+      because most people believe they are key to identity relies solely on the popularity
+      of that belief, not on evidence of any practical or intrinsic value of preserving
+      those languages. Merely counting how many believe something does not demonstrate
+      that preserving those languages actually results in any beneficial or necessary
+      outcome.
+    candidate: Appeal to Majority
+    challenged_inference: Preserving local languages is justified because a majority
+      of people believe they are key to identity
+    label_justification: This objection shows that the reasoning uses popularity as
+      a source of authority for the claim, which is the defining characteristic of
+      the Appeal to Majority logical fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people believe local languages are key to identity. So it is a good thing
+      to preserve. With time, they will gain some prominence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The TARGET explicitly states that a majority of people believe
+    local languages are key to identity, and the ensuing claim that it is good to
+    preserve them is justified solely on that majority. This satisfies the structural
+    requirement for an Appeal to Majority, as the majority belief is used as the sole
+    basis for the positive conclusion, matching the listed evidence T1.
+  decision_reason: Appeal to majority is present because the argument rests on the
+    fact that most people hold a belief to justify the claim that preserving local
+    languages is good.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people believe local languages are key to identity. So it is a good thing
+    to preserve. With time, they will gain some prominence.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3962
+  completion_tokens: 2401
+  total_tokens: 6363
+  wall_time_seconds: 73.32900000002701

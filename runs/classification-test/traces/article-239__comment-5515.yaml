@@ -1,0 +1,181 @@
+sample:
+  id: 239:5515
+  article_id: 239
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: Making decisions on climate policy because some KIDS think its best is insane.
+    Adults run the country. They know what to do as they have the experience. Kids
+    are kids and don't know what they're even protesting. There's a reason we don't
+    let kids be politicians.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Adults
+    - role: endorsed_claim
+      text: They know what to do as they have the experience
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Adults should make climate policy decisions, not children.
+    candidate: Hasty Generalization
+    supporting_reason: Kids are kids and don't know what they're even protesting.
+    support_relation: used to justify that adults, being experienced, are the only
+      suitable decision-makers for climate policy
+    label_justification: The argument generalizes that all children lack knowledge
+      about what they are protesting, an unwarranted overgeneralization that serves
+      to support the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+  counterargument:
+    decisive_counterargument: The target’s claim that adults are automatically the
+      best decision‑makers because they are adults and have experience constitutes
+      an **appeal to authority/expertise**. It substitutes the mere fact that adults
+      hold official positions for evidence that their views are inherently superior,
+      ignoring that competence, judgment, and knowledge are not guaranteed simply
+      by age or title. Furthermore it dismisses all youth dissent – which is frequently
+      well‑reasoned – by invoking a blanket rule that “kids are kids” without supporting
+      how that limits their knowledge about climate policy. This is a rejection of
+      the argument based on an unsupported reliance on authority rather than on the
+      merits of the specific claims put forward.
+    candidate: Appeal to Authority
+    challenged_inference: The inference that because adults run the country and have
+      experience they automatically know better than children in climate policy decisions
+    label_justification: The objection directly attacks the inference that authority
+      (adult status and experience) justifies dismissing children’s arguments. This
+      is the hallmark of the Appeal to Authority fallacy, as the target substitutes
+      claimed authority for substantive evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: Appeal to Authority
+    loser_failure: The claim that adults should make climate policy decisions rests
+      on the premise that adults, by virtue of running the country and having experience,
+      are automatically better decision‑makers. The target explicitly presents this
+      authority claim – 'Adults run the country. They know what to do as they have
+      the experience.' – which is the mandatory structural condition for an Appeal
+      to Authority. In contrast, the Hasty Generalization fallacy requires that a
+      conclusion about a broad group be drawn from a specific, limited set of cases
+      or singular observations. The target does not provide any distinct instance
+      or sample from which to derive the overbroad claim about children; it merely
+      states a blanket assertion that 'Kids are kids and don't know what they're even
+      protesting.' Without a concrete sample that the generalization is built upon,
+      the structure for a Hasty Generalization is incomplete, so the argument fails
+      to satisfy its mandatory condition.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Making decisions on climate policy because some KIDS think its best is insane.
+      Adults run the country. They know what to do as they have the experience. Kids
+      are kids
+    - and don't know what they're even protesting. There's a reason we don't let kids
+      be politicians.
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument asserts that adults’ experience and role as country
+    leaders serve as sufficient justification to dismiss children’s climate policy
+    opinions, relying on their authority rather than independent evidence of competence.
+  decision_reason: Target relies on adult authority as the basis for asserting superior
+    knowledge and rejection of kids' viewpoints, matching the structural form of an
+    appeal to authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Making decisions on climate policy because some KIDS think its best is insane.
+    Adults run the country. They know what to do as they have the experience. Kids
+    are kids
+  - and don't know what they're even protesting. There's a reason we don't let kids
+    be politicians.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5782
+  completion_tokens: 4628
+  total_tokens: 10410
+  wall_time_seconds: 173.18700000000536

@@ -1,0 +1,144 @@
+sample:
+  id: 489:8063
+  article_id: 489
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: If the police are allowed to get away with such heinous crimes against people
+    then what is to stop them from doing more? What is to stop anyone from doing whatever
+    they feel if even the police and the president are ok with crimes like rape and
+    abuse?  The country will fall into anarchy and will lead to mass government corruption
+    and death.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: police are allowed to get away with heinous crimes against people
+    - role: intermediate_consequence
+      text: more police crimes (or further abuses)
+    - role: final_consequence
+      text: anarchy, massive government corruption, and death
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: If the police are allowed to get away with heinous crimes,
+      the country will fall into anarchy, leading to mass government corruption and
+      death
+    candidate: Slippery Slope
+    supporting_reason: The argument states that if police can escape punishment for
+      crimes, there will be no limits to their power and others will follow, causing
+      an escalating chain of violence and disorder.
+    support_relation: The reason is used to argue that permitting the initial wrongdoing
+      will inevitably trigger further bad outcomes, establishing a causal progression.
+    label_justification: The claim posits a progression from allowing police crimes
+      to widespread anarchy and corruption, a classic slippery-slope structure.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    - corruption and death.
+  counterargument:
+    decisive_counterargument: Even if a few police officers evade punishment for misconduct,
+      there is no evidence that this will inevitably trigger widespread anarchy, corruption,
+      and mass death; the jump from isolated wrongdoing to national collapse is speculative
+      and unsupported.
+    candidate: Slippery Slope
+    challenged_inference: Allowing police to get away with heinous crimes will inevitably
+      lead to anarchy, mass corruption, and death.
+    label_justification: The counterargument points out that the target’s reasoning
+      assumes a guaranteed causal chain from police misconduct to catastrophic societal
+      outcomes without any empirical support, which is the hallmark of a Slippery
+      Slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    - corruption and death.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target sentence establishes a causal progression from an
+    initial event ('police are allowed to get away with heinous crimes') to an intermediate
+    consequence (more widespread wrongdoing by authorities and others) and culminates
+    in a severe final outcome (anarchy, mass corruption, and death). This matches
+    the required slippery‑slope structure of an initial action inevitably leading
+    to a chain of negative effects.
+  decision_reason: 'The target’s claim satisfies all mandatory structural conditions
+    of a slippery‑slope fallacy: it begins with a specific action, predicts subsequent
+    escalations, and ends with a dire consequence, without empirical support for the
+    causal chain.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If the police are allowed to get away with such heinous crimes against people
+    then what is to stop them from doing more? What is to stop anyone from doing
+  - whatever they feel if even the police and the president are ok with crimes like
+    rape and abuse?  The country will fall into anarchy and will lead to mass government
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4713
+  completion_tokens: 3687
+  total_tokens: 8400
+  wall_time_seconds: 105.01500000001397

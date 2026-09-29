@@ -1,0 +1,133 @@
+sample:
+  id: 489:10765
+  article_id: 489
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: In authoritarian countries like this, police just always get away with their
+    crimes. Even though it might have gotten worse under Duterte, the underlying problem
+    has existed for as long as any of us have. It's going to be very hard for things
+    to change given how normal some of these abuses have been. Hopefully they can
+    put a lid on it and change things.
+  target: "Not always.  You're making a hasty generalization.   It's rare for authoritarians\
+    \ to hold their own forces to real standards,  but they sometimes do.  After all,\
+    \   it's not good to be hated.     Smart authoritarians know to clad the iron\
+    \ fist in a velvet glove, and bring the hammer down on real abuses.  You can't\
+    \ really judge all of them by the actions of one.  \nDuarte hasn't read The Prince,\
+    \  unfortunately.   He's just a thug in a suit,  a tough guy who doesn't understand\
+    \ how to really rule.   He shouldn't brush these atrocities under the rug,   and\
+    \ nor should we.  We should continue to raise awareness.   To demand accountability.\
+    \    No one should be above the law."
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Not always.  You're making a hasty generalization.   It's rare for authoritarians
+      to hold their own forces to real standards,  but they sometimes do.  After all,   it's
+      not good to be
+    candidate: null
+  goal:
+    conclusion_or_goal: Refute the claim that police in authoritarian countries always
+      get away with crimes and point out that such a statement is a hasty generalization.
+    candidate: null
+    supporting_reason: It is rare for authoritarians to hold their own forces to real
+      standards, but they sometimes do, so one cannot judge all by one example.
+    support_relation: Mechanism supports the goal by providing evidence that contradicts
+      the blanket claim.
+    label_justification: The target’s argument appropriately counters the parent statement
+      by presenting evidence that the parent’s claim is overly broad. It does not
+      use a fallacious tactic; thus, no fallacy is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not always.  You're making a hasty generalization.   It's rare for authoritarians
+      to hold their own forces to real standards,  but they sometimes do.  After all,   it's
+      not good to be
+    - hated.     Smart authoritarians know to clad the iron fist in a velvet glove,
+      and bring the hammer down on real abuses.  You can't really judge all of them
+      by the
+  counterargument:
+    decisive_counterargument: Your reply itself rests on a sweeping, unsupported claim
+      that some ‘smart’ authoritarian leaders manage to enforce the law and suppress
+      abuses. By saying ‘it’s rare for authoritarians to hold their own forces to
+      real standards, but they sometimes do’ you assume that such examples exist without
+      offering any proof—an overgeneralization. The target therefore commits a *hasty
+      generalization* by asserting this broad pattern with no evidence.
+    candidate: Hasty Generalization
+    challenged_inference: Not always. You’re making a hasty generalization.
+    label_justification: 'The counterargument shows that the target’s sentence with
+      ‘it’s rare … but they sometimes do’ is an unsubstantiated broad claim. This
+      is a classic hasty generalization: extending a unverified exception to a whole
+      class (all authoritarian regimes).'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Not always.  You're making a hasty generalization.   It's rare for authoritarians
+      to hold their own forces to real standards,  but they sometimes do.  After all,   it's
+      not good to be
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target passage does not provide an explicit sample or instance
+    that it extrapolates a claim from, which is the mandatory structural condition
+    for a hasty generalization. The text merely offers an unsupported broad statement
+    about authoritarians, which falls under the category of unsupported broad assertion,
+    not the Hasty Generalization fallacy.
+  decision_reason: The target does not satisfy the sample‑to‐general structure required
+    for a hasty generalization; it instead makes a vague, unsupported claim about
+    all authoritarians. Therefore the hypothesis that it commits a hasty generalization
+    is rejected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Not always.  You're making a hasty generalization.   It's rare for authoritarians
+    to hold their own forces to real standards,  but they sometimes do.  After all,   it's
+    not good to be
+  verified: false
+  rejection_reason: The target does not satisfy the sample‑to‐general structure required
+    for a hasty generalization; it instead makes a vague, unsupported claim about
+    all authoritarians. Therefore the hypothesis that it commits a hasty generalization
+    is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5365
+  completion_tokens: 3917
+  total_tokens: 9282
+  wall_time_seconds: 180.46899999998277

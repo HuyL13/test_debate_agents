@@ -1,0 +1,136 @@
+sample:
+  id: 58:3621
+  article_id: 58
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: 'I think this is a case of the media wanting to create a false narrative.
+    There''s been thousands and indirectly probably tens and hundreds of thousands
+    of situations where a vaccine or an experiment or something new has had been tried
+    out in medical history and undoubtedly you''re going to find smattering of them
+    have started out in Africa. The news is trying to portray it as if every time
+    the medical community doesn''t know the effect of something well let''s just go
+    test it on the black people in Africa. That''s not what happens.
+
+
+    These are all cherry picked stories and events that the media is selectively using
+    to push a predefined agenda they already wanted to push.'
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think this is a case of the media wanting to create a false narrative. There's
+      been thousands and indirectly probably tens and hundreds of thousands of situations
+      where a
+    - vaccine or an experiment or something new has had been tried out in medical
+      history and undoubtedly you're going to find smattering of them have started
+      out in Africa. The
+    - news is trying to portray it as if every time the medical community doesn't
+      know the effect of something well let's just go test it on the black people
+      in
+    candidate: null
+  goal:
+    conclusion_or_goal: The media is presenting a false narrative by cherry‑picking
+      historical cases of medical experimentation that started in Africa.
+    candidate: Hasty Generalization
+    supporting_reason: The argument points to a smattering of early experiments that
+      began in Africa to suggest that the media is misrepresenting the frequency of
+      such actions.
+    support_relation: This limited sample of historical events is used to justify
+      the broader claim that the media’s portrayal of widespread unethical testing
+      on black Africans is false.
+    label_justification: The reasoning generalizes from a few selectively cited examples
+      to a universal accusation against the media, which is a classic hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - vaccine or an experiment or something new has had been tried out in medical
+      history and undoubtedly you're going to find smattering of them have started
+      out in Africa. The
+  counterargument:
+    decisive_counterargument: The passage asserts that *all* media coverage of medical
+      experiments in Africa is deliberately cherry‑picked to fabricate a false narrative,
+      yet it supplies no concrete examples of such selective reporting—only a vague
+      recollection of “thousands” of cases. By leapfrogging from an unsubstantiated
+      observation to a blanket claim about the media’s entire practice, it commits
+      a classic hasty‑generalization error.
+    candidate: Hasty Generalization
+    challenged_inference: The media is universally cherry‑picking stories to create
+      a false narrative
+    label_justification: The counterargument points out that the claim of widespread
+      cherry‑picking is made without presenting any specific evidence, thus the inference
+      jumps from an implied few (or none) cases to a universal statement about all
+      media coverage. This is precisely the kind of reasoning mistake classified as
+      a Hasty Generalization, as it extends from a limited or hypothetical sample
+      to an entire population without justification.
+    failure_exposed: false
+    evidence_ids:
+    - T4
+    evidence_spans:
+    - 'Africa. That''s not what happens.
+
+
+      These are all cherry picked stories and events that the media is selectively
+      using to push a predefined agenda they already wanted to push.'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target cites a limited number of historical examples of
+    medical experiments that began in Africa and extends this to a universal claim
+    that the media always portrays such events as unethical testing on black Africans,
+    which constitutes a hasty generalization.
+  decision_reason: The passage generalizes from the few selected historical experiments
+    in Africa to a broad accusation that every time the medical community has unknown
+    effects, the media claims unethical testing on black Africans, a classic hasty
+    generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - vaccine or an experiment or something new has had been tried out in medical history
+    and undoubtedly you're going to find smattering of them have started out in Africa.
+    The
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4759
+  completion_tokens: 3731
+  total_tokens: 8490
+  wall_time_seconds: 194.73500000000058

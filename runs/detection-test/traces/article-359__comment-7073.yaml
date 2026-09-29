@@ -1,0 +1,109 @@
+sample:
+  id: 359:7073
+  article_id: 359
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: The lockdown is a necessary evil. No one wants it, but they all need it.
+    It is better than a ton of sick people overwhelming healthcare systems.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The lockdown is a necessary evil. No one wants it, but they all need it. It
+      is better than a ton of sick people overwhelming healthcare systems.
+    candidate: null
+  goal:
+    conclusion_or_goal: The lockdown is necessary.
+    candidate: null
+    supporting_reason: '"It is better than a ton of sick people overwhelming healthcare
+      systems."'
+    support_relation: This reason is used to justify that the lockdown is a necessary
+      measure.
+    label_justification: No logical fallacy is present. The claim is a straightforward
+      justification of the lockdown based on preventing healthcare overwhelm, not
+      an invalid reasoning pattern.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The lockdown is a necessary evil. No one wants it, but they all need it. It
+      is better than a ton of sick people overwhelming healthcare systems.
+  counterargument:
+    decisive_counterargument: The statement presents only two options—lift the lockdown
+      and suffer a crushing surge of illness or impose a lockdown as the sole remedy—while
+      ignoring other viable strategies such as targeted restrictions, mask‑mandates
+      or expanded testing. By framing it as a choice between a disastrous health crisis
+      and a harsh policy, the argument commits a False Dilemma. This omission of alternative
+      solutions means the reasoning is invalid, not necessarily that the lockdown
+      is ineffective or necessary.
+    candidate: False Dilemma
+    challenged_inference: The lockdown is a necessary evil because ignoring it would
+      result in an overwhelming number of sick people.
+    label_justification: The counterargument directly shows that the inference relies
+      on an exaggerated two‑option structure, thus exposing the logical flaw identified
+      as the False Dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The lockdown is a necessary evil. No one wants it, but they all need it. It
+      is better than a ton of sick people overwhelming healthcare systems.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents a binary choice—implement a lockdown (necessary
+    evil) versus allowing a large number of sick people to overwhelm healthcare—while
+    omitting other possible strategies, thereby fulfilling the structural requirement
+    for a false dilemma.
+  decision_reason: The statement frames the situation as a strict either/or scenario,
+    implying that lockdown is the sole viable option to avoid an overwhelming health
+    crisis, which excludes other alternatives such as targeted restrictions or enhanced
+    testing. This demonstrates the false dilemma fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - The lockdown is a necessary evil. No one wants it, but they all need it. It is
+    better than a ton of sick people overwhelming healthcare systems.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3711
+  completion_tokens: 3187
+  total_tokens: 6898
+  wall_time_seconds: 160.60899999999674

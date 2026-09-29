@@ -1,0 +1,102 @@
+sample:
+  id: 347:10337
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: This article is so obviously biased that I find it difficult to take it
+    seriously. Its lionization of Soros seems wildly misplaced, but when it's followed
+    immediately by the disclaimer that Soros is funding the organization which produced
+    it, all confusion is dispersed like fog. I did learn some things about Slovak
+    politics though. So the article was worth reading, if for that alone.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - This article is so obviously biased that I find it difficult to take it seriously.
+      Its lionization of Soros seems wildly misplaced, but when it's followed immediately
+      by the disclaimer that Soros is funding the organization which produced
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - I did learn some things about Slovak politics
+    conclusion_or_goal: The article was worth reading
+    candidate: null
+    supporting_reason: I did learn some things about Slovak politics
+    support_relation: The learning about Slovak politics serves as the reason the
+      reader finds the article valuable.
+    label_justification: The target uses the fact that the writer learned something
+      from the article to justify calling it worthwhile; there is no fallacious reasoning
+      or misleading inference, so no fallacy is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - This article is so obviously biased that I find it difficult to take it seriously.
+    - Its lionization of Soros seems wildly misplaced,
+    - but when it's followed immediately by the disclaimer that Soros is funding the
+      organization which produced it, all confusion is dispersed like fog.
+    decisive_counterargument: Soros’s funding of the organization does not make the
+      article objective or trustworthy. In fact, the presence of a powerful donor
+      can reinforce the very bias the author's earlier critique concerns itself with.
+      Simply citing a donor as a reason to “disperse confusion” is an appeal to the
+      donor’s authority, not an evidence of neutrality or accuracy.
+    candidate: Appeal to Authority
+    challenged_inference: The article’s credibility is restored by the fact that Soros
+      funds the organization.
+    label_justification: The objection demonstrates that the argument uses the name
+      of an influential donor as a justification for the article’s reliability, which
+      is a classic appeal to authority fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  evidence_spans:
+  - Its lionization of Soros seems wildly misplaced,
+  - but when it's followed immediately by the disclaimer that Soros is funding the
+    organization which produced it, all confusion is dispersed like fog.
+  decisive_condition: The target explicitly states that Soros’s funding of the organization
+    “disperses confusion,” thereby using the authority of a powerful donor to justify
+    the perceived credibility of the article, which is characteristic of an appeal
+    to authority.
+  decision_reason: Argument uses Soros’s name as justification for the article’s credibility,
+    meeting the structural conditions of an Appeal to Authority.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 7
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 3511
+  completion_tokens: 3527
+  total_tokens: 7038
+  wall_time_seconds: 127.43800000002375

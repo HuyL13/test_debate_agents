@@ -1,0 +1,111 @@
+sample:
+  id: 133:4296
+  article_id: 133
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Freedom abroad, fear at home: Azerbaijani human rights lawyer detained for
+    30 days'
+  parent: ''
+  target: I think this is terrible. Once we start silencing people who disagree with
+    us, where does it end? Do we then try to control any form of criticism?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Once we start silencing people who disagree with us
+    - role: intermediate_consequence
+      text: Do we then try to control any form of criticism?
+    - role: final_consequence
+      text: where does it end?
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is terrible. Once we start silencing people who disagree with us,
+      where does it end? Do we then try to control any form of criticism?
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Silencing dissent is terrible and will ultimately lead to
+      control over all criticism.
+    candidate: null
+    supporting_reason: Rhetorical question about where the silencing of dissent could
+      end and whether all criticism will be controlled.
+    support_relation: The speaker uses the question as a warning of potential negative
+      outcomes to justify the conclusion that silencing is unacceptable.
+    label_justification: The reasoning is a rhetorical warning, not a structured fallacious
+      argument. No logical fallacy is committed, so the correct label is null.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is terrible. Once we start silencing people who disagree with us,
+      where does it end? Do we then try to control any form of criticism?
+  counterargument:
+    decisive_counterargument: The claim that suspending any dissent inevitably leads
+      to a wholesale suppression of criticism is an unjustified leap; one instance
+      of silencing does not establish a causal progression to total control.
+    candidate: Slippery Slope
+    challenged_inference: If we start silencing people who disagree, we will eventually
+      control all criticism.
+    label_justification: The objection shows that the inference relies on an unproven
+      causal chain—namely that a single act of suppression will inevitably lead to
+      widespread control—characteristic of the slippery‑slope fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - I think this is terrible. Once we start silencing people who disagree with us,
+      where does it end? Do we then try to control any form of criticism?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target predicts that beginning with the silencing of dissenting
+    voices will inevitably lead to broader and more severe censorship of all criticism,
+    thereby presenting the classic escalation structure of a slippery slope claim.
+  decision_reason: The target articulates an escalation from an initial action (‘silencing
+    people who disagree’) toward a final, more extreme consequence (‘controlling any
+    form of criticism’). This satisfies the structural requirement for a slippery‑slope
+    fallacy, with evidence provided in passage T1.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - I think this is terrible. Once we start silencing people who disagree with us,
+    where does it end? Do we then try to control any form of criticism?
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3683
+  completion_tokens: 3560
+  total_tokens: 7243
+  wall_time_seconds: 142.53099999995902

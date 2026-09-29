@@ -1,0 +1,150 @@
+sample:
+  id: 22:9363
+  article_id: 22
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: Caving in because a few has-been celebs oppose a coal mine is a dumb move.
+    I guess we're going to roll over for every celebrity cause and sink the whole
+    economy. Decisions like this one need to be made by experts who understand the
+    real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+    but it sure hurts a lot of Joe and Jane Does and small business owners who are
+    struggling to recover from the impact of covid.
+  target: I agree that basing the decision around the opinions of just celebrities
+    is really not the best way to make choices. However, I am not sure that we should
+    be relying on just experts either. What we need is a balanced view of such issues
+    that include the opinions of all people. That would include regular people, experts,
+    celebrities and so on. Regular people can be great for getting a view from ground
+    level, experts can help educate all of us on the finer details. The celebrities
+    can bring a lot of attention to the subject. Aren't all of these people very important
+    to solve problems?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree that basing the decision around the opinions of just celebrities is
+      really not the best way to make choices. However, I am not sure that we should
+      be
+    - relying on just experts either. What we need is a balanced view of such issues
+      that include the opinions of all people. That would include regular people,
+      experts, celebrities and
+    - so on. Regular people can be great for getting a view from ground level, experts
+      can help educate all of us on the finer details. The celebrities can bring a
+    candidate: null
+  goal:
+    conclusion_or_goal: A balanced view that includes regular people, experts, and
+      celebrities is necessary for making decisions about the coal mine.
+    candidate: null
+    supporting_reason: Regular people bring ground‑level insight, experts offer detailed
+      knowledge, and celebrities draw public attention; therefore, all should be part
+      of the decision process.
+    support_relation: supporting
+    label_justification: The argument legitimately asserts that each group contributes
+      valuable perspectives that justify a balanced approach; it does not misuse the
+      reasoning as a fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - relying on just experts either. What we need is a balanced view of such issues
+      that include the opinions of all people. That would include regular people,
+      experts, celebrities and
+    - so on. Regular people can be great for getting a view from ground level, experts
+      can help educate all of us on the finer details. The celebrities can bring a
+  counterargument:
+    decisive_counterargument: The claim that everyone—regular folks, experts, and
+      celebrities—is automatically important to problem‑solving assumes that the expertise
+      of a professional is a reliable marker of value. In practice, experts can be
+      wrong, biased, or have conflicting interests. Elevating their opinions to an
+      unquestioned, required status conflates professional status with infallibility,
+      which is unwarranted without evidence of their judgments being more accurate
+      than others’ or without showing that their influence improves outcomes.
+    candidate: Appeal to Authority
+    challenged_inference: All people groups, particularly experts, are indispensable
+      to solving problems.
+    label_justification: The objection targets the assumption that expert opinions
+      are inherently authoritative and thus must be included in every decision. This
+      is a classic appeal to authority fallacy, where the mere fact of expertise is
+      used as a justification for a conclusion without assessing the actual validity
+      or relevance of the expert's input.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - relying on just experts either. What we need is a balanced view of such issues
+      that include the opinions of all people. That would include regular people,
+      experts, celebrities and
+    - so on. Regular people can be great for getting a view from ground level, experts
+      can help educate all of us on the finer details. The celebrities can bring a
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target contains no argument that uses the fact of being
+    an expert or the opinions of experts as a warrant for the conclusion; it merely
+    lists experts as one of several viewpoints. Consequently, the structure required
+    for an appeal to authority claim is absent, so the surviving candidate is rejected.
+  decision_reason: The target does not present an appeal to authority. It does not
+    assert that expert opinion is automatically correct or mandatory for decision-making;
+    instead it just notes that experts can educate people. Therefore, the claim of
+    an appeal to authority falls apart.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I agree that basing the decision around the opinions of just celebrities is really
+    not the best way to make choices. However, I am not sure that we should be
+  - relying on just experts either. What we need is a balanced view of such issues
+    that include the opinions of all people. That would include regular people, experts,
+    celebrities and
+  - so on. Regular people can be great for getting a view from ground level, experts
+    can help educate all of us on the finer details. The celebrities can bring a
+  verified: false
+  rejection_reason: The target does not present an appeal to authority. It does not
+    assert that expert opinion is automatically correct or mandatory for decision-making;
+    instead it just notes that experts can educate people. Therefore, the claim of
+    an appeal to authority falls apart.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5181
+  completion_tokens: 2665
+  total_tokens: 7846
+  wall_time_seconds: 115.59299999999348

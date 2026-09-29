@@ -1,0 +1,199 @@
+sample:
+  id: 168:5301
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: If a presidential candidate is going to be voted on just by people of their
+    ethnicity that means that Macedonia is a divided country susceptible to bias.
+    Perhaps this is something they should work on so that they can choose candidates
+    based on merit rather than their genes. Racial bias is something that should be
+    addressed all over the world so that we can move forward as a human race.
+  target: Saying they have racial bias loses a bit of nuance. Just like in the developed
+    countries like America, people who come from a certain group understand and care
+    about the issues relating to that group more than people outside of it. Macedonians
+    voting for a Macedonian who they feel represents them well is no different from
+    African Americans voting for African American candidates. Of course it would be
+    ideal if the entire world were colorblind, but that's not the real world and people
+    have to look out for their own interests in what ways they can.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Saying they have racial bias loses a bit of nuance. Just like in the developed
+      countries like America, people who come from a certain group understand and
+      care about the
+    - issues relating to that group more than people outside of it. Macedonians voting
+      for a Macedonian who they feel represents them well is no different from African
+      Americans voting for
+    - African American candidates. Of course it would be ideal if the entire world
+      were colorblind, but that's not the real world and people have to look out for
+      their own
+    candidate: null
+  goal:
+    conclusion_or_goal: That Macedonians voting for a Macedonian is a natural, understandable
+      behavior—comparable to other ethnic groups voting for members of their own group—and
+      therefore it is not a problem of racial bias requiring correction.
+    candidate: Appeal to Nature
+    supporting_reason: People who belong to a certain group tend to understand and
+      care about issues relating to that group more than outsiders, so Macedonians
+      voting for a Macedonian who represents them is an ordinary and acceptable reflection
+      of that natural tendency.
+    support_relation: The premise that humans naturally look out for their own interests
+      is used to justify the acceptability of group‑based voting, thereby supporting
+      the conclusion that such voting lacks problematic nuance.
+    label_justification: The argument appeals to the naturalness of people prioritizing
+      their own group’s interests to argue that this behavior is justified. This is
+      a classic use of the Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Saying they have racial bias loses a bit of nuance. Just like in the developed
+      countries like America, people who come from a certain group understand and
+      care about the
+    - issues relating to that group more than people outside of it. Macedonians voting
+      for a Macedonian who they feel represents them well is no different from African
+      Americans voting for
+    - African American candidates. Of course it would be ideal if the entire world
+      were colorblind, but that's not the real world and people have to look out for
+      their own
+  counterargument:
+    decisive_counterargument: The target claims that because people in developed countries
+      often vote for candidates from their own ethnic group, it is therefore acceptable
+      for Macedonian voters to do the same. This generalizes a specific cultural pattern
+      (ethnic voting in the US) to all ethnic groups and all societies without evidence,
+      assuming that group identity always drives voting behavior. In reality, many
+      voters consider multiple factors (policy, competence, ideology) and some may
+      vote against their own ethnic group when they believe it aligns more with their
+      interests. The target’s reasoning therefore commits a hasty generalization by
+      moving from the observed norm in one context to a blanket claim about all ethnic
+      voting.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that voting for an ethnic candidate in Macedonia
+      is analogous to voting for an ethnic candidate in the US and therefore a natural
+      or acceptable phenomenon.
+    label_justification: 'The objection isolates the reasoning step where the target
+      generalizes from the notion that ‘people who come from a certain group understand
+      and care about the issues related to that group more’—a statement about US patterns—to
+      a universal claim about all ethnic groups. This meets the definition of a hasty
+      generalization: an explicit sample (US ethnic voting) is used to imply a broader
+      population (all ethnic voting globally). The counterargument shows that such
+      a leap lacks supporting evidence and could be misleading.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - issues relating to that group more than people outside of it. Macedonians voting
+      for a Macedonian who they feel represents them well is no different from African
+      Americans voting for
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: The target explicitly justifies ethnic-based voting by asserting
+      that people naturally prefer to support those from their own group, thereby
+      claiming this behavior is acceptable because it is a natural human tendency.
+      This directly satisfies the mandatory condition of Appeal to Nature. By contrast,
+      the target does not primarily present a hasty leap from a specific sample (e.g.,
+      voting patterns in the U.S.) to a universal rule; instead, it emphasizes the
+      naturalness of the behavior as the basis for its acceptability. The evidence
+      supporting the Appeal to Nature conclusion is found in the passages describing
+      how people tend to care about their own group’s issues more than others, and
+      in the comparison of Macedonian and African American voting patterns, both of
+      which underscore the naturalness claim.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Saying they have racial bias loses a bit of nuance. Just like in the developed
+      countries like America, people who come from a certain group understand and
+      care about the
+    - issues relating to that group more than people outside of it. Macedonians voting
+      for a Macedonian who they feel represents them well is no different from African
+      Americans voting for
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target explicitly argues that because people naturally prioritize
+    their own group’s interests, group-based voting is acceptable; this invocation
+    of naturalness to justify the behavior matches the definition of Appeal to Nature.
+  decision_reason: The target strongly demonstrates that the conclusion—group voting
+    is acceptable—is supported solely by the premise that such voting is a natural
+    human tendency. This meets the structural criterion for Appeal to Nature and thus
+    the surviving hypothesis is validated.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Saying they have racial bias loses a bit of nuance. Just like in the developed
+    countries like America, people who come from a certain group understand and care
+    about the
+  - issues relating to that group more than people outside of it. Macedonians voting
+    for a Macedonian who they feel represents them well is no different from African
+    Americans voting for
+  - African American candidates. Of course it would be ideal if the entire world were
+    colorblind, but that's not the real world and people have to look out for their
+    own
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6838
+  completion_tokens: 4724
+  total_tokens: 11562
+  wall_time_seconds: 166.25

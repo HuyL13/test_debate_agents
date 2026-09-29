@@ -1,0 +1,103 @@
+sample:
+  id: 236:5205
+  article_id: 236
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: It is great to see the youth getting involved. They are brave to stand up
+    for what they believe in.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: youth getting involved
+    - role: observed_property
+      text: They are brave to stand up for what they believe in
+    - role: target_population
+      text: youth
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is great to see the youth getting involved. They are brave to stand up for
+      what they believe in.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Youth involvement is great.
+    candidate: null
+    supporting_reason: null
+    support_relation: none
+    label_justification: The target simply states a value judgment without providing
+      any reason or evidence; therefore no fallacy is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is great to see the youth getting involved. They are brave to stand up for
+      what they believe in.
+  counterargument:
+    decisive_counterargument: null
+    candidate: null
+    challenged_inference: null
+    label_justification: The target statement merely expresses an opinion that youth
+      involvement is commendable. It does not make a claim that depends on reasoning,
+      present a counterexample, or attempt to draw conclusions, so no fallacy is present.
+      Accordingly, no specific logical defect is exposed and the request for an objection
+      is unnecessary.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is great to see the youth getting involved. They are brave to stand up for
+      what they believe in.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: sample-to-population generalization
+  decision_reason: The statement takes the specific sample of youth involved in a
+    climate strike and generalizes the observed bravery (standing up for beliefs)
+    to the entire youth population, which is a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - It is great to see the youth getting involved. They are brave to stand up for
+    what they believe in.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3531
+  completion_tokens: 3046
+  total_tokens: 6577
+  wall_time_seconds: 367.295999999973

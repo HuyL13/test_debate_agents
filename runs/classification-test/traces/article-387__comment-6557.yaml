@@ -1,0 +1,130 @@
+sample:
+  id: 387:6557
+  article_id: 387
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: It is only natural that people seek information. Something needs to be done
+    to make sure they still have the right to it through freedom of press. Information
+    is like water necessary to life but something everyone deserves.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Information is like water necessary to life
+    - role: evaluative_conclusion
+      text: information should be something everyone deserves
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is only natural that people seek information. Something needs to be done
+      to make sure they still have the right to it through freedom of press. Information
+      is like
+    - water necessary to life but something everyone deserves.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Something needs to be done to ensure people still have the
+      right to information through freedom of press.
+    candidate: Appeal to Nature
+    supporting_reason: It is only natural that people seek information.
+    support_relation: The naturalness of seeking information is used to justify the
+      necessity of maintaining freedom of press.
+    label_justification: The argument relies on the innate human desire for information
+      to assert that freedom of press must be preserved, which is a classic appeal
+      to nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is only natural that people seek information. Something needs to be done
+      to make sure they still have the right to it through freedom of press. Information
+      is like
+  counterargument:
+    decisive_counterargument: Naturalness does not automatically grant a legal or
+      moral right—many things that are natural are not protected by rights or policy.
+      The claim that people ’naturally’ seek information does not alone justify an
+      obligation to preserve a freedom of the press; the right is a social construct
+      that requires deliberate legal and institutional support, not an inherent consequence
+      of natural desire.
+    candidate: Appeal to Nature
+    challenged_inference: People’s right to information must be preserved because
+      it is a natural desire
+    label_justification: The argument equates a natural human behavior (seeking information)
+      with a legitimate, enforceable right, demonstrating the faulty inference that
+      nature implies normative permission. This is precisely the classic Appeal to
+      Nature error, where something is deemed good or necessary simply because it
+      occurs in nature.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is only natural that people seek information. Something needs to be done
+      to make sure they still have the right to it through freedom of press. Information
+      is like
+    - water necessary to life but something everyone deserves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise (“Information is like
+    water necessary to life”) that is used to infer a normative conclusion (“information
+    should be something everyone deserves”), satisfying the structure of an Appeal
+    to Nature.
+  decision_reason: The argument explicitly links an appeal to nature with a normative
+    claim, exactly matching the defined structure for the Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is only natural that people seek information. Something needs to be done to
+    make sure they still have the right to it through freedom of press. Information
+    is like
+  - water necessary to life but something everyone deserves.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4227
+  completion_tokens: 2932
+  total_tokens: 7159
+  wall_time_seconds: 81.51600000000326

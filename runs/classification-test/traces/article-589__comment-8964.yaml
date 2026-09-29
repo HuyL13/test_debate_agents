@@ -1,0 +1,125 @@
+sample:
+  id: 589:8964
+  article_id: 589
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: In Azerbaijan silence looms as yet another member of LGBTQ+ community is
+    fatally targeted
+  parent: ''
+  target: It's sad that people still don't realize that there's no future in discriminating
+    against the LGBTQ community like this. All it does is hurt our communities and
+    propagate hatred, as all evidence shows. Plus, it's even disrespectful to ourselves
+    and our own values, to deny others such basic rights. Like Biden said, LGBTQ rights
+    are human rights.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Biden
+    - role: endorsed_claim
+      text: LGBTQ rights are human rights
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - all evidence shows. Plus, it's even disrespectful to ourselves and our own values,
+      to deny others such basic rights. Like Biden said, LGBTQ rights are human rights.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Discrimination against LGBTQ is wrong and should be stopped
+    candidate: Appeal to Authority
+    supporting_reason: Citing Biden’s statement (“LGBTQ rights are human rights”)
+      instead of providing substantive evidence as justification for rejecting discrimination
+    support_relation: appeal_to_authority
+    label_justification: The target relies on a political figure’s assertion to support
+      its normative claim, which is an appeal to authority fallacy as it uses the
+      authority itself rather than evidence to substantiate the argument.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's sad that people still don't realize that there's no future in discriminating
+      against the LGBTQ community like this. All it does is hurt our communities and
+      propagate hatred, as
+    - all evidence shows. Plus, it's even disrespectful to ourselves and our own values,
+      to deny others such basic rights. Like Biden said, LGBTQ rights are human rights.
+  counterargument:
+    decisive_counterargument: 'The argument relies solely on President Biden’s endorsement
+      of LGBTQ rights as human rights to assert that they are, without presenting
+      independent evidence or logical justification. This reliance on a single authority’s
+      statement alone does not establish the truth of the claim; it merely transfers
+      Biden’s position to the listener. '
+    candidate: Appeal to Authority
+    challenged_inference: The claim that 'LGBTQ rights are human rights' is supported
+      uncritically by citing President Biden.
+    label_justification: The argument attempts to establish the truth of a claim by
+      reference to an authority figure (President Biden) rather than by providing
+      independent evidence or reasoning. This matches the definition of an appeal
+      to authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - all evidence shows. Plus, it's even disrespectful to ourselves and our own values,
+      to deny others such basic rights. Like Biden said, LGBTQ rights are human rights.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument relies solely on President Biden’s endorsement
+    of LGBTQ rights as human rights, using his statement as the sole justification
+    for the claim without independent evidence or reasoning, which fits the structure
+    of an appeal to authority.
+  decision_reason: Citing Biden to claim that LGBTQ rights are human rights without
+    further supporting evidence exemplifies an appeal to authority, meeting the structural
+    definition.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - all evidence shows. Plus, it's even disrespectful to ourselves and our own values,
+    to deny others such basic rights. Like Biden said, LGBTQ rights are human rights.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4261
+  completion_tokens: 2538
+  total_tokens: 6799
+  wall_time_seconds: 155.73399999999674

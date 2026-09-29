@@ -1,0 +1,131 @@
+sample:
+  id: 359:7074
+  article_id: 359
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: 'Video: Two months of lockdown in Kashmir'
+  parent: ''
+  target: This was a great indicator of how harmful lockdowns could be, whether in
+    response to politics or sickness or whatever else. It only brings about misery.
+    We've seen it happen already, there's no reason to think it won't happen anytime
+    such a suggestion is brought up.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T1
+    - role: observed_property
+      text: T1
+    - role: target_population
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This was a great indicator of how harmful lockdowns could be, whether in response
+      to politics or sickness or whatever else. It only brings about misery. We've
+      seen it happen
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Lockdowns inevitably lead to misery and should be avoided.
+    candidate: Hasty Generalization
+    supporting_reason: The speaker cites the observed misery from the recent lockdown
+      in Kashmir as evidence that lockdowns are harmful.
+    support_relation: The single observed instance is used to justify a universal
+      claim that any lockdown will produce the same harmful outcome.
+    label_justification: The argument generalizes from one particular case (the Kashmir
+      lockdown) to all lockdowns, attributing the same negative effect to every future
+      instance, which matches the definition of a Hasty Generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This was a great indicator of how harmful lockdowns could be, whether in response
+      to politics or sickness or whatever else. It only brings about misery. We've
+      seen it happen
+    - already, there's no reason to think it won't happen anytime such a suggestion
+      is brought up.
+  counterargument:
+    decisive_counterargument: The observation that one lockdown in Kashmir produced
+      misery does not prove that every future lockdown, regardless of context, will
+      inevitably produce the same negative outcomes. Lockdowns vary greatly in duration,
+      scope, economic support, and health infrastructure, all of which influence their
+      effects. Therefore, drawing a universal conclusion from a single case is unwarranted.
+    candidate: Hasty Generalization
+    challenged_inference: All lockdowns will bring misery because a single instance
+      in a specific context has already caused hardships.
+    label_justification: 'The argument takes a single instance as evidence for a universal
+      claim about all lockdowns, which is the classic form of *Hasty Generalization*:
+      it extrapolates from an insufficient sample (one lockdown) to a broad population
+      (all lockdown situations) without accounting for other influencing variables.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This was a great indicator of how harmful lockdowns could be, whether in response
+      to politics or sickness or whatever else. It only brings about misery. We've
+      seen it happen
+    - already, there's no reason to think it won't happen anytime such a suggestion
+      is brought up.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument explicitly extrapolates from a single observed
+    lockdown (Kashmir) to a universal claim that all lockdowns will inevitably cause
+    misery.
+  decision_reason: The target states that this particular lockdown was an indicator
+    of misery for all lockdowns, treating the single case as sufficient evidence for
+    a broader population’s outcome.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This was a great indicator of how harmful lockdowns could be, whether in response
+    to politics or sickness or whatever else. It only brings about misery. We've seen
+    it happen
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4345
+  completion_tokens: 3353
+  total_tokens: 7698
+  wall_time_seconds: 134.73400000002584

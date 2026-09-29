@@ -1,0 +1,112 @@
+sample:
+  id: 296:6284
+  article_id: 296
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In India, regulators are deciding the fate of sensitive data behind closed
+    doors
+  parent: The people just need to wait for the process to play out. The court made
+    a good decision that they agree with, so those in charge obviously know what they're
+    doing and what is right. Trust in the process and trust in the system and another
+    good decision will follow. They are the ones making the decisions for a reason!
+  target: But the processes are happening exactly because people were complaining
+    in the first place. Public pressure is necessary for systems to act. I don't think
+    it makes much sense to say they should just stop worrying now because the system
+    can sort itself out.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - But the processes are happening exactly because people were complaining in the
+      first place. Public pressure is necessary for systems to act. I don't think
+      it makes much sense to
+    - say they should just stop worrying now because the system can sort itself out.
+    candidate: null
+  goal:
+    conclusion_or_goal: People should continue to exert pressure and not become complacent
+      because public pressure is necessary for processes to occur.
+    candidate: null
+    supporting_reason: Public pressure triggers the processes that are responsible
+      for making changes.
+    support_relation: Provides a causal link to justify continued pressure.
+    label_justification: The argument uses a legitimate causal rationale, and there
+      is no improper inference such as a hasty generalization, slippery slope, false
+      dilemma, or appeal‑to‑authority. Hence no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - But the processes are happening exactly because people were complaining in the
+      first place. Public pressure is necessary for systems to act. I don't think
+      it makes much sense to
+    - say they should just stop worrying now because the system can sort itself out.
+  counterargument:
+    decisive_counterargument: The claim that public pressure is necessary for systems
+      to act rests on a single instance where a procedure was triggered by complaints.
+      That does not establish a general causal rule—other factors such as internal
+      audits, legal obligations, or strategic business decisions can also initiate
+      change. Assuming that complaints are always required commits a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Public pressure is necessary for systems to act, so people
+      should continue to worry and complain.
+    label_justification: 'The inference draws a universal conclusion—from a single
+      observed case that public complaints led to regulatory action—overgeneralizing
+      that this causal relation holds in all future cases. This matches the definition
+      of a Hasty Generalization: an explicit extrapolation from a limited sample to
+      a broader population without sufficient evidence.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - But the processes are happening exactly because people were complaining in the
+      first place. Public pressure is necessary for systems to act. I don't think
+      it makes much sense to
+    - say they should just stop worrying now because the system can sort itself out.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2931
+  completion_tokens: 1928
+  total_tokens: 4859
+  wall_time_seconds: 111.57800000000134

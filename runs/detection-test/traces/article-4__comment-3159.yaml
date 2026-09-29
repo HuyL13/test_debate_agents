@@ -1,0 +1,124 @@
+sample:
+  id: 4:3159
+  article_id: 4
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: The fact that the government was able to get away with this is crazy to
+    me! millions of people died across the world due to authorities in China not being
+    forthright about what was going on. We need to understand why Chinese citizens
+    haven't demanded answers yet.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the government was able to get away with this is crazy to me!
+      millions of people died across the world due to authorities in China not being
+    - forthright about what was going on. We need to understand why Chinese citizens
+      haven't demanded answers yet.
+    candidate: null
+  goal:
+    conclusion_or_goal: We need to understand why Chinese citizens haven't demanded
+      answers yet.
+    candidate: null
+    supporting_reason: The fact that the government was able to get away with this
+      is crazy to me! millions of people died across the world due to authorities
+      in China not being forthright about what was going on.
+    support_relation: provides background motivation for the goal
+    label_justification: No logical fallacy is present; the statement is an emotional
+      expression and a request for inquiry, not a faulty reasoning structure.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the government was able to get away with this is crazy to me!
+      millions of people died across the world due to authorities in China not being
+    - forthright about what was going on. We need to understand why Chinese citizens
+      haven't demanded answers yet.
+  counterargument:
+    decisive_counterargument: There is no evidence presented that the deaths of millions
+      worldwide were caused by Chinese authorities not being forthright; attributing
+      a global tragedy to a single national governance issue overgeneralizes and ignores
+      other possible contributing factors such as varying public health capacities,
+      virus mutations, and international transmission dynamics.
+    candidate: Hasty Generalization
+    challenged_inference: millions of people died across the world due to authorities
+      in China not being forthright about what was going on
+    label_justification: The objection points out that the claim incorrectly extrapolates
+      a single cause—lack of forthrightness by Chinese authorities—to a vast number
+      of deaths globally, without evidence that this factor alone accounts for all
+      those deaths. This abuse of a narrow sample to justify a broad claim conforms
+      precisely to the definition of a Hasty Generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the government was able to get away with this is crazy to me!
+      millions of people died across the world due to authorities in China not being
+    - forthright about what was going on. We need to understand why Chinese citizens
+      haven't demanded answers yet.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that millions of deaths worldwide were caused
+    by Chinese authorities’ lack of forthrightness, making an unsupported sweeping
+    causal claim that generalizes from a single national factor to an extreme global
+    outcome, which violates the structure of a hasty generalization.
+  decision_reason: The claim attributes the cause of a large, global death toll to
+    a single, narrowly defined factor (authorities in China not being forthright)
+    without any presented evidence. This constitutes an overgeneralization from a
+    insufficient sample to a broad conclusion, satisfying the definition of a hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that the government was able to get away with this is crazy to me! millions
+    of people died across the world due to authorities in China not being
+  - forthright about what was going on. We need to understand why Chinese citizens
+    haven't demanded answers yet.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4062
+  completion_tokens: 3477
+  total_tokens: 7539
+  wall_time_seconds: 275.3130000000019

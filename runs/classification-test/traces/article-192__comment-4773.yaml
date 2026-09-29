@@ -1,0 +1,177 @@
+sample:
+  id: 192:4773
+  article_id: 192
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: Is Turkey not a democracy? If this is the government and subsequently the
+    policies they voted for, what's the problem? The will of the Turkish people should
+    be respected, even if they don't have the same values on things like free speech
+    that these Western institutions are criticizing them for.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+    candidate: null
+  goal:
+    conclusion_or_goal: The argument asserts that Turkey’s government is legitimate
+      and its policies should be respected, implying that there is no problem with
+      these policies even if they differ from Western values.
+    candidate: Appeal to Authority
+    supporting_reason: the will of the Turkish people should be respected
+    support_relation: provides the justificatory basis for the conclusion
+    label_justification: The reasoning uses the authority of the people—the purported
+      majority—as a justification for accepting the government’s policies, which is
+      a classic appeal to authority (or majority) fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+  counterargument:
+    decisive_counterargument: Majority support does not automatically validate a policy,
+      especially when that policy may infringe on fundamental rights such as free
+      speech.  A democratic legitimacy cannot erase the obligation to critique and
+      amend decisions that conflict with basic liberties, and the belief that “they
+      voted for it” is an appeal to popularity rather than a ground for accepting
+      the policy.
+    candidate: Appeal to Majority
+    challenged_inference: The will of the Turkish people should be respected as a
+      justification for the government’s policies, even if these policies conflict
+      with principles such as free speech that other institutions consider important.
+    label_justification: This objection attacks the claim that the majority’s vote
+      alone justifies the policies, exposing a logical misuse of the majority’s will
+      as a sole criterion.  That is the classic definition of an Appeal to Majority
+      (ad populum) fallacy—using the fact that a large number of people support something
+      to assert that it is right, without addressing substantive concerns, such as
+      violations of free speech.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Appeal to Majority
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Appeal to Majority
+    conflict: appeal-to-authority__vs__appeal-to-majority
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-majority
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Appeal to Authority
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Majority uses number/popularity as justification; Authority uses
+    expertise/status.
+  resolution:
+    winner: Appeal to Majority
+    decisive_test: The argument claims that the Turkish people’s will should be respected
+      as justification for the government’s policies, implying that majority approval
+      alone validates those policies. This is a classic appeal to majority (ad populum)
+      fallacy, where the popularity of a belief is used as the sole argument for its
+      correctness, with no substantive support. The argument does not reference an
+      expert or authoritative source, so it does not qualify as an appeal to authority.
+    loser_failure: Appeal to Authority falls short because the text does not invoke
+      any expert, official, or authoritative institution to validate the policies.
+      Instead it relies on the number of people who voted for the government, which
+      explicitly refers to majority support. Thus the justification is based on popularity,
+      not on authority, making Appeal to Majority the correct label.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Is Turkey not a democracy? If this is the government and subsequently the policies
+      they voted for, what's the problem? The will of the Turkish people should be
+      respected, even
+    - if they don't have the same values on things like free speech that these Western
+      institutions are criticizing them for.
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly justifies support for the Turkish government’s
+    policies solely based on the will of the Turkish people—presenting the majority’s
+    preference as the sole reason for respecting those policies—even when those policies
+    conflict with free‑speech values identified by Western institutions. This is a
+    classic Appeal to Majority (ad populum) fallacy.
+  decision_reason: The target claims that the will of the Turkish people should be
+    respected as the sole justification for policies, which is a direct use of majority
+    support as the only ground for acceptance.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Is Turkey not a democracy? If this is the government and subsequently the policies
+    they voted for, what's the problem? The will of the Turkish people should be respected,
+    even
+  - if they don't have the same values on things like free speech that these Western
+    institutions are criticizing them for.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5555
+  completion_tokens: 3117
+  total_tokens: 8672
+  wall_time_seconds: 78.51599999997416

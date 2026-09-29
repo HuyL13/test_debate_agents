@@ -1,0 +1,148 @@
+sample:
+  id: 595:7781
+  article_id: 595
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Thousands of flamingos found dead in Central Anatolia
+  parent: ''
+  target: If this is because of whatever agricultural practices, it seems like the
+    people simply don't value these animals. After all, the country is a democracy,
+    so they voted for those policies. If that changes, it should only be if most people
+    assess the situation and decide that flamingos and whatever other animals are
+    more important. Not because some minority of activists force a change.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: assess the situation and decide that flamingos and whatever other animals
+        are more important
+    - role: target_claim
+      text: the policy should change
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If this is because of whatever agricultural practices, it seems like the people
+      simply don't value these animals. After all, the country is a democracy, so
+      they voted for those
+    - policies. If that changes, it should only be if most people assess the situation
+      and decide that flamingos and whatever other animals are more important. Not
+      because some minority of
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Policy should only change if the majority of people assess
+      and decide that flamingos (and other animals) are more important, not because
+      a minority of activists force a change.
+    candidate: Appeal to Majority
+    supporting_reason: The passage argues that because the country is a democracy,
+      the policies reflect the people’s vote and thus the decisions of the majority
+      should govern changes.
+    support_relation: The democratic voting process is presented as evidence that
+      the current policies represent the majority’s preferences, thereby justifying
+      the claim that only a majority‑based assessment should lead to policy change.
+    label_justification: The argument uses the popularity (majority vote) of the policy
+      as a reason to accept or reject policy changes, which is characteristic of an
+      Appeal to Majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If this is because of whatever agricultural practices, it seems like the people
+      simply don't value these animals. After all, the country is a democracy, so
+      they voted for those
+  counterargument:
+    decisive_counterargument: The democratic vote on agricultural policies does not
+      necessarily indicate that the populace values flamingos—or that protecting them
+      is unwise. Voters may have prioritized economic factors, lacked information
+      about flamingo habitats, or been influenced by misinformation. An appeal to
+      majority status equivocates the legitimacy of a policy with the correctness
+      of its consequences. In this case, the majority’s preference for existing agricultural
+      practices does not prove that flamingos are unwarranted, nor does rejecting
+      minority activism dismiss the moral imperative or factual basis to change policy.
+    candidate: Appeal to Majority
+    challenged_inference: The inference that because a majority voted for the policies,
+      the people do not value flamingos and only a majoritarian reassessment can justify
+      change
+    label_justification: The target reasoning explicitly links democratic participation
+      to the correctness of policy and rejects minority influence, making the fallacy
+      an Appeal to Majority. The counterargument demonstrates that majority opinion
+      can be misguided and that minority advocacy can expose necessary reforms, thereby
+      exposing precisely this appeal to majority reasoning. The evidence IDs supporting
+      this are T1, T2, T3.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If this is because of whatever agricultural practices, it seems like the people
+      simply don't value these animals. After all, the country is a democracy, so
+      they voted for those
+    - policies. If that changes, it should only be if most people assess the situation
+      and decide that flamingos and whatever other animals are more important. Not
+      because some minority of
+    - activists force a change.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target argues that policy should only change if most people
+    assess the situation and decide flamingos are more important, citing democratic
+    voting as evidence that the current policies reflect the majority’s preference.
+    This explicitly uses majority support as justification for the claim, matching
+    the structure of an Appeal to Majority.
+  decision_reason: The target employs the principle that the majority’s view—democratic
+    vote and general assessment—is sufficient to justify whether a policy should change,
+    thereby committing an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - If this is because of whatever agricultural practices, it seems like the people
+    simply don't value these animals. After all, the country is a democracy, so they
+    voted for those
+  - policies. If that changes, it should only be if most people assess the situation
+    and decide that flamingos and whatever other animals are more important. Not because
+    some minority of
+  - activists force a change.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4794
+  completion_tokens: 3188
+  total_tokens: 7982
+  wall_time_seconds: 213.54700000000594

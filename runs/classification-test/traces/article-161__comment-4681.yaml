@@ -1,0 +1,127 @@
+sample:
+  id: 161:4681
+  article_id: 161
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Another story about Indians not wanting any different people in their country.
+    This whole situation just proves India is full of nationalists who are also racist.
+    Multiculturalism will never work there.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: Another story about Indians not wanting any different people in their
+        country.
+    - role: observed_property
+      text: India is full of nationalists who are also racist.
+    - role: target_population
+      text: India
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Another story about Indians not wanting any different people in their country.
+      This whole situation just proves India is full of nationalists who are also
+      racist. Multiculturalism will never work
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: India is full of nationalists who are also racist, so multiculturalism
+      will never work there.
+    candidate: Hasty Generalization
+    supporting_reason: Another story about Indians not wanting any different people
+      in their country.
+    support_relation: supports
+    label_justification: An isolated anecdote is used to make a sweeping claim about
+      all Indians, which is a characteristic of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Another story about Indians not wanting any different people in their country.
+      This whole situation just proves India is full of nationalists who are also
+      racist. Multiculturalism will never work
+  counterargument:
+    decisive_counterargument: The target asserts that India is full of nationalist‑racists
+      and that multiculturalism will never work, yet it bases this claim only on a
+      single anecdotal incident involving a handful of individuals.  From those isolated
+      examples it jumps to a sweeping judgment about the entire country and about
+      the viability of multiculturalism.  Without evidence that such attitudes are
+      pervasive or that India’s broader society is hostile to diversity, the conclusion
+      is unsupported generalization.
+    candidate: Hasty Generalization
+    challenged_inference: India is full of nationalists who are also racist; multiculturalism
+      will never work there.
+    label_justification: The objection directly confronts the reasoning that extrapolates
+      from a few isolated cases to the behavior of all Indians, which is the hallmark
+      of a hasty generalization.  This shows that the target’s inference violates
+      the relational evidence‑balance required for a general claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Another story about Indians not wanting any different people in their country.
+      This whole situation just proves India is full of nationalists who are also
+      racist. Multiculturalism will never work
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a sweeping population statement—India is full
+    of nationalists who are also racist—based solely on one anecdotal incident, meeting
+    the structural requirement of a hasty generalization.
+  decision_reason: The claim about all Indians' nationalist-racist attitudes (and
+    the assertion that multiculturalism will never work) is extrapolated from a single
+    anecdotal example, satisfying the premise of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Another story about Indians not wanting any different people in their country.
+    This whole situation just proves India is full of nationalists who are also racist.
+    Multiculturalism will never work
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4207
+  completion_tokens: 2391
+  total_tokens: 6598
+  wall_time_seconds: 72.375

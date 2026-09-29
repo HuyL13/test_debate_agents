@@ -1,0 +1,121 @@
+sample:
+  id: 427:6679
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Wouldn't protesting to their bosses or on air do more than what the government
+    is doing? The protesting is important, it's just they seem to be yelling at the
+    clouds. What can protesting in the street do to help what's going on in their
+    job's building? Even a famous social scientist Dr. John Doe suggested that targeted
+    dialogue to those directed involved with an issue will be more impactful than
+    public demonstrations in certain cases. I would think the emphasis would remain
+    on dialogue and progress and not public displays that won't really bring the change.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - famous social scientist Dr. John Doe
+    - targeted dialogue to those directed involved with an issue will be more impactful
+      than public demonstrations in certain cases.
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: famous social scientist Dr. John Doe
+    - role: endorsed_claim
+      text: targeted dialogue to those directed involved with an issue will be more
+        impactful than public demonstrations in certain cases.
+    structure_complete: true
+    candidate: Appeal to Authority
+  goal:
+    evidence_spans:
+    - Even a famous social scientist Dr. John Doe suggested that targeted dialogue
+      to those directed involved with an issue will be more impactful than public
+      demonstrations in certain cases.
+    conclusion_or_goal: Protesting in the street is less effective; emphasis should
+      remain on dialogue and progress.
+    candidate: Appeal to Authority
+    supporting_reason: Even a famous social scientist Dr. John Doe suggested that
+      targeted dialogue to those directed involved with an issue will be more impactful
+      than public demonstrations in certain cases.
+    support_relation: Uses Dr. John Doe’s authority to justify that dialogue is more
+      effective than public demonstrations.
+    label_justification: The argument relies on a single authority’s statement to
+      support the claim of effectiveness, without providing independent evidence,
+      thereby constituting an Appeal to Authority fallacy.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - public displays that won't really bring the change
+    decisive_counterargument: The claim that street protests ‘won’t really bring the
+      change’ is unsupported by evidence and relies solely on a single authority’s
+      preference for dialogue. Empirical history shows that public demonstrations
+      can (and have) produced concrete policy shifts—think of the Spanish women’s
+      strike itself. Hence the inference that protests are ineffective lacks substantiation
+      and is weakened by the dramatic turn from dialogue to demonstration without
+      demonstrating the latter’s failure.
+    candidate: Appeal to Authority
+    challenged_inference: public displays that won't really bring the change
+    label_justification: The objection highlights that the argument uses a single
+      referenced authority (Dr. John Doe) to establish the superiority of dialogue
+      over protests, rather than providing independent evidence or data. This dependence
+      on authority to justify the claim exemplifies an Appeal to Authority fallacy,
+      as the authority is invoked without substantive support for the broader claim.
+      The counterargument demonstrates that the primary inference fails because the
+      cited expert’s viewpoint is insufficient to discard the effectiveness of other
+      forms of protest.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  evidence_spans:
+  - famous social scientist Dr. John Doe
+  - targeted dialogue to those directed involved with an issue will be more impactful
+    than public demonstrations in certain cases.
+  decisive_condition: The target cites a single authority’s statement (“famous social
+    scientist Dr. John Doe”) to assert that dialogue is more effective than public
+    demonstrations, without providing independent evidence. This dependency on the
+    authority’s endorsement to justify the superiority claim meets the structural
+    requirement for an Appeal to Authority fallacy. No other fallacy structure is
+    present. Therefore the claim is fallacious under Appeal to Authority.
+  decision_reason: The target explicitly references a single expert (“famous social
+    scientist Dr. John Doe”) to support the claim that dialogue is more effective
+    than public demonstrations, with no independent evidence provided. This satisfies
+    the structural criterion for an Appeal to Authority fallacy.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3898
+  completion_tokens: 3624
+  total_tokens: 7522
+  wall_time_seconds: 131.81200000003446

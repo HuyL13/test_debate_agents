@@ -1,0 +1,141 @@
+sample:
+  id: 315:6343
+  article_id: 315
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: I feel like just because they're indigenous doesn't mean that the majority
+    of the nation should base economic and environmental laws around what they want.
+    The majority of the nation is not indigenous, so their wants and needs should
+    be given more weight. That solar plant and nuclear plant that they stopped could
+    probably have really helped the entire economy there.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority of the nation
+    - role: popularity_claim
+      text: the majority of the nation is not indigenous
+    - role: target_claim
+      text: their wants and needs should be given more weight
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like just because they're indigenous doesn't mean that the majority of
+      the nation should base economic and environmental laws around what they want.
+      The majority of the nation
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Because the majority of the nation is not indigenous, their
+      wants and needs should be given more weight in shaping economic and environmental
+      laws.
+    candidate: Appeal to Majority
+    supporting_reason: The majority of the nation is not indigenous, so their wants
+      and needs should be given more weight.
+    support_relation: inference
+    label_justification: The argument uses the fact that a demographic group represents
+      the majority as justification for their preferences to outweigh those of a minority
+      group, which is the definition of an Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+  counterargument:
+    decisive_counterargument: Just because a group is a minority does not mean its
+      claims should be automatically given less weight in national policy. The legitimacy
+      of a claim is not a matter of numbers but of rights, fairness, and the capacity
+      of policy to address legitimate needs, regardless of demographic size.
+    candidate: Appeal to Majority
+    challenged_inference: Because indigenous peoples are a minority, their wants and
+      needs should have less weight in shaping economic and environmental laws.
+    label_justification: The argument relies on the premise that the majority of the
+      population deserves priority, using demographic size as a justification for
+      policy preference. This is a classic appeal to majority (argumentum ad populum)
+      rather than a logically sound principle.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like just because they're indigenous doesn't mean that the majority of
+      the nation should base economic and environmental laws around what they want.
+      The majority of the nation
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target argument explicitly states that because the majority
+    of the nation is not indigenous, their wants and needs should be given more weight
+    in shaping economic and environmental laws. This uses the fact that a demographic
+    group represents the majority as justification for their preferences to outweigh
+    those of a minority group, satisfying the structural definition of an Appeal to
+    Majority fallacy.
+  decision_reason: The claim that majority interests should dictate policy is derived
+    directly from the fact that this group is the majority, which is exactly the misleading
+    inference characterizing an Appeal to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I feel like just because they're indigenous doesn't mean that the majority of
+    the nation should base economic and environmental laws around what they want.
+    The majority of the nation
+  - is not indigenous, so their wants and needs should be given more weight. That
+    solar plant and nuclear plant that they stopped could probably have really helped
+    the entire economy
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4347
+  completion_tokens: 2844
+  total_tokens: 7191
+  wall_time_seconds: 76.45299999997951

@@ -1,0 +1,127 @@
+sample:
+  id: 236:4905
+  article_id: 236
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: It is clear what the people want here. The governments must take action
+    to support their people and promote conservation for the environment. Experts
+    have given many insights, it is now up to the government to listen, the earth
+    needs help now!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Experts
+    - role: endorsed_claim
+      text: The government must act and listen, supporting people and promoting conservation.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+    - now up to the government to listen, the earth needs help now!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Governments must take action to support their people and promote
+      conservation for the environment.
+    candidate: Appeal to Authority
+    supporting_reason: Experts have given many insights, so the government should
+      listen to their guidance.
+    support_relation: The claim that expert insight mandates governmental action relies
+      on the appeal that experts’ opinions are sufficient justification for the action.
+    label_justification: The argument uses the expertise of experts as evidence that
+      the government ought to act, an instance of Appeal to Authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+  counterargument:
+    decisive_counterargument: Merely citing experts does not prove that their insights
+      are correct or that government action is necessary; experts can disagree or
+      be wrong, so the argument relies on authority rather than on evidence.
+    candidate: Appeal to Authority
+    challenged_inference: Because experts have given many insights, the government
+      must listen and act for conservation.
+    label_justification: The objection points out that the argument uses experts’
+      authority as the sole justification for action, which is precisely the definition
+      of an Appeal to Authority fallacy. By challenging the reliance on authority
+      alone, the counterargument demonstrates that the reasoning is flawed and that
+      the inference drawn from expert claims lacks substantive support.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: 'The target statement presents experts’ opinions as the sole
+    justification for a policy action: “Experts have given many insights, it is now
+    up to the government to listen….”, which meets the structural requirement of an
+    Appeal to Authority fallacy.'
+  decision_reason: The claim relies on expert authority to support the conclusion
+    that governments must act, without further evidence or reasoning, constituting
+    an Appeal to Authority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is clear what the people want here. The governments must take action to support
+    their people and promote conservation for the environment. Experts have given
+    many insights, it is
+  - now up to the government to listen, the earth needs help now!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4224
+  completion_tokens: 3250
+  total_tokens: 7474
+  wall_time_seconds: 71.625

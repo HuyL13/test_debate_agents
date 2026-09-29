@@ -1,0 +1,173 @@
+sample:
+  id: 350:5846
+  article_id: 350
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: How much deeper are we going to dig into relying on artificial technologies
+    for every little thing? Applications of these sorts of unnatural things really
+    dehumanize people. These people are right to be worried, because they're being
+    turned from real individuals into some digital statistic in a machine.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How much deeper are we going to dig into relying on artificial technologies
+      for every little thing? Applications of these sorts of unnatural things really
+      dehumanize people. These people are
+    - right to be worried, because they're being turned from real individuals into
+      some digital statistic in a machine.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: These people are right to be worried about the increasing
+      reliance on artificial technologies.
+    candidate: null
+    supporting_reason: They are being turned from real individuals into some digital
+      statistic in a machine.
+    support_relation: The reason explains why the concerned individuals feel justified
+      in their worries by highlighting dehumanization.
+    label_justification: The argument presents a straightforward causal claim—if people
+      are being reduced to digital statistics, it is reasonable to worry—without misusing
+      a premise or misrepresenting alternatives, so no identifiable fallacy applies.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How much deeper are we going to dig into relying on artificial technologies
+      for every little thing? Applications of these sorts of unnatural things really
+      dehumanize people. These people are
+    - right to be worried, because they're being turned from real individuals into
+      some digital statistic in a machine.
+  counterargument:
+    decisive_counterargument: While certain AI systems may reduce direct human interaction,
+      many are engineered to augment human decision‑making and preserve personal agency;
+      the claim that all artificial technologies turn real individuals into digital
+      statistics is unsupported and broadens a few specific examples into a universal
+      conclusion.
+    candidate: Hasty Generalization
+    challenged_inference: All artificial technologies dehumanize people and turn users
+      into digital statistics.
+    label_justification: The target makes a sweeping statement about every instance
+      of artificial technology without providing specific evidence, constituting a
+      classic hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How much deeper are we going to dig into relying on artificial technologies
+      for every little thing? Applications of these sorts of unnatural things really
+      dehumanize people. These people are
+    - right to be worried, because they're being turned from real individuals into
+      some digital statistic in a machine.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Nature
+    - Hasty Generalization
+    conflict: appeal-to-nature__vs__hasty-generalization
+    winner: Appeal to Nature
+    after:
+    - Appeal to Nature
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts:
+- id: appeal-to-nature__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Nature
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Nature
+    decisive_test: Appeal to Nature
+    loser_failure: The text does not provide an explicit sample or specific evidence
+      that artificial technologies dehumanize people, which is required for a hasty‑generalization
+      claim. It merely states a sweeping assertion without a concrete illustration
+      or few cases, so the mandatory structural condition for hasty generalization
+      is not satisfied. In contrast, the passage clearly uses the label ‘unnatural’
+      in the premise and concludes that such technology is bad for people, directly
+      matching the appeal‑to‑nature structure.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - How much deeper are we going to dig into relying on artificial technologies
+      for every little thing? Applications of these sorts of unnatural things really
+      dehumanize people. These people are
+    - right to be worried, because they're being turned from real individuals into
+      some digital statistic in a machine.
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target makes a claim that relying on artificial technologies
+    is 'unnatural' and therefore dehumanizes people, presenting a negative value judgment
+    based solely on the artificial (unnatural) nature of the technology—an appeal
+    to nature fallacy.
+  decision_reason: The argument pairs an implication that artificial technologies
+    are unnatural with a detrimental evaluation (dehumanization), meeting the structural
+    criteria of an appeal to nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - How much deeper are we going to dig into relying on artificial technologies for
+    every little thing? Applications of these sorts of unnatural things really dehumanize
+    people. These people are
+  - right to be worried, because they're being turned from real individuals into some
+    digital statistic in a machine.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5287
+  completion_tokens: 5047
+  total_tokens: 10334
+  wall_time_seconds: 517.4070000000065

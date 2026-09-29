@@ -1,0 +1,125 @@
+sample:
+  id: 208:5120
+  article_id: 208
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Artist Jasmine Thomas-Girvan taps into the ‘eternal connections’ of Black
+    Caribbean ancestry
+  parent: ''
+  target: There's always an issue to explore. Art can be good and sometimes bad. That
+    means, if it fixates too much on past evils, like slavery, the beauty can be lost.
+    Leading to a resentment of art.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's always an issue to explore. Art can be good and sometimes bad. That
+      means, if it fixates too much on past evils, like slavery, the beauty can be
+      lost.
+    - Leading to a resentment of art.
+    candidate: null
+  goal:
+    conclusion_or_goal: Art that obsessively focuses on past evils, such as slavery,
+      loses its beauty and can foster resentment toward art.
+    candidate: null
+    supporting_reason: Art can be good and sometimes bad; therefore, if it fixates
+      too much on past evils, it may become bad (lose beauty).
+    support_relation: The statement that art can be bad provides a basis for concluding
+      that excessive focus on past evils can degrade artistic beauty and generate
+      resentment.
+    label_justification: The reasoning legitimately links a general property of art
+      (it can be bad) to the specific claim about excessive focus on evils. No logical
+      fallacy is invoked; the argument presents a causal connection supported by a
+      general observation, not a flawed appeal or unjustified inference.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - There's always an issue to explore. Art can be good and sometimes bad. That
+      means, if it fixates too much on past evils, like slavery, the beauty can be
+      lost.
+  counterargument:
+    decisive_counterargument: Even when artists deliberately highlight historical
+      injustices such as slavery, their work can retain, and even amplify, aesthetic
+      value and emotional resonance; many celebrated pieces confront oppressive histories
+      while remaining deeply beautiful, showing that a focus on the past does not
+      inevitably erase beauty or invite resentment.
+    candidate: Slippery Slope
+    challenged_inference: If art fixates too much on past evils, its beauty will be
+      lost, leading to resentment towards art.
+    label_justification: The argument presents a causal chain suggesting that a single
+      action (over-fixation on past evils) inevitably triggers a series of negative
+      outcomes (loss of beauty and resentment). This is the hallmark of a slippery‑slope
+      fallacy, where an initial step is presumed to lead unavoidably to progressively
+      worse consequences without empirical support.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - There's always an issue to explore. Art can be good and sometimes bad. That
+      means, if it fixates too much on past evils, like slavery, the beauty can be
+      lost.
+    - Leading to a resentment of art.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument presents a causal chain in which an initial action
+    (art fixating on past evils) leads inevitably to two increasingly adverse outcomes—the
+    loss of beauty followed by a resentment of art—meeting the slippery‑slope structure
+    of a progression toward negative consequences. The required evidence is provided
+    in passages T1 and T2.
+  decision_reason: 'The target explicitly states that if art fixates on past evils,
+    beauty will be lost, leading to resentment of art. This chain of predictions satisfies
+    the slippery‑slope criterion: an initial action results in a series of adverse
+    outcomes. No other fallacy is implicated, and the evidence supports this inference.
+    The fallacious inference is therefore upheld.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - There's always an issue to explore. Art can be good and sometimes bad. That means,
+    if it fixates too much on past evils, like slavery, the beauty can be lost.
+  - Leading to a resentment of art.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4006
+  completion_tokens: 4060
+  total_tokens: 8066
+  wall_time_seconds: 126.54699999996228

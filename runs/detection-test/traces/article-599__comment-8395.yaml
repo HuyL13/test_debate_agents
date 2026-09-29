@@ -1,0 +1,129 @@
+sample:
+  id: 599:8395
+  article_id: 599
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: This is probably just one step to what is needed to take down the criminal
+    orgs there. The police need to focus on the big players like the politicians before
+    going after who they hire to do their dirty work. Arresting the powerful people
+    getting away with getting people to do their work is much more important that
+    the people being hired.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is probably just one step to what is needed to take down the criminal orgs
+      there. The police need to focus on the big players like the politicians before
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+    - being hired.
+    candidate: null
+  goal:
+    conclusion_or_goal: The police should focus on arresting big players, such as
+      politicians, before targeting the individuals they hire to carry out criminal
+      acts.
+    candidate: null
+    supporting_reason: Arresting the powerful people is much more important than arresting
+      the people being hired to do the dirty work.
+    support_relation: The reason justifies prioritizing the arrest of powerful figures
+      to effectively dismantle criminal organizations.
+    label_justification: The argument presents a value-based claim and uses it to
+      set a priority order; it does not invoke a false dilemma, hasty generalization,
+      appeal to authority, or other recognized fallacy, so no logical fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is probably just one step to what is needed to take down the criminal orgs
+      there. The police need to focus on the big players like the politicians before
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+    - being hired.
+  counterargument:
+    decisive_counterargument: Using the fact that politicians hold authority or a
+      powerful position does not, by itself, establish that arresting them should
+      be considered more important than arresting the people they hire to carry out
+      criminal tasks. Importance must be grounded in evidence of direct involvement,
+      influence over the wrongdoing, or likelihood of disruption—none of which is
+      provided. Therefore, the argument relies on the politicians’ status rather than
+      on relevant evidence, falling into an unjustified appeal to authority.
+    candidate: Appeal to Authority
+    challenged_inference: Arresting the powerful people (politicians) is much more
+      important than arresting the people they hire
+    label_justification: The objection shows that the argument elevates the importance
+      of politicians solely because they hold a position of authority; authority is
+      used as a credible ground for the conclusion without offering supporting evidence.
+      This matches the definition of an Appeal to Authority, where an arguers’ status
+      is employed to justify the conclusion rather than providing substantive evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - going after who they hire to do their dirty work. Arresting the powerful people
+      getting away with getting people to do their work is much more important that
+      the people
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target argues that arresting politicians is more important
+    than arresting the individuals they hire, based only on the politicians’ authority
+    and power, without supporting evidence of direct involvement or impact, fitting
+    the definition of an appeal to authority.
+  decision_reason: The claim relies on the politicians’ status to justify its importance,
+    lacking evidence, thus constituting an appeal to authority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - going after who they hire to do their dirty work. Arresting the powerful people
+    getting away with getting people to do their work is much more important that
+    the people
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4272
+  completion_tokens: 3764
+  total_tokens: 8036
+  wall_time_seconds: 123.43799999996554

@@ -1,0 +1,145 @@
+sample:
+  id: 489:8063
+  article_id: 489
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A 15-year-old rape victim is the latest collateral damage of Duterte's drug
+    war
+  parent: ''
+  target: If the police are allowed to get away with such heinous crimes against people
+    then what is to stop them from doing more? What is to stop anyone from doing whatever
+    they feel if even the police and the president are ok with crimes like rape and
+    abuse?  The country will fall into anarchy and will lead to mass government corruption
+    and death.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: police are allowed to get away with heinous crimes against people
+    - role: intermediate_consequence
+      text: they will do more / more crimes
+    - role: final_consequence
+      text: the country will fall into anarchy and will lead to mass government corruption
+        and death
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    - corruption and death.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The country will fall into anarchy and lead to mass government
+      corruption and death.
+    candidate: Slippery Slope
+    supporting_reason: If the police are allowed to get away with heinous crimes,
+      then they and anyone else will be free to commit more abuses, implying a progressive
+      decline in law and order.
+    support_relation: The argument links the initial allowance of police misconduct
+      to a cascade of increasingly severe negative outcomes, presenting this as a
+      causal chain that underpins the conclusion.
+    label_justification: The reasoning proposes that an initial toleration of crime
+      inevitably leads to widespread anarchy and corruption, a classic slippery‑slope
+      pattern with insufficient evidence to warrant the claimed progression.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    - corruption and death.
+  counterargument:
+    decisive_counterargument: The jump from police tolerating specific crimes to the
+      entire country descending into anarchy, corruption, and death is an unwarranted
+      escalation that provides no empirical or logical link between the two events.
+      The argument presumes that the existence of any tolerated wrongdoing by law‑enforcement
+      will inevitably trigger a societal collapse, which is a classic slippery‑slope
+      fallacy.
+    candidate: Slippery Slope
+    challenged_inference: The assertion that permitting police criminal acts will
+      directly lead to widespread anarchy and death.
+    label_justification: The objection targets the argument’s failure to establish
+      a causal chain between the initial condition (police tolerance of crime) and
+      the extreme outcomes (anarchy, corruption, death). Such a speculative progression
+      without intermediate evidence is exactly the hallmark of a Slippery Slope fallacy.
+      The counterargument shows that the inference is not grounded in any documented
+      stepwise development, thereby exposing the specific reasoning defect.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If the police are allowed to get away with such heinous crimes against people
+      then what is to stop them from doing more? What is to stop anyone from doing
+    - whatever they feel if even the police and the president are ok with crimes like
+      rape and abuse?  The country will fall into anarchy and will lead to mass government
+    - corruption and death.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents an unsubstantiated causal chain: allowing
+    police to commit crimes leads to more crime and ultimately to anarchy, corruption,
+    and death, constituting a slippery‑slope inference.'
+  decision_reason: The target states an initial event (police allowed crimes), predicts
+    a subsequent escalation (more crimes by police and others), and concludes with
+    an extreme result (the country falling into anarchy and corruption). This fits
+    the structure of a slippery‑slope argument and lacks supporting evidence for the
+    claimed progression.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - If the police are allowed to get away with such heinous crimes against people
+    then what is to stop them from doing more? What is to stop anyone from doing
+  - whatever they feel if even the police and the president are ok with crimes like
+    rape and abuse?  The country will fall into anarchy and will lead to mass government
+  - corruption and death.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4784
+  completion_tokens: 3250
+  total_tokens: 8034
+  wall_time_seconds: 168.23399999999674

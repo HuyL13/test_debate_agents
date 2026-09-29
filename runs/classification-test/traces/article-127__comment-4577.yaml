@@ -1,0 +1,127 @@
+sample:
+  id: 127:4577
+  article_id: 127
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: Almost everybody has been affected by the shutdowns. And everyone says it
+    is terrible. Having a junta shutting down the internet does not bode well for
+    the citizens, so the people need to revolt, like most countries do
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most countries
+    - role: popularity_claim
+      text: revolt
+    - role: target_claim
+      text: the people need to revolt
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - people need to revolt, like most countries do
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: People need to revolt
+    candidate: Appeal to Majority
+    supporting_reason: Because most countries revolt in similar situations
+    support_relation: This reason is used to justify the conclusion that people need
+      to revolt
+    label_justification: The argument relies on the fact that most countries have
+      revolted to support the current call for revolt, which is an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - people need to revolt, like most countries do
+  counterargument:
+    decisive_counterargument: The argument leap‑frog from the fact that a junta shutting
+      down the internet is harmful to the claim that the only viable response is a
+      popular revolt. The premises merely describe the problem; they do not show that
+      revolutionary action is the necessary or most constructive way to solve it.
+      The reasoning neglects other feasible responses (e.g., international sanctions,
+      diplomatic pressure, targeted civil disobedience, or legal mechanisms) and assumes
+      that revolt is the inevitable single solution. Hence the inference that “the
+      people need to revolt” is unwarranted because it relies on the negative consequence
+      of the shutdown rather than on evidence that revolt will effectively address
+      the problem.
+    candidate: Appeal to Authority
+    challenged_inference: The conclusion that revolt is required follows simply from
+      having a junta shut down the internet.
+    label_justification: 'This objection demonstrates that the reasoning uses the
+      fact that the junta is acting oppressively (its negative consequence) to justify
+      a particular political solution—revolution—without substantiating that this
+      is the only or best option. This characteristic aligns with an Appeal to Consequence:
+      the argument appeals to the undesirable state of affairs to claim a specific
+      remedy.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Almost everybody has been affected by the shutdowns. And everyone says it is
+      terrible. Having a junta shutting down the internet does not bode well for the
+      citizens, so the
+    - people need to revolt, like most countries do
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states “people need to revolt, like most countries
+    do,” using the fact that a majority of countries have revolted as support for
+    the claim that the people must revolt. This follows the structural pattern of
+    popularity‑to‑claim, satisfying the required structure for an Appeal to Majority.
+  decision_reason: The argument appeals to the popularity of revolts (most countries)
+    to justify the conclusion that the people need to revolt, which is a classic Appeal
+    to Majority.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - people need to revolt, like most countries do
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3963
+  completion_tokens: 2500
+  total_tokens: 6463
+  wall_time_seconds: 116.53099999995902

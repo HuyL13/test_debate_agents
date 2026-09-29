@@ -1,0 +1,150 @@
+sample:
+  id: 427:7278
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Journalists have done important work for all countries for as long as they've
+    been a thing! They have always been some of the most important people in democracies
+    and Spain hasn't treated theirs right. Seeing them take their fate into their
+    own hands is great! Spain needs to get back to seeing how important they are.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing!
+    - Spain needs to get back to seeing how important they are.
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Journalists have done important work for all countries for as long as
+        they've been a thing!
+    - role: preservation_conclusion
+      text: Spain needs to get back to seeing how important they are.
+    structure_complete: true
+    candidate: Appeal to Tradition
+  goal:
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing! They have always been some of the most important people in democracies
+    - Spain hasn't treated theirs right.
+    - Seeing them take their fate into their own hands is great! Spain needs to get
+      back to seeing how important they are.
+    conclusion_or_goal: Journalists have always been important and should be treated
+      as such in Spain
+    candidate: Hasty Generalization
+    supporting_reason: Journalists have done important work for all countries for
+      as long as they've been a thing! They have always been some of the most important
+      people in democracies
+    support_relation: supports-conclusion-1
+    label_justification: The statement makes a sweeping claim about the importance
+      of all journalists based on no concrete evidence, which is a classic hasty generalization.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing!
+    - They have always been some of the most important people in democracies
+    - Spain hasn't treated theirs right
+    decisive_counterargument: Historical importance alone does not logically entail
+      that Spain must treat journalists well; the current treatment should be judged
+      on present circumstances, not on a long‑held tradition.
+    candidate: Appeal to Tradition
+    challenged_inference: Because journalists have always been important, Spain must
+      treat them right.
+    label_justification: The target relies on the fact that journalists have historically
+      held an important role as a justification for the claim that they deserve better
+      treatment. This represents an Appeal to Tradition — using a long‑standing status
+      as evidence that a particular treatment is warranted, without providing a substantive
+      argument connecting tradition to the required action.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Hasty Generalization
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing!
+    - Spain needs to get back to seeing how important they are.
+    decisive_test: The target provides a tradition premise—journalists’ long‑standing
+      importance—and uses it to argue that Spain should treat them well. This matches
+      the mandatory tradition‑to‑preservation structure for Appeal to Tradition. The
+      Hasty Generalization structure (a specific sample leading to a broad claim)
+      is not present, as the target offers no distinct example or case that is generalized
+      to all journalists. Therefore the Appeal to Tradition fallacy satisfies the
+      required structural condition while the Hasty Generalization does not.
+    loser_failure: The Hasty Generalization pattern requires an explicit sample followed
+      by a general conclusion. The target gives only an overarching statement about
+      journalists’ historical importance, not a particular instance or specific data
+      point that is generalized. Consequently, there is no evidence span that constitutes
+      the sample element, so the structural condition for Hasty Generalization is
+      unmet.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  evidence_spans:
+  - Journalists have done important work for all countries for as long as they've
+    been a thing!
+  - Spain needs to get back to seeing how important they are.
+  decisive_condition: The target repeats the traditional premise “Journalists have
+    done important work for all countries for as long as they've been a thing!” and
+    concludes that “Spain needs to get back to seeing how important they are.” This
+    pattern of invoking a long‑held status to justify current treatment fulfills the
+    structural requirement for an Appeal to Tradition fallacy.
+  decision_reason: The target explicitly ties the historical importance of journalists
+    to a call for improved treatment in Spain, using tradition as justification without
+    a substantive link between the two. This matches the definition of an Appeal to
+    Tradition.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4766
+  completion_tokens: 4266
+  total_tokens: 9032
+  wall_time_seconds: 131.23399999999674

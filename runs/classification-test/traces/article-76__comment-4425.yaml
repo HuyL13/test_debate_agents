@@ -1,0 +1,143 @@
+sample:
+  id: 76:4425
+  article_id: 76
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: When you look at these terrible situation, it is important to keep in mind
+    the long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+    can move past their differences. Remember, different Christian groups such as
+    the Catholics and Protestants have managed to peacefully coexist despite having
+    a difficult history with each other. Hopefully adopted a similar pathway of reconciliation
+    will be possible.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T2
+    - role: observed_property
+      text: T2
+    - role: target_population
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you look at these terrible situation, it is important to keep in mind the
+      long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+      can move past
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The author hopes that Sunni and Shia Muslims can move past
+      their violent differences and achieve reconciliation.
+    candidate: Hasty Generalization
+    supporting_reason: The example of Catholic and Protestant groups peacefully coexisting
+      despite a difficult history.
+    support_relation: The Catholic‑Protestant example is cited as evidence that sectarian
+      conflict can be resolved, implying the same pathway will work for Sunni‑Shia
+      relations.
+    label_justification: The argument takes a single instance of religious reconciliation
+      and generalizes it to a different sectarian conflict, fitting the pattern of
+      a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+  counterargument:
+    decisive_counterargument: The argument assumes that because Christians were once
+      at odds and now peacefully coexist, the same will happen for Sunnis and Shias,
+      overlooking profound theological, political, and historical differences between
+      the two groups.
+    candidate: null
+    challenged_inference: Using the peaceful coexistence of Catholics and Protestants
+      as evidence that Sunni–Shia conflict can be similarly resolved.
+    label_justification: This objection highlights that the reasoning relies on an
+      inaccurate generalization by analogy, but since none of the fallacy labels listed
+      explicitly covers an unsupported analogy (e.g., false analogy), this is not
+      an instance of a listed fallacy; therefore a conclusion cannot be drawn that
+      the argument commits one of the specified fallacies.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - When you look at these terrible situation, it is important to keep in mind the
+      long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+      can move past
+    - their differences. Remember, different Christian groups such as the Catholics
+      and Protestants have managed to peacefully coexist despite having a difficult
+      history with each other. Hopefully adopted a similar pathway
+    - of reconciliation will be possible.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument draws a broad conclusion that Sunni and Shia Muslims
+    can reconcile based on the single example of Catholic-Protestant peace, falsely
+    generalizing from a specific case to a broader sectarian conflict.
+  decision_reason: The text cites Catholic-Protestant coexistence as evidence that
+    a similar reconciliation path will work for Sunni-Shia, thereby employing hasty
+    generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you look at these terrible situation, it is important to keep in mind the
+    long tradition of violence between the Sunni and Shia Muslims. Hopefully they
+    can move past
+  - their differences. Remember, different Christian groups such as the Catholics
+    and Protestants have managed to peacefully coexist despite having a difficult
+    history with each other. Hopefully adopted a similar pathway
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4413
+  completion_tokens: 4436
+  total_tokens: 8849
+  wall_time_seconds: 144.9529999999795

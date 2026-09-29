@@ -1,0 +1,149 @@
+sample:
+  id: 550:8246
+  article_id: 550
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Can Jordan offer some lessons to oil-dependent ‘giants’ on renewable energy?
+  parent: ''
+  target: The UAE intends to get half its energy from renewable sources by 2050? That
+    bodes quite well for the region, as all the other Arab countries will follow suit,
+    of course. Since these countries tend to all be run in roughly the same way, the
+    success of the UAE will parlay easily into similar or even better outcomes among
+    its neighboring countries, which is going to be great for the planet!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the UAE
+    - role: observed_property
+      text: intends to get half its energy from renewable sources by 2050
+    - role: target_population
+      text: other Arab countries
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - The UAE intends to get half its energy from renewable sources by 2050? That
+      bodes quite well for the region, as all the other Arab countries will follow
+      suit, of
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The UAE's aim to source half its energy from renewables by
+      2050 will lead other Arab nations to follow suit, producing positive environmental
+      outcomes for the region.
+    candidate: Hasty Generalization
+    supporting_reason: Since these countries tend to all be run in roughly the same
+      way, the success of the UAE will parlay easily into similar or even better outcomes
+      among its neighboring countries.
+    support_relation: The reason attempts to justify the conclusion by arguing that
+      structural similarity among Arab governments ensures that success in the UAE
+      will automatically translate into similar success elsewhere.
+    label_justification: The argument generalizes from the single example of the UAE
+      success to all other Arab countries based merely on presumed governance similarity,
+      without providing evidence that such a transfer will occur. This meets the definition
+      of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The UAE intends to get half its energy from renewable sources by 2050? That
+      bodes quite well for the region, as all the other Arab countries will follow
+      suit, of
+    - course. Since these countries tend to all be run in roughly the same way, the
+      success of the UAE will parlay easily into similar or even better outcomes among
+      its
+  counterargument:
+    decisive_counterargument: Assuming the United Arab Emirates’ future success with
+      renewable energy will automatically translate into similar achievements across
+      all Arab nations because they 'tend to be run in roughly the same way' is an
+      over‑generalization. The argument stretches one example (the UAE’s policy) to
+      an entire region whose political, economic, social, and energy contexts vary
+      widely, and thus the inference is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: The success of the UAE’s renewable‑energy plan will automatically
+      parlay into similar or better outcomes among neighboring Arab countries.
+    label_justification: The conclusion is derived from a single instance (the UAE)
+      and applies it to an entire population (Arab countries) without acknowledging
+      variability or providing evidence that these other nations will adopt the same
+      approach. This pattern satisfies the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The UAE intends to get half its energy from renewable sources by 2050? That
+      bodes quite well for the region, as all the other Arab countries will follow
+      suit, of
+    - course. Since these countries tend to all be run in roughly the same way, the
+      success of the UAE will parlay easily into similar or even better outcomes among
+      its
+    - neighboring countries, which is going to be great for the planet!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The argument takes a single case—the UAE’s plan to source half
+    its energy from renewables by 2050—and infers that all other Arab countries will
+    automatically follow suit and achieve similar or better outcomes, based solely
+    on presumed governance similarities. This is a classic instance of a hasty generalization
+    from one sample to a broader population.
+  decision_reason: The target passage explicitly states that success in the UAE will
+    ‘parlay easily into similar or even better outcomes among its neighboring countries,’
+    thereby generalizing from the UAE (sample) to all other Arab nations (population)
+    without providing evidence for such a transfer. This satisfies the structural
+    criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The UAE intends to get half its energy from renewable sources by 2050? That bodes
+    quite well for the region, as all the other Arab countries will follow suit, of
+  - course. Since these countries tend to all be run in roughly the same way, the
+    success of the UAE will parlay easily into similar or even better outcomes among
+    its
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4845
+  completion_tokens: 2674
+  total_tokens: 7519
+  wall_time_seconds: 37.90600000001723

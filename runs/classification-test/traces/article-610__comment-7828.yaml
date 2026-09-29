@@ -1,0 +1,141 @@
+sample:
+  id: 610:7828
+  article_id: 610
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: This failure clearly shows that waste reduction policies don't work and
+    shouldn't be implemented anywhere else in the world. Maybe with some modifications
+    it could work better, but overall there is likely no point to banning plastic
+    or trying to reduce its use, given these results.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: this failure
+    - role: observed_property
+      text: waste reduction policies don't work
+    - role: target_population
+      text: waste reduction policies worldwide
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This failure clearly shows that waste reduction policies don't work and shouldn't
+      be implemented anywhere else in the world. Maybe with some modifications it
+      could work better, but overall there
+    - is likely no point to banning plastic or trying to reduce its use, given these
+      results.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Waste reduction policies don't work and shouldn't be implemented
+      anywhere else in the world.
+    candidate: Hasty Generalization
+    supporting_reason: The speaker cites the failure of Burundi’s plastic bottle recycling
+      as definitive proof that all waste reduction policies are ineffective.
+    support_relation: The conclusion is justified solely by one specific case, generalizing
+      from that single example to all such policies worldwide, which constitutes a
+      hasty generalization.
+    label_justification: The argument extrapolates from an isolated instance (Burundi)
+      to a universal claim about waste reduction policies, fitting the definition
+      of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This failure clearly shows that waste reduction policies don't work and shouldn't
+      be implemented anywhere else in the world. Maybe with some modifications it
+      could work better, but overall there
+    - is likely no point to banning plastic or trying to reduce its use, given these
+      results.
+  counterargument:
+    decisive_counterargument: The argument draws a sweeping conclusion about all waste‑reduction
+      policies worldwide based solely on Burundi’s experience, which is a single,
+      context‑specific case.  Without evidence from a representative sample or comparative
+      studies, the claim that such policies never work is not justified.  The failure
+      in one location does not prove a universal failure.
+    candidate: Hasty Generalization
+    challenged_inference: This failure clearly shows that waste reduction policies
+      don't work and shouldn't be implemented anywhere else in the world.
+    label_justification: 'The objection targets the unjustified leap from a single,
+      limited observation (Burundi’s failure) to a universal claim about all waste‑reduction
+      policies.  This is the hallmark of a Hasty Generalization, as the reasoning
+      fails to provide a representative or broader evidence base.  The counterargument
+      specifically demonstrates that the conclusion overreaches the available data,
+      exposing the fallacious generalization. '
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This failure clearly shows that waste reduction policies don't work and shouldn't
+      be implemented anywhere else in the world. Maybe with some modifications it
+      could work better, but overall there
+    - is likely no point to banning plastic or trying to reduce its use, given these
+      results.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The statement draws a universal conclusion about all waste reduction
+    policies worldwide from a single case (the failure described as 'this failure'),
+    with no additional supporting evidence.
+  decision_reason: The target makes a sweeping claim that waste reduction policies
+    do not work globally based solely on the failure of one instance, which meets
+    the structural criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This failure clearly shows that waste reduction policies don't work and shouldn't
+    be implemented anywhere else in the world. Maybe with some modifications it could
+    work better, but overall there
+  - is likely no point to banning plastic or trying to reduce its use, given these
+    results.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4400
+  completion_tokens: 2588
+  total_tokens: 6988
+  wall_time_seconds: 62.45400000002701

@@ -1,0 +1,152 @@
+sample:
+  id: 87:4159
+  article_id: 87
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Hong Kong, local entrepreneurs champion the pro-democracy cause
+  parent: ''
+  target: Things are hardcore in Hong kong. It's a good thing that the businesses
+    are supporting the people. Without the business supporting protests they may not
+    be able to continue. It's important for people to be heard. Without the support
+    the people might not be able to continue. Without them the people would run out
+    of steam. And then there may be more consequences to the economy of Hong Kong
+    that they haven't predicted.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Businesses no longer supporting the protests
+    - role: intermediate_consequence
+      text: People may not be able to continue and run out of steam
+    - role: final_consequence
+      text: There may be more consequences to the economy of Hong Kong that they haven't
+        predicted
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Things are hardcore in Hong kong. It's a good thing that the businesses are
+      supporting the people. Without the business supporting protests they may not
+      be able to continue. It's
+    - important for people to be heard. Without the support the people might not be
+      able to continue. Without them the people would run out of steam. And then there
+      may
+    - be more consequences to the economy of Hong Kong that they haven't predicted.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: It is good and necessary for Hong Kong businesses to support
+      the pro‑democracy protests so they can continue without running out of steam
+      and to avoid potential negative economic consequences.
+    candidate: null
+    supporting_reason: Without the business supporting protests they may not be able
+      to continue; people would run out of steam, leading to further unintended consequences
+      for Hong Kong’s economy.
+    support_relation: 'Causal justification: business support → protest continuation
+      → prevention of economic fallout.'
+    label_justification: The argument merely presents a causal claim that business
+      support is essential to avoid negative outcomes. It does not employ a false
+      dilemma, slippery slope, or other formal fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Things are hardcore in Hong kong. It's a good thing that the businesses are
+      supporting the people. Without the business supporting protests they may not
+      be able to continue. It's
+    - important for people to be heard. Without the support the people might not be
+      able to continue. Without them the people would run out of steam. And then there
+      may
+    - be more consequences to the economy of Hong Kong that they haven't predicted.
+  counterargument:
+    decisive_counterargument: The argument assumes that the absence of business support
+      will inevitably cause protests to falter, the protestors to lose momentum, and
+      trigger an economic downturn, yet the passage offers no evidence that business
+      backing is essential for the continuation of protests or that such a chain of
+      events would necessarily result. Without empirical or causal support, the claim
+      relies on an unverified sequence of effects.
+    candidate: Slippery Slope
+    challenged_inference: If businesses do not support protests, the protests will
+      not continue, the people will run out of steam, and this will cause economic
+      consequences for Hong Kong.
+    label_justification: The inference links a single change (loss of business support)
+      to a series of increasingly adverse outcomes with no evidence, fitting the slippery‑slope
+      pattern of an unsupported escalation of consequences.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Things are hardcore in Hong kong. It's a good thing that the businesses are
+      supporting the people. Without the business supporting protests they may not
+      be able to continue. It's
+    - important for people to be heard. Without the support the people might not be
+      able to continue. Without them the people would run out of steam. And then there
+      may
+    - be more consequences to the economy of Hong Kong that they haven't predicted.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target supplies an unsupported chain of consequences—businesses
+    not supporting protests → protests may falter → people run out of steam → economic
+    ramifications—where no evidence substantiates the inevitable escalation. The sequence
+    demonstrates a classic slippery‑slope pattern.
+  decision_reason: The argument presents a single initial event (loss of business
+    support) followed by a progression of increasingly adverse outcomes with no causal
+    evidence. This meets the structural and propositional criteria for a slippery‑slope
+    fallacy. Evidence from passages T1, T2, and T3 supports the claim that the target
+    contains such an unfounded escalation.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Things are hardcore in Hong kong. It's a good thing that the businesses are supporting
+    the people. Without the business supporting protests they may not be able to continue.
+    It's
+  - important for people to be heard. Without the support the people might not be
+    able to continue. Without them the people would run out of steam. And then there
+    may
+  - be more consequences to the economy of Hong Kong that they haven't predicted.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4585
+  completion_tokens: 4142
+  total_tokens: 8727
+  wall_time_seconds: 125.29700000002049

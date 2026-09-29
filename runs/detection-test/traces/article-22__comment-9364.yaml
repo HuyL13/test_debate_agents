@@ -1,0 +1,137 @@
+sample:
+  id: 22:9364
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: So they listened to celebrities and locals who have no real understanding
+    of climate change or the coal industry? The people who work on this project know
+    what's best and would have provided many people jobs! The benefits to not building
+    it aren't even known, but as the people in charge of the project said, the benefits
+    to building it would have meant 300 families with jobs.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the people who work on this project
+    - role: endorsed_claim
+      text: know what's best
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+    - would have provided many people jobs! The benefits to not building it aren't
+      even known, but as the people in charge of the project said, the benefits to
+      building it
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: That the project is beneficial and should be built because
+      it will provide jobs and is directed by experts.
+    candidate: Appeal to Authority
+    supporting_reason: The argument claims that ‘the people who work on this project
+      know what’s best’ as justification for proceeding with the project.
+    support_relation: direct justification of the conclusion
+    label_justification: The argument relies on the authority of the project workers
+      without evaluating their credentials or providing independent evidence, which
+      is a form of appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+  counterargument:
+    decisive_counterargument: The argument trusts the project staff—who are presented
+      simply as 'the people who work on this project'—to declare what is best, without
+      providing any objective evidence or data on the actual benefits and costs of
+      building the mine. Relying on their authority to claim 300 families will get
+      jobs is an appeal to authority, not a logical basis for acceptance.
+    candidate: Appeal to Authority
+    challenged_inference: The people who work on this project know what's best, so
+      the project must be beneficial.
+    label_justification: 'The inference is based solely on the claim that the staff
+      are experts, which satisfies the definition of an appeal to authority: a statement
+      that wields expert opinion as proof without supporting evidence. The argument
+      fails to establish any empirical or factual evidence for the claimed benefits,
+      thus the inference suffers from a classic appeal to authority.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+    - would have provided many people jobs! The benefits to not building it aren't
+      even known, but as the people in charge of the project said, the benefits to
+      building it
+    - would have meant 300 families with jobs.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The argument asserts that the people who work on this project
+    ‘know what’s best’ and bases the claim that building the mine will provide jobs
+    on their authority, without supplying independent evidence or data. The presence
+    of the authority figure (the project workers) and their asserted expertise directly
+    supports the conclusion that the project should be built, satisfying the structural
+    conditions for an Appeal to Authority.
+  decision_reason: The text explicitly names ‘the people who work on this project’
+    as the authorities who ‘know what’s best’ and bases the benefit claim on their
+    endorsement, which matches the definition of an appeal to authority. Thus the
+    target contains this logical fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - So they listened to celebrities and locals who have no real understanding of climate
+    change or the coal industry? The people who work on this project know what's best
+    and
+  - would have provided many people jobs! The benefits to not building it aren't even
+    known, but as the people in charge of the project said, the benefits to building
+    it
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4652
+  completion_tokens: 2890
+  total_tokens: 7542
+  wall_time_seconds: 267.98399999993853

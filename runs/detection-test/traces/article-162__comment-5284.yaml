@@ -1,0 +1,160 @@
+sample:
+  id: 162:5284
+  article_id: 162
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: They are doing this because they plan to commit genocide against their people.
+    There is no other explanation for why they would want this bill enacted! Any country
+    that wants to censor info and shut down dissent has genocide on their agenda!
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: plan to commit genocide
+    - role: alternative_b
+      text: other explanation
+    - role: exhaustiveness_commitment
+      text: There is no other explanation for why they would want this bill enacted
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: They plan to commit genocide; the bill is enacted to facilitate
+      that agenda.
+    candidate: Hasty Generalization
+    supporting_reason: The only possible explanation for the bill is genocide, and
+      any country that wants to censor info and shut down dissent has genocide on
+      its agenda.
+    support_relation: The argument claims that genocide is the sole motive for the
+      bill, using the lack of other explanations to infer a genocidal intent.
+    label_justification: The argument generalizes from the single instance of the
+      bill to all censoring regimes, asserting that genocide is inevitable, which
+      is an unsupported broad claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+  counterargument:
+    decisive_counterargument: The fact that a government passes a bill to censor information
+      does not logically entail that it plans to commit genocide. The claim ignores
+      many other plausible motives—such as national security concerns, maintaining
+      political stability, or protecting public order—that can also explain the draft
+      legislation. Without evidence linking the bill to genocidal intent, concluding
+      genocide is an unjustified leap.
+    candidate: Hasty Generalization
+    challenged_inference: Concluding that the bill is intended to commit genocide
+      and that no other explanation exists for the censorship.
+    label_justification: The reasoning advances a sweeping generalization—every instance
+      of censorship equals genocidal planning—without sufficient evidence or consideration
+      of alternative explanations. This reflects a classic hasty generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  - Hasty Generalization
+  transitions:
+  - before:
+    - False Dilemma
+    - Hasty Generalization
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: No monolithic support for the exclusivity and exhaustion of alternatives
+      needed to validate a hasty generalization
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They are doing this because they plan to commit genocide against their people.
+      There is no other explanation for why they would want this bill enacted! Any
+      country that wants
+    - to censor info and shut down dissent has genocide on their agenda!
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target presents an explicit binary choice—“plan to commit
+    genocide” versus “other explanation”—and asserts that no other explanation exists
+    (“There is no other explanation…”). This satisfies the mandatory structural requirement
+    for a False Dilemma. Therefore the statement is correctly identified as a false
+    dilemma.
+  decision_reason: 'The passage explicitly enumerates two mutually exclusive alternatives
+    and claims exclusivity, matching the structure of a false dilemma. Evidence: T1,
+    T2.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They are doing this because they plan to commit genocide against their people.
+    There is no other explanation for why they would want this bill enacted! Any country
+    that wants
+  - to censor info and shut down dissent has genocide on their agenda!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5408
+  completion_tokens: 4318
+  total_tokens: 9726
+  wall_time_seconds: 197.29700000000594

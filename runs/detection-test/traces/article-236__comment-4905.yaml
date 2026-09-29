@@ -1,0 +1,162 @@
+sample:
+  id: 236:4905
+  article_id: 236
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: It is clear what the people want here. The governments must take action
+    to support their people and promote conservation for the environment. Experts
+    have given many insights, it is now up to the government to listen, the earth
+    needs help now!
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Experts
+    - role: endorsed_claim
+      text: the government must take action
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+    - now up to the government to listen, the earth needs help now!
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Governments should take action to support their people and
+      promote conservation for the environment.
+    candidate: Appeal to Authority
+    supporting_reason: Experts have given many insights, hence governments must listen
+      and act.
+    support_relation: goals
+    label_justification: The argument relies on citing experts to justify the claim
+      that governments must act, without providing substantive evidence or reasoning
+      beyond the experts’ authority. This is an appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+    - now up to the government to listen, the earth needs help now!
+  counterargument:
+    decisive_counterargument: The claim that governments must act because ‘it is clear
+      what the people want’ is unsupported. No data or evidence is provided showing
+      what proportion of the population actually favors conservation policies, yet
+      the argument extrapolates this vague assertion to an entire nation‑wide mandate
+      for governmental action. Without a representative sample or empirical support,
+      the leap from an unspecified individual opinion to a universal requirement is
+      a classic over‑generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The speaker infers that governments should take action to
+      support the people and promote conservation simply because ‘people want it’
+      and experts have provided insights, implying a clear, universal mandate.
+    label_justification: The objection directly targets the reasoning step in which
+      the claim is generalized from an unspecified group’s preference to an absolute
+      governmental obligation, which is the definition of a hasty generalization.
+      The argument does not provide concrete evidence that the people indeed want
+      these policies; it merely asserts it, making the inference invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Appeal to Authority
+    after:
+    - Appeal to Authority
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Authority
+    decisive_test: The target explicitly cites experts as sources of insight, forming
+      the basis for advocating government action. This satisfies the mandatory structural
+      condition for an appeal to authority, where an authority is invoked to justify
+      a claim.
+    loser_failure: While the target also contains a general claim that ‘the people
+      want it,’ it does not present a specific sample or empirical evidence to support
+      a sweeping conclusion, making the hasty generalization claim weaker and not
+      as directly supported by the text.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is clear what the people want here. The governments must take action to support
+      their people and promote conservation for the environment. Experts have given
+      many insights, it is
+    - now up to the government to listen, the earth needs help now!
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: 'Appeal to Authority: the argument cites experts as the sole
+    authority to justify that governments must act, providing no independent evidence
+    or reasoning beyond the experts’ endorsement.'
+  decision_reason: The target states that experts have given many insights and that
+    governments must listen, using the experts’ authority alone to support the claim
+    that governments should act. This relies solely on an authority and lacks additional
+    evidence, which meets the structural criteria for an appeal to authority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is clear what the people want here. The governments must take action to support
+    their people and promote conservation for the environment. Experts have given
+    many insights, it is
+  - now up to the government to listen, the earth needs help now!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5489
+  completion_tokens: 3610
+  total_tokens: 9099
+  wall_time_seconds: 326.219000000041

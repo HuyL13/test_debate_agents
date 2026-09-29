@@ -1,0 +1,170 @@
+sample:
+  id: 367:7098
+  article_id: 367
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: It wasn't really a good idea to call off the march because of the violent
+    protesters.  Allowing intimidation to dictate whether others can show their disapproval
+    of suppression of human rights, sets a dangerous precedent. Imagine if violent
+    protestors decided men should no longer be allowed to drive because statistics
+    show they are responsible for most accidents. Those that disapprove of such a
+    restriction, would not be able to protest against it which may signal to officials
+    most citizens approve of it.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: call off the march because of the violent protesters
+    - role: intermediate_consequence
+      text: violent protestors decided that men should no longer be allowed to drive
+        because statistics show they are responsible for most accidents
+    - role: final_consequence
+      text: those that disapprove of such a restriction would not be able to protest
+        against it, which may signal to officials that most citizens approve of it
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: It was not a good idea to call off the march because of violent
+      protesters.
+    candidate: null
+    supporting_reason: Allowing intimidation to dictate whether others can show their
+      disapproval of suppression of human rights sets a dangerous precedent, as illustrated
+      by the hypothetical extreme scenario.
+    support_relation: direct justification
+    label_justification: The stated danger is used to support the conclusion without
+      employing a fallacious strategy; the reason has a legitimate relationship to
+      the conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+  counterargument:
+    decisive_counterargument: The argument leaps from the fact that violent protestors
+      exist to the claim that allowing intimidation to dictate whether others can
+      protest will inevitably lead to sweeping restrictions—like banning men from
+      driving. This speculative chain lacks evidence; democratic societies routinely
+      suppress violent elements while preserving the right to protest. Thus, the conclusion
+      that canceling the march because of violent protestors is a bad idea rests on
+      an unsubstantiated slippery‑slope claim.
+    candidate: Slippery Slope
+    challenged_inference: Cancelling the march due to violent protesters is a bad
+      idea because allowing intimidation to dictate disapproval will set a dangerous
+      precedent and lead to extreme restrictions.
+    label_justification: The counterargument exposes that the target’s reasoning presents
+      an unwarranted causal chain—from calling off a march to a series of severe,
+      escalating consequences—without evidence. This is precisely the definition of
+      a slippery‑slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+      intimidation to dictate whether others can show their disapproval of suppression
+      of human
+    - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+      should no longer be allowed to drive because statistics show they are responsible
+      for most accidents. Those that disapprove
+    - of such a restriction, would not be able to protest against it which may signal
+      to officials most citizens approve of it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'The target presents a speculative causal chain: calling off
+    the march leads to intimidation dictating who can protest, which sets a dangerous
+    precedent and could result in extreme policy restrictions (e.g., banning men from
+    driving), thereby preventing disapproval and signaling majority approval to officials.
+    This unsubstantiated progression from an initial action to increasingly adverse
+    outcomes meets the definition of a slippery‑slope fallacy.'
+  decision_reason: The argument jumps from the fact that violent protesters exist
+    to the claim that allowing intimidation will inevitably lead to severe restrictions,
+    without evidence. The target’s structure—initial event (canceling the march),
+    intermediate consequence (intimidation dictates protest), final consequence (restrictive
+    policies and suppression of dissent)—constitutes a slippery‑slope fallacy. The
+    counterargument confirms the unsupported causal chain, validating the fallacy.
+    Hence the correct label is Slippery Slope.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It wasn't really a good idea to call off the march because of the violent protesters.  Allowing
+    intimidation to dictate whether others can show their disapproval of suppression
+    of human
+  - rights, sets a dangerous precedent. Imagine if violent protestors decided men
+    should no longer be allowed to drive because statistics show they are responsible
+    for most accidents. Those that disapprove
+  - of such a restriction, would not be able to protest against it which may signal
+    to officials most citizens approve of it.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4784
+  completion_tokens: 4373
+  total_tokens: 9157
+  wall_time_seconds: 120.45300000000861

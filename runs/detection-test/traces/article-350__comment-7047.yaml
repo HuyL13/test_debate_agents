@@ -1,0 +1,186 @@
+sample:
+  id: 350:7047
+  article_id: 350
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Refugees in Ethiopia's camps raise privacy and exclusion concerns over UNHCR’s
+    new digital registration
+  parent: ''
+  target: They are refugees in an extremely poor country, which means they come from
+    even poorer ones and they are worried about an ID? How about focusing on just
+    finding food, shelter, and a way out of violent countries before caring about
+    having your eyes scanned and whatnot!? The security concerns are worrisome, I
+    get that, but its preferable over being homeless and starving!
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: security concerns about ID scanning
+    - role: worse_issue
+      text: being homeless and starving
+    - role: deprioritizing_conclusion
+      text: prioritize basic needs over addressing ID scanning security concerns
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The comment argues that refugees’ basic survival needs (food,
+      shelter, escape from violence) are a more urgent concern than privacy and security
+      issues related to ID scanning.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The reason used is a comparison that the severe problems of
+      homelessness and starvation outweigh the less severe concerns about ID scanning
+      and security.
+    support_relation: This reason serves to downplay and dismiss the privacy/security
+      issue by invoking a more pressing problem.
+    label_justification: The argument explicitly uses a more serious problem (homelessness/starvation)
+      to justify ignoring a less serious concern, a textbook example of an appeal
+      to worse problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+  counterargument:
+    decisive_counterargument: The reasoning that 'identity‑scanning is unimportant
+      because refugees need food and shelter' assumes the choice is binary. In practice,
+      identification and basic aid can be pursued simultaneously; refusing to address
+      one simply because the other seems urgent does not follow logically. By integrating
+      digital registration with humanitarian delivery, refugees can receive both security
+      and sustenance without a trade‑off.
+    candidate: False Dilemma
+    challenged_inference: That camouflaging eye scans is immaterial compared to feeding
+      and sheltering refugees
+    label_justification: The target’s inference presents only two extreme options—security
+      concerns versus basic survival—while ignoring a feasible middle course where
+      both are pursued. This is the classic false dilemma fallacy, where the argument
+      attempts to constrain the conversation to mutually exclusive choices that are
+      in reality not so exclusive.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - False Dilemma
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - False Dilemma
+    conflict: appeal-to-worse-problems__vs__false-dilemma
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__false-dilemma
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - False Dilemma
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: 'Appeal to Worse Problems was correctly chosen because Target explicitly
+      uses a more serious problem (homelessness/starvation) to justify downplaying
+      a less serious one (security concerns about ID scanning). This meets the required
+      structural condition for an appeal to worse problems. False Dilemma was not
+      chosen because the Target does not explicitly present only two mutually exclusive
+      options; it only argues that basic survival should be prioritized. The evidence
+      supporting Appeal to Worse Problems is:'
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - They are refugees in an extremely poor country, which means they come from even
+      poorer ones and they are worried about an ID? How about focusing on just finding
+      food,
+    - shelter, and a way out of violent countries before caring about having your
+      eyes scanned and whatnot!? The security concerns are worrisome, I get that,
+      but its preferable over being
+    - homeless and starving!
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: 'The target explicitly compares the security concerns about
+    ID scanning with a more severe problem (homelessness and starvation) and concludes
+    that the latter is preferable, thereby downplaying or ignoring the former—meeting
+    the structural definition of an Appeal to Worse Problems. Evidence: T1, T2, T3.'
+  decision_reason: The comment indicates that the more pressing issue of homelessness
+    and starvation outweighs the concerns about security of ID scanning, leading to
+    a conclusion that basic survival needs should take precedence. This matches the
+    definition of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - They are refugees in an extremely poor country, which means they come from even
+    poorer ones and they are worried about an ID? How about focusing on just finding
+    food,
+  - shelter, and a way out of violent countries before caring about having your eyes
+    scanned and whatnot!? The security concerns are worrisome, I get that, but its
+    preferable over being
+  - homeless and starving!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6208
+  completion_tokens: 4373
+  total_tokens: 10581
+  wall_time_seconds: 219.45300000000134

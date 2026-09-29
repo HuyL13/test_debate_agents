@@ -1,0 +1,145 @@
+sample:
+  id: 387:10458
+  article_id: 387
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The quiet weeding out of Hong Kong’s media landscape
+  parent: ''
+  target: Media freedom is so important! Atrocities like this shouldn't be happening
+    anywhere. If these regulations are replicated in other parts of the world, there's
+    a risk that we'll all be silenced sooner rather than later. Democracies worldwide
+    might begin to crumble under restrictions that clamp down on freedom of speech.
+    Let's keep standing up for media freedom, everyone!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: These regulations being replicated in other parts of the world.
+    - role: intermediate_consequence
+      text: We’ll all be silenced sooner rather than later.
+    - role: final_consequence
+      text: Democracies worldwide might begin to crumble under restrictions that clamp
+        down on freedom of speech.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Media freedom is so important! Atrocities like this shouldn't be happening anywhere.
+      If these regulations are replicated in other parts of the world, there's a risk
+      that we'll all be
+    - silenced sooner rather than later. Democracies worldwide might begin to crumble
+      under restrictions that clamp down on freedom of speech. Let's keep standing
+      up for media freedom, everyone!
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The target seeks to mobilize support for media freedom by
+      warning that certain regulations could lead to widespread censorship and the
+      erosion of democratic institutions.
+    candidate: Slippery Slope
+    supporting_reason: If these regulations are replicated, there is a risk that we
+      will all be silenced, and democracies worldwide might begin to crumble.
+    support_relation: The argument relies on an unsupported progression from a regulatory
+      change to total censorship and the collapse of democracy, which is characteristic
+      of a slippery slope.
+    label_justification: The target offers a chain of adverse outcomes—silencing and
+      democratic collapse—that follows from a single regulatory action. This reliance
+      on an unwarranted escalation qualifies as a slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Media freedom is so important! Atrocities like this shouldn't be happening anywhere.
+      If these regulations are replicated in other parts of the world, there's a risk
+      that we'll all be
+    - silenced sooner rather than later. Democracies worldwide might begin to crumble
+      under restrictions that clamp down on freedom of speech. Let's keep standing
+      up for media freedom, everyone!
+  counterargument:
+    decisive_counterargument: The claim that adopting these regulations will inevitably
+      lead to widespread silencing and the collapse of democracies assumes a direct,
+      unbroken causal chain, yet there is no evidence of such a pattern. Many jurisdictions
+      have introduced similar restrictions without resulting in a democratic collapse
+      or the wholesale suppression of media voices. The argument therefore incorrectly
+      projects a single regulatory change to a catastrophic outcome without intermediate
+      steps or proof of inevitability.
+    candidate: Slippery Slope
+    challenged_inference: These regulations, if replicated elsewhere, will inevitably
+      lead to widespread silencing and the crumbling of democracies, ending media
+      freedom.
+    label_justification: The inference predicts a chain of increasingly adverse consequences
+      (silencing, democracy collapse) from a single policy change, without presenting
+      evidence for the intermediate steps or inevitability. This meets the definition
+      of a Slippery Slope fallacy, where a proposition is argued to lead inevitably
+      to an extreme negative outcome without justification. The target's reasoning
+      directly fits this pattern.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Media freedom is so important! Atrocities like this shouldn't be happening anywhere.
+      If these regulations are replicated in other parts of the world, there's a risk
+      that we'll all be
+    - silenced sooner rather than later. Democracies worldwide might begin to crumble
+      under restrictions that clamp down on freedom of speech. Let's keep standing
+      up for media freedom, everyone!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents an unsupported chain of escalating negative
+    outcomes—silencing of media followed by the possible collapse of democracies—stemming
+    from a single regulatory action, constituting a slippery slope fallacy.
+  decision_reason: The target begins with the replication of regulations, then predicts
+    that all will be silenced and finally that democracies worldwide may crumble,
+    which is an explicit progression of increasingly serious consequences without
+    evidence, meeting the slippery‑slope structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Media freedom is so important! Atrocities like this shouldn't be happening anywhere.
+    If these regulations are replicated in other parts of the world, there's a risk
+    that we'll all be
+  - silenced sooner rather than later. Democracies worldwide might begin to crumble
+    under restrictions that clamp down on freedom of speech. Let's keep standing up
+    for media freedom, everyone!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4348
+  completion_tokens: 2737
+  total_tokens: 7085
+  wall_time_seconds: 55.171999999991385

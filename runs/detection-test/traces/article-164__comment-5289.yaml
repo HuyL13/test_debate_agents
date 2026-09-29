@@ -1,0 +1,128 @@
+sample:
+  id: 164:5289
+  article_id: 164
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: Do the people of this country want to go through all of this all over again?
+    Maybe they are only emboldened further to fight against COVID, but I feel like
+    maybe they are tired of it all and the relative lack of danger compared to Ebola
+    may make them not want to go through so many lockdowns and the like. These sorts
+    of things should be put up to a vote, because the majority's opinion on what risks
+    they're willing to take should be the most important.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the majority
+    - role: popularity_claim
+      text: the majority's opinion on what risks they're willing to take
+    - role: target_claim
+      text: This should be put up to a vote
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Decide on COVID‑pandemic measures by a popular vote so that
+      the majority's views on acceptable risk dictate policy.
+    candidate: Appeal to Majority
+    supporting_reason: Majority's opinion on what risks they’re willing to take should
+      be the most important.
+    support_relation: The claim that the majority’s opinion should decide policy serves
+      as the justification for the conclusion that such measures be decided by a vote.
+    label_justification: The argument bases its recommendation on the premise that
+      the majority’s viewpoint is the decisive factor, which is the classic form of
+      an appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+  counterargument:
+    decisive_counterargument: The majority’s preference for fewer lockdowns does not
+      automatically make that policy the right one because most voters lack the specialized
+      knowledge required to assess public‑health risks. Decisions that can harm or
+      benefit large groups should be grounded in sound scientific evidence and expert
+      guidance, not simply the size of the majority. Relying on the most popular view
+      ignores the possibility that the majority is misinformed, biased, or otherwise
+      ill‑qualified to evaluate long‑term consequences.
+    candidate: Appeal to Majority
+    challenged_inference: The level of risk and frequency of lockdowns should be decided
+      by a simple majority vote, because the majority’s opinion on acceptable risk
+      is the most important guide.
+    label_justification: The objection directly challenges the Target’s assumption
+      that a majority opinion is sufficient to justify public‑health policy. This
+      fallacy, in which the popularity of an idea is used as a stand‑alone justification
+      for its truth or desirability, is termed an Appeal to Majority.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Do the people of this country want to go through all of this all over again?
+      Maybe they are only emboldened further to fight against COVID, but I feel like
+    - maybe they are tired of it all and the relative lack of danger compared to Ebola
+      may make them not want to go through so many lockdowns and the like.
+    - These sorts of things should be put up to a vote, because the majority's opinion
+      on what risks they're willing to take should be the most important.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument derives its decision that policies should be decided
+    by a vote solely because the majority’s view is deemed most important; the majority
+    is presented as the sole criterion for policy acceptance, which matches the structural
+    form of an appeal to majority fallacy.
+  decision_reason: The target explicitly states that “These sorts of things should
+    be put up to a vote, because the majority's opinion on what risks they're willing
+    to take should be the most important,” using majority opinion as the sole justification
+    for policy decision.
+  evidence_ids:
+  - T3
+  evidence_spans:
+  - These sorts of things should be put up to a vote, because the majority's opinion
+    on what risks they're willing to take should be the most important.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4908
+  completion_tokens: 3244
+  total_tokens: 8152
+  wall_time_seconds: 328.765999999996

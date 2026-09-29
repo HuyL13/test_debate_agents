@@ -1,0 +1,130 @@
+sample:
+  id: 313:10237
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: Having students protest nationwide, it's pretty clear Bangladesh issue is
+    serious issue and needs addressing. And it's hard to ignore when the majority
+    are echoing the same sentiment - their numbers surely can't be wrong, right? It's
+    high time to adhere to the protesters' demands in order to bring back peace.
+  target: When you have that many people agreeing on something there is no way it
+    can't be the right thing to do. The number of people have a lot of sway. Collective
+    wisdom as some would say.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: that many people
+    - role: popularity_claim
+      text: The number of people have a lot of sway. Collective wisdom as some would
+        say.
+    - role: target_claim
+      text: it can't be the wrong thing to do
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The target concludes that because a large number of people
+      agree, the action or viewpoint must be correct and should be followed.
+    candidate: Appeal to Majority
+    supporting_reason: The text asserts that having many people in agreement provides
+      the action with legitimacy and influence, implying correctness based solely
+      on popularity.
+    support_relation: The justification for the conclusion is the appeal to the number
+      of people, which is used as evidence of correctness.
+    label_justification: 'This is a classic fallacy of appeal to majority: the argument
+      claims that the sheer number of supporters makes the position right, without
+      presenting any substantive evidence. The magnitude of agreement is therefore
+      inappropriate as proof, making the reasoning fallacious.'
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+  counterargument:
+    decisive_counterargument: Even when many people agree on a proposition, that agreement
+      does not prove the proposition is true or the best course of action. People's
+      consensus can be based on misinformation, prejudice, or incomplete understanding,
+      so the fact that a large number of people share a view does not guarantee its
+      correctness.
+    candidate: null
+    challenged_inference: The argument assumes that because a large group of people
+      agree, the proposition must be right and therefore should be implemented.
+    label_justification: The objection specifically undermines the fallacious appeal
+      to the majority by showing that majority support is not a reliable indicator
+      of truth or rightness. It does not merely criticize the argument; it exposes
+      that the inference from consensus to correctness is logically invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - When you have that many people agreeing on something there is no way it can't
+      be the right thing to do. The number of people have a lot of sway.
+    - Collective wisdom as some would say.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target states that because many people agree, the action
+    must be correct, a classic appeal-to-popularity structure.
+  decision_reason: 'The target asserts that the correctness of an action is justified
+    solely by the number of people who agree: “When you have that many people agreeing
+    on something there is no way it can’t be the right thing to do … Collective wisdom
+    …”. This directly constitutes an Appeal to Majority, matching the evidence and
+    structural criteria.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - When you have that many people agreeing on something there is no way it can't
+    be the right thing to do. The number of people have a lot of sway.
+  - Collective wisdom as some would say.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4051
+  completion_tokens: 2242
+  total_tokens: 6293
+  wall_time_seconds: 120.54699999999866

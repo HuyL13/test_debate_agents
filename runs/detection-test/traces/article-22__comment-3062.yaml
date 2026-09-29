@@ -1,0 +1,153 @@
+sample:
+  id: 22:3062
+  article_id: 22
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: Caving in because a few has-been celebs oppose a coal mine is a dumb move.
+    I guess we're going to roll over for every celebrity cause and sink the whole
+    economy. Decisions like this one need to be made by experts who understand the
+    real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+    but it sure hurts a lot of Joe and Jane Does and small business owners who are
+    struggling to recover from the impact of covid.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: T1
+    - role: observed_property
+      text: T1
+    - role: target_population
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I
+      guess we're going to roll over for every celebrity cause and sink the whole
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Caving in to celebrity opposition is a dumb move; decisions
+      regarding the coal mine should be made by experts to protect local jobs and
+      the economy.
+    candidate: null
+    supporting_reason: Decisions like this one need to be made by experts who understand
+      the real impact
+    support_relation: The argument uses expert authority to justify rejecting celebrity
+      influence on the decision, asserting that expert judgment is necessary to avoid
+      harming local employment and the economy.
+    label_justification: The use of expertise is a legitimate argumentation strategy
+      rather than a fallacy; the authority cited is relevant and not misused, so no
+      fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - economy. Decisions like this one need to be made by experts who understand the
+      real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+      but it
+  counterargument:
+    decisive_counterargument: Even if technical experts can quantify emissions or
+      economic impacts, the decision to build a coal mine also involves values, community
+      well‑being, and long‑term environmental justice. The mere presence of expert
+      opinion does not mean that legitimate public concerns—such as those raised by
+      community members or respected public figures—should be dismissed, especially
+      when those concerns touch on equity, future livelihoods, or climate responsibility.
+    candidate: Appeal to Authority
+    challenged_inference: The argument claims that decisions on a new coal mine should
+      be made solely by experts, rendering celebrity or public opposition irrelevant.
+    label_justification: The objection shows that the reasoning relies on a simplistic
+      appeal to expert authority, assuming that technical knowledge overrides all
+      other perspectives, which is the hallmark of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - economy. Decisions like this one need to be made by experts who understand the
+      real impact. Losing all those local jobs won't hurt Nicole Kidman and Leo Sayer,
+      but it
+    - sure hurts a lot of Joe and Jane Does and small business owners who are struggling
+      to recover from the impact of covid.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: analysis
+    loser_failure: appeal to authority claim is not a direct fallacy in the statement;
+      the text merely says experts should be involved, which is a normative claim
+      rather than an appeal that expert opinion alone validates the conclusion
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I
+      guess we're going to roll over for every celebrity cause and sink the whole
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: Evidence T1 contains a sample (“few has-been celebs”) with the
+    claim that caving in for them is a dumb move and then generalizes that all celebrity
+    causes will sink the economy, satisfying the hasty‑generalization structure.
+  decision_reason: Target text exhibits an explicit sample of a few celebrity objections
+    and a sweeping claim that any celebrity cause will have the same negative economic
+    impact, matching the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Caving in because a few has-been celebs oppose a coal mine is a dumb move. I guess
+    we're going to roll over for every celebrity cause and sink the whole
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 8
+  cache_hits: 0
+  retries: 3
+  prompt_tokens: 5774
+  completion_tokens: 5494
+  total_tokens: 11268
+  wall_time_seconds: 649.109000000055

@@ -1,0 +1,135 @@
+sample:
+  id: 76:4126
+  article_id: 76
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: They really need to take care of this problem. Today, journalists are targeted.
+    Tomorrow, academics. The next day, doctors. Sooner or later, everyone becomes
+    a target and not a single person will be left alive.
+  target: It is in the nature of terrorists to try and take out the brightest. And
+    those who expose them. It should also be our ideal to thwart this nature and let
+    human nature's kindness reign.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is in the nature of terrorists to try and take out the brightest. And
+        those who expose them.
+    - role: evaluative_conclusion
+      text: It should also be our ideal to thwart this nature and let human nature's
+        kindness reign.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+    - let human nature's kindness reign.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: It should be our ideal to thwart the terrorists’ natural inclination
+      to target the brightest and let human nature’s kindness reign.
+    candidate: Appeal to Nature
+    supporting_reason: It is in the nature of terrorists to try and take out the brightest.
+    support_relation: The sentence stating terrorists naturally target bright individuals
+      is used to justify the claim that society should oppose this natural tendency
+      and promote kindness.
+    label_justification: The argument justifies the normative claim of promoting kindness
+      by referencing it as a natural human trait, which is a classic example of an
+      appeal to nature fallacy (claiming that something is good or ideal because it
+      is natural).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+  counterargument:
+    decisive_counterargument: 'The fact that terrorists tend to target the brightest
+      people does not prove that kindness is the moral ideal that will counter them.
+      It merely describes a pattern of hostile action; it does not establish that
+      a naturally kind response will be effective or that it is the appropriate goal.
+      Therefore concluding that we should make kindness our ideal solely because terrorism
+      manifests a particular kind of nature is an unfounded appeal to nature.
+
+
+      This objection exposes the appeal‑to‑nature fallacy: the argument takes a description
+      of nature (terrorists target the brightest) and uses it to justify a moral ideal
+      (kindness), without any evidence that the ideal will achieve the intended goal.
+
+
+      Candidate label: Appeal to Nature'
+    candidate: Appeal to Nature
+    challenged_inference: The inference that because terrorists naturally target bright
+      people, humanity should adopt kindness as the ideal to thwart this nature.
+    label_justification: The argument explicitly links a natural phenomenon – terrorists
+      targeting bright individuals – to the prescription that ‘human nature’s kindness'
+      should reign, thereby appealing to nature as a justification for the ideal.
+      The conclusion does not follow logically from the premises, illustrating the
+      appeal‑to‑nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It is in the nature of terrorists to try and take out the brightest. And those
+      who expose them. It should also be our ideal to thwart this nature and
+    - let human nature's kindness reign.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states a naturalistic premise—terrorists naturally
+    target the brightest—and then casts this explanation as justification for a moral
+    ideal, namely that humanity should embrace kindness. This follows the classic
+    “nature‑to‑value” structure, using a natural description to support a normative
+    claim.
+  decision_reason: The argument links the natural behavior of terrorists to the idea
+    that kindness is the right response, which is an Appeal to Nature. The evidence
+    is drawn from passages T1 (natural premise) and T2 (evaluative conclusion).
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It is in the nature of terrorists to try and take out the brightest. And those
+    who expose them. It should also be our ideal to thwart this nature and
+  - let human nature's kindness reign.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4513
+  completion_tokens: 2949
+  total_tokens: 7462
+  wall_time_seconds: 122.56199999991804

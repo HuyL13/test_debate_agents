@@ -1,0 +1,131 @@
+sample:
+  id: 367:6497
+  article_id: 367
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: If the police are on the counter-protesters side, as the article claims,
+    as well as the government, that doesn't bode well. I feel like this suggests most
+    of the country are behind them as well. I hope the activists will one day be able
+    to convince the people that their religious homophobia just has no place in modern
+    society.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: police and government
+    - role: observed_property
+      text: being on the counter‑protesters side
+    - role: target_population
+      text: most of the country
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the police are on the counter-protesters side, as the article claims, as
+      well as the government, that doesn't bode well. I feel like this suggests most
+      of the country
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Most of the country are behind the counter‑protesters.
+    candidate: Hasty Generalization
+    supporting_reason: The police and government are on the counter‑protesters’ side.
+    support_relation: The argument infers that because a representative subset (police
+      and government) supports the counter‑protesters, the entire country must also
+      support them.
+    label_justification: This uses a specific sample – the police and government –
+      to generalize about the entire population’s stance, which is the hallmark of
+      a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If the police are on the counter-protesters side, as the article claims, as
+      well as the government, that doesn't bode well. I feel like this suggests most
+      of the country
+  counterargument:
+    decisive_counterargument: The reasoning that police and government backing of
+      the counter‑protesters automatically means most citizens support them is unwarranted;
+      authority and a small group’s stance do not establish a majority view. That
+      leap from a few institutional positions to the opinion of the entire population
+      is a classic hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: that most of the country are behind them
+    label_justification: The objection demonstrates that the inference treats the
+      police and government as adequate evidence for the whole populace’s stance,
+      which is precisely the definition of a hasty generalization. It is not merely
+      criticism; it identifies the logical misstep.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If the police are on the counter-protesters side, as the article claims, as
+      well as the government, that doesn't bode well. I feel like this suggests most
+      of the country
+    - are behind them as well. I hope the activists will one day be able to convince
+      the people that their religious homophobia just has no place in modern society.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target sentence generalizes that “most of the country” supports
+    the counter‑protesters based solely on the fact that the police and government
+    are on that side, thereby applying a specific sample (police and government) to
+    an entire population, which satisfies the structural requirement of a hasty generalization.
+  decision_reason: The target asserts that because the police and government support
+    the counter‑protesters, it follows that most of the country does so as well. This
+    is a direct inference from a particular group to the general population, meeting
+    the definition of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - If the police are on the counter-protesters side, as the article claims, as well
+    as the government, that doesn't bode well. I feel like this suggests most of the
+    country
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4514
+  completion_tokens: 4094
+  total_tokens: 8608
+  wall_time_seconds: 197.3289999999979

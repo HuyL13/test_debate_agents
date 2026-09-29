@@ -1,0 +1,159 @@
+sample:
+  id: 146:3886
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: ''
+  target: Regardless of where a person comes from, if they are causing no harm to
+    society then they should be left alone to live their lives. Treating them in a
+    racist manner is simply a poor reflection on you, and your country. Everyone should
+    strive to be better. We need to show the younger generation a better way so this
+    does not continue.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Regardless of where a person comes from, if they are causing no harm to society
+      then they should be left alone to live their lives. Treating them in a racist
+    - manner is simply a poor reflection on you, and your country. Everyone should
+      strive to be better. We need to show the younger generation a better way so
+      this does
+    candidate: null
+  goal:
+    conclusion_or_goal: Individuals who are not harming society should be left alone
+      to live their lives, and treating them in a racist manner is a poor reflection
+      on the individual and their country; the speaker urges collective improvement
+      and better modeling for younger generations.
+    candidate: Appeal to Authority
+    supporting_reason: The statement argues that refusing to discriminate against
+      non-harmful individuals is morally right and reflects well on the speaker and
+      their country; this premise is used to justify the conclusion that such individuals
+      should be left alone and everyone should strive to be better.
+    support_relation: appeal_to_authority
+    label_justification: 'The argument relies on the assumption that behaving non‑racially
+      reflects positively on the individual and their country, an appeal to a moral
+      authority rather than an objective rule. However, since no explicit authority
+      is cited and the claim is not a direct appeal to a named authority, this is
+      a more contested usage; nonetheless, the structure fits an appeal to authority
+      pattern. Evidence: T1, T2'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Regardless of where a person comes from, if they are causing no harm to society
+      then they should be left alone to live their lives. Treating them in a racist
+    - manner is simply a poor reflection on you, and your country. Everyone should
+      strive to be better. We need to show the younger generation a better way so
+      this does
+  counterargument:
+    decisive_counterargument: The claim offers a blanket rule without supporting evidence.
+      Just because someone has not caused harm in the past does not guarantee they
+      never will, nor does it account for context; the absence of proof is not proof
+      of absence of risk, so generalizing that everyone harmless should be left alone
+      is a hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: Regardless of where a person comes from, if they are causing
+      no harm to society then they should be left alone to live their lives.
+    label_justification: The argument stretches a single unbacked premise to a universal
+      rule, effectively generalizing from a lack of evidence to a broad policy claim,
+      which is the definition of a hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Regardless of where a person comes from, if they are causing no harm to society
+      then they should be left alone to live their lives. Treating them in a racist
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Appeal to Authority
+    loser_failure: The target does not cite or rely on any named authority to justify
+      its conclusion; it merely states a moral judgment. Consequently, the structural
+      requirement for an Appeal to Authority—that a specific authority or authority-like
+      premise supports the claim—is unmet. In contrast, the target makes a universal
+      declaration—“regardless of where a person comes from, if they are causing no
+      harm … they should be left alone”—which applies a blanket rule without supporting
+      evidence, directly satisfying the definition of a Hasty Generalization.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Regardless of where a person comes from, if they are causing no harm to society
+      then they should be left alone to live their lives. Treating them in a racist
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not provide or derive a general claim from a
+    limited sample; it states a universal rule without presenting any supporting evidence
+    or examples, so the premise does not satisfy the structural requirement of a hasty
+    generalization. Therefore the argument is not fallacious under that category.
+  decision_reason: The claim offers a blanket rule but it is not based on an insufficient
+    set of observations; rather, it is an abstract normative statement. Hence it fails
+    the structural criteria for a Hasty Generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Regardless of where a person comes from, if they are causing no harm to society
+    then they should be left alone to live their lives. Treating them in a racist
+  verified: false
+  rejection_reason: The claim offers a blanket rule but it is not based on an insufficient
+    set of observations; rather, it is an abstract normative statement. Hence it fails
+    the structural criteria for a Hasty Generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5778
+  completion_tokens: 4212
+  total_tokens: 9990
+  wall_time_seconds: 64.61000000004424

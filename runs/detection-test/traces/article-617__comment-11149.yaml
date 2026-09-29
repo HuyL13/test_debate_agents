@@ -1,0 +1,114 @@
+sample:
+  id: 617:11149
+  article_id: 617
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: Lots of us in the US take our 1st amendment rights for granted. What happened
+    to these journalists could just as easily be any one of us if we were born somewhere
+    else! Being a journalist in countries without freedom of speech or with a government
+    that is hostile to them is very brave.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Lots of us in the US take our 1st amendment rights for granted. What happened
+      to these journalists could just as easily be any one of us if we were
+    - born somewhere else! Being a journalist in countries without freedom of speech
+      or with a government that is hostile to them is very brave.
+    candidate: null
+  goal:
+    conclusion_or_goal: Being a journalist in countries without freedom of speech
+      or with a hostile government is brave.
+    candidate: null
+    supporting_reason: Journalists in such contexts risk harm and persecution that
+      could affect anyone born in those countries, highlighting their courage.
+    support_relation: causal
+    label_justification: The target provides a reason (risk of harm) to support the
+      claim that such journalists are brave, without resorting to any logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Lots of us in the US take our 1st amendment rights for granted. What happened
+      to these journalists could just as easily be any one of us if we were
+    - born somewhere else! Being a journalist in countries without freedom of speech
+      or with a government that is hostile to them is very brave.
+  counterargument:
+    decisive_counterargument: There is no evidence that every journalist working under
+      an oppressive regime displays the trait of bravery; claiming that all such journalists
+      are brave is a blanket assertion without support.  The passage simply states
+      a general property, yet offers no cases, statistics, or citations to justify
+      it, so the conclusion is not warranted.
+    candidate: Hasty Generalization
+    challenged_inference: Being a journalist in countries without freedom of speech
+      or with a government that is hostile to them is very brave
+    label_justification: The inference attributes the property of bravery to an entire
+      group (all journalists in hostile regimes) without presenting any evidence or
+      specific instances.  This is a textbook example of the hasty generalization
+      fallacy, which occurs when a sweeping claim is made about a population based
+      on insufficient evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - born somewhere else! Being a journalist in countries without freedom of speech
+      or with a government that is hostile to them is very brave.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target asserts that all journalists working in countries
+    without freedom of speech or with hostile governments are brave, a blanket claim
+    made without supporting evidence or specific cases.
+  decision_reason: The target contains a universal assertion about the bravery of
+    all members of a group (journalists in hostile regimes), meeting the structural
+    requirement of a hasty generalization.
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - born somewhere else! Being a journalist in countries without freedom of speech
+    or with a government that is hostile to them is very brave.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4037
+  completion_tokens: 2740
+  total_tokens: 6777
+  wall_time_seconds: 147.21899999999732

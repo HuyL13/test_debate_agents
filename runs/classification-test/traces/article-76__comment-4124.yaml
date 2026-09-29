@@ -1,0 +1,178 @@
+sample:
+  id: 76:4124
+  article_id: 76
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: More Afghan journalists killed as militants ramp up attacks on Shiites
+  parent: ''
+  target: Funny how journalists, a group of professionals, equate themselves with
+    an entire group in terms of victimhood. Not surprising some journalist would write
+    such an idea in an article. Maybe there shouldn't be so much focus on these journalists,
+    and a lot more on the millions of Shia Muslims who are at risk. It cheapens their
+    plight to lump them in with journalists, like all their enemies hate both equally.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: some journalist
+    - role: observed_property
+      text: equate themselves with an entire group in terms of victimhood
+    - role: target_population
+      text: journalists
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Shift public attention from journalists to the millions of
+      Shia Muslims at risk.
+    candidate: False Dilemma
+    supporting_reason: Lumping journalists together with Shia Muslims 'cheapens their
+      plight' and therefore more focus should be on Shia Muslims.
+    support_relation: The reason is used to argue that focusing on journalists is
+      less appropriate and that attention should be redirected to Shia Muslims.
+    label_justification: The target expresses an implicit binary choice—either center
+      the narrative on journalists or on Shia Muslims—suggesting only one of these
+      options is viable and overlooking alternative or mixed approaches. This constitutes
+      a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    - there shouldn't be so much focus on these journalists, and a lot more on the
+      millions of Shia Muslims who are at risk. It cheapens their plight to lump them
+    - in with journalists, like all their enemies hate both equally.
+  counterargument:
+    decisive_counterargument: The assertion that all journalists, as a profession,
+      equate themselves with the plight of Shia Muslims is a sweeping generalization
+      based on a few statements by some individuals. Journalism is diverse, and the
+      views of a handful of writers cannot be conflated with the positions of the
+      entire profession. Thus, the inference that the profession as a whole participates
+      in victimhood lumping is unsupported—this is a classic hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: All journalists collectively equate their victimhood with
+      that of Shia Muslims based on the actions of some.
+    label_justification: The objection demonstrates that the target's reasoning jumps
+      from isolated instances (a few journalists making certain claims) to a blanket
+      statement about the profession, which is precisely the definition of a hasty
+      generalization. The counterargument directly addresses this faulty inference
+      rather than merely criticizing tone or style.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: The target does not present a simple yes/no or two-option structure
+      that excludes all other possibilities; it merely criticizes the focus choice
+      but does not claim it is the only alternative. The claim that journalists collectively
+      equate themselves, while present, does not satisfy the mandatory structural
+      definition of a hasty generalization, which requires a clear jump from a specific
+      sample to a blanket statement about a larger group.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Funny how journalists, a group of professionals, equate themselves with an entire
+      group in terms of victimhood. Not surprising some journalist would write such
+      an idea in an article. Maybe
+    - there shouldn't be so much focus on these journalists, and a lot more on the
+      millions of Shia Muslims who are at risk. It cheapens their plight to lump them
+    - in with journalists, like all their enemies hate both equally.
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target does not present an explicit or implicit exclusive
+    binary choice; it merely suggests shifting focus from journalists to Shia Muslims,
+    without claiming that only these two options are viable, thus failing the structural
+    requirement for a false dilemma.
+  decision_reason: The target neither states nor implies that the only alternative
+    is to focus on Shia Muslims as opposed to journalists, so it does not satisfy
+    the structural definition of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Funny how journalists, a group of professionals, equate themselves with an entire
+    group in terms of victimhood. Not surprising some journalist would write such
+    an idea in an article. Maybe
+  - there shouldn't be so much focus on these journalists, and a lot more on the millions
+    of Shia Muslims who are at risk. It cheapens their plight to lump them
+  - in with journalists, like all their enemies hate both equally.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6042
+  completion_tokens: 5483
+  total_tokens: 11525
+  wall_time_seconds: 163.28100000001723

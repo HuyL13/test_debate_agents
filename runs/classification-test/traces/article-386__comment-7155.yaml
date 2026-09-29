@@ -1,0 +1,173 @@
+sample:
+  id: 386:7155
+  article_id: 386
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: The fact that the authorities haven't provided an explanation is suspect.
+    This makes me think they either have something to do with it or are hiding something
+    big. Why else would they not inform the people? If they have nothing to hide,
+    come clean about who is responsible!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: the authorities haven't provided an explanation
+    - role: observed_property
+      text: lack of explanation
+    - role: target_population
+      text: the authorities
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The authorities are either involved in the incident or are
+      hiding significant information about it.
+    candidate: False Dilemma
+    supporting_reason: The authorities have not provided an explanation for the incident.
+    support_relation: This lack of explanation is presented as evidence that the authorities
+      must be either involved or concealing information, thereby driving the inference
+      in the conclusion.
+    label_justification: The argument confines the situation to two exclusive options—either
+      the authorities are complicit or they are hiding something—while ignoring other
+      plausible explanations. This constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+  counterargument:
+    decisive_counterargument: The fact that authorities have not yet provided an explanation
+      does not automatically mean they are guilty or hiding something. There are many
+      benign reasons for a delay—e.g., uncertainty, need for more information, bureaucratic
+      procedures, or simply a lack of evidence to form a statement. Therefore, concluding
+      that they must be involved or concealing something follows from an unwarranted
+      assumption rather than evidence.
+    candidate: False Dilemma
+    challenged_inference: The inference that authorities’ silence necessarily indicates
+      involvement or concealment.
+    label_justification: Target presents only two mutually exclusive explanations
+      (involvement vs. hiding) for the lack of explanation, ignoring all other possible
+      reasons. This is a classic false dilemma, as it falsely limits the options to
+      an exclusive binary choice.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - False Dilemma
+  transitions:
+  - before:
+    - Hasty Generalization
+    - False Dilemma
+    conflict: false-dilemma__vs__hasty-generalization
+    winner: False Dilemma
+    after:
+    - False Dilemma
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts:
+- id: false-dilemma__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - False Dilemma
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: False Dilemma
+    decisive_test: False Dilemma
+    loser_failure: No explicit broad generalization across a larger population is
+      made; the argument only addresses the specific authorities present. The structure
+      of presenting two exclusive options—either involvement or hiding—directly satisfies
+      the mandatory condition for a False Dilemma.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The fact that the authorities haven't provided an explanation is suspect. This
+      makes me think they either have something to do with it or are hiding something
+      big. Why else
+    - would they not inform the people? If they have nothing to hide, come clean about
+      who is responsible!
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The claim limits the explanation of authorities’ silence to
+    only two mutually exclusive options – they are either involved in the incident
+    or they are hiding information – thereby excluding all other plausible reasons,
+    which satisfies the structure of a false dilemma.
+  decision_reason: 'The TARGET explicitly presents two alternatives: autoridades involucrados
+    o están ocultando algo grande, and treats any other possibility as unviable, thereby
+    constituting a false dilemma.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The fact that the authorities haven't provided an explanation is suspect. This
+    makes me think they either have something to do with it or are hiding something
+    big. Why else
+  - would they not inform the people? If they have nothing to hide, come clean about
+    who is responsible!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5760
+  completion_tokens: 4360
+  total_tokens: 10120
+  wall_time_seconds: 141.68700000000536

@@ -1,0 +1,136 @@
+sample:
+  id: 465:7992
+  article_id: 465
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: This is terrible and something that needs to be addressed immediately. It's
+    obvious that most people, if not nearly all, are totally against domestic violence,
+    so why is it still such a widespread problem? The government needs to listen to
+    the majority and do something about this. We can't keep ignoring it.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people, if not nearly all
+    - role: popularity_claim
+      text: most people, if not nearly all, are totally against domestic violence
+    - role: target_claim
+      text: The government needs to listen to the majority and do something about
+        this
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is terrible and something that needs to be addressed immediately. It's
+      obvious that most people, if not nearly all, are totally against domestic violence,
+      so why is it still
+    - such a widespread problem? The government needs to listen to the majority and
+      do something about this. We can't keep ignoring it.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The government should listen to the majority and take action
+      against domestic violence.
+    candidate: Appeal to Majority
+    supporting_reason: The claim that most people, if not nearly all, are totally
+      against domestic violence.
+    support_relation: Appeal to Majority (using the number of people’s opinion as
+      justification for policy)
+    label_justification: The argument relies on the popularity of the opposition to
+      domestic violence to justify government action, which is the classic form of
+      an appeal to majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is terrible and something that needs to be addressed immediately. It's
+      obvious that most people, if not nearly all, are totally against domestic violence,
+      so why is it still
+    - such a widespread problem? The government needs to listen to the majority and
+      do something about this. We can't keep ignoring it.
+  counterargument:
+    decisive_counterargument: The fact that a majority of people oppose domestic violence
+      does not itself require the government to take action. Public opinion can be
+      a useful gauge of sentiment, but it does not serve as a sufficient foundation
+      for policy decisions. A government’s obligation to act depends on evidence about
+      effectiveness, feasibility, and protection of rights, not merely on how many
+      people are against a problem.
+    candidate: Appeal to Majority
+    challenged_inference: Because most people are against domestic violence, the government
+      must act.
+    label_justification: The target reasoningly leans on the fact that the majority
+      opposes domestic violence to justify governmental policy. This is exactly the
+      structure of an Appeal to Majority, where the argument assumes that majority
+      opinion warrants action. The counterargument notes that a demographic opinion
+      alone lacks the necessary evidential support to deduce policy measures.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is terrible and something that needs to be addressed immediately. It's
+      obvious that most people, if not nearly all, are totally against domestic violence,
+      so why is it still
+    - such a widespread problem? The government needs to listen to the majority and
+      do something about this. We can't keep ignoring it.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that “most people, if not nearly
+    all, are totally against domestic violence” and then concludes that “the government
+    needs to listen to the majority and do something about this.” This fits the structure
+    of an appeal to majority fallacy, meeting all mandatory structural conditions.
+  decision_reason: The argument uses the popularity of opposition to domestic violence
+    as justification for government action, which is a classic instance of Appeal
+    to Majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is terrible and something that needs to be addressed immediately. It's obvious
+    that most people, if not nearly all, are totally against domestic violence, so
+    why is it still
+  - such a widespread problem? The government needs to listen to the majority and
+    do something about this. We can't keep ignoring it.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4225
+  completion_tokens: 2296
+  total_tokens: 6521
+  wall_time_seconds: 90.89000000001397

@@ -1,0 +1,127 @@
+sample:
+  id: 610:9026
+  article_id: 610
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: Recycling is very important to protecting our environment. We need to make
+    sure that people are using recycled material and reusing things. If people don't
+    recycle pretty soon it will be too late.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Recycling is very important to protecting our environment. We need to make sure
+      that people are using recycled material and reusing things. If people don't
+      recycle pretty soon it will
+    candidate: null
+  goal:
+    conclusion_or_goal: Recycling is very important for protecting the environment,
+      and people should continue to recycle or else it will be too late to prevent
+      environmental harm.
+    candidate: null
+    supporting_reason: If people don’t recycle, it will soon be too late to protect
+      the environment.
+    support_relation: this reason is used as a warning/causal implication to support
+      the goal that recycling must be maintained or else environmental protection
+      will fail
+    label_justification: The argument simply states a causal-warning premise without
+      invoking any of the listed logical fallacies. It does not commit a hasty generalization,
+      slippery slope, false dilemma, appeal to authority, majority, nature, tradition,
+      or worse‐problem fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Recycling is very important to protecting our environment. We need to make sure
+      that people are using recycled material and reusing things. If people don't
+      recycle pretty soon it will
+    - be too late.
+  counterargument:
+    decisive_counterargument: The claim that denial of recycling inevitably makes
+      ‘it too late’ assumes that recycling is the sole or even primary solution to
+      environmental protection. In reality, protecting the environment can be achieved
+      through a wide array of measures—such as reducing emissions, improving energy
+      efficiency, restoring ecosystems, and adopting circular economy principles—that
+      do not rely exclusively on recycling. The argument therefore overlooks alternative
+      options and overstates the indispensability of recycling, presenting recycling
+      as the only viable path to avoid catastrophe.
+    candidate: False Dilemma
+    challenged_inference: If people don't recycle pretty soon it will be too late.
+    label_justification: The objection reveals that the reasoning forces a binary
+      choice—either recycle (and thereby keep the environment safe) or fail to recycle
+      and face an inevitable, unacceptably late outcome. It ignores other feasible
+      measures to protect the environment, thereby presenting recycling as the sole
+      option to avert disaster. This is exactly the structure of a false dilemma,
+      which the counterargument directly counters by highlighting additional viable
+      alternatives.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Recycling is very important to protecting our environment. We need to make sure
+      that people are using recycled material and reusing things. If people don't
+      recycle pretty soon it will
+    - be too late.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: Target lacks an explicit binary choice and therefore does not
+    satisfy the structural requirement for a false dilemma
+  decision_reason: The target statement only presents a consequence of not recycling;
+    it does not explicitly present recycling versus failure as the sole, mutually
+    exclusive options needed to constitute a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Recycling is very important to protecting our environment. We need to make sure
+    that people are using recycled material and reusing things. If people don't recycle
+    pretty soon it will
+  - be too late.
+  verified: false
+  rejection_reason: The target statement only presents a consequence of not recycling;
+    it does not explicitly present recycling versus failure as the sole, mutually
+    exclusive options needed to constitute a false dilemma.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 3936
+  completion_tokens: 3095
+  total_tokens: 7031
+  wall_time_seconds: 261.93799999999464

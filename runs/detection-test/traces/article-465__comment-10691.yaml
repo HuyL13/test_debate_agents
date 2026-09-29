@@ -1,0 +1,117 @@
+sample:
+  id: 465:10691
+  article_id: 465
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: 'Across the Middle East, many women face a double threat: Abuser inside,
+    virus outside'
+  parent: ''
+  target: Domestic violence is never justified. It is particularly heartbreaking to
+    hear that more women are suffering from domestic violence due to the COVID lockdown.
+    The government should be doing more to help these women.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Domestic violence is never justified. It is particularly heartbreaking to hear
+      that more women are suffering from domestic violence due to the COVID lockdown.
+      The government should be doing more
+    - to help these women.
+    candidate: null
+  goal:
+    conclusion_or_goal: The government should do more to help women suffering from
+      domestic violence during COVID lockdown.
+    candidate: null
+    supporting_reason: The observation that more women are suffering from domestic
+      violence due to the COVID lockdown is used to justify the claim that the government
+      should do more to help them.
+    support_relation: The evidence of increased suffering from domestic violence is
+      presented as a reason to argue that the government should expand its assistance
+      to these women.
+    label_justification: The argument does not exhibit any of the listed logical fallacies;
+      it is a straightforward causal link from the observed problem to a proposed
+      governmental response.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Domestic violence is never justified. It is particularly heartbreaking to hear
+      that more women are suffering from domestic violence due to the COVID lockdown.
+      The government should be doing more
+    - to help these women.
+  counterargument:
+    decisive_counterargument: The assertion that domestic violence is *never* justified
+      relies on a blanket moral judgment that fails to consider legitimate exceptions
+      such as situations of self‑defense or imminent danger. By treating all acts
+      of domestic violence as inherently wrong, the argument ignores legitimate cases
+      where violent action may be morally permissible, thereby undermining the strength
+      of its claim that the situation is uniformly dire. The argument, however, does
+      not fit any of the provided fallacy categories; its flaw lies merely in an over‑inclusive
+      generalization rather than a formal fallacy.
+    candidate: Hasty Generalization
+    challenged_inference: Domestic violence is never justified; thus the government
+      should do more to help women suffering from domestic violence caused by COVID
+      lockdown.
+    label_justification: 'Although the reasoning is not a structured logical fallacy,
+      the objection exposes a broad, unqualified generalization: it claims that all
+      domestic violence is unjustifiable while ignoring plausible contexts where violence
+      could be justified. This type of over‑broad claim is characteristic of a hasty
+      generalization, even though the formal fallacy is not explicitly named in the
+      given taxonomy. The counterargument therefore supports a Hasty Generalization
+      label, but because the argument does not definitively map onto a required fallacy
+      in the task, the system should still report *failure_exposed*: false to indicate
+      no clear fallacy detection per the supplied categories.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Domestic violence is never justified. It is particularly heartbreaking to hear
+      that more women are suffering from domestic violence due to the COVID lockdown.
+      The government should be doing more
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 4
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 2711
+  completion_tokens: 1539
+  total_tokens: 4250
+  wall_time_seconds: 128.28099999995902

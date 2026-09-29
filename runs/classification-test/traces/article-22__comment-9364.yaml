@@ -1,0 +1,149 @@
+sample:
+  id: 22:9364
+  article_id: 22
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Rejection of new Australian coal mine is a rare win for community environmental
+    campaigners
+  parent: ''
+  target: So they listened to celebrities and locals who have no real understanding
+    of climate change or the coal industry? The people who work on this project know
+    what's best and would have provided many people jobs! The benefits to not building
+    it aren't even known, but as the people in charge of the project said, the benefits
+    to building it would have meant 300 families with jobs.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: the people who work on this project
+    - role: endorsed_claim
+      text: the benefits of building the project would have meant 300 families with
+        jobs
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+    - would have meant 300 families with jobs.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The coal mine should be built and is beneficial.
+    candidate: Appeal to Authority
+    supporting_reason: The people who work on the project know what's best and would
+      provide many jobs; the people in charge said building it would benefit 300 families
+      with jobs.
+    support_relation: provides justification for the conclusion that building the
+      mine is desirable.
+    label_justification: The argument relies on the authority of the workers and project
+      leaders—people who are not qualified experts on climate science or coal industry
+      impacts—to assert that the project is best and will provide jobs, which is an
+      appeal to authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+    - would have provided many people jobs! The benefits to not building it aren't
+      even known, but as the people in charge of the project said, the benefits to
+      building it
+    - would have meant 300 families with jobs.
+  counterargument:
+    decisive_counterargument: Just because a group of people who are directly involved
+      in a project claims they know what’s best does not automatically make their
+      judgment correct. Those individuals may have financial or professional stakes
+      that bias their assessment, meaning their authority in this context is questionable.
+      Without independent verification or evidence that their conclusions are based
+      on objective, peer‑reviewed data, the claim that the project’s benefits outweigh
+      any risks remains unsupported. Therefore, relying solely on the project’s proponents
+      as an authority is an unjustified appeal to authority.
+    candidate: Appeal to Authority
+    challenged_inference: The argument assumes that the people working on the project
+      have legitimate authority to determine the project’s best interests, dismissing
+      other perspectives (celebrity or local), and therefore the project’s benefits
+      are proven.
+    label_justification: The objection specifically targets the reliance on claims
+      made by those with possible conflicts of interest to justify the project, exposing
+      the fallacious appeal to authority. It does not merely criticize the argument
+      but shows that the reason given (expertise of the project’s people) is not a
+      reliable basis for truth.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - So they listened to celebrities and locals who have no real understanding of
+      climate change or the coal industry? The people who work on this project know
+      what's best and
+    - would have meant 300 families with jobs.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target’s reasoning rests on the claim that the workers on
+    the project—who are asserted to “know what’s best” —provide the sole justification
+    for building the mine, a reliance on an authority whose expertise is not corroborated
+    as necessary for the claim, constituting an appeal to authority.
+  decision_reason: The argument states that because the people in charge of the project
+    (the workers) claim it is beneficial and would create jobs, the mine should be
+    built. The workers are presented as the sole authority, and this reliance on their
+    claim is an appeal to authority. Evidence supporting this is found in T1 (authority
+    claim) and T3 (claimed benefit).
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - So they listened to celebrities and locals who have no real understanding of climate
+    change or the coal industry? The people who work on this project know what's best
+    and
+  - would have meant 300 families with jobs.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4759
+  completion_tokens: 3751
+  total_tokens: 8510
+  wall_time_seconds: 190.29699999999139

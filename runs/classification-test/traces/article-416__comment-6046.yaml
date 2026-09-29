@@ -1,0 +1,165 @@
+sample:
+  id: 416:6046
+  article_id: 416
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: These are very dangerous protests happening on the campuses in Hong Kong.
+    These types of anti government protest could potentially spark a countrywide revolution
+    if not contained. It is necessary to allow protests of the government, but this
+    may end up getting out of control given the fact that these protests are becoming
+    increasingly violent on both the police and protester sides.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    slots:
+    - role: initial_event
+      text: These are very dangerous protests happening on the campuses in Hong Kong.
+    - role: intermediate_consequence
+      text: these protests are becoming increasingly violent on both the police and
+        protester sides.
+    - role: final_consequence
+      text: These types of anti government protest could potentially spark a countrywide
+        revolution if not contained.
+    structure_complete: true
+    structure_type: consequence_chain
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+    - protester sides.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker argues that the campus protests in Hong Kong are
+      dangerous and could spark a country‑wide revolution if not contained, suggesting
+      that allowing protests may lead to out‑of‑control violence.
+    candidate: null
+    supporting_reason: The protests are becoming increasingly violent on both police
+      and protester sides.
+    support_relation: The stated violence is presented as a reason to support the
+      conclusion that the protests could spiral into wider unrest.
+    label_justification: The argument presents a single prediction (protests could
+      lead to revolution) without a chain of intermediate steps, so it does not meet
+      the criteria for a slippery‑slope fallacy; no other listed fallacies are invoked.
+      The violence claim serves legitimately as evidence for the conclusion, thus
+      no fallacy is identified.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+    - protester sides.
+  counterargument:
+    decisive_counterargument: The claim that allowing anti‑government protests will
+      inevitably lead to a countrywide revolution is an unsupported escalation. It
+      assumes that the mere act of permitting protests will, without any intermediate
+      evidence, produce an extreme outcome. In reality, many allowed protests are
+      peacefully contained, and no causal link is shown between allowing them and
+      a nationwide revolution. The argument is therefore a classic example of the
+      slippery‑slope fallacy, where one step (publication of protests) is presented
+      as necessarily culminating in a very unlikely, disastrous end (national revolution).
+    candidate: Slippery Slope
+    challenged_inference: These types of anti‑government protest could potentially
+      spark a countrywide revolution if not contained. It is necessary to allow protests
+      of the government, but this may end up getting out of control given the fact
+      that these protests are becoming increasingly violent on both the police and
+      protester sides.
+    label_justification: The objection directly defeats the inference that allowing
+      protests will inevitably lead to a revolution by highlighting the lack of supporting
+      evidence for such an extreme and immediate outcome. The reasoning in the TARGET
+      is therefore an instance of a slippery‑slope fallacy, in which an escalation
+      from a single action to an extreme consequence is presented without justification.
+      Thus the label is appropriate.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - These are very dangerous protests happening on the campuses in Hong Kong. These
+      types of anti government protest could potentially spark a countrywide revolution
+      if not contained. It is necessary
+    - to allow protests of the government, but this may end up getting out of control
+      given the fact that these protests are becoming increasingly violent on both
+      the police and
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target does not commit a slippery‑slope fallacy because
+    it frames the potential consequence as a possibility (
+  decision_reason: The argument has a material implication of possibility rather than
+    an asserted inevitability; the target says protests could spark a revolution if
+    not contained, and that they may become out of control. This is a modal, not a
+    determinative statement, so it does not meet the structural requirement of a slippery‑slope
+    argument where a trivial action is presented as inevitably leading to an extreme
+    outcome.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - These are very dangerous protests happening on the campuses in Hong Kong. These
+    types of anti government protest could potentially spark a countrywide revolution
+    if not contained. It is necessary
+  - to allow protests of the government, but this may end up getting out of control
+    given the fact that these protests are becoming increasingly violent on both the
+    police and
+  - protester sides.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 3
+  cache_hits: 1
+  retries: 0
+  prompt_tokens: 4573
+  completion_tokens: 3426
+  total_tokens: 7999
+  wall_time_seconds: 70.03099999995902

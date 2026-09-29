@@ -1,0 +1,152 @@
+sample:
+  id: 515:8743
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: 'This kind of infighting is innate among politicians. In fact, this trait
+    is so native, such a natural building block of the politician''s makeup, that
+    it is the very reason he entered politics in the first place. Their love of power
+    is like the spots on a leopard: an unchangeable mark of a particular kind of animal.
+    We can hope for better from our leaders, but I wouldn''t count on it. Besides,
+    the fact that this trait and its results (infighting) are so naturally intrinsic
+    to politics means they are probably the best way to approach political issues.
+    Darwin would be proud.'
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: the fact that this trait and its results (infighting) are so naturally
+        intrinsic to politics
+    - role: evaluative_conclusion
+      text: they are probably the best way to approach political issues
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - This kind of infighting is innate among politicians. In fact, this trait is
+      so native, such a natural building block of the politician's makeup, that it
+      is the very reason
+    - for better from our leaders, but I wouldn't count on it. Besides, the fact that
+      this trait and its results (infighting) are so naturally intrinsic to politics
+      means they are
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Infighting among politicians is a natural, inherent trait
+      and therefore the best approach to political issues, so it cannot be realistically
+      improved
+    candidate: Appeal to Nature
+    supporting_reason: The argument states that this trait is native and a natural
+      building block of politicians, likening it to immutable leopard spots and citing
+      Darwin’s endorsement. It argues that because it is natural, it is the appropriate
+      way to handle politics.
+    support_relation: The claimed naturalness of infighting is used as a justification
+      for considering it the optimal or inevitable method for addressing political
+      matters, appealing to the idea that nature equals good or best.
+    label_justification: The argument appeals to the distinction that a trait being
+      natural or intrinsic makes it morally or pragmatically preferable. This is a
+      classic Appeal to Nature fallacy, as the naturalness of infighting is presented
+      as evidence of its benefit or necessity.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T4
+    evidence_spans:
+    - This kind of infighting is innate among politicians. In fact, this trait is
+      so native, such a natural building block of the politician's makeup, that it
+      is the very reason
+    - 'he entered politics in the first place. Their love of power is like the spots
+      on a leopard: an unchangeable mark of a particular kind of animal. We can hope'
+    - probably the best way to approach political issues. Darwin would be proud.
+  counterargument:
+    decisive_counterargument: The target claims that because infighting is a natural,
+      innate trait of politicians, it is therefore the best approach to dealing with
+      political issues. Naturalness does not imply moral goodness or efficacy; many
+      natural phenomena are harmful. The argument appeals to nature as a justification
+      for a political strategy that is actually detrimental. By stating that ‘the
+      fact that this trait and its results (infighting) are so naturally intrinsic
+      to politics means they are probably the best way to approach political issues,’
+      the reasoning conflates a descriptive fact (infighting is present) with a normative
+      claim (it is good), thereby committing an appeal to nature fallacy.
+    candidate: Appeal to Nature
+    challenged_inference: Infighting is the best way to approach political issues
+      because it is a natural characteristic of politicians.
+    label_justification: 'The objection shows that the target’s inference is unsupported:
+      it assumes that naturalness confers value or effectiveness, which is a classic
+      appeal‑to‑nature fallacy. The argument draws a conclusion about what is best
+      based solely on the disposition’s natural occurrence, not on any evidence of
+      its benefit. This directly attacks the relationship between the premise (infighting
+      is natural) and the conclusion (infighting is best), exposing the fallacious
+      reasoning.'
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    - T4
+    evidence_spans:
+    - for better from our leaders, but I wouldn't count on it. Besides, the fact that
+      this trait and its results (infighting) are so naturally intrinsic to politics
+      means they are
+    - probably the best way to approach political issues. Darwin would be proud.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target asserts that infighting is a natural trait of politicians
+    and immediately concludes that this naturalness makes it the best way to approach
+    political issues, which is a classic appeal‑to‑nature structure. The inference
+    treats a descriptive fact (naturalness) as evidence of value or efficacy, satisfying
+    the structural requirement for the Appeal to Nature fallacy.
+  decision_reason: The target contains a naturalness premise followed by a value conclusion
+    that infighting is the best approach to political issues; this alignment with
+    the standard appeal‑to‑nature pattern confirms the fallacy.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - This kind of infighting is innate among politicians. In fact, this trait is so
+    native, such a natural building block of the politician's makeup, that it is the
+    very reason
+  - for better from our leaders, but I wouldn't count on it. Besides, the fact that
+    this trait and its results (infighting) are so naturally intrinsic to politics
+    means they are
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5353
+  completion_tokens: 2764
+  total_tokens: 8117
+  wall_time_seconds: 131.54700000000594

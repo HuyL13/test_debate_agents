@@ -1,61 +1,212 @@
-"""Deterministic transport for plumbing smoke tests. NOT an LLM or a benchmark."""
+"""Deterministic transport for plumbing smoke tests. NOT an LLM or benchmark."""
 import json
 
 from src.io_utils import digest
 
 
+def _target(payload):
+    user = json.loads(payload["messages"][1]["content"])
+    return user.get("input", {}).get("target", json.dumps(user, ensure_ascii=False))
+
+
+def _user(payload):
+    return json.loads(payload["messages"][1]["content"])
+
+
+def _span(text):
+    return text[:120] if text else "empty"
+
+
 class MockTransport:
     def complete(self, payload):
-        schema = payload['response_format']['json_schema']['schema']
-        properties = schema['properties']
-        user = json.loads(payload['messages'][1]['content'])
-        seed = int(digest(user.get('input', user))[:8], 16)
-        if 'protocol' in properties:
-            value = {'protocol': ('round_robin', 'cross_examination')[seed % 2],
-                     'topic': 'Offline fixture discussion.', 'reason': 'Synthetic route for smoke testing.',
-                     'order': ['Factual', 'Logical', 'Contextual'], 'affirmative': ['Factual'],
-                     'negative': ['Logical', 'Contextual'], 'examiner': 'Logical',
-                     'max_rounds': min(3, properties['max_rounds']['maximum'])}
-            for field in ('order', 'affirmative', 'negative'):
-                if 'enum' in properties[field]:
-                    value[field] = properties[field]['enum'][0]
-        elif 'question' in properties:
-            value = {'question': None if 'next targeted' in user.get('instruction', '') else
-                     'Which supplied premise supports the conclusion?', 'content': 'Synthetic question/reflection.'}
-        elif 'premises' in properties:
-            value = {'premises': [], 'conclusion': user['input']['comment']}
-        elif 'argumentative_status' in properties:
-            value = {'argumentative_status': 'explicit_argument',
-                     'claims': [{'id': 'C1', 'source': 'target_comment', 'role': 'conclusion',
-                                 'text': user['input']['comment']}],
-                     'conclusion_id': 'C1', 'implicit_assumptions': [],
-                     'reasoning_relation': 'OFFLINE MOCK decomposition.',
-                     'scope_notes': [], 'uncertainty': []}
-        elif 'issue_status' in properties:
-            value = {'issue_status': 'present', 'diagnosis': 'OFFLINE MOCK diagnostic fixture.',
-                     'supporting_quote': user['input']['comment'],
-                     'structure_objection': 'OFFLINE MOCK structure note.',
-                     'alternative_interpretation': 'OFFLINE MOCK alternative.'}
-        elif 'candidate_type' in properties:
-            value = {'candidate_type': 'None', 'status': 'rejected',
-                     'necessary_conditions_met': False, 'sufficient_evidence': False,
-                     'supporting_quote': user['input']['comment'],
-                     'premise': '', 'conclusion': '', 'defective_inference': '',
-                     'strongest_nonfallacious_reading': 'OFFLINE MOCK non-fallacious reading.',
-                     'auxiliary_observation': 'OFFLINE MOCK candidate fixture.'}
-        elif 'decision' in properties:
-            value = {'decision': 'keep', 'diagnosis': 'OFFLINE MOCK review fixture.',
-                     'supporting_quote': user['input']['comment'],
-                     'response_to_other_diagnoses': 'OFFLINE MOCK response.',
-                     'remaining_uncertainty': 'OFFLINE MOCK uncertainty.'}
+        properties = payload["response_format"]["json_schema"]["schema"]["properties"]
+        stage = json.loads(payload["messages"][1]["content"]).get("stage", "")
+        target = _target(payload)
+        span = "good and evil" if "good and evil" in target else _span(target)
+        negative = "good and evil" in target
+        if stage == "semantic_extraction":
+            value = {
+                "sample_id": _user(payload)["sample_id"],
+                "original_text": target,
+                "canonical_reasoning": (
+                    "A stated premise is treated as support for a related conclusion, "
+                    "so the conclusion should be accepted."
+                ),
+            }
+        elif "member_consistency" in properties:
+            cluster = _user(payload).get("cluster", {}).get("cluster_id", 0)
+            value = {
+                "cluster_id": cluster,
+                "main_reasoning_relation": "The cluster shares an inferential relation.",
+                "shared_invariant": "A premise supports a conclusion through a bridge.",
+                "variation_within_cluster": "Topics vary across members.",
+                "member_consistency": "HIGH",
+                "medoid_representative": "YES",
+                "secondary_patterns": [], "outlier_ids": [],
+                "possible_semantic_extraction_errors": [],
+                "possible_mislabel_or_intrinsic_overlap": [],
+            }
+        elif "mode_name" in properties:
+            audit = _user(payload).get("cluster_audit", {})
+            cluster = audit.get("cluster_id", 0)
+            member_ids = [member.get("sample_id") for member in _user(payload).get("members", []) if member.get("sample_id")]
+            value = {
+                "cluster_id": cluster, "mode_name": "A discovered reasoning mode",
+                "premise_pattern": "A premise is presented.",
+                "conclusion_pattern": "A conclusion is drawn.",
+                "core_bridge": "The premise is treated as support for the conclusion.",
+                "canonical_template": "PREMISE -> BRIDGE -> CONCLUSION",
+                "non_invariant_details": [], "boundary_notes": [],
+                "supporting_member_ids": member_ids or audit.get("outlier_ids", []) or ["unknown"],
+                "coverage_n": len(member_ids) or 1,
+            }
+        elif "core_invariant" in properties:
+            modes = _user(payload).get("audited_modes", [])
+            value = {
+                "status": "PARTIALLY READY",
+                "core_invariant": "An observed relation is treated as support for a conclusion.",
+                "prototypical_relation": "PREMISE -> BRIDGE -> CONCLUSION",
+                "discovered_modes": [{
+                    "cluster_ids": [mode.get("cluster_id", 0)],
+                    "mode_name": mode.get("mode_name", "Audited mode"),
+                    "coverage_n": mode.get("coverage_n", 1),
+                    "relation": mode.get("canonical_template", "PREMISE -> BRIDGE -> CONCLUSION"),
+                    "supporting_member_ids": mode.get("supporting_member_ids", ["unknown"]),
+                } for mode in modes] or [{
+                    "cluster_ids": [0], "mode_name": "Audited mode", "coverage_n": 1,
+                    "relation": "PREMISE -> BRIDGE -> CONCLUSION", "supporting_member_ids": ["unknown"],
+                }],
+                "not_sufficient": ["Topic words alone are not sufficient."],
+                "opposite_direction_cases": ["Opposite conclusion directions remain distinct."],
+                "descriptive_cases": ["Description without an inferential bridge is not sufficient."],
+                "dataset_edge_modes": [],
+                "operational_classification_test": ["Identify premise, bridge, and conclusion.", "Match the relation to an audited mode."],
+            }
+        elif "merge_groups" in properties:
+            value = {"merge_groups": [], "keep_separate": []}
+        elif "structure_complete" in properties:
+            value = {
+                "evidence_spans": [span],
+                "verdict": "Non-Fallacious" if negative else "Fallacious",
+                "candidate": None if negative else "Slippery Slope",
+                "mandatory_condition": None if negative else "An unsupported consequence progression is asserted.",
+                "condition_satisfied": not negative,
+                "decision_reason": "No listed structure is present." if negative else "The target asserts escalation.",
+                "opposing_reason": "A hidden contrast defect might exist." if negative else "The warning may be proportionate.",
+                "structure_type": "none" if negative else "consequence_chain",
+                "slots": [] if negative else [
+                    {"role": "initial_event", "text": span},
+                    {"role": "intermediate_consequence", "text": span},
+                    {"role": "final_consequence", "text": span},
+                ],
+                "structure_complete": not negative,
+                "premise": None if negative else span,
+                "conclusion": None if negative else span,
+                "inferential_link": None if negative else "The initial event is claimed to escalate.",
+            }
+        elif "mechanism_supports_goal" in properties:
+            if negative:
+                value = {
+                    "evidence_spans": [span],
+                    "verdict": "Non-Fallacious",
+                    "mandatory_condition": None,
+                    "condition_satisfied": False,
+                    "decision_reason": "The moral contrast does not instantiate a listed fallacy.",
+                    "opposing_reason": "The contrast might oversimplify the issue.",
+                    "conclusion_or_goal": "make a moral contrast",
+                    "candidate": None,
+                    "supporting_reason": None,
+                    "support_relation": None,
+                    "label_justification": "Moral contrast alone is not a fallacy.",
+                    "mechanism_supports_goal": False,
+                    "fallacy_owned_by_target": True,
+                }
+            else:
+                value = {
+                    "evidence_spans": [span],
+                    "verdict": "Fallacious",
+                    "mandatory_condition": "An unsupported consequence progression is asserted.",
+                    "condition_satisfied": True,
+                    "decision_reason": "The escalation does justificatory work.",
+                    "opposing_reason": "The warning may be proportionate.",
+                    "conclusion_or_goal": "warn against the initial action",
+                    "candidate": "Slippery Slope",
+                    "supporting_reason": "Rights will be lost after allowing the action.",
+                    "support_relation": "Predicted escalation is used to oppose the action.",
+                    "label_justification": "The warning assumes unestablished escalation.",
+                    "mechanism_supports_goal": True,
+                    "fallacy_owned_by_target": True,
+                }
+        elif "failure_exposed" in properties:
+            value = {
+                "evidence_spans": [span],
+                "verdict": "Non-Fallacious" if negative else "Fallacious",
+                "mandatory_condition": None if negative else "An unsupported consequence progression is asserted.",
+                "condition_satisfied": not negative,
+                "decision_reason": "The defense defeats the objection." if negative else "The objection defeats the defense.",
+                "opposing_reason": "The contrast may oversimplify." if negative else "The warning may be proportionate.",
+                "decisive_counterargument": None if negative else (
+                    "The escalation is asserted but not established by the stated reasoning."
+                ),
+                "candidate": None if negative else "Slippery Slope",
+                "challenged_inference": None if negative else "The initial action leads to escalation.",
+                "label_justification": "No reasoning defect in the contrast." if negative else "Unestablished escalation supports Slippery Slope.",
+                "failure_exposed": not negative,
+                "strongest_objection": "The reasoning may oversimplify or escalate.",
+                "strongest_defense": "The target states a permissible contrast or warning.",
+                "winning_side": "defense" if negative else "objection",
+            }
+        elif "winner" in properties:
+            allowed = properties["winner"].get("enum") or properties["winner"]["anyOf"][0].get("enum", [])
+            winner = None if any(item.get("type") == "null" for item in properties["winner"].get("anyOf", [])) else allowed[0]
+            value = {
+                "winner": winner,
+                "evidence_spans": [span],
+                "decisive_test": "offline targeted discriminator",
+                "loser_failure": "offline losing mandatory condition failed",
+            }
+        elif "selected_candidate" in properties:
+            selected_schema = properties["selected_candidate"]
+            allowed = []
+
+            if "enum" in selected_schema:
+                allowed = selected_schema["enum"]
+            else:
+                for option in selected_schema.get("anyOf", []):
+                    allowed.extend(option.get("enum", []))
+
+            task = _user(payload).get("task")
+            if allowed and not (task == "detection" and negative):
+                selected = allowed[0]
+                value = {
+                    "selected_verdict": "Fallacious",
+                    "selected_candidate": selected,
+                    "evidence_spans": [span],
+                    "decisive_condition": (
+                        "consequence_chain"
+                        if selected == "Slippery Slope"
+                        else "target_fallacy_condition"
+                    ),
+                    "decision_reason": "The target supports the stated escalation hypothesis.",
+                    "rejected_candidates": [],
+                }
+            else:
+                value = {
+                    "selected_verdict": "Non-Fallacious",
+                    "selected_candidate": None,
+                    "evidence_spans": [span],
+                    "decisive_condition": "none",
+                    "decision_reason": "No surviving hypothesis is supported.",
+                    "rejected_candidates": [],
+                }
         else:
-            labels = properties['prediction']['enum']
-            value = {'prediction': labels[seed % len(labels)],
-                     'content': 'OFFLINE MOCK: deterministic plumbing fixture, not model analysis.'}
-            if 'confidence' in properties:
-                value['confidence'] = 0.9
-            if 'supporting_quote' in properties:
-                value['supporting_quote'] = user['input']['comment']
-        return {'id': 'mock-' + digest(payload)[:12], 'model': 'offline-mock-v1',
-                'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps(value), 'refusal': None}}],
-                'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}}
+            raise ValueError(f"Unknown mock schema for stage: {stage}")
+        if "evidence_ids" in properties:
+            value.pop("evidence_spans", None)
+            value["evidence_ids"] = properties["evidence_ids"]["items"]["enum"][:1]
+        return {
+            "id": "mock-" + digest({"stage": stage, "target": target})[:12],
+            "model": "offline-mock-v1",
+            "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(value), "refusal": None}}],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }

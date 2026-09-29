@@ -1,0 +1,164 @@
+sample:
+  id: 127:9678
+  article_id: 127
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: Why is the focus on the internet shutdowns, and not that actual human rights
+    abuses from the insecurity caused by the coup. There has been enough evidence
+    based on the statistics to show that Myanmar needs more international intervention.
+    It is important to get news out from the people in Myanmar, but we need to focus
+    on the problem itself which is the insecurity caused by the coup.
+  target: This is simply one article. In fact, the article explains that the internet
+    blackout makes it harder for people there to show evidence of these atrocities
+    taking place. I agree that there needs to be more outside help from international
+    agencies however they can make that happen. However, if there is no way for people
+    to communicate what is happening, it is going to be mighty difficult for anyone
+    to help them. Certain infrastructure must be in place in a modern society to effectively
+    deal with things like this. So much hinges on internet and networks like this
+    to operate. It is important to understand that these people need to have the access
+    to the internet in order to begin to address the humanitarian crisis there. I
+    hope international agencies see an article like this and it spurs them to action
+    to help these people that are being oppressed. I hope something happens that helps
+    these people out, I feel for them.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is simply one article. In fact, the article explains that the internet
+      blackout makes it harder for people there to show evidence of these atrocities
+      taking place. I agree
+    - that there needs to be more outside help from international agencies however
+      they can make that happen. However, if there is no way for people to communicate
+      what is happening,
+    - it is going to be mighty difficult for anyone to help them. Certain infrastructure
+      must be in place in a modern society to effectively deal with things like this.
+      So
+    candidate: null
+  goal:
+    conclusion_or_goal: Internet access is essential for international agencies to
+      effectively assist Myanmar.
+    candidate: null
+    supporting_reason: Internet blackout hampers the ability of people to present
+      evidence of atrocities and communicate with international agencies, making it
+      difficult for those agencies to provide help.
+    support_relation: provides justification for the conclusion that internet connectivity
+      is crucial to aiding Myanmar.
+    label_justification: The argument asserts a causal link between internet access
+      and the effectiveness of humanitarian outreach; the premises offer concrete
+      evidence rather than relying on an unsupported appeal, so no fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is simply one article. In fact, the article explains that the internet
+      blackout makes it harder for people there to show evidence of these atrocities
+      taking place. I agree
+    - that there needs to be more outside help from international agencies however
+      they can make that happen. However, if there is no way for people to communicate
+      what is happening,
+  counterargument:
+    decisive_counterargument: The claim that the absence of internet automatically
+      precludes international assistance is unsupported. Aid agencies routinely operate
+      in regimes with limited connectivity by relying on radio, satellite phones,
+      local NGOs, and in‑person field teams. The article cites only one instance where
+      an internet blackout made evidence gathering harder; it does not prove that
+      humanitarian help would be impossible without internet. Thus the inference that
+      internet must be restored to enable aid is a false dichotomy, presenting only
+      two outcomes—internet access or no assistance—while ignoring other feasible
+      communication pathways.
+    candidate: False Dilemma
+    challenged_inference: If there is no way for people to communicate what is happening,
+      it is going to be mighty difficult for anyone to help them.
+    label_justification: 'The inference implicitly treats the situation as a binary
+      choice: either the internet is available, allowing aid, or no internet, preventing
+      aid. This omission of alternative methods of communication (radio, satellite,
+      local contacts) creates a false dilemma, asserting that aid is impossible without
+      internet when other mechanisms can still function. Therefore, the counterargument
+      reveals the false dilemma fallacy.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is simply one article. In fact, the article explains that the internet
+      blackout makes it harder for people there to show evidence of these atrocities
+      taking place. I agree
+    - that there needs to be more outside help from international agencies however
+      they can make that happen. However, if there is no way for people to communicate
+      what is happening,
+    - it is going to be mighty difficult for anyone to help them. Certain infrastructure
+      must be in place in a modern society to effectively deal with things like this.
+      So
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement merely asserts that absence of internet
+    makes it difficult for aid to arrive; it does not present a binary alternative
+    (internet vs. no internet) as the sole possible outcomes. Therefore it does not
+    meet the structural requirements for a false dilemma.
+  decision_reason: The target fails to establish a forced binary choice; its claim
+    is a conditional difficulty, not an exclusive either/or argument, so a false dilemma
+    cannot be identified.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This is simply one article. In fact, the article explains that the internet blackout
+    makes it harder for people there to show evidence of these atrocities taking place.
+    I agree
+  - that there needs to be more outside help from international agencies however they
+    can make that happen. However, if there is no way for people to communicate what
+    is happening,
+  - it is going to be mighty difficult for anyone to help them. Certain infrastructure
+    must be in place in a modern society to effectively deal with things like this.
+    So
+  verified: false
+  rejection_reason: The target fails to establish a forced binary choice; its claim
+    is a conditional difficulty, not an exclusive either/or argument, so a false dilemma
+    cannot be identified.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5832
+  completion_tokens: 2544
+  total_tokens: 8376
+  wall_time_seconds: 87.35899999999674

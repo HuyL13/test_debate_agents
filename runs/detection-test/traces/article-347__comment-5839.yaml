@@ -1,0 +1,88 @@
+sample:
+  id: 347:5839
+  article_id: 347
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: This is the problem. The wrong people in charge. There must be more oversight
+    into these programs.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - This is the problem. The wrong people in charge. There must be more oversight
+      into these programs.
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - The wrong people in charge.
+    - There must be more oversight into these programs.
+    conclusion_or_goal: There must be more oversight into these programs.
+    candidate: null
+    supporting_reason: The wrong people in charge.
+    support_relation: The fact that the wrong people are in charge is used to justify
+      the claim that more oversight is necessary.
+    label_justification: No fallacy is evident; the argument presents a causal link
+      between mismanagement and the need for oversight, which is a standard, albeit
+      potentially weak, argument structure.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - This is the problem. The wrong people in charge. There must be more oversight
+      into these programs.
+    decisive_counterargument: Increasing oversight may not resolve problems caused
+      by the wrong people in charge, because oversight can simply add bureaucracy
+      without addressing underlying corruption, vested interests, or systemic issues.
+      It might even hinder effective governance.
+    candidate: null
+    challenged_inference: Oversight is an adequate solution to problems created by
+      wrong leaders
+    label_justification: The text does not commit any of the specified fallacy types;
+      no explicit sample-to-population generalization, escalation, dichotomy, appeal
+      to authority, majority, nature, tradition, or worse problems comparison is present,
+      so the reasoning appears logically neutral but potentially incomplete.
+    failure_exposed: false
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2163
+  completion_tokens: 1869
+  total_tokens: 4032
+  wall_time_seconds: 32.67200000002049

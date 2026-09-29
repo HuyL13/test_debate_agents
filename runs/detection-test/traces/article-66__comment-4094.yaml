@@ -1,0 +1,128 @@
+sample:
+  id: 66:4094
+  article_id: 66
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: ''
+  target: Celebratory gunfire has been a part of different cultures for decades if
+    not hundreds of years. Trying to stop it now because of a few accidents is silly.
+    Are we going to stop driving due to thousands being killed in wrecks every year
+    Tradition is important. All cultures have them!
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Celebratory gunfire has been a part of different cultures for decades
+        if not hundreds of years.
+    - role: preservation_conclusion
+      text: Tradition is important. All cultures have them!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Celebratory gunfire has been a part of different cultures for decades if not
+      hundreds of years. Trying to stop it now because of a few accidents is silly.
+      Are we
+    - going to stop driving due to thousands being killed in wrecks every year Tradition
+      is important. All cultures have them!
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Oppose banning or stopping celebratory gunfire.
+    candidate: Appeal to Tradition
+    supporting_reason: Celebratory gunfire has been part of different cultures for
+      decades or centuries, and tradition should be preserved.
+    support_relation: The tradition claim is presented as a justification for maintaining
+      the practice, thereby supporting the conclusion that it should not be stopped.
+    label_justification: The argument uses the existence of tradition across cultures
+      as the sole rationale for preserving celebratory gunfire, which is the textbook
+      definition of an appeal to tradition fallacy. The reason directly underpins
+      the stance against prohibition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Celebratory gunfire has been a part of different cultures for decades if not
+      hundreds of years. Trying to stop it now because of a few accidents is silly.
+      Are we
+    - going to stop driving due to thousands being killed in wrecks every year Tradition
+      is important. All cultures have them!
+  counterargument:
+    decisive_counterargument: A tradition that inflicts harm—such as celebratory gunfire
+      that causes accidental injuries—does not justify its continuation simply because
+      it has been practiced for centuries. Societies routinely abandon or modify harmful
+      customs when evidence shows the risks outweigh the benefits, so the mere fact
+      that a practice is traditional does not serve as a defense against safety concerns.
+    candidate: Appeal to Tradition
+    challenged_inference: Trying to stop it now because of a few accidents is silly
+    label_justification: The objection demonstrates that the argument incorrectly
+      relies on the existence of a long‑standing tradition to dismiss legitimate safety
+      concerns, which is the hallmark of an appeal to tradition. The fallacy arises
+      because tradition is used as a sole justification for maintaining the practice,
+      without addressing the evidence of harm. This preserves the logical link between
+      tradition and the argument’s conclusion and shows the failure of the inference.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Celebratory gunfire has been a part of different cultures for decades if not
+      hundreds of years. Trying to stop it now because of a few accidents is silly.
+      Are we
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument cites the long-standing prevalence of celebratory
+    gunfire as a justification for its continued practice, with the conclusion that
+    “tradition is important” serving as the sole rationale for not stopping it, thus
+    fitting the structural pattern of an appeal to tradition.
+  decision_reason: The TARGET statement explicitly claims the tradition of celebratory
+    gunfire justifies preserving it, matching the traditional logical form where a
+    custom’s age is used to defend its continuance.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Celebratory gunfire has been a part of different cultures for decades if not hundreds
+    of years. Trying to stop it now because of a few accidents is silly. Are we
+  - going to stop driving due to thousands being killed in wrecks every year Tradition
+    is important. All cultures have them!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4434
+  completion_tokens: 3071
+  total_tokens: 7505
+  wall_time_seconds: 96.96899999992456

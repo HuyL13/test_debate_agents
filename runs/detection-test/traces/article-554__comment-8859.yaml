@@ -1,0 +1,151 @@
+sample:
+  id: 554:8859
+  article_id: 554
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: I'm confused. If there were two rejected no-confidence motions for him,
+    why does the court think its okay to not allow him to be PM? Seems political to
+    me. If you let the courts get political, you eventually get countries like Russia
+    and Nazi Germany. Before it gets that bad, it could lead to the opposition being
+    barred from holding office ever again, or political prisoners being taken.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: letting the courts become political
+    - role: intermediate_consequence
+      text: the opposition could be barred from holding office, or political prisoners
+        could be taken
+    - role: final_consequence
+      text: the situation could eventually resemble countries like Russia and Nazi
+        Germany
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm confused. If there were two rejected no-confidence motions for him, why
+      does the court think its okay to not allow him to be PM? Seems political to
+      me. If
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker concludes that allowing the courts to act politically
+      is dangerous because it could eventually lead to authoritarian regimes, such
+      as Russia or Nazi Germany, and to the denial of political participation or imprisonment.
+    candidate: Slippery Slope
+    supporting_reason: If courts become political, then the situation inevitably worsens,
+      moving towards authoritarian practices and the exclusion or oppression of opposition.
+    support_relation: The reasoning is used to support the conclusion that the court’s
+      actions are inherently political and potentially dangerous.
+    label_justification: The argument demonstrates the typical slippery-slope pattern
+      by linking a single premise (courts becoming political) with a series of severe,
+      unlikely consequences (authoritarian rule, imprisonment) without evidence of
+      an inevitable causal chain.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+  counterargument:
+    decisive_counterargument: The claim that a single court ruling will inevitably
+      lead to a totalitarian regime is an unfounded speculative leap. Constitutional
+      courts are subject to checks and balances, and a precedent for a no‑confidence
+      motion being overturned means the court is exercising its mandate, not endorsing
+      political dominance. There is no evidence that this decision sets in motion
+      a progression to authoritarianism; that would require a chain of events—absorption
+      of the judiciary, suppression of civil society, erosion of rule of law—none
+      of which is shown or implied here.
+    candidate: Slippery Slope
+    challenged_inference: Because the court may become ‘political’, this will inevitably
+      lead to authoritarian states such as Russia or Nazi Germany, resulting in political
+      oppression.
+    label_justification: 'The argument asserts that a single judicial act will trigger
+      an escalating series of undesirable consequences that culminate in extreme authoritarianism.
+      This is precisely the pattern of a *slippery slope* fallacy: an isolated event
+      is presented as inevitably giving rise to a chain of disastrous outcomes without
+      evidence of that progression.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm confused. If there were two rejected no-confidence motions for him, why
+      does the court think its okay to not allow him to be PM? Seems political to
+      me. If
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target indicates a progression from the courts becoming
+    political to the eventual emergence of authoritarian regimes (Russia, Nazi Germany)
+    and the banning of opposition or political imprisonment, without establishing
+    an inevitable causal chain, matching the slippery‑slope structure.
+  decision_reason: Target text warns that allowing courts to become political will
+    inevitably lead to extreme outcomes such as authoritarian states and suppression
+    of opposition, presenting a speculative escalation chain that lacks evidentiary
+    support. This conforms to a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I'm confused. If there were two rejected no-confidence motions for him, why does
+    the court think its okay to not allow him to be PM? Seems political to me. If
+  - you let the courts get political, you eventually get countries like Russia and
+    Nazi Germany. Before it gets that bad, it could lead to the opposition being barred
+    from holding
+  - office ever again, or political prisoners being taken.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4849
+  completion_tokens: 2550
+  total_tokens: 7399
+  wall_time_seconds: 106.48400000000038

@@ -1,0 +1,138 @@
+sample:
+  id: 19:3954
+  article_id: 19
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Papua New Guinea’s new media rules could undermine the work of journalists
+  parent: Why are we putting in more restrictions? Does this really provide a benefit
+    or is it a way to distract from something else?  Are there any benefits I am unaware
+    of? It seems to go against a need for freedom of expression, a natural want/need
+    for all people. What problem is this actually solving? What do these restrictions
+    improve? What do you think?
+  target: This may be unintuitive, but lots of people in the world aren't interested
+    in the complete free flow of information. It just leads to endless polarization
+    and divisions in society. The majority in PNG might be completely for this, and
+    if they are, then we have no right to question them.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority in PNG
+    - role: popularity_claim
+      text: majority in PNG might be completely for this
+    - role: target_claim
+      text: there is no right to question them if they support the restrictions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This may be unintuitive, but lots of people in the world aren't interested in
+      the complete free flow of information. It just leads to endless polarization
+      and divisions in society.
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The argument claims that restrictions are legitimate because
+      the majority of people in PNG support them and therefore there is no right to
+      question those restrictions.
+    candidate: Appeal to Majority
+    supporting_reason: The claim that 'The majority in PNG might be completely for
+      this, and if they are, then we have no right to question them.' uses the supposed
+      majority opinion as the sole justification for rejecting opposition.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument relies on the alleged majority opinion to invalidate
+      questioning, which is a prototypical appeal to majority (argumentum ad populum).
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This may be unintuitive, but lots of people in the world aren't interested in
+      the complete free flow of information. It just leads to endless polarization
+      and divisions in society.
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+  counterargument:
+    decisive_counterargument: The argument that a potential majority preference for
+      media restrictions justifies an abdication of scrutiny commits the **Appeal
+      to Majority** fallacy. Even if the majority in PNG indeed supports restrictions,
+      that does not preclude legitimate questioning, debate, or critical inquiry.
+      Rights to investigate and question are independent of majority opinion, and
+      a democratic society requires that policy be subject to scrutiny regardless
+      of its popularity.
+    candidate: Appeal to Majority
+    challenged_inference: It assumes that because the majority might favor restrictions,
+      we have no right to question or challenge them.
+    label_justification: The counterargument directly challenges the inference that
+      majority support eliminates the right to question; this shows that the reasoning
+      relies on a false premise that majority opinion serves as a justification for
+      ignoring critical scrutiny. This is characteristic of the Appeal to Majority
+      fallacy, which misuses popularity as evidence by asserting that an idea’s merit
+      follows its acceptance.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - The majority in PNG might be completely for this, and if they are, then we have
+      no right to question them.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The TARGET asserts that the majority in PNG may support the
+    restrictions and therefore one has no right to question them, thereby using the
+    alleged majority opinion as the sole justification for dismissing dissent—an instance
+    of the Appeal to Majority fallacy.
+  decision_reason: The argument explicitly states that the majority’s support invalidates
+    questioning, satisfying the structural conditions of an appeal to majority. Evidence
+    T1 supports the claim that many people are not interested in unrestricted information,
+    and T2 states the majority’s stance and the consequent denial of the right to
+    question. Hence the fallacy is correctly identified.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This may be unintuitive, but lots of people in the world aren't interested in
+    the complete free flow of information. It just leads to endless polarization and
+    divisions in society.
+  - The majority in PNG might be completely for this, and if they are, then we have
+    no right to question them.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4752
+  completion_tokens: 2774
+  total_tokens: 7526
+  wall_time_seconds: 77.54700000002049

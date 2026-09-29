@@ -1,0 +1,131 @@
+sample:
+  id: 2:3154
+  article_id: 2
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Myanmar, Buddhists offer white roses to Muslims during Ramadan
+  parent: ''
+  target: I don't think these protesters understand what's going on here. Either those
+    so-called extremists get the Muslims out of their country, or it will just become
+    a den of terrorists. Surely that's not what they want. It's not as if there are
+    any real alternatives. This isn't a situation with a middle ground.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: those so‑called extremists get the Muslims out of their country
+    - role: alternative_b
+      text: it will just become a den of terrorists
+    - role: exhaustiveness_commitment
+      text: there are no real alternatives and no middle ground
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't think these protesters understand what's going on here. Either those
+      so-called extremists get the Muslims out of their country, or it will just become
+      a den of terrorists.
+    - Surely that's not what they want. It's not as if there are any real alternatives.
+      This isn't a situation with a middle ground.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: to present protesters’ motives as misunderstood, implying
+      that their actions will either force Muslims out or lead to a terrorist den,
+      with no acceptable alternatives
+    candidate: False Dilemma
+    supporting_reason: The target presents only two discrete outcomes—either expelling
+      Muslims or becoming a terrorist safe haven—while asserting that no real alternatives
+      or middle ground exist, thereby limiting the perceived options to a false binary
+      choice
+    support_relation: mechanism_supports_goal
+    label_justification: The reason directly establishes a false dichotomy to justify
+      the claim about protesters’ lack of understanding, constituting the False Dilemma
+      fallacy
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't think these protesters understand what's going on here. Either those
+      so-called extremists get the Muslims out of their country, or it will just become
+      a den of terrorists.
+    - Surely that's not what they want. It's not as if there are any real alternatives.
+      This isn't a situation with a middle ground.
+  counterargument:
+    decisive_counterargument: Many viable options exist beyond the binary extremes
+      presented, such as community dialogue, law‑enforcement reforms, economic incentives,
+      or diplomatic engagement. The presence of these alternatives invalidates the
+      notion that the only outcomes are extremist removal or a terrorist haven.
+    candidate: False Dilemma
+    challenged_inference: The argument asserts that protesters lack any real alternatives,
+      forcing a choice between expelling Muslims or becoming a terrorist den.
+    label_justification: The objection directly addresses the unjustified claim that
+      only two mutually exclusive and mutually exhaustive outcomes are possible, which
+      is the hallmark of a false dilemma. It shows that the inference rests on an
+      overstated binary position rather than on evidence of no other options.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I don't think these protesters understand what's going on here. Either those
+      so-called extremists get the Muslims out of their country, or it will just become
+      a den of terrorists.
+    - Surely that's not what they want. It's not as if there are any real alternatives.
+      This isn't a situation with a middle ground.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: Target explicitly presents only two mutually exclusive alternatives—expelling
+    Muslims or becoming a terrorist den—and argues that no other alternatives or middle
+    ground exist, satisfying the structural requirement for a false dilemma.
+  decision_reason: The statement explicitly limits the options to a binary choice
+    and claims exhaustiveness, which is the hallmark of a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I don't think these protesters understand what's going on here. Either those so-called
+    extremists get the Muslims out of their country, or it will just become a den
+    of terrorists.
+  - Surely that's not what they want. It's not as if there are any real alternatives.
+    This isn't a situation with a middle ground.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4482
+  completion_tokens: 2010
+  total_tokens: 6492
+  wall_time_seconds: 51.54700000000594

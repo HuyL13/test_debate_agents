@@ -1,0 +1,141 @@
+sample:
+  id: 515:8142
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: 'This kind of infighting is only natural among political predators. Notions
+    like compromise, negotiation, humility, public service: they don''t even occur
+    to such figures because it is not in their nature to engage in such behaviors,
+    any more than it''s in the nature of an elephant to climb trees. Let''s hope things
+    turn out the way Afghans want it to. They have been through a lot!'
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is not in the nature of political predators to engage in compromise,
+        negotiation, humility, or public service.
+    - role: evaluative_conclusion
+      text: They do not consider or engage in such behaviors.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This kind of infighting is only natural among political predators. Notions
+      like compromise, negotiation, humility, public service: they don''t even occur
+      to such figures because it is not in their'
+    - nature to engage in such behaviors, any more than it's in the nature of an elephant
+      to climb trees. Let's hope things turn out the way Afghans want it to.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Infighting among political predators is a natural behavior.
+    candidate: Appeal to Nature
+    supporting_reason: Because certain political figures don’t consider compromise,
+      negotiation, humility, or public service—‘not even occur to such figures’—as
+      part of their nature, similar to how it’s not natural for an elephant to climb
+      trees.
+    support_relation: The reason is cited to justify the conclusion that infighting
+      is a natural behavior, using the naturalness of the actors as a normative argument.
+    label_justification: The argument appeals to the natural disposition of political
+      predators to legitimize infighting; it treats ‘naturalness’ as a reason for
+      its (implied) acceptability, which is the standard form of the Appeal to Nature
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This kind of infighting is only natural among political predators. Notions
+      like compromise, negotiation, humility, public service: they don''t even occur
+      to such figures because it is not in their'
+    - nature to engage in such behaviors, any more than it's in the nature of an elephant
+      to climb trees. Let's hope things turn out the way Afghans want it to.
+  counterargument:
+    decisive_counterargument: The claim that political leaders cannot compromise,
+      negotiate, or act with humility simply because they’re ‘political predators’
+      and it isn’t in their nature is a non‑sequitur. ‘Nature’ does not dictate how
+      people choose to behave in politics; leaders can learn and exercise compromise
+      just as they can ignore it. Examples abound of politicians who have put aside
+      personal ambition to reach bipartisan agreements. Thus the argument misattributes
+      naturalness to moral or political behavior—an appeal to nature—rather than providing
+      evidence that this trait actually exists or prevents compromise.
+    candidate: Appeal to Nature
+    challenged_inference: 'Notions like compromise, negotiation, humility, public
+      service: they don''t even occur to such figures because it is not in their nature
+      to engage in such behaviors'
+    label_justification: The objection directly addresses the reasoning that the absence
+      of these traits is explained by nature, exposing the appeal to nature fallacy,
+      not merely criticizing the argument. The fallacy is identified because the evidence
+      shows the premise that ‘nature’ determines behavior, which is unsupported and
+      irrelevant to the claim that compromise is impossible.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - 'This kind of infighting is only natural among political predators. Notions
+      like compromise, negotiation, humility, public service: they don''t even occur
+      to such figures because it is not in their'
+    - nature to engage in such behaviors, any more than it's in the nature of an elephant
+      to climb trees. Let's hope things turn out the way Afghans want it to.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target states that infighting is ‘only natural’ among political
+    predators because ‘it is not in their nature’ to engage in compromise, negotiation,
+    humility, or public service, thus using naturalness as justification for the acceptance
+    of infighting. This satisfies the structure of an Appeal to Nature fallacy, and
+    the supporting evidence is provided by passages T1 and T2.
+  decision_reason: The target employs a naturalness premise that political predators
+    lack certain virtues, leading to the conclusion that infighting is natural (i.e.,
+    justified by nature). This matches the Appeal to Nature form.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - 'This kind of infighting is only natural among political predators. Notions like
+    compromise, negotiation, humility, public service: they don''t even occur to such
+    figures because it is not in their'
+  - nature to engage in such behaviors, any more than it's in the nature of an elephant
+    to climb trees. Let's hope things turn out the way Afghans want it to.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4896
+  completion_tokens: 4346
+  total_tokens: 9242
+  wall_time_seconds: 241.73399999999674

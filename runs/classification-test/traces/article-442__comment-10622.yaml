@@ -1,0 +1,146 @@
+sample:
+  id: 442:10622
+  article_id: 442
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Togo, singer Elias Atayi uses music as a vehicle for human rights
+  parent: ''
+  target: 'Great story about Elias Atayi and his dedication to making music to amplify
+    human rights. I think it''s a great idea and I''m certain that there are vast
+    amounts of people who agree to me. I mean, think about it, who is against human
+    rights? I have never heard anyone come out against them, so that has to mean it''s
+    nearly universal in support! Just having that sort of backing shows that defending
+    human rights is the correct thing to do, we all need to step up and spread this
+    message far and wide. With how many people are behind this it is sure to be a
+    success! #HumanRights'
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: vast amounts of people/the general population
+    - role: popularity_claim
+      text: nearly universal support for human rights—no one is against them
+    - role: target_claim
+      text: defending human rights is the correct thing to do
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Defending human rights is the correct action and will succeed
+      because almost everyone supports it, so we should spread the message widely.
+    candidate: Appeal to Majority
+    supporting_reason: nearly universal support for human rights
+    support_relation: The speaker claims that because almost everyone supports human
+      rights, the action of defending them is justified and will be successful
+    label_justification: The argument relies on the majority consensus (or lack of
+      opposition) to prove the truth and value of the action, which is a classic appeal
+      to the majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+  counterargument:
+    decisive_counterargument: The argument’s logic—that because no one publicly voices
+      opposition to human rights it means the idea is universally supported and therefore
+      correct—misuses the popularity of a view as evidence of its truth. Lack of opposition
+      does not prove universal approval; many people may simply remain silent or disagree
+      privately, and a majority can still be wrong. Consequently, the premise that
+      a broad consensus guarantees both moral correctness and success is fallacious.
+    candidate: Appeal to Majority
+    challenged_inference: It assumes that the absence of public opposition to human
+      rights proves universal support, thus validating the stance and predicting success.
+    label_justification: The argument depends on the presumed popularity of the view
+      to support its claim that defending human rights is correct and will succeed.
+      This is precisely the definition of an Appeal to Majority fallacy, which uses
+      widespread acceptance (or presumed lack of dissent) as the sole justification
+      for the claim.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - people who agree to me. I mean, think about it, who is against human rights?
+      I have never heard anyone come out against them, so that has to mean it's
+    - nearly universal in support! Just having that sort of backing shows that defending
+      human rights is the correct thing to do, we all need to step up and spread this
+    - 'message far and wide. With how many people are behind this it is sure to be
+      a success! #HumanRights'
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The reasoning asserts that because no one publicly opposes
+    human rights—implying universal support—the action of defending human rights is
+    correct and will succeed, which is a classic appeal to majority fallacy: it relies
+    on the popularity (or presumed lack of opposition) of a view to justify its truth
+    and effectiveness.'
+  decision_reason: The target argument makes a majority claim (‘nearly universal support
+    for human rights, with no one against them’) and derives the conclusion that defending
+    human rights is correct and will succeed solely from that claim. This satisfies
+    the structural criteria for an Appeal to Majority, and no other fallace better
+    fits the argument.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - people who agree to me. I mean, think about it, who is against human rights? I
+    have never heard anyone come out against them, so that has to mean it's
+  - nearly universal in support! Just having that sort of backing shows that defending
+    human rights is the correct thing to do, we all need to step up and spread this
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5282
+  completion_tokens: 3599
+  total_tokens: 8881
+  wall_time_seconds: 126.64100000000326

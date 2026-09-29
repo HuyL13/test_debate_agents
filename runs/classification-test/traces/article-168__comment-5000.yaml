@@ -1,0 +1,147 @@
+sample:
+  id: 168:5000
+  article_id: 168
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: If a presidential candidate is going to be voted on just by people of their
+    ethnicity that means that Macedonia is a divided country susceptible to bias.
+    Perhaps this is something they should work on so that they can choose candidates
+    based on merit rather than their genes. Racial bias is something that should be
+    addressed all over the world so that we can move forward as a human race.
+  target: I agree with you completely. Who might win these elections seems like a
+    lot less of an issue than why people are voting based on ethnic concerns. All
+    the candidates should come together to focus on fixing that, as well as all the
+    more important non-race related issues I know the country has, as they can only
+    lead to terrible things down the road.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: people voting based on ethnic concerns
+    - role: intermediate_consequence
+      text: non-race related issues
+    - role: final_consequence
+      text: terrible things down the road
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree with you completely. Who might win these elections seems like a lot
+      less of an issue than why people are voting based on ethnic concerns. All the
+      candidates
+    - should come together to focus on fixing that, as well as all the more important
+      non-race related issues I know the country has, as they can only lead to terrible
+    - things down the road.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The candidates should unite to address ethnic-based voting
+      bias rather than focusing on who might win the election, and also tackle other
+      major non-racial issues to prevent future problems.
+    candidate: null
+    supporting_reason: The importance of fixing why people vote on ethnic concerns
+      is greater than worrying about who might win the elections.
+    support_relation: The reason explains why the claimed priority on fixing voting
+      bias is justified.
+    label_justification: The reason legitimately supports the conclusion; no fallacy
+      is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree with you completely. Who might win these elections seems like a lot
+      less of an issue than why people are voting based on ethnic concerns. All the
+      candidates
+    - should come together to focus on fixing that, as well as all the more important
+      non-race related issues I know the country has, as they can only lead to terrible
+  counterargument:
+    decisive_counterargument: The TARGET statement merely repeats that people should
+      focus on ethnic concerns and other issues to avoid ‘terrible things’, yet it
+      supplies no evidence that these concerns are the primary cause of future problems
+      or that addressing them would actually prevent such outcomes. This is an unfounded,
+      overly‑general claim rather than a logically grounded argument.
+    candidate: null
+    challenged_inference: null
+    label_justification: The TARGET reasoning does not exhibit a formal fallacy such
+      as hasty generalization, slippery slope, or appeal to authority. Instead, it
+      is merely an unsupported, broad assertion that lacks evidence. Consequently,
+      no specific logical failure is disclosed, so the fallacy label is null.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I agree with you completely. Who might win these elections seems like a lot
+      less of an issue than why people are voting based on ethnic concerns. All the
+      candidates
+    - should come together to focus on fixing that, as well as all the more important
+      non-race related issues I know the country has, as they can only lead to terrible
+    - things down the road.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: 'Target presents a causal chain: people voting based on ethnic
+    concerns → focus on non‑race related issues → terrible things down the road, which
+    satisfies the structure of a slippery‑slope argument.'
+  decision_reason: Target explicitly claims that addressing non‑race issues following
+    ethnic voting will inevitably lead to worsening outcomes, fitting the slippery‑slope
+    form.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - I agree with you completely. Who might win these elections seems like a lot less
+    of an issue than why people are voting based on ethnic concerns. All the candidates
+  - should come together to focus on fixing that, as well as all the more important
+    non-race related issues I know the country has, as they can only lead to terrible
+  - things down the road.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4531
+  completion_tokens: 4174
+  total_tokens: 8705
+  wall_time_seconds: 69.59399999998277

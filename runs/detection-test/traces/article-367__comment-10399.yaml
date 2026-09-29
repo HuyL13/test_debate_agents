@@ -1,0 +1,137 @@
+sample:
+  id: 367:10399
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: It's understandable that the gay community want to be treated equally, but
+    why make such public shows of it?  It would be better if they tried to get things
+    done quietly behind the scenes without making a fuss. In addition, they would
+    probably have people cooperate more which would yield better results.  The old
+    traditional way of handling things is often best.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: The old traditional way of handling things is often best.
+    - role: preservation_conclusion
+      text: It would be better if they tried to get things done quietly behind the
+        scenes.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's understandable that the gay community want to be treated equally, but why
+      make such public shows of it?  It would be better if they tried to get things
+      done
+    - quietly behind the scenes without making a fuss. In addition, they would probably
+      have people cooperate more which would yield better results.  The old traditional
+      way of handling things is
+    - often best.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Advocate that the gay community should pursue equality quietly
+      behind the scenes rather than making public displays
+    candidate: Appeal to Tradition
+    supporting_reason: They would probably have people cooperate more which would
+      yield better results, implying that the traditional quiet approach is effective
+    support_relation: mechanism_supports_goal
+    label_justification: The argument presents the old traditional way of handling
+      matters as inherently superior simply because it is old, without providing substantive
+      evidence for its effectiveness. This reliance on tradition as justification
+      for the recommendation constitutes an Appeal to Tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's understandable that the gay community want to be treated equally, but why
+      make such public shows of it?  It would be better if they tried to get things
+      done
+    - quietly behind the scenes without making a fuss. In addition, they would probably
+      have people cooperate more which would yield better results.  The old traditional
+      way of handling things is
+    - often best.
+  counterargument:
+    decisive_counterargument: The claim that the historic, traditional approach is
+      preferable simply rests on the fact that it has long been used, not on evidence
+      that it yields better outcomes. Numerous past practices have proven ineffective
+      or harmful, and many successful modern initiatives deliberately depart from
+      tradition because they are better suited to current circumstances. Therefore,
+      equating tradition with effectiveness is unfounded.
+    candidate: null
+    challenged_inference: The old traditional way of handling things is often best.
+    label_justification: The argument relies on tradition by asserting that a method
+      is best simply because it has been used historically, a classic appeal to tradition
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - often best.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: 'The target contains a premise that ''The old traditional way
+    of handling things is often best'' (T3) and a conclusion that ''It would be better
+    if they tried to get things done quietly behind the scenes'' (T1,T2). This is
+    a classic appeal to tradition: the argument relies on tradition as the justification
+    for preferring the quiet, behind‑the‑scenes approach. The evidence ids T1, T2,
+    T3 support this interpretation.'
+  decision_reason: 'Appeal to Tradition found. Evidence meets structural requirement:
+    traditional premise → conclusion for tradition.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - It's understandable that the gay community want to be treated equally, but why
+    make such public shows of it?  It would be better if they tried to get things
+    done
+  - quietly behind the scenes without making a fuss. In addition, they would probably
+    have people cooperate more which would yield better results.  The old traditional
+    way of handling things is
+  - often best.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4435
+  completion_tokens: 3933
+  total_tokens: 8368
+  wall_time_seconds: 169.85900000000038

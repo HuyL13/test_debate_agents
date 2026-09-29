@@ -1,0 +1,150 @@
+sample:
+  id: 15:3193
+  article_id: 15
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First comprehensive study on child abuse in Madagascar points to alarming
+    level of violence
+  parent: ''
+  target: Some of this is just their culture's way of educating and disciplining.
+    Having a foreign company step in will go from just trying to reduce abuse to eventually
+    trying to control the government and imposing their values on them. Its a form
+    of colonialism to have us tell them how to raise their kids or teach their kids.
+    It could lead to the loss of their own cuture.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: having a foreign company step in
+    - role: intermediate_consequence
+      text: control the government and imposing their values
+    - role: final_consequence
+      text: lead to the loss of their own culture
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Some of this is just their culture's way of educating and disciplining. Having
+      a foreign company step in will go from just trying to reduce abuse to eventually
+      trying to
+    - control the government and imposing their values on them. Its a form of colonialism
+      to have us tell them how to raise their kids or teach their kids. It could
+    - lead to the loss of their own cuture.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Foreign company involvement would ultimately result in colonialism
+      and cultural loss, so it should not be allowed.
+    candidate: Slippery Slope
+    supporting_reason: Foreign company step in will go from trying to reduce abuse
+      to controlling the government, imposing their values, and causing loss of local
+      culture.
+    support_relation: The claim that foreign interference inevitably leads to extreme
+      negative outcomes is used to justify rejecting foreign company involvement.
+    label_justification: The argument presents a chain of events – from a small step
+      (reducing abuse) to a far‑reaching outcome (government control, colonialism,
+      cultural loss) – without providing evidence for the intermediate linkages. This
+      is the classic pattern of a slippery‑slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Some of this is just their culture's way of educating and disciplining. Having
+      a foreign company step in will go from just trying to reduce abuse to eventually
+      trying to
+    - control the government and imposing their values on them. Its a form of colonialism
+      to have us tell them how to raise their kids or teach their kids. It could
+    - lead to the loss of their own cuture.
+  counterargument:
+    decisive_counterargument: The claim that a foreign company’s involvement would
+      inevitably lead to government control, cultural imposition, and loss of tradition
+      is a speculative, unsubstantiated chain of events. There is no evidence that
+      such a company would amass political power or that it would wield such power
+      to reshape local culture; many international firms and NGOs operate strictly
+      within clearly defined educational mandates, subject to legal agreements and
+      host‑country oversight. Without intermediate steps or concrete examples, the
+      argument merely assumes a dramatic outcome from a single action.
+    candidate: Slippery Slope
+    challenged_inference: It is assumed that a foreign company stepping in to reduce
+      abuse will inevitably evolve into controlling the government and imposing its
+      values, thereby causing a loss of culture.
+    label_justification: 'The objection directly points out the lack of evidence for
+      the assumed progression from a foreign intervention to political control and
+      cultural erosion. This reveals exactly the hallmark of a slippery‑slope reasoning
+      defect: a claim that a single event will inescapably lead to a series of undesirable
+      outcomes without showing the necessary steps or support.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Some of this is just their culture's way of educating and disciplining. Having
+      a foreign company step in will go from just trying to reduce abuse to eventually
+      trying to
+    - control the government and imposing their values on them. Its a form of colonialism
+      to have us tell them how to raise their kids or teach their kids. It could
+    - lead to the loss of their own cuture.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target explicitly presents a presumed inevitable progression—from
+    a foreign company stepping in to eventually controlling the government, imposing
+    values, and causing loss of culture—without offering supporting evidence for any
+    intermediate linkages. This pattern matches the required structure of a slippery‑slope
+    inference defect, establishing the fallacy.
+  decision_reason: The target contains a chain of events (initial action, intermediate
+    consequence, final consequence) that is presented as inevitable but unsupported,
+    fulfilling both the structural and logical criteria for a slippery‑slope fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Some of this is just their culture's way of educating and disciplining. Having
+    a foreign company step in will go from just trying to reduce abuse to eventually
+    trying to
+  - control the government and imposing their values on them. Its a form of colonialism
+    to have us tell them how to raise their kids or teach their kids. It could
+  - lead to the loss of their own cuture.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4862
+  completion_tokens: 3223
+  total_tokens: 8085
+  wall_time_seconds: 114.79700000002049

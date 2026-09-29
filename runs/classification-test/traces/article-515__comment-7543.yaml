@@ -1,0 +1,139 @@
+sample:
+  id: 515:7543
+  article_id: 515
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: This is crazy to read.  Countries need to adopt democracy and let the majority
+    will of the people rule, period. It may be naive to think so, but I believe that
+    the majority typically chooses the best way forward. People have the ability to
+    sift through the polictical noise and make the right decisions.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of people
+    - role: popularity_claim
+      text: the majority typically chooses the best way forward
+    - role: target_claim
+      text: countries need to adopt democracy and let the majority will of the people
+        rule, period
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is crazy to read.  Countries need to adopt democracy and let the majority
+      will of the people rule, period. It may be naive to think so, but I believe
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Countries need to adopt democracy and let the majority will
+      of the people rule, period.
+    candidate: Appeal to Majority
+    supporting_reason: The majority typically chooses the best way forward. People
+      have the ability to sift through the political noise and make the right decisions.
+    support_relation: The reason that the majority usually makes correct decisions
+      is relied upon to justify that governments should adopt democracy and let the
+      majority rule.
+    label_justification: The argument appeals to the fact that the majority typically
+      acts rightly as justification for adopting democracy, which is a classic example
+      of an Appeal to Majority fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is crazy to read.  Countries need to adopt democracy and let the majority
+      will of the people rule, period. It may be naive to think so, but I believe
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+  counterargument:
+    decisive_counterargument: A majority can be misinformed, biased, or selfish; majority
+      rule does not automatically lead to the best or most just decisions. The claim
+      that ‘the majority typically chooses the best way forward’ is a blanket assertion
+      that uses the size of the majority as evidence of its correctness—a characteristic
+      of an appeal to popularity.
+    candidate: Appeal to Majority
+    challenged_inference: The argument assumes that because the majority’s will leads
+      to the best outcomes, countries must adopt democracy so that the majority’s
+      will is the governing principle.
+    label_justification: This objection shows that the argument relies on the majority’s
+      size as a sufficient basis for truth or acceptability, which is precisely the
+      hallmark of an appeal to majority (argumentum ad populum).
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is crazy to read.  Countries need to adopt democracy and let the majority
+      will of the people rule, period. It may be naive to think so, but I believe
+    - that the majority typically chooses the best way forward. People have the ability
+      to sift through the polictical noise and make the right decisions.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: 'The target text asserts that governments should adopt democracy
+    and let the majority rule because the majority typically makes good decisions.
+    This exemplifies an Appeal to Majority: the argument relies on the majority’s
+    presumed correctness, without independent support for democracy. The structure
+    (population group, popularity claim, target claim) is present in the passages
+    T1 and T2, satisfying the mandatory structural condition. Therefore Appeal to
+    Majority is the correct classification.'
+  decision_reason: Appeal to Majority is the identified fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is crazy to read.  Countries need to adopt democracy and let the majority
+    will of the people rule, period. It may be naive to think so, but I believe
+  - that the majority typically chooses the best way forward. People have the ability
+    to sift through the polictical noise and make the right decisions.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4306
+  completion_tokens: 2455
+  total_tokens: 6761
+  wall_time_seconds: 63.45299999997951

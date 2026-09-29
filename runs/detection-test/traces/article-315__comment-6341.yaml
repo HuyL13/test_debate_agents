@@ -1,0 +1,119 @@
+sample:
+  id: 315:6341
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: It's great that they're finally getting the recognition and respect that
+    they deserve. It's to the benefit of the non-indigenous as well, and they in Taiwan
+    should take note of that. As award winning author Jay Griffiths said, if people
+    can't acknowledge the wisdom of indigenous cultures, that's their loss.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: award winning author Jay Griffiths
+    - role: endorsed_claim
+      text: if people can't acknowledge the wisdom of indigenous cultures, that's
+        their loss.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - that. As award winning author Jay Griffiths said, if people can't acknowledge
+      the wisdom of indigenous cultures, that's their loss.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: It praises the recent recognition and respect for indigenous
+      communities and argues that non‑indigenous people should benefit from and learn
+      to acknowledge indigenous wisdom.
+    candidate: Appeal to Authority
+    supporting_reason: The comment cites award‑winning author Jay Griffiths to justify
+      that failing to recognize indigenous wisdom is a loss for everyone.
+    support_relation: appeal to authority
+    label_justification: The argument explicitly invokes an authority (Jay Griffiths)
+      to support the claim that ignoring indigenous wisdom results in a loss; this
+      is a classic appeal to authority fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - that. As award winning author Jay Griffiths said, if people can't acknowledge
+      the wisdom of indigenous cultures, that's their loss.
+  counterargument:
+    decisive_counterargument: The claim that people who do not acknowledge indigenous
+      wisdom ‘lose out’ depends solely on the endorsement of an award‑winning author,
+      not on any empirical evidence. The author’s status does not qualify as expert
+      knowledge on the value of indigenous cultures, so the argument relies on the
+      irrelevant authority of Jay Griffiths rather than on a substantively supporting
+      argument.
+    candidate: Appeal to Authority
+    challenged_inference: If people can't acknowledge the wisdom of indigenous cultures,
+      that's their loss.
+    label_justification: 'The objection points out that the inference is supported
+      only by invoking an award-winning author’s claim, which is a classic appeal
+      to authority: the argument gives the claim weight because an authority says
+      it, not because evidence or reasoning has been provided.'
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - that. As award winning author Jay Griffiths said, if people can't acknowledge
+      the wisdom of indigenous cultures, that's their loss.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly cites an award‑winning author as a source
+    of endorsement for a claim about indigenous wisdom, forming an authority_to_claim
+    structure without providing independent evidence of that author’s expertise in
+    the subject, thereby constituting an appeal to authority.
+  decision_reason: 'The target contains the quotation “As award winning author Jay
+    Griffiths said, if people can’t acknowledge the wisdom of indigenous cultures,
+    that’s their loss.” This matches the authority_to_claim pattern: an authority
+    (a recognized author) is invoked to support a claim whose validity is not otherwise
+    substantiated. The structure is complete, and the authority’s relevance to the
+    claim is questionable, satisfying the criteria for an appeal to authority.'
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - that. As award winning author Jay Griffiths said, if people can't acknowledge
+    the wisdom of indigenous cultures, that's their loss.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3928
+  completion_tokens: 3150
+  total_tokens: 7078
+  wall_time_seconds: 72.0

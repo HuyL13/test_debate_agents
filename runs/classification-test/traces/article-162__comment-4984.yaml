@@ -1,0 +1,132 @@
+sample:
+  id: 162:4984
+  article_id: 162
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Myanmar introduces ‘draconian’ cyber security bill amid growing anti-coup
+    protests
+  parent: ''
+  target: They have a coup going on right now. Maybe they should be organizing to
+    take control over their government first and focus on the internet after! What's
+    more important, the internet or the military trampling over everyone?
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: the internet
+    - role: alternative_b
+      text: the military trampling over everyone
+    - role: exhaustiveness_commitment
+      text: These are the only two options being considered
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: What is more important, the internet or the military trampling
+      over everyone?
+    candidate: null
+    supporting_reason: null
+    support_relation: null
+    label_justification: The statement poses a rhetorical question without providing
+      premises to justify a conclusion, so no logical reason is advancing the goal.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+  counterargument:
+    decisive_counterargument: The argument reduces the situation to only two extremes
+      – either focus on the internet or succumb to military oppression – whereas in
+      reality there are many other legitimate priorities (humanitarian aid, economic
+      stability, civil governance, international diplomacy, etc.). The claim that
+      these are the sole options is a false dichotomy.
+    candidate: False Dilemma
+    challenged_inference: The target presents the decision as if the only relevant
+      choices are to focus on the internet or to allow the military to trampling everything,
+      implying these two are mutually exclusive and exhaustive.
+    label_justification: Forging an exhaustive list of only two contradictory options
+      disregards any intermediate or alternative actions, thereby misrepresenting
+      the real set of choices and creating a false dilemma fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - They have a coup going on right now. Maybe they should be organizing to take
+      control over their government first and focus on the internet after! What's
+      more important, the
+    - internet or the military trampling over everyone?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts:
+  - False Dilemma
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - False Dilemma
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target explicitly presents only two alternatives—‘the internet’
+    versus ‘the military trampling over everyone’—and implies these are the sole relevant
+    options, thereby treating the situation as a binary choice. This satisfies the
+    exhaustive alternatives structure of a false dilemma.
+  decision_reason: The statement poses a forced comparison, suggesting that prioritising
+    the internet versus allowing the military to dominate are the only possibilities.
+    The required structure is present, so the content is a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - They have a coup going on right now. Maybe they should be organizing to take control
+    over their government first and focus on the internet after! What's more important,
+    the
+  - internet or the military trampling over everyone?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: False Dilemma
+  prediction: False Dilemma
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4097
+  completion_tokens: 3326
+  total_tokens: 7423
+  wall_time_seconds: 155.2970000000205

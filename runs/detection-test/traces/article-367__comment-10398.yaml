@@ -1,0 +1,151 @@
+sample:
+  id: 367:10398
+  article_id: 367
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: EU flag torn down from Georgian Parliament in second day of far-right street
+    violence
+  parent: ''
+  target: LGBT people in Georgia may be unable to have their parades without the irritation
+    of "counter-protesters," which isn't great, but in places throughout the Middle
+    East and parts of Africa and Asia, being part of LGBT will literally get you killed
+    - stoned, buried alive, burned alive, etc. The concerns of this group in Georgia
+    shouldn't be overestimated. The world, and that includes people who are LGBT,
+    has bigger problems.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: the concerns of LGBT people in Georgia seeking to hold parades
+    - role: worse_issue
+      text: the world has bigger problems that include LGBT people
+    - role: deprioritizing_conclusion
+      text: 'the concerns of LGBT people in Georgia shouldn
+
+        '' t be overestimated'
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - LGBT people in Georgia may be unable to have their parades without the irritation
+      of "counter-protesters," which isn't great, but in places throughout the Middle
+      East and parts of Africa
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+    - and that includes people who are LGBT, has bigger problems.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The concerns of LGBT people in Georgia shouldn't be overestimated,
+      because other parts of the world pose greater risks to LGBT individuals.
+    candidate: Appeal to Worse Problems
+    supporting_reason: In places throughout the Middle East, Africa and Asia, being
+      part of LGBT will literally get you killed - stoned, buried alive, burned alive,
+      etc.
+    support_relation: The supporting reason is used to downplay the significance of
+      Georgia’s LGBT concerns by comparing them to more severe problems elsewhere.
+      The writer dismisses local issues in favor of deprioritizing them because other
+      regions present more extreme dangers.
+    label_justification: The target explicitly uses the fact that other parts of the
+      world have much worse conditions for LGBT people to justify the claim that Georgia’s
+      situation can be downplayed – a textbook instance of the Appeal to Worse Problems
+      fallacy.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+  counterargument:
+    decisive_counterargument: 'The claim that the safety concerns of LGBT people in
+      Georgia are not worth worrying about simply because other parts of the world
+      face far worse dangers commits an Appeal to Worse Problems: the existence of
+      a far more severe issue elsewhere is improperly used to dismiss or minimise
+      a legitimate local concern. The seriousness of the risks in Georgia is logically
+      independent of how extreme risks are elsewhere, so the argument’s dismissal
+      of the local issue does not follow from the comparison.'
+    candidate: Appeal to Worse Problems
+    challenged_inference: The argument asserts that the dangers faced by LGBT people
+      in Georgia are inconsequential because other regions experience far graver threats,
+      thereby justifying the downplaying of local concerns.
+    label_justification: The objection directly refutes the reasoning step that inflates
+      a global crisis to negate a local problem. This step violates the logical principle
+      that the severity of one problem does not diminish the validity of recognizing
+      another; thus it exposes the Appeal to Worse Problems fallacy. The objection
+      shows that the comparison is an invalid move, not merely criticism of the content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - LGBT people in Georgia may be unable to have their parades without the irritation
+      of "counter-protesters," which isn't great, but in places throughout the Middle
+      East and parts of Africa
+    - and Asia, being part of LGBT will literally get you killed - stoned, buried
+      alive, burned alive, etc. The concerns of this group in Georgia shouldn't be
+      overestimated. The world,
+    - and that includes people who are LGBT, has bigger problems.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The TARGET explicitly presents a focal issue (concerns of LGBT
+    people in Georgia) alongside a worse issue (the world’s greater problems that
+    also involve LGBT people) and concludes that Georgia’s concerns should not be
+    overestimated, matching the structural pattern of an Appeal to Worse Problems.
+  decision_reason: The argument uses the severity of other global problems as a reason
+    to dismiss a legitimate local concern, which is the defining logical defect of
+    the Appeal to Worse Problems fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - LGBT people in Georgia may be unable to have their parades without the irritation
+    of "counter-protesters," which isn't great, but in places throughout the Middle
+    East and parts of Africa
+  - and Asia, being part of LGBT will literally get you killed - stoned, buried alive,
+    burned alive, etc. The concerns of this group in Georgia shouldn't be overestimated.
+    The world,
+  - and that includes people who are LGBT, has bigger problems.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4742
+  completion_tokens: 2994
+  total_tokens: 7736
+  wall_time_seconds: 129.06299999999828

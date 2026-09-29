@@ -1,0 +1,143 @@
+sample:
+  id: 427:7279
+  article_id: 427
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: Once you let them dictate rules against fairness, they will continue the
+    problem. It only gets worse. Rights will be trampled and compromised.
+  target: Whoa there, let's not get crazy! Demanding equal treatment isn't going to
+    cause an uprising there the rules and everything else get changed. Women are just
+    fed up with not being treated fairly, surely you can understand how that effects
+    women everywhere? Let's not lose sight of things that are even bigger issues like
+    climate change, world hunger, or economic crises. It's about priorities.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Demanding equal treatment
+    - climate change, world hunger, or economic crises
+    - It's about priorities.
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: Demanding equal treatment
+    - role: worse_issue
+      text: climate change, world hunger, or economic crises
+    - role: deprioritizing_conclusion
+      text: It's about priorities.
+    structure_complete: true
+    candidate: Appeal to Worse Problems
+  goal:
+    evidence_spans:
+    - Demanding equal treatment isn't going to cause an uprising
+    conclusion_or_goal: The target argues that women’s demands for equal treatment
+      are not urgent and should be de‑prioritized in favor of larger global issues.
+    candidate: Slippery Slope
+    supporting_reason: Demanding equal treatment isn't going to cause an uprising,
+      so it doesn't warrant urgent attention.
+    support_relation: The statement that equal treatment won't provoke an uprising
+      is used to justify downgrading its importance relative to bigger problems like
+      climate change and economic crises.
+    label_justification: The target does not present a chain of escalating consequences
+      nor rely on an unfair or unduly weighted prediction; it simply posits that the
+      demands are not consequential enough to command priority. Thus it does not constitute
+      a legitimate “slippery slope” claim. Instead, it employs a simple causal claim
+      to defer the issue.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - Let's not lose sight of things that are even bigger issues like climate change,
+      world hunger, or economic crises.
+    decisive_counterargument: Demonstrating that a problem is 'bigger' does not justify
+      dismissing another urgent injustice. The urgency or severity of one issue does
+      not diminish the legitimacy of others; gender inequality remains a serious right‑based
+      concern that can and should be addressed independently of global crises.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Women’s right to equal treatment is less important than
+      issues such as climate change, world hunger, or economic crises.
+    label_justification: The argument deliberately downplays or eliminates women’s
+      equality demands by pointing to larger problems, fitting the definition of Appeal
+      to Worse Problems.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Slippery Slope
+    conflict: appeal-to-worse-problems__vs__slippery-slope
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    evidence_spans:
+    - Let's not lose sight of things that are even bigger issues like climate change,
+      world hunger, or economic crises.
+    - It's about priorities.
+    decisive_test: Appeal to Worse Problems
+    loser_failure: Slippery Slope is not present in Target because the target makes
+      no claim that demanding equal treatment will set off a chain of escalating or
+      increasingly severe consequences that ultimately lead to an undesirable outcome.
+      It only states that such demand will not cause an uprising, and that larger
+      issues should be prioritized. This simple causal claim does not satisfy the
+      structural requirement of a slippery‑slope argument, which requires a predicted
+      progression of negative events. Therefore Slippery Slope fails all mandatory
+      structural conditions.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  evidence_spans:
+  - Demanding equal treatment
+  - climate change, world hunger, or economic crises
+  - It's about priorities.
+  decisive_condition: The target contains a clear structure where a larger problem
+    is cited to justify de‑prioritizing a smaller but valid claim, satisfying the
+    definition of the Appeal to Worse Problems fallacy.
+  decision_reason: The passage explicitly shifts focus from equal treatment to broader
+    global crises, concluding that priorities must be set accordingly, which matches
+    the required structural pattern of an Appeal to Worse Problems.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4911
+  completion_tokens: 4382
+  total_tokens: 9293
+  wall_time_seconds: 112.73399999999674

@@ -1,0 +1,121 @@
+sample:
+  id: 161:5280
+  article_id: 161
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Internet blocked as protests intensify in northeast India against the Citizenship
+    Amendment Act
+  parent: ''
+  target: Why change the law now when its been unchanged since 1955? Talk about doing
+    away with tradition. No wonder people are upset. This will change large parts
+    of India! India is not used to bringing in so many different kinds of refugees!
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Why change the law now when it's been unchanged since 1955?
+    - role: preservation_conclusion
+      text: Doing away with tradition will upset people and should be avoided.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Why change the law now when its been unchanged since 1955? Talk about doing
+      away with tradition. No wonder people are upset. This will change large parts
+      of India! India
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: Argue against changing the law
+    candidate: Appeal to Tradition
+    supporting_reason: The law has remained unchanged since 1955, and changing it
+      would mean doing away with tradition.
+    support_relation: The reason is used to justify the opposition to changing the
+      law by relying on its historical continuity
+    label_justification: The argument treats the law’s long-standing unchanged status
+      as inherently correct or preferable, which is the hallmark of an appeal to tradition
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Why change the law now when its been unchanged since 1955? Talk about doing
+      away with tradition. No wonder people are upset. This will change large parts
+      of India! India
+  counterargument:
+    decisive_counterargument: The claim that a law should never be revised simply
+      because it has remained in force since 1955 conflates its longevity with its
+      validity. A lengthy existence does not guarantee that the law correctly addresses
+      contemporary circumstances or protects the interests of all affected parties.
+      Laws are instruments that can be updated to reflect new realities, and tradition
+      alone provides no ethical or logical basis for fixing a statute in place. Thus,
+      the argument that the current law is immutable because it is “tradition” is
+      a fallacious reliance on tradition.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that the law must remain unchanged because
+      it has existed since 1955 and is tied to tradition.
+    label_justification: The objection targets the reasoning that equates duration
+      of a law with inherent correctness. By pointing out that tradition is not a
+      sufficient criterion for legal adequacy, it demonstrates that the original inference
+      depends on an appeal to tradition, a recognized logical fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Why change the law now when its been unchanged since 1955? Talk about doing
+      away with tradition. No wonder people are upset. This will change large parts
+      of India! India
+    - is not used to bringing in so many different kinds of refugees!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument states that the law should remain unchanged because
+    it has been in force since 1955, relying solely on its historical continuity to
+    justify preserving the status quo, which is the defining structure of an appeal
+    to tradition.
+  decision_reason: The target asserts that the lack of change since 1955 (tradition)
+    is a sufficient reason to keep the law unchanged.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Why change the law now when its been unchanged since 1955? Talk about doing away
+    with tradition. No wonder people are upset. This will change large parts of India!
+    India
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4335
+  completion_tokens: 3328
+  total_tokens: 7663
+  wall_time_seconds: 161.76600000000326

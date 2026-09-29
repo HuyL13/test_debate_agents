@@ -1,0 +1,128 @@
+sample:
+  id: 313:6335
+  article_id: 313
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Bangladesh regulator blocks engineering university webpage containing reports
+    of student abuse
+  parent: ''
+  target: The government really needs to respect the rights of these people. Most
+    students are not happy with this kind of censorship. If most people aren't happy
+    with a policy, then that should be the clearest sign that the policy is bad.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most people
+    - role: popularity_claim
+      text: most people aren't happy with a policy
+    - role: target_claim
+      text: the policy is bad
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The government should respect the rights of the people and
+      the censorship policy is bad.
+    candidate: Appeal to Majority
+    supporting_reason: most people aren't happy with the policy
+    support_relation: if most people are unhappy with a policy, that is taken as a
+      sign that the policy is bad
+    label_justification: The argument infers that because the majority are unhappy,
+      the policy must be bad, relying on the popularity of the sentiment as sole justification,
+      which is an appeal to majority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+  counterargument:
+    decisive_counterargument: Belief that a policy is bad simply because most people
+      disapprove is not logically valid; majority opinion does not reliably prove
+      a policy’s merit or lack thereof, as public sentiment can be misinformed, suppressed,
+      or driven by emotional reactions rather than factual grounds.
+    candidate: Appeal to Majority
+    challenged_inference: If most people are unhappy with a policy, then that is a
+      clear sign the policy is bad.
+    label_justification: The objection directly targets the improper use of public
+      sentiment as evidence of a policy’s quality, exposing the argument’s reliance
+      on majority disapproval as the decisive sign. This aligns with the standard
+      definition of the Appeal to Majority fallacy, which asserts that the popularity
+      of a belief or emotion guarantees its truth or correctness.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The government really needs to respect the rights of these people. Most students
+      are not happy with this kind of censorship. If most people aren't happy with
+      a policy, then
+    - that should be the clearest sign that the policy is bad.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The argument relies solely on the fact that most people are
+    unhappy with the policy to claim the policy is bad, which matches the Appeal to
+    Majority structure that majority sentiment is used as proof of correctness.
+  decision_reason: The premise ‘most people are unhappy with the policy’ is used alone
+    to justify the conclusion that the policy is bad. This use of a majority opinion
+    as evidence, without independent justification, exactly fits the Appeal to Majority
+    fallacy. The TARGET provides both the majority claim and the resulting conclusion,
+    satisfying the necessary structural conditions.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The government really needs to respect the rights of these people. Most students
+    are not happy with this kind of censorship. If most people aren't happy with a
+    policy, then
+  - that should be the clearest sign that the policy is bad.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4292
+  completion_tokens: 3126
+  total_tokens: 7418
+  wall_time_seconds: 133.84399999999732

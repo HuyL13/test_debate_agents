@@ -1,0 +1,142 @@
+sample:
+  id: 554:8858
+  article_id: 554
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: I have some friends with family in the country and they tell me everything
+    that happens involves this kind of dirty, shady corruption. They say there are
+    no 'good guys', just a bunch of criminals on all sides working for their own interests.
+    News like this just confirms all I've heard.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: some friends with family in the country
+    - role: observed_property
+      text: everything that happens involves dirty, shady corruption and there are
+        no 'good guys', just a bunch of criminals on all sides working for their own
+        interests
+    - role: target_population
+      text: all actors / sides in the country
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I have some friends with family in the country and they tell me everything that
+      happens involves this kind of dirty, shady corruption. They say there are no
+      'good guys',
+    - just a bunch of criminals on all sides working for their own interests. News
+      like this just confirms all I've heard.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: That the country is riddled with widespread corruption, with
+      no ‘good guys’ and criminal behavior on all sides.
+    candidate: Hasty Generalization
+    supporting_reason: The statement that friends report witnessing dirty, ‘shady
+      corruption’ everywhere
+    support_relation: The claim from friends is used to justify the conclusion that
+      the entire country is corrupt.
+    label_justification: The speaker relies on a small, anecdotal sample (a few friends)
+      to generalize about the entire nation’s political climate, which is a textbook
+      case of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I have some friends with family in the country and they tell me everything that
+      happens involves this kind of dirty, shady corruption. They say there are no
+      'good guys',
+    - just a bunch of criminals on all sides working for their own interests. News
+      like this just confirms all I've heard.
+  counterargument:
+    decisive_counterargument: The argument relies on a few anecdotal reports from
+      friends and a handful of media stories to assert that everyone involved is corrupt
+      and that no good guys exist; this limit sample cannot support a universal claim.
+    candidate: Hasty Generalization
+    challenged_inference: All people in the situation are corrupt criminals, with
+      no good guys.
+    label_justification: The objection shows that the conclusion is drawn from a restricted
+      set of observations (friends’ reports and news coverage) and unjustifiably generalized
+      to all actors, which is exactly the pattern of a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I have some friends with family in the country and they tell me everything that
+      happens involves this kind of dirty, shady corruption. They say there are no
+      'good guys',
+    - just a bunch of criminals on all sides working for their own interests. News
+      like this just confirms all I've heard.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: 'The target states that evidence from a few friends (“some friends
+    with family in the country”) is used to assert a universal claim that the entire
+    country is riddled with corruption and that there are no good guys.  This follows
+    the structure of a sample‐to‑population inference (sample: the friends; observed
+    property: all events involve dirty, shady corruption; conclusion: all actors in
+    the country are criminals), which exactly matches the definition of a Hasty Generalization.  The
+    supporting evidence is provided in passages T1 and T2.  Thus the target commits
+    a Hasty Generalization fallacy.'
+  decision_reason: The claim rests on an anecdotal sample to generalize about the
+    entire nation's political climate, fitting the fallacy’s structure.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I have some friends with family in the country and they tell me everything that
+    happens involves this kind of dirty, shady corruption. They say there are no 'good
+    guys',
+  - just a bunch of criminals on all sides working for their own interests. News like
+    this just confirms all I've heard.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4435
+  completion_tokens: 3090
+  total_tokens: 7525
+  wall_time_seconds: 193.26599999997416

@@ -1,0 +1,108 @@
+sample:
+  id: 386:10455
+  article_id: 386
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Flood of false bomb threats raise security concerns in Kosovo
+  parent: ''
+  target: It's hard to imagine security forces having to deal with over 70 bomb threats
+    in one day. They must have been so strained for resources! This is a prime example
+    of the complexities of today's world, where technology can be used to spread panic
+    and disorder in an otherwise peaceful society. I take solace in the hope that
+    Kosovo's security forces can guide them through this difficult time.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+    - of the complexities of today's world, where technology can be used to spread
+      panic and disorder in an otherwise peaceful society. I take solace in the hope
+      that Kosovo's security
+    - forces can guide them through this difficult time.
+    candidate: null
+  goal:
+    conclusion_or_goal: Expresses concern over the bomb threats in Kosovo and conveys
+      hope that the security forces can handle the situation.
+    candidate: null
+    supporting_reason: They must have been so strained for resources!
+    support_relation: This statement is used to illustrate the difficulty that the
+      security forces face, reinforcing the conclusion that the situation is serious
+      and that help is needed.
+    label_justification: The reasoning does not commit any formal fallacy; it merely
+      states a plausible cause (strain on resources) to support the author’s emotional
+      stance. No invalid inference or unwarranted conclusion is made.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+  counterargument:
+    decisive_counterargument: The assertion that the security forces must have been
+      so strained simply because they dealt with more than 70 bomb threats in a day
+      is an unfounded leap. The comment offers no evidence that these threats imposed
+      a significant burden—many may have been false alarms, or the forces could have
+      already at scale handled such volumes. Without data indicating actual resource
+      depletion, the claim that this situation exemplifies our complex, panic‑inducing
+      technological age is unsupported.
+    candidate: Hasty Generalization
+    challenged_inference: They must have been so strained for resources!
+    label_justification: 'The objection shows that the target fails to provide evidence
+      that the stated number of bomb threats actually resulted in resource strain,
+      yet the claim generalizes that the situation proves resource depletion. This
+      exposes a hasty generalization: a single—or even a few—unverified instances
+      are used to assert a broader conclusion about the forces’ overall strain.'
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It's hard to imagine security forces having to deal with over 70 bomb threats
+      in one day. They must have been so strained for resources! This is a prime example
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 2964
+  completion_tokens: 2011
+  total_tokens: 4975
+  wall_time_seconds: 47.51599999994505

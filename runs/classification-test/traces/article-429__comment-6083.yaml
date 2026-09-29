@@ -1,0 +1,151 @@
+sample:
+  id: 429:6083
+  article_id: 429
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: It's only natural that the government wants to control the narrative about
+    their machinations.  That's the way governments usually work (but not all have
+    bad intentions).  They've always been crooked and not really concerned about the
+    common people and their freedoms. As nature takes its course, so do institutions.  However,
+    this doesn't negate the need for persistent vigilance and insistence on transparency
+    and accountability.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: naturalness_premise
+      text: It's only natural that the government wants to control the narrative about
+        their machinations
+    - role: evaluative_conclusion
+      text: the government wants to control the narrative
+    structure_complete: true
+    structure_type: nature_to_value
+    evidence_spans:
+    - It's only natural that the government wants to control the narrative about their
+      machinations.  That's the way governments usually work (but not all have bad
+      intentions).  They've always been crooked
+    - and not really concerned about the common people and their freedoms. As nature
+      takes its course, so do institutions.  However, this doesn't negate the need
+      for persistent vigilance and insistence
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The speaker concludes that governments naturally want to control
+      the narrative and are generally crooked, yet vigilance and accountability are
+      still necessary.
+    candidate: Appeal to Nature
+    supporting_reason: The argument appeals to the naturalness of governmental behavior
+      with statements such as 'It's only natural that the government wants to control
+      the narrative' and 'As nature takes its course, so do institutions,' implying
+      that this order is both inevitable and acceptable.
+    support_relation: mechanism_supports_goal
+    label_justification: The reasoning uses the premise of natural order to justify
+      the general characterisation of governments, thereby exemplifying an Appeal
+      to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's only natural that the government wants to control the narrative about their
+      machinations.  That's the way governments usually work (but not all have bad
+      intentions).  They've always been crooked
+    - and not really concerned about the common people and their freedoms. As nature
+      takes its course, so do institutions.  However, this doesn't negate the need
+      for persistent vigilance and insistence
+  counterargument:
+    decisive_counterargument: The assertion that ‘it is only natural’ for governments
+      to control the narrative serves no logical purpose beyond stating what the speaker
+      assumes, and it incorrectly assumes that naturalness can be used as a moral
+      or justificatory principle. Natural phenomena—bad or good—do not in themselves
+      determine what is acceptable or preferable; for instance, disease and stupidity
+      are also natural yet largely undesirable. Therefore, claiming naturalness as
+      a reason to expect or accept government control of information is unjustified
+      – the argument relies on an Appeal to Nature fallacy.
+    candidate: Appeal to Nature
+    challenged_inference: It is only natural that governments want to control narrative
+      about their machinations and do so because institutions behave according to
+      nature.
+    label_justification: 'The counterargument directly targets the logical link in
+      the target that uses naturalness as a justification: it shows that calling something
+      ‘natural’ does not entail it is morally right or that it should be expected/accepted.
+      Hence, the argument commits the Appeal to Nature fallacy rather than merely
+      presenting a critique.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - It's only natural that the government wants to control the narrative about their
+      machinations.  That's the way governments usually work (but not all have bad
+      intentions).  They've always been crooked
+    - and not really concerned about the common people and their freedoms. As nature
+      takes its course, so do institutions.  However, this doesn't negate the need
+      for persistent vigilance and insistence
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target asserts that because it is ‘natural’ for governments
+    to control narratives, this behavior is inevitable and justified, using a natural
+    premise to determine a moral or evaluative conclusion, which is the structure
+    of an Appeal to Nature fallacy.
+  decision_reason: The argument appeals to the naturalness of governmental behavior
+    as justification, fitting the Appeal to Nature form.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - It's only natural that the government wants to control the narrative about their
+    machinations.  That's the way governments usually work (but not all have bad intentions).  They've
+    always been crooked
+  - and not really concerned about the common people and their freedoms. As nature
+    takes its course, so do institutions.  However, this doesn't negate the need for
+    persistent vigilance and insistence
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 3
+  cache_hits: 1
+  retries: 0
+  prompt_tokens: 4840
+  completion_tokens: 2873
+  total_tokens: 7713
+  wall_time_seconds: 41.04700000002049

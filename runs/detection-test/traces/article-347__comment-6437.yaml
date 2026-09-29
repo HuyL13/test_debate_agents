@@ -1,0 +1,96 @@
+sample:
+  id: 347:6437
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: The regulation of NGOs are necessary. Though it can lead to silencing. Some
+    NGOs do good work needed by the society.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - The regulation of NGOs are necessary. Though it can lead to silencing. Some
+      NGOs do good work needed by the society.
+    structure_type: none
+    slots: []
+    structure_complete: false
+    candidate: null
+  goal:
+    evidence_spans:
+    - The regulation of NGOs are necessary
+    - Some NGOs do good work needed by the society
+    conclusion_or_goal: The regulation of NGOs is necessary
+    candidate: Appeal to Nature
+    supporting_reason: Some NGOs do good work needed by the society
+    support_relation: It is presented as a justification for why regulation is necessary
+      by showing the positive role of NGOs
+    label_justification: The statement of NGOs doing good work is used as an example
+      to support the necessity of regulation, which is not a fallacy based on the
+      supplied evidence.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - The regulation of NGOs are necessary. Though it can lead to silencing. Some
+      NGOs do good work needed by the society.
+    decisive_counterargument: The target claims that regulating NGOs is necessary
+      but provides no evidence or rationale to support this necessity. It merely notes
+      that some NGOs do good work and that regulation could silence them—none of which
+      establishes why regulation is required or how it would effectively serve society.
+    candidate: null
+    challenged_inference: that regulation of NGOs is necessary
+    label_justification: The objection identifies an unsupported claim rather than
+      a classic fallacy, so no fallacy label is appropriate.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  evidence_spans:
+  - The regulation of NGOs are necessary
+  - Some NGOs do good work needed by the society
+  decisive_condition: The claimed fallacy requires an appeal to the naturalness of
+    NGOs or regulation, which is not present in the target. The evidence does not
+    show a claim that something is good because it is natural, so the structural condition
+    for Appeal to Nature is unmet.
+  decision_reason: The target does not contain any statement that an action is justified
+    because it is natural; therefore the Appeal to Nature label is unsupported and
+    the target does not exhibit a fallacy.
+  verified: false
+  rejection_reason: The target does not contain any statement that an action is justified
+    because it is natural; therefore the Appeal to Nature label is unsupported and
+    the target does not exhibit a fallacy.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3122
+  completion_tokens: 3509
+  total_tokens: 6631
+  wall_time_seconds: 112.25

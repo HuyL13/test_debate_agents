@@ -1,0 +1,106 @@
+sample:
+  id: 192:4774
+  article_id: 192
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: Censorship and strong hand ways have always been part of the Turkish way.
+    Nothing to see here. People should expect this to be the way, as it's always been,.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Censorship and strong hand ways have always been part of the Turkish way.
+    - role: preservation_conclusion
+      text: People should expect this to be the way, as it's always been,
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Censorship and strong hand ways have always been part of the Turkish way. Nothing
+      to see here. People should expect this to be the way, as it's always been,.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: People should expect censorship and strong hand ways to continue.
+    candidate: Appeal to Tradition
+    supporting_reason: Censorship has always been part of the Turkish way.
+    support_relation: Uses historical continuity as justification for ongoing practice.
+    label_justification: The argument relies on the fact that censorship has historically
+      persisted to argue that it should be accepted as normal, an Appeal to Tradition.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Censorship and strong hand ways have always been part of the Turkish way. Nothing
+      to see here. People should expect this to be the way, as it's always been,.
+  counterargument:
+    decisive_counterargument: The fact that censorship has existed in Turkey historically
+      does not itself justify its continued use; just because something has always
+      been done does not mean it is morally right or necessary today.
+    candidate: Appeal to Tradition
+    challenged_inference: Accepting censorship because it has always been part of
+      the Turkish way
+    label_justification: The inference relies on historical prevalence as a reason
+      for acceptance, matching the definition of appeal to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Censorship and strong hand ways have always been part of the Turkish way. Nothing
+      to see here. People should expect this to be the way, as it's always been,.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target expresses a historical premise that censorship has
+    always been part of the Turkish way, followed by a conclusion that people should
+    expect censorship to continue because of that tradition. This meets the mandatory
+    structural condition for an Appeal to Tradition fallacy.
+  decision_reason: 'The argument''s structure is: ''Censorship has always been part
+    of the Turkish way'' (tradition premise) → ''People should expect this to be the
+    way, as it''s always been'' (preservation conclusion). The target provides both
+    elements, satisfying the definition of an Appeal to Tradition.'
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Censorship and strong hand ways have always been part of the Turkish way. Nothing
+    to see here. People should expect this to be the way, as it's always been,.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4010
+  completion_tokens: 2565
+  total_tokens: 6575
+  wall_time_seconds: 149.5

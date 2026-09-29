@@ -1,0 +1,135 @@
+sample:
+  id: 236:5204
+  article_id: 236
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: A snapshot of climate strikes across Southeast Asia
+  parent: ''
+  target: Humans are meant to live in harmony with nature. It is not natural for us
+    to be scared of the environment and its effects on us. These young people deserve
+    a lot of praise for what they're doing! What we are doing to the environment is
+    not natural!
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Humans are meant to live in harmony with nature.
+    - role: evaluative_conclusion
+      text: It is not natural for us to be scared of the environment and its effects
+        on us.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Humans are meant to live in harmony with nature. It is not natural for us to
+      be scared of the environment and its effects on us. These young people deserve
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: These young people deserve a lot of praise for what they're
+      doing!
+    candidate: null
+    supporting_reason: Humans are meant to live in harmony with nature.
+    support_relation: The assertion that living in harmony with nature is the natural
+      state for humans is used to justify praising those who act in ways that align
+      with that state (the young people).
+    label_justification: The reason is employed legitimately to provide a normative
+      basis for the conclusion; it does not constitute a misused appeal to nature
+      or any other logical-fallacy form. therefore no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Humans are meant to live in harmony with nature. It is not natural for us to
+      be scared of the environment and its effects on us. These young people deserve
+  counterargument:
+    decisive_counterargument: The assertion that humans should not fear the environment
+      and should avoid any activity that is deemed ‘unnatural’ relies on naturalness
+      as a moral yardstick. Naturalness does not intrinsically entail goodness or
+      moral correctness, nor does it automatically provide an authoritative standard
+      for human conduct. Humans exhibit fear of environmental hazards and engage in
+      harmful activities as evolved responses; these are natural manifestations but
+      not morally forbidden. Thus, the inference that we are ‘meant to live in harmony
+      with nature’ simply because such harmony is natural is a non sequitur.
+    candidate: Appeal to Nature
+    challenged_inference: That humans are required to live in harmony with nature
+      because it is natural, and that fearful or harmful actions are improper solely
+      because they lack naturalness.
+    label_justification: The objection directly confronts the use of naturalness as
+      the sole criterion for moral and normative claims. By highlighting that naturalness
+      does not automatically bestow value or moral obligation, it exposes the fallacy
+      of appealing to nature—an argument that equates being natural with being right
+      or appropriate. The counterargument therefore specifically supports the ‘Appeal
+      to Nature’ label rather than merely criticizing the argument’s content.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Humans are meant to live in harmony with nature. It is not natural for us to
+      be scared of the environment and its effects on us. These young people deserve
+    - a lot of praise for what they're doing! What we are doing to the environment
+      is not natural!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts:
+  - Appeal to Nature
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Nature
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target presents a naturalism-based normative claim—Humans
+    are meant to live in harmony with nature and that not being natural is undesirable—meeting
+    the structural condition of an Appeal to Nature fallacy.
+  decision_reason: 'The argument states that humans are meant to live in harmony with
+    nature and labels anything that is not natural as wrong or undesirable, using
+    naturalness as a moral yardstick. This fits the structure of naturalism: a naturalness
+    premise paired with a value conclusion that analyses naturalness to determine
+    what is good or bad. Thus, the claim commits an Appeal to Nature fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Humans are meant to live in harmony with nature. It is not natural for us to be
+    scared of the environment and its effects on us. These young people deserve
+  - a lot of praise for what they're doing! What we are doing to the environment is
+    not natural!
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Appeal to Nature
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4236
+  completion_tokens: 4408
+  total_tokens: 8644
+  wall_time_seconds: 119.95300000000861

@@ -1,0 +1,147 @@
+sample:
+  id: 66:9496
+  article_id: 66
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Activists in Lebanon are taking on the country's stray bullet problem
+  parent: You can't tell people how to celebrate.  Just because some people are too
+    stupid and irresponsible to fire guns doesn't mean this right should be taken
+    away from everyone. It  will spiral out of control.  It might get so out of hand,
+    one can't even burn leaves in their front yard lest they burn down everyone's
+    property.
+  target: Actually, where I'm at, it is illegal to burn leaves in your yard. There
+    IS a fire risk, just like there's a risk of death due to celebratory shooting,
+    and I'm fine with measures to reduce those risks. You're trying to make a slippery-slope
+    argument, as if someone's going to take away all guns. But we can take safety
+    measures and still keep our civil liberties. Los Angeles warns of criminal charges
+    with jail time to deter the practice, so it's possible to respect responsible
+    gun ownership and curb reckless behavior.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Actually, where I'm at, it is illegal to burn leaves in your yard. There IS
+      a fire risk, just like there's a risk of death due to celebratory shooting,
+      and
+    - I'm fine with measures to reduce those risks. You're trying to make a slippery-slope
+      argument, as if someone's going to take away all guns. But we can take safety
+      measures
+    candidate: null
+  goal:
+    conclusion_or_goal: To rebut the slippery‑slope claim in the parent and argue
+      that safety measures can mitigate risk without stripping civil liberties.
+    candidate: null
+    supporting_reason: The speaker compares the fire risk of burning leaves (T1) with
+      the death risk from celebratory shooting (T1) and advocates adopting legal measures
+      similar to those used in Los Angeles to control reckless behavior (T2, T3).
+    support_relation: This comparison and proposal provide the justification that
+      regulation can address risk while preserving responsible ownership.
+    label_justification: The target does not commit a logical fallacy; it uses legitimate
+      analogy and policy argument to support its conclusion.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Actually, where I'm at, it is illegal to burn leaves in your yard. There IS
+      a fire risk, just like there's a risk of death due to celebratory shooting,
+      and
+    - I'm fine with measures to reduce those risks. You're trying to make a slippery-slope
+      argument, as if someone's going to take away all guns. But we can take safety
+      measures
+    - and still keep our civil liberties. Los Angeles warns of criminal charges with
+      jail time to deter the practice, so it's possible to respect responsible gun
+      ownership and curb reckless
+  counterargument:
+    decisive_counterargument: The original argument does not necessarily exhibit a
+      slippery‑slope fallacy; it could be a legitimate expression of concern that
+      blanket restrictions would emerge if people misuse guns. By calling the other
+      side’s claim a slippery‑slope, the author is misrepresenting the opponent’s
+      point and redirecting the discussion to a fallacious type of argument. This
+      mischaracterization is a classic straw‑man attack.
+    candidate: Slippery Slope
+    challenged_inference: The assertion that the opponent is engaging in a slippery‑slope
+      argument.
+    label_justification: The counterargument shows that the opponent’s position—cautioning
+      that broad restrictions could follow from risks—does not in itself constitute
+      an escalation of consequences from a single policy. Thus labeling it a slippery
+      slope misrepresents their claim. Because the argument's failure lies in this
+      mischaracterization, the fallacy identified is a straw‑man, which commonly masquerades
+      as a slippery‑slope accusation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Actually, where I'm at, it is illegal to burn leaves in your yard. There IS
+      a fire risk, just like there's a risk of death due to celebratory shooting,
+      and
+    - I'm fine with measures to reduce those risks. You're trying to make a slippery-slope
+      argument, as if someone's going to take away all guns. But we can take safety
+      measures
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present a progression of escalating consequences
+    from a specific policy, nor does it claim that restricting burn leaves will inevitably
+    lead to loss of firearm rights. It merely accuses the opponent of making a slippery‑slope
+    claim, which is a misrepresentation but not itself an instance of the slippery‑slope
+    fallacy. Hence the mandatory structural condition for Slippery Slope is unmet.
+    Therefore no fallacy is detected; selected_candidate is null.
+  decision_reason: The target’s argument lacks the characteristic stepwise escalation
+    required for a slippery‑slope fallacy. It is a misplaced accusation rather than
+    a slippery‑slope claim.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Actually, where I'm at, it is illegal to burn leaves in your yard. There IS a
+    fire risk, just like there's a risk of death due to celebratory shooting, and
+  - I'm fine with measures to reduce those risks. You're trying to make a slippery-slope
+    argument, as if someone's going to take away all guns. But we can take safety
+    measures
+  verified: false
+  rejection_reason: The target’s argument lacks the characteristic stepwise escalation
+    required for a slippery‑slope fallacy. It is a misplaced accusation rather than
+    a slippery‑slope claim.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4951
+  completion_tokens: 3714
+  total_tokens: 8665
+  wall_time_seconds: 99.625

@@ -1,0 +1,145 @@
+sample:
+  id: 315:6343
+  article_id: 315
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: '2021: A fruitful year for Indigenous communities in Taiwan'
+  parent: ''
+  target: I feel like just because they're indigenous doesn't mean that the majority
+    of the nation should base economic and environmental laws around what they want.
+    The majority of the nation is not indigenous, so their wants and needs should
+    be given more weight. That solar plant and nuclear plant that they stopped could
+    probably have really helped the entire economy there.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: majority of the nation
+    - role: popularity_claim
+      text: majority of the nation is not indigenous
+    - role: target_claim
+      text: majority of the nation should be given more weight in economic and environmental
+        laws
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like just because they're indigenous doesn't mean that the majority of
+      the nation should base economic and environmental laws around what they want.
+      The majority of the nation
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Indigenous peoples’ wants and needs should not be given priority
+      in economic and environmental laws compared to those of the majority of the
+      nation.
+    candidate: Appeal to Majority
+    supporting_reason: The speaker argues that because the majority of the nation
+      is not indigenous, the majority’s wants and needs ought to be given more weight
+      than those of the indigenous community.
+    support_relation: direct
+    label_justification: The argument uses the identity of the majority as a basis
+      for prioritizing their interests over those of the minority, which exemplifies
+      an appeal to majority, a recognized logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like just because they're indigenous doesn't mean that the majority of
+      the nation should base economic and environmental laws around what they want.
+      The majority of the nation
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+  counterargument:
+    decisive_counterargument: The target’s claim that, because most people are not
+      indigenous, the majority’s wants must be weighed more heavily is an argument
+      that treats numerical majority as a sufficient justification for policy priority,
+      a classic appeal to majority. It is based on the false premise that a larger
+      number of people automatically have greater legitimacy or that their interests
+      should outweigh those of a protected minority.
+    candidate: Appeal to Majority
+    challenged_inference: Given that the majority of the nation is not indigenous,
+      the indigenous peoples’ wants and needs should be given less weight and the
+      larger population’s preferences should dominate economic and environmental policy
+    label_justification: The objection demonstrates that the target’s reasoning improperly
+      relies on the size of the demographic group to justify preference weighting,
+      thereby committing the appeal to majority fallacy rather than following any
+      legitimate statistical or legal norm. It does not simply criticize the argument,
+      but parses its core causal shortcut – majority population -> higher priority
+      – which is invalid.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I feel like just because they're indigenous doesn't mean that the majority of
+      the nation should base economic and environmental laws around what they want.
+      The majority of the nation
+    - is not indigenous, so their wants and needs should be given more weight. That
+      solar plant and nuclear plant that they stopped could probably have really helped
+      the entire economy
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target asserts that because the majority of the nation is
+    not indigenous, their wants and needs should be given more weight in economic
+    and environmental laws, using the numerical majority as a basis for priority.
+    This structure—identifying a population group (the majority), stating its size
+    or status (not indigenous), and insisting on its superiority in policy—fits the
+    appeal to majority fallacy.
+  decision_reason: The target relies on the sheer number of people in the majority
+    group as a justification for giving them policy priority over a minority group,
+    which is a classic appeal to majority.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I feel like just because they're indigenous doesn't mean that the majority of
+    the nation should base economic and environmental laws around what they want.
+    The majority of the nation
+  - is not indigenous, so their wants and needs should be given more weight. That
+    solar plant and nuclear plant that they stopped could probably have really helped
+    the entire economy
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4659
+  completion_tokens: 3041
+  total_tokens: 7700
+  wall_time_seconds: 101.03200000000652

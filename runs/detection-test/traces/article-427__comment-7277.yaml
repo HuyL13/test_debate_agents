@@ -1,0 +1,161 @@
+sample:
+  id: 427:7277
+  article_id: 427
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: I am much more likely to trust the people in charge of these organizations
+    than the women striking. How do we know what they say is true? If there were real
+    issues, the people in charge would handle it. Feminist protests like this usually
+    blow things out of proportion, let's be honest!
+  target: Oh come on now, there are plenty of complaints by these women journalists
+    that could easily be verified. Plus these are the very same complaints that is
+    heard in other areas of the world, there is zero chance that these women protesters
+    are standing up under false pretenses. Many of their concerns have been well-documented,
+    showing the imbalance and unfair conditions they face. Maybe now it's high time
+    that relevant authorities start listening to these brave women and take a stand
+    to change the situation, instead of turning a deaf ear to their valid concerns.
+initial_analysis:
+  structure:
+    evidence_spans:
+    - plenty of complaints by these women journalists that could easily be verified
+    - these are the very same complaints that is heard in other areas of the world
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: women journalists
+    - role: popularity_claim
+      text: plenty of complaints that could be verified and the same complaints are
+        heard worldwide
+    - role: target_claim
+      text: their concerns are valid and should be listened to
+    structure_complete: true
+    candidate: Appeal to Majority
+  goal:
+    evidence_spans:
+    - there are plenty of complaints by these women journalists that could easily
+      be verified.
+    - these are the very same complaints that is heard in other areas of the world,
+      there is zero chance that these women protesters are standing up under false
+      pretenses.
+    - Many of their concerns have been well-documented, showing the imbalance and
+      unfair conditions they face.
+    conclusion_or_goal: relevant authorities should listen to and act upon the complaints
+      of the women journalists
+    candidate: Hasty Generalization
+    supporting_reason: the existence of numerous verifiable complaints and documented
+      imbalance/unfair conditions presented as evidence of the protesters' validity
+    support_relation: supports
+    label_justification: the argument legitimately uses documented complaints to argue
+      that authorities should take action; no indication of invalid logic or fallacy
+      is present.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - there are plenty of complaints by these women journalists that could easily
+      be verified
+    - there is zero chance that these women protesters are standing up under false
+      pretenses
+    - Many of their concerns have been well-documented
+    decisive_counterargument: Because the complaints have not yet undergone independent
+      verification, claiming that there is zero chance they are false is unwarranted.
+      Authorities could be unaware of, dismissive of, or deliberately ignore legitimate
+      grievances for structural reasons, so the lack of action does not prove the
+      claims are genuine. Without corroborating evidence from an independent source,
+      we cannot dismiss the possibility that some complaints may be exaggerated or
+      unfounded.
+    candidate: Appeal to Majority
+    challenged_inference: That there is zero chance the women protesters are standing
+      up under false pretenses because many of their complaints are documented and
+      common elsewhere
+    label_justification: The target reasoning relies on the prevalence and documented
+      nature of the complaints to assert their truth, implying that the claims’ popularity
+      or widespread acceptance is sufficient proof. This conforms to an Appeal to
+      Majority, where consensus or common occurrence is used as evidence of validity,
+      rather than independent verification or authority endorsement. The objection
+      shows that popularity alone does not establish truth, exposing the specific
+      fallacy.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Appeal to Majority
+    after:
+    - Appeal to Majority
+  after_conflicts: &id001
+  - Appeal to Majority
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Majority
+    evidence_spans:
+    - there are plenty of complaints by these women journalists that could easily
+      be verified
+    - these are the very same complaints that is heard in other areas of the world
+    decisive_test: appeal_to_majority__vs__hasty-generalization
+    loser_failure: The target does not establish a hasty generalization because it
+      does not extrapolate from a small or unrepresentative sample to a universal
+      claim. Instead, it relies on the widespread prevalence of the complaints—highlighted
+      by the use of the phrases ‘plenty of complaints’ and ‘the very same complaints
+      heard in other areas of the world’—to argue that the allegations are valid.
+      This directly satisfies the mandatory structural condition of an Appeal to Majority
+      (using popularity as evidence of truth) while the Hasty Generalization condition
+      is not met.
+arbiter:
+  selected_candidate: Appeal to Majority
+  evidence_spans:
+  - there are plenty of complaints by these women journalists that could easily be
+    verified
+  - these are the very same complaints that is heard in other areas of the world
+  decisive_condition: The target sentence uses the sheer number and global recurrence
+    of complaints as evidence that the protesters’ claims are true and warrant action,
+    which is the classic structure of an Appeal to Majority.
+  decision_reason: The argument states that because many women journalists have submitted
+    complaints, and similar complaints occur worldwide, the claims are valid. This
+    reliance on popularity of the complaint as proof fulfills the structural requirements
+    for an Appeal to Majority, making the target fallacious.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5381
+  completion_tokens: 3742
+  total_tokens: 9123
+  wall_time_seconds: 114.92199999996228

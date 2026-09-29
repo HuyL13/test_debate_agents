@@ -1,0 +1,179 @@
+sample:
+  id: 610:9028
+  article_id: 610
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: I don't understand, why doesn't the government put some recovery policies
+    in place? Surely most people would be in support of that, right? The government
+    should take a vote, or at least run some polling. If the majority wants change,
+    which I think they definitely would, then they should implement that change rapidly.
+  target: I get what you are saying and most of it does make a lot of sense. I just
+    would not put so much weight on what the majority of people want. At times the
+    majority have had some rather terrible ideas, they were able to use their combined
+    weight to force them into existence. I don't feel as if this is one of those cases,
+    but we should always be cautious in our approach to such matters. It never hurts
+    to use some critical thinking, right?
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get what you are saying and most of it does make a lot of sense. I just would
+      not put so much weight on what the majority of people
+    - want. At times the majority have had some rather terrible ideas, they were able
+      to use their combined weight to force them into existence. I don't feel as if
+      this
+    - is one of those cases, but we should always be cautious in our approach to such
+      matters. It never hurts to use some critical thinking, right?
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker seeks to argue that the majority should not be
+      given significant influence over policy decisions.
+    candidate: Hasty Generalization
+    supporting_reason: The speaker cites isolated instances where the majority’s collective
+      power led to undesirable outcomes, using those examples to assert that the majority
+      is generally unreliable.
+    support_relation: The reason is employed as justification for dismissing the weight
+      of majority opinion, extending specific past examples to a blanket claim about
+      majority influence.
+    label_justification: The argument generalizes from a few occurrences of majority-driven
+      failure to a universal claim that the majority is consistently problematic,
+      which meets the definition of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I get what you are saying and most of it does make a lot of sense. I just would
+      not put so much weight on what the majority of people
+    - want. At times the majority have had some rather terrible ideas, they were able
+      to use their combined weight to force them into existence. I don't feel as if
+      this
+  counterargument:
+    decisive_counterargument: Your assertion that the majority is generally wrong
+      and therefore should be down‑weighted is an example of a hasty generalization.
+      The passage cites only a few vague episodes in which majority opinion produced
+      undesirable outcomes, yet extends this single observation to claim that majority
+      choice is unreliable in general. By overlooking the large body of evidence showing
+      that majority voting is a statistically sound decision‑making method, the argument
+      jumps from limited instances to a broad, unsupported conclusion.
+    candidate: Appeal to Majority
+    challenged_inference: not put so much weight on what the majority of people want
+    label_justification: 'The objection directly targets the claim that majority opinion
+      is inherently unreliable, which hinges on a universal negative conclusion drawn
+      from a few examples. This is the classic pattern of a hasty generalization:
+      a particular set of cases is generalized to a wide class without sufficient
+      evidence. The counterargument therefore exposes a fallacious reasoning step
+      rather than merely pointing out a weakness in the argument’s content.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get what you are saying and most of it does make a lot of sense. I just would
+      not put so much weight on what the majority of people
+    - want. At times the majority have had some rather terrible ideas, they were able
+      to use their combined weight to force them into existence. I don't feel as if
+      this
+    - is one of those cases, but we should always be cautious in our approach to such
+      matters. It never hurts to use some critical thinking, right?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Majority
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Majority
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: appeal-to-majority__vs__hasty-generalization
+    loser_failure: Appeal to Majority lacks a direct structural condition in the TARGET;
+      the target argues against relying on majority opinion, citing isolated failures
+      and generalizing that majority is unreliable, which fulfills the definition
+      of a hasty generalization. The Appeal to Majority fallacy would require the
+      argument to claim majority opinion is sufficient, which is absent here.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I get what you are saying and most of it does make a lot of sense. I just would
+      not put so much weight on what the majority of people
+    - want. At times the majority have had some rather terrible ideas, they were able
+      to use their combined weight to force them into existence. I don't feel as if
+      this
+    - is one of those cases, but we should always be cautious in our approach to such
+      matters. It never hurts to use some critical thinking, right?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target claims that because the majority has sometimes supported
+    terrible ideas, it should not be given substantial influence, generalizing from
+    an unspecified few occurrences to a blanket distrust of majority opinion, which
+    is a classic hasty generalization.
+  decision_reason: The target makes a sweeping claim about the inadequacy of majority
+    opinion based on a vague, few past examples of majority failure, fulfilling the
+    structural criteria for a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I get what you are saying and most of it does make a lot of sense. I just would
+    not put so much weight on what the majority of people
+  - want. At times the majority have had some rather terrible ideas, they were able
+    to use their combined weight to force them into existence. I don't feel as if
+    this
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6347
+  completion_tokens: 4602
+  total_tokens: 10949
+  wall_time_seconds: 229.125

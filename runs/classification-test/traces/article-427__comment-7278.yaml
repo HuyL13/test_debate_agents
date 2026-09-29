@@ -1,0 +1,130 @@
+sample:
+  id: 427:7278
+  article_id: 427
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Why Did Women Journalists Strike in Spain?
+  parent: ''
+  target: Journalists have done important work for all countries for as long as they've
+    been a thing! They have always been some of the most important people in democracies
+    and Spain hasn't treated theirs right. Seeing them take their fate into their
+    own hands is great! Spain needs to get back to seeing how important they are.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots:
+    - role: tradition_premise
+      text: Journalists have done important work for all countries for as long as
+        they've been a thing! They have always been some of the most important people
+        in democracies.
+    - role: preservation_conclusion
+      text: Spain needs to get back to seeing how important they are.
+    structure_complete: true
+    structure_type: tradition_to_preservation
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing! They have always been some of the most important people in democracies
+      and Spain
+    - hasn't treated theirs right. Seeing them take their fate into their own hands
+      is great! Spain needs to get back to seeing how important they are.
+    candidate: Appeal to Tradition
+  goal:
+    candidate: Appeal to Tradition
+    conclusion_or_goal: Spain should recognize and treat journalists as an important
+      part of its democratic society, restoring respect for them.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The argument justifies Spain’s need to restore respect for
+      journalists by appealing to the long-standing historical importance of journalists.
+      This reliance on tradition to warrant the conclusion exemplifies an Appeal to
+      Tradition.
+    mechanism_supports_goal: true
+    support_relation: supports
+    supporting_reason: Journalists have done important work for all countries for
+      as long as they've been a thing! They have always been some of the most important
+      people in democracies.
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing! They have always been some of the most important people in democracies
+      and Spain
+    - hasn't treated theirs right. Seeing them take their fate into their own hands
+      is great! Spain needs to get back to seeing how important they are.
+  counterargument:
+    decisive_counterargument: Just because journalists were historically viewed as
+      important does not mean they retain that status now, nor does it automatically
+      justify a strike.
+    candidate: Appeal to Tradition
+    challenged_inference: Journalists’ past importance guarantees their present importance
+      and therefore justifies their current actions.
+    label_justification: The argument appeals to the longevity of journalists’ importance
+      as a reason to see them as important today, which is a classic Appeal to Tradition
+      fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Journalists have done important work for all countries for as long as they've
+      been a thing! They have always been some of the most important people in democracies
+      and Spain
+    - hasn't treated theirs right. Seeing them take their fate into their own hands
+      is great! Spain needs to get back to seeing how important they are.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument presents the long historical importance of journalists
+    (premise T1) and concludes that Spain must restore that status (conclusion T2),
+    matching the tradition‑to‑preservation structure characteristic of an Appeal to
+    Tradition fallacy.
+  decision_reason: The premise that journalists have historically been important is
+    used as the sole justification for Spain needing to treat them as such again,
+    constituting an Appeal to Tradition.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Journalists have done important work for all countries for as long as they've
+    been a thing! They have always been some of the most important people in democracies
+    and Spain
+  - hasn't treated theirs right. Seeing them take their fate into their own hands
+    is great! Spain needs to get back to seeing how important they are.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 2
+  cache_hits: 2
+  retries: 0
+  prompt_tokens: 4432
+  completion_tokens: 4550
+  total_tokens: 8982
+  wall_time_seconds: 42.10899999999674

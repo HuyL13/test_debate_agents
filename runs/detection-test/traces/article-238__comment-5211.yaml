@@ -1,0 +1,116 @@
+sample:
+  id: 238:5211
+  article_id: 238
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: Why are there so many Iranians focused on a war in a foreign country? I
+    think they have enough problems at home to worry about. I guess they need a distraction
+    from all the human rights abuses and protests that are going on.
+  target: I agree, they shouldn't worry about what's going on in a different country
+    when stuff is happening in their own country. It's time to get rid of distractions
+    and worry about yourself. They need to end up getting rid of their distractions
+    and focus on what's going on there, it's time to get rid of distraction and move
+    on.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree, they shouldn't worry about what's going on in a different country when
+      stuff is happening in their own country. It's time to get rid of distractions
+      and worry
+    - about yourself. They need to end up getting rid of their distractions and focus
+      on what's going on there, it's time to get rid of distraction and move on.
+    candidate: null
+  goal:
+    conclusion_or_goal: Iranians should disregard foreign events and focus on domestic
+      issues.
+    candidate: null
+    supporting_reason: The target argues that the people are distracted by foreign
+      matters and need to be refocused on their own country.
+    support_relation: the reasoning is used to justify the conclusion that domestic
+      issues require exclusive attention.
+    label_justification: The target contains no explicit use of a fallacious reasoning
+      pattern (false dilemma, appeal to authority, etc.) and merely states a belief
+      about where attention should be directed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree, they shouldn't worry about what's going on in a different country when
+      stuff is happening in their own country. It's time to get rid of distractions
+      and worry
+    - about yourself. They need to end up getting rid of their distractions and focus
+      on what's going on there, it's time to get rid of distraction and move on.
+  counterargument:
+    decisive_counterargument: The argument assumes that Iranian public concern can
+      be split between domestic matters and a foreign war, implying that if one cares
+      about domestic issues they must ignore foreign ones. In reality individuals
+      can, and often do, simultaneously care about both domestic and international
+      events; neglecting foreign affairs can even harm national interests or democratic
+      accountability.
+    candidate: False Dilemma
+    challenged_inference: They shouldn't worry about foreign war because domestic
+      issues are happening; distraction must be removed.
+    label_justification: The claim forces a binary choice—attention to domestic events
+      versus interest in foreign conflict—when in fact such concerns can coexist.
+      This is a classic false dilemma, making the argument invalid by presenting an
+      exclusive, disjointed set of options.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I agree, they shouldn't worry about what's going on in a different country when
+      stuff is happening in their own country. It's time to get rid of distractions
+      and worry
+    - about yourself. They need to end up getting rid of their distractions and focus
+      on what's going on there, it's time to get rid of distraction and move on.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 5
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3008
+  completion_tokens: 2140
+  total_tokens: 5148
+  wall_time_seconds: 271.125

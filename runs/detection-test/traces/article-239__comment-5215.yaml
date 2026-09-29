@@ -1,0 +1,171 @@
+sample:
+  id: 239:5215
+  article_id: 239
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: Once you get youth active in doing something they may never cease. They
+    may do things they should take no part in. Society's road to anarchy is possibly
+    paved.
+  target: I think we have bigger problems to deal with that our youth being active
+    in causes they believe in. It seems like you want them to be quiet and just go
+    along with whatever you tell them to. Yet, you probably are also in the crowd
+    that screams that the youth are lazy. Perhaps the youth will go on to do a far
+    better job that you could when it comes to addressing issues like climate change,
+    poverty and education.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think we have bigger problems to deal with that our youth being active in
+      causes they believe in. It seems like you want them to be quiet and just
+    - go along with whatever you tell them to. Yet, you probably are also in the crowd
+      that screams that the youth are lazy. Perhaps the youth will go on to
+    - do a far better job that you could when it comes to addressing issues like climate
+      change, poverty and education.
+    candidate: null
+  goal:
+    conclusion_or_goal: The target argues that youth activism is less important than
+      larger societal problems.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The argument cites larger problems (climate change, poverty,
+      education) to downplay the significance of youth activism.
+    support_relation: Uses the existence of bigger problems as justification for deeming
+      youth activism a lesser priority.
+    label_justification: It presents a worse problem (climate change, poverty, education)
+      to dismiss or minimize another issue (youth activism), which aligns with the
+      pattern of an Appeal to Worse Problems fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - I think we have bigger problems to deal with that our youth being active in
+      causes they believe in. It seems like you want them to be quiet and just
+    - do a far better job that you could when it comes to addressing issues like climate
+      change, poverty and education.
+  counterargument:
+    decisive_counterargument: The TARGET claims that *all* youth will go on to do
+      a far better job at addressing critical issues such as climate change, poverty
+      and education, yet it provides no evidence that youth in general possess superior
+      skills or knowledge in these domains. This generalization is unfounded because
+      it is based on a single speculative assertion rather than on data or examples.
+      Without supporting evidence that youth are intrinsically more capable, the claim
+      assumes a universal property of an entire group, which is a classic hasty generalization.
+    candidate: Hasty Generalization
+    challenged_inference: The inference that every young person will ultimately excel
+      in tackling major societal problems, such as climate change, poverty, and education,
+      is drawn from an unsubstantiated single claim and thus constitutes an overgeneralization.
+    label_justification: The TARGET extrapolates the supposed future competence of
+      *all* youth from a singular, unverified statement, fitting the definition of
+      a Hasty Generalization—drawing a broad conclusion about a population without
+      sufficient supporting evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - do a far better job that you could when it comes to addressing issues like climate
+      change, poverty and education.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Hasty Generalization
+    conflict: appeal-to-worse-problems__vs__hasty-generalization
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: The target explicitly states that we have “bigger problems to deal
+      with”—climate change, poverty, education—insinuating that youth activism is
+      a lesser concern. This directly satisfies Appeal to Worse Problems’ structural
+      condition that a more significant issue is presented to downplay another. Hasty
+      Generalization would require the target to make a sweeping claim about all youth
+      based on a single observation; the text only speculates that “the youth will
+      go on to do a far better job,” which is not a clear, generalized inference about
+      the entire population. Thus, the appeal-to-worse-problems explanation is the
+      only one fully supported by the target passages.
+    loser_failure: The target does not contain an explicit, broad generalization about
+      every youth that is supported by evidence, only a single speculative statement.
+      Therefore, it does not meet the mandatory structural condition of a Hasty Generalization.
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - I think we have bigger problems to deal with that our youth being active in
+      causes they believe in. It seems like you want them to be quiet and just
+    - do a far better job that you could when it comes to addressing issues like climate
+      change, poverty and education.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target text does not contain a clear argument that uses
+    the existence of larger problems (e.g., climate change, poverty, education) to
+    dismiss, minimize, or dismiss the importance of youth activism.  While it mentions
+    ‘bigger problems’, it also suggests that youth may be capable of addressing those
+    problems, and there is no explicit claim that youth activism is less important
+    because those problems exist.  Therefore, the structural requirement for an Appeal
+    to Worse Problems argument is not met.
+  decision_reason: The evidence does not support a complete Appeal to Worse Problems
+    fallacy; thus the hypothesis is rejected.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - I think we have bigger problems to deal with that our youth being active in causes
+    they believe in. It seems like you want them to be quiet and just
+  - do a far better job that you could when it comes to addressing issues like climate
+    change, poverty and education.
+  verified: false
+  rejection_reason: The evidence does not support a complete Appeal to Worse Problems
+    fallacy; thus the hypothesis is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6013
+  completion_tokens: 5473
+  total_tokens: 11486
+  wall_time_seconds: 417.51599999994505

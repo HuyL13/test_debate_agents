@@ -1,0 +1,142 @@
+sample:
+  id: 304:5709
+  article_id: 304
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: This is how it starts. First they will say they just want equal rights,
+    then they will want special privileges such as taxpayer funded surgeries and being
+    able to go to any bathroom they want. Then they will demand you be attracted to
+    them as well!
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: First they will say they just want equal rights
+    - role: intermediate_consequence
+      text: then they will want special privileges such as taxpayer funded surgeries
+        and being able to go to any bathroom they want
+    - role: final_consequence
+      text: Then they will demand you be attracted to them as well!
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is how it starts. First they will say they just want equal rights, then
+      they will want special privileges such as taxpayer funded surgeries and being
+      able to go
+    - to any bathroom they want. Then they will demand you be attracted to them as
+      well!
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker contends that transgender people’s initial calls
+      for equal rights inevitably progress to demands for special privileges (taxpayer‑funded
+      surgeries, unrestricted bathroom use) and even to coercing others into attraction
+      toward them.
+    candidate: Slippery Slope
+    supporting_reason: The TARGET argument outlines a causal chain – first equal rights,
+      then special privileges, and finally attraction – implying that the first step
+      will inevitably lead to the latter extreme outcomes.
+    support_relation: introductory claim → progressive claim of escalating demands
+      → final extreme demand
+    label_justification: The argument presents a (potentially exaggerated) progression
+      from a reasonable request (equal rights) to increasingly extreme demands, which
+      is characteristic of a Slippery Slope reasoning. This justifies labeling it
+      as that fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is how it starts. First they will say they just want equal rights, then
+      they will want special privileges such as taxpayer funded surgeries and being
+      able to go
+    - to any bathroom they want. Then they will demand you be attracted to them as
+      well!
+  counterargument:
+    decisive_counterargument: The claim that people seeking equal rights will inevitably
+      progress to demanding taxpayer‑funded surgeries, unregulated bathroom usage,
+      and even expecting others to be attracted to them is unfounded and lacks empirical
+      support. Equal‑rights advocacy in any context typically involves pursuit of
+      legal protection, anti‑discrimination measures, or access to healthcare, but
+      it does not automatically entail seeking the extreme benefits described. Each
+      step in the sequence is conjectural and draws a causal link that has never been
+      demonstrated, making the conclusion a product of speculation rather than evidence.
+    candidate: Slippery Slope
+    challenged_inference: That equal‑rights advocacy will necessarily lead to extreme
+      demands such as taxpayer‑funded surgeries, free use of any bathroom, and expectations
+      of romantic attraction.
+    label_justification: 'The target sets up a chain of increasingly undesirable outcomes
+      that are presented as inevitable consequences of a benign initial claim. This
+      is the textbook definition of a slippery‑slope fallacy: a presumed, unsubstantiated
+      progression from a relatively innocuous stance (equal rights) to extreme and
+      implausible demands. The argument makes no empirical connection between these
+      stages, thereby violating the logical structure required to avoid the fallacy.
+      Thus the flaw identified is specifically Slippery Slope.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is how it starts. First they will say they just want equal rights, then
+      they will want special privileges such as taxpayer funded surgeries and being
+      able to go
+    - to any bathroom they want. Then they will demand you be attracted to them as
+      well!
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: Evidence T1 and T2 contain a clear causal‑progression format
+    (initial claim → intermediate demands → final extreme demand) that implies an
+    inevitable transition from equal rights to coercive expectations.
+  decision_reason: The target presents a staged escalation, implying that starting
+    from equal‑rights advocacy leads inevitably to extreme prerogatives. This satisfies
+    the slippery‑slope structure and falls under that fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is how it starts. First they will say they just want equal rights, then they
+    will want special privileges such as taxpayer funded surgeries and being able
+    to go
+  - to any bathroom they want. Then they will demand you be attracted to them as well!
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4519
+  completion_tokens: 2294
+  total_tokens: 6813
+  wall_time_seconds: 134.25

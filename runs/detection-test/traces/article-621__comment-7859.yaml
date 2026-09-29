@@ -1,0 +1,118 @@
+sample:
+  id: 621:7859
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: This is interesting news, hope to see a video of it or something. And I
+    didn't really think of how crucial snakes are to their ecosystems, but Mr. Devkota
+    makes it clear why they are. Though I wonder about the farming point. I want to
+    look up more on that from other experts too as I would have imagined they're more
+    a net negative in that aspect.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is interesting news, hope to see a video of it or something. And I didn't
+      really think of how crucial snakes are to their ecosystems, but Mr. Devkota
+      makes
+    - it clear why they are. Though I wonder about the farming point. I want to look
+      up more on that from other experts too as I would have imagined they're
+    - more a net negative in that aspect.
+    candidate: null
+  goal:
+    conclusion_or_goal: null
+    candidate: null
+    supporting_reason: The target comment only expresses curiosity and a desire to
+      learn more; it does not present a logical claim or provide justification for
+      any conclusion.
+    support_relation: null
+    label_justification: No logical argument is made, therefore no fallacy is present.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This is interesting news, hope to see a video of it or something. And I didn't
+      really think of how crucial snakes are to their ecosystems, but Mr. Devkota
+      makes
+    - it clear why they are. Though I wonder about the farming point. I want to look
+      up more on that from other experts too as I would have imagined they're
+    - more a net negative in that aspect.
+  counterargument:
+    decisive_counterargument: The claim that snakes are crucial to ecosystems is taken
+      at face value from Mr. Devkota alone. Relying on a single expert without presenting
+      supporting evidence is an appeal to authority.
+    candidate: Appeal to Authority
+    challenged_inference: Snakes are crucial to ecosystems
+    label_justification: The objection points out that the inference is based solely
+      on an authority's statement without independent verification, which is the defining
+      feature of an Appeal to Authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - This is interesting news, hope to see a video of it or something. And I didn't
+      really think of how crucial snakes are to their ecosystems, but Mr. Devkota
+      makes
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present an inference that snakes are crucial
+    to ecosystems solely because Mr. Devkota is an authority. The speaker acknowledges
+    his explanation but expresses uncertainty and plans to seek additional expert
+    opinions, so the claim is not justified purely by authority and therefore does
+    not constitute an Appeal to Authority fallacy.
+  decision_reason: The target fails to meet the structural requirement of an Appeal
+    to Authority inference; hence the surviving hypothesis is rejected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - This is interesting news, hope to see a video of it or something. And I didn't
+    really think of how crucial snakes are to their ecosystems, but Mr. Devkota makes
+  verified: false
+  rejection_reason: The target fails to meet the structural requirement of an Appeal
+    to Authority inference; hence the surviving hypothesis is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4245
+  completion_tokens: 3340
+  total_tokens: 7585
+  wall_time_seconds: 164.56200000003446

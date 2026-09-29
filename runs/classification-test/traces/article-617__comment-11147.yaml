@@ -1,0 +1,151 @@
+sample:
+  id: 617:11147
+  article_id: 617
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: What's the point of having journalists in a particular country if they can't
+    report anything? This situation speaks volumes about the state of press freedom,
+    which is supposedly guaranteed by the constitution. As CPJ stated, journalists
+    are not terrorists, yet they are treated as such in Cameroon. Imagine if other
+    countries began to follow the same trend because they saw no repercussions on
+    such acts? That's a chilling perspective for the future of global journalism.
+    As the UN recognizes, an independent press is crucial to preserving human rights
+    - but it feels like that message is getting lost somewhere in the narrative.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: UN
+    - role: endorsed_claim
+      text: an independent press is crucial to preserving human rights
+    structure_complete: true
+    evidence_ids:
+    - T3
+    evidence_spans:
+    - no repercussions on such acts? That's a chilling perspective for the future
+      of global journalism. As the UN recognizes, an independent press is crucial
+      to preserving human rights - but
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: It argues that press freedom is being suppressed in Cameroon,
+      so the presence of journalists is futile and this reflects a broader threat
+      to journalism worldwide.
+    candidate: Appeal to Authority
+    supporting_reason: The mention of CPJ’s statement that journalists are not terrorists
+      and yet are treated as such serves to emphasize the legitimacy of journalists’
+      claim of being wrongly persecuted, positioning CPJ as an authoritative source
+      for the viewer’s belief.
+    support_relation: The authority assertion is used to underpin the claim that the
+      press is under attack and this injustice should be recognized as significant.  The
+      appeal to authority does not constitute a fallacy because it merely situates
+      the condemnation in the view of a respected organization rather than misusing
+      authority to prove an unrelated point.
+    label_justification: The appeal to a reputable organisation (CPJ) is legitimate
+      support and does not represent a fallacious misuse of authority. Therefore the
+      argument does not commit the Appeal to Authority fallacy.  No alternative fallacy
+      is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What's the point of having journalists in a particular country if they can't
+      report anything? This situation speaks volumes about the state of press freedom,
+      which is supposedly guaranteed by
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+  counterargument:
+    decisive_counterargument: The inference that Cameroon’s practice of treating journalists
+      as terrorists will spur other nations to adopt the same policy rests on no evidence
+      linking one state’s actions to a global trend.  International press freedom
+      is shaped by myriad factors—domestic law, civil society pressure, diplomatic
+      relations, and global norms—none of which are demonstrated here.  Thus the claim
+      is an unsupported leap that predicts a broad, negative outcome from a single
+      instance.
+    candidate: Appeal to Authority
+    challenged_inference: If Cameroon treats journalists as terrorists, other countries
+      will follow this trend, resulting in a chilling effect on global journalism.
+    label_justification: The counterargument directly attacks an appeal to authoritative
+      or expert authority implied by using arguments from CPJ and the UN to justify
+      a sweeping claim about global future trends, demonstrating that the TARGET’s
+      reasoning relies on an unsupported authority claim to justify a broad conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+    - no repercussions on such acts? That's a chilling perspective for the future
+      of global journalism. As the UN recognizes, an independent press is crucial
+      to preserving human rights - but
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The TARGET cites respected organizations (CPJ, UN) only to support
+    its criticism of press freedom in Cameroon, not to assert a claim beyond those
+    authorities’ scope or to misuse authority for proof. The structure lacks a misapplied
+    authority claim, so the Appeal to Authority fallacy does not apply. No survivor
+    is fallacious.
+  decision_reason: The TARGET’s use of CPJ and UN statements as evidence for press
+    freedom concerns is legitimate and does not misapply authority. Therefore the
+    appealed fallacy is not present, and the surviving hypothesis is rejected.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+    treated as such in Cameroon. Imagine if other countries began to follow the same
+    trend because they saw
+  - no repercussions on such acts? That's a chilling perspective for the future of
+    global journalism. As the UN recognizes, an independent press is crucial to preserving
+    human rights - but
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5185
+  completion_tokens: 3406
+  total_tokens: 8591
+  wall_time_seconds: 314.905999999959

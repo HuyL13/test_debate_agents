@@ -1,0 +1,135 @@
+sample:
+  id: 515:8742
+  article_id: 515
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: In Afghanistan, Governors Don't Just Step Down Because the President Asks
+    Them To
+  parent: ''
+  target: What does the government expect, when they're putting in an appointment
+    that so many of the local people are against? It's natural for people to want
+    to choose their own leadership that actually represents their interests. The government
+    should understand that and act appropriately instead of trying to quash their
+    concerns.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T2
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: The government should act appropriately and not quash the
+      concerns of local people.
+    candidate: Appeal to Nature
+    supporting_reason: It is natural for people to want to choose leadership that
+      represents their interests.
+    support_relation: appeal to nature
+    label_justification: The argument uses naturalness – that people naturally want
+      to choose their own leaders – as a justification for the normative claim that
+      the government must act appropriately. This is a classic appeal to nature fallacy,
+      where a state of affairs is labeled good or right solely because it is natural.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+  counterargument:
+    decisive_counterargument: Even if people’ natural inclination is to choose their
+      own leaders, that fact alone does not establish a moral obligation for the government
+      to honor that preference. Governments often appoint officials for reasons such
+      as national security, continuity of governance, or coordination with broader
+      policy objectives; these reasons can legitimately override local preferences.
+      Naturalness does not entail correctness, especially in complex political contexts.
+    candidate: Appeal to Nature
+    challenged_inference: The argument concludes that the government should act appropriately
+      because it is natural for people to want to choose their own leadership, implying
+      natural preference equals right action.
+    label_justification: The target’s reasoning uses the fact that a preference is
+      ‘natural’ as justification for a normative claim. This is precisely the Appeal
+      to Nature fallacy, where naturalness is invoked as evidence of moral or political
+      appropriateness without substantive argument.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What does the government expect, when they're putting in an appointment that
+      so many of the local people are against? It's natural for people to want to
+      choose their own
+    - leadership that actually represents their interests. The government should understand
+      that and act appropriately instead of trying to quash their concerns.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target contains a naturalness premise—‘It is natural for
+    people to want to choose their own leadership’—and an evaluative conclusion—‘The
+    government should act appropriately and not quash their concerns’—which together
+    meet the structural requirements of an appeal to nature, establishing the fallacious
+    inference.
+  decision_reason: The argument relies on the naturalness of local preference to justify
+    a normative claim that the government must act accordingly, satisfying the structure
+    and reasoning defect of an appeal to nature.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What does the government expect, when they're putting in an appointment that so
+    many of the local people are against? It's natural for people to want to choose
+    their own
+  - leadership that actually represents their interests. The government should understand
+    that and act appropriately instead of trying to quash their concerns.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4164
+  completion_tokens: 3078
+  total_tokens: 7242
+  wall_time_seconds: 124.5

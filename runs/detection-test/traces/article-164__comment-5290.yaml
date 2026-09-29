@@ -1,0 +1,133 @@
+sample:
+  id: 164:5290
+  article_id: 164
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: I think the majority of the people in this country are very prepared for
+    COVID since they have learned so much from Ebola battles. Those lessons have thought
+    them how to deal with these infectious agents and how to prevent the spread.  Most
+    of the people have learned from example about trusting Science and the medical
+    community about how to eradicate these issues.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I think the majority of the people in this country are very prepared for COVID
+      since they have learned so much from Ebola battles. Those lessons have thought
+      them how
+    - to deal with these infectious agents and how to prevent the spread.  Most of
+      the people have learned from example about trusting Science and the medical
+      community about how to
+    - eradicate these issues.
+    candidate: null
+  goal:
+    conclusion_or_goal: That the majority of people in this country are prepared for
+      COVID because they have learned from the Ebola battles.
+    candidate: Hasty Generalization
+    supporting_reason: They have learned so much from the Ebola battles
+    support_relation: This reason is used as evidence to justify the claim that the
+      majority is prepared
+    label_justification: The argument generalises the prepared state of the population
+      from only the experience of Ebola, which is a limited set of cases; this pattern
+      matches a hasty generalisation. The conclusion about the majority is **not**
+      supported by empirical evidence about the entire population, and the single
+      experience is insufficient to establish the generalised claim.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of the people in this country are very prepared for COVID
+      since they have learned so much from Ebola battles. Those lessons have thought
+      them how
+    - to deal with these infectious agents and how to prevent the spread.  Most of
+      the people have learned from example about trusting Science and the medical
+      community about how to
+  counterargument:
+    decisive_counterargument: Although experience with Ebola might inform public responses,
+      concluding that the majority of people are prepared for COVID solely because
+      of that experience is an overgeneralization. It assumes a uniform level of preparedness
+      across an entire population without providing empirical evidence, thereby failing
+      to justify the broad claim.
+    candidate: Hasty Generalization
+    challenged_inference: The majority of the people in this country are very prepared
+      for COVID because they learned from Ebola battles.
+    label_justification: This statement extrapolates a broad, population‑wide claim
+      from insufficient evidence, treating an assumed general quality as proof. That
+      is the classic definition of a hasty generalization fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think the majority of the people in this country are very prepared for COVID
+      since they have learned so much from Ebola battles. Those lessons have thought
+      them how
+    - to deal with these infectious agents and how to prevent the spread.  Most of
+      the people have learned from example about trusting Science and the medical
+      community about how to
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The statement makes a broad claim that the majority of the population
+    are prepared for COVID based solely on their experience with Ebola, without providing
+    evidence or justification for this universal claim, thereby satisfying the structural
+    criteria of a hasty generalization.
+  decision_reason: The claim extrapolates a population‑wide conclusion (majority preparedness)
+    from insufficient evidence (Ebola experience), which meets the definition of a
+    hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think the majority of the people in this country are very prepared for COVID
+    since they have learned so much from Ebola battles. Those lessons have thought
+    them how
+  - to deal with these infectious agents and how to prevent the spread.  Most of the
+    people have learned from example about trusting Science and the medical community
+    about how to
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4212
+  completion_tokens: 4002
+  total_tokens: 8214
+  wall_time_seconds: 198.375

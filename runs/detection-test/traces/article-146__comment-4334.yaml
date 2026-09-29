@@ -1,0 +1,109 @@
+sample:
+  id: 146:4334
+  article_id: 146
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: I don't think people should focus so much on the past. Both Indonesia and
+    China have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both countries, inequality, suffering of all kinds. Is now the time
+    to try to heal the wounds of some 25 year old event that affected some small minority?
+    That is the sort of thing you try to do after you've solved the bigger problems.
+  target: I think this is a fallacy-just because it is in the past does not mean it
+    is not important and should not be a focus even if there are other problems at
+    the present. This is important to the people.
+initial_analysis:
+  structure:
+    evidence_ids:
+    - T1
+    - T2
+    slots: []
+    structure_complete: false
+    structure_type: none
+    evidence_spans:
+    - I think this is a fallacy-just because it is in the past does not mean it is
+      not important and should not be a focus even if there are other
+    - problems at the present. This is important to the people.
+    candidate: null
+  goal:
+    candidate: null
+    conclusion_or_goal: The target argues that dismissing the past as unimportant
+      is a fallacy and that the past event should remain a focus because it matters
+      to people.
+    evidence_ids:
+    - T1
+    - T2
+    label_justification: The argument correctly shows that historical relevance is
+      independent of time, so no recognized fallacy is committed.
+    mechanism_supports_goal: true
+    support_relation: This reasoning rejects the idea that the age of an event determines
+      its importance; it supports the claim that the past event should be addressed.
+    supporting_reason: Just because it is in the past does not mean it is not important.
+    evidence_spans:
+    - I think this is a fallacy-just because it is in the past does not mean it is
+      not important and should not be a focus even if there are other
+    - problems at the present. This is important to the people.
+  counterargument:
+    decisive_counterargument: 'The Target’s assertion that focusing on the past is
+      a fallacy is itself unsubstantiated: the Target offers no reasoning, evidence,
+      or an alternative conclusion, merely claiming the prior argument to be fallacious.
+      This lack of a supportive chain denies any logical link between the subject
+      of the Prior claim (resource priorities for present problems) and the conclusion
+      that the Past must be de-emphasized. It is therefore not a fallacy such as Hasty
+      Generalization or Slippery Slope, but simply an unsupported negative claim.'
+    candidate: null
+    challenged_inference: The claim that prioritizing past issues constitutes a fallacy.
+    label_justification: Since the Target does not present a recognized argumentative
+      structure that misleads or misuses logic, it does not fall under any classic
+      fallacy category. The objection only points out the absence of evidence and
+      reasoning, which does not map to a defined fallacy.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think this is a fallacy-just because it is in the past does not mean it is
+      not important and should not be a focus even if there are other
+    - problems at the present. This is important to the people.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability: []
+  transitions: []
+  after_conflicts: &id001 []
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  verified: false
+  evidence_spans: []
+  decisive_condition: none
+  rejection_reason: No candidate survived role-specific viability checks.
+  status: skipped_no_survivor
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 3
+  provider_calls: 3
+  cache_hits: 2
+  retries: 2
+  prompt_tokens: 3011
+  completion_tokens: 3478
+  total_tokens: 6489
+  wall_time_seconds: 157.25

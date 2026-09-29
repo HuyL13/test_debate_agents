@@ -1,0 +1,185 @@
+sample:
+  id: 127:4277
+  article_id: 127
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: Why is the focus on the internet shutdowns, and not that actual human rights
+    abuses from the insecurity caused by the coup. There has been enough evidence
+    based on the statistics to show that Myanmar needs more international intervention.
+    It is important to get news out from the people in Myanmar, but we need to focus
+    on the problem itself which is the insecurity caused by the coup.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: internet shutdowns
+    - role: worse_issue
+      text: actual human rights abuses from the insecurity caused by the coup
+    - role: deprioritizing_conclusion
+      text: we need to focus on the problem itself which is the insecurity caused
+        by the coup
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Why is the focus on the internet shutdowns, and not that actual human rights
+      abuses from the insecurity caused by the coup. There has been enough evidence
+      based on the
+    - which is the insecurity caused by the coup.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Shift the focus from internet shutdowns to the insecurity
+      caused by the coup and emphasize the need for international intervention in
+      Myanmar.
+    candidate: Appeal to Authority
+    supporting_reason: The argument cites evidence based on statistics to suggest
+      that Myanmar needs more international intervention.
+    support_relation: The statistical evidence is used to justify the shift in focus
+      toward insecurity and to support the call for international intervention.
+    label_justification: While the argument relies on statistics, it does not employ
+      an identifiable fallacy; the reasoning is that evidence points to insecurity
+      as the primary problem needing intervention. The fallacy label is omitted because
+      the use of quantitative evidence here does not constitute a logical fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why is the focus on the internet shutdowns, and not that actual human rights
+      abuses from the insecurity caused by the coup. There has been enough evidence
+      based on the
+    - statistics to show that Myanmar needs more international intervention. It is
+      important to get news out from the people in Myanmar, but we need to focus on
+      the problem itself
+    - which is the insecurity caused by the coup.
+  counterargument:
+    decisive_counterargument: The speaker claims that because the coup has caused
+      a greater insecurity problem, attention should automatically shift away from
+      the internet shutdowns and that the shutdowns are therefore unimportant.  That
+      reasoning merely redirects the spotlight onto a more serious issue without showing
+      that the shutdowns are less critical or impossible to address.  It uses the
+      seriousness of one problem to dismiss the relevance of another, which is exactly
+      the logic of an appeal to worse problems.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The focus on internet shutdowns is less needed because the
+      coup‑induced insecurity is a more serious issue.
+    label_justification: The argument relies on the relative seriousness of the coup‑induced
+      insecurity to de‑emphasise the internet shutdowns, a textbook formulation of
+      an appeal to worse problems.  It substitutes priority with severity without
+      supporting evidence, so the fallacy label of “Appeal to Worse Problems” is appropriate.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Why is the focus on the internet shutdowns, and not that actual human rights
+      abuses from the insecurity caused by the coup. There has been enough evidence
+      based on the
+    - statistics to show that Myanmar needs more international intervention. It is
+      important to get news out from the people in Myanmar, but we need to focus on
+      the problem itself
+    - which is the insecurity caused by the coup.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Worse Problems
+  - Appeal to Authority
+  transitions:
+  - before:
+    - Appeal to Worse Problems
+    - Appeal to Authority
+    conflict: appeal-to-authority__vs__appeal-to-worse-problems
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts:
+- id: appeal-to-authority__vs__appeal-to-worse-problems
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Appeal to Worse Problems
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: Appeal to Worse Problems
+    loser_failure: Appeal to Authority does not have any authority referenced in the
+      target passage, so its mandatory structural condition is not satisfied.
+    evidence_ids:
+    - T1
+    - T3
+    evidence_spans:
+    - Why is the focus on the internet shutdowns, and not that actual human rights
+      abuses from the insecurity caused by the coup. There has been enough evidence
+      based on the
+    - which is the insecurity caused by the coup.
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target argues that the focus should shift from internet
+    shutdowns to the more serious issue of insecurity caused by the coup, using the
+    relative seriousness of the latter to dismiss the former. This follows the structure
+    of an appeal to worse problems, justified by the evidence in T1‑T3.
+  decision_reason: The target presents a focal issue (internet shutdowns) and a worse
+    issue (insecurity/human rights abuses from the coup) and concludes that attention
+    should be redirected to the latter. This demonstrates a classic appeal to worse
+    problems. evidence_ids=[T1,T2,T3]
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Why is the focus on the internet shutdowns, and not that actual human rights abuses
+    from the insecurity caused by the coup. There has been enough evidence based on
+    the
+  - statistics to show that Myanmar needs more international intervention. It is important
+    to get news out from the people in Myanmar, but we need to focus on the problem
+    itself
+  - which is the insecurity caused by the coup.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6299
+  completion_tokens: 3515
+  total_tokens: 9814
+  wall_time_seconds: 130.31300000002375

@@ -1,0 +1,136 @@
+sample:
+  id: 416:7245
+  article_id: 416
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Hong Kong Polytechnic University on fire after violent clashes between protesters
+    and police
+  parent: ''
+  target: What happens if protesters like these students are attacked and not allowed
+    to ever protest or question anything?  They will eventually be silenced completely.  Then,
+    the government will either endure their wrath or really end up injuring these
+    people.  That will have horrible repercussions in their society like a dystopian
+    nightmare.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: protesters are attacked and not allowed to protest or question anything
+    - role: intermediate_consequence
+      text: they will eventually be silenced completely, and the government will either
+        endure their wrath or injure them
+    - role: final_consequence
+      text: horrible repercussions in society like a dystopian nightmare
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What happens if protesters like these students are attacked and not allowed
+      to ever protest or question anything?  They will eventually be silenced completely.  Then,
+      the government will either endure
+    - their wrath or really end up injuring these people.  That will have horrible
+      repercussions in their society like a dystopian nightmare.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The suppression of protesters will ultimately lead to their
+      complete silencing and a dystopian societal outcome.
+    candidate: Slippery Slope
+    supporting_reason: They will eventually be silenced completely. Then, the government
+      will either endure their wrath or injuring these people, leading to horrible
+      repercussions in society like a dystopian nightmare.
+    support_relation: follows
+    label_justification: The argument posits a chain of adverse future events—from
+      the initial action of suppressing protesters to an eventual dystopian society—without
+      providing evidence for each intermediate step, which characterizes a slippery‑slope
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What happens if protesters like these students are attacked and not allowed
+      to ever protest or question anything?  They will eventually be silenced completely.  Then,
+      the government will either endure
+    - their wrath or really end up injuring these people.  That will have horrible
+      repercussions in their society like a dystopian nightmare.
+  counterargument:
+    decisive_counterargument: The argument assumes that the mere suppression of protests
+      will inevitably lead to their complete silencing and ultimately a dystopian
+      society.  Without evidence or a clear chain of intermediate events, this conclusion
+      is purely speculative.
+    candidate: Slippery Slope
+    challenged_inference: Suppressing protests will inevitably culminate in a dystopian
+      nightmare for society.
+    label_justification: The objection points out that the inference rests on an unsubstantiated
+      escalation—from a single act of repression to a catastrophic societal outcome—characteristic
+      of a slippery‑slope argument.  It shows that the conclusion is not supported
+      by any intermediate evidence or causal steps.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - What happens if protesters like these students are attacked and not allowed
+      to ever protest or question anything?  They will eventually be silenced completely.  Then,
+      the government will either endure
+    - their wrath or really end up injuring these people.  That will have horrible
+      repercussions in their society like a dystopian nightmare.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target presents a chain of escalating negative consequences—attacking
+    and suppressing protesters leads to their silencing, the government's retaliation
+    or injury, and finally a dystopian societal outcome—without evidence for each
+    intermediate step, satisfying the structural criteria for a slippery‑slope fallacy.
+  decision_reason: 'The argument in the target follows a clear consequence chain:
+    initial suppression → eventual silencing → government retaliation/injury → dystopian
+    repercussions. This unsubstantiated escalation from a single action to a catastrophic
+    outcome constitutes a slippery‑slope fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - What happens if protesters like these students are attacked and not allowed to
+    ever protest or question anything?  They will eventually be silenced completely.  Then,
+    the government will either endure
+  - their wrath or really end up injuring these people.  That will have horrible repercussions
+    in their society like a dystopian nightmare.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4502
+  completion_tokens: 3459
+  total_tokens: 7961
+  wall_time_seconds: 80.35899999999674

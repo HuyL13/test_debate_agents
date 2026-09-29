@@ -1,0 +1,128 @@
+sample:
+  id: 621:8459
+  article_id: 621
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The first recorded two-headed banded kukri snake discovered in Nepal
+  parent: ''
+  target: The main subject is definitely interesting, but I didn't know snakes were
+    so important to the ecosystem. I hope the country is able to make sure they keep
+    thriving, it seems like their only real option. Without them, there will just
+    be pests all over.
+initial_analysis:
+  structure:
+    structure_type: exhaustive_alternatives
+    slots:
+    - role: alternative_a
+      text: ensure snakes thrive
+    - role: alternative_b
+      text: pests will spread
+    - role: exhaustiveness_commitment
+      text: it seems like their only real option
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The main subject is definitely interesting, but I didn't know snakes were so
+      important to the ecosystem. I hope the country is able to make sure they keep
+      thriving, it
+    - seems like their only real option. Without them, there will just be pests all
+      over.
+    candidate: False Dilemma
+  goal:
+    conclusion_or_goal: The speaker is advocating for the protection of snakes to
+      preserve ecosystem balance and prevent pest infestations.
+    candidate: False Dilemma
+    supporting_reason: The statement that without snakes, there will just be pests
+      all over is presented as the sole consequence of not protecting them.
+    support_relation: This reason is used to justify the need for continued snake
+      conservation.
+    label_justification: The argument frames the situation as having only one viable
+      option (protect snakes) to avoid pest overrun, ignoring alternative pest-control
+      measures, which constitutes a false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The main subject is definitely interesting, but I didn't know snakes were so
+      important to the ecosystem. I hope the country is able to make sure they keep
+      thriving, it
+    - seems like their only real option. Without them, there will just be pests all
+      over.
+  counterargument:
+    decisive_counterargument: The text claims that the only realistic way to avoid
+      widespread pest problems is to ensure snakes thrive. It ignores other available
+      pest‑control options (e.g., habitat modification, alternative predators, or
+      managed human interventions). By presenting only this single solution and implying
+      all other approaches are ineffective, the reasoning commits a false dilemma.
+    candidate: False Dilemma
+    challenged_inference: The claim that ensuring snakes thrive is the only realistic
+      option to prevent pest overpopulation.
+    label_justification: The argument frames the situation as if there is a single
+      viable option (maintaining snake populations) and dismisses any other strategies,
+      which is the classic structure of a false dilemma. It fails to acknowledge alternative
+      means of pest control, thereby restricting the perceived options unjustifiably.
+    failure_exposed: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - seems like their only real option. Without them, there will just be pests all
+      over.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: False Dilemma
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: False Dilemma
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: False Dilemma
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - False Dilemma
+  transitions: []
+  after_conflicts: &id001
+  - False Dilemma
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: False Dilemma
+  decisive_condition: The target sentence explicitly frames the situation as having
+    only two alternatives (protect snakes vs pests emerging) and asserts that protecting
+    snakes is the sole viable option, meeting the structural requirement for a false
+    dilemma.
+  decision_reason: The argument establishes an exhaustive set of alternatives (keep
+    snakes thriving vs pests all over) and commits that they are exhaustive with the
+    phrase “it seems like their only real option,” thereby creating a false dilemma.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The main subject is definitely interesting, but I didn't know snakes were so important
+    to the ecosystem. I hope the country is able to make sure they keep thriving,
+    it
+  - seems like their only real option. Without them, there will just be pests all
+    over.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: False Dilemma
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4127
+  completion_tokens: 4059
+  total_tokens: 8186
+  wall_time_seconds: 156.25

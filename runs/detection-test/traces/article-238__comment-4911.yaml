@@ -1,0 +1,122 @@
+sample:
+  id: 238:4911
+  article_id: 238
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Iran faces backlash from its Azeri citizens over Armenia and the Karabakh
+    question
+  parent: ''
+  target: Clearly, this visit was made at the wrong time. It is only natural to be
+    suspicious of an Armenian visit to Iran on such a horrific anniversary. Suspicious
+    will be roused in such strange timing. Armenia should have thought the visit out
+    first. A visit at a better planned time likely would have led to less controversy.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: It is only natural to be suspicious of an Armenian visit to Iran on such
+        a horrific anniversary.
+    - role: evaluative_conclusion
+      text: Suspicion is warranted/normal.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Conclude that the Armenian visit to Iran was made at an inappropriate
+      time and therefore naturally generates suspicion and controversy.
+    candidate: Appeal to Nature
+    supporting_reason: It claims that “it is only natural to be suspicious of an Armenian
+      visit to Iran on such a horrific anniversary,” using the idea of naturalness
+      to justify the expectation of suspicion without providing empirical support.
+    support_relation: appeals_to_nature_justifies_suspicion
+    label_justification: The target explicitly invokes a natural explanation to support
+      the claim that suspicion is expected, which meets the criteria for an Appeal
+      to Nature.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+  counterargument:
+    decisive_counterargument: The claim that the visit’s timing—coinciding with a
+      sensitive anniversary—bio‑naturally made it suspicious and therefore more controversial
+      is merely speculative. There is no evidence linking the anniversary to heightened
+      suspicion or controversy, nor does the fact that the timing is ‘natural’ justify
+      the conclusion that a better‑timed visit would have avoided controversy.
+    candidate: Appeal to Nature
+    challenged_inference: If the visit happened on a historically painful anniversary,
+      it is naturally suspicious and will provoke controversy, so better timing would
+      have avoided that.
+    label_justification: The argument relies on the premise that something is more
+      reasonable or justified simply because it is natural or fits a particular emotional
+      response (“only natural to be suspicious”), which is the classic structure of
+      the Appeal to Nature fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+      of an Armenian visit to Iran on such a horrific anniversary. Suspicious will
+      be
+    - roused in such strange timing. Armenia should have thought the visit out first.
+      A visit at a better planned time likely would have led to less controversy.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: 'The target sentence states ‘It is only natural to be suspicious
+    of an Armenian visit to Iran on such a horrific anniversary,’ which presents a
+    naturalness premise and an evaluative conclusion that suspicion is warranted.
+    This matches the required '
+  decision_reason: The text explicitly uses “natural” to justify the expectation of
+    suspicion, satisfying the structure of an Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Clearly, this visit was made at the wrong time. It is only natural to be suspicious
+    of an Armenian visit to Iran on such a horrific anniversary. Suspicious will be
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4473
+  completion_tokens: 2859
+  total_tokens: 7332
+  wall_time_seconds: 172.43799999996554

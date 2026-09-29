@@ -1,0 +1,198 @@
+sample:
+  id: 617:9049
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: This just seems to be another typical result of colonialism. Is it ever
+    any different? I feel like all the news I see suggests not. The impacts of colonial
+    rule are always just that of suffering and injustice.
+  target: I agree completely. Colonialism really seems to be the trunk of the issues
+    here, but what about the root? Shouldn't there be a focus on what is causing colonialism
+    in the first place? In the global space, there are issues like hunger, incurable
+    diseases, and rampant corruption that are much much worse but aren't considered.
+    These issues seem like they are never ending but if we think about it, they get
+    less attention compared to colonialism. Wouldn't you consider them more important?
+    Imagine the effort spent on decolonization being redirected to those problems?
+    They could be solved in no time and the domino effect of those issues being solve
+    might shift to colonialism being solved as well. It might be worth looking into,
+    don't you think?
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: the effort spent on decolonization being redirected to hunger, incurable
+        diseases, and rampant corruption
+    - role: intermediate_consequence
+      text: those issues could be solved in no time
+    - role: final_consequence
+      text: the domino effect of those issues being solved might shift to colonialism
+        being solved as well
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - the first place? In the global space, there are issues like hunger, incurable
+      diseases, and rampant corruption that are much much worse but aren't considered.
+      These issues seem like they
+    - are never ending but if we think about it, they get less attention compared
+      to colonialism. Wouldn't you consider them more important? Imagine the effort
+      spent on decolonization being redirected
+    - to those problems? They could be solved in no time and the domino effect of
+      those issues being solve might shift to colonialism being solved as well. It
+      might be
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Shift attention and resources away from colonialism toward
+      other more serious issues such as hunger, incurable diseases, and corruption.
+    candidate: Appeal to Worse Problems
+    supporting_reason: The speaker argues that other global problems are much worse
+      but receive less attention than colonialism, implying colonialism should be
+      deprioritized.
+    support_relation: The comparison of severity is used to justify the shift in focus
+      away from colonialism.
+    label_justification: The target explicitly states that other, more serious problems
+      exist and have been neglected, and suggests that addressing them should take
+      precedence—this is the classic form of an appeal to worse problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - the first place? In the global space, there are issues like hunger, incurable
+      diseases, and rampant corruption that are much much worse but aren't considered.
+      These issues seem like they
+    - are never ending but if we think about it, they get less attention compared
+      to colonialism. Wouldn't you consider them more important? Imagine the effort
+      spent on decolonization being redirected
+    - to those problems? They could be solved in no time and the domino effect of
+      those issues being solve might shift to colonialism being solved as well. It
+      might be
+  counterargument:
+    decisive_counterargument: Claiming that redirecting effort to address hunger,
+      disease, or corruption would automatically defeat colonialism is unsupported
+      and conflates unrelated problems, presenting an unlikely causal chain.
+    candidate: Slippery Slope
+    challenged_inference: Redirection of decolonization effort to other problems would,
+      by domino effect, also solve colonialism.
+    label_justification: The argument proposes an unwarranted chain of effects—investing
+      in solving unrelated global problems will automatically lead to colonialism’s
+      resolution—an exaggerated step with no evidence of causality, which is the hallmark
+      of a Slippery Slope fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - the first place? In the global space, there are issues like hunger, incurable
+      diseases, and rampant corruption that are much much worse but aren't considered.
+      These issues seem like they
+    - are never ending but if we think about it, they get less attention compared
+      to colonialism. Wouldn't you consider them more important? Imagine the effort
+      spent on decolonization being redirected
+    - to those problems? They could be solved in no time and the domino effect of
+      those issues being solve might shift to colonialism being solved as well. It
+      might be
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Appeal to Worse Problems
+  transitions:
+  - before:
+    - Slippery Slope
+    - Appeal to Worse Problems
+    conflict: appeal-to-worse-problems__vs__slippery-slope
+    winner: Appeal to Worse Problems
+    after:
+    - Appeal to Worse Problems
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-worse-problems__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Worse Problems
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Worse Problems
+    decisive_test: appeal-to-worse-problems
+    loser_failure: 'Slippery Slope falls short of its structural necessity: the argument
+      does not present a multi-stage, progressively extreme causal chain but merely
+      a single leap; it is fundamentally an appeal that higher severity problems justify
+      deprioritizing colonialism.'
+    evidence_ids:
+    - T2
+    - T3
+    - T4
+    evidence_spans:
+    - the first place? In the global space, there are issues like hunger, incurable
+      diseases, and rampant corruption that are much much worse but aren't considered.
+      These issues seem like they
+    - are never ending but if we think about it, they get less attention compared
+      to colonialism. Wouldn't you consider them more important? Imagine the effort
+      spent on decolonization being redirected
+    - to those problems? They could be solved in no time and the domino effect of
+      those issues being solve might shift to colonialism being solved as well. It
+      might be
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target compares the gravity of problems such as hunger,
+    incurable diseases, and corruption to colonialism, arguing that because these
+    others are 'much worse' they warrant more attention, thereby suggesting colonialism
+    should be deprioritized – the classic form of an Appeal to Worse Problems.
+  decision_reason: The target explicitly states that other problems are worse and
+    proposes shifting focus from colonialism to them, which fits the Appeal to Worse
+    Problems structure.
+  evidence_ids:
+  - T2
+  - T3
+  - T4
+  evidence_spans:
+  - the first place? In the global space, there are issues like hunger, incurable
+    diseases, and rampant corruption that are much much worse but aren't considered.
+    These issues seem like they
+  - are never ending but if we think about it, they get less attention compared to
+    colonialism. Wouldn't you consider them more important? Imagine the effort spent
+    on decolonization being redirected
+  - to those problems? They could be solved in no time and the domino effect of those
+    issues being solve might shift to colonialism being solved as well. It might be
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 7357
+  completion_tokens: 5224
+  total_tokens: 12581
+  wall_time_seconds: 345.75

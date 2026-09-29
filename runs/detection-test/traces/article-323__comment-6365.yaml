@@ -1,0 +1,136 @@
+sample:
+  id: 323:6365
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: Languages evolved alongside communities, and it's just as natural that people
+    want to preserve them. I applaud the efforts made here to make sure these native
+    languages don't die out. Each language carries a slice of that natural evolution
+    of our species and each should be preserved.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: Languages evolved alongside communities, and it's just as natural that
+        people want to preserve them. I applaud the efforts made here to make sure
+        these native languages don't die out.
+    - role: evaluative_conclusion
+      text: Each language carries a slice of that natural evolution of our species
+        and each should be preserved.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Languages evolved alongside communities, and it's just as natural that people
+      want to preserve them. I applaud the efforts made here to make sure these native
+      languages don't die out.
+    - Each language carries a slice of that natural evolution of our species and each
+      should be preserved.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Each language should be preserved.
+    candidate: Appeal to Nature
+    supporting_reason: Languages evolved alongside communities, and it's just as natural
+      that people want to preserve them. Each language carries a slice of that natural
+      evolution of our species.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument uses the premise that preserving languages is
+      natural, implying that naturalness makes the action desirable/necessary. This
+      reasoning exploits the naturalness appeal to justify the conclusion, which fits
+      the pattern of an Appeal to Nature fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Languages evolved alongside communities, and it's just as natural that people
+      want to preserve them. I applaud the efforts made here to make sure these native
+      languages don't die out.
+    - Each language carries a slice of that natural evolution of our species and each
+      should be preserved.
+  counterargument:
+    decisive_counterargument: Naturalness alone does not justify preservation. Describing
+      language evolution merely explains a historical fact, not a moral imperative.
+      Many naturally arising practices and entities are discontinued or abandoned
+      without moral concern (e.g., extinct languages, deforestation). Thus, claiming
+      that each language should be preserved because it is part of natural evolution
+      conflates a descriptive observation with a normative recommendation.
+    candidate: Appeal to Nature
+    challenged_inference: Languages should be preserved because it is natural for
+      people to want to preserve them, given that languages evolved alongside communities.
+    label_justification: The argument appeals to the idea that what is natural (languages
+      evolving with communities) must or should be preserved, a classic Appeal to
+      Nature fallacy. The reasoning treats a descriptive fact (historical evolution)
+      as a normative basis for action.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Languages evolved alongside communities, and it's just as natural that people
+      want to preserve them. I applaud the efforts made here to make sure these native
+      languages don't die out.
+    - Each language carries a slice of that natural evolution of our species and each
+      should be preserved.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: 'The target contains a naturalness premise—“Languages evolved
+    alongside communities, and it''s just as natural that people want to preserve
+    them”—followed by an evaluative conclusion that each language should be preserved.
+    This satisfies the structure of an Appeal to Nature fallacy, as it uses a descriptive
+    fact of naturalness to justify a normative claim. Evidence: T1, T2.'
+  decision_reason: The target explicitly links the natural evolution of languages
+    to the moral imperative of preserving them, which matches the defined structure
+    of an Appeal to Nature fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Languages evolved alongside communities, and it's just as natural that people
+    want to preserve them. I applaud the efforts made here to make sure these native
+    languages don't die out.
+  - Each language carries a slice of that natural evolution of our species and each
+    should be preserved.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4433
+  completion_tokens: 1849
+  total_tokens: 6282
+  wall_time_seconds: 98.28100000000268

@@ -1,0 +1,122 @@
+sample:
+  id: 335:6403
+  article_id: 335
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: '30 years after the Tiananmen Massacre: An interview with survivor Zhou Fengsuo'
+  parent: ''
+  target: Most people know the massacre was a travesty. Any government to do that
+    should be removed. Time will judge the perpetrators of tragic killings.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: Most people
+    - role: popularity_claim
+      text: know the massacre was a travesty
+    - role: target_claim
+      text: Any government to do that should be removed
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know the massacre was a travesty. Any government to do that should
+      be removed. Time will judge the perpetrators of tragic killings.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Government responsible for the massacre should be removed
+    candidate: Appeal to Majority
+    supporting_reason: Most people know the massacre was a travesty
+    support_relation: Appeal to Majority
+    label_justification: The argument uses the claim that the majority of people know
+      (or implicitly disapprove of) the massacre as a justification for the removal
+      of the government. This relies on a  number of people’s perception rather than
+      evidence or logical analysis, which constitutes an appeal to majority (bandwagon)
+      fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know the massacre was a travesty. Any government to do that should
+      be removed. Time will judge the perpetrators of tragic killings.
+  counterargument:
+    decisive_counterargument: Knowing that most people consider the massacre a travesty
+      does not logically entail that any government that commits such acts should
+      be removed. The majority opinion alone does not provide a valid justification
+      for the extreme claim that all governments engaged in such actions must be removed;
+      the inference relies on the flawed assumption that widespread belief equates
+      to moral authority to enact drastic political change.
+    candidate: Appeal to Majority
+    challenged_inference: Because most people know the massacre was a travesty, any
+      government that does that should be removed.
+    label_justification: The argument uses the fact that a majority holds a particular
+      view as sufficient justification for the drastic action of removing any government
+      engaged in such conduct. This is a classic case of appealing to the majority;
+      the premise that many people hold a view does not entail that the conclusion
+      must follow.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Most people know the massacre was a travesty. Any government to do that should
+      be removed. Time will judge the perpetrators of tragic killings.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Majority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target explicitly states that “most people know the massacre
+    was a travesty” and immediately uses that claim to justify removing any government
+    that commits such acts, thereby employing the majority’s opinion as a basis for
+    the proposal, which satisfies the structural requirement for an Appeal to Majority
+    fallacy.
+  decision_reason: Target employs the majority’s view as justification for removing
+    governments, fulfilling the criteria for an Appeal to Majority.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Most people know the massacre was a travesty. Any government to do that should
+    be removed. Time will judge the perpetrators of tragic killings.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4072
+  completion_tokens: 2440
+  total_tokens: 6512
+  wall_time_seconds: 174.81299999996554

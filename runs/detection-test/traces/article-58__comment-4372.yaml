@@ -1,0 +1,145 @@
+sample:
+  id: 58:4372
+  article_id: 58
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: COVID-19 revives grim history of medical experimentation in Africa
+  parent: ''
+  target: Don't these people have much bigger things to worry about than what hiccups
+    could go along with experiments? This is Africa we're talking about. I mean, of
+    course everything should be done to ensure any trials and experiments are conducted
+    ethically, but with all the massive amounts of poverty and conflict these places
+    are dealing with, this doesn't seem like it should be a huge priority.
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: ethical trials and experiments in Africa
+    - role: worse_issue
+      text: poverty and conflict in Africa
+    - role: deprioritizing_conclusion
+      text: doesn't seem like it should be a huge priority
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Don't these people have much bigger things to worry about than what hiccups
+      could go along with experiments? This is Africa we're talking about. I mean,
+      of course everything should
+    - be done to ensure any trials and experiments are conducted ethically, but with
+      all the massive amounts of poverty and conflict these places are dealing with,
+      this doesn't seem like
+    - it should be a huge priority.
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: Experiments should not be a huge priority in Africa
+    candidate: Appeal to Worse Problems
+    supporting_reason: Africa is facing massive poverty and conflict
+    support_relation: The speaker uses the severity of these problems to justify downplaying
+      the priority of medical experiments
+    label_justification: The argument explicitly uses a worse problem (poverty and
+      conflict) to dismiss or downplay the importance of another issue (medical experimentation),
+      which fits the definition of an Appeal to Worse Problems.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Don't these people have much bigger things to worry about than what hiccups
+      could go along with experiments? This is Africa we're talking about. I mean,
+      of course everything should
+    - be done to ensure any trials and experiments are conducted ethically, but with
+      all the massive amounts of poverty and conflict these places are dealing with,
+      this doesn't seem like
+    - it should be a huge priority.
+  counterargument:
+    decisive_counterargument: Claiming that research experiments should not be a priority
+      simply because a region faces other problems ignores that the two matters do
+      not have to be mutually exclusive. In fact, well‑designed, ethically conducted
+      studies can help address exactly those pressing health, poverty, and conflict‑related
+      issues by providing evidence for effective interventions. Therefore, dismissing
+      research on the basis of 'worse problems' is a false premise and shifts focus
+      away from potentially beneficial solutions.
+    candidate: Appeal to Worse Problems
+    challenged_inference: Because Africa suffers from severe poverty and conflict,
+      the pursuit of medical experiments is not a huge priority.
+    label_justification: The objection shows that the claim equates the seriousness
+      of competing problems with an exclusionary decision about what deserves priority,
+      which is exactly the structure of an "Appeal to Worse Problems" fallacy. It
+      argues that dismissing a potentially beneficial activity simply because there
+      are larger issues is logically flawed, rather than merely criticizing the statement.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Don't these people have much bigger things to worry about than what hiccups
+      could go along with experiments? This is Africa we're talking about. I mean,
+      of course everything should
+    - be done to ensure any trials and experiments are conducted ethically, but with
+      all the massive amounts of poverty and conflict these places are dealing with,
+      this doesn't seem like
+    - it should be a huge priority.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Worse Problems
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly states that the severity of poverty and
+    conflict in Africa makes medical trials “not a huge priority,” matching the definition
+    of Appeal to Worse Problems.
+  decision_reason: The argument compares a more serious problem (poverty and conflict)
+    to a less serious issue (ethical trials) and concludes that the latter should
+    be downplayed, which is the classic form of an Appeal to Worse Problems.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Don't these people have much bigger things to worry about than what hiccups could
+    go along with experiments? This is Africa we're talking about. I mean, of course
+    everything should
+  - be done to ensure any trials and experiments are conducted ethically, but with
+    all the massive amounts of poverty and conflict these places are dealing with,
+    this doesn't seem like
+  - it should be a huge priority.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4445
+  completion_tokens: 2788
+  total_tokens: 7233
+  wall_time_seconds: 140.51599999999598

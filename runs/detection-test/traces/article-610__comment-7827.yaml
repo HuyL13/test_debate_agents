@@ -1,0 +1,125 @@
+sample:
+  id: 610:7827
+  article_id: 610
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Burundi’s plastic bottle recycling still has some way to go
+  parent: ''
+  target: If it is the usual practice and preference of the people to dispose of their
+    trash as they wish, it's hard to imagine why things should be different. When
+    a culture has been doing something for such a long time, perhaps the government
+    should devise a way of working around such a practice.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: when a culture has been doing something for such a long time
+    - role: preservation_conclusion
+      text: the government should devise a way of working around such a practice
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - culture has been doing something for such a long time, perhaps the government
+      should devise a way of working around such a practice.
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The government should devise a way of working around the customary
+      practice of disposing trash as people wish.
+    candidate: null
+    supporting_reason: The observation that people usually dispose of their trash
+      as they wish, and that this practice has persisted for a long time.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument uses an empirical observation of customary disposal
+      habits to justify a policy that accommodates that practice. This does not constitute
+      a logical fallacy but is a legitimate, non‑fallacious justification.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If it is the usual practice and preference of the people to dispose of their
+      trash as they wish, it's hard to imagine why things should be different. When
+      a
+    - culture has been doing something for such a long time, perhaps the government
+      should devise a way of working around such a practice.
+  counterargument:
+    decisive_counterargument: The argument simply asserts that because people have
+      long disposed of their trash in the same way and prefer it, this practice should
+      be allowed to continue. That reasoning equates longevity or common preference
+      with correctness, ignoring whether the practice is harmful or inefficient. Tradition
+      and habit do not justify a policy; they are merely facts about past behavior.
+    candidate: Appeal to Tradition
+    challenged_inference: The inference that the prevailing tradition and personal
+      preference for current trash disposal practices mean they should be allowed
+      to persist unchanged.
+    label_justification: The objection demonstrates that the argument relies on the
+      characteristic of longevity/preference (people’s long‑standing habit) to justify
+      the status quo, which is the definition of an appeal to tradition.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If it is the usual practice and preference of the people to dispose of their
+      trash as they wish, it's hard to imagine why things should be different. When
+      a
+    - culture has been doing something for such a long time, perhaps the government
+      should devise a way of working around such a practice.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target states that because a culture has practiced a trash‑disposal
+    habit for a long time, the government should work around it, implying that the
+    longevity of the practice justifies its continuation. This matches the classic
+    appeal‑to‑tradition structure – a claim that something should be allowed/maintained
+    because it has long been done that way. The relevant evidence supporting this
+    structure is passage T2.
+  decision_reason: 'The target presents a premise that a culture has been doing something
+    for a long time and concludes that the government should accommodate this practice.
+    This structure directly aligns with an appeal to tradition: using historical longevity
+    as justification for the status quo. Hence the argument meets all mandatory structural
+    conditions for an appeal to tradition.'
+  evidence_ids:
+  - T2
+  evidence_spans:
+  - culture has been doing something for such a long time, perhaps the government
+    should devise a way of working around such a practice.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4194
+  completion_tokens: 3866
+  total_tokens: 8060
+  wall_time_seconds: 214.09300000000803

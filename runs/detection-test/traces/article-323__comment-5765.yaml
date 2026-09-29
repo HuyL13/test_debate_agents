@@ -1,0 +1,148 @@
+sample:
+  id: 323:5765
+  article_id: 323
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Should there be Shona-language versions of Google and social media sites?
+    This Zimbawean technologist says yes
+  parent: ''
+  target: Using machine learning to push a language is odd. What other agenda will
+    they push with their tech? I don't know if this is a good precedence.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Using machine learning to push a language is odd. What other agenda will they
+      push with their tech? I don't know if this is a good precedence.
+    candidate: null
+  goal:
+    conclusion_or_goal: The speaker argues against using machine learning to promote
+      the Shona language.
+    candidate: Appeal to Authority
+    supporting_reason: The speaker questions unknown agendas and the lack of clear
+      precedent as a reason to reject the approach.
+    support_relation: They use the uncertainty about potential motives and unproven
+      outcomes as a justification to dismiss machine learning as a suitable method.
+    label_justification: By appealing to the lack of known evidence and questioning
+      unseen agendas, the argument relies on ignorance rather than evidence, fitting
+      the appeal to ignorance fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Using machine learning to push a language is odd. What other agenda will they
+      push with their tech? I don't know if this is a good precedence.
+  counterargument:
+    decisive_counterargument: The claim that employing machine‑learning techniques
+      to promote a language inevitably signals some hidden agenda or future negative
+      consequences is purely speculative. No evidence is offered that the technology
+      is being used for ulterior motives, and the argument leaps from the odd choice
+      of tool to a broad claim about misuse without establishing any link or illustrating
+      a genuine chain of adverse outcomes.
+    candidate: Slippery Slope
+    challenged_inference: Using machine learning to push a language implies that other
+      hidden agendas or negative consequences will inevitably follow.
+    label_justification: The objection demonstrates that the target’s reasoning makes
+      an unjustified leap from a single, innocuous use of technology to a cascade
+      of looming problems, which is the hallmark of a slippery‑slope argument. The
+      counterargument shows that no such progression is established, thereby exposing
+      the fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Using machine learning to push a language is odd. What other agenda will they
+      push with their tech? I don't know if this is a good precedence.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Slippery Slope
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: Appeal to Authority requires invoking an authority figure or expert
+      to justify a claim, but the target merely expresses uncertainty about potential
+      hidden agendas without referencing any authority. Slippery Slope, however, indicates
+      that using machine learning to promote a language will inevitably lead to other
+      unknown agendas or negative consequences, which aligns with the target’s predictive
+      and speculative tone. The target directly supports the structural requirement
+      of a slippery slope by suggesting a future negative outcome (other agenda) as
+      a result of the present action.
+    loser_failure: Appeal to Authority fails because no authority is cited or referred
+      to in the target; the argument relies solely on speculation, not on an expert’s
+      endorsement.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Using machine learning to push a language is odd. What other agenda will they
+      push with their tech? I don't know if this is a good precedence.
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target lacks the required progression or chain of adverse
+    outcomes, a core structural element of a slippery‑slope argument. It merely expresses
+    conjecture about hidden agendas, not a cascade of consequences; therefore, no
+    slippery‑slope fallacy is present.
+  decision_reason: The target does not contain the necessary progression or chain
+    of adverse consequences that characterise a slippery‑slope argument; the claim
+    is merely speculative, so the hypothesis of a slippery‑slope is rejected.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Using machine learning to push a language is odd. What other agenda will they
+    push with their tech? I don't know if this is a good precedence.
+  verified: false
+  rejection_reason: The target does not contain the necessary progression or chain
+    of adverse consequences that characterise a slippery‑slope argument; the claim
+    is merely speculative, so the hypothesis of a slippery‑slope is rejected.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 5065
+  completion_tokens: 3675
+  total_tokens: 8740
+  wall_time_seconds: 212.625

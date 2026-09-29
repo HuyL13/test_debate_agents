@@ -1,0 +1,126 @@
+sample:
+  id: 287:10158
+  article_id: 287
+  task: classification
+  split: test
+  gold: Appeal to Nature
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: While all the centralized power this government has seems pretty problematic,
+    the 'digital authoritarianism' bit seems pretty weak. Is this really a big and
+    important part of the problem these people are facing? It feels like the more
+    traditional authoritarian methods are significantly more important to deal with
+    than how some people are treated online.
+  target: Only focusing on the big problems may let many smaller solvable ones last
+    longer then they should. Attack all problems if possible. A healthier system may
+    be the result.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+    candidate: null
+  goal:
+    conclusion_or_goal: Attack all problems if possible.
+    candidate: null
+    supporting_reason: Only focusing on the big problems may let many smaller solvable
+      ones last longer than they should.
+    support_relation: The reason points out a flaw in the alternative strategy of
+      focusing only on major issues—by allowing smaller problems to persist—the argument
+      follows that a more comprehensive approach (attacking all problems) is likely
+      to yield a healthier system.
+    label_justification: The passage does not employ any recognized logical fallacy;
+      the reason correctly premises the advocated goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+  counterargument:
+    decisive_counterargument: There is no logical or empirical reason to believe that
+      merely ignoring smaller, solvable problems will make them last longer simply
+      because a larger issue receives attention. The claim that focusing on big problems
+      causes small ones to persist is an unsubstantiated extrapolation, lacking any
+      evidence, examples, or logical link.
+    candidate: Hasty Generalization
+    challenged_inference: Only focusing on the big problems may let many smaller solvable
+      ones last longer then they should. Attack all problems if possible. A healthier
+      system may be the result.
+    label_justification: The objection points out that the argument makes a sweeping
+      generalization—that concentrating on big problems automatically prolongs smaller
+      ones—without any supporting evidence or examples. This fits the definition of
+      a Hasty Generalization, as the claim applies a conclusion to a broad category
+      based on no factual basis.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Only focusing on the big problems may let many smaller solvable ones last longer
+      then they should. Attack all problems if possible. A healthier system may be
+      the result.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target makes a sweeping claim that focusing only on big
+    problems will cause many smaller solvable ones to last longer, without providing
+    any evidence or examples to support this generalization, matching the definition
+    of a hasty generalization.
+  decision_reason: The passage presents a broad conclusion—small problems will persist
+    if only large ones are addressed—without any evidential support or sample cases,
+    fitting the structural pattern of a hasty generalization.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Only focusing on the big problems may let many smaller solvable ones last longer
+    then they should. Attack all problems if possible. A healthier system may be the
+    result.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4001
+  completion_tokens: 3758
+  total_tokens: 7759
+  wall_time_seconds: 94.76600000000326

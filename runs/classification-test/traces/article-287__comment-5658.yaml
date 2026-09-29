@@ -1,0 +1,142 @@
+sample:
+  id: 287:5658
+  article_id: 287
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: 'Unfreedom Monitor Report: El Salvador'
+  parent: ''
+  target: El Salvador has a recent history of being a very violent and crime infested
+    place.  I know several refugees from there that live in my hometown and they talk
+    about how dangerous it was.  So I think that a majority of the people there do
+    not mind giving up some civil rights in order to have a a safer country.  It is
+    just a natural thing to do.  At some point a balance does need to be reached,
+    but what good are civil rights in a country that is so dangerous.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: several refugees from El Salvador who live in my hometown and talk about
+        how dangerous it was
+    - role: observed_property
+      text: they do not mind giving up some civil rights in order to have a safer
+        country
+    - role: target_population
+      text: the people in El Salvador
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - El Salvador has a recent history of being a very violent and crime infested
+      place.  I know several refugees from there that live in my hometown and they
+      talk about
+    - how dangerous it was.  So I think that a majority of the people there do not
+      mind giving up some civil rights in order to have a a safer country.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: In El Salvador, a majority of people would be willing to give
+      up civil rights in exchange for safety, so civil rights are essentially unnecessary
+      in such a dangerous country.
+    candidate: Hasty Generalization
+    supporting_reason: T1
+    support_relation: The fact that several refugees describe El Salvador as very
+      dangerous is used to infer that most citizens are willing to give up civil rights
+      for safety.
+    label_justification: He draws a conclusion about the entire population based on
+      the experience of a few refugees, which is a classic hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - El Salvador has a recent history of being a very violent and crime infested
+      place.  I know several refugees from there that live in my hometown and they
+      talk about
+  counterargument:
+    decisive_counterargument: The reasoning jumps from the experiences of a few refugees
+      that you know to the claim that a majority of all people in El Salvador are
+      willing to forfeit civil rights for safety. Those refugees represent a highly
+      self‑selected subset of the population—those who left the country and chose
+      to share their story with you—and they may have reasons for overstating the
+      violence. The argument therefore draws a conclusion about a vast population
+      based on an unrepresentative, small sample, which is the hallmark of a Hasty
+      Generalization.
+    candidate: Hasty Generalization
+    challenged_inference: A majority of the people in El Salvador do not mind giving
+      up some civil rights in order to have a safer country.
+    label_justification: The objection shows that the conclusion about the majority
+      cannot be justified from the limited information presented; the argument generalizes
+      from a few cases to all people, which is precisely the reasoning failure of
+      a Hasty Generalization.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - El Salvador has a recent history of being a very violent and crime infested
+      place.  I know several refugees from there that live in my hometown and they
+      talk about
+    - how dangerous it was.  So I think that a majority of the people there do not
+      mind giving up some civil rights in order to have a a safer country.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The comment draws a conclusion about the entire population of
+    El Salvador—that a majority would give up civil rights for safety—based on the
+    limited experiences of a few refugees, an inference from a sample to the whole
+    population (sample → population), as evidenced in passages T1 and T2.
+  decision_reason: 'The target contains a hasty generalization: it extrapolates from
+    the small sample of refugees to the entire population’s willingness to sacrifice
+    civil rights for safety.'
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - El Salvador has a recent history of being a very violent and crime infested place.  I
+    know several refugees from there that live in my hometown and they talk about
+  - how dangerous it was.  So I think that a majority of the people there do not mind
+    giving up some civil rights in order to have a a safer country.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4749
+  completion_tokens: 3266
+  total_tokens: 8015
+  wall_time_seconds: 79.79699999996228

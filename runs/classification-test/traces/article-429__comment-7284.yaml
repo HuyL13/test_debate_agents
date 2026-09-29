@@ -1,0 +1,185 @@
+sample:
+  id: 429:7284
+  article_id: 429
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: Tunisia has a disinformation problem, but (further) criminalizing speech
+    won't solve it
+  parent: ''
+  target: Governments that attempt to support human rights are a model for the rest
+    of the world. As a certain peace ambassador I admire once put it, it requires
+    immense strength to prioritize the needs of others. Kudos to Tunisia for not only
+    fostering such strength, but also for their unwavering commitment to equality
+    and justice. Their administration exemplifies dedication to human rights. If the
+    rest of the world took a leaf out of their book, imagine the progress we could
+    achieve?
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: peace ambassador
+    - role: endorsed_claim
+      text: Governments that attempt to support human rights are a model for the rest
+        of the world.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Governments that attempt to support human rights are a model for the rest of
+      the world. As a certain peace ambassador I admire once put it, it requires immense
+      strength
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The speaker praises Tunisia’s commitment to human rights and
+      argues that other governments should emulate the country’s example to achieve
+      similar progress.
+    candidate: null
+    supporting_reason: the quoted peace ambassador statement that “it requires immense
+      strength to prioritize the needs of others”
+    support_relation: the reason is invoked to justify why Tunisia’s actions are commendable
+      and therefore a model worth emulating
+    label_justification: The reason is appropriately used to support the concluding
+      praise of Tunisia; it does not mislead or overlook relevant premises, so no
+      fallacy is present.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Governments that attempt to support human rights are a model for the rest of
+      the world. As a certain peace ambassador I admire once put it, it requires immense
+      strength
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+    - human rights. If the rest of the world took a leaf out of their book, imagine
+      the progress we could achieve?
+  counterargument:
+    decisive_counterargument: The argument assumes that because Tunisia’s government
+      exemplifies a commitment to equality and justice in a single case, all other
+      governments would achieve similar progress by following its example. This leap
+      treats one nation’s experience as evidence that the same outcome will hold universally,
+      without acknowledging the variety of political, cultural, and institutional
+      contexts around the world.
+    candidate: Hasty Generalization
+    challenged_inference: That Tunisia’s demonstrated dedication to human rights implies
+      that the rest of the world should adopt the same model to realize progress.
+    label_justification: 'The inference draws a broad conclusion about all governments
+      based solely on the example of Tunisia, representing a hasty generalization:
+      an implicit sample‑to‑population generalization.'
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+    - human rights. If the rest of the world took a leaf out of their book, imagine
+      the progress we could achieve?
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: The target contains a claim that Tunisia’s example of human‑rights
+      support can be adopted by all other governments, moving from the single sample
+      case of Tunisia to a universal conclusion about all governments. This is the
+      explicit sample‑to‑population generalization required for a Hasty Generalization.
+      The appeal to authority is present only as a separate statement from a “peace
+      ambassador” that does not directly support the claim that governments which
+      support human rights are a model; therefore the mandatory structural condition
+      for Appeal to Authority is not met. Hence Hasty Generalization wins.
+    loser_failure: Appeal to Authority lacks a direct endorsement of the core claim
+      by the authority; the authority statement merely comments on the need for strength,
+      not on the claim itself. The mandatory structure of an authority supporting
+      a claim is therefore unmet.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+      strength, but also for their unwavering commitment to equality and justice.
+      Their administration exemplifies dedication to
+    - human rights. If the rest of the world took a leaf out of their book, imagine
+      the progress we could achieve?
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target draws a broad conclusion that all governments should
+    emulate Tunisia’s human‑rights model based on a single example, extending an observation
+    about one case to the entire population of governments, which meets the structural
+    requirement for a Hasty Generalization.
+  decision_reason: 'The target’s wording exemplifies a sample‑to‑population generalization:
+    it cites Tunisia’s experience as a model and urges the rest of the world to follow,
+    thereby making a sweeping claim without accounting for other contexts—an instance
+    of a hasty generalization.'
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - to prioritize the needs of others. Kudos to Tunisia for not only fostering such
+    strength, but also for their unwavering commitment to equality and justice. Their
+    administration exemplifies dedication to
+  - human rights. If the rest of the world took a leaf out of their book, imagine
+    the progress we could achieve?
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5849
+  completion_tokens: 4666
+  total_tokens: 10515
+  wall_time_seconds: 189.46899999998277

@@ -1,0 +1,144 @@
+sample:
+  id: 164:4988
+  article_id: 164
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: As Ebola outbreak ends, coronavirus begins in DR Congo
+  parent: ''
+  target: I think it is only natural, people having just experienced one epidemic
+    will be hyper vigilant about another. I believe their experience will give the
+    citizens an advantage in preventing the spread of COVID. In fact, in some cases
+    they may over react in cautionary measures, which is only natural given their
+    recent experience with infectious disease.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: I think it is only natural, people having just experienced one epidemic
+        will be hyper vigilant about another.
+    - role: evaluative_conclusion
+      text: It is only natural that they may overreact in cautionary measures, given
+        their recent experience with infectious disease.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: People who have recently experienced an epidemic will be hyper‑vigilant
+      (and sometimes over‑react) toward a new epidemic, and this experience will give
+      them an advantage in preventing the spread of COVID.
+    candidate: null
+    supporting_reason: The speaker invokes the idea that being hyper‑vigilant or over‑reacting
+      is 'only natural', treating naturalness as a justification for the claim.
+    support_relation: The premise that such reactions are natural supports the conclusion
+      that people will exhibit them.
+    label_justification: No fallacy is committed. The appeal to nature is merely an
+      explanatory statement rather than a defective argument; it does not provide
+      an unwarranted justification for the conclusion, so the claim stands without
+      logical error.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+  counterargument:
+    decisive_counterargument: Just because a response is described as 'natural' does
+      not prove it is beneficial or effective. The claim that hyper‑vigilance and
+      overreaction resulting from past epidemics automatically gives citizens an advantage
+      against COVID relies solely on the fact that these reactions are natural. That
+      appeal to naturalness is insufficient to establish the utility or success of
+      those measures and ignores evidence that such over‑cautiousness can cause significant
+      social, economic, and psychological harm. Therefore the argument is improperly
+      grounded on the idea that what is natural must be desirable or useful.
+    candidate: Appeal to Nature
+    challenged_inference: The experience of a recent epidemic will naturally lead
+      to hyper–vigilance that provides citizens an advantage in preventing COVID spread.
+    label_justification: The target’s reasoning treats the fact that hyper‑vigilance
+      and over‑reactivity are 'natural' as evidence that these behaviours are beneficial
+      and therefore justified. This is a classic Appeal to Nature fallacy, where naturalness
+      is invoked to validate a claim.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - I think it is only natural, people having just experienced one epidemic will
+      be hyper vigilant about another. I believe their experience will give the citizens
+      an advantage in preventing
+    - the spread of COVID. In fact, in some cases they may over react in cautionary
+      measures, which is only natural given their recent experience with infectious
+      disease.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target’s argument uses a naturalness premise—"It is only
+    natural that people become hyper‑vigilant after an epidemic"—to justify an evaluative
+    claim that this hyper‑vigilance gives citizens an advantage in preventing COVID
+    spread, without providing independent evidence for the advantage. This meets the
+    mandatory structure of an Appeal to Nature fallacy.
+  decision_reason: The target pairs a naturalness claim with a value claim (advantage),
+    thereby using naturalness as evidence to support the benefit, which constitutes
+    an Appeal to Nature. The supplied evidence passages (T1, T2) contain both the
+    naturalness premise and the value conclusion, satisfying the structural criteria.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - I think it is only natural, people having just experienced one epidemic will be
+    hyper vigilant about another. I believe their experience will give the citizens
+    an advantage in preventing
+  - the spread of COVID. In fact, in some cases they may over react in cautionary
+    measures, which is only natural given their recent experience with infectious
+    disease.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4347
+  completion_tokens: 3872
+  total_tokens: 8219
+  wall_time_seconds: 193.18699999999808

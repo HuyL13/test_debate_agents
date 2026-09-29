@@ -1,0 +1,155 @@
+sample:
+  id: 239:4913
+  article_id: 239
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The Caribbean speaks out on the climate crisis
+  parent: ''
+  target: Once you get youth active in doing something they may never cease. They
+    may do things they should take no part in. Society's road to anarchy is possibly
+    paved.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Once you get youth active in doing something
+    - role: intermediate_consequence
+      text: They may do things they should take no part in
+    - role: final_consequence
+      text: Society's road to anarchy is possibly paved.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you get youth active in doing something they may never cease. They may
+      do things they should take no part in. Society's road to anarchy is possibly
+      paved.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: Youth activism inevitably leads society onto a road to anarchy.
+    candidate: Slippery Slope
+    supporting_reason: Once you get youth active in doing something they may never
+      cease; they may do things they should take no part in.
+    support_relation: The reason asserts that continued youth activity will inevitably
+      progress to harmful behaviors that culminate in societal anarchy, implying a
+      chain of worsening consequences.
+    label_justification: The argument projects a sequence of increasingly adverse
+      outcomes—starting with youth activism and ending in anarchy—without substantiating
+      each step. This pattern of untethered escalation is characteristic of a slippery
+      slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you get youth active in doing something they may never cease. They may
+      do things they should take no part in. Society's road to anarchy is possibly
+      paved.
+  counterargument:
+    decisive_counterargument: The claim that every youth who becomes active will inevitably
+      refuse to stop and pursue harmful actions, ultimately leading society toward
+      anarchy, is unwarranted. In practice, most young people who engage in activism
+      pursue constructive goals—advocating for environmental protection, social justice,
+      or community improvement—and they often demonstrate responsibility, teamwork,
+      and a willingness to engage in civil debate. Thus, the statement generalizes
+      from an implicit small sample of extreme cases to all active youths, concluding
+      an incorrect and overly negative outcome.
+    candidate: Hasty Generalization
+    challenged_inference: That all youths who become active will never cease engaging
+      in unhealthy or dangerous activities, leading society toward anarchy
+    label_justification: The argument leaps from an assumed few instances of youth
+      acting disreputably to a blanket claim about all active youth, a classic overreach
+      from a narrow observation to a universal statement. The counterargument shows
+      diverse, positive youth engagement, thereby refuting the overgeneralized application
+      and exposing a Hasty Generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you get youth active in doing something they may never cease. They may
+      do things they should take no part in. Society's road to anarchy is possibly
+      paved.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: target_passages
+    loser_failure: The claim articulates a chain of increasingly adverse consequences
+      beginning with youth becoming active, progressing to them doing disallowed activities,
+      and culminating in society’s road to anarchy.  This pattern matches the slippery‑slope
+      structure, whereas a hasty generalization would require an explicit sample or
+      few cases from which a universal claim is drawn, which the target text does
+      not provide.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Once you get youth active in doing something they may never cease. They may
+      do things they should take no part in. Society's road to anarchy is possibly
+      paved.
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument presents a consequence chain from youth activism
+    to societal anarchy without substantiating each step, thus meeting the structural
+    criteria for a slippery slope fallacy.
+  decision_reason: The text sequentially claims that youth becoming active leads to
+    ongoing activity (potentially problematic), to engagement in activities they should
+    not partake in, which culminates in society’s road to anarchy; this untethered
+    escalation satisfies the definition of a slippery slope fallacy.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Once you get youth active in doing something they may never cease. They may do
+    things they should take no part in. Society's road to anarchy is possibly paved.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5364
+  completion_tokens: 3399
+  total_tokens: 8763
+  wall_time_seconds: 377.89000000001397

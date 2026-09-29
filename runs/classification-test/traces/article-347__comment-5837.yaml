@@ -1,0 +1,178 @@
+sample:
+  id: 347:5837
+  article_id: 347
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: From an American perspective, this just sounds like a good idea. How much
+    has Russia and China and so on interfered in our elections? I bet Slovakia and
+    most other countries probably have the same experience. Probably a very standard
+    thing globally. Everyone should be able to identify all foreign interference in
+    their internal affairs.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: most other countries
+    - role: popularity_claim
+      text: foreign interference is common globally
+    - role: target_claim
+      text: Everyone should be able to identify all foreign interference in their
+        internal affairs
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - From an American perspective, this just sounds like a good idea. How much has
+      Russia and China and so on interfered in our elections? I bet Slovakia and most
+      other
+    - countries probably have the same experience. Probably a very standard thing
+      globally. Everyone should be able to identify all foreign interference in their
+      internal affairs.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: Everyone should be able to identify all foreign interference
+      in their internal affairs.
+    candidate: Hasty Generalization
+    supporting_reason: Foreign interference is widespread globally, as illustrated
+      by the author’s reference to Russia and China’s alleged interference in U.S.
+      elections and the belief that Slovakia and most other countries have the same
+      experience.
+    support_relation: The author uses the claim of widespread interference to argue
+      that citizens worldwide should be equipped to detect such influence.
+    label_justification: The argument generalizes from an unsubstantiated claim about
+      only a few cases (Russia and China, with an assumption about Slovakia and the
+      rest of the world) to a sweeping assertion that applies to all nations. This
+      lack of evidence or representative sample constitutes a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - From an American perspective, this just sounds like a good idea. How much has
+      Russia and China and so on interfered in our elections? I bet Slovakia and most
+      other
+    - countries probably have the same experience. Probably a very standard thing
+      globally. Everyone should be able to identify all foreign interference in their
+      internal affairs.
+  counterargument:
+    decisive_counterargument: The target assumes that because Russia, China and other
+      actors have reportedly interfered in American elections, *every* other country
+      must have experienced the same level and type of foreign interference. Yet,
+      no evidence is provided that such interference is common across the globe, nor
+      that the nature of the interference would be identical. In the absence of data
+      on foreign interference in Slovakia or other nations, the claim that “everyone
+      should be able to identify all foreign interference in their internal affairs”
+      rests on an unjustified, universal assumption rather than on documented fact.
+    candidate: Hasty Generalization
+    challenged_inference: Everyone should be able to identify all foreign interference
+      in their internal affairs, based on the presumed universality of foreign interference
+      derived from the U.S. example.
+    label_justification: 'The objection points out that the argument generalizes from
+      a single (and perhaps isolated) instance of foreign interference to all countries
+      without providing supporting evidence. That is precisely the definition of a
+      hasty generalization: an inference made from an insufficient or non-representative
+      sample to a blanket claim.'
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - From an American perspective, this just sounds like a good idea. How much has
+      Russia and China and so on interfered in our elections? I bet Slovakia and most
+      other
+    - countries probably have the same experience. Probably a very standard thing
+      globally. Everyone should be able to identify all foreign interference in their
+      internal affairs.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Majority
+    - Hasty Generalization
+    conflict: appeal-to-majority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-majority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Majority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: scenario_a
+    loser_failure: appeal_to_majority__vs__hasty-generalization
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - From an American perspective, this just sounds like a good idea. How much has
+      Russia and China and so on interfered in our elections? I bet Slovakia and most
+      other
+    - countries probably have the same experience. Probably a very standard thing
+      globally. Everyone should be able to identify all foreign interference in their
+      internal affairs.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target statement makes a sweeping claim that all countries
+    have experienced foreign interference and that everyone should be able to identify
+    it, based solely on referencing Russia and China’s alleged interference in U.S.
+    elections. This generalizes from a very limited set of examples to a universal
+    conclusion without supporting evidence for other nations, satisfying the structural
+    condition of a hasty generalization.
+  decision_reason: The target contains an unsubstantiated generalization from a few
+    instances to a universal claim, which is the hallmark of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - From an American perspective, this just sounds like a good idea. How much has
+    Russia and China and so on interfered in our elections? I bet Slovakia and most
+    other
+  - countries probably have the same experience. Probably a very standard thing globally.
+    Everyone should be able to identify all foreign interference in their internal
+    affairs.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 6
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 6120
+  completion_tokens: 3956
+  total_tokens: 10076
+  wall_time_seconds: 104.76600000000326

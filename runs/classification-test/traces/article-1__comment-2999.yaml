@@ -1,0 +1,132 @@
+sample:
+  id: 1:2999
+  article_id: 1
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: Some believe that the democratization of China is a good thing, but only
+    think this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the Chinese government knows what it best after all. Many do think that
+    the current Chinese government have their priorities straight. We should let people
+    decide for themselves.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Some believe that the democratization of China is a good thing, but only think
+      this way because it has become a popular opinion. It's hardly a simple matter.
+      Perhaps the
+    - Chinese government knows what it best after all. Many do think that the current
+      Chinese government have their priorities straight. We should let people decide
+      for themselves.
+    candidate: null
+  goal:
+    conclusion_or_goal: We should let people decide for themselves.
+    candidate: null
+    supporting_reason: The Chinese government knows what is best after all; many think
+      the current government has priorities straight.
+    support_relation: The reason does not actively support the conclusion that people
+      should decide; it is presented as a separate observation rather than a justificatory
+      premise.
+    label_justification: No fallacy is committed; the authority claim is not used
+      to justify the conclusion but merely stated as an observation. The argument
+      does not employ an appeal to authority to support the stated goal.
+    mechanism_supports_goal: false
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - Chinese government knows what it best after all. Many do think that the current
+      Chinese government have their priorities straight. We should let people decide
+      for themselves.
+  counterargument:
+    decisive_counterargument: The fact that many people think the Chinese government
+      has its priorities straight does not constitute evidence that this is indeed
+      the case; popular opinion alone is not a reliable indicator of truth.
+    candidate: Appeal to Majority
+    challenged_inference: The argument that the Chinese government knows best is justified
+      because it is a popular opinion and because many people think the government
+      has its priorities straight.
+    label_justification: The target’s reasoning relies on the popularity of a belief
+      to validate it, which is precisely the definition of an Appeal to Majority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Some believe that the democratization of China is a good thing, but only think
+      this way because it has become a popular opinion. It's hardly a simple matter.
+      Perhaps the
+    - Chinese government knows what it best after all. Many do think that the current
+      Chinese government have their priorities straight. We should let people decide
+      for themselves.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target’s reasoning bases its position on the fact that many
+    people hold a particular view—i.e., “many do think that the current Chinese government
+    have their priorities straight” and earlier “some believe … because it has become
+    a popular opinion”—to justify a claim that this view is correct. This is precisely
+    the definition of an Appeal to Majority fallacy, supported by the entirety of
+    the target text (passages T1 and T2).
+  decision_reason: The target unjustifiably uses the popularity of a belief as evidence
+    for its truth. Therefore the argument commits an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Some believe that the democratization of China is a good thing, but only think
+    this way because it has become a popular opinion. It's hardly a simple matter.
+    Perhaps the
+  - Chinese government knows what it best after all. Many do think that the current
+    Chinese government have their priorities straight. We should let people decide
+    for themselves.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4126
+  completion_tokens: 3008
+  total_tokens: 7134
+  wall_time_seconds: 275.9219999999623

@@ -1,0 +1,173 @@
+sample:
+  id: 538:10911
+  article_id: 538
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Capturing the mood on both sides of the Ukraine-Russia conflict in Donbas
+  parent: ''
+  target: This is the kind of behavior we expect from Putin's Russia. And we can expect
+    more and more of these land grabs as time goes on. Just look at what's happening
+    now. Russia's back at it again. Today it's Ukraine. Tomorrow who will it be? And
+    the day after that ...
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Russia's back at it again. Today it's Ukraine.
+    - role: intermediate_consequence
+      text: we can expect more and more of these land grabs as time goes on.
+    - role: final_consequence
+      text: Tomorrow who will it be? And the day after that ...
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the kind of behavior we expect from Putin's Russia. And we can expect
+      more and more of these land grabs as time goes on. Just look at what's
+    - happening now. Russia's back at it again. Today it's Ukraine. Tomorrow who will
+      it be? And the day after that ...
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: More and more land grabs will continue by Russia over time.
+    candidate: Hasty Generalization
+    supporting_reason: We can expect more and more of these land grabs as time goes
+      on
+    support_relation: The claim about future land grabs is justified by the current
+      example of Russia’s actions in Ukraine and the implication that this pattern
+      will persist.
+    label_justification: The argument extrapolates a future trend from a single observed
+      instance, generalizing the behavior of Russia without sufficient evidence.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the kind of behavior we expect from Putin's Russia. And we can expect
+      more and more of these land grabs as time goes on. Just look at what's
+    - happening now. Russia's back at it again. Today it's Ukraine. Tomorrow who will
+      it be? And the day after that ...
+  counterargument:
+    decisive_counterargument: The claim that Russia will inevitably seize more and
+      more territory simply because it has seized Ukraine is an unsupported projection
+      with no evidence that it will continue doing so. Nothing in the text shows that
+      future land grabs are inevitable or that they will follow a forced escalation;
+      it merely describes a possible trend.
+    candidate: null
+    challenged_inference: Russia will keep grabbing land in a continuous, inevitable
+      series (today Ukraine, tomorrow some other country, etc.).
+    label_justification: This falls under the Slippery Slope fallacy because the argument
+      presupposes a chain of future events (continual land grabs) triggered by a single
+      prior action (Russia’s takeover of Ukraine) without demonstrating any link or
+      inevitability. The text does not provide evidence that each subsequent seizure
+      is causally implied or unavoidable; it merely suggests a pessimistic continuation,
+      which is a classic slippery slope premise.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the kind of behavior we expect from Putin's Russia. And we can expect
+      more and more of these land grabs as time goes on. Just look at what's
+    - happening now. Russia's back at it again. Today it's Ukraine. Tomorrow who will
+      it be? And the day after that ...
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Slippery Slope
+    - Hasty Generalization
+    conflict: hasty-generalization__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: hasty-generalization__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Hasty Generalization
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Hasty Generalization requires explicit cases/sample -> broader population/class.
+    Slippery Slope requires action/condition -> progressively worse consequences.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: Slippery Slope
+    loser_failure: 'A hasty generalization would require asserting that the single
+      observed instance of a land grab by Russia establishes a universal pattern of
+      land grabbing by any actor or in any future context. The passage, however, explicitly
+      frames the situation as a causal chain: Russia’s current action (“Today it’s
+      Ukraine”) is presented as the initial event that leads to an intermediate consequence
+      (“we can expect more and more of these land grabs as time goes on”) and culminates
+      in a future/further consequence (“Tomorrow who will it be? And the day after
+      that …”). This is a classic slippery‑slope structure – an initial action that
+      is said to give rise to a progressively larger set of similar actions. The text
+      does not merely extrapolate from one case to a broad population; rather, it
+      claims a specific escalation from one land grab to many, which aligns with the
+      definition of a slippery‑slope fallacy. Therefore, the loss for “Hasty Generalization”
+      is justified.'
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is the kind of behavior we expect from Putin's Russia. And we can expect
+      more and more of these land grabs as time goes on. Just look at what's
+    - happening now. Russia's back at it again. Today it's Ukraine. Tomorrow who will
+      it be? And the day after that ...
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target text explicitly frames a progression of increasingly
+    adverse consequences—initial land grab in Ukraine leading to more and more land
+    grabs over time, culminating in an indefinite future threat—meeting the structural
+    requirement for a slippery-slope argument.
+  decision_reason: The comment states that after Russia’s current actions (“today
+    it’s Ukraine”) one can expect continuous escalation (“more and more of these land
+    grabs as time goes on”), implying a chain of future land grabs (“tomorrow who
+    will it be? …”). This fits the slippery‑slope pattern of an initial event triggering
+    a sequence of increasingly negative outcomes supported by the evidence passages
+    T1 and T2.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is the kind of behavior we expect from Putin's Russia. And we can expect
+    more and more of these land grabs as time goes on. Just look at what's
+  - happening now. Russia's back at it again. Today it's Ukraine. Tomorrow who will
+    it be? And the day after that ...
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5388
+  completion_tokens: 5359
+  total_tokens: 10747
+  wall_time_seconds: 240.78100000001723

@@ -1,0 +1,124 @@
+sample:
+  id: 168:4701
+  article_id: 168
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: Ethnic Albanian votes will decide presidential elections in North Macedonia
+  parent: ''
+  target: People are  naturally distrustful of new things like this political system.
+    It makes sense that people may not want to vote. It is important to encourage
+    people to vote in order to achieve what the people want.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People are  naturally distrustful of new things like this political system.
+      It makes sense that people may not want to vote. It is important to encourage
+      people to vote in
+    - order to achieve what the people want.
+    candidate: null
+  goal:
+    conclusion_or_goal: It is important to encourage people to vote in order to achieve
+      what the people want.
+    candidate: null
+    supporting_reason: People are naturally distrustful of new things like this political
+      system, so it makes sense that people may not want to vote.
+    support_relation: The reason explains that because of people’s natural distrust,
+      they may resist voting, thus encouraging voting is necessary to fulfill the
+      people's wishes.
+    label_justification: The reasoning is a straightforward explanation linking a
+      natural tendency (distrust) to the necessity of encouraging voting; it does
+      not constitute a fallacious appeal to nature or any other logical fallacy. Therefore
+      no fallacy label is warranted.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - People are  naturally distrustful of new things like this political system.
+      It makes sense that people may not want to vote. It is important to encourage
+      people to vote in
+    - order to achieve what the people want.
+  counterargument:
+    decisive_counterargument: 'The argument assumes that because people are naturally
+      distrustful of new political systems, they will therefore choose not to vote.
+      This is an over‑broad, unsupported generalization: no evidence is presented
+      that natural distrust actually correlates with low turnout, yet the claim is
+      taken as a universal rule. It therefore suffers from a hasty generalization—drawing
+      a sweeping conclusion from an unverified premise.'
+    candidate: Hasty Generalization
+    challenged_inference: People are naturally distrustful of new things like this
+      political system → people may not want to vote
+    label_justification: The counterargument points specifically to the unsupported
+      leap from a generalized natural tendency to a universal voting behavior, which
+      is the hallmark of a hasty generalization. It identifies the inference failure
+      rather than merely criticizing the conclusion.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - People are  naturally distrustful of new things like this political system.
+      It makes sense that people may not want to vote. It is important to encourage
+      people to vote in
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target’s inference lacks the explicit sample or cases required
+    by the Hasty Generalization structure; it merely states a general property (“people
+    are naturally distrustful”) and concludes a behavior (“may not want to vote”)
+    without presenting or referencing specific evidence. Consequently, the claim does
+    not satisfy the mandatory structural condition for a hasty generalization, so
+    the fallacy is rejected.
+  decision_reason: The argument does not meet the structural requirement for a hasty
+    generalization because no sample or specific evidence is provided to support the
+    broad conclusion that people will not vote.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - People are  naturally distrustful of new things like this political system. It
+    makes sense that people may not want to vote. It is important to encourage people
+    to vote in
+  verified: false
+  rejection_reason: The argument does not meet the structural requirement for a hasty
+    generalization because no sample or specific evidence is provided to support the
+    broad conclusion that people will not vote.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 3915
+  completion_tokens: 3842
+  total_tokens: 7757
+  wall_time_seconds: 127.4539999999979

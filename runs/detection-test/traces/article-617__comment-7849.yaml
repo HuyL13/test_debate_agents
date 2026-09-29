@@ -1,0 +1,143 @@
+sample:
+  id: 617:7849
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: It seems normal for any person or group in power to protect that power.
+    We see this behavior across the animal kingdom, so why are we surprised when it
+    occurs within our own species? In some parts of the world there have been more
+    successful attempts at taming this tendency. But perhaps rule by might has more
+    going for it than people think. Look at Rome and the worldwide peace its rule
+    by might established. And there is more than historical examples, as one can also
+    include the United States in such a list.
+initial_analysis:
+  structure:
+    structure_type: nature_to_value
+    slots:
+    - role: naturalness_premise
+      text: T1
+    - role: evaluative_conclusion
+      text: T1
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+    candidate: Appeal to Nature
+  goal:
+    conclusion_or_goal: Rule by might is a legitimate and beneficial form of governance.
+    candidate: Appeal to Nature
+    supporting_reason: It seems normal for any person or group in power to protect
+      that power. We see this behavior across the animal kingdom, so why are we surprised
+      when it occurs.
+    support_relation: justifies
+    label_justification: Uses the fact that power protects itself in the animal kingdom
+      as a natural reason to conclude that rule by might is acceptable.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+  counterargument:
+    decisive_counterargument: The claim that “rule by might” is justified because
+      it is a normal and natural behavior simply because it is observed in the animal
+      kingdom – and because historical examples such as Rome and the United States
+      show its effectiveness – commits an **Appeal to Nature** fallacy.  Normality
+      or natural occurrence does not, on its own, constitute a moral good or a rational
+      basis for policy.  By treating the biological fact that power‑protecting behavior
+      is common as an inherently correct pattern, the argument mistakenly equates
+      naturalness with desirability or legitimacy.  The historical anecdotes are anecdotal
+      and manipulatively framed; they do not establish a legitimate or universal case
+      for rule by might.  This counter‑argument shows that the inference from nature
+      to normative justification is flawed, exposing the fallacy.
+    candidate: Appeal to Nature
+    challenged_inference: It seems normal for any person or group in power to protect
+      that power. We see this behavior across the animal kingdom, so why are we surprised
+      when it occurs within our own species? In some parts of the world there have
+      been more successful attempts at taming this tendency. But perhaps rule by might
+      has more going for it… Look at Rome and the worldwide peace its rule by might
+      established. And there is more than historical examples, as one can also include
+      the United States
+    label_justification: The objection directly targets the normative leap from a
+      described natural behavior to justifying rule by might, which is the hallmark
+      of an Appeal to Nature argument.  The counter‑argument does not merely criticize
+      the argument but demonstrates that the reasoning is specifically fallacious
+      by showing that naturalness does not entail moral appropriateness or effectiveness,
+      thereby meeting the criteria for the Appeal to Nature fallacy.  It is not a
+      case of mere generalization, false dilemma, or slippery slope.  Therefore the
+      most accurate classification is Appeal to Nature.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T3
+    - T2
+    evidence_spans:
+    - It seems normal for any person or group in power to protect that power. We see
+      this behavior across the animal kingdom, so why are we surprised when it occurs
+    - than people think. Look at Rome and the worldwide peace its rule by might established.
+      And there is more than historical examples, as one can also include the United
+      States
+    - within our own species? In some parts of the world there have been more successful
+      attempts at taming this tendency. But perhaps rule by might has more going for
+      it
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Nature
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Nature
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Nature
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Nature
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Nature
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Nature
+  decisive_condition: The target asserts that protecting power is a natural behavior
+    observed across the animal kingdom and then infers that rule by might is legitimate
+    and beneficial; this matches the structure of an appeal to nature claim—using
+    naturalness as a justification for the desirability of a political stance.
+  decision_reason: It presents a naturalness premise (power protects itself as normal)
+    and an evaluative conclusion (rule by might is beneficial, as illustrated by Rome
+    and the United States). This directly satisfies the structure of an appeal to
+    nature fallacy.
+  evidence_ids:
+  - T1
+  - T3
+  evidence_spans:
+  - It seems normal for any person or group in power to protect that power. We see
+    this behavior across the animal kingdom, so why are we surprised when it occurs
+  - than people think. Look at Rome and the worldwide peace its rule by might established.
+    And there is more than historical examples, as one can also include the United
+    States
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Nature
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 4654
+  completion_tokens: 2979
+  total_tokens: 7633
+  wall_time_seconds: 283.15699999999924

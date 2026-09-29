@@ -1,0 +1,181 @@
+sample:
+  id: 409:7224
+  article_id: 409
+  task: classification
+  split: test
+  gold: Appeal to Tradition
+input:
+  title: Jamaicans agonise, politicians seek solutions after another young woman is
+    killed
+  parent: ''
+  target: If men can't protect women and the government can't protect their people,
+    what good are they? Men have always protected women, and governments have always
+    existed to protect their people. The Jamaican government and Jamaican men are
+    failing here. If Jamaica wants to become a safer place, they need to stick to
+    the traditions of men and government protecting their women.
+initial_analysis:
+  structure:
+    structure_type: tradition_to_preservation
+    slots:
+    - role: tradition_premise
+      text: Men have always protected women, and governments have always existed to
+        protect their people.
+    - role: preservation_conclusion
+      text: They need to stick to the traditions of men and government protecting
+        their women.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If men can't protect women and the government can't protect their people, what
+      good are they? Men have always protected women, and governments have always
+      existed to protect their people.
+    - The Jamaican government and Jamaican men are failing here. If Jamaica wants
+      to become a safer place, they need to stick to the traditions of men and government
+      protecting their
+    candidate: Appeal to Tradition
+  goal:
+    conclusion_or_goal: The Jamaican population should maintain the traditional role
+      of men and the government in protecting women in order to improve safety.
+    candidate: Appeal to Tradition
+    supporting_reason: The argument presents the historical fact that men have always
+      protected women and governments have always existed to protect people as a reason
+      for continuing that protective role.
+    support_relation: This reason is used to justify the conclusion that stick to
+      tradition of male and governmental protection will make Jamaica safer.
+    label_justification: The justification relies solely on the past consistency of
+      protecting women and people, invoking tradition as the basis for the present
+      claim. This is the characteristic of an Appeal to Tradition fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - If men can't protect women and the government can't protect their people, what
+      good are they? Men have always protected women, and governments have always
+      existed to protect their people.
+    - The Jamaican government and Jamaican men are failing here. If Jamaica wants
+      to become a safer place, they need to stick to the traditions of men and government
+      protecting their
+    - women.
+  counterargument:
+    decisive_counterargument: 'The claim that ‘men have always protected women’ and
+      that ‘governments have always existed to protect their people’ is unsubstantiated
+      and overly broad. It treats a single anecdotal or assumed instance as if it
+      applies universally, without providing empirical support or acknowledging counterexamples.
+      The fallacy here is a hasty generalization: a sweeping conclusion drawn from
+      insufficient evidence.'
+    candidate: Hasty Generalization
+    challenged_inference: Men have always protected women, and governments have always
+      existed to protect their people.
+    label_justification: The objection directly exposes that the reasoning in the
+      target text makes a universal claim without evidence, violating the requirement
+      that a generalization must be based on a representative sample. This is the
+      hallmark of a hasty generalization, not merely a critique of the argument’s
+      policy stance, and therefore justifies labeling the fallacy as such.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - If men can't protect women and the government can't protect their people, what
+      good are they? Men have always protected women, and governments have always
+      existed to protect their people.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Tradition
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Tradition
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Tradition
+    - Hasty Generalization
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts:
+  - Appeal to Tradition
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Tradition
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: Appeal to Tradition
+    loser_failure: Hasty Generalization is not directly supported by the target; the
+      target relies on the historical continuity of protection as a basis for continuing
+      the traditional role rather than making an unfounded generalization from an
+      inadequate sample.
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - If men can't protect women and the government can't protect their people, what
+      good are they? Men have always protected women, and governments have always
+      existed to protect their people.
+    - The Jamaican government and Jamaican men are failing here. If Jamaica wants
+      to become a safer place, they need to stick to the traditions of men and government
+      protecting their
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The argument references the historical fact that men and governments
+    have always protected women and people and uses this tradition as the sole justification
+    for continuing that protective role, meeting the structural definition of an Appeal
+    to Tradition fallacy.
+  decision_reason: The premise “Men have always protected women, and governments have
+    always existed to protect their people” is used to argue that Jamaica should “stick
+    to the traditions of men and government protecting their women” in order to be
+    safer.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - If men can't protect women and the government can't protect their people, what
+    good are they? Men have always protected women, and governments have always existed
+    to protect their people.
+  - The Jamaican government and Jamaican men are failing here. If Jamaica wants to
+    become a safer place, they need to stick to the traditions of men and government
+    protecting their
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Appeal to Tradition
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6084
+  completion_tokens: 3581
+  total_tokens: 9665
+  wall_time_seconds: 121.98499999998603

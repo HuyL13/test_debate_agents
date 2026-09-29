@@ -1,0 +1,141 @@
+sample:
+  id: 146:4636
+  article_id: 146
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: This digital novel narrates the violence against ethnic Chinese during the
+    1998 riots in Indonesia
+  parent: I don't think people should focus so much on the past. Both Indonesia and
+    China have a lot of significant problems they're facing right now. There's ever-increasing
+    repression in both countries, inequality, suffering of all kinds. Is now the time
+    to try to heal the wounds of some 25 year old event that affected some small minority?
+    That is the sort of thing you try to do after you've solved the bigger problems.
+  target: Not acknowledging past wrongs is a dangerous game to play. By ignoring these
+    types of events we leave the door open for them to occur again. We need to remember
+    the past so we can learn from it and do better in the future. Ignoring one event
+    leads to ignoring more events and eventually ending up with even worse consequences
+    in the future.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: not acknowledging past wrongs
+    - role: intermediate_consequence
+      text: ignoring more events
+    - role: final_consequence
+      text: ending up with even worse consequences in the future
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - Not acknowledging past wrongs is a dangerous game to play. By ignoring these
+      types of events we leave the door open for them to occur again. We need to remember
+    - the past so we can learn from it and do better in the future. Ignoring one event
+      leads to ignoring more events and eventually ending up with even worse consequences
+    - in the future.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The statement argues that people should remember past wrongs
+      because failing to do so risks inciting worse future harms.
+    candidate: Slippery Slope
+    supporting_reason: Ignoring one event leads to ignoring more events and eventually
+      ending up with even worse consequences
+    support_relation: mechanism_supports_goal
+    label_justification: The speaker presents a chain of escalating harms—ignoring
+      a single historical event permits ignorance of additional events, which then
+      culminates in even worse future outcomes—without demonstrating that this progression
+      is inevitable; this typifies a slippery‑slope claim.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the past so we can learn from it and do better in the future. Ignoring one event
+      leads to ignoring more events and eventually ending up with even worse consequences
+    - in the future.
+  counterargument:
+    decisive_counterargument: The claim that ignoring a single historical wrong inevitably
+      triggers a chain of further ignorance and leads to ever worse future outcomes
+      is an unjustified slippery‑slope assumption. It presents a progressive, unavoidable
+      series of negative effects without any empirical support or clear causal mechanism.
+      Ignoring a past event does not automatically guarantee that more events will
+      be ignored or that the ultimate consequences will be greater.
+    candidate: Slippery Slope
+    challenged_inference: Not acknowledging past wrongs is a dangerous game to play.
+      By ignoring these types of events we leave the door open for them to occur again.
+      Ignoring one event leads to ignoring more events and eventually ending up with
+      even worse consequences in the future.
+    label_justification: The objection specifically targets the causal chain outlined
+      in TARGET’s reasoning that the mere act of ignoring one past event will inevitably
+      result in a cascade of ignorance and worsening outcomes. This demonstrates a
+      slippery‑slope reasoning failure, as the argument lacks evidence for the claimed
+      progression and assumes an irreversible escalation.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Not acknowledging past wrongs is a dangerous game to play. By ignoring these
+      types of events we leave the door open for them to occur again. We need to remember
+    - the past so we can learn from it and do better in the future. Ignoring one event
+      leads to ignoring more events and eventually ending up with even worse consequences
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The target explicitly presents a chain of escalating consequences—ignoring
+    one past wrong leads to more ignored events and ultimately to worse future outcomes—without
+    offering empirical support that this progression is inevitable, satisfying the
+    structural criteria for a slippery‑slope fallacy.
+  decision_reason: The argument describes an initial act (ignoring past wrongs) that
+    leads to intermediate (ignoring more events) and final (more severe future consequences)
+    harms, forming the classic slippery‐slope pattern.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - Not acknowledging past wrongs is a dangerous game to play. By ignoring these types
+    of events we leave the door open for them to occur again. We need to remember
+  - the past so we can learn from it and do better in the future. Ignoring one event
+    leads to ignoring more events and eventually ending up with even worse consequences
+  - in the future.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 5036
+  completion_tokens: 2496
+  total_tokens: 7532
+  wall_time_seconds: 115.84400000004098

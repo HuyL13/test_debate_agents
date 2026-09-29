@@ -1,0 +1,153 @@
+sample:
+  id: 127:3827
+  article_id: 127
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: How internet shutdowns in Myanmar have been endangering lives and affecting
+    humanitarian work since the coup
+  parent: ''
+  target: Losing internet will not hurt society. The region survived without internet
+    for centuries and can move on without it. Humans need to enjoy the world more
+    anyway.
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: The region survived without internet for centuries
+    - role: observed_property
+      text: survived
+    - role: target_population
+      text: society
+    structure_complete: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Losing internet will not hurt society. The region survived without internet
+      for centuries and can move on without it. Humans need to enjoy the world more
+      anyway.
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: Losing internet will not hurt society.
+    candidate: Appeal to Tradition
+    supporting_reason: The region survived without internet for centuries and can
+      move on without it. Humans need to enjoy the world more anyway.
+    support_relation: mechanism_supports_goal
+    label_justification: The argument uses the historical fact that the region endured
+      for centuries without internet to claim that losing internet now will not harm
+      society, appealing to the tradition of past survival.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Losing internet will not hurt society. The region survived without internet
+      for centuries and can move on without it. Humans need to enjoy the world more
+      anyway.
+  counterargument:
+    decisive_counterargument: The claim that losing the internet will not hurt society
+      relies on the fact that a region survived centuries without internet, implying
+      that because it worked in the past it will work now. However, that historical
+      example is irrelevant because the internet is a fundamentally new technology
+      that changes how society functions today. Therefore, the inference that loss
+      of internet will not hurt society is flawed.
+    candidate: Appeal to Tradition
+    challenged_inference: The argument infers that a society will fare well after
+      losing the internet simply because it has survived without the internet for
+      centuries, treating historical survival as a sufficient justification for modern
+      relevance.
+    label_justification: The objection demonstrates that the argument is using tradition
+      as proof of continued success, a textbook example of an Appeal to Tradition.
+      The conclusion is not supported by current evidence but by past practice, fitting
+      the defined fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Losing internet will not hurt society. The region survived without internet
+      for centuries and can move on without it. Humans need to enjoy the world more
+      anyway.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Tradition
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Tradition
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  - Appeal to Tradition
+  transitions:
+  - before:
+    - Hasty Generalization
+    - Appeal to Tradition
+    conflict: appeal-to-tradition__vs__hasty-generalization
+    winner: Appeal to Tradition
+    after:
+    - Appeal to Tradition
+  after_conflicts: &id001
+  - Appeal to Tradition
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-tradition__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Tradition
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Appeal to Tradition
+    decisive_test: The target explicitly cites a long‑standing tradition – the region’s
+      survival for centuries without the internet – as the sole evidence for the conclusion
+      that losing the internet will not harm society, which satisfies the mandatory
+      structural condition of Appeal to Tradition.
+    loser_failure: While Hasty Generalization also can be argued, it requires an implicit
+      generalization from a single sample to a larger population; the target’s focus
+      is on the traditional fact rather than on generalizing a narrow observation,
+      so its structural condition is not as directly supported.
+    evidence_ids:
+    - T1
+    evidence_spans:
+    - Losing internet will not hurt society. The region survived without internet
+      for centuries and can move on without it. Humans need to enjoy the world more
+      anyway.
+arbiter:
+  selected_candidate: Appeal to Tradition
+  decisive_condition: The target statement explicitly relies on the historical fact
+    that the region survived for centuries without internet to argue that losing internet
+    now will not harm society, which is the defining structure of an Appeal to Tradition
+    fallacy.
+  decision_reason: The argument uses the region’s past survival without internet as
+    proof that its loss will not hurt society, thereby appealing to tradition. The
+    evidence T1 directly supports this inference.
+  evidence_ids:
+  - T1
+  evidence_spans:
+  - Losing internet will not hurt society. The region survived without internet for
+    centuries and can move on without it. Humans need to enjoy the world more anyway.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Tradition
+  prediction: Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 7
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 5351
+  completion_tokens: 4380
+  total_tokens: 9731
+  wall_time_seconds: 306.3280000000086

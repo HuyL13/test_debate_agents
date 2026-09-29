@@ -1,0 +1,133 @@
+sample:
+  id: 4:3008
+  article_id: 4
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Citizens from Chinese city on lockdown roar ‘Beijing has abandoned Wuhan!’
+  parent: ''
+  target: Wuhan was caught unprepared. Their knee jerk response only made things worse.
+    The first thing they should have done was notify the hospitals to start tracking
+    the numbers of patients with the disease. Once President Xi Jinping was briefed
+    on the speed of the spread of the virus, he was the best source to disseminate
+    the information. His expertise as a leader can guide the provinces through quarantines
+    and other actions needed to slow down the spread.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: President Xi Jinping
+    - role: endorsed_claim
+      text: Due to his expertise as a leader, he is the best source to disseminate
+        information and can guide the provinces through quarantines and other actions
+        needed to slow down the spread.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - with the disease. Once President Xi Jinping was briefed on the speed of the
+      spread of the virus, he was the best source to disseminate the information.
+      His expertise as
+    - a leader can guide the provinces through quarantines and other actions needed
+      to slow down the spread.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Xi Jinping’s leadership and expertise qualify him to be the
+      best source for disseminating information and guiding provinces through quarantines
+      and other necessary actions.
+    candidate: Appeal to Authority
+    supporting_reason: His expertise as a leader, hence best source for disseminating
+      information and guiding provinces
+    support_relation: Uses Xi’s position as an authority to justify his authority
+      over public health measures.
+    label_justification: 'Appeal to Authority: the argument relies on Xi’s status
+      as leader to legitimize his guidance without providing evidence of actual competence
+      or effectiveness.'
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - with the disease. Once President Xi Jinping was briefed on the speed of the
+      spread of the virus, he was the best source to disseminate the information.
+      His expertise as
+    - a leader can guide the provinces through quarantines and other actions needed
+      to slow down the spread.
+  counterargument:
+    decisive_counterargument: Being a political leader does not guarantee public health
+      expertise; effective pandemic guidance comes from specialists, not from senior
+      officials alone. Assuming that Xi’s authority automatically makes him the best
+      source is unsupported.
+    candidate: Appeal to Authority
+    challenged_inference: Xi’s political authority ensures the most effective public‑health
+      response.
+    label_justification: The argument relies on Xi’s status as a leader to justify
+      his role as the optimal source for pandemic information and guidance, which
+      is an appeal to authority.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - with the disease. Once President Xi Jinping was briefed on the speed of the
+      spread of the virus, he was the best source to disseminate the information.
+      His expertise as
+    - a leader can guide the provinces through quarantines and other actions needed
+      to slow down the spread.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Appeal to Authority
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts: &id001
+  - Appeal to Authority
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target asserts that President Xi Jinping, by virtue of his
+    status and expertise as a leader, is the best source for disseminating information
+    and guiding public-health measures, without providing evidence that his authority
+    actually grants him the required expertise. This meets the structural requirement
+    for an appeal to authority.
+  decision_reason: The passage attributes expertise solely to Xi’s position and uses
+    that as justification, which is an appeal to authority.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - with the disease. Once President Xi Jinping was briefed on the speed of the spread
+    of the virus, he was the best source to disseminate the information. His expertise
+    as
+  - a leader can guide the provinces through quarantines and other actions needed
+    to slow down the spread.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4749
+  completion_tokens: 3043
+  total_tokens: 7792
+  wall_time_seconds: 222.0

@@ -1,0 +1,162 @@
+sample:
+  id: 486:7455
+  article_id: 486
+  task: classification
+  split: test
+  gold: Appeal to Worse Problems
+input:
+  title: Password hack claim puts cyber security on the public agenda in North Macedonia
+  parent: ''
+  target: 'This incident, innocuous as it is, does raise awareness regarding the importance
+    of the simplest aspects of cyber security, like solid passwords, etc. However,
+    the national economy, COVID, and other factors seem like much more urgent foci
+    for the government''s attention. Sure, shore up your passwords and do what should
+    be done to keep the network secure, but let''s direct time and energy to the more
+    central things: economy, healthcare, geopolitical issues, etc.'
+initial_analysis:
+  structure:
+    structure_type: worse_problem_to_deprioritization
+    slots:
+    - role: focal_issue
+      text: simplest aspects of cyber security
+    - role: worse_issue
+      text: national economy, COVID, and other factors
+    - role: deprioritizing_conclusion
+      text: 'let''s direct time and energy to the more central things: economy, healthcare,
+        geopolitical issues, etc.'
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This incident, innocuous as it is, does raise awareness regarding the importance
+      of the simplest aspects of cyber security, like solid passwords, etc. However,
+      the national economy, COVID, and other
+    - factors seem like much more urgent foci for the government's attention. Sure,
+      shore up your passwords and do what should be done to keep the network secure,
+      but let's direct
+    - 'time and energy to the more central things: economy, healthcare, geopolitical
+      issues, etc.'
+    candidate: Appeal to Worse Problems
+  goal:
+    conclusion_or_goal: The government should focus more on pressing national concerns—such
+      as the economy, healthcare, and geopolitical issues—rather than on this minor
+      cyber‑security incident.
+    candidate: null
+    supporting_reason: the national economy, COVID, and other factors seem like much
+      more urgent foci for the government's attention
+    support_relation: supports
+    label_justification: The argument simply compares the urgency of different issues
+      and proposes a resource allocation accordingly; it does not exhibit a recognized
+      logical fallacy within the provided categories.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - This incident, innocuous as it is, does raise awareness regarding the importance
+      of the simplest aspects of cyber security, like solid passwords, etc. However,
+      the national economy, COVID, and other
+    - factors seem like much more urgent foci for the government's attention. Sure,
+      shore up your passwords and do what should be done to keep the network secure,
+      but let's direct
+    - 'time and energy to the more central things: economy, healthcare, geopolitical
+      issues, etc.'
+  counterargument:
+    decisive_counterargument: The argument wrongly assumes that because the economy,
+      COVID, and geopolitics are highly urgent, cyber‑security concerns such as password
+      hygiene can be neglected or treated as secondary. In reality, weak passwords
+      and basic cyber‑security practices directly threaten the infrastructure that
+      underpins the economy, healthcare systems, and national security. Ignoring these
+      measures does not free resources for other priorities; it actually jeopardizes
+      them. Therefore the claim that other issues should dominate is unsupported and
+      misleading.
+    candidate: Appeal to Worse Problems
+    challenged_inference: The national economy, COVID, and other larger issues are
+      more important than strengthening cyber‑security measures like password hygiene.
+    label_justification: The objection demonstrates that the target argument uses
+      one larger, more urgent problem (the economy, pandemic, geopolitics) to dismiss
+      or minimize a smaller but still important concern (password security). This
+      aligns precisely with the logical‑fallacy category ‘Appeal to Worse Problems’,
+      where a more pressing issue is elevated to the exclusion of a second issue that
+      still requires attention.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This incident, innocuous as it is, does raise awareness regarding the importance
+      of the simplest aspects of cyber security, like solid passwords, etc. However,
+      the national economy, COVID, and other
+    - factors seem like much more urgent foci for the government's attention. Sure,
+      shore up your passwords and do what should be done to keep the network secure,
+      but let's direct
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Worse Problems
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Worse Problems
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Appeal to Worse Problems
+  transitions: []
+  after_conflicts:
+  - Appeal to Worse Problems
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Worse Problems
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Worse Problems
+  decisive_condition: The target explicitly compares cyber‑security concerns (solid
+    passwords) to larger, more consequential issues (national economy, COVID, healthcare,
+    geopolitical affairs) and concludes that resources should be directed to the latter,
+    matching the structure of an Appeal to Worse Problems fallacy.
+  decision_reason: 'The text demonstrates the typical pattern: highlighting a less
+    pressing issue (cyber security) and then asserting that because there are more
+    pressing problems (economy, health, geopolitics), the less pressing one should
+    be de‑prioritized. This meets the necessary structural condition for the Appeal
+    to Worse Problems fallacy.'
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - This incident, innocuous as it is, does raise awareness regarding the importance
+    of the simplest aspects of cyber security, like solid passwords, etc. However,
+    the national economy, COVID, and other
+  - factors seem like much more urgent foci for the government's attention. Sure,
+    shore up your passwords and do what should be done to keep the network secure,
+    but let's direct
+  - 'time and energy to the more central things: economy, healthcare, geopolitical
+    issues, etc.'
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Worse Problems
+  prediction: Appeal to Worse Problems
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4449
+  completion_tokens: 2979
+  total_tokens: 7428
+  wall_time_seconds: 102.29699999999139

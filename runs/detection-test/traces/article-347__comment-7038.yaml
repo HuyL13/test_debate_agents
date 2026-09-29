@@ -1,0 +1,115 @@
+sample:
+  id: 347:7038
+  article_id: 347
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: The threat of a restrictive NGO law looms over Slovakia
+  parent: ''
+  target: Tighter regulations will eventually just lead to all NGOs ceasing to exist
+    there. They will regulate them so strictly that either they won't be able to afford
+    it, or they will be intimidated into leaving. This will lead to the politicians
+    getting away with whatever they want. This is happening due to an NGO investigating
+    a murder, isn't it? The fact that they want to regulate ngos now means that they
+    don't like that a murder is being investigated!
+initial_analysis:
+  structure:
+    evidence_spans:
+    - Tighter regulations will eventually just lead to all NGOs ceasing to exist there.
+    - This will lead to the politicians getting away with whatever they want.
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Tighter regulations
+    - role: intermediate_consequence
+      text: all NGOs ceasing to exist there or being intimidated into leaving
+    - role: final_consequence
+      text: politicians getting away with whatever they want
+    structure_complete: true
+    candidate: Slippery Slope
+  goal:
+    evidence_spans:
+    - Tighter regulations will eventually just lead to all NGOs ceasing to exist there.
+      They will regulate them so strictly that either they won't be able to afford
+      it, or they will be intimidated into leaving.
+    conclusion_or_goal: The progression of stricter NGO regulation will allow politicians
+      to act without accountability, ultimately leading them to succeed in whatever
+      they want.
+    candidate: Slippery Slope
+    supporting_reason: Tighter regulations will eventually lead to all NGOs ceasing
+      to exist there. They will regulate them so strictly that either they won't be
+      able to afford it, or they will be intimidated into leaving.
+    support_relation: The argument claims a causal chain in which increasing regulation
+      of NGOs causes their disappearance, thereby removing oversight and enabling
+      politicians to operate unimpeded.
+    label_justification: The argument presents a speculative, inevitable progression—from
+      stricter regulation to NGO disappearance to unchecked political power—without
+      evidence, fitting the definition of a slippery‑slope argument.
+    mechanism_supports_goal: true
+  counterargument:
+    evidence_spans:
+    - Tighter regulations will eventually just lead to all NGOs ceasing to exist there.
+    decisive_counterargument: There is no evidence that making NGO regulation stricter
+      will inevitably force every NGO to shut down. NGOs can adapt to new legal requirements,
+      reform their operations, or seek alternative funding, meaning the extreme outcome
+      of total disappearance is not guaranteed. The argument therefore assumes a single,
+      inexorable chain of events without empirical support.
+    candidate: Slippery Slope
+    challenged_inference: Tighter regulations will eventually just lead to all NGOs
+      ceasing to exist there
+    label_justification: The objection attacks the claim that stricter regulations
+      will inevitably trigger a cascade of consequences—NGO closures followed by unchecked
+      politicians. This leap from a regulatory change to a sequence of extreme outcomes,
+      without evidence of such a progression, exemplifies a slippery‑slope fallacy.
+      The counterargument therefore points out the failure of that specific reasoning
+      pattern.
+    failure_exposed: true
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  evidence_spans:
+  - Tighter regulations will eventually just lead to all NGOs ceasing to exist there.
+  - This will lead to the politicians getting away with whatever they want.
+  decisive_condition: The TARGET explicitly asserts a causal chain—tighter regulations
+    → NGOs ceasing or being intimidated → politicians gaining unchecked power—without
+    empirical support, fulfilling the structural requirements of a slippery‑slope
+    argument.
+  decision_reason: Target presents an unsubstantiated, inevitable progression from
+    stricter NGO regulation to the disappearance of NGOs and the consequent rise of
+    unchecked political power, which is exactly the pattern of a slippery‑slope fallacy.
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Slippery Slope
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3969
+  completion_tokens: 4366
+  total_tokens: 8335
+  wall_time_seconds: 151.73399999999674

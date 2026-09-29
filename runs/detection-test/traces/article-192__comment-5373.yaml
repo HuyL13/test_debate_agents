@@ -1,0 +1,121 @@
+sample:
+  id: 192:5373
+  article_id: 192
+  task: detection
+  split: test
+  gold: Non-Fallacious
+input:
+  title: In Turkey, a football federation joins a list of institutions with powers
+    to censor content online
+  parent: ''
+  target: This is a standard Turk issue. They will restrict anything opposing the
+    status quo. it's how the government can keep people in line. No other reason to
+    block anything without a court order.
+initial_analysis:
+  structure:
+    structure_type: none
+    slots: []
+    structure_complete: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a standard Turk issue. They will restrict anything opposing the status
+      quo. it's how the government can keep people in line. No other reason to block
+      anything without
+    - a court order.
+    candidate: null
+  goal:
+    conclusion_or_goal: The government will only restrict content opposing the status
+      quo and requires a court order to block any other content.
+    candidate: Hasty Generalization
+    supporting_reason: They will restrict anything opposing the status quo; it’s how
+      the government can keep people in line.
+    support_relation: means
+    label_justification: The claim asserts a universal restriction imposed by the
+      government on all opposing content without presenting evidence for such a blanket
+      policy, fitting the definition of a hasty generalization. The statement does
+      not involve any other typically fallacious structure such as appeal to authority
+      or false dilemma.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a standard Turk issue. They will restrict anything opposing the status
+      quo. it's how the government can keep people in line. No other reason to block
+      anything without
+    - a court order.
+  counterargument:
+    decisive_counterargument: The claim that the Turkish government will block all
+      content opposing the status quo and that no other reason exists for such blocking
+      is unsubstantiated; the speaker offers no evidence or examples to support this
+      sweeping assertion, so the conclusion cannot be justified on the basis given.
+    candidate: null
+    challenged_inference: That all opposition will be blocked without a court order.
+    label_justification: No identifiable logical fallacy can be discerned from the
+      argument; the speaker merely presents an unsupported blanket statement, which
+      contravenes sound reasoning but does not match any standard fallacy type.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - This is a standard Turk issue. They will restrict anything opposing the status
+      quo. it's how the government can keep people in line. No other reason to block
+      anything without
+    - a court order.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: null
+    viable: false
+    reason: structure_complete=false
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target statement lacks any sample cases or instances from
+    which a universal claim is drawn, so the structural requirement for a hasty generalization
+    is not met.
+  decision_reason: The claim about government restriction of all opposing content
+    is presented as a blanket assertion without citing specific examples or evidence,
+    failing the necessary structure of a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - This is a standard Turk issue. They will restrict anything opposing the status
+    quo. it's how the government can keep people in line. No other reason to block
+    anything without
+  - a court order.
+  verified: false
+  rejection_reason: The claim about government restriction of all opposing content
+    is presented as a blanket assertion without citing specific examples or evidence,
+    failing the necessary structure of a hasty generalization.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 6
+  cache_hits: 0
+  retries: 2
+  prompt_tokens: 3909
+  completion_tokens: 3786
+  total_tokens: 7695
+  wall_time_seconds: 344.0149999999994

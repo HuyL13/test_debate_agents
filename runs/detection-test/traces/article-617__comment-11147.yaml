@@ -1,0 +1,188 @@
+sample:
+  id: 617:11147
+  article_id: 617
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: 'Cameroon: Report the Anglophone conflict and perish'
+  parent: ''
+  target: What's the point of having journalists in a particular country if they can't
+    report anything? This situation speaks volumes about the state of press freedom,
+    which is supposedly guaranteed by the constitution. As CPJ stated, journalists
+    are not terrorists, yet they are treated as such in Cameroon. Imagine if other
+    countries began to follow the same trend because they saw no repercussions on
+    such acts? That's a chilling perspective for the future of global journalism.
+    As the UN recognizes, an independent press is crucial to preserving human rights
+    - but it feels like that message is getting lost somewhere in the narrative.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: CPJ
+    - role: endorsed_claim
+      text: journalists are not terrorists
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: Press freedom is compromised in Cameroon and poses a threat
+      to journalism worldwide.
+    candidate: null
+    supporting_reason: Citing CPJ’s statement that journalists are not terrorists
+      and the UN’s recognition of an independent press as crucial for human rights.
+    support_relation: The argument relies on authority and international recognition
+      to justify its claim.
+    label_justification: Using CPJ and UN statements is an appeal to relevant authorities,
+      not a fallacious tactic; the reasoning legitimately supports the conclusion
+      rather than misusing the authority.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - What's the point of having journalists in a particular country if they can't
+      report anything? This situation speaks volumes about the state of press freedom,
+      which is supposedly guaranteed by
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+    - no repercussions on such acts? That's a chilling perspective for the future
+      of global journalism. As the UN recognizes, an independent press is crucial
+      to preserving human rights - but
+  counterargument:
+    decisive_counterargument: The text draws a leap from Cameroon’s treatment of journalists
+      to a future where all countries emulate this behaviour and global journalism
+      is suppressed. No evidence links the Cameroonian case to any causal chain of
+      adoption by other states, nor does it provide any intermediate steps that would
+      justify such a drastic shift. Thus the claim relies on an unsubstantiated speculative
+      chain, which is the classic slippery‑slope fallacy.
+    candidate: Slippery Slope
+    challenged_inference: If Cameroon treats journalists as terrorists, then other
+      countries will follow suit, leading to widespread chilling of global journalism.
+    label_justification: The objection specifically shows that the argument leaps
+      from one event to a series of negative outcomes without providing evidence or
+      intermediate steps, matching the definition of a slippery‑slope fallacy rather
+      than merely criticizing it.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+    - no repercussions on such acts? That's a chilling perspective for the future
+      of global journalism. As the UN recognizes, an independent press is crucial
+      to preserving human rights - but
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Slippery Slope
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Slippery Slope
+    conflict: appeal-to-authority__vs__slippery-slope
+    winner: Slippery Slope
+    after:
+    - Slippery Slope
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts:
+- id: appeal-to-authority__vs__slippery-slope
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Slippery Slope
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Slippery Slope
+    decisive_test: 'The target contains a speculative leap from Cameroon’s treatment
+      of journalists to a nationwide suppression of global journalism with no intermediate
+      evidence or steps provided: “Imagine if other countries began to follow the
+      same trend because they saw no repercussions on such acts? That''s a chilling
+      perspective for the future of global journalism.” This rise from a single event
+      to a series of negative outcomes satisfies the slippery‑slope structure. The
+      authority citation (CPJ) merely affirms a fact and does not serve as the basis
+      for the argument’s conclusion, so it does not meet the mandatory structural
+      condition for an Appeal to Authority. Thus, the target is a slippery‑slope fallacy.'
+    loser_failure: Appeal to Authority requires that an authority is invoked to support
+      the main claim of the argument. In the target, the CPJ is cited only to confirm
+      that “journalists are not terrorists”, whereas the main claim concerns their
+      treatment in Cameroon and the potential global impact—neither of which relies
+      on the authority’s endorsement, so the structure for Appeal to Authority is
+      not satisfied.
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+      treated as such in Cameroon. Imagine if other countries began to follow the
+      same trend because they saw
+    - no repercussions on such acts? That's a chilling perspective for the future
+      of global journalism. As the UN recognizes, an independent press is crucial
+      to preserving human rights - but
+arbiter:
+  selected_candidate: null
+  decisive_condition: The argument contains only a single speculative prediction that
+    if other countries imitate Cameroon, global journalism will be chilled. It lacks
+    a chain of escalating consequences or intermediate steps required for a slippery‑slope
+    inference. Therefore the structural condition for a slippery‑slope fallacy is
+    not met, so no fallacy is present.
+  decision_reason: The target does not provide a sequence or progression from the
+    initial condition to increasingly adverse outcomes; it presents only one improbable
+    outcome. Accordingly, the claim does not fulfill the slippery‑slope structure,
+    so the fallacy is not present.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - the constitution. As CPJ stated, journalists are not terrorists, yet they are
+    treated as such in Cameroon. Imagine if other countries began to follow the same
+    trend because they saw
+  - no repercussions on such acts? That's a chilling perspective for the future of
+    global journalism. As the UN recognizes, an independent press is crucial to preserving
+    human rights - but
+  verified: false
+  rejection_reason: The target does not provide a sequence or progression from the
+    initial condition to increasingly adverse outcomes; it presents only one improbable
+    outcome. Accordingly, the claim does not fulfill the slippery‑slope structure,
+    so the fallacy is not present.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6196
+  completion_tokens: 4519
+  total_tokens: 10715
+  wall_time_seconds: 215.95300000000134

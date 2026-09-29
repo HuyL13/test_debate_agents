@@ -1,0 +1,154 @@
+sample:
+  id: 304:5708
+  article_id: 304
+  task: classification
+  split: test
+  gold: Appeal to Majority
+input:
+  title: First transgender pride march hopes to shatter stereotypes in Pakistan
+  parent: ''
+  target: More than any of this, I'd be interested to see what public opinion in the
+    country is on this issue. Is this a government unilaterally denying them the laws
+    that the majority support, or do the people not actually support it? I don't believe
+    it's fair to have minorities pushing through legislation and changes that go against
+    the will of the people so this is what I want to read more about.
+initial_analysis:
+  structure:
+    structure_type: popularity_to_claim
+    slots:
+    - role: population_group
+      text: the people
+    - role: popularity_claim
+      text: the majority support the laws
+    - role: target_claim
+      text: legislation should reflect the will of the majority and it is unfair for
+        minorities to push through changes that go against that will
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - More than any of this, I'd be interested to see what public opinion in the country
+      is on this issue. Is this a government unilaterally denying them the laws that
+    - the majority support, or do the people not actually support it? I don't believe
+      it's fair to have minorities pushing through legislation and changes that go
+      against the will of
+    - the people so this is what I want to read more about.
+    candidate: Appeal to Majority
+  goal:
+    conclusion_or_goal: The speaker wishes to discover the public opinion in the country
+      on the issue and determine whether the majority supports it.
+    candidate: null
+    supporting_reason: The speaker expresses that they believe it is unfair for minorities
+      to enact legislation that contradicts the will of the people, implying that
+      majority sentiment is the relevant standard.
+    support_relation: The concern over majority opinion motivates the desire to find
+      out how the public actually feels.
+    label_justification: The argument does not employ an unwarranted generalization,
+      a false dilemma, or an appeal to authority or majority. The speaker simply states
+      a personal value and seeks evidence, so there is no fallacious reasoning here.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - More than any of this, I'd be interested to see what public opinion in the country
+      is on this issue. Is this a government unilaterally denying them the laws that
+    - the majority support, or do the people not actually support it? I don't believe
+      it's fair to have minorities pushing through legislation and changes that go
+      against the will of
+    - the people so this is what I want to read more about.
+  counterargument:
+    decisive_counterargument: 'The claim that it is “unfair” for minorities to push
+      legislation against the apparent will of the majority hinges on the idea that
+      majority opinion alone can determine what is fair, and that any policy that
+      diverges from that opinion is unjust.  That is an Appeal to Majority (majoritarianism)
+      fallacy: the argument uses the consensus—or lack thereof—among the people as
+      the sole justification for fairness, ignoring the principle that minority rights
+      and legal protections may legitimately override majority preferences.  Consequently,
+      the reasoning that minorities cannot legitimately change laws because the majority
+      fears or disagrees with such changes is logically flawed.'
+    candidate: Appeal to Majority
+    challenged_inference: I don't believe it's fair to have minorities pushing through
+      legislation and changes that go against the will of the people
+    label_justification: The objection shows that the argument relies on majority
+      opinion as the sole criterion for fairness, which is the hallmark of an Appeal
+      to Majority fallacy.  The counterargument directly addresses this flaw rather
+      than merely criticizing the argument’s content; it exposes the specific reasoning
+      failure that treats popular opinion as the definitive measure of fairness.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - More than any of this, I'd be interested to see what public opinion in the country
+      is on this issue. Is this a government unilaterally denying them the laws that
+    - the majority support, or do the people not actually support it? I don't believe
+      it's fair to have minorities pushing through legislation and changes that go
+      against the will of
+    - the people so this is what I want to read more about.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Majority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Majority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Majority
+  transitions: []
+  after_conflicts:
+  - Appeal to Majority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Majority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Majority
+  decisive_condition: The target sentence argues that it is “unfair” for minorities
+    to pass legislation that goes against what the majority supports, using majority
+    opinion alone as the justification for fairness, which matches the structural
+    definition of an Appeal to Majority.
+  decision_reason: The argument relies solely on majority opinion to support a claim
+    about fairness, satisfying the requisite structure of an Appeal to Majority fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  - T3
+  evidence_spans:
+  - More than any of this, I'd be interested to see what public opinion in the country
+    is on this issue. Is this a government unilaterally denying them the laws that
+  - the majority support, or do the people not actually support it? I don't believe
+    it's fair to have minorities pushing through legislation and changes that go against
+    the will of
+  - the people so this is what I want to read more about.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Majority
+  prediction: Appeal to Majority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4652
+  completion_tokens: 3675
+  total_tokens: 8327
+  wall_time_seconds: 117.59400000001187

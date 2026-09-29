@@ -1,0 +1,134 @@
+sample:
+  id: 1:3901
+  article_id: 1
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Record crowd commemorates Tiananmen Massacre at Hong Kong candlelight vigil
+  parent: ''
+  target: You know how China is with dissent, so if I were in Hong Kong, I would quit
+    it with this or they will be killed by the Chinese. They kill their own people,
+    so they will kill you to seeing as they already sort of consider HK theirs. Especially
+    when you are trying to bring attention to something that they have been trying
+    to bury for decades!
+initial_analysis:
+  structure:
+    structure_type: sample_to_population
+    slots:
+    - role: sample
+      text: They kill their own people
+    - role: observed_property
+      text: kill
+    - role: target_population
+      text: the Chinese
+    structure_complete: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+    candidate: Hasty Generalization
+  goal:
+    conclusion_or_goal: The speaker warns that anyone in Hong Kong who seeks to expose
+      or bring attention to suppressed issues risks being killed by Chinese authorities,
+      and therefore advises quitting Hong Kong.
+    candidate: null
+    supporting_reason: Because China is intolerant of dissent, the speaker claims
+      that the Chinese government kills its own people and would therefore kill anyone
+      who tries to publicise the suppression of dissent.
+    support_relation: The reason about China's treatment of dissent is used to justify
+      the conclusion that dissenters will be killed and should therefore leave Hong
+      Kong.
+    label_justification: The TARGET statement does not fit the defined fallacy types
+      (no hasty generalisation, no slippery slope, no false dilemma, etc.). It simply
+      uses a claim about China's behaviour to support a warning.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+    - have been trying to bury for decades!
+  counterargument:
+    decisive_counterargument: While authorities have occasionally used force, there
+      is no evidence that every protester is executed; most incidents involve arrests
+      or suppression, not murder.
+    candidate: Hasty Generalization
+    challenged_inference: All dissenters in Hong Kong will be killed by Chinese authorities.
+    label_justification: The argument extrapolates from an unspecified claim that
+      ‘they kill their own people’ to a universal assertion that every dissenting
+      individual will be murdered—an unsupported generalization requiring a large
+      sample of instances, which is absent.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - You know how China is with dissent, so if I were in Hong Kong, I would quit
+      it with this or they will be killed by the Chinese. They kill
+    - their own people, so they will kill you to seeing as they already sort of consider
+      HK theirs. Especially when you are trying to bring attention to something that
+      they
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Hasty Generalization
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Hasty Generalization
+  transitions: []
+  after_conflicts: &id001
+  - Hasty Generalization
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: The target extrapolates from a single, unspecified claim (“They
+    kill their own people”) to a universal assertion that all dissenting individuals
+    in Hong Kong will be killed by Chinese authorities, without providing sufficient
+    instances or evidence to support such a generalization. This satisfies the syntactic
+    structure of a hasty generalization (sample → population).
+  decision_reason: The target’s claim that every dissenter will be killed is drawn
+    from the broad statement that “they kill their own people,” which serves as an
+    insufficient sample to justify the universal conclusion. The inference thus commits
+    the hasty generalization fallacy.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - You know how China is with dissent, so if I were in Hong Kong, I would quit it
+    with this or they will be killed by the Chinese. They kill
+  - their own people, so they will kill you to seeing as they already sort of consider
+    HK theirs. Especially when you are trying to bring attention to something that
+    they
+  verified: true
+  rejection_reason: null
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Fallacious
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4393
+  completion_tokens: 4151
+  total_tokens: 8544
+  wall_time_seconds: 219.625

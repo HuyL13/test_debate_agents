@@ -1,0 +1,135 @@
+sample:
+  id: 565:8291
+  article_id: 565
+  task: classification
+  split: test
+  gold: Appeal to Authority
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: This topic is very interesting and I hope to read more about it. It's great
+    to hear that the country has made some positive strides, however small, even in
+    the face of recent bad developments. A healthy media is clearly very important
+    for the wellbeing of society, as all evidence shows. It's like Cronkite said,
+    freedom of the press isn't just important to democracy. It is democracy.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: Cronkite
+    - role: endorsed_claim
+      text: freedom of the press isn't just important to democracy; it is democracy.
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - face of recent bad developments. A healthy media is clearly very important for
+      the wellbeing of society, as all evidence shows. It's like Cronkite said, freedom
+      of the press isn't
+    - just important to democracy. It is democracy.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: A healthy media is essential for society’s wellbeing and for
+      democracy.
+    candidate: null
+    supporting_reason: The text states that all evidence shows a healthy media is
+      crucial, and cites Cronkite’s assertion that freedom of the press is not only
+      important to democracy but is democracy.
+    support_relation: justification
+    label_justification: The argument uses a (vague) appeal to evidence and an appeal
+      to a relevant authority (Cronkite) to support the claim about media’s importance.
+      No logical fallacy is evident because the claim is not based on an invalid inference
+      or misleading premise; the authorities and evidence cited are appropriate and
+      the reasoning is not otherwise flawed.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - face of recent bad developments. A healthy media is clearly very important for
+      the wellbeing of society, as all evidence shows. It's like Cronkite said, freedom
+      of the press isn't
+    - just important to democracy. It is democracy.
+  counterargument:
+    decisive_counterargument: The claim that a healthy media is clearly essential
+      for societal wellbeing rests solely on an unqualified statement that 'all evidence
+      shows'—yet no supporting evidence is provided. By evoking Cronkite’s authority
+      without presenting any empirical or logical backing, the reasoning merely appeals
+      to an expert’s credibility rather than to actual facts. As a result, the argument
+      remains unsupported and thus logically flawed.
+    candidate: Appeal to Authority
+    challenged_inference: A healthy media is clearly very important for the wellbeing
+      of society, as all evidence shows.
+    label_justification: The inference is justified only by citing Cronkite’s claim,
+      an authority figure, instead of providing concrete evidence. This exposes an
+      appeal to authority fallacy.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    evidence_spans:
+    - face of recent bad developments. A healthy media is clearly very important for
+      the wellbeing of society, as all evidence shows. It's like Cronkite said, freedom
+      of the press isn't
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: Appeal to Authority
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  transitions: []
+  after_conflicts:
+  - Appeal to Authority
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Appeal to Authority
+conflicts: []
+arbiter:
+  selected_candidate: Appeal to Authority
+  decisive_condition: The target explicitly uses Cronkite’s authority to support the
+    claim that freedom of the press is essential to democracy, without providing independent
+    evidence, satisfying the authority‑to‑claim structure that defines an Appeal to
+    Authority fallacy.
+  decision_reason: Appeal to Authority is present in the text, as it cites Cronkite’s
+    statement on the press to justify its importance, with no independent evidence
+    supplied.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - face of recent bad developments. A healthy media is clearly very important for
+    the wellbeing of society, as all evidence shows. It's like Cronkite said, freedom
+    of the press isn't
+  - just important to democracy. It is democracy.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Appeal to Authority
+  prediction: Appeal to Authority
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 5
+  cache_hits: 0
+  retries: 1
+  prompt_tokens: 4449
+  completion_tokens: 3928
+  total_tokens: 8377
+  wall_time_seconds: 122.32799999997951

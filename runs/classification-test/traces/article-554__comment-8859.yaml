@@ -1,0 +1,149 @@
+sample:
+  id: 554:8859
+  article_id: 554
+  task: classification
+  split: test
+  gold: Slippery Slope
+input:
+  title: Sri Lankan Court temporarily bars disputed Prime Minister Rajapaksa from
+    office
+  parent: ''
+  target: I'm confused. If there were two rejected no-confidence motions for him,
+    why does the court think its okay to not allow him to be PM? Seems political to
+    me. If you let the courts get political, you eventually get countries like Russia
+    and Nazi Germany. Before it gets that bad, it could lead to the opposition being
+    barred from holding office ever again, or political prisoners being taken.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: courts get political
+    - role: intermediate_consequence
+      text: opposition being barred from holding office or political prisoners being
+        taken
+    - role: final_consequence
+      text: countries like Russia and Nazi Germany
+    structure_complete: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: The speaker believes that the court’s decision is politically
+      problematic and that allowing courts to act politically could eventually lead
+      to authoritarian regimes or the suppression of opposition.
+    candidate: Slippery Slope
+    supporting_reason: If courts get political, they could lead to countries like
+      Russia and Nazi Germany, or before that, the opposition could be barred from
+      holding office or political prisoners taken.
+    support_relation: sequential
+    label_justification: The argument presents an unwarranted causal chain from the
+      court’s political action to extreme authoritarian outcomes, asserting that such
+      consequences will inevitably follow without evidence, which is characteristic
+      of a slippery slope fallacy.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - I'm confused. If there were two rejected no-confidence motions for him, why
+      does the court think its okay to not allow him to be PM? Seems political to
+      me. If
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+  counterargument:
+    decisive_counterargument: The claim that any court involvement in politics will
+      inevitably result in an authoritarian regime such as Nazi Germany or a total
+      ban on opposition is an unsupported speculative escalation. There is no causal
+      link demonstrated that a single court decision or series of decisions leads
+      to such extreme outcomes; many democracies have courts that exercise political
+      oversight without devolving into dictatorship. The argument merely extrapolates
+      one political action to a runaway chain of disastrous consequences without evidence
+      of inevitability or probability.
+    candidate: Slippery Slope
+    challenged_inference: Because courts get involved in politics, it will inevitably
+      lead to authoritarian regimes like Russia and Nazi Germany.
+    label_justification: The objection directly confronts the target’s reasoning that
+      a single event (court intervention) will trigger an irreversible slide toward
+      extreme political outcomes, which is the defining feature of a slippery slope
+      fallacy. It shows the argument relies on an unsubstantiated causal chain rather
+      than empirical evidence.
+    failure_exposed: true
+    evidence_ids:
+    - T2
+    - T3
+    evidence_spans:
+    - you let the courts get political, you eventually get countries like Russia and
+      Nazi Germany. Before it gets that bad, it could lead to the opposition being
+      barred from holding
+    - office ever again, or political prisoners being taken.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Slippery Slope
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Slippery Slope
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts:
+  - Slippery Slope
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Slippery Slope
+conflicts: []
+arbiter:
+  selected_candidate: Slippery Slope
+  decisive_condition: The argument presents an inferred progression from courts becoming
+    politically involved to the opposition being suppressed and ultimately to authoritarian
+    states resembling Russia or Nazi Germany, without any evidence of inevitability
+    or causal linkage. This qualifies as a slippery‑slope fallacy.
+  decision_reason: The target proposes a causal chain—courts get political → opposition
+    barred/priests taken → authoritarian regimes—failing to provide any evidence that
+    each step follows from the preceding one. The structural elements of a slippery
+    slope are present, and the claim relies on speculation, not on proven causation.
+  evidence_ids:
+  - T2
+  - T3
+  evidence_spans:
+  - you let the courts get political, you eventually get countries like Russia and
+    Nazi Germany. Before it gets that bad, it could lead to the opposition being barred
+    from holding
+  - office ever again, or political prisoners being taken.
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Slippery Slope
+  prediction: Slippery Slope
+  correct: true
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4766
+  completion_tokens: 3436
+  total_tokens: 8202
+  wall_time_seconds: 173.0

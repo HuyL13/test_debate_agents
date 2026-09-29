@@ -1,0 +1,187 @@
+sample:
+  id: 565:7692
+  article_id: 565
+  task: classification
+  split: test
+  gold: Hasty Generalization
+input:
+  title: New book presents rarely researched aspects of Myanmar's political and media
+    transition
+  parent: ''
+  target: The media over all is owned by governments who are able to push their own
+    agendas as something that is fact instead of being unbiased. The media is no less
+    corrupt then the ruling government parties and the elites. It is certainly no
+    coincidence that the media stories generally align with the popular government
+    opinions.  Between the government and the big corporation's it's a wonder if we
+    hear anything on the news that is truly truthful.
+initial_analysis:
+  structure:
+    structure_type: authority_to_claim
+    slots:
+    - role: authority
+      text: governments
+    - role: endorsed_claim
+      text: the media is biased and corrupt, aligning with government opinions
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+    - big corporation's it's a wonder if we hear anything on the news that is truly
+      truthful.
+    candidate: Appeal to Authority
+  goal:
+    conclusion_or_goal: The media is corrupt and not truthful, as it is owned or controlled
+      by governments that push their own agendas.
+    candidate: Hasty Generalization
+    supporting_reason: The claim that ‘the media over all is owned by governments
+      who can push their agendas as fact rather than unbiased’ generalizes about all
+      media without providing evidence or specific examples.
+    support_relation: mechanism_supports_goal
+    label_justification: The target presents a sweeping claim about all media being
+      government‑controlled and thus untrustworthy, yet offers no concrete examples
+      or evidence. This is a classic instance of a hasty generalization.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+  counterargument:
+    decisive_counterargument: You say that because governments own the media, the
+      entire press is biased and aligns with government opinions. That is a sweeping
+      generalization that ignores the large number of independent outlets that routinely
+      publish balanced reporting, and it presents no evidence that the ownership alone
+      leads to biased coverage. In short, the claim runs from a presumed condition
+      (government ownership) to an unsubstantiated conclusion (complete bias) without
+      providing any specific instances of bias.
+    candidate: Hasty Generalization
+    challenged_inference: The media over all is owned by governments who are able
+      to push their own agendas as something that is fact instead of being unbiased.
+      The media is no less corrupt then the ruling government parties and the elites.
+      It is certainly no coincidence that the media stories generally align with the
+      popular government opinions. Between the government and the big corporation's
+      it's a wonder if we hear anything on the news that is truly truthful.
+    label_justification: The objection points out that the argument generalizes from
+      supposedly limited government ownership to an absolute claim about all media.
+      This lack of evidence and sweeping conclusion is precisely the hallmark of a
+      hasty generalization.
+    failure_exposed: true
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+    - big corporation's it's a wonder if we hear anything on the news that is truly
+      truthful.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Appeal to Authority
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: Hasty Generalization
+    viable: true
+    reason: mechanism_supports_goal=true
+  - source: counterargument
+    candidate: Hasty Generalization
+    viable: true
+    reason: failure_exposed=true
+  after_viability:
+  - Appeal to Authority
+  - Hasty Generalization
+  transitions:
+  - before:
+    - Appeal to Authority
+    - Hasty Generalization
+    conflict: appeal-to-authority__vs__hasty-generalization
+    winner: Hasty Generalization
+    after:
+    - Hasty Generalization
+  after_conflicts:
+  - Hasty Generalization
+  recovery:
+    triggered: false
+    reason: null
+    mode: null
+    candidates: []
+  final_survivors:
+  - Hasty Generalization
+conflicts:
+- id: appeal-to-authority__vs__hasty-generalization
+  type: candidate_disagreement
+  candidates:
+  - Appeal to Authority
+  - Hasty Generalization
+  triggered_by:
+  - surviving_candidate_disagreement
+  discriminator: Compare only these candidates. Select the one whose mandatory structural
+    condition is directly supported by TARGET.
+  resolution:
+    winner: Hasty Generalization
+    decisive_test: Hasty Generalization
+    loser_failure: Appeal to Authority is not supported because the target does not
+      appeal to an authority figure's testimony or expertise to justify its claim;
+      instead it makes a sweeping conclusion about all media being biased based on
+      an unsupported generalization.
+    evidence_ids:
+    - T1
+    - T2
+    - T3
+    evidence_spans:
+    - The media over all is owned by governments who are able to push their own agendas
+      as something that is fact instead of being unbiased. The media is no less
+    - corrupt then the ruling government parties and the elites. It is certainly no
+      coincidence that the media stories generally align with the popular government
+      opinions.  Between the government and the
+    - big corporation's it's a wonder if we hear anything on the news that is truly
+      truthful.
+arbiter:
+  selected_candidate: Hasty Generalization
+  decisive_condition: (the target asserts a sweeping claim that all media are government‑owned
+    and corrupt without providing specific evidence or examples, matching the definition
+    of a hasty generalization)
+  decision_reason: The statement generalizes about all media being government‑controlled
+    and biased, but offers no concrete examples or evidence supporting that generalization,
+    constituting a hasty generalization.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - The media over all is owned by governments who are able to push their own agendas
+    as something that is fact instead of being unbiased. The media is no less
+  - corrupt then the ruling government parties and the elites. It is certainly no
+    coincidence that the media stories generally align with the popular government
+    opinions.  Between the government and the
+  verified: true
+  rejection_reason: null
+  status: adjudicated
+result:
+  selected_candidate: Hasty Generalization
+  prediction: Hasty Generalization
+  correct: true
+stats:
+  logical_calls: 5
+  provider_calls: 5
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 6481
+  completion_tokens: 4354
+  total_tokens: 10835
+  wall_time_seconds: 67.21899999998277

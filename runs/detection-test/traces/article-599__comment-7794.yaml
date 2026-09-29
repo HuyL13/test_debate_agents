@@ -1,0 +1,136 @@
+sample:
+  id: 599:7794
+  article_id: 599
+  task: detection
+  split: test
+  gold: Fallacious
+input:
+  title: Slovak businessman charged with ordering murder of journalist Ján Kuciak
+    and his fiancée
+  parent: ''
+  target: Allowing crimes like this to go unchecked is just going to cause more crimes
+    of this type. Not only that but if journalists are being targeted and harmed and
+    murdered who is going to be brave enough to investigate crimes and tell the truth
+    to the public. We must protect the truth tellers for them and for all.
+initial_analysis:
+  structure:
+    structure_type: consequence_chain
+    slots:
+    - role: initial_event
+      text: Allowing crimes like this to go unchecked is just going to cause more
+        crimes of this type.
+    - role: intermediate_consequence
+      text: Not only that but if journalists are being targeted and harmed and murdered
+        who is going to be brave enough to investigate crimes and tell the truth to
+        the public.
+    - role: final_consequence
+      text: We must protect the truth tellers for them and for all.
+    structure_complete: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Allowing crimes like this to go unchecked is just going to cause more crimes
+      of this type. Not only that but if journalists are being targeted and harmed
+      and murdered
+    - who is going to be brave enough to investigate crimes and tell the truth to
+      the public. We must protect the truth tellers for them and for all.
+    candidate: Slippery Slope
+  goal:
+    conclusion_or_goal: We must protect truth tellers for them and for all.
+    candidate: null
+    supporting_reason: Allowing crimes like this to go unchecked is just going to
+      cause more crimes of this type.
+    support_relation: CAUSE
+    label_justification: The argument uses a causal claim to support the conclusion
+      that truth tellers should be protected. This does not constitute a logical fallacy;
+      the reason directly supports the goal.
+    mechanism_supports_goal: true
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Allowing crimes like this to go unchecked is just going to cause more crimes
+      of this type. Not only that but if journalists are being targeted and harmed
+      and murdered
+    - who is going to be brave enough to investigate crimes and tell the truth to
+      the public. We must protect the truth tellers for them and for all.
+  counterargument:
+    decisive_counterargument: 'The argument assumes that the mere fact that journalists
+      are targeted guarantees that no one will be brave enough to investigate crimes.
+      This causal link is unsubstantiated: an increase in harm to journalists does
+      not automatically lead to a decrease in investigative reporting, nor does protecting
+      journalists inevitably restore investigative vigor. The claim therefore rests
+      on an unsupported implication rather than evidence.'
+    candidate: null
+    challenged_inference: null
+    label_justification: The objection points out that the inference from journalist
+      harm to a loss of investigative courage is unsupported; this is a reasoning
+      defect not covered by the listed fallacies, so no particular fallacy label applies.
+    failure_exposed: false
+    evidence_ids:
+    - T1
+    - T2
+    evidence_spans:
+    - Allowing crimes like this to go unchecked is just going to cause more crimes
+      of this type. Not only that but if journalists are being targeted and harmed
+      and murdered
+    - who is going to be brave enough to investigate crimes and tell the truth to
+      the public. We must protect the truth tellers for them and for all.
+candidate_state:
+  initial:
+  - source: structure
+    candidate: Slippery Slope
+    viable: true
+    reason: structure_complete=true
+  - source: goal
+    candidate: null
+    viable: false
+    reason: mechanism_supports_goal=false
+  - source: counterargument
+    candidate: null
+    viable: false
+    reason: failure_exposed=false
+  after_viability:
+  - Slippery Slope
+  transitions: []
+  after_conflicts: &id001
+  - Slippery Slope
+  final_survivors: *id001
+conflicts: []
+arbiter:
+  selected_candidate: null
+  decisive_condition: The target does not present a compelling, escalating causal
+    chain that leads from a small initial action to an extreme or multiple adverse
+    outcomes—a key requirement for a slippery‑slope argument. The reasoning is a straightforward
+    causal sequence (unchecked crimes → more crimes → fewer journalists willing to
+    investigate → protection needed), which can be logically justified and does not
+    rely on an exaggerated or unlikely chain of events. Therefore the surviving candidate
+    “Slippery Slope” lacks the necessary structural condition and is rejected.
+  decision_reason: The target’s reasoning is a simple, linear causal chain rather
+    than a steep, escalating path characteristic of a slippery‑slope argument.
+  evidence_ids:
+  - T1
+  - T2
+  evidence_spans:
+  - Allowing crimes like this to go unchecked is just going to cause more crimes of
+    this type. Not only that but if journalists are being targeted and harmed and
+    murdered
+  - who is going to be brave enough to investigate crimes and tell the truth to the
+    public. We must protect the truth tellers for them and for all.
+  verified: false
+  rejection_reason: The target’s reasoning is a simple, linear causal chain rather
+    than a steep, escalating path characteristic of a slippery‑slope argument.
+result:
+  selected_candidate: null
+  prediction: Non-Fallacious
+  correct: false
+stats:
+  logical_calls: 4
+  provider_calls: 4
+  cache_hits: 0
+  retries: 0
+  prompt_tokens: 4096
+  completion_tokens: 4042
+  total_tokens: 8138
+  wall_time_seconds: 188.71899999998277
