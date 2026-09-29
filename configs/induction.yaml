@@ -1,0 +1,36 @@
+seed: 42
+
+data:
+  path: data/cocolofa/train.json
+  label: appeal to tradition
+
+llm:
+  api_key_env: NVIDIA_API_KEY
+  base_url_env: NVIDIA_BASE_URL
+  model_env: NVIDIA_MODEL
+  temperature: 0.0
+  max_retries: 5
+  concurrency: 1
+
+semantic:
+  use_parent_context: false
+  checkpoint_every: 10
+  audit_random_n: 30
+
+embedding:
+  model: sentence-transformers/all-mpnet-base-v2
+  batch_size: 64
+  normalize: true
+
+clustering:
+  k_min: 6
+  k_max: 25
+  metric: cosine
+  method: kmedoids
+  random_restarts: 10
+
+audit:
+  nearest_n: 5
+  farthest_n: 5
+
+output_dir: outputs/appeal_to_tradition_induction
