@@ -44,7 +44,7 @@ def semantic_schema():
 
 
 def validate_semantic_record(record, sample):
-    validate_output(record, semantic_schema())
+    validate_output({key: value for key, value in record.items() if key != "sample_id"}, semantic_schema())
     if record["article_id"] != sample["article_id"] or record["comment_id"] != sample["comment_id"]:
         raise ValueError("semantic record ID does not match sample")
     if record["original_text"] != sample["comment"]:
@@ -83,6 +83,21 @@ def cluster_mode_schema():
     }, "required": ["cluster_id", "mode_name", "premise_pattern", "conclusion_pattern", "core_bridge",
                        "canonical_template", "non_invariant_details", "boundary_notes", "supporting_member_ids", "coverage_n"],
     "additionalProperties": False}
+
+
+def validate_cluster_audit(value):
+    validate_output(value, cluster_audit_schema())
+    return value
+
+
+def validate_cluster_mode(value):
+    validate_output(value, cluster_mode_schema())
+    return value
+
+
+def validate_merge_plan(value):
+    validate_output(value, merge_plan_schema())
+    return value
 
 
 def merge_plan_schema():

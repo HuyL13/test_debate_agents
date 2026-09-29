@@ -131,8 +131,10 @@ def search_k(config, embeddings, records):
         writer.writerows(results)
     assignments = []
     for index, record in enumerate(records):
+        medoid_index = int(fitted["medoid_indices"][fitted["labels"][index]])
         assignments.append({"sample_id": record["sample_id"] if "sample_id" in record else f"{record['article_id']}:{record['comment_id']}",
-                            "cluster_id": int(fitted["labels"][index]), "medoid": int(fitted["medoid_indices"][fitted["labels"][index]])})
+                            "cluster_id": int(fitted["labels"][index]), "medoid": medoid_index,
+                            "medoid_sample_id": records[medoid_index].get("sample_id", f"{records[medoid_index]['article_id']}:{records[medoid_index]['comment_id']}")})
     with (output / "cluster_assignments.jsonl").open("w", encoding="utf-8") as stream:
         for row in assignments:
             stream.write(json.dumps(row, ensure_ascii=False) + "\n")

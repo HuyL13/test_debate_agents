@@ -32,3 +32,18 @@ def semantic_extraction_prompt(sample, use_parent_context=False):
 def semantic_prompt_hash():
     return digest(SEMANTIC_SYSTEM_PROMPT)
 
+
+def cluster_audit_prompt(cluster):
+    system = """Describe what this cluster appears to represent. Do not name a mode from keywords alone. Infer the shared premise, conclusion, bridge, variation, and outliers from the supplied members. Return strict JSON."""
+    return system, json.dumps({"stage": "cluster_audit", "cluster": cluster}, ensure_ascii=False)
+
+
+def cluster_mode_prompt(audit):
+    system = """Induce one reasoning mode from this audited cluster. Use only the supplied evidence. Return strict JSON with premise pattern, conclusion pattern, invariant bridge, non-invariants, boundaries, and supporting member IDs."""
+    return system, json.dumps({"stage": "cluster_mode_induction", "cluster_audit": audit}, ensure_ascii=False)
+
+
+def merge_prompt(modes):
+    system = """Conservatively compare audited cluster modes. Merge only genuinely identical inferential relations. Keep separate modes with different direction, evidence, or bridge. Return strict JSON."""
+    return system, json.dumps({"stage": "mode_merge", "modes": modes}, ensure_ascii=False)
+

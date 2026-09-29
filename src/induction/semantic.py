@@ -37,7 +37,8 @@ def extract_semantic_records(config, samples, client, resume=False):
                 metadata={"stage": "semantic_extraction", "sample_id": sample["sample_id"]},
                 validator=lambda value, current=sample: validate_semantic_record(value, current),
             )
-            record = validate_semantic_record(result.output, sample)
+            record = dict(validate_semantic_record(result.output, sample))
+            record["sample_id"] = sample["sample_id"]
             append_jsonl(records_path, record)
             records.append(record)
             completed.add(_key(sample))

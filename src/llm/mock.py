@@ -6,7 +6,7 @@ from src.io_utils import digest
 
 def _target(payload):
     user = json.loads(payload["messages"][1]["content"])
-    return user["input"]["target"]
+    return user.get("input", {}).get("target", json.dumps(user, ensure_ascii=False))
 
 
 def _user(payload):
@@ -45,6 +45,34 @@ class MockTransport:
                 "ambiguity_notes": None,
                 "topic_leakage_check": False,
             }
+        elif "member_consistency" in properties:
+            cluster = _user(payload).get("cluster", {}).get("cluster_id", 0)
+            value = {
+                "cluster_id": cluster,
+                "main_reasoning_relation": "The cluster shares an inferential relation.",
+                "shared_invariant": "A premise supports a conclusion through a bridge.",
+                "variation_within_cluster": "Topics vary across members.",
+                "member_consistency": "HIGH",
+                "medoid_representative": "YES",
+                "secondary_patterns": [], "outlier_ids": [],
+                "possible_semantic_extraction_errors": [],
+                "possible_mislabel_or_intrinsic_overlap": [],
+            }
+        elif "mode_name" in properties:
+            audit = _user(payload).get("cluster_audit", {})
+            cluster = audit.get("cluster_id", 0)
+            value = {
+                "cluster_id": cluster, "mode_name": "A discovered reasoning mode",
+                "premise_pattern": "A premise is presented.",
+                "conclusion_pattern": "A conclusion is drawn.",
+                "core_bridge": "The premise is treated as support for the conclusion.",
+                "canonical_template": "PREMISE -> BRIDGE -> CONCLUSION",
+                "non_invariant_details": [], "boundary_notes": [],
+                "supporting_member_ids": audit.get("outlier_ids", []) or ["unknown"],
+                "coverage_n": 1,
+            }
+        elif "merge_groups" in properties:
+            value = {"merge_groups": [], "keep_separate": []}
         elif stage == "property_graph_extraction":
             sample_id = _user(payload)["sample_id"]
             value = {
