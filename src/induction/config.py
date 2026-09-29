@@ -20,6 +20,7 @@ class InductionConfig:
     model_env: str = "OPENAI_MODEL"
     llm_temperature: float = 0.0
     llm_max_retries: int = 5
+    llm_max_completion_tokens: int = 4096
     llm_concurrency: int = 1
     use_parent_context: bool = False
     checkpoint_every: int = 10
@@ -86,6 +87,7 @@ def load_config_from_mapping(mapping, *, base_dir=None, config_path=None):
         model_env=str(llm.get("model_env", "OPENAI_MODEL")),
         llm_temperature=float(llm.get("temperature", 0.0)),
         llm_max_retries=int(llm.get("max_retries", 5)),
+        llm_max_completion_tokens=int(llm.get("max_completion_tokens", 4096)),
         llm_concurrency=int(llm.get("concurrency", 1)),
         use_parent_context=bool(semantic.get("use_parent_context", False)),
         checkpoint_every=int(semantic.get("checkpoint_every", 10)),

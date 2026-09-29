@@ -113,9 +113,6 @@ def search_k(config, embeddings, records):
             "k": k, "silhouette": silhouette, "min_size": min(sizes), "max_size": max(sizes),
             "tiny_clusters": sum(size <= 3 for size in sizes), "giant_clusters": sum(size >= 50 for size in sizes),
             "mean_intra_cluster_distance": float(np.mean(intra)), "max_intra_cluster_distance": float(np.max(intra)),
-            "relation_polarity_purity": majority_purity(labels, [row.get("relation_polarity") for row in records]),
-            "conclusion_direction_purity": majority_purity(labels, [row.get("conclusion_direction") for row in records]),
-            "premise_valence_purity": majority_purity(labels, [row.get("premise_valence") for row in records]),
         }
         results.append(metric)
         fitted_by_k[k] = fitted
@@ -132,9 +129,9 @@ def search_k(config, embeddings, records):
     assignments = []
     for index, record in enumerate(records):
         medoid_index = int(fitted["medoid_indices"][fitted["labels"][index]])
-        assignments.append({"sample_id": record["sample_id"] if "sample_id" in record else f"{record['article_id']}:{record['comment_id']}",
+        assignments.append({"sample_id": record["sample_id"],
                             "cluster_id": int(fitted["labels"][index]), "medoid": medoid_index,
-                            "medoid_sample_id": records[medoid_index].get("sample_id", f"{records[medoid_index]['article_id']}:{records[medoid_index]['comment_id']}")})
+                            "medoid_sample_id": records[medoid_index]["sample_id"]})
     with (output / "cluster_assignments.jsonl").open("w", encoding="utf-8") as stream:
         for row in assignments:
             stream.write(json.dumps(row, ensure_ascii=False) + "\n")

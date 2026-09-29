@@ -37,6 +37,17 @@ def append_jsonl(path, value):
         stream.flush()
 
 
+def write_jsonl(path, values):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent,
+                                     suffix='.tmp', delete=False) as stream:
+        name = stream.name
+        for value in values:
+            stream.write(canonical(value) + '\n')
+    os.replace(name, path)
+
+
 def read_jsonl(path):
     with Path(path).open(encoding='utf-8') as stream:
         return [json.loads(line) for line in stream if line.strip()]

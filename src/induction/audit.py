@@ -47,12 +47,19 @@ def audit_semantics(config):
     samples, stats = load_positive_samples(config)
     records_path = output / "semantic_records.jsonl"
     records = read_jsonl(records_path) if records_path.exists() else []
-    by_key = {(row["article_id"], row["comment_id"]): row for row in records}
+    by_key = {}
+    duplicate_ids = []
+    for row in records:
+        sample_id = row.get("sample_id")
+        if sample_id in by_key:
+            duplicate_ids.append(sample_id)
+        elif sample_id:
+            by_key[sample_id] = row
     invalid = []
     copied = []
-    leakage = []
+    valid_records = []
     for sample in samples:
-        record = by_key.get((sample["article_id"], sample["comment_id"]))
+        record = by_key.get(sample["sample_id"])
         if record is None:
             continue
         try:
@@ -60,22 +67,21 @@ def audit_semantics(config):
         except ValueError as exc:
             invalid.append({"sample_id": sample["sample_id"], "error": str(exc)})
             continue
+        valid_records.append(record)
         ratio = SequenceMatcher(None, _normalized(record["original_text"]), _normalized(record["canonical_reasoning"])).ratio()
         if ratio >= 0.95:
             copied.append(sample["sample_id"])
-        if record.get("topic_leakage_check"):
-            leakage.append(sample["sample_id"])
-    collapse = check_representation_collapse(list(by_key.values()))
+    collapse = check_representation_collapse(valid_records)
     ids = {sample["sample_id"] for sample in samples}
     hard_cases = sorted(ids & HARD_CASE_IDS)
     missing_hard_cases = sorted(set(hard_cases) - set(by_key))
     result = {
-        "passed": bool(records) and len(by_key) == len(samples) and not invalid and not copied and not leakage and not collapse["severe"] and not missing_hard_cases,
+        "passed": bool(records) and len(by_key) == len(samples) and not duplicate_ids and not invalid and not copied and not collapse["severe"] and not missing_hard_cases,
         "sample_count": len(samples),
         "record_count": len(by_key),
+        "duplicate_sample_ids": sorted(set(duplicate_ids)),
         "invalid_records": invalid,
         "copied_canonical_ids": copied,
-        "topic_leakage_ids": leakage,
         "hard_case_ids": hard_cases,
         "missing_hard_case_ids": missing_hard_cases,
         "collapse": collapse,
@@ -83,7 +89,7 @@ def audit_semantics(config):
     write_json(output / "representation_stats.json", collapse)
     write_json(output / "semantic_gate.json", result)
     lines = ["# Semantic Audit", "", f"- Passed: `{result['passed']}`", f"- Samples: `{len(samples)}`", f"- Records: `{len(by_key)}`", "", "## Findings", ""]
-    lines.extend([f"- Invalid records: {len(invalid)}", f"- Copied canonical representations: {len(copied)}", f"- Topic leakage flags: {len(leakage)}", f"- Severe collapse: {collapse['severe']}"])
+    lines.extend([f"- Invalid records: {len(invalid)}", f"- Duplicate sample IDs: {len(set(duplicate_ids))}", f"- Copied canonical representations: {len(copied)}", f"- Severe collapse: {collapse['severe']}"])
     if hard_cases:
         lines.append(f"- Required hard cases inspected: {', '.join(hard_cases)}")
     (output / "semantic_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

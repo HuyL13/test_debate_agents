@@ -1,59 +1,104 @@
+import re
+
 from src.schemas import validate_output
+
+
+_GENERIC_TERMS = {
+    "a", "an", "and", "argument", "because", "benefit", "belief", "bridge", "can", "case",
+    "change", "claim", "conclusion", "continue", "continued", "continuity", "custom", "descriptive",
+    "evidence", "example", "existing", "factor", "far", "for", "from", "future", "good", "harm",
+    "held", "historical", "history", "idea", "imply", "indicate", "inference", "inferential", "instance",
+    "intervention", "long", "maintain", "may", "method", "modern", "necessary", "need", "needed", "norm",
+    "old", "outcome", "overcome", "past", "people", "practice", "premise", "preserve", "reason", "reasoning",
+    "relation", "remove", "replace", "require", "requires", "resistance", "result", "restore", "strong",
+    "stronger", "support", "supported", "system", "the", "therefore", "this", "timeless", "tradition",
+    "traditional", "value", "valuable", "when", "while", "willingly", "works", "worked", "x", "y",
+    "accountability", "accountable", "absence", "adverse", "beneficial", "conceal", "concealment", "deficient",
+    "enduring", "enforcement", "entrenched", "group", "harmful", "legitimacy", "legitimate", "lack",
+    "persistence", "persistent", "power", "problem", "responsible", "standing", "strengthen", "strengthened",
+    "time", "long-standing", "longstanding",
+}
+
+_GENERIC_CAPITALIZED = {
+    "A", "An", "Although", "As", "Because", "Even", "For", "From", "Given", "If", "It", "Long", "No", "One",
+    "Past", "Since", "Some", "That", "The", "This", "When", "While",
+}
 
 
 def _string(max_length=2000):
     return {"type": "string", "minLength": 1, "maxLength": max_length}
 
 
-def _nullable_string(max_length=2000):
-    return {"anyOf": [_string(max_length), {"type": "null"}]}
-
-
 def semantic_schema():
     return {
         "type": "object",
         "properties": {
-            "article_id": {"type": "integer"},
-            "comment_id": _string(200),
+            "sample_id": _string(200),
             "original_text": _string(10000),
-            "premises": {"type": "array", "items": _string(2000), "minItems": 1, "maxItems": 8},
-            "conclusion": _string(),
-            "inference_source": _string(),
-            "inference_target": _string(),
-            "bridge": _string(),
-            "evidential_basis": _string(),
-            "premise_valence": {"enum": ["POSITIVE", "NEGATIVE", "NEUTRAL", "MIXED", "UNKNOWN"]},
-            "relation_polarity": {"enum": ["SUPPORTS_CONTINUITY", "SUPPORTS_CHANGE", "SUPPORTS_ACCEPTANCE", "SUPPORTS_REJECTION", "PREDICTIVE_DESCRIPTIVE", "OTHER"]},
-            "conclusion_direction": _string(300),
-            "missing_justification": _nullable_string(),
-            "alternatives_suppressed": _nullable_string(),
-            "causal_chain": _nullable_string(),
-            "canonical_reasoning": _string(2000),
-            "ambiguity_notes": _nullable_string(),
-            "topic_leakage_check": {"type": "boolean"},
+            "canonical_reasoning": {
+                **_string(2000),
+                "description": "Natural-language abstract reasoning that preserves premise, bridge, conclusion, and direction.",
+            },
         },
-        "required": [
-            "article_id", "comment_id", "original_text", "premises", "conclusion",
-            "inference_source", "inference_target", "bridge", "evidential_basis",
-            "premise_valence", "relation_polarity", "conclusion_direction",
-            "missing_justification", "alternatives_suppressed", "causal_chain",
-            "canonical_reasoning", "ambiguity_notes", "topic_leakage_check",
-        ],
+        "required": ["sample_id", "original_text", "canonical_reasoning"],
         "additionalProperties": False,
     }
 
 
 def validate_semantic_record(record, sample):
-    validate_output({key: value for key, value in record.items() if key != "sample_id"}, semantic_schema())
-    if record["article_id"] != sample["article_id"] or record["comment_id"] != sample["comment_id"]:
+    validate_output(record, semantic_schema())
+    if record["sample_id"] != sample["sample_id"]:
         raise ValueError("semantic record ID does not match sample")
     if record["original_text"] != sample["comment"]:
         raise ValueError("original_text must preserve the target comment")
-    if not record["canonical_reasoning"].strip():
-        raise ValueError("canonical_reasoning must be non-empty")
-    if len(record["canonical_reasoning"].split()) < 4:
-        raise ValueError("canonical_reasoning is too short to preserve inference")
+    leakage = _topic_leakage_terms(record["original_text"], record["canonical_reasoning"])
+    if leakage:
+        raise ValueError("topic leakage in canonical_reasoning: " + ", ".join(sorted(leakage)))
+    _validate_canonical_reasoning(record["canonical_reasoning"])
     return record
+
+
+def _validate_canonical_reasoning(value):
+    text = value.strip()
+    if not text:
+        raise ValueError("canonical_reasoning must be non-empty")
+    if len(text.split()) < 8:
+        raise ValueError("canonical_reasoning is too short to preserve inference")
+    if re.search(r"(?<![A-Za-z])(?:X|Y)(?![A-Za-z])", text):
+        raise ValueError("role-specific placeholders required; do not use bare X or Y")
+    placeholders = set(re.findall(r"\b[A-Z][A-Z0-9_]{2,}\b", text))
+    if len(placeholders) > 2:
+        raise ValueError("canonical_reasoning uses too many uppercase placeholders")
+    if "+" in text or not re.search(r"[a-z]{2,}", text):
+        raise ValueError("canonical_reasoning must be natural-language prose, not a keyword template")
+    bridge_markers = (
+        "because", "therefore", "so ", "leads", "treated as", "indicates", "supports",
+        "justif", "requires", "needed", "rather than", "results", "means", "->", "→",
+    )
+    if not any(marker in text.casefold() for marker in bridge_markers):
+        raise ValueError("canonical_reasoning must preserve an inferential bridge")
+
+
+def _normalize_text(value):
+    return " ".join(re.findall(r"[a-z0-9]+", value.casefold()))
+
+
+def _topic_leakage_terms(original, canonical):
+    canonical_proper_nouns = {
+        token for token in re.findall(r"\b[A-Z][a-z]{2,}\b", canonical)
+        if token not in _GENERIC_CAPITALIZED
+    }
+    source_proper_nouns = {
+        token for token in re.findall(r"\b[A-Z][a-z]{2,}\b", original)
+        if token not in _GENERIC_CAPITALIZED
+    }
+    proper_nouns = source_proper_nouns & canonical_proper_nouns
+    source_tokens = set(re.findall(r"[a-z][a-z'-]{2,}", original.casefold()))
+    canonical_tokens = set(re.findall(r"[a-z][a-z'-]{2,}", canonical.casefold()))
+    copied_terms = (source_tokens & canonical_tokens) - _GENERIC_TERMS
+    if proper_nouns:
+        return proper_nouns
+    return copied_terms if len(copied_terms) >= 2 else set()
 
 
 def cluster_audit_schema():

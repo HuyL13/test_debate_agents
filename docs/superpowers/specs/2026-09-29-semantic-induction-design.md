@@ -77,11 +77,12 @@ induction phase; boundary induction is a separate future experiment.
 
 ## Contracts and gates
 
-Semantic extraction returns, at minimum, premises, conclusion, bridge,
-inference source/target, evidential basis, polarity, conclusion direction,
-canonical reasoning, and audit notes. Nullable fields remain nullable when a
-field is not applicable. `canonical_reasoning` must be grammatical prose, not
-tags, and must preserve opposite conclusion directions.
+The semantic extraction contract is defined by
+`docs/superpowers/specs/2026-09-29-semantic-reasoning-only-design.md`.
+Successful semantic records contain only `sample_id`, `original_text`, and
+`canonical_reasoning`. The canonical field is grammatical prose, not tags, and
+must preserve the premise-to-bridge-to-conclusion relation and opposite
+directions internally.
 
 The semantic gate fails when samples are missing, records are invalid, known
 hard cases are not present in the audit report, canonical representations

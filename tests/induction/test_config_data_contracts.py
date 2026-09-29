@@ -36,24 +36,12 @@ def config_for(path, label="Appeal to Tradition"):
 
 def valid_semantic_record(sample):
     return {
-        "article_id": sample["article_id"],
-        "comment_id": sample["comment_id"],
+        "sample_id": sample["sample_id"],
         "original_text": sample["comment"],
-        "premises": ["A practice has persisted for a long time."],
-        "conclusion": "The practice should continue.",
-        "inference_source": "longevity",
-        "inference_target": "continuation",
-        "bridge": "Longevity is treated as support for continued use.",
-        "evidential_basis": "historical persistence",
-        "premise_valence": "POSITIVE",
-        "relation_polarity": "SUPPORTS_CONTINUITY",
-        "conclusion_direction": "preserve",
-        "missing_justification": None,
-        "alternatives_suppressed": None,
-        "causal_chain": None,
-        "canonical_reasoning": "A long-standing practice is treated as evidence that it should continue.",
-        "ambiguity_notes": None,
-        "topic_leakage_check": False,
+        "canonical_reasoning": (
+            "A long-standing practice is treated as evidence of stability and legitimacy "
+            "because it has persisted, so replacing it should be resisted or approached cautiously."
+        ),
     }
 
 
@@ -62,6 +50,16 @@ def test_config_resolves_repo_relative_data_path(tmp_path):
     assert config.label == "Appeal to Tradition"
     assert config.data_path == (tmp_path / "train.json").resolve()
     assert config.embedding_model == "sentence-transformers/all-mpnet-base-v2"
+
+
+def test_config_exposes_induction_completion_budget(tmp_path):
+    config = load_config_from_mapping({
+        "base_dir": str(tmp_path),
+        "data": {"path": "train.json", "label": "appeal to tradition"},
+        "llm": {"max_completion_tokens": 4096},
+    })
+
+    assert config.llm_max_completion_tokens == 4096
 
 
 def test_none_label_is_rejected():
@@ -84,6 +82,106 @@ def test_semantic_validation_rejects_missing_canonical_reasoning(tmp_path):
     record["canonical_reasoning"] = ""
     with pytest.raises(ValueError, match="canonical_reasoning"):
         validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_rejects_removed_semantic_fields(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    record = valid_semantic_record(sample)
+    record["conclusion"] = "The practice should continue."
+
+    with pytest.raises(ValueError):
+        validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_rejects_short_canonical_reasoning(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    record = valid_semantic_record(sample)
+    record["canonical_reasoning"] = "PRACTICE -> CHANGE"
+
+    with pytest.raises(ValueError, match="canonical_reasoning"):
+        validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_rejects_obvious_topic_leakage(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    sample["comment"] = "Maine's council should preserve its old practice."
+    record = valid_semantic_record(sample)
+    record["canonical_reasoning"] = "Maine's council should preserve the practice."
+    record["original_text"] = sample["comment"]
+
+    with pytest.raises(ValueError, match="topic leakage"):
+        validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_allows_generic_detopicalized_reasoning(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    sample["comment"] = "A practice has persisted, and stronger intervention may be needed to overcome resistance."
+    record = valid_semantic_record(sample)
+    record["original_text"] = sample["comment"]
+    record["canonical_reasoning"] = "From a long-standing practice, stronger intervention may be needed to overcome resistance."
+
+    validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_ignores_sentence_initial_generic_words(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    sample["comment"] = "A practice has persisted for a long time."
+    record = valid_semantic_record(sample)
+    record["original_text"] = sample["comment"]
+    record["canonical_reasoning"] = (
+        "Hopefully, a long-standing practice should continue because it has remained stable."
+    )
+
+    validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_rejects_mechanical_placeholder_templates(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    record = valid_semantic_record(sample)
+    record["canonical_reasoning"] = (
+        "GROUP + TRADITIONAL_NORM + ENFORCEMENT_SYSTEM + PRACTICE + CHANGE + OUTCOME + POLICY + ACTION"
+    )
+
+    with pytest.raises(ValueError, match="uppercase placeholders|natural-language"):
+        validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_rejects_bare_variable_placeholders(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    record = valid_semantic_record(sample)
+    record["canonical_reasoning"] = "A harmful practice persists, so X should change."
+
+    with pytest.raises(ValueError, match="role-specific placeholders"):
+        validate_semantic_record(record, sample)
+
+
+def test_semantic_validation_accepts_role_specific_change_record(tmp_path):
+    path = write_fixture_split(tmp_path / "train.json")
+    sample = load_positive_samples(config_for(path))[0][0]
+    sample["comment"] = (
+        "Sad to say, I have to agree with you. Rulers concealing information from those they rule "
+        "is basically tradition at this point. As you say, why would government officials ever willingly "
+        "be held accountable for their misdeeds? Laws and enforcement mechanisms need to be far stronger "
+        "to overcome the timeless practice of corruption."
+    )
+    record = {
+        "sample_id": sample["sample_id"],
+        "original_text": sample["comment"],
+        "canonical_reasoning": (
+            "A harmful PRACTICE has persisted for a long time because those responsible avoid accountability "
+            "-> its persistence indicates entrenched harm rather than legitimacy "
+            "-> strengthen intervention to change the PRACTICE."
+        ),
+    }
+
+    validate_semantic_record(record, sample)
 
 
 def test_load_config_loads_repo_dotenv_for_hf_and_llm(tmp_path, monkeypatch):

@@ -62,11 +62,18 @@ pytest -q
 ## Semantic definition induction
 
 The induction pipeline starts from all positive training examples of one label,
-asks the configured LLM to extract premise/conclusion/bridge structure, removes
-topic-specific content into `canonical_reasoning`, embeds only that field with
-`sentence-transformers/all-mpnet-base-v2`, and discovers audited reasoning modes
-with cosine k-medoids. It does not induce the complement label `none` in this
-phase.
+asks the configured LLM to rewrite each argument as a natural-language
+`canonical_reasoning` abstraction, and embeds only that field with
+`sentence-transformers/all-mpnet-base-v2`. Each successful semantic record keeps
+only `sample_id`, `original_text`, and `canonical_reasoning`; the canonical text
+must preserve the premise, inferential bridge, conclusion, and direction without
+mechanically replacing every noun with an uppercase token. The pipeline then
+discovers audited reasoning modes with cosine k-medoids. It does not induce the
+complement label `none` in this phase.
+
+Old verbose semantic records are stale artifacts. Resume removes them and asks
+the configured LLM for fresh minimal records; the code does not invent a local
+semantic migration.
 
 The configured `.env` must provide the names from `configs/induction.yaml`
 (`NVIDIA_API_KEY`, `NVIDIA_BASE_URL`, and `NVIDIA_MODEL` by default). Keys are

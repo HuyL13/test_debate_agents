@@ -26,24 +26,12 @@ class MockTransport:
         negative = "good and evil" in target
         if stage == "semantic_extraction":
             value = {
-                "article_id": _user(payload)["article_id"],
-                "comment_id": _user(payload)["sample_id"].split(":", 1)[1],
+                "sample_id": _user(payload)["sample_id"],
                 "original_text": target,
-                "premises": ["A claim is asserted in the target comment."],
-                "conclusion": "The target claim should be accepted or rejected.",
-                "inference_source": "stated premise",
-                "inference_target": "stated conclusion",
-                "bridge": "The premise is treated as support for the conclusion.",
-                "evidential_basis": "the target argument",
-                "premise_valence": "NEUTRAL",
-                "relation_polarity": "OTHER",
-                "conclusion_direction": "accept or reject",
-                "missing_justification": None,
-                "alternatives_suppressed": None,
-                "causal_chain": None,
-                "canonical_reasoning": "A stated premise is treated as support for a related conclusion.",
-                "ambiguity_notes": None,
-                "topic_leakage_check": False,
+                "canonical_reasoning": (
+                    "A stated premise is treated as support for a related conclusion, "
+                    "so the conclusion should be accepted."
+                ),
             }
         elif "member_consistency" in properties:
             cluster = _user(payload).get("cluster", {}).get("cluster_id", 0)

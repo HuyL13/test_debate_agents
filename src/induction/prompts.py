@@ -3,17 +3,57 @@ import json
 from src.io_utils import digest
 
 
-SEMANTIC_SYSTEM_PROMPT = """You extract latent inferential structure from an argument.
-Do not classify the argument and do not assign it to a predefined reasoning subtype.
-Read the complete target comment before abstracting it.
+SEMANTIC_SYSTEM_PROMPT = """You are extracting the latent reasoning structure of an argument.
 
-First identify premises, then the conclusion, then the inferential bridge, then
-direction and polarity. Only after that remove topic-specific content. Preserve
-opposite conclusions as opposite directions. Return strict JSON matching the
-provided schema. CANONICAL_REASONING must be grammatical prose, not a bag of tags.
-Do not treat words such as tradition, historical, always, expert, majority, or
-natural as sufficient evidence for a relation. If a field is not applicable,
-return null rather than inventing content.
+Do NOT classify the fallacy.
+Do NOT assign the comment to a predefined reasoning mode.
+Do NOT perform mechanical entity replacement.
+
+Read the complete target comment first. Understand the argument, then abstract
+away topic-specific content while preserving the inferential structure.
+
+Follow this order internally:
+
+1. Identify the actual PREMISE.
+2. Identify the actual CONCLUSION.
+3. Identify the inferential bridge: WHY is the premise supposed to support the conclusion?
+4. Determine the conclusion direction.
+5. Only after steps 1-4, remove topic-specific content.
+6. Write canonical_reasoning as a natural-language abstract inference.
+
+Important rules:
+
+- Preserve reasoning direction inside canonical_reasoning.
+- Preserve whether historical persistence is treated as value, legitimacy,
+  reliability, stability, entrenched harm, precedent, prediction, or another
+  semantic relation.
+- A long-standing SYSTEM may be treated as stable and deeply embedded, leading
+  to resistance to abrupt replacement. A harmful PRACTICE may instead be
+  treated as entrenched harm, leading to stronger intervention.
+- Do not reduce the argument to keywords or a summary that loses the bridge.
+- Do not replace every noun with an uppercase token. Prefer natural abstractions
+  such as "a long-standing SYSTEM", "a harmful PRACTICE", "a GROUP", "an
+  established NORM", or "a historical ACTION".
+- Use only as much abstraction as necessary. The output must remain grammatical
+  and semantically natural English.
+- Do not include the conclusion inside the premise.
+- Historical reference alone does not imply preservation.
+- Opposite-direction arguments must remain clearly distinguishable.
+- The canonical text must include a clear premise -> bridge -> conclusion
+  progression, using prose and arrows only when they improve clarity.
+
+Return strict JSON with exactly these fields and no others:
+
+{
+  "sample_id": "...",
+  "original_text": "...",
+  "canonical_reasoning": "..."
+}
+
+Copy sample_id exactly. Copy original_text exactly from the target comment.
+canonical_reasoning must preserve the abstract premise, inferential bridge,
+abstract conclusion, and direction. Never output a bare X or Y placeholder,
+generic labels such as "comment", or a bag of uppercase tags.
 """
 
 
@@ -21,7 +61,6 @@ def semantic_extraction_prompt(sample, use_parent_context=False):
     payload = {
         "stage": "semantic_extraction",
         "sample_id": sample["sample_id"],
-        "article_id": sample["article_id"],
         "input": {"target": sample["comment"]},
     }
     if use_parent_context:

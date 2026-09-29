@@ -88,6 +88,41 @@ def test_client_reports_provider_finish_reason_for_non_final_response(tmp_path):
         )
 
 
+def test_client_increases_completion_budget_after_length_response(tmp_path):
+    output = {
+        "selected_candidate": "Slippery Slope",
+        "evidence_spans": ["x"],
+        "decisive_condition": "consequence_chain",
+        "decision_reason": "The target supports the stated escalation hypothesis.",
+    }
+    truncated = envelope("{}")
+    truncated["choices"][0]["finish_reason"] = "length"
+    transport = Transport([truncated, envelope(json.dumps(output))])
+    client = Client(
+        ModelConfig(
+            name="fixture-model",
+            provider="mock",
+            max_attempts=2,
+            max_completion_tokens=1200,
+            backoff_seconds=0,
+        ),
+        tmp_path / "cache.sqlite",
+        tmp_path / "api_calls.jsonl",
+        transport=transport,
+    )
+
+    result = client.generate(
+        system_prompt="Analyze.",
+        user_prompt=json.dumps({"input": {"comment": "x"}}),
+        schema=arbiter_schema("detection", ["Slippery Slope"]),
+        metadata={"stage": "arbiter"},
+    )
+
+    assert result.output["selected_candidate"] == "Slippery Slope"
+    assert transport.requests[0]["max_completion_tokens"] == 1200
+    assert transport.requests[1]["max_completion_tokens"] == 2400
+
+
 def test_client_preserves_rate_limit_and_retry_after(tmp_path):
     error = HTTPError(
         "https://example.test/chat/completions",

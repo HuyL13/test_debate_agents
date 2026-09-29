@@ -43,6 +43,28 @@ def test_semantic_audit_blocks_incomplete_records(tmp_path):
     assert json.loads((config.output_dir / "semantic_gate.json").read_text())["passed"] is False
 
 
+def test_semantic_audit_accepts_minimal_records_by_sample_id(tmp_path):
+    config, records = _record_set(tmp_path)
+    result = audit_semantics(config)
+
+    assert result["passed"] is True
+    assert result["record_count"] == 1
+
+
+def test_semantic_audit_rejects_stale_verbose_records(tmp_path):
+    config, records = _record_set(tmp_path)
+    stale = dict(records[0])
+    stale["direction"] = "CHANGE"
+    (config.output_dir / "semantic_records.jsonl").write_text(
+        json.dumps(stale) + "\n", encoding="utf-8"
+    )
+
+    result = audit_semantics(config)
+
+    assert result["passed"] is False
+    assert result["invalid_records"]
+
+
 def test_representation_collapse_reports_exact_duplicates():
     records = [{"canonical_reasoning": "same reasoning"} for _ in range(40)]
     result = check_representation_collapse(records)

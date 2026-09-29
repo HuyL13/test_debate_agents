@@ -120,6 +120,11 @@ class Client:
         feedback = None
         for attempt in range(self.config.max_attempts):
             request_payload = deepcopy(payload)
+            if attempt:
+                request_payload["max_completion_tokens"] = min(
+                    self.config.max_completion_tokens * (2 ** attempt),
+                    8192,
+                )
             if feedback:
                 request_payload["messages"].append({
                     "role": "user",

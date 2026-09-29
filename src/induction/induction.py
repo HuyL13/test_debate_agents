@@ -23,7 +23,9 @@ def _client(config):
     base_url = os.environ.get(config.base_url_env, "https://api.openai.com/v1")
     model_config = ModelConfig(name=model, base_url=base_url, api_key_env=config.api_key_env,
                                provider="openai_compatible" if base_url != "https://api.openai.com/v1" else "openai",
-                               temperature=config.llm_temperature, max_attempts=config.llm_max_retries)
+                               temperature=config.llm_temperature,
+                               max_completion_tokens=config.llm_max_completion_tokens,
+                               max_attempts=config.llm_max_retries)
     return Client(model_config,
                   Path(config.output_dir) / "llm_cache.sqlite3",
                   Path(config.output_dir) / "audit" / "api_calls.jsonl")
