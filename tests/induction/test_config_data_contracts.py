@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -83,3 +84,16 @@ def test_semantic_validation_rejects_missing_canonical_reasoning(tmp_path):
     record["canonical_reasoning"] = ""
     with pytest.raises(ValueError, match="canonical_reasoning"):
         validate_semantic_record(record, sample)
+
+
+def test_load_config_loads_repo_dotenv_for_hf_and_llm(tmp_path, monkeypatch):
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    config_path = configs / "induction.yaml"
+    config_path.write_text("data:\n  path: train.json\n  label: appeal to tradition\n", encoding="utf-8")
+    (tmp_path / ".env").write_text("HF_TOKEN=hf_test\nNVIDIA_API_KEY=api_test\n", encoding="utf-8")
+    monkeypatch.delenv("HF_TOKEN", raising=False)
+    monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
+    load_config(config_path)
+    assert os.environ["HF_TOKEN"] == "hf_test"
+    assert os.environ["NVIDIA_API_KEY"] == "api_test"

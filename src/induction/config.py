@@ -4,6 +4,7 @@ from pathlib import Path
 import yaml
 
 from src.labels import FALLACIES
+from src.runner import load_dotenv_file
 
 
 @dataclass(frozen=True)
@@ -105,6 +106,10 @@ def load_config_from_mapping(mapping, *, base_dir=None, config_path=None):
 
 def load_config(path):
     path = Path(path).resolve()
+    for dotenv_path in (path.parent.parent / ".env", path.parent / ".env"):
+        if dotenv_path.exists():
+            load_dotenv_file(dotenv_path)
+            break
     with path.open(encoding="utf-8") as stream:
         mapping = yaml.safe_load(stream) or {}
     mapping["base_dir"] = str(path.parent)

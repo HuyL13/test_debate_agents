@@ -13,7 +13,9 @@ python scripts/verify_dataset.py --data-dir data/cocolofa
 
 ## Environment
 
-Copy `.env.example` to `.env` and set `NVIDIA_API_KEY`. The runner loads `.env`; no shell export is required.
+Copy `.env.example` to `.env` and set `NVIDIA_API_KEY`. For Hugging Face,
+replace `HF_TOKEN=hf_replace_me` with your token; it is optional for the public
+`all-mpnet-base-v2` model. The induction commands load `.env` automatically.
 
 ```powershell
 cp .env.example .env
