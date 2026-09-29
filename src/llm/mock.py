@@ -95,27 +95,6 @@ class MockTransport:
             }
         elif "merge_groups" in properties:
             value = {"merge_groups": [], "keep_separate": []}
-        elif stage == "property_graph_extraction":
-            sample_id = _user(payload)["sample_id"]
-            value = {
-                "sample_id": sample_id,
-                "propositions": [
-                    {"id": "p1", "text": span, "speaker": "target", "role": "premise"},
-                    {"id": "p2", "text": span, "speaker": "target", "role": "conclusion"},
-                ],
-                "relations": [{
-                    "source": "p1", "target": "p2", "type": "USED_AS_JUSTIFICATION",
-                    "status": "asserted", "explicitness": "implicit", "evidence_spans": [span],
-                }],
-                "semantic_roles": {
-                    "source_type": "unspecified", "sample_scope": "unspecified",
-                    "target_scope": "unspecified", "alternatives_count": None,
-                    "property_type": "unspecified", "comparison_target": None,
-                },
-                "qualifiers": {"certainty": "unspecified", "universality": "unspecified", "normative": False},
-                "structural_features": ["premise_to_conclusion", "implicit_justification"],
-                "uncertainties": [],
-            }
         elif "structure_complete" in properties:
             value = {
                 "evidence_spans": [span],
