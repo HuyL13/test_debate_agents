@@ -57,38 +57,39 @@ Detection reports accuracy, positive-class precision/recall/F1, false positive r
 pytest -q
 ```
 
-## Property-graph induction
+## Semantic definition induction
 
-The property-graph pipeline extracts one label-blind argument signature per
-positive classification-train sample, then deterministically builds prototypes,
-shared mechanisms, discriminative conditions, indexes, and a seed-to-evolved
-change report. It reads `NVIDIA_API_KEY`, `NVIDIA_BASE_URL`, and
-`NVIDIA_MODEL` from the current `.env`; credentials are not copied into run
-artifacts.
+The induction pipeline starts from all positive training examples of one label,
+asks the configured LLM to extract premise/conclusion/bridge structure, removes
+topic-specific content into `canonical_reasoning`, embeds only that field with
+`sentence-transformers/all-mpnet-base-v2`, and discovers audited reasoning modes
+with cosine k-medoids. It does not induce the complement label `none` in this
+phase.
 
-Run a small, label-stratified train smoke:
-
-```powershell
-python -m src.property_graph.pipeline smoke --config configs/property_graph.yaml --limit 8 --output runs/property-graph-smoke --resume
-```
-
-Validate the generated graphs:
+The configured `.env` must provide the names from `configs/induction.yaml`
+(`NVIDIA_API_KEY`, `NVIDIA_BASE_URL`, and `NVIDIA_MODEL` by default). Keys are
+never written to artifacts. Run each stage explicitly so the semantic and
+cluster hard gates are visible:
 
 ```powershell
-python -m src.property_graph.pipeline validate --graph runs/property-graph-smoke/seed_graph.json
-python -m src.property_graph.pipeline validate --graph runs/property-graph-smoke/fallacy_graph.json
+python -m scripts.semantic_extract --config configs/induction.yaml --resume
+python -m scripts.audit_semantics --config configs/induction.yaml
+python -m scripts.embed_reasoning --config configs/induction.yaml
+python -m scripts.cluster_search --config configs/induction.yaml
+python -m scripts.audit_clusters --config configs/induction.yaml
+python -m scripts.induce_cluster_modes --config configs/induction.yaml --resume
+python -m scripts.induce_definition --config configs/induction.yaml
 ```
 
-The run directory contains `seed_graph.json`, `fallacy_graph.json`, versioned
-graphs, extraction records/failures, three retrieval indexes,
-`graph_induction_report.md`, and both JSON and Markdown graph diffs. Resume
-skips completed sample IDs, while the response cache avoids repeated identical
-provider requests. Raw request/response dumps are written only when
-`TRACE_RAW_API=1`.
+Or run the hard-gated sequence:
 
-Smoke thresholds intentionally permit prototypes from tiny samples so the
-whole pipeline can be verified. Smoke graph size, shared mechanisms,
-discriminative conditions, and retrieval results are functional diagnostics,
-not tuned research metrics. Use larger train coverage and tune thresholds only
-on dev before interpreting graph quality. Test data must not be used for
-induction or tuning.
+```powershell
+python -m scripts.run_induction --config configs/induction.yaml --resume
+```
+
+Artifacts are written below `outputs/<label>/`: data stats and positive
+samples, resumable semantic records/failures, semantic and cluster audits,
+normalized embeddings, k-search metrics, cluster assignments, modes, merge
+plan, induced definition, and a secret-free run manifest. A mock transport is
+for plumbing tests only; a real experiment requires real LLM credentials and
+the Hugging Face model to load successfully.

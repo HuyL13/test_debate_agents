@@ -71,6 +71,28 @@ class MockTransport:
                 "supporting_member_ids": audit.get("outlier_ids", []) or ["unknown"],
                 "coverage_n": 1,
             }
+        elif "core_invariant" in properties:
+            modes = _user(payload).get("audited_modes", [])
+            value = {
+                "status": "PARTIALLY READY",
+                "core_invariant": "An observed relation is treated as support for a conclusion.",
+                "prototypical_relation": "PREMISE -> BRIDGE -> CONCLUSION",
+                "discovered_modes": [{
+                    "cluster_ids": [mode.get("cluster_id", 0)],
+                    "mode_name": mode.get("mode_name", "Audited mode"),
+                    "coverage_n": mode.get("coverage_n", 1),
+                    "relation": mode.get("canonical_template", "PREMISE -> BRIDGE -> CONCLUSION"),
+                    "supporting_member_ids": mode.get("supporting_member_ids", ["unknown"]),
+                } for mode in modes] or [{
+                    "cluster_ids": [0], "mode_name": "Audited mode", "coverage_n": 1,
+                    "relation": "PREMISE -> BRIDGE -> CONCLUSION", "supporting_member_ids": ["unknown"],
+                }],
+                "not_sufficient": ["Topic words alone are not sufficient."],
+                "opposite_direction_cases": ["Opposite conclusion directions remain distinct."],
+                "descriptive_cases": ["Description without an inferential bridge is not sufficient."],
+                "dataset_edge_modes": [],
+                "operational_classification_test": ["Identify premise, bridge, and conclusion.", "Match the relation to an audited mode."],
+            }
         elif "merge_groups" in properties:
             value = {"merge_groups": [], "keep_separate": []}
         elif stage == "property_graph_extraction":

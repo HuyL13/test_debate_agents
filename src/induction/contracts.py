@@ -100,6 +100,31 @@ def validate_merge_plan(value):
     return value
 
 
+def final_definition_schema():
+    mode = {"type": "object", "properties": {
+        "cluster_ids": {"type": "array", "items": {"type": "integer"}, "minItems": 1},
+        "mode_name": _string(), "coverage_n": {"type": "integer"}, "relation": _string(),
+        "supporting_member_ids": {"type": "array", "items": _string(200), "minItems": 1},
+    }, "required": ["cluster_ids", "mode_name", "coverage_n", "relation", "supporting_member_ids"], "additionalProperties": False}
+    return {"type": "object", "properties": {
+        "status": {"enum": ["INDUCTION READY", "PARTIALLY READY", "NOT READY"]},
+        "core_invariant": _string(), "prototypical_relation": _string(),
+        "discovered_modes": {"type": "array", "items": mode, "maxItems": 100},
+        "not_sufficient": {"type": "array", "items": _string(), "maxItems": 50},
+        "opposite_direction_cases": {"type": "array", "items": _string(), "maxItems": 50},
+        "descriptive_cases": {"type": "array", "items": _string(), "maxItems": 50},
+        "dataset_edge_modes": {"type": "array", "items": _string(), "maxItems": 50},
+        "operational_classification_test": {"type": "array", "items": _string(), "minItems": 1, "maxItems": 20},
+    }, "required": ["status", "core_invariant", "prototypical_relation", "discovered_modes", "not_sufficient",
+                       "opposite_direction_cases", "descriptive_cases", "dataset_edge_modes", "operational_classification_test"],
+    "additionalProperties": False}
+
+
+def validate_final_definition(value):
+    validate_output(value, final_definition_schema())
+    return value
+
+
 def merge_plan_schema():
     item = {"type": "object", "properties": {"cluster_ids": {"type": "array", "items": {"type": "integer"}, "minItems": 2},
         "reason": _string(), "merged_mode": _string()}, "required": ["cluster_ids", "reason", "merged_mode"], "additionalProperties": False}
