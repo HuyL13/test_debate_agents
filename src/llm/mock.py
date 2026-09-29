@@ -24,7 +24,28 @@ class MockTransport:
         target = _target(payload)
         span = "good and evil" if "good and evil" in target else _span(target)
         negative = "good and evil" in target
-        if stage == "property_graph_extraction":
+        if stage == "semantic_extraction":
+            value = {
+                "article_id": _user(payload)["article_id"],
+                "comment_id": _user(payload)["sample_id"].split(":", 1)[1],
+                "original_text": target,
+                "premises": ["A claim is asserted in the target comment."],
+                "conclusion": "The target claim should be accepted or rejected.",
+                "inference_source": "stated premise",
+                "inference_target": "stated conclusion",
+                "bridge": "The premise is treated as support for the conclusion.",
+                "evidential_basis": "the target argument",
+                "premise_valence": "NEUTRAL",
+                "relation_polarity": "OTHER",
+                "conclusion_direction": "accept or reject",
+                "missing_justification": None,
+                "alternatives_suppressed": None,
+                "causal_chain": None,
+                "canonical_reasoning": "A stated premise is treated as support for a related conclusion.",
+                "ambiguity_notes": None,
+                "topic_leakage_check": False,
+            }
+        elif stage == "property_graph_extraction":
             sample_id = _user(payload)["sample_id"]
             value = {
                 "sample_id": sample_id,
