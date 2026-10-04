@@ -15,6 +15,7 @@ class ModelConfig:
     max_attempts: int = 3
     backoff_seconds: float = 1.0
     structured_output: bool = True
+    reasoning_effort: str | None = None
     input_cost_per_million: float | None = None
     output_cost_per_million: float | None = None
     cached_input_cost_per_million: float | None = None
@@ -43,3 +44,5 @@ class ModelConfig:
             raise ValueError('Timeout must be positive and temperature must be 0..2 or null')
         if type(self.structured_output) is not bool:
             raise ValueError('structured_output must be boolean')
+        if self.reasoning_effort not in (None, 'low', 'medium', 'high'):
+            raise ValueError('reasoning_effort must be low, medium, high or null')

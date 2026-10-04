@@ -1,0 +1,505 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/atomic_proposition_schema_v2.json",
+  "title": "Atomic Proposition Graph v2.0 (closed relation vocabulary; no candidates)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "document_id",
+    "sentences",
+    "propositions",
+    "references",
+    "discourse_edges",
+    "argument_edges"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "2.0"
+    },
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sentences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^S[1-9][0-9]*$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "propositions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "source_sentence_ids",
+          "mode"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_sentence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            }
+          },
+          "mode": {
+            "enum": [
+              "ASSERTED",
+              "HEDGED",
+              "QUESTION",
+              "HYPOTHETICAL",
+              "CONDITIONAL",
+              "EVALUATION",
+              "NORMATIVE",
+              "WISH"
+            ]
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expression",
+          "sentence_id",
+          "referent_proposition_ids"
+        ],
+        "properties": {
+          "expression": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sentence_id": {
+            "type": "string",
+            "pattern": "^S[1-9][0-9]*$"
+          },
+          "referent_proposition_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^P[0-9]{2,}$"
+            }
+          }
+        }
+      }
+    },
+    "discourse_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ids",
+          "target_id",
+          "relation",
+          "connective",
+          "origin",
+          "evidence_sentence_ids"
+        ],
+        "properties": {
+          "source_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^P[0-9]{2,}$"
+            }
+          },
+          "target_id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "relation": {
+            "enum": [
+              "CONJUNCTION",
+              "ALTERNATIVE",
+              "RESTATEMENT",
+              "INSTANTIATION",
+              "CONTRAST",
+              "CONCESSION",
+              "ANALOGY",
+              "TEMPORAL",
+              "CONDITION",
+              "CAUSAL"
+            ]
+          },
+          "connective": {
+            "type": "string",
+            "enum": [
+              "after",
+              "also",
+              "alternatively",
+              "although",
+              "and",
+              "as a result",
+              "as if",
+              "as long as",
+              "as well as",
+              "because",
+              "before",
+              "but",
+              "despite",
+              "even though",
+              "for example",
+              "for instance",
+              "furthermore",
+              "however",
+              "if",
+              "in fact",
+              "in order to",
+              "in other words",
+              "instead",
+              "likewise",
+              "meanwhile",
+              "moreover",
+              "nevertheless",
+              "on the other hand",
+              "only if",
+              "or",
+              "similarly",
+              "so that",
+              "such as",
+              "then",
+              "therefore",
+              "unless",
+              "when",
+              "whereas"
+            ]
+          },
+          "origin": {
+            "enum": [
+              "EXPLICIT",
+              "INFERRED"
+            ]
+          },
+          "evidence_sentence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONJUNCTION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "and",
+                    "also",
+                    "as well as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "ALTERNATIVE"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "or",
+                    "alternatively",
+                    "instead"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "RESTATEMENT"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "moreover",
+                    "furthermore",
+                    "in other words",
+                    "in fact"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "INSTANTIATION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "for example",
+                    "for instance",
+                    "such as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONTRAST"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "but",
+                    "however",
+                    "whereas",
+                    "on the other hand"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONCESSION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "although",
+                    "even though",
+                    "nevertheless",
+                    "despite"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "ANALOGY"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "similarly",
+                    "likewise",
+                    "as if"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "TEMPORAL"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "before",
+                    "after",
+                    "when",
+                    "then",
+                    "meanwhile"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONDITION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "if",
+                    "unless",
+                    "only if",
+                    "as long as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CAUSAL"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "because",
+                    "therefore",
+                    "as a result",
+                    "so that",
+                    "in order to"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "argument_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ids",
+          "target_id",
+          "relation",
+          "evidence_sentence_ids"
+        ],
+        "properties": {
+          "source_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^P[0-9]{2,}$"
+            }
+          },
+          "target_id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "relation": {
+            "const": "SUPPORT"
+          },
+          "evidence_sentence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

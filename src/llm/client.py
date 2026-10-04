@@ -82,6 +82,8 @@ class Client:
         }
         if self.config.temperature is not None:
             payload["temperature"] = self.config.temperature
+        if self.config.reasoning_effort is not None:
+            payload["reasoning_effort"] = self.config.reasoning_effort
         if not self.config.structured_output and self.config.provider != "mock":
             payload["response_format"] = {"type": "json_object"}
             payload["messages"][0]["content"] += "\nJSON schema: " + json.dumps(schema)
@@ -126,9 +128,16 @@ class Client:
                     8192,
                 )
             if feedback:
+                retry_feedback = feedback
+                if stage == "atomic_graph" and "finish_reason=length" in feedback:
+                    retry_feedback = (
+                        "The previous response was truncated. Return the complete atomic graph JSON object "
+                        "with all required fields and complete verbatim sentence coverage. Keep proposition "
+                        "texts concise while preserving their scope. Do not add explanations or linearization."
+                    )
                 request_payload["messages"].append({
                     "role": "user",
-                    "content": "Previous validation failed: " + feedback + ". Return valid JSON only.",
+                    "content": "Previous validation failed: " + retry_feedback + ". Return valid JSON only.",
                 })
             event = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
