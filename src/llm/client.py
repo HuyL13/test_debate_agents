@@ -58,6 +58,40 @@ def _usage(response):
     }
 
 
+def _retry_instruction(feedback, stage=None):
+    if "finish_reason=length" in feedback:
+        if stage and stage.startswith('atomic_v3_'):
+            return (
+                'The previous response was truncated. Return the complete requested stage JSON object, '
+                'including all required collections and evidence quotes. Keep explanations concise; '
+                'do not collapse propositions into a summary or add text outside JSON.'
+            )
+        if stage == "atomic_graph":
+            return (
+                "The previous response was truncated. Return the complete atomic graph JSON object "
+                "with all required fields and complete verbatim sentence coverage. Keep proposition "
+                "texts concise while preserving their scope. Do not add explanations or linearization."
+            )
+        if stage == "top3_classification":
+            return (
+                "The previous response was truncated. Return only the requested JSON object with exactly "
+                "three distinct labels in top3 and one brief reason of no more than 20 words. Do not add analysis."
+            )
+        return (
+            "The previous response was truncated. Return only the canonical JSON object with one concise "
+            "sentence or inference chain of no more than 25 words; do not explain the answer."
+        )
+    if feedback.startswith("topic leakage in canonical_reasoning:"):
+        terms = feedback.split(":", 1)[1].strip()
+        return (
+            "Previous validation failed because canonical_reasoning copied these topic-bearing words "
+            f"from the original comment: {terms}. Replace those words with abstract, topic-independent "
+            "roles, practices, actions, systems, norms, or outcomes as appropriate. Preserve the "
+            "inferential bridge and return valid JSON only."
+        )
+    return f"Previous validation failed: {feedback}. Return valid JSON only."
+
+
 class Client:
     def __init__(self, config, cache_path, audit_path, transport=None, raw_debug_path=None):
         self.config = config
@@ -128,16 +162,9 @@ class Client:
                     8192,
                 )
             if feedback:
-                retry_feedback = feedback
-                if stage == "atomic_graph" and "finish_reason=length" in feedback:
-                    retry_feedback = (
-                        "The previous response was truncated. Return the complete atomic graph JSON object "
-                        "with all required fields and complete verbatim sentence coverage. Keep proposition "
-                        "texts concise while preserving their scope. Do not add explanations or linearization."
-                    )
                 request_payload["messages"].append({
                     "role": "user",
-                    "content": "Previous validation failed: " + retry_feedback + ". Return valid JSON only.",
+                    "content": _retry_instruction(feedback, stage),
                 })
             event = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),

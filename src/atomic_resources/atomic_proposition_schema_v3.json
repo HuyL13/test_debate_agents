@@ -1,0 +1,871 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_id",
+    "sentences",
+    "propositions",
+    "entities",
+    "references",
+    "discourse_edges",
+    "argument_edges"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "3.0"
+    },
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sentences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^S[1-9][0-9]*$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "propositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "source_sentence_ids",
+          "source_spans",
+          "speech_act",
+          "operators",
+          "normalization_note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_sentence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "source_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 1
+          },
+          "speech_act": {
+            "enum": [
+              "ASSERTION",
+              "QUESTION",
+              "DIRECTIVE",
+              "EXCLAMATION"
+            ]
+          },
+          "operators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "scope_group"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "EPISTEMIC_HEDGE",
+                    "CONDITIONAL_ANTECEDENT",
+                    "CONDITIONAL_CONSEQUENT",
+                    "HYPOTHETICAL",
+                    "NEGATION",
+                    "DEONTIC",
+                    "FUTURE_PREDICTION",
+                    "DESIRE",
+                    "GENERIC"
+                  ]
+                },
+                "scope_group": {
+                  "type": "string",
+                  "pattern": "^(C[1-9][0-9]*)?$"
+                }
+              }
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "normalization_note": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text",
+          "source_spans"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^E[0-9]{2,}$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 1
+          }
+        }
+      },
+      "minItems": 0
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mention",
+          "referent_type",
+          "referent_ids",
+          "evidence_spans"
+        ],
+        "properties": {
+          "mention": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sentence_id",
+              "start",
+              "end",
+              "text"
+            ],
+            "properties": {
+              "sentence_id": {
+                "type": "string",
+                "pattern": "^S[1-9][0-9]*$"
+              },
+              "start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "end": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "referent_type": {
+            "enum": [
+              "ENTITY",
+              "PROPOSITION"
+            ]
+          },
+          "referent_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "evidence_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 1
+          }
+        }
+      },
+      "minItems": 0
+    },
+    "discourse_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ids",
+          "target_id",
+          "evidence_sentence_ids",
+          "source_spans",
+          "surface_markers",
+          "justification",
+          "relation",
+          "connective",
+          "origin",
+          "connective_spans"
+        ],
+        "properties": {
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^P[0-9]{2,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "target_id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "evidence_sentence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "source_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 1
+          },
+          "surface_markers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 0
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "enum": [
+              "CONJUNCTION",
+              "ALTERNATIVE",
+              "RESTATEMENT",
+              "INSTANTIATION",
+              "CONTRAST",
+              "CONCESSION",
+              "ANALOGY",
+              "TEMPORAL",
+              "CONDITION",
+              "CAUSAL"
+            ]
+          },
+          "connective": {
+            "enum": [
+              "and",
+              "also",
+              "as well as",
+              "or",
+              "alternatively",
+              "instead",
+              "moreover",
+              "furthermore",
+              "in other words",
+              "in fact",
+              "for example",
+              "for instance",
+              "such as",
+              "but",
+              "however",
+              "whereas",
+              "on the other hand",
+              "although",
+              "even though",
+              "nevertheless",
+              "despite",
+              "similarly",
+              "likewise",
+              "as if",
+              "before",
+              "after",
+              "when",
+              "then",
+              "meanwhile",
+              "if",
+              "unless",
+              "only if",
+              "as long as",
+              "because",
+              "therefore",
+              "as a result",
+              "so that",
+              "in order to"
+            ]
+          },
+          "origin": {
+            "enum": [
+              "EXPLICIT",
+              "INFERRED"
+            ]
+          },
+          "connective_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 0
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONJUNCTION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "and",
+                    "also",
+                    "as well as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "ALTERNATIVE"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "or",
+                    "alternatively",
+                    "instead"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "RESTATEMENT"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "moreover",
+                    "furthermore",
+                    "in other words",
+                    "in fact"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "INSTANTIATION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "for example",
+                    "for instance",
+                    "such as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONTRAST"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "but",
+                    "however",
+                    "whereas",
+                    "on the other hand"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONCESSION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "although",
+                    "even though",
+                    "nevertheless",
+                    "despite"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "ANALOGY"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "similarly",
+                    "likewise",
+                    "as if"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "TEMPORAL"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "before",
+                    "after",
+                    "when",
+                    "then",
+                    "meanwhile"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CONDITION"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "if",
+                    "unless",
+                    "only if",
+                    "as long as"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "const": "CAUSAL"
+                }
+              },
+              "required": [
+                "relation"
+              ]
+            },
+            "then": {
+              "properties": {
+                "connective": {
+                  "enum": [
+                    "because",
+                    "therefore",
+                    "as a result",
+                    "so that",
+                    "in order to"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 0
+    },
+    "argument_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ids",
+          "target_id",
+          "evidence_sentence_ids",
+          "source_spans",
+          "surface_markers",
+          "justification",
+          "relation"
+        ],
+        "properties": {
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^P[0-9]{2,}$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "target_id": {
+            "type": "string",
+            "pattern": "^P[0-9]{2,}$"
+          },
+          "evidence_sentence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^S[1-9][0-9]*$"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "source_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 1
+          },
+          "surface_markers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sentence_id",
+                "start",
+                "end",
+                "text"
+              ],
+              "properties": {
+                "sentence_id": {
+                  "type": "string",
+                  "pattern": "^S[1-9][0-9]*$"
+                },
+                "start": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "minItems": 0
+          },
+          "justification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "const": "SUPPORT"
+          }
+        }
+      },
+      "minItems": 0
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

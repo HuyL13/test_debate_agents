@@ -165,7 +165,7 @@ def cli():
     parser.add_argument('--config', default='configs/atomic_graph.yaml')
     parser.add_argument('--limit', type=int, default=10)
     parser.add_argument('--seed', type=int, default=42)
-    parser.add_argument('--output', default='outputs/atomic_graph_10')
+    parser.add_argument('--output')
     args = parser.parse_args()
     path = Path(args.config).resolve()
     base = path.parent.parent
@@ -173,8 +173,15 @@ def cli():
     config = yaml.safe_load(path.read_text(encoding='utf-8'))
     config['model'] = expand_env(config['model'])
     config['data_dir'] = str(base / config['data_dir'])
-    report = execute(config, args.output, limit=args.limit, seed=args.seed)
-    print(f"Validated {report['valid']}/{report['requested']}; output: {args.output}")
+    version = config.get('schema_version', '2.0')
+    if version not in ('2.0', '3.0'):
+        raise ValueError('Unsupported schema_version')
+    output = args.output or (f'outputs/atomic_graph_v3_seed{args.seed}' if version == '3.0' else 'outputs/atomic_graph_10')
+    executor = execute
+    if version == '3.0':
+        from src.atomic_v3_runner import execute as executor
+    report = executor(config, output, limit=args.limit, seed=args.seed)
+    print(f"Validated {report['valid']}/{report['requested']}; output: {output}")
     if report['failed']:
         raise SystemExit(1)
 
