@@ -399,53 +399,24 @@ def classify_roles(client, sources, sample_id, *, parser=None, method='graph', p
         response = client.generate(system_prompt=prompt, user_prompt=json.dumps(payload, ensure_ascii=False),
             schema=schema, metadata={'stage': 'discourse_argument_roles', 'sample_id': sample_id, 'prompt_version': VERSION},
             validator=validate)
-    except (ValueError, RuntimeError, OSError) as exc:
-        exc.discourse_trace = {'graph': graph, 'candidates': [], 'calls': 1}
-        raise
-    arguments = response.output['arguments']
-    focus, focus_roles = coverage_focus(graph, arguments)
-    calls = 1
-    completion_status = None
-    completion_error = None
-    if focus:
-        nodes, relations = completion_subgraph(graph, focus, arguments)
-        if progress:
-            progress('argument_completion')
-        calls += 1
-        try:
-            completion = client.generate(
-                system_prompt=prompt + '\nCoverage audit: the previous extraction left a conclusion or a neutral graph relation unrepresented. '
-                'Inspect each focus node and its supplied focus_roles. For a causal/event endpoint, '
-                'extract its starting event and outcome; this does not require a recommendation. '
-                'For a conclusion, work backward to its expressed supporting reasons. '
-                'Identify the scope of its recommended action and the additional concern raised in any '
-                'rhetorical question. Extract the argument from the supplied subgraph. Quote the focus '
-                'node with an appropriate supplied focus role, such as OUTCOME or CLAIM. Consider the surrounding questions and '
-                'contrasts. Do not merely repeat an earlier forecast unrelated to this conclusion. '
-                'Return [] if no support structure is expressed; do not invent missing roles.',
-                user_prompt=json.dumps({'sources': sources, 'propositions': nodes, 'relations': relations,
-                                    'focus_nodes': focus, 'focus_roles': focus_roles, 'existing_arguments': arguments}, ensure_ascii=False),
-                schema=schema, metadata={'stage': 'discourse_argument_completion', 'sample_id': sample_id,
-                                     'prompt_version': VERSION},
-                validator=lambda output: validate_completion(graph, sources, focus, output, arguments, focus_roles))
-        except (ValueError, RuntimeError, OSError) as exc:
-            # Coverage completion is optional: keep already validated primary evidence.
-            # Its failure remains explicit in the same report; it is never called recovery.
-            completion_status, completion_error = 'failed', f'{type(exc).__name__}: {exc}'[:240]
-        else:
-            arguments = arguments + completion.output['arguments']
-            completion_status = 'completed'
+    except (ValueError, RuntimeError, OSError):
+        # Retrieval failure is visible but cannot veto the required classification.
+        arguments, extraction_status = [], 'failed'
+    else:
+        arguments, extraction_status = response.output['arguments'], 'completed'
     candidates = match_arguments(graph, sources, arguments)
+    focus, _ = coverage_focus(graph, arguments)
     winner = select_candidate(candidates, focus)
-    common = {'graph': graph, 'candidates': candidates, 'verification': [], 'calls': calls,
-              'primary_prediction': winner['label'] if winner else None}
-    if focus:
-        common['role_completion_focus'] = focus
-        common['role_completion_status'] = completion_status
-        if completion_error:
-            common['role_completion_error'] = completion_error
-    if winner:
-        return {**common, 'label': winner['label'], 'reason': winner['reason'], 'evidence': winner['evidence'],
-                'decision_mode': 'role_match' if winner['support'][0] == 2 else 'role_match_partial'}
-    return {**common, 'role_arguments': arguments, 'label': None, 'reason': 'No complete role pattern.' if not candidates else
-            'Equally supported competing role patterns.', 'evidence': [], 'decision_mode': 'unresolved'}
+    from src.discourse_classification.verifier import verify
+    if progress:
+        progress('comparative_verification')
+    try:
+        decision = verify(client, sources, graph, candidates, arguments, sample_id, VERSION, extraction_status)
+    except (ValueError, RuntimeError, OSError) as exc:
+        exc.discourse_trace = {'graph': graph, 'candidates': candidates, 'calls': 2,
+                               'role_extraction_status': extraction_status}
+        raise
+    return {**decision, 'graph': graph, 'candidates': candidates, 'calls': 2,
+            'role_arguments': arguments, 'role_extraction_status': extraction_status,
+            'primary_prediction': decision['label'],
+            'template_prediction': winner['label'] if winner else None}

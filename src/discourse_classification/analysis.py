@@ -36,6 +36,8 @@ def ranking_ablation(rows):
 
     This does not measure graph effects on extraction or coverage completion.
     """
+    if any(r.get('decision_mode', '').startswith('verified') for r in rows):
+        return {'available': False, 'scope': 'Final decisions require an actual verifier rerun without relations; template replay is not a verifier ablation.'}
     from src.discourse_classification.roles import match_arguments, select_candidate
     replay, changed = [], 0
     for row in rows:

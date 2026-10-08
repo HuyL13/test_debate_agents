@@ -57,7 +57,7 @@ def review(folder, baseline=None, frozen_hash=None):
                          f"macro-F1 {old_metrics['macro_f1_all_selected']:.4f}. "
                          'Its saved manifest does not identify the model, so this is a reference, not a controlled comparison.')
     lines = [
-        '# Full classification test review', '',
+        '# Classification run review', '',
         f"Version: {manifest['version']}. Model: {manifest['effective_model']['name']}. Recovery: disabled.",
         f'Inference source fingerprint: `{actual_hash}`.', '',
         f'Selected: {len(rows)}; correct: {correct}; wrong: {len(wrong)}; unresolved: {counts["unresolved"]}; errors: {counts["error"]}.',
@@ -72,7 +72,7 @@ def review(folder, baseline=None, frozen_hash=None):
         lines.append(f"| {label} | {v['support']} | {v['precision']:.3f} | {v['recall']:.3f} | {v['f1']:.3f} |")
     lines += ['', baseline_text, '',
         '## Failure decomposition', '',
-        f'{len(absent)}/{len(wrong)} wrong predictions lack a gold-label candidate; {len(wrong)-len(absent)} have it but select another label.',
+        f'{len(absent)}/{len(wrong)} wrong predictions lack a gold-label matched template. This is a retrieval diagnostic, not proof that retrieval caused the final error.',
         f'{sum(not r.get("role_arguments") for r in unresolved)}/{len(unresolved)} unresolved rows contain no extracted arguments.',
         f'{sum(bool(r.get("candidates")) for r in unresolved)}/{len(unresolved)} unresolved rows have competing matched candidates.',
         f'{len(completion)}/{len(rows)} rows requested optional role completion; {len(failed_completion)} completions failed.',
@@ -80,13 +80,16 @@ def review(folder, baseline=None, frozen_hash=None):
         '', 'Largest failure directions:', '',
     ]
     lines += [f'- {key}: {count}' for key, count in list(full['confusions'].items())[:12]]
-    lines += ['', '## Graph contribution check', '',
-        f"Removing relations from code ranking changes {ablation['changed_predictions']}/{len(rows)} predictions. "
-        f"The replay accuracy is {ablation['accuracy_all_selected']:.2%}, macro-F1 {ablation['macro_f1_all_selected']:.4f}.",
-        'This replay holds extracted roles and completion outcomes fixed. It measures ranking sensitivity only; it cannot establish the graph effect on LLM extraction or coverage auditing. No causal graph-improvement claim is justified from this check alone.',
-        '', '## Evaluation limits', '',
-        'All original test gold labels, including diagnostic sample 599:7794, are preserved and scored. Four test samples were previously used for debugging, so this is not a completely blind held-out evaluation. No classifier, prompt, schema or demonstrations were tuned during this full run.',
-        'The HTML report contains every sample and its evidence, candidate structures and graph. Inspect semantic role assignments as well as label matches: an exact quote proves location, not that the assigned basis or inference type is correct.',
+    lines += ['', '## Graph contribution check', '']
+    if ablation.get('available') is False:
+        lines.append(ablation['scope'])
+    else:
+        lines += [f"Removing relations from code ranking changes {ablation['changed_predictions']}/{len(rows)} predictions. "
+                  f"The replay accuracy is {ablation['accuracy_all_selected']:.2%}, macro-F1 {ablation['macro_f1_all_selected']:.4f}.",
+                  'This replay holds extracted roles and completion outcomes fixed; it measures ranking sensitivity only.']
+    lines += ['', '## Evaluation limits', '',
+        'Original gold labels are preserved. Previously inspected diagnostic/test examples mean a repeat test is not a fully blind evaluation. No causal graph-improvement claim is justified without a controlled model rerun.',
+        'Exact evidence grounding proves source location, not semantic correctness. Inspect the graph, role extraction status and hypothesis assessments in report.html.',
     ]
     (folder / 'evaluation.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print(f"Reviewed {len(rows)} rows: accuracy={full['accuracy_all_selected']:.4f}, macro-F1={full['macro_f1_all_selected']:.4f}; evaluation.md")

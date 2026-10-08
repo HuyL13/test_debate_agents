@@ -26,6 +26,13 @@ def test_full_metrics_do_not_silently_accept_duplicate_ids():
         full_selection_metrics([row, row])
 
 
+def test_template_replay_is_not_reported_as_final_verifier_ablation():
+    result = ranking_ablation([{'sample_id': '1', 'decision_mode': 'verified'}])
+    assert result['available'] is False
+    assert 'verifier' in result['scope']
+    assert 'changed_predictions' not in result
+
+
 def test_ranking_ablation_reuses_grounded_roles_and_removes_only_graph_relations():
     text = 'An old policy. It should stay. Will we ban letters? After that will we abolish elections?'
     def e(text, role):

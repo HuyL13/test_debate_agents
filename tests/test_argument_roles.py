@@ -75,23 +75,17 @@ def test_primary_extraction_failure_retains_graph_for_inspection():
     with pytest.raises(ValueError) as captured:
         classify(FailingClient(), {'comment': 'A complete sentence.'}, '1', method='rules')
     assert captured.value.discourse_trace['graph']['propositions']
-    assert captured.value.discourse_trace['calls'] == 1
+    assert captured.value.discourse_trace['calls'] == 2
+    assert captured.value.discourse_trace['role_extraction_status'] == 'failed'
 
 
-def test_unrepresented_causal_graph_bridge_triggers_bounded_endpoint_audit():
-    a = argument('CONSEQUENCE', [ref('New restrictions apply', 'ACTION'),
-        ref('It can lead to silencing', 'OUTCOME')], progression='ADVERSE')
-    class EndpointClient(RoleClient):
-        def generate(self, **kwargs):
-            if kwargs['metadata']['stage'] == 'discourse_argument_completion':
-                payload = json.loads(kwargs['user_prompt'])
-                assert 'OUTCOME' in payload['focus_roles'][payload['focus_nodes'][0]]
-                self.arguments = [a]
-            return super().generate(**kwargs)
-    result = classify(EndpointClient([]), {'comment': 'New restrictions apply. It can lead to silencing.'}, '1', method='rules')
+def test_missing_causal_candidate_is_submitted_to_comparative_verifier():
+    client = RoleClient([], verified_label='Slippery Slope')
+    result = classify(client, {'comment': 'New restrictions apply. It can lead to silencing.'}, '1', method='rules')
     assert result['label'] == 'Slippery Slope'
+    assert result['candidates'] == []
     assert result['calls'] == 2
-    assert result['role_completion_status'] == 'completed'
+    assert client.calls[-1][1]['relations']
 
 
 def test_covered_ordinary_causal_relation_does_not_trigger_another_extraction():
@@ -327,18 +321,17 @@ def test_explicit_event_chain_cannot_be_projected_into_priority(with_step):
 
 
 @pytest.mark.parametrize('error_type', [ValueError, RuntimeError, OSError])
-def test_optional_completion_failure_preserves_primary_decision_and_evidence(error_type):
-    class FailingCompletion(RoleClient):
+def test_retrieval_failure_is_visible_without_blocking_verifier(error_type):
+    class FailingExtraction(RoleClient):
         def generate(self, **kwargs):
-            if kwargs['metadata']['stage'] == 'discourse_argument_completion':
-                raise error_type('Optional completion failed')
+            if kwargs['metadata']['stage'] == 'discourse_argument_roles':
+                raise error_type('Extraction failed')
             return super().generate(**kwargs)
-    a = argument('CONSEQUENCE', [ref('ban meetings', 'ACTION'), ref('silence debate', 'OUTCOME')], progression='ADVERSE')
-    text = 'They ban meetings and silence debate. We must protect public access.'
-    result = classify(FailingCompletion([a]), {'comment': text}, '1', method='rules')
+    client = FailingExtraction([], verified_label='Slippery Slope')
+    result = classify(client, {'comment': 'They ban meetings and silence debate.'}, '1', method='rules')
     assert result['label'] == 'Slippery Slope'
-    assert result['candidates'] and result['graph'] and result['evidence']
-    assert result['role_completion_status'] == 'failed'
+    assert result['role_extraction_status'] == 'failed'
+    assert result['graph'] and result['evidence'] and result['verification']
     assert result['calls'] == 2
 
 
@@ -372,33 +365,21 @@ def test_broader_issue_priority_matches_without_claiming_higher_severity():
     assert match(text, [a])[0]['label'] == 'Appeal to Worse Problems'
 
 
-def test_uncovered_conclusion_triggers_one_bounded_role_completion():
+def test_verifier_sees_uncovered_conclusion_without_a_third_model_call():
     a = argument('CONSEQUENCE', [ref('Ignore one complaint', 'ACTION'), ref('further complaints', 'OUTCOME')], progression='ORDINARY')
-    b = argument('ISSUE_COMPARISON', [ref('one complaint', 'FOCAL_ISSUE'),
-        ref('institutional censorship', 'COMPARISON_ISSUE'), ref('We must protect public access', 'CLAIM')],
-        use='PRIORITIZE', severity='HIGHER')
-
-    class CompletionClient(RoleClient):
-        def generate(self, **kwargs):
-            stage = kwargs['metadata']['stage']
-            if stage == 'discourse_argument_completion':
-                payload = json.loads(kwargs['user_prompt'])
-                assert payload['focus_nodes']
-                assert 'definitions' not in payload and 'candidates' not in payload
-                self.arguments = [b]
-            return super().generate(**kwargs)
-
-    client = CompletionClient([a])
+    client = RoleClient([a], verified_label='Appeal to Worse Problems')
     text = 'Ignore one complaint and expect further complaints. But institutional censorship prevents public access. We must protect public access.'
     result = classify(client, {'comment': text}, '1', method='rules')
     assert result['label'] == 'Appeal to Worse Problems'
     assert result['calls'] == 2
-    assert [s for s, _ in client.calls] == ['discourse_argument_roles', 'discourse_argument_completion']
+    assert [s for s, _ in client.calls] == ['discourse_argument_roles', 'discourse_comparative_verification']
+    assert client.calls[-1][1]['propositions'][-1]['text'] == 'We must protect public access.'
 
 
 class RoleClient:
-    def __init__(self, arguments):
+    def __init__(self, arguments, verified_label=None):
         self.arguments = arguments
+        self.verified_label = verified_label
         self.calls = []
 
     def generate(self, **kwargs):
@@ -409,6 +390,13 @@ class RoleClient:
             assert set(payload) == {'sources', 'definitions'}
             output = {'label': 'Appeal to Nature', 'reason': 'Naturalness used as value.',
                       'evidence': [{'source': 'comment', 'text': 'Natural'}]}
+        elif kwargs['metadata']['stage'] == 'discourse_comparative_verification':
+            from src.labels import FALLACIES
+            label = self.verified_label or (payload['candidates'][0]['label'] if payload['candidates'] else 'Appeal to Nature')
+            output = {'label': label, 'reason': 'Verified mechanism.', 'assessments': {
+                l: {'status': 'SUPPORTED' if l == label else 'ABSENT',
+                 'node_ids': [payload['propositions'][0]['id']] if l == label else [],
+                 'reason': 'Mechanism checked.'} for l in FALLACIES}}
         else:
             assert 'definitions' not in payload and 'candidates' not in payload
             output = {'arguments': self.arguments}
@@ -417,14 +405,25 @@ class RoleClient:
         return SimpleNamespace(output=output)
 
 
-def test_primary_pipeline_matches_roles_in_one_call_without_verifier_or_recovery():
+def test_primary_pipeline_verifies_role_candidates_without_legacy_recovery():
     a = argument('SOURCE_JUSTIFICATION', [ref('Natural', 'BASIS'), ref('good', 'CLAIM')], basis='NATURE')
     client = RoleClient([a])
     result = classify(client, {'comment': 'Natural products are good.'}, '1', implicit=True)
     assert result['label'] == 'Appeal to Nature'
     assert result['primary_prediction'] == result['label']
-    assert result['calls'] == 1
-    assert [stage for stage, _ in client.calls] == ['discourse_argument_roles']
+    assert result['calls'] == 2
+    assert len(result['verification']) == 8
+    assert [stage for stage, _ in client.calls] == ['discourse_argument_roles', 'discourse_comparative_verification']
+
+
+def test_tied_templates_do_not_veto_verified_classification():
+    args = [argument('SOURCE_JUSTIFICATION', [ref('Natural', 'BASIS'), ref('good', 'CLAIM')], basis='NATURE'),
+            argument('SOURCE_JUSTIFICATION', [ref('always used', 'BASIS'), ref('keep using', 'CLAIM')], basis='HISTORY')]
+    result = classify(RoleClient(args, verified_label='Appeal to Tradition'),
+                      {'comment': 'Natural products are good. It was always used. We should keep using it.'}, '1', method='rules')
+    assert result['label'] == 'Appeal to Tradition'
+    assert result['template_prediction'] is None
+    assert len(result['candidates']) == 2
 
 
 def test_clean_direct_baseline_never_calls_parser_or_supplies_graph():
@@ -434,17 +433,17 @@ def test_clean_direct_baseline_never_calls_parser_or_supplies_graph():
     assert classify(client, {'comment': 'Natural products are good.'}, '1', method='direct', parser=fail)['label'] == 'Appeal to Nature'
 
 
-def test_unresolved_is_not_api_failure_and_is_skipped_on_resume(tmp_path):
+def test_no_candidates_still_classifies_and_is_skipped_on_resume(tmp_path):
     data = tmp_path / 'input.json'
     data.write_text(json.dumps([{'id': '1', 'comment': 'Natural products are good.', 'gold': 'Appeal to Nature'}]))
     config = {'input': str(data), 'model': {}, 'method': 'rules', 'parser': 'rules',
               'context': 'comment_only', 'output_root': str(tmp_path / 'runs')}
     client = RoleClient([])
     metrics = execute(config, output='test', client=client)
-    assert metrics['errors'] == 0 and metrics['unresolved'] == 1
-    assert metrics['accuracy_all_selected'] == 0
+    assert metrics['errors'] == 0 and metrics['unresolved'] == 0
+    assert metrics['accuracy_all_selected'] == 1
     execute(config, output='test', client=client, resume=True)
-    assert len(client.calls) == 1
+    assert len(client.calls) == 2
 
 
 def test_runner_excludes_entire_evaluation_article_set_before_limit(tmp_path, monkeypatch):

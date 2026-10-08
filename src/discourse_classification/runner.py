@@ -38,6 +38,9 @@ def render_report(folder, rows, summary):
         correct = row.get('prediction') == row['gold']
         details = {'evidence': row.get('evidence', []), 'candidates': row.get('candidates', []),
                    'verification': row.get('verification', []), 'calls': row.get('calls')}
+        if 'role_extraction_status' in row:
+            details['role_extraction_status'] = row['role_extraction_status']
+            details['template_prediction'] = row.get('template_prediction')
         if 'role_completion_focus' in row:
             details['role_completion_focus'] = row['role_completion_focus']
             details['role_completion_status'] = row.get('role_completion_status')
@@ -204,6 +207,7 @@ def summarize(rows, coverage_only, method):
     summary = {'selected': len(rows), 'ok': len(accepted), 'errors': sum(r['status'] == 'error' for r in rows),
                'unresolved': sum(r['status'] == 'unresolved' for r in rows),
                'role_completion_failures': sum(r.get('role_completion_status') == 'failed' for r in rows),
+               'role_extraction_failures': sum(r.get('role_extraction_status') == 'failed' for r in rows),
                'coverage': coverage(rows) if method != 'direct' else None,
                'coverage_note': 'Rule anchors only; excludes role extraction.' if coverage_only else
                    'Primary candidates across all selected samples; unavailable traces count as uncovered.',
