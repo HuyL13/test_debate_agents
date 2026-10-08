@@ -377,6 +377,18 @@ def validate_output(value, schema):
 
 
 def _validate(value, schema, path):
+    if "oneOf" in schema:
+        matches = 0
+        for option in schema["oneOf"]:
+            try:
+                _validate(value, option, path)
+                matches += 1
+            except ValueError:
+                pass
+        if matches != 1:
+            raise ValueError(f"{path} must match exactly one schema (matched {matches})")
+    if "const" in schema and value != schema["const"]:
+        raise ValueError(f"{path} must equal {schema['const']!r}")
     if "anyOf" in schema:
         failures = []
         for option in schema["anyOf"]:

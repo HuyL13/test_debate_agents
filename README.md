@@ -1,6 +1,56 @@
 # CoCoLoFa Unified Multi-Perspective Reasoning
 
-This repo runs three independent fallacy perspectives followed by unified comparative adjudication for the original CoCoLoFa detection and classification tasks.
+This repo contains the original multi-perspective CoCoLoFa method and a separate code-first discourse graph classifier for the eight-label classification task.
+
+The code-first Stanza discourse graph classifier, compact HTML inspection report,
+coverage checks and direct/rule baselines are documented in
+[docs/discourse_classification.md](docs/discourse_classification.md).
+
+## Discourse classification pipeline (v4.5)
+
+```mermaid
+flowchart TD
+    A["Comment + title + parent context"] --> B["Stanza segmentation: exact proposition spans"]
+    B --> C["Neutral discourse graph: cause, sequence, justification, alternatives, comparison"]
+    C --> D["LLM: extract argument roles and exact quotes"]
+    T["Train role demonstrations: exclude evaluated articles"] --> D
+    D --> E["Code: validate schema, ground quotes, check distinct defining roles"]
+    E -. "Invalid after retry budget" .-> O["Primary extraction error"]
+    E --> F{"Unrepresented conclusion or qualified graph relation?"}
+    F -- Yes --> G["One bounded role-completion call: at most 8 propositions"]
+    G --> H["Code: validate focus roles and subgraph scope; retain primary evidence on failure"]
+    F -- No --> I["Code: match eight label templates and find graph bridges"]
+    H --> I
+    I --> J["Code: deduplicate and rank structural support"]
+    J --> K{"Unique best label?"}
+    K -- Yes --> L["Prediction + grounded evidence"]
+    K -- No --> M["Unresolved: missing or competing structures"]
+    L --> N["One results record + HTML inspection report"]
+    M --> N
+    O --> N
+    Y["Gold labels: evaluation only"] --> Z["Score every selected sample, including unresolved/errors"]
+    N --> Z
+```
+
+The LLM extracts neutral roles; code maps and ranks the label candidates.
+Recovery is disabled by default. There are one or two logical model requests
+per sample, with at most two provider attempts per request. Exact quote grounding
+checks source location; it does not prove that a semantic role is correct.
+`Unresolved` is an incomplete classification outcome, not a ninth dataset label.
+
+```powershell
+python -m pip install -r requirements-discourse.txt
+python -m scripts.prepare_classification_data
+python -m scripts.discourse_classification --download-models
+python -m scripts.discourse_classification --config configs/discourse_classification_test_v45.yaml --output classification-test-v45-full
+```
+
+The test configuration freezes v4.5 with recovery off and four concurrent samples.
+Stanza parsing remains serialized, and a single writer preserves resumable results.
+The CLI loads model credentials from `.env`. Inspect `report.html` and
+`metrics.json` under the run directory; use the same command with `--resume`
+to retry failed primary extractions. Full-test conclusions belong in the
+completed run's `evaluation.md`; small regression successes are not benchmark scores.
 
 ## Data
 

@@ -1,0 +1,26 @@
+input: data/cocolofa/train.json
+split: train
+context: paper
+partition: all
+validation_fraction: 0.2
+seed: 42
+method: graph
+engine: roles
+recovery: false
+parser: stanza
+model_dir: cache/stanza
+implicit: false
+max_pairs: 8
+max_per_label: 3
+output_root: runs
+model:
+  provider: openai_compatible
+  name_env: NVIDIA_MODEL
+  base_url_env: NVIDIA_BASE_URL
+  api_key_env: NVIDIA_API_KEY
+  temperature: 0.0
+  max_completion_tokens: 8192
+  timeout_seconds: 120
+  max_attempts: 2
+  structured_output: false
+  reasoning_effort: low
