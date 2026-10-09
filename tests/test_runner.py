@@ -164,3 +164,21 @@ def test_interior_audit_corruption_is_rejected(config):
     audit.write_bytes(b'{broken}\n' + audit.read_bytes())
     with pytest.raises(ValueError, match='audit'):
         execute(config, resume=True)
+
+
+def test_cli_model_override(tmp_path, monkeypatch):
+    import yaml
+    from src.runner import cli, ROOT
+    cfg_path = tmp_path / 'cfg.yaml'
+    cfg = {'task': 'detection', 'data_dir': str((ROOT / 'data' / 'cocolofa').resolve()), 'split': 'dev', 'context': 'paper',
+           'engine': {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 1, 'early_stop': True, 'flow': None},
+           'model': {'provider': 'mock', 'name': 'base-mock'}, 'output_dir': str(tmp_path / 'out'),
+           'cache_dir': str(tmp_path / 'cache')}
+    cfg_path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
+    monkeypatch.setattr('sys.argv', ['run_detection', '--config', str(cfg_path), '--model', 'override-mock', '--limit', '1', '--mock'])
+    assert cli('detection') == 0
+    manifest = json.loads((tmp_path / 'out' / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['experiment']['config']['model']['name'] == 'override-mock'
+
+
+

@@ -3,6 +3,8 @@ from collections import defaultdict
 from copy import deepcopy
 
 from src.data.loader import ModelInput
+from src.adversarial_debate import execute as execute_adversarial
+from src.adversarial_prompts import adversarial_system_prompt
 from src.ars_diagnostic import execute as execute_ars
 from src.ars_prompts import ars_system_prompt
 from src.ars_schemas import ars_arbiter_schema, validate_ars_arbiter
@@ -17,16 +19,19 @@ from src import simplified
 
 class Engine:
     def __init__(self, llm, *, task, mode='adaptive', protocol='round_robin', max_rounds=3, early_stop=True,
-                 adaptive_policy='planner', flow=None):
+                 adaptive_policy='planner', flow=None, use_patterns=False):
         labels_for(task)
         if mode not in ('single', 'no_deliberation', 'fixed', 'adaptive'):
             raise ValueError('Unknown engine mode')
         if protocol not in PROTOCOLS or type(max_rounds) is not int or not 1 <= max_rounds <= 5:
             raise ValueError('Protocol budget must be 1..5 with a registered protocol')
+        if type(use_patterns) is not bool:
+            raise ValueError('use_patterns must be boolean')
         self.llm, self.task, self.mode = llm, task, mode
         self.protocol, self.max_rounds, self.early_stop = protocol, max_rounds, early_stop
+        self.use_patterns = use_patterns
         if adaptive_policy not in ('planner', 'disagreement', 'diagnostic_no_debate', 'diagnostic_review',
-                                   'ars_no_debate', 'ars_review'):
+                                   'ars_no_debate', 'ars_review', 'adversarial'):
             raise ValueError('Unknown adaptive policy')
         self.adaptive_policy = adaptive_policy
         if flow not in (None, 'A', 'B'):
@@ -52,12 +57,15 @@ class Engine:
                 payload['decomposition'] = deepcopy(decomposition)
 
             ars_role = role in ('ARSArgumentDecomposer', 'Acceptability', 'Relevance', 'Sufficiency', 'ARSArbiter')
-            if ars_role:
-                selected_system_prompt = ars_system_prompt(role, self.task)
+            adv_role = role in ('Prosecutor', 'Defender', 'DialecticalArbiter')
+            if adv_role:
+                selected_system_prompt = adversarial_system_prompt(role, self.task, use_patterns=self.use_patterns)
+            elif ars_role:
+                selected_system_prompt = ars_system_prompt(role, self.task, use_patterns=self.use_patterns)
             elif self.flow:
                 selected_system_prompt = simplified.prompt(role, self.task)
             else:
-                selected_system_prompt = system_prompt(role, self.task)
+                selected_system_prompt = system_prompt(role, self.task, use_patterns=self.use_patterns)
 
             return self.llm.generate(system_prompt=selected_system_prompt, user_prompt=canonical(payload),
                                      schema=schema or (simplified.prediction_schema(self.task) if self.flow
@@ -66,6 +74,25 @@ class Engine:
                                                'protocol': selected_protocol}, validator=validator)
 
         initial, final_agents, history = {}, {}, []
+        if self.mode == 'adaptive' and self.adaptive_policy == 'adversarial':
+            selected_protocol = 'adversarial'
+            prosecutor, defender, arbiter, reason = execute_adversarial(
+                ask, model_input, self.task, use_patterns=self.use_patterns
+            )
+            return {
+                'framework': 'adversarial',
+                'prediction': arbiter['prediction'],
+                'planner_protocol': selected_protocol,
+                'plan': None,
+                'prosecutor': prosecutor,
+                'defender': defender,
+                'initial_agents': {'Prosecutor': prosecutor},
+                'deliberation': [{'round': 0, 'role': 'Defender', **defender}],
+                'final_agents': {'Prosecutor': prosecutor, 'Defender': defender},
+                'arbiter': arbiter,
+                'stop_reason': reason,
+                'latency_seconds': time.monotonic() - started,
+            }
         if self.flow == 'B':
             decomposition = ask('ArgumentDecomposer', 'decomposition', {}, [],
                                 'Extract explicit target premises and conclusion only.',

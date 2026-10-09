@@ -20,7 +20,7 @@ from src.llm.client import Client, ModelConfig
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_KEYS = {'task', 'data_dir', 'split', 'context', 'engine', 'model', 'output_dir', 'cache_dir'}
 ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True,
-                   'adaptive_policy': 'planner', 'flow': None}
+                   'adaptive_policy': 'planner', 'flow': None, 'use_patterns': False}
 
 
 def validate_config(config):
@@ -34,6 +34,8 @@ def validate_config(config):
     engine = {**ENGINE_DEFAULTS, **config['engine']}
     if type(engine['early_stop']) is not bool:
         raise ValueError('early_stop must be boolean')
+    if type(engine['use_patterns']) is not bool:
+        raise ValueError('use_patterns must be boolean')
     Engine(None, task=config['task'], **engine)
     if not isinstance(config['model'], dict):
         raise ValueError('model must be a mapping')
@@ -272,6 +274,11 @@ def cli(task):
     parser.add_argument('--frozen')
     parser.add_argument('--mode', choices=('single', 'no_deliberation', 'fixed', 'adaptive'))
     parser.add_argument('--protocol', choices=('round_robin', 'point_counterpoint', 'cross_examination'))
+    parser.add_argument('--model', help='Model identifier to override in config (e.g. meta/llama-3.3-70b-instruct)')
+    parser.add_argument('--use-patterns', dest='use_patterns', action='store_true', default=None,
+                        help='Enable ArgMining 2026 enriched fallacy patterns in prompts')
+    parser.add_argument('--no-patterns', dest='use_patterns', action='store_false',
+                        help='Disable fallacy patterns (default baseline)')
     args = parser.parse_args()
     try:
         config = load_config(args.config)
@@ -281,6 +288,8 @@ def cli(task):
             config['model'].update(provider='mock', name='offline-mock-v1')
         elif config['model']['name'] == 'SET_MODEL_SNAPSHOT':
             raise ValueError('Set model.name in the YAML to your accessible API model snapshot')
+        if args.model:
+            config['model']['name'] = args.model
         for field in ('split',):
             if getattr(args, field):
                 config[field] = getattr(args, field)
@@ -289,6 +298,8 @@ def cli(task):
         for field in ('mode', 'protocol'):
             if getattr(args, field):
                 config['engine'][field] = getattr(args, field)
+        if args.use_patterns is not None:
+            config['engine']['use_patterns'] = args.use_patterns
         summary = execute(config, limit=args.limit, resume=args.resume, frozen=args.frozen)
         print(json.dumps(summary, indent=2))
         return 0 if summary['status'] == 'complete' else 1

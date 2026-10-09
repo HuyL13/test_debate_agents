@@ -110,6 +110,13 @@ class MockTransport:
                      'supporting_quote': user['input']['comment'],
                      'response_to_other_diagnoses': 'OFFLINE MOCK response.',
                      'remaining_uncertainty': 'OFFLINE MOCK uncertainty.'}
+        elif 'has_fallacy_charge' in properties:
+            value = {'has_fallacy_charge': False, 'candidate_class': 'None',
+                     'defect_mechanism': 'OFFLINE MOCK no defect.', 'quote': ''}
+        elif 'concede_charge' in properties:
+            value = {'concede_charge': False,
+                     'charitable_interpretation': 'OFFLINE MOCK charitable interpretation.',
+                     'counter_quote': ''}
         else:
             labels = properties['prediction']['enum']
             value = {'prediction': labels[seed % len(labels)],

@@ -43,6 +43,28 @@ def estimate_cost(config, usage):
     return ((usage['prompt_tokens'] - cached) * inp + cached * (cached_rate or 0)
             + usage['completion_tokens'] * out) / 1_000_000
 
+def _extract_json_payload(text: str) -> dict:
+    text = text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    if text.startswith('```'):
+        lines = text.splitlines()
+        if lines and lines[0].startswith('```'):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == '```':
+            lines = lines[:-1]
+        try:
+            return json.loads('\n'.join(lines).strip())
+        except json.JSONDecodeError:
+            pass
+    start = text.find('{')
+    end = text.rfind('}')
+    if start != -1 and end != -1 and end > start:
+        return json.loads(text[start:end + 1])
+    raise ValueError('No valid JSON object found in response text')
+
 
 class Client:
     def __init__(self, config, cache_path, audit_path, transport=None):
@@ -109,9 +131,11 @@ class Client:
                 if choice.get('finish_reason') != 'stop' or choice['message'].get('refusal'):
                     raise ValueError('Refused, truncated, or non-final response')
                 raw = choice['message'].get('content')
-                if not isinstance(raw, str):
+                if not isinstance(raw, str) or not raw.strip():
+                    raw = choice['message'].get('reasoning_content')
+                if not isinstance(raw, str) or not raw.strip():
                     raise ValueError('Missing JSON response text')
-                parsed = json.loads(raw)
+                parsed = _extract_json_payload(raw)
                 validate_output(parsed, schema)
                 if validator:
                     validator(parsed)

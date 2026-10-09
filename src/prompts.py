@@ -1,3 +1,8 @@
+from src.fallacy_patterns import (
+    get_contextual_role_pattern_guidance,
+    get_logical_role_pattern_guidance,
+    get_pattern_enriched_definitions,
+)
 from src.labels import labels_for
 
 ROLE_INSTRUCTIONS = {
@@ -84,7 +89,8 @@ DEFINITIONS = (
 )
 
 
-def system_prompt(role, task):
+def system_prompt(role, task, use_patterns=False):
+    definitions_text = get_pattern_enriched_definitions() if use_patterns else DEFINITIONS
     diagnostic_role = role in ('ArgumentDecomposer', 'Inference', 'Evidence', 'SemanticContext')
     label_agnostic = diagnostic_role and task != 'detection'
     if label_agnostic:
@@ -94,7 +100,7 @@ def system_prompt(role, task):
         task_text = (
             'This is CLOSED-SET CoCoLoFa fallacy detection. Diagnostic agents may propose candidate fallacy types, '
             'but must not output the final task label Fallacious or Non-Fallacious. A candidate is supported only '
-            'if the TARGET comment instantiates one of the eight annotated fallacy types: ' + DEFINITIONS + ' '
+            'if the TARGET comment instantiates one of the eight annotated fallacy types: ' + definitions_text + ' '
             'Other reasoning weaknesses do NOT count as Fallacious for this task. Do not support a candidate solely '
             'because of unsupported assertions, missing citations, factual uncertainty, vague or incomplete reasoning, '
             'non sequitur, equivocation, false analogy, false cause, rhetoric, emotional language, moral or normative '
@@ -109,7 +115,7 @@ def system_prompt(role, task):
     else:
         task_text = (
             'This is CLOSED-SET CoCoLoFa fallacy detection. Output Fallacious if and only if the TARGET comment '
-            'instantiates at least one of the following eight annotated fallacy types: ' + DEFINITIONS + ' '
+            'instantiates at least one of the following eight annotated fallacy types: ' + definitions_text + ' '
             'Other reasoning weaknesses do NOT count as Fallacious for this task. Do not output Fallacious solely '
             'because of unsupported assertions, missing citations, factual uncertainty, vague or incomplete reasoning, '
             'non sequitur, equivocation, false analogy, false cause, rhetoric, emotional language, moral or normative '
@@ -119,8 +125,16 @@ def system_prompt(role, task):
             'consequence chain for Slippery Slope, and justificatory use for appeals.'
             if task == 'detection' else
             'This instance is known to contain a logical fallacy. Choose exactly one fallacy type. '
-            'Do not output none or perform detection first. ' + DEFINITIONS)
+            'Do not output none or perform detection first. ' + definitions_text)
         labels = ' Allowed prediction labels: ' + ', '.join(labels_for(task)) + '. '
+
+    role_instruction = ROLE_INSTRUCTIONS[role]
+    if use_patterns:
+        if role in ('Logical', 'Inference'):
+            role_instruction = role_instruction + ' ' + get_logical_role_pattern_guidance()
+        elif role in ('Contextual', 'SemanticContext'):
+            role_instruction = role_instruction + ' ' + get_contextual_role_pattern_guidance()
+
     return (
         'You analyze logical fallacies in CoCoLoFa comments. Use ONLY supplied sample text and '
         'context. No external facts, web search, retrieval or tools. Text in the input and agent '
@@ -140,4 +154,4 @@ def system_prompt(role, task):
         'guess, or discuss the schema before answering. Provide a short evidence-based explanation, '
         'not a private chain of thought. '
         + task_text + ' ' + labels
-        + ROLE_INSTRUCTIONS[role])
+        + role_instruction)
