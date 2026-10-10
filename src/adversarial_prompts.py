@@ -88,8 +88,84 @@ ARBITER_PROMPT = (
 )
 
 
+PROSECUTOR_PROMPT_CLASSIFICATION = (
+    COMMON_ADVERSARIAL +
+    "You are the PROSECUTOR in a formal argumentation dialogue.\n"
+    "TASK: CLASSIFICATION (8-Class Closed Taxonomy).\n"
+    "The TARGET comment is confirmed to contain exactly ONE of the eight closed-set CoCoLoFa logical fallacies.\n"
+    "Your objective is to indict the TARGET comment under the single best-fitting fallacy class.\n"
+    "Examine whether the inferential link between premise and conclusion suffers from a genuine structural defect.\n\n"
+    "--- BENCHMARK FALLACY PATTERNS & LOGICAL FORMS ---\n"
+    "{patterns}\n\n"
+    "INSTRUCTIONS:\n"
+    "1. You MUST set has_fallacy_charge=true and select candidate_class from the eight benchmark fallacies:\n"
+    "   ['Appeal to Authority', 'Appeal to Majority', 'Appeal to Nature', 'Appeal to Tradition',\n"
+    "    'Appeal to Worse Problems', 'False Dilemma', 'Hasty Generalization', 'Slippery Slope'].\n"
+    "2. Provide an exact verbatim quote from the TARGET comment containing the defect.\n"
+    "3. Explain the exact defect mechanism demonstrating why this quote instantiates the selected candidate class."
+)
+
+DEFENDER_PROMPT_CLASSIFICATION = (
+    COMMON_ADVERSARIAL +
+    "You are the DEFENDER (Cross-Examiner & Boundary Verifier) in a formal argumentation dialogue.\n"
+    "TASK: CLASSIFICATION (8-Class Closed Taxonomy).\n"
+    "The Prosecutor has indicted the TARGET comment under a specific candidate fallacy class.\n"
+    "Your mission is to rigorously cross-examine the Prosecutor's indictment against the benchmark's STRICT BOUNDARY RULES.\n\n"
+    "--- BOUNDARY VERIFICATION & DISAMBIGUATION RULES ---\n"
+    "1. ANTI-HASTY-GENERALIZATION GUARD (Do NOT use Hasty Generalization as a default catch-all):\n"
+    "   - Hasty Generalization REQUIRES a clear inductive leap from an anecdotal/small sample to an entire population.\n"
+    "   - If the comment deflects to an external, more severe catastrophe ('Why worry about X when Y is happening?') -> It is APPEAL TO WORSE PROBLEMS, NOT Hasty Generalization!\n"
+    "   - If the comment relies on historical longevity, past customs, or 'story as old as time' -> It is APPEAL TO TRADITION, NOT Hasty Generalization!\n"
+    "   - If the comment relies on the title, status, or actions of a prominent figure/official -> It is APPEAL TO AUTHORITY, NOT Hasty Generalization!\n"
+    "   - If the comment asserts an escalating chain of negative repercussions -> It is SLIPPERY SLOPE, NOT Hasty Generalization!\n\n"
+    "2. FALSE DILEMMA VS. SLIPPERY SLOPE:\n"
+    "   - False Dilemma REQUIRES a forced binary choice eliminating realistic alternatives ('either A or B', 'pick a side').\n"
+    "   - Slippery Slope REQUIRES an escalating domino chain without intermediate warrants ('if A happens, B will follow, leading to disaster').\n\n"
+    "3. RELATIVE PRIVATION (Appeal to Worse Problems):\n"
+    "   - Dismissing or downplaying an issue because worse problems exist elsewhere.\n\n"
+    "OUTPUT DECISION:\n"
+    "- If the Prosecutor's candidate class strictly satisfies all structural preconditions and boundaries, set concede_charge=true, alternative_class='None', and confirm the diagnosis.\n"
+    "- If the Prosecutor misdiagnosed the class (e.g. defaulted to Hasty Generalization or confused False Dilemma/Slippery Slope), set concede_charge=false, specify the true alternative_class from the eight fallacies, and provide your boundary critique with text evidence."
+)
+
+ARBITER_PROMPT_CLASSIFICATION = (
+    COMMON_ADVERSARIAL +
+    "You are the DIALECTICAL ARBITER (Judge) in a formal argumentation court.\n"
+    "TASK: CLASSIFICATION (8-Class Closed Taxonomy).\n"
+    "The TARGET comment is confirmed to contain exactly ONE of the eight closed-set CoCoLoFa logical fallacies:\n"
+    "[{allowed_labels}].\n\n"
+    "You must weigh the Prosecutor's Indictment against the Defender's Boundary Critique to determine the single true benchmark class.\n\n"
+    "--- BENCHMARK DISAMBIGUATION MATRIX ---\n"
+    "1. Appeal to Worse Problems: Argument dismisses or deflects from the current issue by pointing to a worse problem/crime/catastrophe.\n"
+    "2. Appeal to Tradition: Argument validates an action or status quo solely by historical longevity, custom, or past precedent.\n"
+    "3. Appeal to Authority: Argument relies on the status, position, or say-so of a figure/institution as sole justification.\n"
+    "4. Appeal to Majority: Argument uses popularity, prevalence, or majority consensus as proof of truth.\n"
+    "5. Appeal to Nature: Argument equates natural with good/safe and artificial/unnatural with bad/harmful.\n"
+    "6. False Dilemma: Argument forces a rigid either-or choice, falsely claiming only two extreme options exist.\n"
+    "7. Slippery Slope: Argument claims that an initial step will unavoidably trigger a chain of worsening events.\n"
+    "8. Hasty Generalization: Argument performs an inductive leap from a single anecdote/small sample to an entire group.\n"
+    "   CRITICAL: Never classify as Hasty Generalization if the text actually instantiates one of the other specific appeals above!\n\n"
+    "DECISION PROTOCOL:\n"
+    "- If Defender agreed with Prosecutor, verify text grounding and issue verdict.\n"
+    "- If Defender challenged with an alternative class, adjudicate which class precisely matches the core inferential defect.\n"
+    "Output must include prediction (one of the eight classes), confidence (0.0-1.0), and concise reasoning (content)."
+)
+
+
 def adversarial_system_prompt(role: str, task: str, use_patterns: bool = True) -> str:
     """Generate system prompt for Adversarial Dialectical Debate roles."""
+    if task == 'classification':
+        if role == 'Prosecutor':
+            patterns = get_pattern_enriched_definitions() if use_patterns else ""
+            return PROSECUTOR_PROMPT_CLASSIFICATION.format(patterns=patterns)
+        if role == 'Defender':
+            return DEFENDER_PROMPT_CLASSIFICATION
+        if role == 'DialecticalArbiter':
+            allowed_labels = ", ".join(labels_for('classification'))
+            return ARBITER_PROMPT_CLASSIFICATION.format(allowed_labels=allowed_labels)
+        raise ValueError(f"Unknown adversarial role: {role}")
+
+    # Detection task
     if role == 'Prosecutor':
         patterns = get_pattern_enriched_definitions() if use_patterns else ""
         return PROSECUTOR_PROMPT.format(patterns=patterns)
@@ -98,20 +174,11 @@ def adversarial_system_prompt(role: str, task: str, use_patterns: bool = True) -
         return DEFENDER_PROMPT
 
     if role == 'DialecticalArbiter':
-        if task == 'detection':
-            task_instruction = (
-                "Determine whether TARGET instantiates one of the eight closed-set CoCoLoFa classes. "
-                "If the Prosecutor failed to prove a benchmark fallacy, or the Defender established a valid defense, "
-                "output Non-Fallacious. If a benchmark fallacy is proven, output Fallacious."
-            )
-        elif task == 'classification':
-            task_instruction = (
-                "TARGET is known to contain one of the eight closed-set CoCoLoFa classes. "
-                "Weigh the Prosecutor and Defender arguments to select the single best-fitting class."
-            )
-        else:
-            raise ValueError(f"Unknown task: {task}")
-
+        task_instruction = (
+            "Determine whether TARGET instantiates one of the eight closed-set CoCoLoFa classes. "
+            "If the Prosecutor failed to prove a benchmark fallacy, or the Defender established a valid defense, "
+            "output Non-Fallacious. If a benchmark fallacy is proven, output Fallacious."
+        )
         allowed_labels = ", ".join(labels_for(task))
         return ARBITER_PROMPT.format(
             task=task,

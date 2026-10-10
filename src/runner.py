@@ -62,7 +62,8 @@ def load_config(path):
 
 def experiment_identity(config):
     semantic = {key: config[key] for key in ('task', 'context', 'engine', 'model')}
-    datasets = {split: file_hash(Path(config['data_dir']) / f'{split}.json') for split in ('train', 'dev', 'test')}
+    datasets = {split: file_hash(p) for split in ('train', 'dev', 'test')
+                if (p := Path(config['data_dir']) / f'{split}.json').exists()}
     source = {str(path.relative_to(ROOT)).replace('\\', '/'): file_hash(path)
               for folder in ('src', 'scripts') for path in sorted((ROOT / folder).rglob('*.py'))}
     environment = {'python': platform.python_version(), 'PyYAML': version('PyYAML'), 'jsonschema': version('jsonschema')}

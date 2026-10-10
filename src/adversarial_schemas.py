@@ -4,7 +4,8 @@ from typing import Any, Dict
 from src.labels import FALLACIES, labels_for
 
 
-def prosecutor_schema() -> Dict[str, Any]:
+def prosecutor_schema(task: str = 'detection') -> Dict[str, Any]:
+    allowed_classes = list(FALLACIES) if task == 'classification' else list(FALLACIES) + ['None']
     return {
         'type': 'object',
         'additionalProperties': False,
@@ -12,7 +13,7 @@ def prosecutor_schema() -> Dict[str, Any]:
             'has_fallacy_charge': {'type': 'boolean'},
             'candidate_class': {
                 'type': 'string',
-                'enum': list(FALLACIES) + ['None'],
+                'enum': allowed_classes,
             },
             'defect_mechanism': {'type': 'string'},
             'quote': {'type': 'string'},
@@ -21,7 +22,22 @@ def prosecutor_schema() -> Dict[str, Any]:
     }
 
 
-def defender_schema() -> Dict[str, Any]:
+def defender_schema(task: str = 'detection') -> Dict[str, Any]:
+    if task == 'classification':
+        return {
+            'type': 'object',
+            'additionalProperties': False,
+            'properties': {
+                'concede_charge': {'type': 'boolean'},
+                'alternative_class': {
+                    'type': 'string',
+                    'enum': list(FALLACIES) + ['None'],
+                },
+                'charitable_interpretation': {'type': 'string'},
+                'counter_quote': {'type': 'string'},
+            },
+            'required': ['concede_charge', 'alternative_class', 'charitable_interpretation', 'counter_quote'],
+        }
     return {
         'type': 'object',
         'additionalProperties': False,
@@ -57,15 +73,18 @@ def dialectical_arbiter_schema(task: str) -> Dict[str, Any]:
 from src.schemas import _normalize_quote_text
 
 
-def validate_prosecutor(value: Any, target_comment: str) -> None:
+def validate_prosecutor(value: Any, target_comment: str, task: str = 'detection') -> None:
     if not isinstance(value, dict):
         raise ValueError("Prosecutor output must be a dict")
     if not isinstance(value.get('has_fallacy_charge'), bool):
         raise ValueError("has_fallacy_charge must be boolean")
     cand = value.get('candidate_class')
-    if cand not in list(FALLACIES) + ['None']:
+    allowed = list(FALLACIES) if task == 'classification' else list(FALLACIES) + ['None']
+    if cand not in allowed:
         raise ValueError(f"Invalid candidate_class: {cand}")
-    if value['has_fallacy_charge']:
+    if task == 'classification' and not value.get('has_fallacy_charge'):
+        raise ValueError("has_fallacy_charge must be true for classification task")
+    if value.get('has_fallacy_charge'):
         if cand == 'None':
             raise ValueError("candidate_class cannot be 'None' when has_fallacy_charge is true")
         quote = value.get('quote', '')
@@ -73,13 +92,17 @@ def validate_prosecutor(value: Any, target_comment: str) -> None:
             raise ValueError(f"Prosecutor quote '{quote}' is not a verbatim substring of target comment")
 
 
-def validate_defender(value: Any, target_comment: str) -> None:
+def validate_defender(value: Any, target_comment: str, task: str = 'detection') -> None:
     if not isinstance(value, dict):
         raise ValueError("Defender output must be a dict")
     if not isinstance(value.get('concede_charge'), bool):
         raise ValueError("concede_charge must be boolean")
     if not isinstance(value.get('charitable_interpretation'), str):
         raise ValueError("charitable_interpretation must be a string")
+    if task == 'classification':
+        alt = value.get('alternative_class')
+        if alt not in list(FALLACIES) + ['None']:
+            raise ValueError(f"Invalid alternative_class: {alt}")
 
 
 def validate_dialectical_arbiter(value: Any, task: str) -> None:

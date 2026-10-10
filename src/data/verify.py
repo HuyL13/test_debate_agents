@@ -18,6 +18,8 @@ def verify_dataset(directory):
     result = {'splits': {}, 'article_disjoint': True, 'comment_disjoint': True, 'warnings': []}
     for split, expected in EXPECTED.items():
         path = Path(directory) / f'{split}.json'
+        if not path.exists():
+            continue
         samples = load_split(path)
         aids, cids = {s.article_id for s in samples}, {s.comment_id for s in samples}
         if aids & seen_articles or cids & seen_comments:
@@ -34,4 +36,6 @@ def verify_dataset(directory):
             result['warnings'].append(f'{split}: counts differ from published {expected}; data unchanged')
         if missing:
             result['warnings'].append(f'{split}: missing parent context for {missing}; samples retained')
+    if not result['splits']:
+        raise ValueError(f'No valid dataset splits found in {directory}')
     return result

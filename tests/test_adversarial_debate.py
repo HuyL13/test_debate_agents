@@ -135,3 +135,137 @@ def test_adversarial_execution_contested_adjudication():
     assert result['prediction'] == 'Fallacious'
     assert result['stop_reason'] == 'contested_adjudication'
     assert len(llm.call_history) == 3  # Exactly 3 calls!
+
+
+def test_adversarial_classification_prompts():
+    p_pros = adversarial_system_prompt('Prosecutor', 'classification', use_patterns=True)
+    assert "PROSECUTOR" in p_pros
+    assert "8-Class Closed Taxonomy" in p_pros
+    assert "Slippery Slope" in p_pros
+
+    p_def = adversarial_system_prompt('Defender', 'classification')
+    assert "DEFENDER" in p_def
+    assert "ANTI-HASTY-GENERALIZATION GUARD" in p_def
+    assert "APPEAL TO WORSE PROBLEMS" in p_def
+
+    p_arb = adversarial_system_prompt('DialecticalArbiter', 'classification')
+    assert "DIALECTICAL ARBITER" in p_arb
+    assert "BENCHMARK DISAMBIGUATION MATRIX" in p_arb
+
+
+def test_adversarial_classification_schemas_and_validators():
+    # Valid prosecutor for classification
+    val_pros = {
+        'has_fallacy_charge': True,
+        'candidate_class': 'Appeal to Worse Problems',
+        'defect_mechanism': 'Deflects from the local issue by pointing to a worse crisis.',
+        'quote': 'dying in the streets',
+    }
+    validate_prosecutor(val_pros, 'People are dying in the streets, so ignore this.', task='classification')
+
+    # Invalid candidate_class for classification ('None' not allowed)
+    bad_pros = {
+        'has_fallacy_charge': True,
+        'candidate_class': 'None',
+        'defect_mechanism': 'None',
+        'quote': '',
+    }
+    with pytest.raises(ValueError, match='Invalid candidate_class'):
+        validate_prosecutor(bad_pros, 'Some text', task='classification')
+
+    # Valid defender challenging prosecutor in classification
+    val_def = {
+        'concede_charge': False,
+        'alternative_class': 'Appeal to Tradition',
+        'charitable_interpretation': 'Comment argues based on ancient custom, not an inductive sample leap.',
+        'counter_quote': 'as old as time',
+    }
+    validate_defender(val_def, 'This is a story as old as time.', task='classification')
+
+    # Invalid defender (invalid alternative class)
+    bad_def = {
+        'concede_charge': False,
+        'alternative_class': 'InvalidFallacy',
+        'charitable_interpretation': 'Not valid',
+        'counter_quote': '',
+    }
+    with pytest.raises(ValueError, match='Invalid alternative_class'):
+        validate_defender(bad_def, 'Text', task='classification')
+
+    # Valid arbiter for classification
+    val_arb = {
+        'prediction': 'Appeal to Tradition',
+        'confidence': 0.90,
+        'content': 'Defender correctly identified Appeal to Tradition.',
+    }
+    validate_dialectical_arbiter(val_arb, task='classification')
+
+
+def test_adversarial_classification_execution_contested():
+    responses = [
+        # Call 1: Prosecutor falsely charges Hasty Generalization
+        {
+            'has_fallacy_charge': True,
+            'candidate_class': 'Hasty Generalization',
+            'defect_mechanism': 'Broad claim about traditions.',
+            'quote': 'as old as time',
+        },
+        # Call 2: Defender challenges and proposes Appeal to Tradition
+        {
+            'concede_charge': False,
+            'alternative_class': 'Appeal to Tradition',
+            'charitable_interpretation': 'Argument appeals to historical longevity rather than an empirical sample leap.',
+            'counter_quote': 'as old as time',
+        },
+        # Call 3: Arbiter upholds Defender and rules Appeal to Tradition
+        {
+            'prediction': 'Appeal to Tradition',
+            'confidence': 0.92,
+            'content': 'The defect is strictly chronological justification, matching Appeal to Tradition.',
+        },
+    ]
+    llm = MockScriptedLLM(responses)
+    model_input = ModelInput('News Title', '', "It's almost tradition at this point, a story as old as time.")
+
+    engine = Engine(llm, task='classification', adaptive_policy='adversarial')
+    result = engine.run(model_input, {'sample_id': '19:9353'})
+
+    assert result['framework'] == 'adversarial'
+    assert result['prediction'] == 'Appeal to Tradition'
+    assert result['stop_reason'] == 'contested_classification'
+    assert len(llm.call_history) == 3
+
+
+def test_adversarial_classification_execution_agreed():
+    responses = [
+        # Call 1: Prosecutor indicts False Dilemma
+        {
+            'has_fallacy_charge': True,
+            'candidate_class': 'False Dilemma',
+            'defect_mechanism': 'Forced binary choice.',
+            'quote': 'either with us or against us',
+        },
+        # Call 2: Defender agrees with charge
+        {
+            'concede_charge': True,
+            'alternative_class': 'None',
+            'charitable_interpretation': 'Prosecutor correctly identified the forced dichotomy.',
+            'counter_quote': 'either with us or against us',
+        },
+        # Call 3: Arbiter confirms
+        {
+            'prediction': 'False Dilemma',
+            'confidence': 0.95,
+            'content': 'Both agents concur on the binary forced choice.',
+        },
+    ]
+    llm = MockScriptedLLM(responses)
+    model_input = ModelInput('News Title', '', "You are either with us or against us.")
+
+    engine = Engine(llm, task='classification', adaptive_policy='adversarial')
+    result = engine.run(model_input, {'sample_id': '20:100'})
+
+    assert result['framework'] == 'adversarial'
+    assert result['prediction'] == 'False Dilemma'
+    assert result['stop_reason'] == 'agreed_classification'
+    assert len(llm.call_history) == 3

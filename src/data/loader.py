@@ -82,11 +82,39 @@ class Sample:
 
 def load_split(path):
     path = Path(path)
-    articles = json.loads(path.read_text(encoding='utf-8'))
-    if not isinstance(articles, list) or not articles:
-        raise ValueError('Split must be a non-empty list of articles')
+    raw = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(raw, list) or not raw:
+        raise ValueError('Split must be a non-empty list of articles or samples')
     mapping = {label.lower(): label for label in FALLACIES}
     mapping['none'] = 'none'
+
+    # Support flat records (e.g. diagnostic error splits like dev_classification_errors/dev.json)
+    if 'comments' not in raw[0]:
+        samples, seen_sids = [], set()
+        for r in raw:
+            sid = str(r.get('sample_id', r.get('id', '')))
+            if not sid or sid in seen_sids:
+                raise ValueError(f'Invalid or duplicate sample ID: {sid}')
+            seen_sids.add(sid)
+            aid = r.get('article_id', int(sid.split(':')[0]) if ':' in sid and sid.split(':')[0].isdigit() else 0)
+            cid = sid.split(':')[1] if ':' in sid else sid
+            fallacy_raw = str(r.get('gold', r.get('fallacy', r.get('label', 'none'))))
+            fallacy = mapping.get(fallacy_raw.lower(), 'none')
+            samples.append(Sample(
+                sample_id=sid,
+                article_id=aid,
+                comment_id=cid,
+                split=path.stem,
+                title=r.get('title', ''),
+                comment=r.get('comment', ''),
+                parent_comment=r.get('parent_comment', '') or '',
+                article=r.get('article', '') or '',
+                fallacy=fallacy,
+                missing_parent=bool(r.get('parent_comment') is None),
+            ))
+        return samples
+
+    articles = raw
     samples, article_ids, comment_ids = [], set(), set()
     for article in articles:
         aid = article['id']

@@ -111,12 +111,20 @@ class MockTransport:
                      'response_to_other_diagnoses': 'OFFLINE MOCK response.',
                      'remaining_uncertainty': 'OFFLINE MOCK uncertainty.'}
         elif 'has_fallacy_charge' in properties:
-            value = {'has_fallacy_charge': False, 'candidate_class': 'None',
-                     'defect_mechanism': 'OFFLINE MOCK no defect.', 'quote': ''}
+            if 'None' in properties['candidate_class']['enum']:
+                value = {'has_fallacy_charge': False, 'candidate_class': 'None',
+                         'defect_mechanism': 'OFFLINE MOCK no defect.', 'quote': ''}
+            else:
+                value = {'has_fallacy_charge': True,
+                         'candidate_class': properties['candidate_class']['enum'][seed % len(properties['candidate_class']['enum'])],
+                         'defect_mechanism': 'OFFLINE MOCK structural defect.',
+                         'quote': quote}
         elif 'concede_charge' in properties:
-            value = {'concede_charge': False,
+            value = {'concede_charge': True if 'alternative_class' in properties else False,
                      'charitable_interpretation': 'OFFLINE MOCK charitable interpretation.',
-                     'counter_quote': ''}
+                     'counter_quote': quote}
+            if 'alternative_class' in properties:
+                value['alternative_class'] = 'None'
         else:
             labels = properties['prediction']['enum']
             value = {'prediction': labels[seed % len(labels)],

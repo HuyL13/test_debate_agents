@@ -62,7 +62,15 @@ def _extract_json_payload(text: str) -> dict:
     start = text.find('{')
     end = text.rfind('}')
     if start != -1 and end != -1 and end > start:
-        return json.loads(text[start:end + 1])
+        snippet = text[start:end + 1]
+        try:
+            return json.loads(snippet)
+        except json.JSONDecodeError:
+            if not snippet.endswith('"}'):
+                try:
+                    return json.loads(snippet[:-1] + '"}')
+                except json.JSONDecodeError:
+                    pass
     raise ValueError('No valid JSON object found in response text')
 
 
@@ -131,11 +139,21 @@ class Client:
                 if choice.get('finish_reason') != 'stop' or choice['message'].get('refusal'):
                     raise ValueError('Refused, truncated, or non-final response')
                 raw = choice['message'].get('content')
-                if not isinstance(raw, str) or not raw.strip():
-                    raw = choice['message'].get('reasoning_content')
-                if not isinstance(raw, str) or not raw.strip():
-                    raise ValueError('Missing JSON response text')
-                parsed = _extract_json_payload(raw)
+                parsed = None
+                if isinstance(raw, str) and raw.strip():
+                    try:
+                        parsed = _extract_json_payload(raw)
+                    except Exception:
+                        parsed = None
+                if parsed is None:
+                    reasoning = choice['message'].get('reasoning_content')
+                    if isinstance(reasoning, str) and reasoning.strip():
+                        try:
+                            parsed = _extract_json_payload(reasoning)
+                        except Exception:
+                            parsed = None
+                if parsed is None:
+                    raise ValueError('Missing or invalid JSON response text')
                 validate_output(parsed, schema)
                 if validator:
                     validator(parsed)
