@@ -1,4 +1,5 @@
 import json
+import re
 import time
 from copy import deepcopy
 from dataclasses import asdict, dataclass
@@ -100,7 +101,9 @@ class Client:
         self.raw_debug_path = raw_debug_path
         self.transport = transport or (MockTransport() if config.provider == "mock" else OpenAITransport(config))
 
-    def generate(self, *, system_prompt, user_prompt, schema, metadata, validator=None):
+    def generate(self, *, system_prompt, user_prompt, schema, metadata, validator=None,
+                 include_schema_in_prompt=True, allow_json_fences=False,
+                 retry_instruction=None, retry_previous_response=False,result_envelopes=()):
         stage = metadata.get("stage", "unknown")
         payload = {
             "model": self.config.name,
@@ -120,8 +123,11 @@ class Client:
             payload["reasoning_effort"] = self.config.reasoning_effort
         if not self.config.structured_output and self.config.provider != "mock":
             payload["response_format"] = {"type": "json_object"}
-            payload["messages"][0]["content"] += "\nJSON schema: " + json.dumps(schema)
-        key = digest({"config": asdict(self.config), "metadata": metadata, "payload": payload, "schema": schema})
+            if include_schema_in_prompt:
+                payload["messages"][0]["content"] += "\nJSON schema: " + json.dumps(schema)
+        key = digest({"config": asdict(self.config), "metadata": metadata, "payload": payload, "schema": schema,
+            'include_schema_in_prompt':include_schema_in_prompt,'allow_json_fences':allow_json_fences,
+            'retry_previous_response':retry_previous_response,'result_envelopes':list(result_envelopes)})
         started = time.monotonic()
         cached = self.cache.get(key)
         if cached is not None:
@@ -154,6 +160,7 @@ class Client:
 
         last_error = None
         feedback = None
+        previous_raw = None
         for attempt in range(self.config.max_attempts):
             request_payload = deepcopy(payload)
             if attempt:
@@ -162,9 +169,11 @@ class Client:
                     8192,
                 )
             if feedback:
+                if retry_previous_response and previous_raw:
+                    request_payload['messages'].append({'role':'assistant','content':previous_raw[:4096]})
                 request_payload["messages"].append({
                     "role": "user",
-                    "content": _retry_instruction(feedback, stage),
+                    "content": retry_instruction(feedback) if retry_instruction else _retry_instruction(feedback, stage),
                 })
             event = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -177,6 +186,7 @@ class Client:
             call_started = time.monotonic()
             response = None
             parsed = None
+            raw = None
             retryable = True
             try:
                 response = self.transport.complete(request_payload)
@@ -192,13 +202,32 @@ class Client:
                 raw = choice["message"].get("content")
                 if not isinstance(raw, str):
                     raise ValueError("Missing JSON response text")
-                parsed = json.loads(raw)
+                text=raw
+                normalizations=[]
+                if allow_json_fences:
+                    match=re.fullmatch(r'```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n```',raw.strip(),re.IGNORECASE)
+                    if match:
+                        text=match.group(1);normalizations.append('whole_response_json_fence')
+                parsed = json.loads(text)
+                if isinstance(parsed,dict) and len(parsed)==1:
+                    envelope=next(iter(parsed))
+                    if envelope in result_envelopes and isinstance(parsed[envelope],dict):
+                        parsed=parsed[envelope]
+                        normalizations.append('single_result_envelope:'+envelope)
                 validate_output(parsed, schema)
                 if validator:
                     validator(parsed)
                 event["valid"] = True
                 event["model"] = response.get("model", self.config.name)
                 event["usage"] = _usage(response)
+                if normalizations:event['normalizations']=normalizations
+                if response.get('_courtroom_budget'):event['budget']=response['_courtroom_budget']
+            except RuntimeError as exc:
+                if not getattr(exc,'budget_exhausted',False):raise
+                event.update(error=str(exc),error_type='budget_exhausted',usage=getattr(exc,'usage',{}),
+                    latency_seconds=time.monotonic()-call_started)
+                append_jsonl(self.audit_path,event)
+                raise
             except HTTPError as exc:
                 last_error = exc
                 retryable = exc.code in (408, 409, 429) or 500 <= exc.code <= 599
@@ -211,6 +240,11 @@ class Client:
                 last_error = exc
                 event["error"] = str(exc)
                 feedback = str(exc)[:1500]
+                previous_raw = raw
+                if isinstance(raw,str):event['response_excerpt']=raw[:2000]
+                if response is not None:
+                    event['usage']=_usage(response)
+                    if response.get('_courtroom_budget'):event['budget']=response['_courtroom_budget']
             event["latency_seconds"] = time.monotonic() - call_started
             append_jsonl(self.audit_path, event)
             if event["valid"]:
