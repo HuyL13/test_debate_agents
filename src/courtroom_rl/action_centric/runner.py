@@ -9,7 +9,7 @@ import random
 import time
 import shutil
 
-from src.courtroom_rl.data import ROOT, load_cases
+from src.courtroom_rl.data import ROOT, load_cases, load_development_cases
 from src.courtroom_rl.progress import ConsoleProgress
 from src.io_utils import append_jsonl, digest, write_json
 from src.courtroom_rl.action_centric.env import CourtroomEnv, Budget
@@ -135,7 +135,12 @@ def train(args,config,directory,progress):
     assessor=prepare_assessor(config,args.fixture) if mode!='terminal' else None
     train_cases=load_cases('train',ROOT/config['data_dir']);random.Random(args.seed).shuffle(train_cases)
     if args.limit:train_cases=train_cases[:args.limit]
-    dev=dev_subset(load_cases('dev',ROOT/config['data_dir']),args.dev_limit,args.seed)
+    dev_cases=load_development_cases(config)
+    dev_limit=args.dev_limit if args.dev_limit is not None else (len(dev_cases) if config.get('development_set') else 16)
+    dev=dev_subset(dev_cases,dev_limit,args.seed)
+    progress.log('DEVSET',f'{len(dev)}/{len(dev_cases)} cases; '+
+        (f'diagnostic dev from original test: {config["development_set"]["path"]}'
+         if config.get('development_set') else 'official dev'))
     manifest={'architecture':'action_centric_v3','config_hash':digest(config),'source_hash':source_hash(),
         'data_provenance':json.loads((ROOT/config['data_dir']/'provenance.json').read_text()),
         'selection_hash':digest([c.sample_id for c in train_cases]),'dev_selection_hash':digest([c.sample_id for c in dev]),
@@ -289,7 +294,8 @@ def run(args,config):
             'fixture':args.fixture,'model_snapshot':resolved}.items():
             if key=='source_hash' and metadata.get(key)!=value and source_migration(metadata.get(key),value):continue
             if metadata.get(key)!=value:raise ValueError(f'Checkpoint differs: {key}')
-    cases=load_cases(args.split or ('train' if args.command=='smoke' else 'dev'),ROOT/config['data_dir'])
+    split=args.split or ('train' if args.command=='smoke' else 'dev')
+    cases=load_development_cases(config) if split=='dev' else load_cases(split,ROOT/config['data_dir'])
     limit=args.limit if args.limit is not None else (1 if args.command=='smoke' else None)
     if limit:cases=cases[:limit]
     result=evaluate(cases,config,directory,args.fixture,policy,trainer,args.seed,args.cache,progress)

@@ -8,6 +8,10 @@ sys.path.insert(0, str(ROOT))
 
 
 def main():
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--config",default="configs/courtroom_rl.kaggle.yaml")
+    args=parser.parse_args()
     import numpy as np
     import torch
     import yaml
@@ -18,7 +22,11 @@ def main():
     from src.data.loader import ModelInput
 
     assert torch.cuda.is_available(), 'Enable GPU T4 in Kaggle Notebook Settings'
-    config = yaml.safe_load((ROOT/'configs/courtroom_rl.kaggle.yaml').read_text())
+    config = yaml.safe_load((ROOT/args.config).read_text())
+    if config.get('architecture')=='action_centric_v4':
+        from src.courtroom_rl.action_centric_v4.env import CourtroomEnv
+        from src.courtroom_rl.action_centric_v4.executor import FixtureExecutor
+        from src.courtroom_rl.action_centric_v4.trainer import PPOTrainer
     print('[GPU]', torch.cuda.get_device_name(0), flush=True)
     print('[EMBEDDING] Loading pinned BGE; first use downloads ~440MB', flush=True)
     encoder = encoder_for(config)

@@ -41,11 +41,11 @@ os.environ["NVIDIA_MODEL"] = "meta/llama-3.2-11b-vision-instruct"
 os.environ["PYTHONUNBUFFERED"] = "1"
 import torch
 assert torch.cuda.is_available(), "Enable GPU T4 in Kaggle Settings"
-run(sys.executable, "-u", "scripts/prepare_courtroom_kaggle.py")
-run(sys.executable, "-u", "scripts/check_kaggle_gpu.py")
+run(sys.executable, "-u", "scripts/prepare_courtroom_kaggle.py", "--config", "configs/courtroom_rl.v4.kaggle.yaml")
+run(sys.executable, "-u", "scripts/check_kaggle_gpu.py", "--config", "configs/courtroom_rl.v4.kaggle.yaml")
 cmd = [sys.executable, "-u", "-m", "src.courtroom_rl.runner", "train",
-       "--config", "configs/courtroom_rl.kaggle.yaml", "--epochs", "1",
-       "--batch-size", "8", "--dev-limit", "64", "--dev-every", "10",
+       "--config", "configs/courtroom_rl.v4.kaggle.yaml", "--epochs", "1",
+       "--batch-size", "8", "--dev-limit", "66", "--dev-every", "10",
        "--warmup-episodes", "8", "--seed", "0", "--log-steps"]
 if RESUME:
     cmd += ["--resume", RESUME]
@@ -60,3 +60,5 @@ finally:
                 tar.add(path, arcname="courtroom-github/" + relative)
     print("Download:", output)
 ```
+
+Development set update (2026-10-15): new main/pilot/Kaggle runs default to all66 pinned dialectical diagnostic cases, originally selected from official test errors. Official train/dev/test artifacts stay unchanged. This development use exposes these test cases; do not report them as fresh held-out test. An explicit --dev-limit still subsets the configured development set. Older checkpoints have different source/config/dev-selection contracts and do not resume directly.

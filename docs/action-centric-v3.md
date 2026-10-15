@@ -176,7 +176,7 @@ replacement run; this migration does not kill existing processes.
 Continue the interrupted full-train run from its latest saved batch:
 
 ```powershell
-.venv\Scripts\python.exe -m src.courtroom_rl.runner train --resume runs/courtroom-v3-20261013T145658230132/last.pt --epochs 1 --batch-size 8 --dev-limit 64 --dev-every 10 --warmup-episodes 8 --seed 0 --log-steps
+.venv\Scripts\python.exe -m src.courtroom_rl.runner train --resume runs/courtroom-v3-20261013T145658230132/last.pt --epochs 1 --batch-size 8 --dev-limit 66 --dev-every 10 --warmup-episodes 8 --seed 0 --log-steps
 ```
 
 Use `--epochs 2` instead to target two epochs in total, including the work already
@@ -204,3 +204,5 @@ Offline --fixture explicitly uses a separate synthetic hash encoder.
 Weights download from Hugging Face on first use (about440MB); subsequent runs reuse
 its cache. BGE is a practical English/T4 choice, not a measured best model on this task.
 Changing encoder/observation requires fresh training; older checkpoints are incompatible.
+
+Development set update (2026-10-15): new main/pilot/Kaggle runs default to all66 pinned dialectical diagnostic cases, originally selected from official test errors. Official train/dev/test artifacts stay unchanged. This development use exposes these test cases; do not report them as fresh held-out test. An explicit --dev-limit still subsets the configured development set. Older checkpoints have different source/config/dev-selection contracts and do not resume directly.

@@ -42,7 +42,7 @@ def create_client(config, directory, fixture=False, cache=False):
     client = Client(model, cache_path, directory/'api_audit.jsonl', FixtureTransport() if fixture else None)
     if not cache:
         client.cache = NoCache()
-    if config.get('architecture')=='action_centric_v3' and config.get('tokenizer') and not fixture:
+    if config.get('architecture') in ('action_centric_v3','action_centric_v4') and config.get('tokenizer') and not fixture:
         from src.courtroom_rl.executor import wrap_accounting
         from src.courtroom_rl.action_centric.token_count import load_counter
         wrap_accounting(client)
@@ -379,7 +379,7 @@ def main(argv=None):
     parser.add_argument('--config',default=str(ROOT/'configs/courtroom_rl.yaml'))
     parser.add_argument('--fixture',action='store_true')
     parser.add_argument('--limit',type=int,default=None)
-    parser.add_argument('--dev-limit',type=int,default=16)
+    parser.add_argument('--dev-limit',type=int,default=None,help='Default: full configured diagnostic dev; otherwise16')
     parser.add_argument('--batch-size',type=int,default=8)
     parser.add_argument('--epochs',type=int,default=1)
     parser.add_argument('--seed',type=int,default=0)
@@ -407,7 +407,10 @@ def main(argv=None):
         from src.data.loader import ModelInput
         records = read_jsonl(args.trace)
         for row in records:
-            if row.get('architecture')=='action_centric_v3':
+            if row.get('architecture')=='action_centric_v4':
+                from src.courtroom_rl.action_centric_v4.replay import replay as replay_v4
+                replay_v4(row)
+            elif row.get('architecture')=='action_centric_v3':
                 from src.courtroom_rl.action_centric.replay import replay as replay_v3
                 replay_v3(row)
             else:
@@ -423,9 +426,14 @@ def main(argv=None):
         assessor = prepare_assessor(config,args.fixture)
         print(json.dumps({'assessor_hash':assessor.fingerprint,'fixture':args.fixture}))
         return
+    if config.get('architecture')=='action_centric_v4' and args.command in ('smoke','evaluate','train'):
+        from src.courtroom_rl.action_centric_v4.runner import run
+        return run(args,config)
     if config.get('architecture')=='action_centric_v3' and args.command in ('smoke','evaluate','train'):
         from src.courtroom_rl.action_centric.runner import run
         return run(args,config)
+    if args.dev_limit is None:
+        args.dev_limit=16
     if config['context'] != 'paper':
         raise ValueError('V1 uses fixed paper context')
     if args.command == 'train' and (args.cache or args.split not in (None,'train')):

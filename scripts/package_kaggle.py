@@ -9,11 +9,11 @@ def main():
     output = ROOT / 'outputs/courtroom-kaggle.zip'
     output.parent.mkdir(exist_ok=True)
     files = []
-    for folder in ('src', 'configs', 'definitions', 'data/cocolofa/classification'):
+    for folder in ('src', 'configs', 'definitions', 'data/cocolofa/classification', 'data/dev_classification_errors'):
         files.extend(p for p in (ROOT / folder).rglob('*')
                      if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')
     files.extend(ROOT / name for name in (
-        'requirements-kaggle.txt', 'cache/courtroom_rl/llama3_tokenizer.json',
+        'requirements-kaggle.txt', 'scripts/check_kaggle_gpu.py', 'docs/action-centric-v4.md', 'cache/courtroom_rl/llama3_tokenizer.json',
         'docs/kaggle-training.ipynb', 'docs/kaggle-training.md',
         'docs/diagnostics/resume-source-migrations.json'))
     with ZipFile(output, 'w', ZIP_DEFLATED) as archive:

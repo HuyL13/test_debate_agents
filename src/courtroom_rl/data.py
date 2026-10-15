@@ -40,3 +40,25 @@ def load_cases(split, data_dir=None):
     if len(cases) != provenance['splits'][split]['count']:
         raise ValueError('Classification count differs from provenance')
     return cases
+
+
+def load_development_cases(config):
+    """Explicit pinned diagnostic dev; leave immutable official splits intact."""
+    options=config.get('development_set')
+    if not options:
+        return load_cases('dev',ROOT/config['data_dir'])
+    path=ROOT/options['path']
+    if file_hash(path)!=options['sha256']:
+        raise ValueError('Diagnostic development checksum differs from pinned configuration')
+    records=select_task(load_split(path),'classification')
+    if len(records)!=options['count']:
+        raise ValueError('Diagnostic development count differs')
+    original={c.sample_id:c for c in load_cases('test',ROOT/config['data_dir'])}
+    result=[]
+    for sample in records:
+        source=original.get(sample.sample_id)
+        if source is None or sample.gold('classification')!=source.gold or sample.model_input('paper')!=source.input:
+            raise ValueError('Diagnostic development text/gold differs from pinned original test')
+        result.append(Case(sample.sample_id,sample.article_id,'diagnostic_dev_from_test',
+                           sample.model_input('paper'),sample.gold('classification')))
+    return result

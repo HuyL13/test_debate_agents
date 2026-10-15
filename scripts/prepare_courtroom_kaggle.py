@@ -77,6 +77,11 @@ def main():
     import yaml
     config = yaml.safe_load((ROOT/args.config).read_text(encoding='utf-8-sig'))
     prepare_classification()
+    development=config.get('development_set')
+    if development:
+        url=f'https://raw.githubusercontent.com/HuyL13/test_debate_agents/{development["source_commit"]}/{development["path"]}'
+        download_verified(url,ROOT/development['path'],development['sha256'])
+        print(f'[DEV] Verified dialectical diagnostic development set: {development["count"]} cases',flush=True)
     options = config['tokenizer']
     download_verified(options['source'], ROOT/options['path'], options['sha256'])
     print('[TOKENIZER] Pinned Llama3 tokenizer verified', flush=True)
