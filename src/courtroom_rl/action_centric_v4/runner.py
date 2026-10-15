@@ -11,12 +11,14 @@ import shutil
 
 from src.courtroom_rl.data import ROOT, load_cases, load_development_cases
 from src.courtroom_rl.progress import ConsoleProgress
+from .parallel import ordered_jobs, episode_generator, EpisodeProgress
 from src.io_utils import append_jsonl, digest, write_json
 from src.courtroom_rl.action_centric_v4.env import CourtroomEnv, Budget
 from src.courtroom_rl.action_centric_v4.executor import LLMExecutor, FixtureExecutor
 from src.courtroom_rl.action_centric_v4.trainer import PPOTrainer, heuristic
 def source_migration(previous, current):
-    return None
+    from src.courtroom_rl.action_centric.resume import source_migration as verified
+    return verified(previous,current,ROOT/'docs/diagnostics/resume-v4-parallel-migrations.json')
 from src.courtroom_rl.action_centric.embeddings import encoder_for
 
 
@@ -58,28 +60,59 @@ def executor_for(config,directory,fixture,cache,progress):
     return client,executor
 
 
-def evaluate(cases,config,directory,fixture,policy,trainer=None,seed=0,cache=False,progress=None):
+def collect_episode(case,config,directory,fixture,trainer,seed,index,phase,progress=None,policy='stochastic',cache=False):
+    from src.courtroom_rl.runner import safe_error
+    directory=Path(directory)/'episodes'/f'{phase}-{index:06d}'
+    directory.mkdir(parents=True,exist_ok=True)
+    scoped=EpisodeProgress(progress,f'{phase} episode={index+1} sample={case.sample_id}') if progress else None
+    env=None;transport=None;start=[0,0,0];started=time.monotonic()
+    try:
+        client,executor=executor_for(config,directory,fixture,cache,scoped)
+        transport=client.transport
+        if scoped:scoped.log('EPISODE','starting '+phase)
+        env=make_env(case,config,executor,training=phase=='train')
+        trajectory=None
+        if policy in ('learned','stochastic','demonstration'):
+            trajectory=trainer.rollout(env,policy=='learned',scoped,demonstration=policy=='demonstration',
+                generator=episode_generator(trainer.device,seed,phase,index))
+        else:
+            rng=random.Random(seed+index)
+            while not env.state.done:
+                action,target=(lambda a:(a,rng.choice(env.legal_targets(a))))(rng.choice(env.legal_actions())) if policy=='random' else heuristic(env,fixed=policy=='fixed-top3')
+                if scoped:scoped.step(env.state.active_role,action,target,env.state.decision_count+1)
+                env.step(action,target);env.trace[-1]['decision']={'controller':policy}
+        if scoped:scoped.log('EPISODE',f'finished prediction={env.state.final_label} calls={env.state.calls} elapsed={time.monotonic()-started:.1f}s')
+        return dict(env=env,trajectory=trajectory,error=None,elapsed=time.monotonic()-started)
+    except Exception as exc:
+        env=getattr(exc,'courtroom_env',env)
+        usage=record_failure(directory,env,case,transport,start)
+        if scoped:scoped.log('ERROR',safe_error(exc)+'; excluded from PPO')
+        return dict(env=env,trajectory=None,error=exc,failure=usage,elapsed=time.monotonic()-started,
+            audit_directory=str(directory))
+
+
+def evaluate(cases,config,directory,fixture,policy,trainer=None,seed=0,cache=False,progress=None,workers=1):
     from src.courtroom_rl.runner import summarize,safe_error,evaluate as legacy_evaluate
     if policy in ('fixed','fixed-original','single','assessor'):
         compatible=deepcopy(config)
         compatible['budget']={k:v for k,v in config['budget'].items() if k in ('max_decisions','max_calls','max_tokens','max_claims')}
         compatible['budget']['max_claims']=min(3,compatible['budget'].get('max_claims',3))
         return legacy_evaluate(cases,compatible,directory,fixture,policy,cache=cache,seed=seed,progress=progress)
-    client,executor=executor_for(config,directory,fixture,cache,progress)
-    records=[];rng=random.Random(seed)
-    for index,case in enumerate(cases):
+    encoder_for(config,fixture=fixture)
+    outcomes=ordered_jobs(lambda pair:collect_episode(pair[1],config,directory,fixture,trainer,seed,pair[0],
+        'dev',progress,policy,cache),enumerate(cases),workers)
+    records=[]
+    for index,(case,outcome) in enumerate(zip(cases,outcomes)):
         row={'sample_id':case.sample_id,'task':'classification','split':case.split,'gold':case.gold}
-        transport=client.transport;start=[getattr(transport,k,0) for k in ('calls','input_tokens','output_tokens')]
-        env=None
-        try:
-            env=make_env(case,config,executor)
-            if policy=='learned':trainer.rollout(env,True,progress)
-            else:
-                while not env.state.done:
-                    action,target=(lambda a:(a,rng.choice(env.legal_targets(a))))(rng.choice(env.legal_actions())) if policy=='random' else heuristic(env,fixed=policy=='fixed-top3')
-                    if progress:progress.step(env.state.active_role,action,target,env.state.decision_count+1)
-                    env.step(action,target)
-                    env.trace[-1]['decision']={'controller':policy}
+        env=outcome['env']
+        if outcome['error']:
+            exc=outcome['error']
+            env=getattr(exc,'courtroom_env',env)
+            row.update(status='infrastructure_failure',prediction=None,error=safe_error(exc),
+                **outcome['failure'],audit_directory=outcome['audit_directory'])
+            if env is not None and env.state.init_labels:
+                row.update(initial_top3=env.state.init_labels,top3_hit=case.gold in env.state.init_labels)
+        else:
             s=env.state
             row.update(status='ok',prediction=s.final_label,calls=s.calls,tokens=s.input_tokens+s.output_tokens,
                 decisions=s.decision_count,forced_verdict=s.forced_verdict,estimated_usage_calls=s.estimated_usage_calls,
@@ -90,12 +123,6 @@ def evaluate(cases,config,directory,fixture,policy,trainer=None,seed=0,cache=Fal
                 similarity_flagged_claims=sum(bool(c.similarity_review_candidates) for c in s.claims),
                 early_stop=not s.forced_verdict)
             append_jsonl(directory/'traces.jsonl',trace_record(env,case))
-        except Exception as exc:
-            env=getattr(exc,'courtroom_env',env)
-            row.update(status='infrastructure_failure',prediction=None,error=safe_error(exc),
-                **record_failure(directory,env,case,transport,start))
-            if env is not None and env.state.init_labels:
-                row.update(initial_top3=env.state.init_labels,top3_hit=case.gold in env.state.init_labels)
         records.append(row);append_jsonl(directory/'predictions.jsonl',row)
         if progress:progress.log('DEV',f'{index+1}/{len(cases)} {row["status"]}'+
             (f': {row["error"]}' if row['status']!='ok' else f' prediction={row["prediction"]} gold={case.gold}'))
@@ -130,6 +157,8 @@ def train(args,config,directory,progress):
     mode=config['reward'].get('mode','terminal')
     if mode=='potential' and config['reward'].get('gamma',.99)!=config['ppo']['gamma']:
         raise ValueError('Potential discount must match PPO')
+    encoder_for(config,fixture=args.fixture)  # Prewarm once before concurrent first use.
+    workers=getattr(args,'workers',None) or config.get('rollout_workers',4 if config['ppo'].get('device','cpu').startswith('cuda') else 1)
     trainer=PPOTrainer(seed=args.seed,**config['ppo'])
     progress.log('DEVICE',f'Actor/critic: {trainer.device}; LLM: remote API')
     progress.log('REWARD','Terminal +/-1; step/output-token/invalid costs; no proxy shaping')
@@ -149,7 +178,8 @@ def train(args,config,directory,progress):
         'tokenizer_hash':None if args.fixture else config.get('tokenizer',{}).get('sha256'),
         'seed':args.seed,'fixture':args.fixture,'epochs_requested':args.epochs,
         'batch_size':args.batch_size,
-        'warmup_episodes':args.warmup_episodes,'dev_every':args.dev_every}
+        'warmup_episodes':args.warmup_episodes,'dev_every':args.dev_every,'workers':workers,
+        'sampling_contract':'episode-sha256-generator-v1'}
     cursor=completed=updates=0;best=-1.;role_counts=collections.Counter()
     resume_history=[]
     if args.resume:
@@ -162,13 +192,15 @@ def train(args,config,directory,progress):
             if key=='source_hash' and previous.get(key)!=value:
                 migration=source_migration(previous.get(key),value)
                 if migration:continue
+            if key=='workers' and (key in previous or migration):continue
+            if key=='sampling_contract' and key not in previous and migration:continue
             if previous.get(key)!=value:raise ValueError(f'Resume contract differs: {key}')
         cursor,completed,updates,best=(previous[k] for k in ('cursor','completed_episodes','updates','best_dev_macro_f1'))
         role_counts.update(previous.get('role_decisions',{}))
         info={'checkpoint':str(Path(args.resume).resolve()),'cursor':cursor,'completed_episodes':completed,
             'updates':updates,'previous_epochs':previous['epochs_requested'],'target_epochs':args.epochs,
             'previous_source_hash':previous['source_hash'],'current_source_hash':manifest['source_hash'],
-            'source_migration':migration}
+            'source_migration':migration,'previous_workers':previous.get('workers',1),'workers':workers}
         resume_history=list(previous.get('resume_history',[]))+[info]
         old_best=Path(args.resume).parent/'best.pt'
         if old_best.is_file():
@@ -184,22 +216,18 @@ def train(args,config,directory,progress):
         progress.log('RESUME',f'Restored actor/critic/optimizer/RNG: attempted={cursor}/{len(train_cases)*args.epochs} '
             f'completed={completed} updates={updates}; epochs total {previous["epochs_requested"]} -> {args.epochs}; warmup skipped')
         if migration:progress.log('RESUME','Explicit compatible source migration: '+migration['reason'])
-    client,executor=executor_for(config,directory,args.fixture,False,progress)
+    progress.log('PARALLEL',f'workers={workers}; policy frozen during collection; PPO updates after batch barrier')
     if args.warmup_episodes and not args.resume:
+        demo_cases=train_cases[:args.warmup_episodes]
+        outcomes=ordered_jobs(lambda pair:collect_episode(pair[1],config,directory,args.fixture,trainer,args.seed,
+            pair[0],'warmup',progress,'demonstration'),enumerate(demo_cases),workers)
         demos=[]
-        for case in train_cases[:args.warmup_episodes]:
-            progress.log('WARMUP',f'Train-only heuristic strategy demonstration: {case.sample_id}')
-            env=None;transport=client.transport
-            usage_start=[getattr(transport,k,0) for k in ('calls','input_tokens','output_tokens')]
-            try:
-                env=make_env(case,config,executor)
-                demos.append(trainer.rollout(env,progress=progress,demonstration=True))
-                append_jsonl(directory/'warmup_traces.jsonl',trace_record(env,case))
-            except Exception as exc:
-                env=getattr(exc,'courtroom_env',env)
-                append_jsonl(directory/'warmup_failures.jsonl',{'sample_id':case.sample_id,'error':safe_error(exc),
-                    **record_failure(directory,env,case,transport,usage_start)})
-                progress.log('ERROR','Warmup demo failed: '+safe_error(exc))
+        for case,outcome in zip(demo_cases,outcomes):
+            if outcome['error']:
+                append_jsonl(directory/'warmup_failures.jsonl',{'sample_id':case.sample_id,
+                    'error':safe_error(outcome['error']),**outcome['failure'],'audit_directory':outcome['audit_directory']})
+            else:
+                demos.append(outcome['trajectory']);append_jsonl(directory/'warmup_traces.jsonl',trace_record(outcome['env'],case))
         if not demos:raise ValueError('All warmup demonstrations failed; inspect warmup_failures.jsonl')
         loss=trainer.imitate(demos)
         progress.log('WARMUP',f'Action imitation loss={loss:.4f}; no label supervision, no PPO from demos')
@@ -209,14 +237,19 @@ def train(args,config,directory,progress):
     while cursor<total:
         trajectories=[];batch_rewards=[]
         progress.log('BATCH',f'Collecting {min(args.batch_size,total-cursor)} episodes; attempted={cursor}/{total}')
-        for _ in range(min(args.batch_size,total-cursor)):
-            case=train_cases[cursor%len(train_cases)];start=time.monotonic()
-            transport=client.transport;usage_start=[getattr(transport,k,0) for k in ('calls','input_tokens','output_tokens')]
-            env=None
-            progress.log('EPISODE',f'{cursor+1}/{total} sample={case.sample_id}: Top3 initialization')
-            try:
-                env=make_env(case,config,executor,assessor,True)
-                trajectory=trainer.rollout(env,False,progress);trajectories.append(trajectory);completed+=1
+        indices=list(range(cursor,min(cursor+args.batch_size,total)))
+        outcomes=ordered_jobs(lambda i:collect_episode(train_cases[i%len(train_cases)],config,directory,args.fixture,
+            trainer,args.seed,i,'train',progress),indices,workers)
+        for episode_index,outcome in zip(indices,outcomes):
+            case=train_cases[episode_index%len(train_cases)];env=outcome['env']
+            if outcome['error']:
+                exc=outcome['error']
+                env=getattr(exc,'courtroom_env',env)
+                failure={'sample_id':case.sample_id,'cursor':cursor,'status':'infrastructure_failure','error':safe_error(exc),
+                    **outcome['failure'],'audit_directory':outcome['audit_directory']}
+                append_jsonl(directory/'failures.jsonl',failure);progress.log('ERROR',safe_error(exc)+'; failure and usage recorded, excluded from PPO')
+            else:
+                trajectory=outcome['trajectory'];trajectories.append(trajectory);completed+=1
                 counts=collections.Counter(r['role'] for r in trajectory);role_counts.update(counts)
                 reward=sum(r['reward'] for r in trajectory);batch_rewards.append(reward)
                 progress.log('EPISODE',f'{cursor+1}/{total} {"correct" if env.state.final_label==case.gold else "wrong"} '
@@ -225,13 +258,8 @@ def train(args,config,directory,progress):
                     f'terminal={sum(t["rewards"]["terminal"] for t in env.trace):+.1f} '
                     f'progress={sum(t["rewards"]["shaping"] for t in env.trace):+.3f} '
                     f'calls={env.state.calls} tokens={env.state.input_tokens+env.state.output_tokens} '
-                    f'roles={dict(counts)} forced={env.state.forced_verdict} elapsed={time.monotonic()-start:.1f}s')
+                    f'roles={dict(counts)} forced={env.state.forced_verdict} elapsed={outcome["elapsed"]:.1f}s')
                 append_jsonl(directory/'traces.jsonl',trace_record(env,case))
-            except Exception as exc:
-                env=getattr(exc,'courtroom_env',env)
-                failure={'sample_id':case.sample_id,'cursor':cursor,'status':'infrastructure_failure','error':safe_error(exc),
-                    **record_failure(directory,env,case,transport,usage_start)}
-                append_jsonl(directory/'failures.jsonl',failure);progress.log('ERROR',safe_error(exc)+'; failure and usage recorded, excluded from PPO')
             cursor+=1
         loss=trainer.update(trajectories) if trajectories else None
         if loss:updates+=1
@@ -243,7 +271,7 @@ def train(args,config,directory,progress):
         if not role_counts.get('Prosecutor'):progress.log('COVERAGE','No Prosecutor actor decisions yet; consider train-only heuristic warmup/exploration')
         improved=False
         if (loss is not None and updates%args.dev_every==0) or cursor==total:
-            result=evaluate(dev,config,directory/f'dev-{cursor:06d}',args.fixture,'learned',trainer,args.seed,progress=progress)
+            result=evaluate(dev,config,directory/f'dev-{cursor:06d}',args.fixture,'learned',trainer,args.seed,progress=progress,workers=workers)
             metrics=result['metrics'] or {};candidate=metrics.get('macro_f1',-1.) if result['coverage']==1 else -1.
             progress.log('DEV',f'accuracy={metrics.get("accuracy")} macro_f1={metrics.get("macro_f1")} '
                 f'coverage={result["coverage"]:.1%} top3_recall={result["top3_recall"]}')
@@ -300,6 +328,6 @@ def run(args,config):
     cases=load_development_cases(config) if split=='dev' else load_cases(split,ROOT/config['data_dir'])
     limit=args.limit if args.limit is not None else (1 if args.command=='smoke' else None)
     if limit:cases=cases[:limit]
-    result=evaluate(cases,config,directory,args.fixture,policy,trainer,args.seed,args.cache,progress)
+    result=evaluate(cases,config,directory,args.fixture,policy,trainer,args.seed,args.cache,progress,workers=getattr(args,'workers',None) or config.get('rollout_workers',4 if config['ppo'].get('device','cpu').startswith('cuda') else 1))
     print(json.dumps({'output':str(directory),'successful':result['successful'],'failed':result['failed']}),flush=True)
     return result

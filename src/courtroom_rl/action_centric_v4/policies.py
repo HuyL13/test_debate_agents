@@ -92,13 +92,13 @@ class RolePolicies(nn.Module):
             conditional[action] = (Categorical(logits=logits), list(candidates))
         return action_dist, conditional
 
-    def sample(self, role, obs, legal, targets, deterministic=False):
+    def sample(self, role, obs, legal, targets, deterministic=False, generator=None):
         with torch.no_grad():
             dist, conditional = self.distributions(role, obs, legal, targets)
-            ai = dist.probs.argmax() if deterministic else dist.sample()
+            ai = dist.probs.argmax() if deterministic else (dist.sample() if generator is None else torch.multinomial(dist.probs,1,generator=generator).squeeze(0))
             action = ROLE_ACTIONS[role][int(ai)]
             td, ids = conditional[action]
-            ti = None if td is None else (td.probs.argmax() if deterministic else td.sample())
+            ti = None if td is None else (td.probs.argmax() if deterministic else (td.sample() if generator is None else torch.multinomial(td.probs,1,generator=generator).squeeze(0)))
             target = None if ti is None else ids[int(ti)]
             alp = dist.log_prob(ai)
             tlp = alp.new_zeros(()) if td is None else td.log_prob(ti)

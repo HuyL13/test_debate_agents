@@ -15,7 +15,8 @@ def main():
     files.extend(ROOT / name for name in (
         'requirements-kaggle.txt', 'scripts/check_kaggle_gpu.py', 'docs/action-centric-v4.md', 'cache/courtroom_rl/llama3_tokenizer.json',
         'docs/kaggle-training.ipynb', 'docs/kaggle-training.md',
-        'docs/diagnostics/resume-source-migrations.json'))
+        'docs/diagnostics/resume-source-migrations.json',
+        'docs/diagnostics/resume-v4-parallel-migrations.json'))
     with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
         for path in sorted(files):
             if not path.is_file():

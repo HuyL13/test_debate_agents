@@ -37,21 +37,23 @@ class PPOTrainer:
         self.optimizer = torch.optim.Adam(list(self.policies.parameters())+list(self.critic.parameters()), lr=lr)
         self.gamma,self.lam,self.clip,self.epochs,self.entropy = gamma,lam,clip,epochs,entropy
 
-    def rollout(self, env, deterministic=False, progress=None, demonstration=False):
+    def rollout(self, env, deterministic=False, progress=None, demonstration=False, generator=None):
         from .observation import encode
+        from .parallel import INFERENCE_LOCK
         rows=[]
         while not env.state.done:
-            role=env.state.active_role; obs=encode(env)
-            legal=list(env.legal_actions()); targets={a:list(env.legal_targets(a)) for a in legal}
-            if demonstration:
-                action,target=heuristic(env)
-                with torch.no_grad():
-                    lp,_=self.policies.evaluate(role,obs,legal,targets,action,target)
-                    ad,tds=self.policies.distributions(role,obs,legal,targets)
-                    alp=ad.log_prob(torch.tensor(ROLE_ACTIONS[role].index(action),device=self.device))
-                decision=dict(action=action,target=target,logprob=float(lp),action_logprob=float(alp),target_logprob=float(lp-alp))
-            else:
-                decision=self.policies.sample(role,obs,legal,targets,deterministic)
+            with INFERENCE_LOCK:
+                role=env.state.active_role; obs=encode(env)
+                legal=list(env.legal_actions()); targets={a:list(env.legal_targets(a)) for a in legal}
+                if demonstration:
+                    action,target=heuristic(env)
+                    with torch.no_grad():
+                        lp,_=self.policies.evaluate(role,obs,legal,targets,action,target)
+                        ad,tds=self.policies.distributions(role,obs,legal,targets)
+                        alp=ad.log_prob(torch.tensor(ROLE_ACTIONS[role].index(action),device=self.device))
+                    decision=dict(action=action,target=target,logprob=float(lp),action_logprob=float(alp),target_logprob=float(lp-alp))
+                else:
+                    decision=self.policies.sample(role,obs,legal,targets,deterministic,**({'generator':generator} if generator is not None else {}))
             if progress:
                 target_display=decision['target']
                 objects=[*getattr(env.state,'hypotheses',()),*getattr(env.state,'claims',())]
@@ -59,13 +61,15 @@ class PPOTrainer:
                 if chosen is not None:
                     target_display=f'{target_display} ({chosen.label})'
                 progress.step(role,decision['action'],target_display,env.state.decision_count+1)
-            with torch.no_grad():value=float(self.critic[role](obs))
+            with INFERENCE_LOCK, torch.no_grad():value=float(self.critic[role](obs))
             _,reward,done,truncated,info=env.step(decision['action'],decision['target'])
             env.trace[-1]['decision']={**decision,'controller':'heuristic-demonstration' if demonstration else 'IPPO',
                 'critic_value':value,'deterministic':deterministic,'legal':deepcopy(legal),'targets':deepcopy(targets)}
+            with INFERENCE_LOCK:
+                next_obs=None if done else encode(env)
             rows.append(dict(role=role,obs=deepcopy(obs),legal=legal,targets=targets,**decision,value=value,
                 reward=reward,terminated=done,truncated=truncated,
-                next_obs=None if done else encode(env),next_role=None if done else env.state.active_role))
+                next_obs=next_obs,next_role=None if done else env.state.active_role))
         return rows
 
     def imitate(self, trajectories, epochs=4):

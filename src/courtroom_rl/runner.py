@@ -380,6 +380,7 @@ def main(argv=None):
     parser.add_argument('--fixture',action='store_true')
     parser.add_argument('--limit',type=int,default=None)
     parser.add_argument('--dev-limit',type=int,default=None,help='Default: full configured diagnostic dev; otherwise16')
+    parser.add_argument('--workers',type=int,default=None,help='V4 concurrent episode workers; default from config')
     parser.add_argument('--batch-size',type=int,default=8)
     parser.add_argument('--epochs',type=int,default=1)
     parser.add_argument('--seed',type=int,default=0)
@@ -401,6 +402,7 @@ def main(argv=None):
         value = getattr(args,key)
         if value is not None and value < 1:
             parser.error(f'--{key.replace("_","-")} must be positive')
+    if args.workers is not None and args.workers<1:parser.error('--workers must be positive')
     if args.command == 'replay':
         if not args.trace:
             parser.error('replay requires --trace')
@@ -422,6 +424,8 @@ def main(argv=None):
         config['reward']['mode'] = args.reward_mode
     if args.observation_mode:
         config['observation_mode']=args.observation_mode
+    if args.workers is not None and config.get('architecture')!='action_centric_v4':
+        raise ValueError('--workers is currently supported by V4 only')
     if args.command == 'prepare-assessor':
         assessor = prepare_assessor(config,args.fixture)
         print(json.dumps({'assessor_hash':assessor.fingerprint,'fixture':args.fixture}))

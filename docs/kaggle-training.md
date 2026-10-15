@@ -57,7 +57,7 @@ RESUME = None
 # Example: RESUME = '/kaggle/input/my-training-output/cocolofa_pard/runs/courtroom-v4-.../last.pt'
 cmd = [sys.executable, '-u', '-m', 'src.courtroom_rl.runner', 'train',
        '--config', 'configs/courtroom_rl.v4.kaggle.yaml',
-       '--epochs', '1', '--batch-size', '8', '--dev-limit', '66',
+       '--epochs', '1', '--batch-size', '8', '--workers', '4', '--dev-limit', '66',
        '--dev-every', '10', '--warmup-episodes', '8', '--seed', '0', '--log-steps']
 if RESUME:
     # Copy the run directory so inherited best.pt and its provenance travel too.
@@ -82,3 +82,5 @@ with tarfile.open(artifact, 'w:gz') as tar:
 print('Saved:', artifact)
 ```
 Development set update (2026-10-15): new main/pilot/Kaggle runs default to all66 pinned dialectical diagnostic cases, originally selected from official test errors. Official train/dev/test artifacts stay unchanged. This development use exposes these test cases; do not report them as fresh held-out test. An explicit --dev-limit still subsets the configured development set. Older checkpoints have different source/config/dev-selection contracts and do not resume directly.
+
+Parallel V4 update: --workers4 collects four independent episodes concurrently, including warmup and dev. PPO waits for the entire batch and then updates once. Each episode owns its API client/budget and sampling generator; changing worker count is safe at a checkpoint boundary. API logs include episode/sample IDs. Start with4; use --workers2 if the provider persistently rate-limits.
