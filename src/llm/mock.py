@@ -115,10 +115,16 @@ class MockTransport:
                 value = {'has_fallacy_charge': False, 'candidate_class': 'None',
                          'defect_mechanism': 'OFFLINE MOCK no defect.', 'quote': ''}
             else:
+                cand = properties['candidate_class']['enum'][seed % len(properties['candidate_class']['enum'])]
                 value = {'has_fallacy_charge': True,
-                         'candidate_class': properties['candidate_class']['enum'][seed % len(properties['candidate_class']['enum'])],
+                         'candidate_class': cand,
                          'defect_mechanism': 'OFFLINE MOCK structural defect.',
                          'quote': quote}
+                if 'runner_up_class' in properties:
+                    runners = [c for c in properties['runner_up_class']['enum'] if c != cand]
+                    value['runner_up_class'] = runners[seed % len(runners)]
+                    value['runner_up_defect'] = 'OFFLINE MOCK runner-up defect.'
+                    value['runner_up_quote'] = quote
         elif 'concede_charge' in properties:
             value = {'concede_charge': True if 'alternative_class' in properties else False,
                      'charitable_interpretation': 'OFFLINE MOCK charitable interpretation.',

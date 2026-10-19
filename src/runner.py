@@ -18,6 +18,12 @@ from src.labels import labels_for
 from src.llm.client import Client, ModelConfig
 
 ROOT = Path(__file__).resolve().parents[1]
+try:
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / '.env')
+    load_dotenv(ROOT / '.env2')
+except ImportError:
+    pass
 CONFIG_KEYS = {'task', 'data_dir', 'split', 'context', 'engine', 'model', 'output_dir', 'cache_dir'}
 ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True,
                    'adaptive_policy': 'planner', 'flow': None, 'use_patterns': False}
@@ -276,6 +282,8 @@ def cli(task):
     parser.add_argument('--mode', choices=('single', 'no_deliberation', 'fixed', 'adaptive'))
     parser.add_argument('--protocol', choices=('round_robin', 'point_counterpoint', 'cross_examination'))
     parser.add_argument('--model', help='Model identifier to override in config (e.g. meta/llama-3.3-70b-instruct)')
+    parser.add_argument('--base-url', help='Base URL to override model endpoint (e.g. https://mkp-api.fptcloud.com/v1)')
+    parser.add_argument('--api-key-env', help='Environment variable holding the API key (e.g. MARKET_API_KEY)')
     parser.add_argument('--use-patterns', dest='use_patterns', action='store_true', default=None,
                         help='Enable ArgMining 2026 enriched fallacy patterns in prompts')
     parser.add_argument('--no-patterns', dest='use_patterns', action='store_false',
@@ -291,6 +299,10 @@ def cli(task):
             raise ValueError('Set model.name in the YAML to your accessible API model snapshot')
         if args.model:
             config['model']['name'] = args.model
+        if getattr(args, 'base_url', None):
+            config['model']['base_url'] = args.base_url
+        if getattr(args, 'api_key_env', None):
+            config['model']['api_key_env'] = args.api_key_env
         for field in ('split',):
             if getattr(args, field):
                 config[field] = getattr(args, field)

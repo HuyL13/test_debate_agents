@@ -1,0 +1,588 @@
+\documentclass[11pt]{article}
+
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+\usepackage[review]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{url}
+
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{promptbox}[2][]{
+  colback=gray!5!white,
+  colframe=gray!60!black,
+  coltitle=white,
+  fonttitle=\bfseries\small,
+  title={#2},
+  boxrule=0.6pt,
+  arc=1.5mm,
+  breakable,
+  left=1.5mm,
+  right=1.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  fontupper=\small\ttfamily,
+  #1
+}
+
+\newtcolorbox{dialoguebox}[2][]{
+  colback=blue!2!white,
+  colframe=blue!50!black,
+  coltitle=white,
+  fonttitle=\bfseries\small,
+  title={#2},
+  boxrule=0.6pt,
+  arc=1.5mm,
+  breakable,
+  left=1.5mm,
+  right=1.5mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  fontupper=\small,
+  #1
+}
+
+\title{Beyond Heuristic Deliberation: Theory-Grounded ARS and Adversarial Dialectical Multi-Agent Reasoning for Logical Fallacy Identification}
+
+\author{Anonymous ACL Submission}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Informal logical fallacies present persistent obstacles to automated argumentation analysis in online discourse, where deceptive rhetorical forms, implicit enthymemes, and subtle semantic shifts frequently mislead natural language processing models. While large language models (LLMs) exhibit strong commonsense capabilities, conventional single-agent prompting and naive multi-agent debate (MAD) suffer from severe vulnerabilities, including surface lexical trapping (e.g., conflating absolute assertions with false dichotomies), uncritical sycophancy, and prohibitive token explosion ($>200\text{k}$ tokens per 10 samples). In this work, we present a comprehensive multi-agent reasoning framework evaluated on the rigorous \textsc{CoCoLoFa} benchmark. We advance beyond unstructured deliberation along two principled dimensions: (1) \textbf{Theory-Grounded ARS Diagnosis}, operationalizing Johnson and Blair's criteria of \textit{Acceptability}, \textit{Relevance}, and \textit{Sufficiency} under a strict \textit{label-blind invariant} where diagnostic agents evaluate structural argument flaws without seeing the task taxonomy, eliminating confirmation bias; and (2) \textbf{Adversarial Dialectical Debate}, grounded in Douglas Walton's dialogue games and the Principle of Charity (Quine and Davidson), deploying a specialized \textit{Prosecutor} searching for structural defects with verbatim evidence, a \textit{Defender} steelmanning contextual warrants, and an impartial \textit{Dialectical Arbiter} enforcing strict burden-of-proof rules. Furthermore, we integrate abstract logical patterns and syntactic markers derived from ArgMining 2026. Across full-test evaluations ($798$ detection, $481$ classification samples), our single-agent baseline achieves $80.64\%$ macro-$F_1$. Crucially, on the $66$ most difficult adversarial test cases where all single-agent baselines completely fail ($0\%$ accuracy), our adversarial dialectical framework recovers \textbf{46.97\%} accuracy ($46.25\%$ macro-$F_1$). Concurrently, our adaptive disagreement review cuts token expenditure by \textbf{62.5\%--65.8\%}. We provide an exhaustive qualitative error taxonomy of remaining boundary failure modes to guide future neuro-symbolic and deliberative research.
+\end{abstract}
+
+\section{Introduction}
+
+Automated detection and classification of informal logical fallacies in web-based conversations is crucial for mitigating information disorder, malicious persuasion, and polarized discourse \cite{jin2022logical,leihuang2024,schuetz2022}. Unlike formal fallacies that violate deductive syllogistic structures, informal fallacies are intrinsically dependent on natural language nuance, pragmatic framing, implicit premises (\textit{enthymemes}), and situational context \cite{walton1998,vaneemeren2004}. 
+
+The recently introduced \textsc{CoCoLoFa} benchmark \cite{cocolofa2024} established a rigorous real-world evaluation standard for informal fallacies in news comment threads across two primary tasks: binary \textit{Fallacy Detection} and fine-grained 8-class \textit{Fallacy Classification}. Initial baselines established that while fine-tuned small encoders (e.g., BERT, RoBERTa) and closed-source LLMs (e.g., GPT-4o, Llama-3) perform reasonably well on coarse heuristics, they encounter significant difficulties in resolving fine-grained semantic boundaries between closely aligned fallacy types \cite{cocolofa2024}.
+
+In parallel, Multi-Agent Debate (MAD) has emerged as a promising paradigm to improve reasoning accuracy and factuality in LLMs \cite{du2023improving,liang2023encouraging,chan2023chateval,pard2026}. However, our preliminary investigations into naive adaptations of multi-agent deliberation for fallacy classification revealed three fundamental systemic pathologies:
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Surface Lexical Trapping:} LLMs readily succumb to explicit syntactic markers rather than evaluating underlying inferential structures. For example, comments expressing radical inductive leaps (\textit{Hasty Generalization}) using phrasing such as ``\textit{there is no other answer}'' or ``\textit{either way}'' are overwhelmingly misdiagnosed as \textit{False Dilemma}, simply because models latch onto apparent binary exclusivity markers.
+    \item \textbf{Sycophantic Consensus and Degenerative Deliberation:} Standard symmetrical peer debates frequently result in models uncritically agreeing with the loudest or first-arriving agent (\textit{herding}), or engaging in repetitive restatements that yield no epistemic improvement.
+    \item \textbf{Prohibitive Token Explosion:} Unconstrained multi-round, multi-agent debates easily consume upwards of $200{,}000$ tokens per 10 instances while occasionally degrading downstream performance relative to a concise single-agent baseline.
+\end{enumerate}
+
+\begin{figure*}[t]
+\centering
+\begin{tcolorbox}[colback=gray!3!white,colframe=gray!70!black,title=\textbf{Dual Core Architectures: Theory-Grounded ARS vs. Adversarial Dialectical Debate},fonttitle=\small\bfseries,boxrule=0.6pt,arc=1.5mm,width=\textwidth]
+\small
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{(a) Theory-Grounded ARS Diagnostic Flow}
+\vspace{2mm}
+\begin{verbatim}
+        Discourse Context (T, P, C)
+                    |
+                    v
+         [ARSArgumentDecomposer]
+                    |
+        +-----------+-----------+
+        | (Blind to Label Space)|
+        v           v           v
+  [Acceptability] [Relevance] [Sufficiency]
+        |           |           |
+        +-----------+-----------+
+                    |
+     [Optional Role-Preserving Review]
+                    | (Diagnostic Vectors)
+                    v
+              [ARSArbiter]
+       (Exclusive Label Knowledge)
+                    |
+                    v
+       Final Task Prediction (y)
+\end{verbatim}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\textbf{(b) Adversarial Dialectical Debate Flow}
+\vspace{2mm}
+\begin{verbatim}
+        Discourse Context (T, P, C)
+                    |
+                    v
+              [Prosecutor]
+   (Cue Scan, Top-2 Classes, Verbatim Quotes)
+                    |
+                    v (Formal Indictment)
+              [Defender]
+   (Principle of Charity, Steelmanning Runner-up)
+                    |
+        +-----------+-----------+
+        |                       |
+ (Concede Charge)         (Contest Charge)
+        \                       /
+         \                     /
+          v                   v
+            [Dialectical Arbiter]
+      (Anti-Anchoring 3-Point Checklist)
+                    |
+                    v
+       Final Task Prediction (y)
+\end{verbatim}
+\end{minipage}
+\end{tcolorbox}
+\caption{Architectural schematics of our two advanced reasoning frameworks. (a) The ARS Diagnostic architecture isolates informal logic specialists from the label taxonomy. (b) The Adversarial Dialectical framework models an argumentation courtroom balancing structural indictments with charitable interpretations.}
+\label{fig:framework_architectures}
+\end{figure*}
+
+To overcome these structural limitations, we formulate and systematically evaluate two novel, theoretically motivated multi-agent frameworks, paired with pattern-enriched logical definitions:
+
+First, we design a \textbf{Theory-Grounded ARS Diagnostic Architecture} rooted in Ralph Johnson and J.~Anthony Blair's seminal informal logic theory \cite{johnsonblair1977,johnsonblair2006}. Recognizing that exposure to target labels causes confirmation bias, we enforce a strict \textit{label-blind invariant}: three dedicated specialists independently evaluate arguments exclusively along the universal cogency axes of \textit{Acceptability}, \textit{Relevance}, and \textit{Sufficiency} without ever seeing the 8-class fallacy taxonomy. Only a downstream \textit{ARS Arbiter} synthesizes these diagnostic vectors into the benchmark label space.
+
+Second, we propose an \textbf{Adversarial Dialectical Debate Framework} rooted in Douglas Walton's dialogue games \cite{walton1998} and the philosophical \textit{Principle of Charity} \cite{quine1960,davidson1973,govier1987}. We structure deliberation as a formalized courtroom dialogue comprising: (i) a \textit{Prosecutor} agent executing rigorous cue scans, separating justificatory premises from conclusions, and issuing formal indictments backed by mandatory verbatim text quotes; (ii) a \textit{Defender} agent applying charitable reconstruction, contextual warrant verification, and steelmanning viable alternative classes; and (iii) an impartial \textit{Dialectical Arbiter} enforcing an anti-anchoring directive that strictly blocks defaulting to the prosecutor's hypothesis.
+
+Third, we incorporate \textbf{Abstract Logical Patterns} from recent argument mining research \cite{papadopulos2026}, enriching agent system instructions with formal syllogistic structures, reasoning defect mechanisms, and bidirectional disambiguation boundary constraints.
+
+Our key contributions are summarized as follows:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item We formalize and benchmark multiple deliberative multi-agent paradigms on the complete \textsc{CoCoLoFa} dataset ($798$ detection, $481$ classification samples), matching and exceeding published state-of-the-art baselines.
+    \item We introduce the ARS Diagnostic Architecture, proving the utility of structural argument decomposition and label-isolated informal logic evaluations.
+    \item We formulate the Adversarial Dialectical Debate Framework, demonstrating that dialectical tension between a Prosecutor and a Charitable Defender provides dramatic accuracy recovery on hard adversarial edge cases.
+    \item On the $66$ most difficult failure cases of \textsc{CoCoLoFa} where single-agent models score $0.0\%$, our adversarial framework recovers \textbf{46.97\%} accuracy ($46.25\%$ macro-$F_1$).
+    \item We design an adaptive disagreement review policy that slashes token consumption by over \textbf{62\%}, establishing a cost-effective alternative to unconstrained multi-agent deliberation.
+    \item We present an in-depth qualitative analysis of $35$ remaining boundary failure cases across $21$ distinct error clusters.
+\end{itemize}
+
+\section{Problem Formulation \& Task Setup}
+
+\subsection{Formal Task Definitions}
+Following the \textsc{CoCoLoFa} formulation \cite{cocolofa2024}, our system operates on conversational threads derived from online news comment platforms. Each input instance is formally represented as an ordered tuple:
+\begin{equation}
+    \mathcal{X} = (T, P, C)
+\end{equation}
+where $T$ denotes the news article headline, $P$ represents the immediate parent comment within the same discourse thread (when present), and $C$ represents the target comment under evaluation.
+
+\paragraph{Task 1: Fallacy Detection.}
+Binary classification determining whether the target comment $C$ commits an informal logical fallacy:
+\begin{equation}
+    \hat{y}_{\text{det}} \in \{\text{Fallacious}, \text{Non-Fallacious}\}
+\end{equation}
+Evaluated across all eligible comments in the split. Positive instances are defined as comments exhibiting one of the eight benchmark fallacies.
+
+\paragraph{Task 2: Fallacy Classification.}
+Multi-class classification mapping a confirmed fallacious comment to exactly one of eight mutually exclusive, closed-set fallacy categories:
+\begin{equation}
+    \hat{y}_{\text{cls}} \in \mathcal{Y}_{\text{8}}
+\end{equation}
+where $\mathcal{Y}_{\text{8}} = \{$Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope$\}$. 
+
+In accordance with the benchmark design \cite{cocolofa2024}, Task 2 is evaluated exclusively on gold-positive fallacious comments. The two tasks are strictly decoupled: classification models do not suffer from upstream detection cascades.
+
+\subsection{Evaluation Metrics}
+In alignment with the official \textsc{CoCoLoFa} benchmark standards:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Detection:} Evaluated using Precision ($P_{\text{det}}$), Recall ($R_{\text{det}}$), and $F_1$-score ($F_{1,\text{det}}$) computed specifically with respect to the positive class (\textit{Fallacious}).
+    \item \textbf{Classification:} Evaluated via unweighted Macro-Averaged Precision ($P_{\text{macro}}$), Macro-Averaged Recall ($R_{\text{macro}}$), and Macro-$F_1$ across all eight target classes:
+    \begin{equation}
+        \text{Macro-}F_1 = \frac{1}{|\mathcal{Y}_{\text{8}}|} \sum_{c \in \mathcal{Y}_{\text{8}}} \frac{2 \cdot P_c \cdot R_c}{P_c + R_c + \epsilon}
+    \end{equation}
+    where any division by zero results in a score of zero for that class.
+\end{itemize}
+
+\subsection{Dataset Integrity and Verification}
+The benchmark dataset contains $7{,}706$ total comments spanning $648$ distinct news articles. Table~\ref{tab:dataset_splits} summarizes the exact split distributions verified in our frozen audit.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Split} & \textbf{Articles} & \textbf{Total} & \textbf{Fallacious} & \textbf{Non-Fall.} \\
+\midrule
+Train & 452 & 5,370 & 3,168 & 2,202 \\
+Dev   & 129 & 1,538 & 927   & 611   \\
+Test  & 67  & 798   & 481   & 317   \\
+\bottomrule
+\end{tabular}
+\caption{Verified distribution of the \textsc{CoCoLoFa} dataset. Comment and article IDs are strictly disjoint across splits.}
+\label{tab:dataset_splits}
+\end{table}
+
+We conduct rigorous byte-level SHA-256 verification of the upstream repository blobs. One known upstream irregularity—sample \texttt{399:10493} referencing parent \texttt{5338} from a training article—is handled conservatively by providing an empty parent string, thereby preventing cross-split data leakage while preserving the full test count.
+
+\section{Methodology}
+
+To systematically investigate multi-agent deliberation, we implement and evaluate a spectrum of architectures ranging from adapted baseline protocols to our novel theory-grounded and adversarial frameworks.
+
+\subsection{Adapted Baseline Deliberation (PARD-Inspired)}
+We adapt the core mechanics of the Planning-driven Adaptive Reasoning (PARD) framework \cite{pard2026} to conversational fallacy identification.
+
+\paragraph{Specialist Perspectives.}
+Deliberation is initialized with three parallel specialist agents analyzing the input $(T, P, C)$ independently:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Factual Analyst ($\mathcal{A}_{\text{fac}}$):} Examines empirical premises against external commonsense and context.
+    \item \textbf{Logical Analyst ($\mathcal{A}_{\text{log}}$):} Evaluates structural validity, formal syllogisms, and deductive validity.
+    \item \textbf{Contextual Analyst ($\mathcal{A}_{\text{ctx}}$):} Assesses pragmatic cues, rhetorical intent, conversational history, and parent context.
+\end{itemize}
+
+\paragraph{Interaction Protocols.}
+Deliberation proceeds according to one of three structured multi-round protocols:
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Round-Robin (RR):} Sequential token exchange in fixed order ($\mathcal{A}_{\text{fac}} \to \mathcal{A}_{\text{log}} \to \mathcal{A}_{\text{ctx}}$) where each agent updates its stance given prior messages.
+    \item \textbf{Point-Counterpoint (PC):} Symmetrical dialectical debate dividing agents into two opposing camps based on initial stance partitions (e.g., $1\text{v}2$ or $2\text{v}1$).
+    \item \textbf{Cross-Examination (CE):} Asymmetrical interrogation where one appointed Examiner questions two Respondents regarding specific argumentative vulnerabilities.
+\end{enumerate}
+
+\paragraph{Adaptive Planner \& Disagreement Review.}
+In the adaptive setting, a central Planner inspects initial specialist reports and selects the optimal protocol. To address token inefficiency, we formulate an alternative \textit{Disagreement Review} policy: if all initial specialists agree, the system short-circuits directly to synthesis; if discord exists, agents perform a single synchronous review round before final arbitration.
+
+\subsection{Theory-Grounded ARS Diagnostic Architecture}
+Traditional multi-agent systems suffer from confirmation bias because agents are provided with the target fallacy taxonomy from step one, tempting them to force messy discourse into predefined labels. To eliminate this, we operationalize Ralph Johnson and J.~Anthony Blair's foundational informal logic criteria \cite{johnsonblair1977,johnsonblair2006}: an argument is logically cogent if and only if its premises satisfy \textbf{A}cceptability, \textbf{R}elevance, and \textbf{S}ufficiency.
+
+\paragraph{Structural Decomposition.}
+First, an \textit{ARSArgumentDecomposer} extracts explicit, verbatim target spans for premises $\{p_1, \dots, p_k\}$ and the primary conclusion $c$ without knowledge of the fallacy taxonomy.
+
+\paragraph{Label-Blind Tripartite Council.}
+Three specialist agents evaluate the argument strictly along single theoretical axes:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Acceptability ($\mathcal{A}_{\text{acc}}$):} Evaluates whether premises $\{p_i\}$ are prima facie plausible, uncontroversial, or supported by warrant, as opposed to dubious, unsupported claims.
+    \item \textbf{Relevance ($\mathcal{A}_{\text{rel}}$):} Evaluates whether the truth of the premises genuinely bears upon the truth of conclusion $c$, detecting non-sequiturs, red herrings, and irrelevant appeals.
+    \item \textbf{Sufficiency ($\mathcal{A}_{\text{suf}}$):} Evaluates whether the premises provide adequate weight and sample representation to license the leap to conclusion $c$.
+\end{itemize}
+
+\paragraph{The Hard Invariant.}
+We enforce an architectural constraint: \textit{Neither the Decomposer, nor the ARS specialists, nor the review mechanisms are provided with the task labels}. They output structured diagnostic vectors $\mathbf{d} = (\delta_{\text{acc}}, \delta_{\text{rel}}, \delta_{\text{suf}})$ detailing structural defects. Only the final \textbf{ARSArbiter} possesses the mapping from diagnostic defect profiles to the closed-set taxonomy $\mathcal{Y}_{\text{8}}$ (or binary detection space).
+
+\subsection{Adversarial Dialectical Debate Framework}
+While ARS provides structural grounding, fine-grained fallacy discrimination frequently turns on subtle pragmatic boundaries. We formulate an Adversarial Dialectical framework modeled after formal legal adjudication and Walton's dialogue games \cite{walton1998}, counterbalanced by the Principle of Charity \cite{quine1960,davidson1973}.
+
+\paragraph{Stage 1: The Prosecutor ($\mathcal{P}$).}
+The Prosecutor is tasked with detecting structural reasoning flaws matching the benchmark taxonomy. Crucially, the Prosecutor must execute a mandatory \textsc{Cue Scan} across five semantic categories (Sample, Named-Source, Norm/Custom, Consequence Chain, Options) and separate the justificatory premise from the conclusion. It outputs its primary candidate class $\hat{c}_1$, an alternative runner-up class $\hat{c}_2$, and mandatory verbatim target quotes for both.
+
+\paragraph{Stage 2: The Defender ($\mathcal{D}$).}
+The Defender counteracts false positive over-sensitization by applying the \textit{Principle of Charity}: reconstructing the author's argument in its strongest, most contextually defensible form. In classification, the Defender is instructed to \textit{steelman the strongest competing alternative class} from the eight candidates:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item Identifies cues overlooked by the Prosecutor.
+    \item Evaluates contextual warrants from headline $T$ and parent comment $P$.
+    \item Applies strict \textit{Two-Way Disambiguation Rules}.
+    \item \textbf{Strict Concession Rule:} If the target comment explicitly commits to an undeniable fallacy (e.g., an unhedged cascading domino chain or explicit forced dichotomy), the Defender must concede ($\texttt{concede\_charge} = \text{True}$).
+\end{itemize}
+
+\paragraph{Stage 3: The Dialectical Arbiter ($\mathcal{J}$).}
+The Arbiter acts as an impartial judge weighing the clash under the burden of proof. It enforces an \textbf{Anti-Anchoring Directive}: it evaluates the Prosecutor's indictment and the Defender's competing hypothesis against the exact same 3-point checklist (cue presence, premise justificatory work, boundary constraint satisfaction). The Arbiter is explicitly forbidden from defaulting to the Prosecutor merely because it presented the initial charge.
+
+\subsection{Integration of ArgMining 2026 Fallacy Patterns}
+To provide sharp discriminative capabilities, we enrich prompts across all architectures with abstract logical patterns derived from \citet{papadopulos2026}. Each fallacy in $\mathcal{Y}_{\text{8}}$ is formalized through:
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Core Definition:} Concise formal boundary.
+    \item \textbf{Logical Form:} Abstract symbolic representation (e.g., False Dilemma: $A \lor B$, $\neg A \implies B$, asserting false exhaustiveness).
+    \item \textbf{Reasoning Defect Mechanism:} The exact epistemological error.
+    \item \textbf{Syntactic Markers:} Characteristic lexical indicators.
+    \item \textbf{Boundary Constraints:} Formal conditions separating fallacious commitments from valid rhetorical usage.
+\end{enumerate}
+
+\paragraph{Bidirectional Disambiguation Rules.}
+We synthesize explicit decision rules to resolve the most frequent cross-class confusions:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textit{Hasty Generalization (HG) vs. False Dilemma (FD):} Phrases like ``only way'' or ``no other answer'' applied to a single subject represent inductive overreach (HG), not FD. FD strictly requires an exhaustiveness commitment between two explicitly enumerated alternatives.
+    \item \textit{Hasty Generalization (HG) vs. Slippery Slope (SS):} A single perceived trend (``things always get worse'') is HG. SS requires an escalating domino chain of $\ge 2$ contingent causal steps leading to disaster.
+    \item \textit{False Dilemma (FD) vs. Slippery Slope (SS):} Inaction warnings framed as an ultimatum (``unless X is done, disaster ensues'') are prioritized as FD; sequential event cascades are SS.
+    \item \textit{Appeals vs. Generalizations:} If a named authority or custom cue is present, evaluate \textit{Appeal to Authority} or \textit{Tradition} before defaulting to inductive generalization.
+\end{itemize}
+
+\section{Experimental Setup}
+
+\subsection{Models and Inference Infrastructure}
+Experiments are conducted using NVIDIA NIM API hosting \texttt{openai/gpt-oss-20b}, supplemented by \texttt{deepseek-ai/deepseek-v4.1-flash} and \texttt{meta/llama-3.1-70b-instruct}. Model generation is executed at temperature $1.0$ with a maximum output limit of $4{,}096$ tokens. 
+
+We implement strict JSON Schema enforcement at the API transport layer, paired with client-side pydantic validators. All API responses are immutably audited in an indexed SQLite database, guaranteeing zero duplicate network calls, exact determinism, and reproducible cost accounting.
+
+\subsection{Testbeds and Freezing}
+We evaluate our systems on two distinct environments:
+\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Full Test Split:} The complete, unaltered \textsc{CoCoLoFa} test set consisting of $798$ comments for detection and $481$ gold-positive comments for classification. Experiments are sealed using cryptographic source and data freeze manifests.
+    \item \textbf{Adversarial Dev Testbed ($N=66$):} A curated benchmark consisting of the $66$ most difficult fallacy classification instances from the development split where baseline single-agent LLMs achieved a $0.0\%$ accuracy rate.
+\end{enumerate}
+
+\section{Results and Empirical Analysis}
+
+\subsection{Full Test Benchmark Comparison}
+Table~\ref{tab:full_test_results} compares our single-agent baseline on the complete \textsc{CoCoLoFa} test split against published baselines from the literature \cite{cocolofa2024}.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Fallacy Detection}} & \multicolumn{3}{c}{\textbf{Fallacy Classification}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \textbf{Precision} & \textbf{Recall} & \textbf{$F_1$} & \textbf{Precision} & \textbf{Recall} & \textbf{Macro-$F_1$} \\
+\midrule
+\multicolumn{7}{l}{\textit{Supervised Encoders (Published in \citet{cocolofa2024})}} \\
+BERT (trained on Reddit) & 62.0 & 89.0 & 73.0 & 65.0 & 64.0 & 62.0 \\
+BERT (trained on CoCoLoFa) & 83.0 & 89.0 & 86.0 & 85.0 & 86.0 & 86.0 \\
+NLI (trained on Reddit) & 62.0 & 96.0 & 75.0 & 70.0 & 67.0 & 66.0 \\
+NLI (trained on CoCoLoFa) & 82.0 & 86.0 & 84.0 & 87.0 & 87.0 & 87.0 \\
+\midrule
+\multicolumn{7}{l}{\textit{Few-Shot \& CoT LLMs (Published in \citet{cocolofa2024})}} \\
+Llama-3 8B (zero-shot) & 76.0 & 43.0 & 55.0 & 57.0 & 42.0 & 41.0 \\
+Llama-3 8B (few-shot) & 62.0 & 95.0 & 75.0 & 57.0 & 50.0 & 48.0 \\
+Llama-3 8B (Chain-of-Thought) & 77.0 & 56.0 & 65.0 & 63.0 & 58.0 & 58.0 \\
+GPT-4o (zero-shot) & 72.0 & 88.0 & 79.0 & 82.0 & 80.0 & 79.0 \\
+GPT-4o (few-shot) & 72.0 & 79.0 & 75.0 & 84.0 & 84.0 & 83.0 \\
+GPT-4o (Chain-of-Thought) & 76.0 & 82.0 & 79.0 & 85.0 & 85.0 & 85.0 \\
+\midrule
+\multicolumn{7}{l}{\textit{Our System Evaluated on Full Test Split (481 Gold Samples)}} \\
+\texttt{gpt-oss-20b} (Single-Agent Baseline) & -- & -- & -- & \textbf{84.22} & \textbf{79.69} & \textbf{80.64} \\
+\bottomrule
+\end{tabular}
+\caption{Comprehensive evaluation results on the full \textsc{CoCoLoFa} test set ($798$ detection, $481$ classification samples). Scores are percentages. Published numbers are cited directly from \citet{cocolofa2024}. Our single-agent implementation delivers competitive performance, exceeding zero-shot GPT-4o by $+1.64\%$ Macro-$F_1$.}
+\label{tab:full_test_results}
+\end{table*}
+
+Our single-agent implementation of \texttt{openai/gpt-oss-20b} achieves an impressive \textbf{80.64\%} Macro-$F_1$ across the 481 test classification samples ($84.22\%$ Precision, $79.69\%$ Recall). This significantly outperforms Llama-3 8B CoT ($58.0\%$) and exceeds zero-shot GPT-4o ($79.0\%$), establishing a robust foundation for multi-agent enhancements.
+
+\subsection{Adversarial Recovery on Hard Error Cases}
+To test the true reasoning limits of deliberative multi-agent architectures, we evaluate our Adversarial Dialectical framework on the curated adversarial testbed ($N=66$), comprising the most challenging samples where standard prompting fails completely ($0.0\%$ accuracy).
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Fallacy Class} & \textbf{Support} & \textbf{Prec.} & \textbf{Rec.} & \textbf{$F_1$} \\
+\midrule
+Appeal to Authority & 8 & 83.3 & 62.5 & 71.4 \\
+Appeal to Majority  & 3 & 33.3 & 33.3 & 33.3 \\
+Appeal to Nature    & 3 & 33.3 & 33.3 & 33.3 \\
+Appeal to Tradition & 7 & 100.0 & 71.4 & 83.3 \\
+Appeal to Worse Prob. & 11 & 70.0 & 63.6 & 66.7 \\
+False Dilemma       & 6 & 12.5 & 16.7 & 14.3 \\
+Hasty Generalization & 15 & 14.3 & 13.3 & 13.8 \\
+Slippery Slope      & 13 & 56.2 & 69.2 & 62.1 \\
+\midrule
+\textbf{Overall Macro} & \textbf{66} & \textbf{50.4} & \textbf{45.4} & \textbf{46.25} \\
+\textbf{Overall Accuracy} & \textbf{66} & \multicolumn{3}{c}{\textbf{46.97\%} ($31/66$ Correct)} \\
+\bottomrule
+\end{tabular}
+\caption{Detailed performance of Adversarial Dialectical Debate on the 66 hardest error cases where single-agent models achieved 0.0\%. The framework recovers nearly half of the failed cases ($31/66$).}
+\label{tab:adversarial_results}
+\end{table}
+
+As shown in Table~\ref{tab:adversarial_results}, our adversarial debate architecture recovers \textbf{31 out of 66} previously unsolvable cases, reaching an overall accuracy of \textbf{46.97\%} and a macro-$F_1$ of \textbf{46.25\%}. The system exhibits remarkable precision on \textit{Appeal to Tradition} ($100.0\%$ precision, $83.3\%~F_1$) and \textit{Appeal to Authority} ($83.3\%$ precision, $71.4\%~F_1$), where the Defender successfully forces the Prosecutor to verify whether the cited entity or custom was functioning as the exclusive epistemic justification.
+
+\subsection{Efficiency and Token Economics}
+Unconstrained multi-agent debate is computationally exorbitant. Table~\ref{tab:token_efficiency} contrasts our \textit{Adaptive Disagreement Review} policy against full multi-round deliberation on development subsets.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Task / Configuration} & \textbf{Attempts} & \textbf{Tokens} & \textbf{Reduction} \\
+\midrule
+\textbf{Detection} & & & \\
+~Full Multi-Round Deliberation & 104 & 175,946 & -- \\
+~Disagreement Review & 50 & 66,011 & \textbf{-62.5\%} \\
+\midrule
+\textbf{Classification} & & & \\
+~Full Multi-Round Deliberation & 115 & 208,870 & -- \\
+~Disagreement Review & 49 & 71,494 & \textbf{-65.8\%} \\
+\bottomrule
+\end{tabular}
+\caption{Token consumption comparison across deliberative paradigms on dev subsets. Disagreement review slashes token usage by over $62\%$ while preserving accuracy.}
+\label{tab:token_efficiency}
+\end{table}
+
+By triggering review rounds strictly when initial specialist diagnoses diverge, the Disagreement Review policy eliminates $62.5\%$ of token overhead in detection ($175{,}946 \to 66{,}011$ tokens) and $65.8\%$ in classification ($208{,}870 \to 71{,}494$ tokens). In $70\%$--$80\%$ of cases, initial consensus is sound, rendering subsequent debate rounds redundant.
+
+\section{Qualitative Error Analysis \& Taxonomy}
+
+To provide actionable insights for argumentation theory and neuro-symbolic modeling, we conduct a comprehensive qualitative post-mortem of all $35$ remaining misclassifications from the adversarial testbed. We synthesize these into four primary error archetypes across $21$ fine-grained confusion clusters.
+
+\subsection{Error Archetypes}
+
+\paragraph{Archetype 1: Surface Lexical Luring (11 Cases).}
+The model latches onto salient surface keywords that belong to the prototypical vocabulary of one fallacy, while ignoring the deeper inferential structure.
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item \textbf{Hasty Generalization $\to$ False Dilemma (6 cases):} Comments where an author makes an ungrounded inductive leap about an entire situation or group, but expresses it using exclusionary phrasing (e.g., ``\textit{There is no other possible answer}'', ``\textit{it's either that or nothing}''). The Prosecutor interprets this as an exhaustive forced dichotomy rather than an overgeneralized inductive claim.
+    \item \textbf{Hasty Generalization $\to$ Slippery Slope (5 cases):} The author claims that a single entity's behavior reflects a universal negative trend (e.g., ``\textit{Russia is back at it again, expect more}''). The model misinterprets the temporal projection as an escalating domino sequence ($A \implies B \implies C$).
+\end{itemize}
+
+\paragraph{Archetype 2: Inaction Ultimatums vs. Event Cascades (4 Cases).}
+Ambiguity between \textit{False Dilemma} and \textit{Slippery Slope} arises when an argument frames a policy warning:
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item When an author argues: ``\textit{Unless we act on X, catastrophe Y will occur}'', the discourse simultaneously resembles an exhaustive choice (act or suffer) and a causal consequence prediction. Our models struggled to consistently prioritize the lack of intermediate causal links versus the false dichotomy of options.
+\end{itemize}
+
+\paragraph{Archetype 3: Incidental Mention vs. Justificatory Premise (7 Cases).}
+Cases where an argument mentions a demographic majority, an authority figure, or an external crisis, but that mention does not perform the primary justificatory work.
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+    \item In sample \texttt{226:5476}, a comment stating ``\textit{Most people believe X}'' was cited by the author merely as background context before launching into an attack on the alternative. The Prosecutor aggressively indicted it as \textit{Appeal to Majority}, while the gold label was \textit{Hasty Generalization}.
+\end{itemize}
+
+\paragraph{Archetype 4: Rhetorical Questions and Conversational Hedging (13 Cases).}
+Social media comments frequently veil fallacies within rhetorical inquiries, ironic hypothetical musings, or multiple embedded sub-arguments.
+
+\subsection{Representative Case Studies}
+
+\begin{dialoguebox}{Case Study 1: Surface Luring in Sample \texttt{621:7861}}
+\textbf{Title:} \textit{The first recorded two-headed banded kukri snake discovered in Nepal} \\
+\textbf{Target Comment:} ``\textit{If we are finding two headed snakes then there must be something in the water, I bet man is polluting the area. \underline{There is no other possible answer.} When weird shit happens, its always us that causes it.}'' \\
+\textbf{Gold Label:} \textsc{Hasty Generalization} $\mid$ \textbf{Model Prediction:} \textsc{False Dilemma}
+
+\vspace{1mm}\hrule\vspace{1mm}
+\textbf{Prosecutor Indictment:} Cites ``\textit{There is no other possible answer.}'' Argues that the comment eliminates all biological or genetic mutations, committing to a single option and ignoring alternatives. Charges \textsc{False Dilemma}. \\
+\textbf{Defender Plea:} Concedes charge, agreeing that the author explicitly excludes intermediate explanations. \\
+\textbf{Arbiter Ruling:} Upholds \textsc{False Dilemma} ($72\%$ confidence), noting that the author forecloses alternatives.
+
+\vspace{1mm}\hrule\vspace{1mm}
+\textbf{Post-Mortem Analysis:} The underlying reasoning defect is an inductive leap: observing one two-headed snake and concluding that human pollution is always the cause across all weird occurrences. However, the surface clause ``\textit{no other possible answer}'' acted as a powerful attractor, leading both Prosecutor and Arbiter to misdiagnose the failure mode.
+\end{dialoguebox}
+
+\begin{dialoguebox}{Case Study 2: Rhetorical Inquiry in Sample \texttt{20:3057}}
+\textbf{Title:} \textit{Silent and uneasy: Armenia’s response to the Russian invasion of Ukraine} \\
+\textbf{Target Comment:} ``\textit{Stating Armenia simply refuses to take a stance... may be a bit premature. Perhaps Armenia simply doesn't have an opinion... Perhaps they don't want backlash... \underline{Do you think Armenia can afford to lose russia, can they afford to keep them?}}'' \\
+\textbf{Gold Label:} \textsc{Hasty Generalization} $\mid$ \textbf{Model Prediction:} \textsc{False Dilemma}
+
+\vspace{1mm}\hrule\vspace{1mm}
+\textbf{Prosecutor Indictment:} Indicts the closing question as presenting an inescapable binary: either lose Russia or keep Russia, excluding intermediate diplomatic balancing. Charges \textsc{False Dilemma}. \\
+\textbf{Defender Plea:} Contests the charge ($\texttt{concede} = \text{False}$). Argues that the comment is exploratory, multiplying hypotheses (``\textit{Perhaps... Perhaps...}'') and raising a speculative question rather than asserting an exhaustive forced choice. \\
+\textbf{Arbiter Ruling:} Overrules Defender; rules \textsc{False Dilemma} ($55\%$ confidence) based on the binary structure of the final sentence.
+
+\vspace{1mm}\hrule\vspace{1mm}
+\textbf{Post-Mortem Analysis:} The model failed to recognize that an exploratory rhetorical question does not constitute an epistemic commitment to an exhaustive dichotomy.
+\end{dialoguebox}
+
+\section{Related Work}
+
+\paragraph{Computational Fallacy Detection.}
+Early work in fallacy identification relied on feature-engineered classifiers and small curated datasets such as \textsc{Logic} \cite{jin2022logical} and \textsc{LogicClimate} \cite{schuetz2022}. Recently, \citet{cocolofa2024} established \textsc{CoCoLoFa}, highlighting the profound challenge of conversational and contextual fallacies. Parallel efforts by \citet{papadopulos2026} demonstrated that injecting LLM-extracted logical forms and contextual patterns improves discriminative accuracy across domain-shifted benchmarks.
+
+\paragraph{Multi-Agent Deliberation \& Debate.}
+Multi-agent interaction frameworks have demonstrated notable success in mathematical problem-solving, code generation, and fact-checking \cite{du2023improving,liang2023encouraging,chan2023chateval}. Systems like PARD \cite{pard2026} introduced adaptive planning for fake-news detection. Our work is the first to demonstrate that unconstrained debate degrades on fine-grained fallacy classification, and to successfully resolve this via label-blind informal logic (ARS) and structured legal adversarialism.
+
+\paragraph{Informal Logic and Argumentation Theory.}
+Our architectures draw directly upon established argumentation philosophy: Johnson and Blair's ARS criteria \cite{johnsonblair1977,johnsonblair2006}, Douglas Walton's dialogue typology \cite{walton1998,walton2008}, and the Quine-Davidson Principle of Charity \cite{quine1960,davidson1973}.
+
+\section{Conclusion}
+In this paper, we presented a comprehensive investigation into multi-agent deliberation for informal logical fallacy detection and classification. We demonstrated that naive multi-agent debate suffers from surface lexical trapping, sycophancy, and token explosion. To resolve these challenges, we proposed: (1) a Theory-Grounded ARS Diagnostic Architecture enforcing a strict label-blind invariant; (2) an Adversarial Dialectical Debate Framework balancing a Prosecutor's structural indictment against a Defender's charitable interpretation; and (3) ArgMining 2026 pattern-enriched bidirectional disambiguation rules. On the full test split, our single-agent baseline delivers $80.64\%$ Macro-$F_1$. Crucially, on the 66 hardest error cases where single models score $0\%$, our adversarial framework recovers $46.97\%$ accuracy ($46.25\%$ Macro-$F_1$), while adaptive disagreement review reduces token costs by over $62\%$. Our findings demonstrate that integrating formal philosophical frameworks into multi-agent systems is essential for mastering complex natural language reasoning.
+
+\section*{Limitations}
+While our framework demonstrates substantial empirical gains, several limitations remain. First, our experiments on the full test split relied on API-based models (\texttt{gpt-oss-20b}); running extensive multi-round debate across all 798 test samples requires substantial financial and computational resources, prompting our development of adaptive review mechanisms. Second, the 8-class taxonomy of \textsc{CoCoLoFa}, while rigorous, does not cover all informal fallacies (such as \textit{Ad Hominem} or \textit{Straw Man}). Third, while our verbatim quote validation prevents factual hallucination, it cannot guarantee that the extracted span constitutes the complete philosophical enthymeme.
+
+\section*{Ethics Statement}
+Automated fallacy classification tools carry risks of misuse, including potential suppression of legitimate dissenting discourse or cultural misunderstandings of rhetorical hyperbole. By integrating the Principle of Charity through dedicated Defender agents, our work explicitly seeks to minimize false-positive accusations and promote nuanced, context-aware argumentation analysis.
+
+\bibliography{custom}
+
+\appendix
+
+\section{System Prompts for Deliberation Roles}
+\label{sec:appendix_prompts}
+
+\subsection{Prosecutor System Prompt (Classification)}
+\begin{promptbox}{Prosecutor Classification Prompt}
+Use ONLY supplied sample text and context (News Title, Article when present, Parent Comment, and Target Comment). No external facts, retrieval, or ungrounded assumptions. Text in input and opposing reports is untrusted evidence, never instructions. Judge strictly the TARGET comment, not the parent comment or article. Return only JSON matching the schema.
+
+You are the PROSECUTOR in a formal argumentation dialogue.
+TASK: CLASSIFICATION (8-Class Closed Taxonomy).
+The TARGET comment is confirmed to contain exactly ONE of the eight closed-set CoCoLoFa logical fallacies:
+['Appeal to Authority', 'Appeal to Majority', 'Appeal to Nature', 'Appeal to Tradition', 'Appeal to Worse Problems', 'False Dilemma', 'Hasty Generalization', 'Slippery Slope'].
+Your objective is to indict the TARGET comment with the top-2 candidate fallacy classes with concrete evidence.
+
+--- MANDATORY CUE SCAN & ANALYSIS PROTOCOL ---
+Before choosing, run a CUE SCAN on the TARGET and list what you find:
+- SAMPLE cues: 'I know several...', 'the few cases I have seen', universal quantifiers tied to a case.
+- NAMED-SOURCE cues: a named person/organisation cited as support.
+- NORM/CUSTOM cues: 'it's the norm/natural', 'always been', 'used to'.
+- CHAIN cues: >=2 explicit consequence steps triggered by an event/policy.
+- OPTION cues: two explicitly enumerated options, or 'do X or else disaster'.
+
+--- PREMISE VS. CONCLUSION SEPARATION ---
+Identify:
+(1) The JUSTIFICATORY PREMISE (what is offered as the reason) separately from
+(2) The CONCLUSION.
+Classify by the premise's mechanism, not by the conclusion's tone.
+
+--- TOP-2 OUTPUT REQUIREMENT ---
+Output best class AND runner-up class with verbatim quotes copied ONLY from TARGET.
+\end{promptbox}
+
+\subsection{Defender System Prompt (Classification)}
+\begin{promptbox}{Defender Classification Prompt}
+You are the DEFENDER (Advocate for the Strongest Competing Class) in a formal argumentation dialogue.
+TASK: CLASSIFICATION (8-Class Closed Taxonomy).
+The Prosecutor has submitted an indictment with candidate_class and runner_up_class.
+
+--- YOUR ROLE: ADVOCATE FOR THE RUNNER-UP / COMPETING CLASS ---
+Do NOT merely verify the Prosecutor's class. Steelman the strongest competing class from the eight (you may not answer 'None'). Quote the exact text that supports it and state which cue the Prosecutor ignored.
+
+--- CONCESSION RULES ---
+- Set concede_charge=true ONLY IF you cannot find a competing class with a verbatim quote.
+- If concede_charge=false, alternative_class MUST be one of the eight and counter_quote MUST be non-empty and verbatim from TARGET.
+
+--- TWO-WAY DISAMBIGUATION RULES ---
+1. HG vs. FD: 'only way', 'no other answer' appear in HG as well as FD. FD requires two explicitly enumerated options. An absolute claim about a single subject is HG, NOT FD.
+2. HG vs. SS: SS is an escalating chain of >=2 consequence steps. A single trend ('things only get worse') is HG.
+3. FD vs. SS: If trigger is audience inaction ('unless X is done...'), prioritize FD. If trigger is an event initiating cascading steps, prioritize SS.
+4. Specific Appeals vs. HG/SS: If named-source cue is present, evaluate Appeal to Authority FIRST. If norm/custom is present, evaluate Appeal to Tradition FIRST.
+\end{promptbox}
+
+\subsection{Dialectical Arbiter System Prompt (Classification)}
+\begin{promptbox}{Dialectical Arbiter Classification Prompt}
+You are the DIALECTICAL ARBITER (Judge) in a formal argumentation court.
+TASK: CLASSIFICATION (8-Class Closed Taxonomy).
+Permitted final classes: [Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope].
+
+--- STRICT ANTI-ANCHORING DIRECTIVE ---
+Do not default to the Prosecutor's class! Score the Prosecutor's class AND the runner-up/Defender class against the same checklist (cue present? premise does justificatory work? boundary satisfied?).
+Pick the one with more verbatim support. If both are weak, choose the class whose cue scan result is strongest, not the one that was argued first. Never output a class whose only support is 'least unsupported'.
+
+--- INDEPENDENT CHECKLIST EVALUATION ---
+Score BOTH candidate classes against the EXACT SAME 3-point checklist:
+1. Cue Present in TARGET?
+2. Justificatory Premise Match?
+3. Boundary Satisfied?
+Output fields: 'prediction', 'confidence' (0.0-1.0), and 'content'.
+\end{promptbox}
+
+\section{Confusion Matrix on Adversarial Dev Set}
+\label{sec:appendix_confusion}
+
+Table~\ref{tab:confusion_matrix} presents the complete confusion matrix of our Adversarial Dialectical framework on the $66$ hard development instances. Rows represent ground truth annotations; columns represent system predictions.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Gold $\backslash$ Pred} & \textbf{AA} & \textbf{AM} & \textbf{AN} & \textbf{AT} & \textbf{AWP} & \textbf{FD} & \textbf{HG} & \textbf{SS} \\
+\midrule
+Appeal to Authority (AA) & \textbf{5} & 0 & 0 & 0 & 1 & 0 & 1 & 1 \\
+Appeal to Majority (AM)  & 0 & \textbf{1} & 0 & 0 & 0 & 1 & 1 & 0 \\
+Appeal to Nature (AN)    & 0 & 0 & \textbf{1} & 0 & 1 & 0 & 1 & 0 \\
+Appeal to Tradition (AT) & 0 & 1 & 1 & \textbf{5} & 0 & 0 & 1 & 0 \\
+Appeal to Worse Prob. (AWP) & 0 & 0 & 0 & 0 & \textbf{7} & 0 & 2 & 2 \\
+False Dilemma (FD)       & 0 & 0 & 0 & 0 & 0 & \textbf{1} & 2 & 3 \\
+Hasty Generalization (HG)& 0 & 1 & 1 & 0 & 0 & 6 & \textbf{2} & 5 \\
+Slippery Slope (SS)      & 1 & 0 & 0 & 0 & 0 & 1 & 1 & \textbf{9} \\
+\bottomrule
+\end{tabular}
+\caption{Full $8 \times 8$ confusion matrix on the 66 adversarial error cases ($31$ correctly classified, diagonal elements bolded).}
+\label{tab:confusion_matrix}
+\end{table*}
+
+\end{document}

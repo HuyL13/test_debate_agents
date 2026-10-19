@@ -43,12 +43,65 @@ def estimate_cost(config, usage):
     return ((usage['prompt_tokens'] - cached) * inp + cached * (cached_rate or 0)
             + usage['completion_tokens'] * out) / 1_000_000
 
+def _clean_payload(obj):
+    if not isinstance(obj, dict):
+        return obj
+    if 'output' in obj and isinstance(obj['output'], dict):
+        return obj['output']
+    if 'input' in obj and ('history' in obj or 'instruction' in obj or 'reports' in obj):
+        return None
+    return obj
+
+
+def _parse_kv_fallback(text: str) -> dict | None:
+    if not isinstance(text, str):
+        return None
+    import re
+    result = {}
+    known_keys = [
+        'has_fallacy_charge', 'candidate_class', 'defect_mechanism', 'quote',
+        'runner_up_class', 'runner_up_defect', 'runner_up_quote',
+        'concede_charge', 'alternative_class', 'charitable_interpretation', 'counter_quote',
+        'prediction', 'confidence', 'content', 'reasoning'
+    ]
+    for key in known_keys:
+        pattern = r'(?:^|\n)\s*(?:\d+\.\s*)?\**' + key + r'\**\s*[:=]\s*(.+?)(?=\n\s*(?:\d+\.\s*)?\**[a-zA-Z_]+\**\s*[:=]|\Z)'
+        m = re.search(pattern, text, re.DOTALL)
+        if m:
+            val = m.group(1).strip()
+            if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+                val = val[1:-1].strip()
+            if val.lower() == 'true':
+                result[key] = True
+            elif val.lower() == 'false':
+                result[key] = False
+            elif key == 'confidence':
+                try:
+                    result[key] = float(val)
+                except ValueError:
+                    result[key] = val
+            else:
+                result[key] = val
+    if any(k in result for k in ('candidate_class', 'prediction', 'concede_charge', 'has_fallacy_charge')):
+        return result
+    return None
+
+
 def _extract_json_payload(text: str) -> dict:
     text = text.strip()
     try:
-        return json.loads(text)
+        cleaned = _clean_payload(json.loads(text))
+        if cleaned is not None:
+            return cleaned
     except json.JSONDecodeError:
         pass
+    if r"\'" in text:
+        try:
+            cleaned = _clean_payload(json.loads(text.replace(r"\'", "'")))
+            if cleaned is not None:
+                return cleaned
+        except json.JSONDecodeError:
+            pass
     if text.startswith('```'):
         lines = text.splitlines()
         if lines and lines[0].startswith('```'):
@@ -56,21 +109,32 @@ def _extract_json_payload(text: str) -> dict:
         if lines and lines[-1].strip() == '```':
             lines = lines[:-1]
         try:
-            return json.loads('\n'.join(lines).strip())
+            cleaned = _clean_payload(json.loads('\n'.join(lines).strip()))
+            if cleaned is not None:
+                return cleaned
         except json.JSONDecodeError:
             pass
     start = text.find('{')
     end = text.rfind('}')
     if start != -1 and end != -1 and end > start:
         snippet = text[start:end + 1]
-        try:
-            return json.loads(snippet)
-        except json.JSONDecodeError:
-            if not snippet.endswith('"}'):
+        for candidate in (snippet, snippet.replace(r"\'", "'")):
+            try:
+                cleaned = _clean_payload(json.loads(candidate))
+                if cleaned is not None:
+                    return cleaned
+            except json.JSONDecodeError:
+                pass
+            if not candidate.endswith('"}'):
                 try:
-                    return json.loads(snippet[:-1] + '"}')
+                    cleaned = _clean_payload(json.loads(candidate[:-1] + '"}'))
+                    if cleaned is not None:
+                        return cleaned
                 except json.JSONDecodeError:
                     pass
+    kv = _parse_kv_fallback(text)
+    if kv is not None:
+        return kv
     raise ValueError('No valid JSON object found in response text')
 
 
@@ -95,14 +159,12 @@ class Client:
         payload = {'model': self.config.name,
                    'messages': [{'role': 'system', 'content': system_prompt},
                                 {'role': 'user', 'content': user_prompt}],
-                   'max_completion_tokens': self.config.max_completion_tokens,
-                   'response_format': {'type': 'json_schema', 'json_schema': {
-                       'name': 'cocolofa_output', 'strict': True, 'schema': schema}}}
+                   'max_completion_tokens': self.config.max_completion_tokens}
         if self.config.temperature is not None:
             payload['temperature'] = self.config.temperature
-        if not self.config.structured_output and self.config.provider != 'mock':
-            payload['response_format'] = {'type': 'json_object'}
-            payload['messages'][0]['content'] += '\nJSON schema: ' + json.dumps(schema)
+        if self.config.provider == 'mock' or self.config.structured_output:
+            payload['response_format'] = {'type': 'json_schema', 'json_schema': {
+                'name': 'cocolofa_output', 'strict': True, 'schema': schema}}
         key = digest({'config': asdict(self.config), 'metadata': metadata, 'payload': payload, 'schema': schema})
         cached = self.cache.get(key)
         if cached is not None:
@@ -154,7 +216,30 @@ class Client:
                             parsed = None
                 if parsed is None:
                     raise ValueError('Missing or invalid JSON response text')
-                validate_output(parsed, schema)
+                if isinstance(parsed, dict) and 'output' in parsed and isinstance(parsed['output'], dict):
+                    try:
+                        validate_output(parsed, schema)
+                    except ValueError:
+                        parsed = parsed['output']
+                try:
+                    validate_output(parsed, schema)
+                except ValueError as val_err:
+                    if isinstance(parsed, dict) and isinstance(schema, dict) and 'properties' in schema:
+                        allowed = set(schema['properties'].keys())
+                        filtered = {k: v for k, v in parsed.items() if k in allowed}
+                        try:
+                            validate_output(filtered, schema)
+                            parsed = filtered
+                            val_err = None
+                        except ValueError:
+                            pass
+                    if val_err is not None:
+                        kv = _parse_kv_fallback(raw)
+                        if kv is not None:
+                            validate_output(kv, schema)
+                            parsed = kv
+                        else:
+                            raise val_err
                 if validator:
                     validator(parsed)
                 event['valid'] = True

@@ -87,17 +87,18 @@ COCOLOFA_PATTERNS: Dict[str, FallacyPattern] = {
     'Appeal to Worse Problems': FallacyPattern(
         name='Appeal to Worse Problems',
         core_definition='Dismissing an issue or argument solely because worse or larger problems exist elsewhere (relative privation).',
-        logical_form='Issue X is raised; Problem Y exists where Severity(Y) > Severity(X) -> Therefore dismiss/ignore X.',
-        reasoning_defect='Deflects from analyzing the validity or merit of X by introducing a more severe, unrelated problem.',
+        logical_form='Issue X is raised; Separate Problem Y exists where Severity(Y) > Severity(X) -> Therefore dismiss/ignore X.',
+        reasoning_defect='Deflects from analyzing the validity or merit of X by introducing a more severe, unrelated external problem.',
         syntactic_markers=[
             'Why are we worrying about X when people are dying of Y?',
             'There are far worse problems in the world than X...',
             'First solve Y before complaining about X...',
-            'What about [greater catastrophe]?'
+            'What about [greater external catastrophe]?'
         ],
         boundary_constraint=(
-            'Legitimate prioritization of scarce resources with explicit comparative criteria is NOT fallacious. '
-            'Must involve dismissing the validity of an issue purely by pointing to a worse problem.'
+            'STRICT REQUIREMENT: Requires an explicit, distinct, external problem Y (a separate crisis, issue, or group) '
+            'brought in to minimize or dismiss topic X. If the text merely warns that topic X itself will get worse, '
+            'or describes how bad topic X is, it is NOT Appeal to Worse Problems (evaluate as Slippery Slope or relevant class).'
         )
     ),
     'False Dilemma': FallacyPattern(
@@ -129,24 +130,26 @@ COCOLOFA_PATTERNS: Dict[str, FallacyPattern] = {
             'Universal quantifiers (always, never, everyone, nobody) derived from anecdotes.'
         ],
         boundary_constraint=(
-            'Must involve a sample-to-population inductive leap. A broad general opinion or unsupported claim without '
-            'inductive movement from sample cases is NOT Hasty Generalization. Distinguish from consequence escalation (Slippery Slope).'
+            'Must involve a sample-to-population inductive leap. A broad general opinion, subjective complaint, or consequence '
+            'prediction without inductive movement from sample cases is NOT Hasty Generalization. Distinguish from Slippery Slope.'
         )
     ),
     'Slippery Slope': FallacyPattern(
         name='Slippery Slope',
-        core_definition='Asserting an inadequately supported chain of escalating negative consequences without causal evidence.',
-        logical_form='A occurs -> B inevitably follows -> C inevitably follows -> ... -> Disaster Z (A => B => C => ... => Z).',
-        reasoning_defect='Treats each contingent causal transition as unavoidable and necessary without justifying the intermediate links.',
+        core_definition='Asserting that an action, policy, or event will inevitably initiate or escalate into severe negative consequences, deterioration, or extreme outcomes without causal justification.',
+        logical_form='A occurs -> Inevitable negative deterioration or escalation (B, or B -> ... -> Z) without sufficient causal warrants.',
+        reasoning_defect='Treats contingent negative consequences or downward trajectories as inevitable without justifying why the negative leap will necessarily occur.',
         syntactic_markers=[
             'If we allow A, next will be B, and eventually Z...',
-            'A dangerous precedent that opens the floodgates...',
-            'Where does it end? What is to stop them from doing Z next?',
-            'One step closer to complete disaster / domino effect.'
+            'A dangerous precedent / opens the floodgates / can lead to...',
+            'Where does it end? / What is next? / Who else is next?',
+            'Things will only get worse / things just get bad / if nothing is done / otherwise...'
         ],
         boundary_constraint=(
-            'A single modest causal prediction (A -> B) is NOT Slippery Slope. '
-            'Requires an escalating multi-step consequence progression asserting inevitable disaster without warranted links.'
+            'Includes multi-step domino chains as well as single-step unjustified leaps to severe negative outcomes ("can lead to..."), '
+            'downward deterioration trends ("only get worse", "things just get bad"), or rhetorical boundary questions ("who else / what next?"). '
+            'Distinguish from Appeal to Worse Problems: Slippery Slope warns about the deteriorating outcomes of topic A itself, '
+            'rather than introducing a separate, external problem B.'
         )
     ),
 }
@@ -166,8 +169,9 @@ def get_pattern_enriched_definitions() -> str:
     # Comparative summary constraints
     lines.append(
         "CRITICAL DISCRIMINATION RULES: "
-        "(1) Distinguish escalating consequence progression (Slippery Slope: A -> B -> ... -> Z) from "
+        "(1) Distinguish negative consequence escalation or downward deterioration (Slippery Slope: action A leads to worse outcome / deterioration of topic A) from "
         "sample-to-population inductive generalization (Hasty Generalization: sample S (subset of A) -> all A). "
+        "Slippery Slope warns about the trajectory of topic A itself; Appeal to Worse Problems strictly requires deflecting to a distinct, separate external problem B. "
         "(2) False Dilemma strictly requires an exhaustiveness commitment eliminating viable third options. "
         "(3) Appeals (Authority, Majority, Nature, Tradition, Worse Problems) require that the cited property "
         "does justificatory work as the sole proof, rather than being an incidental mention or background context."
