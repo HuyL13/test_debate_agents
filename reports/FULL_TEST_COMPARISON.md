@@ -18,6 +18,8 @@ Published baselines: [CoCoLoFa paper, Tables 4 and 5](https://aclanthology.org/2
 | Llama3 8B / CoT (paper) | 77 | 56 | 65 | 63 | 58 | 58 |
 | gpt-oss-20b / single (this repo) | pending | pending | pending | 84.22 | 79.69 | 80.64 |
 | gpt-oss-20b / adaptive (this repo) | pending | pending | pending | pending | pending | pending |
+| Adversarial Debate / gpt-oss-120b (this repo) | -- | -- | -- | 87.29 | 85.63 | 85.83 |
+| Adversarial Debate / Llama-3.3-70B (this repo) | -- | -- | -- | **88.29** | **86.62** | **86.77** |
 
 ## Run status
 

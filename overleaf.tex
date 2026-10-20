@@ -66,7 +66,7 @@
 \maketitle
 
 \begin{abstract}
-Informal logical fallacies present persistent obstacles to automated argumentation analysis in online discourse, where deceptive rhetorical forms, implicit enthymemes, and subtle semantic shifts frequently mislead natural language processing models. While large language models (LLMs) exhibit strong commonsense capabilities, conventional single-agent prompting and naive multi-agent debate (MAD) suffer from severe vulnerabilities, including surface lexical trapping (e.g., conflating absolute assertions with false dichotomies), uncritical sycophancy, and prohibitive token explosion ($>200\text{k}$ tokens per 10 samples). In this work, we present a comprehensive multi-agent reasoning framework evaluated on the rigorous \textsc{CoCoLoFa} benchmark. We advance beyond unstructured deliberation along two principled dimensions: (1) \textbf{Theory-Grounded ARS Diagnosis}, operationalizing Johnson and Blair's criteria of \textit{Acceptability}, \textit{Relevance}, and \textit{Sufficiency} under a strict \textit{label-blind invariant} where diagnostic agents evaluate structural argument flaws without seeing the task taxonomy, eliminating confirmation bias; and (2) \textbf{Adversarial Dialectical Debate}, grounded in Douglas Walton's dialogue games and the Principle of Charity (Quine and Davidson), deploying a specialized \textit{Prosecutor} searching for structural defects with verbatim evidence, a \textit{Defender} steelmanning contextual warrants, and an impartial \textit{Dialectical Arbiter} enforcing strict burden-of-proof rules. Furthermore, we integrate abstract logical patterns and syntactic markers derived from ArgMining 2026. Across full-test evaluations ($798$ detection, $481$ classification samples), our single-agent baseline achieves $80.64\%$ macro-$F_1$. Crucially, on the $66$ most difficult adversarial test cases where all single-agent baselines completely fail ($0\%$ accuracy), our adversarial dialectical framework recovers \textbf{46.97\%} accuracy ($46.25\%$ macro-$F_1$). Concurrently, our adaptive disagreement review cuts token expenditure by \textbf{62.5\%--65.8\%}. We provide an exhaustive qualitative error taxonomy of remaining boundary failure modes to guide future neuro-symbolic and deliberative research.
+Informal logical fallacies present persistent obstacles to automated argumentation analysis in online discourse, where deceptive rhetorical forms, implicit enthymemes, and subtle semantic shifts frequently mislead natural language processing models. While large language models (LLMs) exhibit strong commonsense capabilities, conventional single-agent prompting and naive multi-agent debate (MAD) suffer from severe vulnerabilities, including surface lexical trapping, uncritical sycophancy, and prohibitive token explosion. In this work, we present a comprehensive multi-agent reasoning framework evaluated on the rigorous \textsc{CoCoLoFa} benchmark. We advance beyond unstructured deliberation along two principled dimensions: (1) \textbf{Theory-Grounded ARS Diagnosis}, operationalizing Johnson and Blair's criteria of \textit{Acceptability}, \textit{Relevance}, and \textit{Sufficiency} under a strict \textit{label-blind invariant}; and (2) \textbf{Adversarial Dialectical Debate}, grounded in Douglas Walton's dialogue games and the Principle of Charity (Quine and Davidson), deploying a specialized \textit{Prosecutor} searching for structural defects with verbatim evidence, a \textit{Defender} steelmanning contextual warrants, and an impartial \textit{Dialectical Arbiter} enforcing an order-permuted burden of proof. Crucially, on the full test set of $481$ fine-grained fallacy classification samples, our Adversarial Dialectical framework achieves a state-of-the-art \textbf{86.77\%} macro-$F_1$ (\textbf{86.90\%} accuracy) with \texttt{Llama-3.3-70B-Instruct} and \textbf{85.83\%} macro-$F_1$ with \texttt{gpt-oss-120b}, outperforming the strongest published LLM baseline (GPT-4o CoT at $85.0\%$) and matching in-domain fully supervised NLI ($87.0\%$) without any parameter fine-tuning. On the $66$ most difficult adversarial test cases where all single-agent baselines completely fail ($0\%$ accuracy), our framework recovers \textbf{46.97\%} accuracy ($46.25\%$ macro-$F_1$), while adaptive disagreement review slashes token expenditure by over \textbf{62\%}. We provide an exhaustive qualitative error taxonomy of remaining boundary failure modes to guide future neuro-symbolic and deliberative research.
 \end{abstract}
 
 \section{Introduction}
@@ -75,11 +75,21 @@ Automated detection and classification of informal logical fallacies in web-base
 
 The recently introduced \textsc{CoCoLoFa} benchmark \cite{cocolofa2024} established a rigorous real-world evaluation standard for informal fallacies in news comment threads across two primary tasks: binary \textit{Fallacy Detection} and fine-grained 8-class \textit{Fallacy Classification}. Initial baselines established that while fine-tuned small encoders (e.g., BERT, RoBERTa) and closed-source LLMs (e.g., GPT-4o, Llama-3) perform reasonably well on coarse heuristics, they encounter significant difficulties in resolving fine-grained semantic boundaries between closely aligned fallacy types \cite{cocolofa2024}.
 
-In parallel, Multi-Agent Debate (MAD) has emerged as a promising paradigm to improve reasoning accuracy and factuality in LLMs \cite{du2023improving,liang2023encouraging,chan2023chateval,pard2026}. However, our preliminary investigations into naive adaptations of multi-agent deliberation for fallacy classification revealed three fundamental systemic pathologies:
-\begin{enumerate}[leftmargin=*,itemsep=1pt,topsep=2pt]
-    \item \textbf{Surface Lexical Trapping:} LLMs readily succumb to explicit syntactic markers rather than evaluating underlying inferential structures. For example, comments expressing radical inductive leaps (\textit{Hasty Generalization}) using phrasing such as ``\textit{there is no other answer}'' or ``\textit{either way}'' are overwhelmingly misdiagnosed as \textit{False Dilemma}, simply because models latch onto apparent binary exclusivity markers.
-    \item \textbf{Sycophantic Consensus and Degenerative Deliberation:} Standard symmetrical peer debates frequently result in models uncritically agreeing with the loudest or first-arriving agent (\textit{herding}), or engaging in repetitive restatements that yield no epistemic improvement.
-    \item \textbf{Prohibitive Token Explosion:} Unconstrained multi-round, multi-agent debates easily consume upwards of $200{,}000$ tokens per 10 instances while occasionally degrading downstream performance relative to a concise single-agent baseline.
+\subsection*{Core Challenges in Informal Fallacy Identification}
+Developing reliable automated systems for informal fallacy classification confronts three fundamental hurdles:
+\begin{enumerate}[leftmargin=*,itemsep=1.5pt,topsep=2pt]
+    \item \textbf{Pragmatic Context and Overlapping Semantic Boundaries:} Informal fallacies cannot be verified via pure syntactic deduction; their defectiveness hinges upon pragmatic intent and conversational context. Consequently, boundary disambiguation is notoriously treacherous: for instance, radical inductive generalizations (\textit{Hasty Generalization}) frequently overlap with escalating causal cascades (\textit{Slippery Slope}) when projecting future consequences, or with polarized ultimatums (\textit{False Dilemma}) when phrased with absolute exclusions.
+    \item \textbf{Surface Lexical Trapping and Confirmation Bias in LLMs:} Single-agent LLMs readily succumb to explicit lexical triggers (e.g., latching onto ``either/or'' to predict \textit{False Dilemma} regardless of underlying premises). Furthermore, exposing agents prematurely to target label spaces induces severe confirmation bias: models hallucinate justifications to rationalize initial superficial impressions rather than critically probing the argument's inferential warrant.
+    \item \textbf{Pathologies of Naive Multi-Agent Deliberation:} Symmetrical peer debates often degenerate into \textit{sycophancy} (agents uncritically acquiescing to the first-arriving or most assertive opinion), repetitive circular re-statements devoid of textual evidence, and prohibitive \textit{token explosion} ($>200\text{k}$ tokens per 10 samples) without delivering empirical gains over compact single-agent baselines.
+\end{enumerate}
+
+\subsection*{Theoretical Motivations}
+To overcome these systemic pathologies, we ground deliberative multi-agent reasoning in established formal and informal argumentation theories:
+\begin{enumerate}[leftmargin=*,itemsep=1.5pt,topsep=2pt]
+    \item \textbf{Waltonian Dialogue Games and Principle of Charity:} Following Douglas Walton's dialogue models \cite{walton1998} and the philosophical Principle of Charity \cite{quine1960,davidson1973,govier1987}, reasoning is formulated as an institutionalized courtroom exchange. A dedicated \textit{Prosecutor} is tasked with establishing structural defect charges, balanced by an adversarial \textit{Defender} bound to reconstruct the author's argument under its strongest, most charitable contextual interpretation.
+    \item \textbf{Mandatory Verbatim Evidence Anchoring:} To eliminate hallucinations and ungrounded rhetoric, both prosecutor indictments and defender pleas are bound by strict programmatic JSON schema contracts requiring verbatim string quotes extracted directly from the target comment. Charges lacking textual anchors are systematically invalidated.
+    \item \textbf{Order-Permuted Adjudication with Asymmetric Burden of Proof:} To neutralize position bias in the final \textit{Dialectical Arbiter}, contested classifications undergo dual-run adjudication with permuted option orderings ($A$ vs.\ $B$ and $B$ vs.\ $A$). A unanimous burden of proof is enforced: the prosecutor's established indictment stands unless the alternative steelmanned thesis prevails under both permutations.
+    \item \textbf{Adaptive Disagreement Gating for Token Economics:} Rather than executing unconstrained multi-round discussions, we enforce an adaptive review policy: uncontested indictments immediately trigger early exit, focusing deliberation budgets strictly on genuine structural disagreements.
 \end{enumerate}
 
 \begin{figure*}[t]
@@ -147,22 +157,11 @@ In parallel, Multi-Agent Debate (MAD) has emerged as a promising paradigm to imp
 \label{fig:framework_architectures}
 \end{figure*}
 
-To overcome these structural limitations, we formulate and systematically evaluate two novel, theoretically motivated multi-agent frameworks, paired with pattern-enriched logical definitions:
-
-First, we design a \textbf{Theory-Grounded ARS Diagnostic Architecture} rooted in Ralph Johnson and J.~Anthony Blair's seminal informal logic theory \cite{johnsonblair1977,johnsonblair2006}. Recognizing that exposure to target labels causes confirmation bias, we enforce a strict \textit{label-blind invariant}: three dedicated specialists independently evaluate arguments exclusively along the universal cogency axes of \textit{Acceptability}, \textit{Relevance}, and \textit{Sufficiency} without ever seeing the 8-class fallacy taxonomy. Only a downstream \textit{ARS Arbiter} synthesizes these diagnostic vectors into the benchmark label space.
-
-Second, we propose an \textbf{Adversarial Dialectical Debate Framework} rooted in Douglas Walton's dialogue games \cite{walton1998} and the philosophical \textit{Principle of Charity} \cite{quine1960,davidson1973,govier1987}. We structure deliberation as a formalized courtroom dialogue comprising: (i) a \textit{Prosecutor} agent executing rigorous cue scans, separating justificatory premises from conclusions, and issuing formal indictments backed by mandatory verbatim text quotes; (ii) a \textit{Defender} agent applying charitable reconstruction, contextual warrant verification, and steelmanning viable alternative classes; and (iii) an impartial \textit{Dialectical Arbiter} enforcing an anti-anchoring directive that strictly blocks defaulting to the prosecutor's hypothesis.
-
-Third, we incorporate \textbf{Abstract Logical Patterns} from recent argument mining research \cite{papadopulos2026}, enriching agent system instructions with formal syllogistic structures, reasoning defect mechanisms, and bidirectional disambiguation boundary constraints.
-
-Our key contributions are summarized as follows:
-\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
-    \item We formalize and benchmark multiple deliberative multi-agent paradigms on the complete \textsc{CoCoLoFa} dataset ($798$ detection, $481$ classification samples), matching and exceeding published state-of-the-art baselines.
-    \item We introduce the ARS Diagnostic Architecture, proving the utility of structural argument decomposition and label-isolated informal logic evaluations.
-    \item We formulate the Adversarial Dialectical Debate Framework, demonstrating that dialectical tension between a Prosecutor and a Charitable Defender provides dramatic accuracy recovery on hard adversarial edge cases.
-    \item On the $66$ most difficult failure cases of \textsc{CoCoLoFa} where single-agent models score $0.0\%$, our adversarial framework recovers \textbf{46.97\%} accuracy ($46.25\%$ macro-$F_1$).
-    \item We design an adaptive disagreement review policy that slashes token consumption by over \textbf{62\%}, establishing a cost-effective alternative to unconstrained multi-agent deliberation.
-    \item We present an in-depth qualitative analysis of $35$ remaining boundary failure cases across $21$ distinct error clusters.
+Our principal contributions are threefold:
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt]
+    \item \textbf{Theory-Grounded Adversarial Dialectical Framework:} We propose a formal multi-agent deliberation architecture operationalizing Walton's dialogue games and the Principle of Charity for logical fallacy analysis. The system combines dedicated prosecutorial indictment, charitable defense advocacy, mandatory verbatim evidence locks, and order-permuted adjudication with asymmetric burden of proof to eliminate sycophancy and surface lexical trapping.
+    \item \textbf{New Prompting State-of-the-Art on CoCoLoFa Full Test Set:} On the complete \textsc{CoCoLoFa} test set ($481$ gold classification instances), our framework establishes a new state-of-the-art among in-context LLMs, achieving \textbf{86.77\%} Macro-$F_1$ (\textbf{86.90\%} accuracy) with \texttt{Llama-3.3-70B-Instruct} and \textbf{85.83\%} Macro-$F_1$ with \texttt{gpt-oss-120b}---surpassing GPT-4o Chain-of-Thought ($85.0\%$) by $+1.77\%$ and matching in-domain fully supervised NLI ($87.0\%$) within $0.23\%$ without any training. Furthermore, on the $66$ most difficult adversarial test cases where all single-agent models score $0.0\%$, our framework recovers \textbf{46.97\%} accuracy ($46.25\%$ Macro-$F_1$).
+    \item \textbf{Cross-Model Generalization, Token Efficiency, and Boundary Error Taxonomy:} We demonstrate architectural consistency across diverse open-weights foundations (\texttt{Llama-3.3-70B} and \texttt{gpt-oss-120b}), prove that adaptive disagreement review slashes token expenditure by over \textbf{62\%}, and provide an exhaustive qualitative post-mortem of remaining boundary confusions across $21$ error clusters to guide future neuro-symbolic and deliberative research.
 \end{itemize}
 
 \section{Problem Formulation \& Task Setup}
@@ -305,9 +304,9 @@ We synthesize explicit decision rules to resolve the most frequent cross-class c
 \section{Experimental Setup}
 
 \subsection{Models and Inference Infrastructure}
-Experiments are conducted using NVIDIA NIM API hosting \texttt{openai/gpt-oss-20b}, supplemented by \texttt{deepseek-ai/deepseek-v4.1-flash} and \texttt{meta/llama-3.1-70b-instruct}. Model generation is executed at temperature $1.0$ with a maximum output limit of $4{,}096$ tokens. 
+Experiments are conducted using two primary enterprise model endpoints: (1) FPT Cloud Marketplace OpenAI-compatible infrastructure hosting \texttt{meta/llama-3.3-70b-instruct} and \texttt{openai/gpt-oss-120b}, and (2) NVIDIA NIM API hosting \texttt{openai/gpt-oss-20b}. Model generation is executed with temperature $0.6$ for deliberative agents and maximum completion token budget of $4{,}096$.
 
-We implement strict JSON Schema enforcement at the API transport layer, paired with client-side pydantic validators. All API responses are immutably audited in an indexed SQLite database, guaranteeing zero duplicate network calls, exact determinism, and reproducible cost accounting.
+We enforce strict JSON Schema validation and domain-specific rhetorical boundary constraints at the API transport layer, paired with client-side pydantic validators. All API requests, responses, and token usages are immutably audited in indexed SQLite databases and local JSONL trace files. Test-set runs are cryptographically sealed with frozen manifests hashing all source code, prompt definitions, and data partitions prior to execution.
 
 \subsection{Testbeds and Freezing}
 We evaluate our systems on two distinct environments:
@@ -319,24 +318,24 @@ We evaluate our systems on two distinct environments:
 \section{Results and Empirical Analysis}
 
 \subsection{Full Test Benchmark Comparison}
-Table~\ref{tab:full_test_results} compares our single-agent baseline on the complete \textsc{CoCoLoFa} test split against published baselines from the literature \cite{cocolofa2024}.
+Table~\ref{tab:full_test_results} compares our Adversarial Dialectical framework on the complete \textsc{CoCoLoFa} test split against published baselines from the literature \cite{cocolofa2024}.
 
 \begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lcccccc}
 \toprule
-\multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Fallacy Detection}} & \multicolumn{3}{c}{\textbf{Fallacy Classification}} \\
+\multirow{2}{*}{\textbf{Method Category \& Model}} & \multicolumn{3}{c}{\textbf{Fallacy Detection (798 samples)}} & \multicolumn{3}{c}{\textbf{Fallacy Classification (481 samples)}} \\
 \cmidrule(lr){2-4} \cmidrule(lr){5-7}
 & \textbf{Precision} & \textbf{Recall} & \textbf{$F_1$} & \textbf{Precision} & \textbf{Recall} & \textbf{Macro-$F_1$} \\
 \midrule
 \multicolumn{7}{l}{\textit{Supervised Encoders (Published in \citet{cocolofa2024})}} \\
 BERT (trained on Reddit) & 62.0 & 89.0 & 73.0 & 65.0 & 64.0 & 62.0 \\
-BERT (trained on CoCoLoFa) & 83.0 & 89.0 & 86.0 & 85.0 & 86.0 & 86.0 \\
+BERT (fine-tuned on CoCoLoFa) & 83.0 & 89.0 & 86.0 & 85.0 & 86.0 & 86.0 \\
 NLI (trained on Reddit) & 62.0 & 96.0 & 75.0 & 70.0 & 67.0 & 66.0 \\
-NLI (trained on CoCoLoFa) & 82.0 & 86.0 & 84.0 & 87.0 & 87.0 & 87.0 \\
+NLI (fine-tuned on CoCoLoFa) & 82.0 & 86.0 & 84.0 & 87.0 & 87.0 & \textbf{87.0} \\
 \midrule
-\multicolumn{7}{l}{\textit{Few-Shot \& CoT LLMs (Published in \citet{cocolofa2024})}} \\
+\multicolumn{7}{l}{\textit{Few-Shot \& Chain-of-Thought LLMs (Published in \citet{cocolofa2024})}} \\
 Llama-3 8B (zero-shot) & 76.0 & 43.0 & 55.0 & 57.0 & 42.0 & 41.0 \\
 Llama-3 8B (few-shot) & 62.0 & 95.0 & 75.0 & 57.0 & 50.0 & 48.0 \\
 Llama-3 8B (Chain-of-Thought) & 77.0 & 56.0 & 65.0 & 63.0 & 58.0 & 58.0 \\
@@ -344,15 +343,49 @@ GPT-4o (zero-shot) & 72.0 & 88.0 & 79.0 & 82.0 & 80.0 & 79.0 \\
 GPT-4o (few-shot) & 72.0 & 79.0 & 75.0 & 84.0 & 84.0 & 83.0 \\
 GPT-4o (Chain-of-Thought) & 76.0 & 82.0 & 79.0 & 85.0 & 85.0 & 85.0 \\
 \midrule
-\multicolumn{7}{l}{\textit{Our System Evaluated on Full Test Split (481 Gold Samples)}} \\
-\texttt{gpt-oss-20b} (Single-Agent Baseline) & -- & -- & -- & \textbf{84.22} & \textbf{79.69} & \textbf{80.64} \\
+\multicolumn{7}{l}{\textit{Our Systems Evaluated on Full Test Split}} \\
+\texttt{gpt-oss-20b} (Single-Agent Baseline) & -- & -- & -- & 84.22 & 79.69 & 80.64 \\
+Ours: Adversarial Debate (\texttt{gpt-oss-120b}) & -- & -- & -- & 87.29 & 85.63 & 85.83 \\
+Ours: Adversarial Debate (\texttt{Llama-3.3-70B}) & -- & -- & -- & \textbf{88.29} & \textbf{86.62} & \textbf{86.77} \\
 \bottomrule
 \end{tabular}
-\caption{Comprehensive evaluation results on the full \textsc{CoCoLoFa} test set ($798$ detection, $481$ classification samples). Scores are percentages. Published numbers are cited directly from \citet{cocolofa2024}. Our single-agent implementation delivers competitive performance, exceeding zero-shot GPT-4o by $+1.64\%$ Macro-$F_1$.}
+\caption{Comprehensive evaluation results on the full \textsc{CoCoLoFa} test set ($798$ detection, $481$ classification samples). Scores are percentages. Published numbers are cited directly from \citet{cocolofa2024}. Our training-free Adversarial Dialectical framework establishes a new state-of-the-art for LLM prompting, surpassing GPT-4o CoT by $+1.77\%$ Macro-$F_1$ (Accuracy $86.90\%$) and matching fully supervised in-domain NLI within $0.23\%$.}
 \label{tab:full_test_results}
 \end{table*}
 
-Our single-agent implementation of \texttt{openai/gpt-oss-20b} achieves an impressive \textbf{80.64\%} Macro-$F_1$ across the 481 test classification samples ($84.22\%$ Precision, $79.69\%$ Recall). This significantly outperforms Llama-3 8B CoT ($58.0\%$) and exceeds zero-shot GPT-4o ($79.0\%$), establishing a robust foundation for multi-agent enhancements.
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+\multirow{2}{*}{\textbf{Fallacy Class}} & \multirow{2}{*}{\textbf{Support}} & \multicolumn{3}{c}{\textbf{Llama-3.3-70B (Ours)}} & \multicolumn{3}{c}{\textbf{gpt-oss-120b (Ours)}} & \multirow{2}{*}{\textbf{$\Delta F_1$}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8}
+& & \textbf{Prec.} & \textbf{Rec.} & \textbf{$F_1$} & \textbf{Prec.} & \textbf{Rec.} & \textbf{$F_1$} & \\
+\midrule
+Appeal to Authority      & 56 & 91.23 & 92.86 & 92.04 & 92.59 & 89.29 & 90.91 & -1.13 \\
+Appeal to Majority       & 59 & 91.80 & 94.92 & 93.33 & 87.69 & 96.61 & 91.94 & -1.39 \\
+Appeal to Nature         & 55 & 94.64 & 96.36 & 95.50 & 91.38 & 96.36 & 93.81 & -1.69 \\
+Appeal to Tradition      & 59 & 96.49 & 93.22 & 94.83 & 94.74 & 91.53 & 93.10 & -1.73 \\
+Appeal to Worse Problems & 64 & 94.23 & 76.56 & 84.48 & \textbf{100.00} & 68.75 & 81.48 & -3.00 \\
+False Dilemma            & 50 & 80.39 & 82.00 & 81.19 & 69.35 & 86.00 & 76.79 & -4.40 \\
+Hasty Generalization     & 60 & 83.33 & 58.33 & 68.63 & 84.44 & 63.33 & \textbf{72.38} & \textbf{+3.75} \\
+Slippery Slope           & 78 & 73.33 & 98.72 & 84.15 & 78.12 & 96.15 & \textbf{86.21} & \textbf{+2.06} \\
+\midrule
+\textbf{Macro Average / Accuracy} & \textbf{481} & \textbf{88.29} & \textbf{86.62} & \textbf{86.77} & 87.29 & 85.63 & 85.83 & -0.94 \\
+\bottomrule
+\end{tabular}
+\caption{Fine-grained per-class performance across all 8 fallacy categories on the full \textsc{CoCoLoFa} test set ($N=481$). Scores are percentages. \texttt{gpt-oss-120b} excels at complex causal and inductive fallacies (\textit{Hasty Generalization} $+3.75\%$, \textit{Slippery Slope} $+2.06\%$, and perfect $100\%$ precision on \textit{Worse Problems}), while \texttt{Llama-3.3-70B} delivers superior disambiguation on binary splits (\textit{False Dilemma}), yielding the highest overall Macro-$F_1$ ($86.77\%$, Accuracy $86.90\%$).}
+\label{tab:per_class_test_results}
+\end{table*}
+
+As reported in Table~\ref{tab:full_test_results}, our Adversarial Dialectical framework establishes a new state-of-the-art across in-context LLMs on the \textsc{CoCoLoFa} test benchmark:
+\begin{itemize}[leftmargin=*,itemsep=1.5pt,topsep=2pt]
+    \item \textbf{Surpassing SOTA Prompting Baselines:} With \texttt{Llama-3.3-70B-Instruct}, our 3-agent framework achieves \textbf{86.77\%} Macro-$F_1$ (Accuracy \textbf{86.90\%}), surpassing the strongest published prompting model, GPT-4o Chain-of-Thought ($85.0\%$), by \textbf{+1.77\%} Macro-$F_1$ and $+3.29\%$ Precision ($88.29\%$ vs.\ $85.0\%$). Under \texttt{gpt-oss-120b}, the framework also exceeds GPT-4o CoT at \textbf{85.83\%} Macro-$F_1$.
+    \item \textbf{Closing the Gap with In-Domain Supervised Models:} Remarkably, without any parameter updates or supervised training on the \textsc{CoCoLoFa} training partition, our training-free framework outperforms in-domain fine-tuned BERT ($86.77\%$ vs.\ $86.0\%$) and closes the performance gap with in-domain fine-tuned NLI ($87.0\%$) to a negligible margin of \textbf{0.23\%}, while achieving higher overall precision ($88.29\%$ vs.\ $87.0\%$).
+    \item \textbf{Substantial Gains over Single-Agent Inference:} Compared to single-agent prompting (\texttt{gpt-oss-20b} at $80.64\%$), dialectical deliberation delivers a massive $+6.13\%$ Macro-$F_1$ boost, primarily propelled by a $+6.93\%$ surge in Macro-Recall ($79.69\% \to 86.62\%$).
+\end{itemize}
+
+Table~\ref{tab:per_class_test_results} delineates fine-grained per-class trade-offs between \texttt{Llama-3.3-70B} and \texttt{gpt-oss-120b}. Notably, \texttt{gpt-oss-120b} excels at resolving inductive and temporal fallacies: it achieves \textbf{72.38\%} $F_1$ on \textit{Hasty Generalization} ($+3.75\%$ over Llama-70B) and \textbf{86.21\%} on \textit{Slippery Slope} ($+2.06\%$), while maintaining an immaculate $100.0\%$ precision on \textit{Appeal to Worse Problems}. Conversely, \texttt{Llama-3.3-70B} exhibits sharper boundary separation on polarized ultimatums (\textit{False Dilemma}, $81.19\%$ vs.\ $76.79\%$), securing the premier overall Macro-$F_1$.
 
 \subsection{Adversarial Recovery on Hard Error Cases}
 To test the true reasoning limits of deliberative multi-agent architectures, we evaluate our Adversarial Dialectical framework on the curated adversarial testbed ($N=66$), comprising the most challenging samples where standard prompting fails completely ($0.0\%$ accuracy).

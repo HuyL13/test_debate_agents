@@ -35,7 +35,8 @@ def execute(
             {},
             [],
             'Run CUE SCAN, separate justificatory premise from conclusion, and output top-2 candidate classes with verbatim quotes. '
-            'IMPORTANT: Both quote and runner_up_quote MUST be exact verbatim substrings copied ONLY from the TARGET comment (input.comment). '
+            'IMPORTANT: Both candidate_class and runner_up_class MUST be chosen from the 8 CoCoLoFa classes (Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope). '
+            'Both quote and runner_up_quote MUST be exact verbatim substrings copied ONLY from the TARGET comment (input.comment). '
             'Do NOT quote from parent_comment or title!',
             schema=prosecutor_schema('classification'),
             validator=lambda val: validate_prosecutor(val, model_input.comment, 'classification'),
@@ -58,7 +59,9 @@ def execute(
             [],
             'Evaluate the Prosecutor indictment against target comment and context. '
             'If the Prosecutor correctly identified an Appeal, False Dilemma, or Slippery Slope with a valid quote, set concede_charge=true. '
-            'Do NOT default to Hasty Generalization. If a competing class has genuine structural evidence, steelman it with a verbatim quote.',
+            'Do NOT default to Hasty Generalization. If a competing class has genuine structural evidence, steelman it with a verbatim quote. '
+            'IMPORTANT: If concede_charge=false, alternative_class MUST be chosen strictly from the 8 CoCoLoFa classes: '
+            'Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope.',
             schema=defender_schema('classification'),
             validator=_validate_defender_plea,
         )

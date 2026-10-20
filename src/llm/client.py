@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
 
 from src.io_utils import append_jsonl, digest
+from src.labels import FALLACIES, normalize_fallacy_name
 from src.llm.cache import Cache
 from src.llm.config import ModelConfig
 from src.llm.gemini_client import GeminiTransport
@@ -65,7 +66,7 @@ def _parse_kv_fallback(text: str) -> dict | None:
         'prediction', 'confidence', 'content', 'reasoning'
     ]
     for key in known_keys:
-        pattern = r'(?:^|\n)\s*(?:\d+\.\s*)?\**' + key + r'\**\s*[:=]\s*(.+?)(?=\n\s*(?:\d+\.\s*)?\**[a-zA-Z_]+\**\s*[:=]|\Z)'
+        pattern = r'(?:^|\n)\s*(?:[-*•]|\d+\.)?\s*\**' + key + r'\**\s*[:=]\s*(.+?)(?=\n\s*(?:[-*•]|\d+\.)?\s*\**[a-zA-Z_]+\**\s*[:=]|\Z)'
         m = re.search(pattern, text, re.DOTALL)
         if m:
             val = m.group(1).strip()
@@ -75,6 +76,10 @@ def _parse_kv_fallback(text: str) -> dict | None:
                 result[key] = True
             elif val.lower() == 'false':
                 result[key] = False
+            elif key in ('alternative_class', 'runner_up_class') and val.lower() == 'none':
+                result[key] = 'None'
+            elif key == 'counter_quote' and val.lower() == 'none':
+                result[key] = ''
             elif key == 'confidence':
                 try:
                     result[key] = float(val)
@@ -85,6 +90,34 @@ def _parse_kv_fallback(text: str) -> dict | None:
     if any(k in result for k in ('candidate_class', 'prediction', 'concede_charge', 'has_fallacy_charge')):
         return result
     return None
+
+
+def _normalize_enum_fields(parsed, schema):
+    if not isinstance(parsed, dict) or not isinstance(schema, dict) or 'properties' not in schema:
+        return parsed
+    cand = parsed.get('candidate_class')
+    for field, prop in schema['properties'].items():
+        if 'enum' in prop and field in parsed:
+            val = parsed[field]
+            enums = prop['enum']
+            if val not in enums and isinstance(val, str):
+                matched = next((e for e in enums if str(e).casefold() == val.strip().casefold()), None)
+                if not matched and set(enums).issuperset(set(FALLACIES)):
+                    matched = normalize_fallacy_name(val)
+                if not matched and field == 'runner_up_class':
+                    matched = next((e for e in enums if e != cand and e != 'None'), None)
+                if not matched and field == 'alternative_class':
+                    parsed['concede_charge'] = True
+                    matched = 'None'
+                if matched and matched in enums:
+                    parsed[field] = matched
+            elif field == 'runner_up_class' and val == cand:
+                alt = next((e for e in enums if e != cand and e != 'None'), None)
+                if alt:
+                    parsed[field] = alt
+            elif field == 'alternative_class' and parsed.get('concede_charge'):
+                parsed[field] = 'None'
+    return parsed
 
 
 def _extract_json_payload(text: str) -> dict:
@@ -102,18 +135,28 @@ def _extract_json_payload(text: str) -> dict:
                 return cleaned
         except json.JSONDecodeError:
             pass
-    if text.startswith('```'):
-        lines = text.splitlines()
-        if lines and lines[0].startswith('```'):
-            lines = lines[1:]
-        if lines and lines[-1].strip() == '```':
-            lines = lines[:-1]
-        try:
-            cleaned = _clean_payload(json.loads('\n'.join(lines).strip()))
-            if cleaned is not None:
-                return cleaned
-        except json.JSONDecodeError:
-            pass
+
+    import re
+    blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
+    for b in reversed(blocks):
+        b = b.strip()
+        for cand in (b, b.replace(r"\'", "'")):
+            try:
+                cleaned = _clean_payload(json.loads(cand))
+                if cleaned is not None:
+                    return cleaned
+            except json.JSONDecodeError:
+                pass
+            start = cand.find('{')
+            end = cand.rfind('}')
+            if start != -1 and end != -1 and end > start:
+                try:
+                    cleaned = _clean_payload(json.loads(cand[start:end + 1]))
+                    if cleaned is not None:
+                        return cleaned
+                except json.JSONDecodeError:
+                    pass
+
     start = text.find('{')
     end = text.rfind('}')
     if start != -1 and end != -1 and end > start:
@@ -198,9 +241,15 @@ class Client:
                 accumulate_usage(self.usage, response.get('usage'))
                 self.model_versions.add(response.get('model', self.config.name))
                 choice = response['choices'][0]
-                if choice.get('finish_reason') != 'stop' or choice['message'].get('refusal'):
+                if choice.get('finish_reason') not in ('stop', 'tool_calls') or choice['message'].get('refusal'):
                     raise ValueError('Refused, truncated, or non-final response')
                 raw = choice['message'].get('content')
+                if (not isinstance(raw, str) or not raw.strip()) and choice['message'].get('tool_calls'):
+                    for tc in choice['message']['tool_calls']:
+                        fn_args = tc.get('function', {}).get('arguments')
+                        if isinstance(fn_args, str) and fn_args.strip():
+                            raw = fn_args
+                            break
                 parsed = None
                 if isinstance(raw, str) and raw.strip():
                     try:
@@ -221,10 +270,13 @@ class Client:
                         validate_output(parsed, schema)
                     except ValueError:
                         parsed = parsed['output']
+                if isinstance(parsed, dict) and isinstance(schema, dict) and 'properties' in schema:
+                    parsed = _normalize_enum_fields(parsed, schema)
                 try:
                     validate_output(parsed, schema)
                 except ValueError as val_err:
                     if isinstance(parsed, dict) and isinstance(schema, dict) and 'properties' in schema:
+                        parsed = _normalize_enum_fields(parsed, schema)
                         allowed = set(schema['properties'].keys())
                         filtered = {k: v for k, v in parsed.items() if k in allowed}
                         try:
@@ -236,6 +288,7 @@ class Client:
                     if val_err is not None:
                         kv = _parse_kv_fallback(raw)
                         if kv is not None:
+                            kv = _normalize_enum_fields(kv, schema)
                             validate_output(kv, schema)
                             parsed = kv
                         else:

@@ -185,3 +185,88 @@ def test_no_api_key_fails_before_network(monkeypatch):
     monkeypatch.delenv('MISSING_TEST_KEY', raising=False)
     with pytest.raises(RuntimeError, match='MISSING_TEST_KEY'):
         OpenAITransport(ModelConfig(name='fixture', api_key_env='MISSING_TEST_KEY')).complete({})
+
+
+def test_tool_calls_fallback_accepted(tmp_path):
+    response = {
+        'model': 'mock-tool-call-model',
+        'usage': {'prompt_tokens': 10, 'completion_tokens': 10, 'total_tokens': 20},
+        'choices': [{
+            'finish_reason': 'tool_calls',
+            'message': {
+                'role': 'assistant',
+                'content': None,
+                'tool_calls': [{
+                    'id': 'call-123',
+                    'type': 'function',
+                    'function': {
+                        'name': 'cocolofa_output',
+                        'arguments': json.dumps({'prediction': 'Appeal to Authority', 'confidence': 0.9, 'content': 'Valid text'})
+                    }
+                }]
+            }
+        }]
+    }
+    client = Client(ModelConfig(provider='mock', name='mock-tool-call-model'),
+                    tmp_path / 'cache.sqlite', tmp_path / 'audit.jsonl',
+                    transport=Transport([response]))
+    schema = report_schema('classification')
+    result = client.generate(system_prompt='sys', user_prompt='user', schema=schema, metadata={'test': 1})
+    assert result['prediction'] == 'Appeal to Authority'
+    assert result['confidence'] == 0.9
+
+
+def test_enum_normalization_fallback(tmp_path):
+    response = {
+        'model': 'mock-alias-model',
+        'usage': {'prompt_tokens': 10, 'completion_tokens': 10, 'total_tokens': 20},
+        'choices': [{
+            'finish_reason': 'stop',
+            'message': {
+                'role': 'assistant',
+                'content': json.dumps({'prediction': 'appeal to consequence', 'confidence': 0.8, 'content': 'Alias test'})
+            }
+        }]
+    }
+    client = Client(ModelConfig(provider='mock', name='mock-alias-model'),
+                    tmp_path / 'cache.sqlite', tmp_path / 'audit.jsonl',
+                    transport=Transport([response]))
+    schema = report_schema('classification')
+    result = client.generate(system_prompt='sys', user_prompt='user', schema=schema, metadata={'test': 2})
+    assert result['prediction'] == 'Appeal to Worse Problems'
+
+
+def test_multi_code_blocks_reverse_extraction(tmp_path):
+    multi_block_text = """First try:
+```json
+{
+  "prediction": "Invalid JSON syntax here, not closed
+```
+Corrected answer:
+```json
+{
+  "prediction": "Appeal to Majority",
+  "confidence": 0.85,
+  "content": "Valid block"
+}
+```"""
+    response = envelope(multi_block_text)
+    client = make_client(tmp_path, Transport([response]))
+    result = client.generate(system_prompt='sys', user_prompt='user',
+                             schema=report_schema('classification'), metadata={'test': 3})
+    assert result['prediction'] == 'Appeal to Majority'
+    assert result['confidence'] == 0.85
+
+
+def test_bullet_point_kv_fallback(tmp_path):
+    bullet_text = """**Output Decision:**
+- **prediction**: Appeal to Nature
+- **confidence**: 0.75
+- **content**: Derived from bullet points"""
+    response = envelope(bullet_text)
+    client = make_client(tmp_path, Transport([response]))
+    result = client.generate(system_prompt='sys', user_prompt='user',
+                             schema=report_schema('classification'), metadata={'test': 4})
+    assert result['prediction'] == 'Appeal to Nature'
+    assert result['confidence'] == 0.75
+

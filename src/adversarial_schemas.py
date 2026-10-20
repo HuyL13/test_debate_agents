@@ -1,7 +1,7 @@
 """JSON Schemas and validators for Adversarial Dialectical Debate roles."""
 
 from typing import Any, Dict
-from src.labels import FALLACIES, labels_for
+from src.labels import FALLACIES, labels_for, normalize_fallacy_name
 
 
 def prosecutor_schema(task: str = 'detection') -> Dict[str, Any]:
@@ -160,7 +160,12 @@ def validate_prosecutor(value: Any, target_comment: str, task: str = 'detection'
                 raise ValueError("Prosecutor quote must be non-empty for classification task")
             ru_cand = value.get('runner_up_class')
             if ru_cand not in list(FALLACIES):
-                raise ValueError(f"Invalid runner_up_class: {ru_cand}")
+                norm = normalize_fallacy_name(ru_cand)
+                if norm and norm in list(FALLACIES):
+                    ru_cand = norm
+                    value['runner_up_class'] = norm
+                else:
+                    raise ValueError(f"Invalid runner_up_class: {ru_cand}")
             if ru_cand == cand:
                 raise ValueError("runner_up_class must be different from candidate_class")
             ru_defect = value.get('runner_up_defect', '')
@@ -189,14 +194,26 @@ def validate_defender(value: Any, target_comment: Any, task: str = 'detection') 
         concede = value.get('concede_charge')
         c_quote = value.get('counter_quote', '')
         if alt not in list(FALLACIES) + ['None']:
-            for f in list(FALLACIES) + ['None']:
-                if isinstance(alt, str) and alt.casefold() == f.casefold():
-                    value['alternative_class'] = f
-                    alt = f
-                    break
+            norm = normalize_fallacy_name(alt)
+            if norm and norm in list(FALLACIES) + ['None']:
+                value['alternative_class'] = norm
+                alt = norm
+            else:
+                for f in list(FALLACIES) + ['None']:
+                    if isinstance(alt, str) and alt.casefold() == f.casefold():
+                        value['alternative_class'] = f
+                        alt = f
+                        break
         if alt not in list(FALLACIES) + ['None']:
-            raise ValueError(f"Invalid alternative_class: {alt}")
-        if not concede and alt == 'None':
+            value['concede_charge'] = True
+            value['alternative_class'] = 'None'
+            alt = 'None'
+            concede = True
+        if concede:
+            value['alternative_class'] = 'None'
+            if value.get('counter_quote') == 'None':
+                value['counter_quote'] = ''
+        elif alt == 'None':
             interp = value.get('charitable_interpretation', '').lower()
             if (not c_quote or not c_quote.strip()) or \
                'correctly identifies' in interp or \
@@ -204,6 +221,7 @@ def validate_defender(value: Any, target_comment: Any, task: str = 'detection') 
                'no superior alternative' in interp or \
                'concurs' in interp:
                 value['concede_charge'] = True
+                value['alternative_class'] = 'None'
                 concede = True
         if not concede:
             if alt not in list(FALLACIES):
