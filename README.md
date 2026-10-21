@@ -6,6 +6,13 @@ The code-first Stanza discourse graph classifier, compact HTML inspection report
 coverage checks and direct/rule baselines are documented in
 [docs/discourse_classification.md](docs/discourse_classification.md).
 
+## Reviewed fallacy graph method
+
+Ý tưởng, biểu diễn graph, luồng TRAIN → mining prototype → matching → verification,
+ví dụ minh họa, cách chạy và hạn chế thực nghiệm được mô tả trong
+[graph_method/README.md](graph_method/README.md). Đây là pipeline graph nghiên cứu
+riêng trên nhánh này, phân biệt ngân hàng được duyệt và automatic silver.
+
 ## Discourse classification pipeline (v5.0)
 
 ```mermaid

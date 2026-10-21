@@ -5,6 +5,93 @@ warrant slots, reviewed TRAIN admission, witnessed pattern prototypes per label,
 candidate matching and selective LLM verification. The method requires review
 before graph admission to the pattern bank. Valid JSON is not semantic accuracy.
 
+## Ý tưởng phương pháp
+
+Mục tiêu là phân loại ngụy biện từ **cách các mệnh đề được dùng để suy luận**.
+Văn bản được chuyển thành graph có hướng. Từ graph TRAIN, hệ thống tìm các
+cấu trúc lập luận lặp lại theo nhãn; với văn bản mới, hệ thống tìm cấu trúc ứng
+viên tương ứng rồi kiểm tra bằng nguồn gốc trước khi kết luận.
+
+Graph giúp truy ngược quyết định: đâu là tiền đề, đâu là kết luận, tác giả sử
+dụng hay phản đối suy luận đó, và bước suy luận có khiếm khuyết gì. Việc nhắc
+đến chuyên gia, số đông hoặc truyền thống tự nó chưa đủ xác định ngụy biện.
+
+### Biểu diễn graph
+
+- **Proposition:** mệnh đề gắn với đoạn trích và vị trí trong nguồn.
+- **InferenceApplication:** một lần suy luận từ một hoặc nhiều tiền đề tới
+  mệnh đề đích. Đích có thể là một suy luận khác khi phản bác warrant.
+- **Scheme và role:** giả thuyết về kiểu lập luận và vai trò của mệnh đề,
+  chẳng hạn nguồn thẩm quyền/khẳng định, mẫu/quần thể, điều kiện/hệ quả.
+- **Thuộc tính ngữ nghĩa:** người phát biểu, thái độ sử dụng hay phản đối,
+  phủ định, mức độ chắc chắn và tính giả định; kèm liên kết về nguồn.
+
+Ví dụ minh họa: “Nhiều người tin X, vì vậy X đúng”. Quan hệ cần biểu diễn là
+**sự phổ biến của niềm tin được dùng làm lý do cho tính đúng của X**. Nếu tác
+giả nói “Nhiều người tin X nhưng điều đó không chứng minh X đúng”, thái độ với
+suy luận đã thay đổi; không được xác nhận tác giả mắc Appeal to Majority.
+Đây là ví dụ về biểu diễn mong muốn, không phải kết quả extractor đã được bảo đảm.
+
+### Luồng xử lý
+
+```mermaid
+flowchart TD
+    T["TRAIN: văn bản gốc"] --> E["Trích mệnh đề, quan hệ và vai trò"]
+    E --> R["Duyệt hướng cạnh, độ bao phủ, stance, phủ định và role"]
+    R --> G["Graph TRAIN được chấp thuận"]
+    L["Nhãn TRAIN"] --> P["Mining prototype theo nhãn"]
+    G --> P
+    P --> B["Ngân hàng prototype có witness"]
+    X["Văn bản mới"] --> Q["Trích graph ứng viên"]
+    Q --> M["Matching quan hệ có hướng và role"]
+    B --> M
+    M --> V["Kiểm tra candidate với nguồn và khiếm khuyết suy luận"]
+    X --> V
+    V --> O["Candidate được hỗ trợ hoặc không đủ bằng chứng"]
+```
+
+1. **Trích graph không nhận nhãn gold của mẫu.** LLM đề xuất mệnh đề, quan hệ
+   và role; code kiểm tra ID, đoạn trích và ràng buộc cấu trúc. Title và parent
+   comment là ngữ cảnh, không mặc nhiên là quan điểm của tác giả.
+2. **Duyệt graph TRAIN cho tầng expert.** Review gắn với hash của đúng snapshot,
+   kiểm tra cả quan hệ trung tâm bị bỏ sót. Automatic silver là nhánh nghiên cứu
+   riêng và phải ghi rõ mức độ giám sát.
+3. **Mining prototype có bằng chứng.** Một nhãn có nhiều prototype thay thế nhau.
+   Mỗi prototype phải xuất hiện trong graph witness thực tế; không ghép cạnh từ
+   các mẫu khác nhau thành một đường suy luận chưa từng xuất hiện. Support tính
+   theo article, có xét nhãn cạnh tranh và bootstrap recovery.
+4. **Matching graph mới.** Bản hiện tại dùng motif canonical ở hai mức: `strict`
+   giữ thuộc tính chi tiết; `core` giữ cấu trúc hướng/role và dùng modality,
+   polarity, speech act, event role làm tín hiệu xếp hạng mềm. Đây vẫn là matching
+   chính xác theo từng mức, chưa phải tìm mọi subgraph tương tự về ngữ nghĩa.
+5. **Verifier kiểm tra mapping, cơ chế, stance và defect riêng biệt.** Một kiểu
+   lập luận có thể được dùng hợp lý. Hệ thống xuất riêng quyết định phân loại
+   và quyết định xác nhận ngụy biện của tác giả; nhánh selective có thể không
+   chọn khi thiếu bằng chứng.
+
+### Phân công giữa code và LLM
+
+LLM đề xuất các quyết định ngữ nghĩa: quan hệ, scheme, role và đánh giá warrant
+trong ngữ cảnh. Code quản lý grounding, validation, chuẩn hóa motif, đếm witness,
+mining, matching và tổng hợp kết quả. Lợi ích dự kiến là giải thích được quyết
+định bằng cấu trúc và nguồn. Graph có cải thiện accuracy hay không cần được đo
+bằng thí nghiệm đối chứng.
+
+### Kết quả và hạn chế hiện tại
+
+Bản automatic silver gần nhất tạo 49 pattern từ 3.168 graph TRAIN. Trên 481 mẫu
+TEST, 475 graph đạt source contract nhưng chỉ 183 mẫu có candidate mang nhãn
+gold; ranking đúng 160/481 (33,26%), macro-F1 0,4192. Chỉ số này tính cả weak/forced
+prediction, không phải chất lượng riêng của nhánh selective. Xem
+[kết quả và cách diễn giải](stability/LATEST_GRAPH_RESULTS.md).
+
+Các nút thắt là thiếu/sai quan hệ trung tâm, nhầm scheme/role và matching nhạy
+với cách tách mệnh đề hoặc số tiền đề. Motif thường xoay quanh một application,
+chưa bao quát mọi chuỗi suy luận nhiều bước. Verifier có thể xác nhận candidate
+sai. JSON hợp lệ, witness tồn tại và bootstrap cao đều chưa chứng minh graph
+đúng ngữ nghĩa. Vì vậy, tầng expert vẫn yêu cầu duyệt TRAIN; repo chưa cung cấp
+ngân hàng tám nhãn được chuyên gia phê duyệt.
+
 ## Architecture
 
 `stability/ontology_v2.py` defines literal spans, propositions, commitment and
