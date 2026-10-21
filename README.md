@@ -63,6 +63,12 @@ that requires an actual verifier run without relations.
 
 ## Data
 
+Full official LOGIC/LogicClimate and Reddit informal-fallacy snapshots, with
+pinned provenance, original splits and source documentation, are included in
+[data/external_fallacy](data/external_fallacy/README.md). See that README for
+verified record counts, label formats and the distinction between complete data
+and a derived fallacy-only experiment.
+
 Use the upstream CoCoLoFa repository at pinned commit `c39d45fdd57401e1f6cb674f25113dfa0304e734`. The tracked dataset state is only `data/cocolofa/provenance.json`; `train.json`, `dev.json`, and `test.json` are prepared locally and ignored by Git.
 
 ```powershell
