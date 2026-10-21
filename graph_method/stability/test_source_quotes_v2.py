@@ -5,6 +5,19 @@ from source_quotes_v2 import annotation_from_quotes
 
 
 class QuotedSourceAlignmentTests(unittest.TestCase):
+    def test_glued_sentences_and_clause_dashes_keep_exact_offsets(self):
+        from source_quotes_v2 import _anchor
+        cases=[('humans.Unnecessary killing','humans.'),('humans.Unnecessary killing','Unnecessary killing'),('dangerous precedent-once liberties crumble','once liberties crumble'),('the world--or democracy diminishes','the world'),('rights--then government decides','then government decides')]
+        for text,quote in cases:
+            units=source_units({'comment':text})
+            anchor=_anchor(dict(unit=0,quote=quote,occurrence=0),units)
+            span=proposition_span(anchor,units)
+            self.assertIn(quote,span['text'])
+            self.assertEqual(text[span['start']:span['end']],span['text'])
+    def test_negation_and_compound_word_clipping_stays_rejected(self):
+        from source_quotes_v2 import _anchor
+        for text,quote in [("can't act",'can'),('non-dangerous snakes','dangerous snakes'),('unnecessary killing','necessary killing')]:
+            with self.assertRaises(ValueError):_anchor(dict(unit=0,quote=quote,occurrence=0),source_units({'comment':text}))
     def setUp(self):
         self.units=source_units({'comment':"If we can't block users critics might vanish. Protect speech."})
         def p(id,quote,**kw):

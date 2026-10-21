@@ -16,6 +16,35 @@ def fixture(article=0, label='Authority'):
 
 
 class NativePatterns(unittest.TestCase):
+    def test_strict_and_core_banks_are_both_retrievable(self):
+        rows=[fixture(i) for i in range(12)]
+        strict=mine_patterns(rows,resolution='strict')
+        core=mine_patterns(rows,resolution='core')
+        self.assertNotEqual(strict[0]['id'],core[0]['id'])
+        self.assertTrue(retrieve(strict,fixture(99)))
+        changed=fixture(99);changed['annotation']['propositions'][0]['modality']='possible'
+        self.assertFalse(retrieve(strict,changed))
+        self.assertTrue(retrieve(core,changed))
+        recovery=bootstrap_recovery(strict+core,rows,rounds=3)
+        self.assertTrue(all(score>0 for score in recovery.values()))
+    def test_surface_facets_are_soft_but_preserved_in_candidate(self):
+        rows=[fixture(i) for i in range(12)]
+        for i,row in enumerate(rows):
+            row['annotation']['propositions'][0].update(modality='possible' if i%2 else 'certain',polarity='negative' if i%3 else 'positive',speech_act='report' if i%2 else 'assert',event_role='condition' if i%2 else 'none')
+        patterns=mine_patterns(rows)
+        self.assertEqual(len(patterns),1)
+        self.assertEqual(patterns[0]['positive_articles'],12)
+        candidate=fixture(99)
+        candidate['annotation']['propositions'][0]['modality']='probable'
+        matched=retrieve(patterns,candidate)
+        self.assertTrue(matched)
+        self.assertIn('soft_attribute_score',matched[0])
+        self.assertTrue(any(p['modality']=='probable' for p in matched[0]['source_attribute_profile'].values()))
+    def test_owner_and_implicit_status_remain_hard(self):
+        patterns=mine_patterns([fixture(i) for i in range(8)])
+        for field,value in [('owner','attributed'),('implicit',True)]:
+            candidate=fixture(99);candidate['annotation']['propositions'][0][field]=value
+            self.assertEqual(retrieve(patterns,candidate),[])
     def test_unknown_bootstrap_cannot_claim_stable_retrieval(self):
         patterns=mine_patterns([fixture(i) for i in range(20)])
         self.assertEqual(len(stable_retrieve(patterns,fixture(99))),0)

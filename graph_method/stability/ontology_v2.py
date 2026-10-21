@@ -7,10 +7,25 @@ P_ENUMS=dict(owner=['current_author','parent_author','attributed','context','unc
 KINDS=['support','rebut','undercut','preference','projection','qualification','adoption','concession']
 ROLES=['source','sample','population','initial','consequence','preferred','deprioritized','choice','natural_property','tradition','claim','rejected_warrant','criterion','collective','source_case','target_case','adoption_cue']
 
+def literal_tokens(text):
+    # Preserve contractions and lexical compounds, but recognize source typos
+    # joining sentences or explicit clause separators without whitespace.
+    boundary=re.compile(r'(?<=[.!?])(?=[A-Za-z])|(?<=--)(?=[A-Za-z])|(?<=-)(?=(?:once|and|or|then)\b)')
+    for chunk in re.finditer(r'\S+',text):
+        cuts=[chunk.start()]+[chunk.start()+m.start() for m in boundary.finditer(chunk.group())]+[chunk.end()]
+        for start,end in zip(cuts,cuts[1:]):
+            if start<end:yield dict(text=text[start:end],start=start,end=end)
+
+def unit_tokens(unit):
+    # Stored graphs retain their original token indexing. Never retokenize
+    # an already materialized unit when reading an older graph snapshot.
+    if 'tokens' in unit:return unit['tokens']
+    return [dict(t,start=unit['start']+t['start'],end=unit['start']+t['end']) for t in literal_tokens(unit['text'])]
+
 def source_units(sample):
     units=split_units_v5(sample)
     for u in units:
-        u['tokens']=[dict(index=i,text=m.group(),start=u['start']+m.start(),end=u['start']+m.end()) for i,m in enumerate(re.finditer(r'\S+',u['text']))]
+        u['tokens']=[{**t,'index':i,'start':u['start']+t['start'],'end':u['start']+t['end']} for i,t in enumerate(literal_tokens(u['text']))]
         u['numbered_tokens']=' '.join(str(t['index'])+':'+t['text'] for t in u['tokens'])
     return units
 
@@ -24,10 +39,10 @@ def proposition_span(p,units):
     _require(isinstance(p,dict),'span object required')
     byid={u['id']:u for u in units}
     _require(type(p.get('unit')) is int and p['unit'] in byid,'real unit required')
-    u=byid[p['unit']];ts=list(re.finditer(r'\S+',u['text']))
+    u=byid[p['unit']];ts=unit_tokens(u)
     first,last=p.get('first'),p.get('last')
     _require(type(first) is int and type(last) is int and 0<=first<last<=len(ts),'invalid token bounds')
-    a,b=ts[first].start(),ts[last-1].end()
+    a,b=ts[first]['start']-u['start'],ts[last-1]['end']-u['start']
     return dict(source=u['source'],start=u['start']+a,end=u['start']+b,text=u['text'][a:b])
 
 def has_positive_endorsement(text):
@@ -55,7 +70,7 @@ def annotation_schema(units):
     # Unit-specific oneOf branches constrain token ceilings in structured output.
     anchors=[]
     for u in units:
-        count=len(re.findall(r'\S+',u['text']))
+        count=len(unit_tokens(u))
         anchors.append(dict(unit=dict(type='integer',enum=[u['id']]),first=dict(type='integer',minimum=0,maximum=count-1),last=dict(type='integer',minimum=1,maximum=count)))
     common={**{k:_enum(v) for k,v in P_ENUMS.items()},'implicit':dict(type='boolean'),'gloss':dict(type='string')}
     p={'anyOf':[_object({**a,**common}) for a in anchors]} if anchors else {'not':{}}

@@ -1,7 +1,7 @@
 """Literal quote alignment; models never calculate source token offsets."""
 import re
 from copy import deepcopy
-from ontology_v2 import P_ENUMS,KINDS,ROLES,validate_annotation,proposition_span,_object,_enum,_array
+from ontology_v2 import P_ENUMS,KINDS,ROLES,validate_annotation,proposition_span,_object,_enum,_array,unit_tokens
 from core import STANCES
 
 def quote_source_payload(sample,units):
@@ -15,11 +15,11 @@ def _anchor(ref,units):
     matches=list(re.finditer('(?=('+pattern+'))',u['text']))
     if ref['occurrence']>=len(matches):raise ValueError('Literal quote '+repr(ref['quote'])+' occurrence '+str(ref['occurrence'])+' not found in unit '+str(u['id'])+'. Copy its exact original spelling, including typos: '+repr(u['text'][:1000]))
     m=matches[ref['occurrence']];start,end=m.span(1)
-    tokens=list(re.finditer(r'\S+',u['text']))
-    indices=[i for i,t in enumerate(tokens) if t.start()<end and t.end()>start]
+    tokens=unit_tokens(u)
+    indices=[i for i,t in enumerate(tokens) if t['start']-u['start']<end and t['end']-u['start']>start]
     if not indices:raise ValueError('empty quote')
     first,last=indices[0],indices[-1]+1
-    omitted=u['text'][tokens[first].start():start]+u['text'][end:tokens[last-1].end()]
+    omitted=u['text'][tokens[first]['start']-u['start']:start]+u['text'][end:tokens[last-1]['end']-u['start']]
     if any(c.isalnum() for c in omitted):raise ValueError('quote clips a word or negation')
     return dict(unit=u['id'],first=first,last=last)
 

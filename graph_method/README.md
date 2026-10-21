@@ -89,3 +89,28 @@ One warrant was rejected for binding its claim to the wrong target. No request
 hit the output-token limit. This measures output contracts, not semantic accuracy:
 manual inspection still found an evaluative phrase treated as a causal outcome.
 The selected method therefore retains reviewed TRAIN admission and abstention.
+
+## Multi-resolution research workflow (2026-10-20)
+
+The latest experimental path adds soft roundtrip source review, targeted retries,
+literal span repair, strict/core motif mining and frozen-bank evaluation. It is
+an **automatic silver** experiment; it does not replace the human-review admission
+boundary above. See [matching policy](stability/PATTERN_MATCHING_CORE.md) and
+[observed results](stability/LATEST_GRAPH_RESULTS.md).
+
+After full TRAIN extraction, run from `graph_method/stability`:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run_market_roundtrip.ps1
+.\.venv-syntax\Scripts\python.exe retry_problem_graphs_once.py
+.\.venv-syntax\Scripts\python.exe retry_span_fixed.py
+.\.venv-syntax\Scripts\python.exe build_multires_patterns.py
+.\.venv-syntax\Scripts\python.exe evaluate_frozen_bank.py --split dev --name dev_multires_oss120b_r1
+```
+
+These commands make API calls except pattern mining. They require local dataset,
+credentials and preceding run artifacts, which are intentionally not committed.
+`evaluate_frozen_bank.py --plan` inspects frozen inputs without starting evaluation.
+Use `--split test` only for a frozen final evaluation; do not tune on exposed TEST
+cases. `probe_direct_graph_retrieval.py` is explicitly an exposed-TEST diagnostic,
+not an independent benchmark or a replacement evaluation.
