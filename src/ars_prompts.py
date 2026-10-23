@@ -1,3 +1,4 @@
+from src.fallacy_patterns import get_ars_pattern_rules
 from src.labels import labels_for
 
 FALLACY_CORE_DEFINITION = (
@@ -141,8 +142,6 @@ ROLE_PROMPTS = {
     'Sufficiency': SUFFICIENCY_PROMPT,
 }
 
-
-from src.fallacy_patterns import get_ars_pattern_rules
 
 
 def ars_system_prompt(role, task, use_patterns=False):

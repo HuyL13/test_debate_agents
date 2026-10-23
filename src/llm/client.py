@@ -1,4 +1,5 @@
 import json
+import re
 import time
 from copy import deepcopy
 from dataclasses import asdict
@@ -13,6 +14,8 @@ from src.llm.gemini_client import GeminiTransport
 from src.llm.mock import MockTransport
 from src.llm.openai_client import OpenAITransport
 from src.schemas import validate_output
+
+__all__ = ['Client', 'ModelConfig', 'accumulate_usage', 'estimate_cost']
 
 
 def accumulate_usage(total, usage):
@@ -57,7 +60,6 @@ def _clean_payload(obj):
 def _parse_kv_fallback(text: str) -> dict | None:
     if not isinstance(text, str):
         return None
-    import re
     result = {}
     known_keys = [
         'has_fallacy_charge', 'candidate_class', 'defect_mechanism', 'quote',
@@ -136,7 +138,6 @@ def _extract_json_payload(text: str) -> dict:
         except json.JSONDecodeError:
             pass
 
-    import re
     blocks = re.findall(r'```(?:json)?\s*(.*?)\s*```', text, re.DOTALL)
     for b in reversed(blocks):
         b = b.strip()

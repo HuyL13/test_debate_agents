@@ -4,17 +4,12 @@ import pytest
 
 from src.adversarial_prompts import adversarial_system_prompt
 from src.adversarial_schemas import (
-    prosecutor_schema,
-    defender_schema,
-    dialectical_arbiter_schema,
     validate_prosecutor,
     validate_defender,
     validate_dialectical_arbiter,
 )
-from src.adversarial_debate import execute as execute_adversarial
 from src.engine import Engine
 from src.data.loader import ModelInput
-from src.labels import FALLACIES
 
 
 class MockScriptedLLM:

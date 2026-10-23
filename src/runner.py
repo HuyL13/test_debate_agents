@@ -15,7 +15,7 @@ from src.engine import Engine
 from src.evaluate import score
 from src.io_utils import digest, file_hash, read_jsonl, recover_audit_tail, write_json
 from src.labels import labels_for
-from src.llm.client import Client, ModelConfig
+from src.llm.client import Client, ModelConfig, accumulate_usage, estimate_cost
 
 ROOT = Path(__file__).resolve().parents[1]
 try:
@@ -110,7 +110,6 @@ def _audit_usage(directory, model_config):
              'total_tokens': 0, 'provider_cached_tokens': 0, 'missing_usage_responses': 0}
     models = set()
     usage['missing_usage_responses'] = len(list(Path(directory).glob('raw_calls.interrupted.*.bin')))
-    from src.llm.client import accumulate_usage, estimate_cost
     if path.exists():
         for event in read_jsonl(path):
             response = event.get('response', {})

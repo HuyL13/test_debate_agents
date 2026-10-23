@@ -5,9 +5,8 @@ Used to validate quotes, filter rhetorical hallucinations, and enforce cue locki
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 from src.schemas import _normalize_quote_text
-from src.labels import FALLACIES
 
 # Structural Cue Patterns compiled from argumentation literature & train.json
 # Note: dev split is strictly excluded to prevent data leakage.
@@ -171,7 +170,7 @@ def validate_and_normalize_defender(
     2. If concede_charge is True -> alternative_class = 'None'.
     3. counter_quote must be a non-empty substring of comment.
     4. counter_quote must NOT be identical to candidate quote.
-    5. counter_quote must have length >= 5 words (or entire comment length if comment < 5 words).
+    5. counter_quote must have length >= 3 words (or entire comment length if comment < 3 words).
     6. counter_quote must contain the structural cue for alternative_class.
     7. If Candidate has a locked structural cue (e.g. Authority, Tradition, Worse Problems)
        and Defender offers vague SS/HG without required cue, nullify flip.

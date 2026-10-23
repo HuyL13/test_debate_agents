@@ -4,15 +4,12 @@ import pytest
 from src.fallacy_patterns import (
     COCOLOFA_PATTERNS,
     get_pattern_enriched_definitions,
-    get_logical_role_pattern_guidance,
-    get_contextual_role_pattern_guidance,
-    get_ars_pattern_rules,
 )
 from src.prompts import system_prompt
-from src.ars_prompts import ars_system_prompt, ROLE_PROMPTS
+from src.ars_prompts import ars_system_prompt
 from src.engine import Engine
 from src.labels import FALLACIES
-from src.runner import validate_config, ENGINE_DEFAULTS
+from src.runner import validate_config
 
 
 def test_patterns_taxonomy_completeness():

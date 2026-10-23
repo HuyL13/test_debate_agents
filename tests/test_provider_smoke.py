@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from scripts.provider_smoke import (
     build_provider_config,
     extract_model_ids,

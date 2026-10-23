@@ -7,7 +7,7 @@ and false positives), adjudicated by an impartial Dialectical Arbiter.
 """
 
 from src.fallacy_patterns import get_pattern_enriched_definitions
-from src.labels import FALLACIES, labels_for
+from src.labels import labels_for
 
 COMMON_ADVERSARIAL = (
     "Use ONLY supplied sample text and context (News Title, Article when present, Parent Comment, and Target Comment). "
