@@ -1,220 +1,284 @@
-# CoCoLoFa × PARD-inspired API baseline
+# CoCoLoFa — Dialectical Debate
 
-Repo Python local thực hiện hai task gốc của CoCoLoFa với kiến trúc reasoning lấy cảm hứng từ PARD. Đây là **bản adaptation**, không phải reproduction đầy đủ của PARD.
+Repo chỉ giữ **flow dialectical đầu tiên**: Prosecutor → Defender → DialecticalArbiter. Các vai trò là những lần gọi cùng model cấu hình, không phải ba model được huấn luyện riêng. Baseline single-call chỉ phục vụ đối chứng.
 
-- **Detection:** toàn bộ bình luận của split; output `Fallacious` / `Non-Fallacious`.
-- **Classification:** chỉ gold-positive; chọn một trong tám nhãn; không cascade từ detection.
-- Ba vai trò Factual / Logical / Contextual phân tích độc lập → planner chọn protocol → deliberation → arbiter tổng hợp.
-- Cùng một model API cho mọi vai trò. Không model selection, RL, retrieval, tool calling hay feedback memory giữa các mẫu.
+## Chạy nhanh
 
-## Trạng thái bàn giao
-
-**Full test single đang chạy; adaptive đã dừng theo yêu cầu:**
-[bảng đối sánh với paper](reports/FULL_TEST_COMPARISON.md) tự cập nhật mỗi 30 giây.
-Bốn cấu hình cũ đã đóng băng bằng `reports/frozen-full-*-v1.json`; target mỗi method
-là 798/481 mẫu. Hai adaptive dừng giữa chừng, không có điểm full-test.
-Chi tiết tiến độ và log ở `outputs/full-test-v1/status.json` và các file `.console.log`.
-Giữ máy thức và có mạng. Supervisor cũ đã dừng; monitor hiện tại chỉ quan sát,
-không tự khởi động lại adaptive. Bản runtime cũ để resume single được lưu ở
-`outputs/full-test-v1/frozen-runtime`; không resume chúng bằng source mới.
-
-Adaptive mới: [thiết kế disagreement review](docs/ADAPTIVE_REVISION.md),
-cấu hình `configs/detection.review.yaml` và `configs/classification.review.yaml`.
-Biến thể này bỏ planner và chỉ phản biện một vòng khi nhãn ban đầu bất đồng;
-đã chạy đủ dev10 cho hai task: [kết quả và trace](reports/ADAPTIVE_REVIEW_DEV.md).
-Accuracy đạt 80% ở cả hai, giảm 62–66% token so với adaptive gần nhất;
-chưa vượt single và chưa chạy lại full-test.
-
-Lần sửa và chạy lại mới nhất: [kết quả v3/v4 và trace](reports/NVIDIA_V3_RESULTS.md).
-58 kiểm thử đạt; planner v4 hết lỗi validation trong run detection 10 mẫu.
-Detection tăng điểm, classification giảm điểm: chưa coi prompt mới là cải thiện chung.
-
-Code, dữ liệu upstream đã ghim, môi trường `.venv`, kiểm thử và smoke test offline có sẵn trong repo local. API NVIDIA `openai/gpt-oss-20b` đã được kết nối và chạy trên dev; xem [kết quả API thật](reports/NVIDIA_DEV_SMOKE.md). **Chưa chạy benchmark toàn bộ test split.** Các trace có `synthetic: true` chỉ kiểm tra plumbing, không đo năng lực LLM. Xem thêm [báo cáo bàn giao](reports/RESULTS.md), [dataset verification](reports/dataset_verification.json) và [khác biệt với upstream](docs/UPSTREAM_AUDIT.md).
-
-## Chạy nhanh trên Windows
-
-Trong PowerShell:
-
-```powershell
-cd C:\Users\yoga\Downloads\cocolofa_pard
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe scripts/verify_dataset.py
-.\.venv\Scripts\python.exe scripts/smoke_matrix.py
-```
-
-Nếu bắt đầu từ bản clone mới:
+Yêu cầu Python 3.11+. Từ thư mục repo, trong PowerShell:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts/smoke_test.py
+```
+
+Smoke dùng mock và dữ liệu tự tạo, **không gọi API và không đo năng lực model**. Linux/macOS dùng `.venv/bin/python`.
+
+### Dữ liệu CoCoLoFa
+
+Repo kèm đủ `data/cocolofa/train.json`, `dev.json`, `test.json`, khớp hash phiên bản upstream đã ghim. Có thể kiểm tra trực tiếp bằng `python scripts/verify_dataset.py`. Các lệnh dưới chỉ cần khi muốn lấy lại dữ liệu từ nguồn:
+
+```powershell
 git clone https://github.com/Crowd-AI-Lab/cocolofa.git upstream/cocolofa
 git -C upstream/cocolofa checkout c39d45fdd57401e1f6cb674f25113dfa0304e734
-git clone https://github.com/zigzag2025/PARD.git upstream/PARD
-git -C upstream/PARD checkout b34807ce339b05518c998a51b5741917de01c917
 .\.venv\Scripts\python.exe scripts/prepare_data.py
 .\.venv\Scripts\python.exe scripts/verify_dataset.py
 ```
 
-Linux/macOS: dùng `.venv/bin/python` thay cho `.\.venv\Scripts\python.exe`. Chạy các lệnh tại thư mục gốc repo. `requirements.txt` là dependency runtime; `requirements-dev.txt` thêm pytest; lock ghi lại phiên bản đã kiểm thử.
+`prepare_data.py` đọc blob Git gốc để tránh thay đổi newline trên Windows. `data/cocolofa/provenance.json` ghi nguồn và hash. Xem [nguồn dữ liệu và refactor](docs/PROVENANCE.md).
 
-## Chạy API thật trên dev
+### Chạy NVIDIA
 
-### NVIDIA NIM đã kiểm tra kết nối
-
-Hai cấu hình `configs/detection.nvidia.yaml` và `configs/classification.nvidia.yaml`
-dùng endpoint `https://integrate.api.nvidia.com/v1`, model `openai/gpt-oss-20b`,
-temperature 1 và giới hạn output 4096 token. Client hiện tại đã được kiểm tra bằng
-request thật với JSON Schema; không cần cài thêm SDK `openai`.
+Đặt key trong environment; chọn model mà key có quyền truy cập. Các config để `SET_MODEL_SNAPSHOT` nhằm yêu cầu người chạy chọn model rõ ràng. Không có key thật trong config.
 
 ```powershell
 $env:NVIDIA_API_KEY = "YOUR_NVIDIA_API_KEY"
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.nvidia.yaml --limit 10 --output outputs/nvidia-detection-dev
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --limit 10 --output outputs/nvidia-classification-dev
+$env:COCOLOFA_MODEL = "YOUR_ACCESSIBLE_NVIDIA_MODEL_ID"
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10
 ```
 
-Thêm `--mode single` và chọn output khác để chạy baseline single-agent. Thêm
-`--resume` vào đúng lệnh cũ để tiếp tục. Key chỉ được truyền qua biến môi trường
-của process; repo không lưu key. Giá token để `null` vì chưa đối chiếu hóa đơn;
-token usage vẫn được ghi đầy đủ. Kết quả dev subset không phải benchmark test.
+Config mẫu dùng temperature 0, timeout 300 giây. Không có marketplace fallback. Client có thể dùng endpoint tương thích khác nếu người chạy chủ động cấu hình.
 
-Tham khảo [model NVIDIA](https://docs.api.nvidia.com/nim/reference/openai-gpt-oss-20b).
-
-### Các provider API
-
-Lớp LLM dùng chung một contract cho agent, cache, retry, audit và structured
-validation. Chọn provider trong `model`:
-
-| Provider | Endpoint mặc định/mẫu | Biến môi trường key | Ghi chú |
-|---|---|---|---|
-| `openai` | `https://api.openai.com/v1` | `OPENAI_API_KEY` | OpenAI Chat Completions |
-| `openai_compatible` | NVIDIA hoặc endpoint tương thích | tùy `api_key_env` | Dùng cho NVIDIA và provider tương thích OpenAI |
-| `gemini` | `https://generativelanguage.googleapis.com/v1beta` | `GEMINI_API_KEY` | Gemini native `generateContent` |
-| `mock` | không gọi mạng | không cần | Chỉ smoke test, không phải kết quả model |
-
-Ví dụ chạy ARS bằng Gemini:
-
-```powershell
-$env:GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.gemini.yaml --limit 10 --output outputs/gemini-detection-ars-dev10
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.gemini.yaml --limit 10 --output outputs/gemini-classification-ars-dev10
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.gemini.ars.yaml --limit 10 --output outputs/gemini-detection-ars-review-dev10
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.gemini.ars.yaml --limit 10 --output outputs/gemini-classification-ars-review-dev10
-```
-
-Gemini native nhận system instruction riêng và JSON structured output qua
-`responseJsonSchema`; adapter lọc các keyword JSON Schema ngoài subset provider,
-nhưng validator nội bộ vẫn kiểm tra schema đầy đủ sau khi nhận response. Xem
-[Gemini generateContent](https://ai.google.dev/api/generate-content) và
-[Gemini structured output](https://ai.google.dev/gemini-api/docs/structured-output?lang=rest).
-
-### Chạy thử nhiều OpenAI-compatible provider
-
-`scripts/provider_smoke.py` tự đọc model từ `/models` nếu chưa đặt biến model,
-chạy ARS trên cùng một số mẫu và tạo output/cache riêng cho từng provider. Key
-chỉ được đọc từ environment, không được ghi hoặc in ra:
-
-```powershell
-python scripts/provider_smoke.py `
-  --providers market,9router,minimax,nvidia_1,nvidia_2,nvidia_3 `
-  --limit 1 `
-  --output-root outputs/provider-smoke-live `
-  --cache-root cache/provider-smoke-live
-```
-
-Runner ưu tiên model đã có trong config (`openai/gpt-oss-20b` cho NVIDIA), sau
-đó mới dùng `MARKET_MODEL`, `ROUTER_MODEL`, `MINIMAX_MODEL` hoặc `NVIDIA_MODEL`;
-chỉ tự chọn model đầu tiên từ `/models` khi config không có model cụ thể. Mỗi mẫu ARS no-debate cần 5 API
-calls; dùng `--config configs/detection.ars.yaml` để kiểm tra policy review,
-với 8 calls/mẫu. Kết quả tổng hợp nằm ở
-`outputs/provider-smoke-live/summary.json`.
-
-### Endpoint OpenAI hoặc nhà cung cấp khác
-
-Sửa `model.name: SET_MODEL_SNAPSHOT` trong **cả hai** file `configs/detection.yaml`, `configs/classification.yaml` thành cùng một model/snapshot mà tài khoản của bạn truy cập được. Cấu hình mặc định dùng OpenAI Chat Completions; endpoint tương thích có thể dùng `provider: openai_compatible` và đổi `base_url`, `api_key_env`.
-
-```powershell
-$env:OPENAI_API_KEY = "YOUR_API_KEY"
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.yaml --mode single --limit 10 --output outputs/dev-detection-single
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.yaml --mode single --limit 10 --output outputs/dev-classification-single
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.yaml --limit 10 --output outputs/dev-detection-pard
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.yaml --limit 10 --output outputs/dev-classification-pard
-```
-
-Key chỉ đọc từ biến môi trường; không ghi vào config, cache hay Git. `.env` không tự được load. Một số model không nhận `temperature`; đặt `temperature: null` để bỏ tham số. Tăng `max_completion_tokens` nếu model bị cắt output. `structured_output: false` dùng JSON mode cho endpoint không hỗ trợ JSON Schema, nhưng vẫn validate schema và enum ở client. Không có silent fallback khi provider báo lỗi.
-
-Điền ba mức giá token trong YAML nếu cần ước tính USD; code không hard-code giá dịch vụ. Thiếu giá hoặc usage không đầy đủ thì chi phí là `null`. Tổng chi phí thực tế vẫn đối chiếu hóa đơn provider, vì request timeout có thể đã được xử lý phía server.
-
-## Freeze trước khi chạy test
-
-Sau khi kiểm tra và chỉnh trên **dev**, cố định model/prompt/config; không chỉnh theo test labels:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/freeze_experiment.py --config configs/detection.yaml --output reports/frozen-detection-v1.json
-.\.venv\Scripts\python.exe scripts/freeze_experiment.py --config configs/classification.yaml --output reports/frozen-classification-v1.json
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.yaml --split test --frozen reports/frozen-detection-v1.json --output outputs/test-detection-v1
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.yaml --split test --frozen reports/frozen-classification-v1.json --output outputs/test-classification-v1
-```
-
-Không dùng `--limit` cho benchmark toàn split. Test detection phải có **798** mẫu; classification **481** mẫu. Freeze bao gồm source Python, prompt, config thực thi, phiên bản runtime và hash cả ba file dữ liệu. Đổi một trong những thành phần này cần freeze mới. File output/freeze hiện có không bị ghi đè ngầm.
-
-## Resume và đánh giá
-
-Chạy lại đúng lệnh cũ với `--resume` để bỏ qua sample đã xong và thử lại sample lỗi. Giữ nguyên config, selection, source và freeze. Cache còn cho phép replay sang output mới mà không gọi API lại.
-
-```powershell
-.\.venv\Scripts\python.exe -m src.run_detection --config configs/detection.yaml --limit 10 --output outputs/dev-detection-pard --resume
-.\.venv\Scripts\python.exe -m src.evaluate --predictions outputs/dev-detection-pard/predictions.jsonl --output outputs/dev-detection-pard/rescored.json
-```
-
-Đánh giá không cần key hoặc gọi mạng. Nó yêu cầu `manifest.json` bên cạnh predictions và kiểm tra fingerprint, đủ ID, gold, task, nhãn và status. Sample lỗi không bị bỏ qua để tăng điểm. Run lỗi dừng ở mẫu đầu tiên, ghi `status: incomplete`, `metrics: null`, trả exit code khác 0. Nếu chỉ dòng audit cuối bị ghi dở, resume giữ byte lỗi trong file quarantine rồi tiếp tục; corruption ở giữa log bị từ chối.
-
-Detection báo positive-class Precision/Recall/F1; classification báo Macro-F1 trên đủ tám nhãn, kể cả nhãn không xuất hiện trong subset; zero division = 0. Confusion matrix có hàng là gold, cột là prediction, theo thứ tự `labels` trong summary.
-
-## Ablation và context
-
-| Cấu hình | Luồng |
+| Config | Flow |
 |---|---|
-| `--mode single` | Một API call |
-| `--mode no_deliberation` | Ba analysis → arbiter |
-| `--mode fixed --protocol round_robin` | Trao đổi tuần tự |
-| `--mode fixed --protocol point_counterpoint` | Hai nhóm 1v2 hoặc 2v1 |
-| `--mode fixed --protocol cross_examination` | Một examiner, hai respondents |
-| `--mode adaptive` | Ba analysis → planner → protocol được chọn → arbiter |
-| `adaptive_policy: ars_no_debate` | Decomposer → Acceptability / Relevance / Sufficiency → arbiter |
-| `adaptive_policy: ars_review` | ARS diagnoses → synchronous role-preserving review → arbiter |
+| `classification.nvidia.yaml` | Flow dialectical gốc |
+| `detection.nvidia.yaml` | Detection nhị phân |
+| `classification.single.nvidia.yaml` | Baseline classification một call |
+| `detection.single.nvidia.yaml` | Baseline detection một call |
 
-ARS V1 được mô tả trong [ARS Diagnostic V1](docs/ARS_DIAGNOSTIC_V1.md). Hai policy
-giữ nguyên các baseline legacy và Diagnostic V1; chuyên gia ARS chỉ đánh giá
-Acceptability / Relevance / Sufficiency, còn `ARSArbiter` là thành phần duy nhất
-được nhìn ontology nhãn CoCoLoFa. Dùng `cache/ars-v1` cho run ARS mới và tạo
-cache directory khác (`cache/ars-v1-run1`, ...) khi cần run độc lập ở temperature 1.
+### Resume và đánh giá
 
-`engine.max_rounds` nhận 1–5, mặc định 3; không bắt buộc debate một vòng. `engine.early_stop: false` chạy hết budget. Với fixed mode, thứ tự mặc định Factual → Logical → Contextual; examiner là Factual. Adaptive mode có planner chọn vai trò và budget, cấm point-counterpoint khi không có đúng hai nhóm prediction tự nhiên.
+```powershell
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10 --resume
+.\.venv\Scripts\python.exe -m src.evaluate --predictions outputs/classification-dev/predictions.jsonl
+```
 
-`context: paper` dùng **title + immediate parent + target**, theo prompt Appendix C. Không thêm nội dung article mặc định. `article` thêm text từ HTML sẵn có; `comment_only` bỏ title và parent. Hai setting này là ablation riêng, không được đánh dấu là ứng viên so sánh trực tiếp với bảng gốc.
+Resume phải dùng đúng config, model, dữ liệu, source và lựa chọn mẫu của lượt cũ. Không resume output lịch sử bằng source sau refactor. File đã hoàn tất được tái sử dụng; lỗi API/contract được lưu rõ, không coi là kết quả thành công. `--limit` là smoke/prefix subset, không đại diện một benchmark cân bằng.
 
-Không có truncation ngầm; context quá dài làm API run lỗi có log. Parent chỉ tìm trong cùng article, trước filtering classification. Mẫu `399:10493` tham chiếu `5338` ở article khác trong train: giữ sample và để parent rỗng, không kéo train vào test.
+Trước khi chạy TEST, đặt model thực và `split: test` trong bản config thí nghiệm, rồi freeze:
 
-## Kết quả và trace
+```powershell
+.\.venv\Scripts\python.exe scripts/freeze_experiment.py --config configs/my-test.yaml --output outputs/my-test.freeze.json
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/my-test.yaml --frozen outputs/my-test.freeze.json
+```
 
-Mỗi thư mục run có:
+Freeze ghi config/source/data fingerprint; evaluator kiểm tra đủ mẫu và đúng manifest trước khi báo điểm. `confidence` không được hiệu chuẩn; cost theo đơn giá cấu hình, không phải hóa đơn provider. Trace có thể chứa nguyên văn dữ liệu đầu vào, nên không tự động publish raw run.
 
-- `manifest.json`: config/source/data fingerprint, sample selection và gold dành cho evaluator.
-- `samples/<hashed-id>.json`: checkpoint atomic, prediction, initial/final reports, plan, deliberation, arbiter, status, usage, model versions.
-- `predictions.jsonl`: export theo thứ tự nguyên bản của split.
-- `raw_calls.jsonl`: request không có key, raw response, lỗi, retry, token usage, timestamp, latency và cache hit.
-- `summary.json`: metric, coverage/synthetic flag, model versions, usage và chi phí ước tính.
+## Cấu trúc repo
 
-Gold chỉ được thêm ở runner/evaluator; engine nhận `ModelInput` chỉ chứa text. Không đưa manifest hoặc annotation metadata vào prompt. Một output directory chỉ nên có **một process ghi**. Cache SQLite lưu response đã validate, gồm raw response để replay có thể audit lại. Cache key gồm dataset hash, split, task, sample, role, stage, protocol, toàn bộ model config, prompt/schema và fingerprint experiment.
+```text
+configs/                  # Detection/classification + single-call controls
+src/
+  engine.py               # Điều phối dialectical hoặc single
+  runner.py               # Chạy, freeze, resume và ghi trace
+  run_classification.py
+  run_detection.py
+  evaluate.py
+  schemas.py              # JSON validation/quote normalization dùng chung
+  labels.py
+  io_utils.py
+  dialectical/
+    debate.py
+    prompts.py
+    schemas.py
+    validation.py
+    fallacy_definitions.py
+  baseline/single.py      # Prompt single-call đối chứng
+  data/                   # Loader và xác minh dữ liệu
+  llm/                    # Client, transport, mock, cache, usage
+scripts/                  # Prepare/verify/freeze và smoke offline
+tests/                    # Test agent, grounding, runner, client, baseline
+docs/                     # Chi tiết policy, provenance và bản I/O độc lập
+```
 
-Trong Cross-Examination, examiner đặt câu hỏi và reflection; prediction trong `final_agents` của examiner vẫn là initial prediction. Dùng transcript để phân tích đóng góp examiner, không coi giá trị này là một lần bỏ phiếu lại. Explanation là tóm tắt ngắn dựa trên text, không phải truy xuất suy nghĩ nội bộ của model.
+`outputs/`, `cache/`, `reports/`, `scratch/`, dataset và `.env` là artifact local được Git bỏ qua. README chứa đầy đủ bài toán và I/O bên dưới; [bản riêng](docs/DIALECTICAL_TASK_AND_AGENT_IO.vi.md) dùng để chia sẻ.
 
-## Mã nguồn
+---
 
-`src/data/` xử lý schema/context/split; `src/llm/` cung cấp transport/cache/retry; `src/prompts.py` định nghĩa role và task; `src/schemas.py` validate; `src/protocols/` chứa ba protocol; `src/engine.py` điều phối; `src/runner.py` chạy/freeze/resume; `src/evaluate.py` metric. `scripts/` có chuẩn bị dữ liệu, verify, freeze và smoke matrix.
+Repo chỉ giữ **flow dialectical đầu tiên**: Prosecutor → Defender → DialecticalArbiter. Các vai trò là những lần gọi cùng model cấu hình, không phải ba model được huấn luyện riêng. Baseline single-call chỉ phục vụ đối chứng.
 
-## Nguồn và giới hạn so sánh
+## 1. Bài toán tổng
 
-[CoCoLoFa paper](https://aclanthology.org/2024.emnlp-main.39/), [CoCoLoFa repo](https://github.com/Crowd-AI-Lab/cocolofa), [PARD paper](https://aclanthology.org/2026.findings-acl.1227/), [PARD repo](https://github.com/zigzag2025/PARD). API format đối chiếu [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) và [Chat Completions](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create).
+Nhận một bình luận dưới bài báo, dùng ngữ cảnh để nhận diện lỗi lập luận và trả nhãn kèm giải thích. Mục tiêu là kiểm tra phản biện có giúp phân loại tốt hơn một LLM gọi trực tiếp hay không, với chi phí bao nhiêu.
 
-`direct_comparison_candidate` chỉ xác nhận các điều kiện kỹ thuật được code kiểm tra; không khẳng định tái tạo bảng paper. Upstream CoCoLoFa không kèm baseline/evaluation code ở commit đã kiểm tra; exact metric implementation và một số chi tiết context không thể xác minh từ code. Prompt/model mới và các adaptation PARD được ghi rõ trong [UPSTREAM_AUDIT.md](docs/UPSTREAM_AUDIT.md). API sampling có thể không deterministic dù temperature=0; dùng snapshot + cache + trace để audit.
+| Task | Tập mẫu | Output |
+|---|---|---|
+| Detection | Tất cả bình luận | `Fallacious` / `Non-Fallacious` |
+| Classification | Chỉ gold-positive | Một trong tám nhãn fallacy |
+
+Classification không cascade từ kết quả detection. Gold dùng để chọn tập/chấm điểm, không đưa vào agent. Đây là đánh giá cách lập luận, không xác minh tính đúng sai của bài báo bằng nguồn bên ngoài.
+
+8 nhãn: Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope.
+
+### Ví dụ tổng
+
+Các ví dụ là **minh họa tự tạo, không phải trace benchmark**. Confidence do model tự báo, chưa được hiệu chuẩn.
+
+Input **X**, mặc định title + comment cha trực tiếp + TARGET:
+
+```json
+{
+  "title": "Debate about book restrictions",
+  "parent_comment": "What policy should the council adopt?",
+  "comment": "We must either ban these books or our whole society will eventually collapse. There is no middle ground."
+}
+```
+
+Output classification hiển thị cho người dùng:
+
+```json
+{
+  "prediction": "False Dilemma",
+  "confidence": 0.84,
+  "content": "The comment forces a choice between banning books and societal collapse, excluding other options."
+}
+```
+
+Cùng input, detection trả `Fallacious`. Không có comment cha thì dùng chuỗi rỗng. Toàn bài báo chỉ được cấp khi chọn `context: article`; mặc định `paper` không cấp toàn bài.
+
+## 2. Flow classification gốc
+
+```mermaid
+flowchart TD
+    X["Bình luận + ngữ cảnh"] --> P["Prosecutor: đề xuất 2 nhãn + quote"]
+    P --> D["Defender: xem xét nhãn chính"]
+    X --> D
+    D --> C["Code kiểm tra quote và cue, chuẩn hóa phản biện"]
+    C --> Q{"Defender đồng ý sau kiểm tra?"}
+    Q -- "Có" --> A["Arbiter xác nhận; code giữ nhãn chính"]
+    Q -- "Không" --> B["Arbiter so sánh 2 lần, đảo thứ tự phương án"]
+    B --> U{"Cả hai lần chọn nhãn thay thế?"}
+    U -- "Có" --> ALT["Chọn nhãn thay thế"]
+    U -- "Không" --> MAIN["Giữ nhãn chính"]
+```
+
+Luật gốc **ưu tiên giữ nhãn chính**. Runner-up của Prosecutor giúp Defender cân nhắc, nhưng không tự động được đưa vào mọi lượt Arbiter; nhánh tranh chấp dùng primary và alternative thực tế của Defender.
+
+### 2.1. Chuẩn bị dữ liệu — code
+
+- **Input:** bản ghi dataset, title, quan hệ comment cha, annotation.
+- **Output:** `ModelInput` có dạng X; giữ gold và metadata ngoài input LLM.
+- Code: `src/data/loader.py`.
+
+### 2.2. Prosecutor — agent đề xuất
+
+- **Input:** X + định nghĩa tám nhãn + prompt vai trò; chưa thấy phản biện.
+- **Output P:** hai nhãn khác nhau, cơ chế lỗi và quote nguyên văn từ TARGET.
+
+```json
+{
+  "has_fallacy_charge": true,
+  "candidate_class": "False Dilemma",
+  "defect_mechanism": "The comment treats banning the books or societal collapse as exhaustive options.",
+  "quote": "We must either ban these books or our whole society will eventually collapse.",
+  "runner_up_class": "Slippery Slope",
+  "runner_up_defect": "The comment also predicts an unsupported severe consequence.",
+  "runner_up_quote": "our whole society will eventually collapse."
+}
+```
+
+### 2.3. Defender — agent phản biện
+
+- **Input:** X + P tại `reports.prosecutor_indictment`.
+- **Nhiệm vụ:** đồng ý với primary hoặc đưa một nhãn thay thế có căn cứ. Không được dùng nhãn không-fallacy cho task classification.
+- **Output D**, ví dụ đồng ý:
+
+```json
+{
+  "concede_charge": true,
+  "alternative_class": "None",
+  "charitable_interpretation": "The explicit denial of a middle ground supports False Dilemma more directly than a consequence-chain reading.",
+  "counter_quote": "There is no middle ground."
+}
+```
+
+Nếu phản đối, `concede_charge` là false và `alternative_class` phải là một nhãn khác. Quote và cơ chế thay thế phải vượt kiểm tra code trước khi chuyển sang tranh chấp.
+
+### 2.4. Validator — code, không phải agent
+
+- **Input:** X, P, D.
+- **Kiểm tra:** schema JSON, nhãn, trích dẫn; các rule cue/grounding/locking của bản gốc.
+- **Output:** D sau kiểm tra/chuẩn hóa. Ví dụ D ở trên vẫn là đồng ý.
+- Code có thể chuyển phản biện thành đồng ý khi alternative/quote không đạt các điều kiện của flow gốc. Vì vậy phải phân biệt response model và kết quả sau rule; rule không bảo đảm ngữ nghĩa đúng.
+- Code: `src/dialectical/schemas.py`, `src/dialectical/validation.py`.
+
+### 2.5. DialecticalArbiter — agent trọng tài
+
+**Nhánh đồng ý:** nhận X và phần reports sau:
+
+```json
+{
+  "comment": "We must either ban these books or our whole society will eventually collapse. There is no middle ground.",
+  "candidate": {
+    "class": "False Dilemma",
+    "quote": "We must either ban these books or our whole society will eventually collapse."
+  }
+}
+```
+
+Sample output:
+
+```json
+{
+  "prediction": "False Dilemma",
+  "confidence": 0.84,
+  "content": "The statement explicitly excludes a middle ground."
+}
+```
+
+Sau call xác nhận, code gốc giữ `candidate_class` ngay cả khi Arbiter trả nhãn khác.
+
+**Nhánh tranh chấp:** nhận X và hai phương án dưới dạng `option_1`, `option_2`, mỗi phương án có `class`, `quote`. Gọi hai lần với thứ tự đảo nhau. Mỗi call chỉ được chọn một trong hai nhãn, output có `prediction`, `confidence`, `content`.
+
+Ví dụ bộ tổng hợp nhận:
+
+```json
+{
+  "primary": "False Dilemma",
+  "alternative": "Slippery Slope",
+  "run_a": "Slippery Slope",
+  "run_b": "False Dilemma",
+  "final_prediction": "False Dilemma"
+}
+```
+
+Đây là **minh họa input/output của luật tổng hợp**, không phải schema response của một agent. Vì hai lượt không cùng chọn alternative nên giữ primary. Hai thứ tự cùng dùng một model, không phải đồng thuận giữa hai model độc lập.
+
+### 2.6. Điều phối, lưu trace và đánh giá — code
+
+| Module | Input | Output |
+|---|---|---|
+| Engine | X + task + model config | Trace có prediction, Prosecutor, Defender, Arbiter, stop_reason, thời gian |
+| Client | System prompt + user payload + schema | Response JSON, usage, cache và audit; retry lỗi theo cấu hình |
+| Bộ tổng hợp | Hai prediction của Arbiter khi tranh chấp | Chỉ đổi sang alternative nếu cả hai lượt chọn alternative |
+| Scorer | Prediction + gold ngoài model | Accuracy, macro-F1, confusion matrix và thống kê từng nhãn |
+
+Mỗi call LLM có payload chung gồm `input`, `reports`, `history`, `instruction`, `question`, `plan`; history rỗng và plan null trong flow này. Không có agent planner. Các trường trace lịch sử `planner_protocol`/`plan` được giữ để tương thích định dạng lưu kết quả.
+
+## 3. Detection và số call
+
+Detection dùng cùng ba vai trò nhưng không bắt buộc chọn một nhãn fallacy:
+
+- Prosecutor không tìm được lỗi: `has_fallacy_charge: false`, `candidate_class: "None"`, không có các trường runner-up. Code tạo Defender placeholder, rồi gọi Arbiter → **2 call**.
+- Có buộc tội: Prosecutor → Defender → Arbiter → **3 call**. Defender không có `alternative_class`; Arbiter trả `Fallacious`/`Non-Fallacious`.
+- Classification: nhánh đồng ý **3 call**, tranh chấp **4 call**, chưa tính retry.
+- Baseline single: **1 call** cho mỗi task. Đây là đối chứng, không phải policy debate thứ hai.
+
+## 4. Paper chính
+
+1. [CoCoLoFa — Yeh, Wan & Huang, EMNLP 2024](https://aclanthology.org/2024.emnlp-main.39/): dataset và thiết lập hai task đang dùng.
+2. [Logical Fallacy Detection — Jin et al., Findings EMNLP 2022](https://aclanthology.org/2022.findings-emnlp.532/): nền tảng LOGIC/LOGICCLIMATE và cấu trúc lập luận.
+3. [Boosting Logical Fallacy Reasoning in LLMs via Logical Structure Tree — Lei & Huang, EMNLP 2024](https://aclanthology.org/2024.emnlp-main.730/): hướng khai thác cấu trúc logic; repo này không triển khai LST.
+4. [Improving Factuality and Reasoning in Language Models through Multiagent Debate — Du et al., ICML 2024](https://arxiv.org/abs/2305.14325): nền tảng nhiều instance LLM trao đổi và phản biện.
+5. [Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate — Liang et al.](https://arxiv.org/abs/2305.19118): tranh luận đối lập và judge.
+6. [PARD: Deconstruct, Diagnose, and Deliberate, Findings ACL 2026](https://aclanthology.org/2026.findings-acl.1227/): nguồn cảm hứng ban đầu; flow này không phải reproduction đầy đủ của PARD.
+
+## 5. Code và giới hạn
+
+- Điều phối: `src/engine.py`; thuật toán gốc: `src/dialectical/debate.py`.
+- Prompt: `src/dialectical/prompts.py`; contract: `src/dialectical/schemas.py`.
+- Quote/cue rules: `src/dialectical/validation.py`; định nghĩa: `src/dialectical/fallacy_definitions.py`.
+- Single baseline: `src/baseline/single.py`.
+
+Giới hạn: primary được ưu tiên theo luật gốc; cue/quote rules có thể chặn một cách diễn giải hợp lý; lời giải thích của model không bảo đảm đúng; nhiều call tốn chi phí và chịu lỗi dịch vụ. Ví dụ/smoke không phải benchmark. Gold-positive classification buộc chọn nhãn dù một số mẫu có thể mơ hồ. Không có web retrieval, huấn luyện, RL, graph hay GEPA trong flow chạy.

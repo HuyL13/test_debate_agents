@@ -18,7 +18,7 @@ def config(tmp_path):
              'comment': 'Only these two choices exist.'}]}]
         (data_dir / f'{split}.json').write_text(json.dumps(articles), encoding='utf-8')
     return {'task': 'detection', 'data_dir': str(data_dir), 'split': 'dev', 'context': 'paper',
-            'engine': {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 2, 'early_stop': True},
+            'engine': {'mode': 'adaptive', 'adaptive_policy': 'adversarial'},
             'model': {'name': 'fixture', 'provider': 'mock'}, 'output_dir': str(tmp_path / 'run'),
             'cache_dir': str(tmp_path / 'cache')}
 
@@ -63,7 +63,7 @@ def test_test_split_requires_frozen_matching_experiment(config, tmp_path):
     path = tmp_path / 'frozen.json'
     freeze(config, path)
     assert execute(config, frozen=path)['status'] == 'complete'
-    config['engine']['max_rounds'] = 3
+    config['engine']['use_patterns'] = False
     with pytest.raises(ValueError, match='frozen'):
         execute(config, frozen=path, resume=True)
 
@@ -166,12 +166,12 @@ def test_interior_audit_corruption_is_rejected(config):
         execute(config, resume=True)
 
 
-def test_cli_model_override(tmp_path, monkeypatch):
+def test_cli_model_override(tmp_path, monkeypatch, config):
     import yaml
-    from src.runner import cli, ROOT
+    from src.runner import cli
     cfg_path = tmp_path / 'cfg.yaml'
-    cfg = {'task': 'detection', 'data_dir': str((ROOT / 'data' / 'cocolofa').resolve()), 'split': 'dev', 'context': 'paper',
-           'engine': {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 1, 'early_stop': True, 'flow': None},
+    cfg = {'task': 'detection', 'data_dir': config['data_dir'], 'split': 'dev', 'context': 'paper',
+           'engine': {'mode': 'adaptive', 'adaptive_policy': 'adversarial'},
            'model': {'provider': 'mock', 'name': 'base-mock'}, 'output_dir': str(tmp_path / 'out'),
            'cache_dir': str(tmp_path / 'cache')}
     cfg_path.write_text(yaml.safe_dump(cfg), encoding='utf-8')

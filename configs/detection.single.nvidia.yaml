@@ -1,0 +1,21 @@
+task: detection
+data_dir: data/cocolofa
+split: dev
+context: paper
+engine:
+  mode: single
+  adaptive_policy: adversarial
+  use_patterns: true
+model:
+  provider: openai_compatible
+  name: SET_MODEL_SNAPSHOT
+  base_url: https://integrate.api.nvidia.com/v1
+  api_key_env: NVIDIA_API_KEY
+  temperature: 0
+  max_completion_tokens: 4096
+  timeout_seconds: 300
+  max_attempts: 3
+  backoff_seconds: 1
+  structured_output: true
+output_dir: outputs/detection-single-dev
+cache_dir: cache

@@ -2,14 +2,19 @@
 
 import pytest
 
-from src.adversarial_prompts import adversarial_system_prompt
-from src.adversarial_schemas import (
+from src.dialectical.prompts import adversarial_system_prompt
+from src.dialectical.schemas import (
+    prosecutor_schema,
+    defender_schema,
+    dialectical_arbiter_schema,
     validate_prosecutor,
     validate_defender,
     validate_dialectical_arbiter,
 )
+from src.dialectical.debate import execute as execute_adversarial
 from src.engine import Engine
 from src.data.loader import ModelInput
+from src.labels import FALLACIES
 
 
 class MockScriptedLLM:
@@ -357,7 +362,7 @@ def test_adversarial_classification_execution_agreed():
 
 
 def test_fallacy_cues_and_defender_validator():
-    from src.fallacy_cues import (
+    from src.dialectical.validation import (
         has_class_cue,
         is_cue_locked,
         validate_and_normalize_defender,

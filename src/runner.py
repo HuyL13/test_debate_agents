@@ -15,7 +15,7 @@ from src.engine import Engine
 from src.evaluate import score
 from src.io_utils import digest, file_hash, read_jsonl, recover_audit_tail, write_json
 from src.labels import labels_for
-from src.llm.client import Client, ModelConfig, accumulate_usage, estimate_cost
+from src.llm.client import Client, ModelConfig
 
 ROOT = Path(__file__).resolve().parents[1]
 try:
@@ -25,8 +25,7 @@ try:
 except ImportError:
     pass
 CONFIG_KEYS = {'task', 'data_dir', 'split', 'context', 'engine', 'model', 'output_dir', 'cache_dir'}
-ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True,
-                   'adaptive_policy': 'planner', 'flow': None, 'use_patterns': False}
+ENGINE_DEFAULTS = {'mode': 'adaptive', 'adaptive_policy': 'adversarial', 'use_patterns': True}
 
 
 def validate_config(config):
@@ -38,8 +37,6 @@ def validate_config(config):
     if not isinstance(config['engine'], dict) or set(config['engine']) - set(ENGINE_DEFAULTS):
         raise ValueError('Unknown engine option')
     engine = {**ENGINE_DEFAULTS, **config['engine']}
-    if type(engine['early_stop']) is not bool:
-        raise ValueError('early_stop must be boolean')
     if type(engine['use_patterns']) is not bool:
         raise ValueError('use_patterns must be boolean')
     Engine(None, task=config['task'], **engine)
@@ -110,6 +107,7 @@ def _audit_usage(directory, model_config):
              'total_tokens': 0, 'provider_cached_tokens': 0, 'missing_usage_responses': 0}
     models = set()
     usage['missing_usage_responses'] = len(list(Path(directory).glob('raw_calls.interrupted.*.bin')))
+    from src.llm.client import accumulate_usage, estimate_cost
     if path.exists():
         for event in read_jsonl(path):
             response = event.get('response', {})
@@ -271,18 +269,17 @@ def execute(config, *, limit=None, resume=False, frozen=None):
 
 def cli(task):
     parser = argparse.ArgumentParser(description=f'Run CoCoLoFa {task}')
-    parser.add_argument('--config', default=f'configs/{task}.yaml')
+    parser.add_argument('--config', default=f'configs/{task}.nvidia.yaml')
     parser.add_argument('--limit', type=int)
     parser.add_argument('--split', choices=('train', 'dev', 'test'))
     parser.add_argument('--output')
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--mock', action='store_true', help='Offline plumbing test; never a real benchmark')
     parser.add_argument('--frozen')
-    parser.add_argument('--mode', choices=('single', 'no_deliberation', 'fixed', 'adaptive'))
-    parser.add_argument('--protocol', choices=('round_robin', 'point_counterpoint', 'cross_examination'))
+    parser.add_argument('--mode', choices=('single','adaptive'))
     parser.add_argument('--model', help='Model identifier to override in config (e.g. meta/llama-3.3-70b-instruct)')
-    parser.add_argument('--base-url', help='Base URL to override model endpoint (e.g. https://mkp-api.fptcloud.com/v1)')
-    parser.add_argument('--api-key-env', help='Environment variable holding the API key (e.g. MARKET_API_KEY)')
+    parser.add_argument('--base-url', help='OpenAI-compatible endpoint override')
+    parser.add_argument('--api-key-env', help='API key environment variable name')
     parser.add_argument('--use-patterns', dest='use_patterns', action='store_true', default=None,
                         help='Enable ArgMining 2026 enriched fallacy patterns in prompts')
     parser.add_argument('--no-patterns', dest='use_patterns', action='store_false',
@@ -294,7 +291,7 @@ def cli(task):
             raise ValueError('Config task does not match runner')
         if args.mock:
             config['model'].update(provider='mock', name='offline-mock-v1')
-        elif config['model']['name'] == 'SET_MODEL_SNAPSHOT':
+        elif config['model']['name'] == 'SET_MODEL_SNAPSHOT' and not args.model:
             raise ValueError('Set model.name in the YAML to your accessible API model snapshot')
         if args.model:
             config['model']['name'] = args.model
@@ -307,7 +304,7 @@ def cli(task):
                 config[field] = getattr(args, field)
         if args.output:
             config['output_dir'] = str(Path(args.output).resolve())
-        for field in ('mode', 'protocol'):
+        for field in ('mode',):
             if getattr(args, field):
                 config['engine'][field] = getattr(args, field)
         if args.use_patterns is not None:
