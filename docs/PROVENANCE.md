@@ -14,4 +14,4 @@ README không công bố các điểm smoke hoặc kết quả từ tập đã d
 
 ## Input không chứa nhãn
 
-`ModelInput` chỉ cấp title, target và comment cha; toàn bài báo là tùy chọn. Gold dùng để chọn tập classification và chấm điểm, không được truyền vào agent. Classification không cascade từ dự đoán detection.
+`ModelInput` chỉ cấp title, target và comment cha; toàn bài báo là tùy chọn. Gold dùng để chọn tập classification và chấm điểm, không được truyền vào agent. Mỗi mẫu classification đã được dataset xác nhận thuộc một trong tám lớp, nhưng nhãn đúng cụ thể không được cấp cho LLM.
