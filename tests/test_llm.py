@@ -270,3 +270,34 @@ def test_bullet_point_kv_fallback(tmp_path):
     assert result['prediction'] == 'Appeal to Nature'
     assert result['confidence'] == 0.75
 
+
+
+def test_wrapped_defender_response_retries_missing_quote_then_accepts(tmp_path):
+    from src.adversarial_schemas import defender_schema, validate_defender
+    incomplete = {'concede_charge': True, 'alternative_class': 'None',
+                  'charitable_interpretation': 'Candidate survives comparison.'}
+    complete = {**incomplete, 'counter_quote': ''}
+    transport = Transport([envelope(json.dumps({'response': incomplete})),
+                           envelope(json.dumps({'response': complete}))])
+    client = make_client(tmp_path, transport, max_attempts=2)
+    result = client.generate(system_prompt='Review classification.', user_prompt='target',
+                             schema=defender_schema('classification'), metadata={},
+                             validator=lambda v: validate_defender(v, 'target', 'classification'))
+    assert result == complete
+    assert len(transport.requests) == 2
+    assert 'counter_quote' in transport.requests[1]['messages'][-1]['content']
+    logs = [json.loads(line) for line in (tmp_path / 'raw.jsonl').read_text().splitlines()]
+    assert logs[0]['valid'] is False
+    assert logs[1]['valid'] is True
+
+
+def test_wrapped_defender_hallucinated_quote_still_rejected(tmp_path):
+    from src.adversarial_schemas import defender_schema, validate_defender
+    report = {'concede_charge': False, 'alternative_class': 'False Dilemma',
+              'counter_quote': 'invented evidence', 'charitable_interpretation': 'Forced binary.'}
+    client = make_client(tmp_path, Transport([envelope(json.dumps({'response': report}))]),
+                         max_attempts=1)
+    with pytest.raises(ValueError, match='verbatim substring'):
+        client.generate(system_prompt='Review.', user_prompt='target',
+                        schema=defender_schema('classification'), metadata={},
+                        validator=lambda v: validate_defender(v, 'target', 'classification'))

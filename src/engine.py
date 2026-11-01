@@ -19,7 +19,7 @@ from src import simplified
 
 class Engine:
     def __init__(self, llm, *, task, mode='adaptive', protocol='round_robin', max_rounds=3, early_stop=True,
-                 adaptive_policy='planner', flow=None, use_patterns=False):
+                 adaptive_policy='planner', flow=None, use_patterns=False, defender_policy='diagnostic_v1'):
         labels_for(task)
         if mode not in ('single', 'no_deliberation', 'fixed', 'adaptive'):
             raise ValueError('Unknown engine mode')
@@ -38,6 +38,13 @@ class Engine:
             raise ValueError('flow must be A or B')
         if flow and (mode not in ('no_deliberation', 'adaptive', 'fixed') or adaptive_policy != 'planner'):
             raise ValueError('Simplified flows require no_deliberation, fixed, or adaptive planner')
+        if defender_policy not in ('diagnostic_v1', 'evidence_v2'):
+            raise ValueError('Unknown defender_policy')
+        if defender_policy == 'evidence_v2' and (
+            task != 'classification' or mode != 'adaptive' or adaptive_policy != 'adversarial' or flow
+        ):
+            raise ValueError('defender_policy evidence_v2 requires classification adaptive adversarial')
+        self.defender_policy = defender_policy
         self.flow = flow
 
     def run(self, model_input: ModelInput, metadata):
@@ -60,6 +67,9 @@ class Engine:
             adv_role = role in ('Prosecutor', 'Defender', 'DialecticalArbiter')
             if adv_role:
                 selected_system_prompt = adversarial_system_prompt(role, self.task, use_patterns=self.use_patterns)
+                if role == 'Defender' and self.defender_policy == 'evidence_v2':
+                    from src.defender_review import defender_v2_system_prompt
+                    selected_system_prompt = defender_v2_system_prompt()
             elif ars_role:
                 selected_system_prompt = ars_system_prompt(role, self.task, use_patterns=self.use_patterns)
             elif self.flow:
@@ -77,7 +87,7 @@ class Engine:
         if self.mode == 'adaptive' and self.adaptive_policy == 'adversarial':
             selected_protocol = 'adversarial'
             prosecutor, defender, arbiter, reason = execute_adversarial(
-                ask, model_input, self.task, use_patterns=self.use_patterns
+                ask, model_input, self.task, use_patterns=self.use_patterns, defender_policy=self.defender_policy
             )
             return {
                 'framework': 'adversarial',
@@ -86,6 +96,10 @@ class Engine:
                 'plan': None,
                 'prosecutor': prosecutor,
                 'defender': defender,
+                **({'defender_review': defender['raw_report'],
+                    'defender_effective': {k: defender[k] for k in ('concede_charge', 'alternative_class', 'counter_quote', 'charitable_interpretation')},
+                    'defender_validation': defender['validation']}
+                   if self.defender_policy == 'evidence_v2' else {}),
                 'initial_agents': {'Prosecutor': prosecutor},
                 'deliberation': [{'round': 0, 'role': 'Defender', **defender}],
                 'final_agents': {'Prosecutor': prosecutor, 'Defender': defender},

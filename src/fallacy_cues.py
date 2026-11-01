@@ -5,8 +5,10 @@ Used to validate quotes, filter rhetorical hallucinations, and enforce cue locki
 """
 
 import re
+from copy import deepcopy
 from typing import Any, Dict
 from src.schemas import _normalize_quote_text
+from src.adversarial_schemas import validate_defender
 
 # Structural Cue Patterns compiled from argumentation literature & train.json
 # Note: dev split is strictly excluded to prevent data leakage.
@@ -163,93 +165,44 @@ def validate_and_normalize_defender(
     defender: Dict[str, Any],
     comment: str,
 ) -> Dict[str, Any]:
-    """Validate and normalize Defender plea before Arbiter adjudication.
+    """Validate grounded evidence; lexical cues are advisory, not label vetoes.
 
-    Rules:
-    1. If alt == candidate -> concede_charge = True, alternative_class = 'None'.
-    2. If concede_charge is True -> alternative_class = 'None'.
-    3. counter_quote must be a non-empty substring of comment.
-    4. counter_quote must NOT be identical to candidate quote.
-    5. counter_quote must have length >= 3 words (or entire comment length if comment < 3 words).
-    6. counter_quote must contain the structural cue for alternative_class.
-    7. If Candidate has a locked structural cue (e.g. Authority, Tradition, Worse Problems)
-       and Defender offers vague SS/HG without required cue, nullify flip.
-
-    Returns the normalized defender dictionary.
+    Preserve the submitted report and explanation separately from normalization.
+    Invalid labels/quotes raise for the existing retry mechanism instead of
+    silently converting an invalid challenge into agreement with Prosecutor.
     """
-    normalized = dict(defender)
+    raw_report = deepcopy(defender)
+    normalized = deepcopy(defender)
+    validate_defender(normalized, comment, 'classification')
     cand_class = prosecutor.get('candidate_class', '')
     cand_quote = prosecutor.get('quote', '')
     alt_class = normalized.get('alternative_class', 'None')
-    concede = normalized.get('concede_charge', False)
     counter_quote = normalized.get('counter_quote', '')
+    diagnostics = {
+        'policy': 'diagnostic_v1',
+        'normalization_reason': None,
+        'cue_found': None,
+        'shared_quote': False,
+        'warnings': [],
+    }
 
-    # Rule 1: alt == candidate -> concede
-    if alt_class == cand_class:
+    if normalized['concede_charge']:
+        diagnostics['normalization_reason'] = 'explicit_concession'
+    elif alt_class == cand_class:
         normalized['concede_charge'] = True
         normalized['alternative_class'] = 'None'
-        normalized['charitable_interpretation'] = (
-            f"Defender concurs with Prosecutor candidate class '{cand_class}'."
+        diagnostics['normalization_reason'] = 'same_class'
+    else:
+        diagnostics['shared_quote'] = (
+            _normalize_quote_text(counter_quote).casefold()
+            == _normalize_quote_text(cand_quote).casefold()
         )
-        return normalized
+        diagnostics['cue_found'] = has_class_cue(alt_class, counter_quote)
+        if not diagnostics['cue_found']:
+            diagnostics['warnings'].append('missing_lexical_cue')
+        if len(counter_quote.split()) < min(3, len(comment.split())):
+            diagnostics['warnings'].append('short_quote')
 
-    # Rule 2: Already conceding
-    if concede or alt_class == 'None':
-        normalized['concede_charge'] = True
-        normalized['alternative_class'] = 'None'
-        return normalized
-
-    # Rule 3: Substring check
-    norm_c_quote = _normalize_quote_text(counter_quote).casefold()
-    norm_comment = _normalize_quote_text(comment).casefold()
-    if not norm_c_quote or norm_c_quote not in norm_comment:
-        normalized['concede_charge'] = True
-        normalized['alternative_class'] = 'None'
-        normalized['charitable_interpretation'] = (
-            "Defender counter_quote was not found in target comment. Flip nullified."
-        )
-        return normalized
-
-    # Rule 4: Non-identical to candidate quote
-    norm_cand_quote = _normalize_quote_text(cand_quote).casefold()
-    if norm_c_quote == norm_cand_quote:
-        normalized['concede_charge'] = True
-        normalized['alternative_class'] = 'None'
-        normalized['charitable_interpretation'] = (
-            "Defender counter_quote is identical to Prosecutor candidate quote. Flip nullified."
-        )
-        return normalized
-
-    # Rule 5: Word length check (>= 3 words or full comment length)
-    quote_words = counter_quote.strip().split()
-    comment_words = comment.strip().split()
-    min_len = min(3, len(comment_words))
-    if len(quote_words) < min_len:
-        normalized['concede_charge'] = True
-        normalized['alternative_class'] = 'None'
-        normalized['charitable_interpretation'] = (
-            f"Defender counter_quote too short ({len(quote_words)} words < {min_len}). Flip nullified."
-        )
-        return normalized
-
-    # Rule 6: Structural cue check for alternative_class
-    if not has_class_cue(alt_class, counter_quote):
-        normalized['concede_charge'] = True
-        normalized['alternative_class'] = 'None'
-        normalized['charitable_interpretation'] = (
-            f"Defender counter_quote lacks required structural cue for '{alt_class}'. Flip nullified."
-        )
-        return normalized
-
-    # Rule 7: Cue locking protection
-    if is_cue_locked(cand_class, cand_quote):
-        if alt_class in ('Slippery Slope', 'Hasty Generalization') and not has_class_cue(alt_class, counter_quote):
-            normalized['concede_charge'] = True
-            normalized['alternative_class'] = 'None'
-            normalized['charitable_interpretation'] = (
-                f"Candidate '{cand_class}' has verified structural anchor. "
-                f"Defender alternative '{alt_class}' lacks sufficient countervailing evidence. Flip nullified."
-            )
-            return normalized
-
+    normalized['raw_report'] = raw_report
+    normalized['validation'] = diagnostics
     return normalized

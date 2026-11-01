@@ -13,7 +13,6 @@ from src.adversarial_schemas import (
     validate_arbiter_pairwise,
 )
 from src.fallacy_cues import validate_and_normalize_defender
-from src.schemas import _normalize_quote_text
 
 
 def execute(
@@ -21,6 +20,7 @@ def execute(
     model_input: ModelInput,
     task: str,
     use_patterns: bool = True,
+    defender_policy: str = 'diagnostic_v1',
 ) -> Tuple[Dict[str, Any], Dict[str, Any], Dict[str, Any], str]:
     """Execute the adversarial debate pipeline for detection or classification.
 
@@ -42,34 +42,35 @@ def execute(
             validator=lambda val: validate_prosecutor(val, model_input.comment, 'classification'),
         )
 
-        def _validate_defender_plea(val):
-            cand_q = prosecutor.get('quote', '')
-            c_q = val.get('counter_quote', '')
-            if val.get('alternative_class') in ('None', prosecutor.get('candidate_class')) and not val.get('concede_charge'):
-                if c_q and cand_q and _normalize_quote_text(c_q).casefold() == _normalize_quote_text(cand_q).casefold():
-                    val['concede_charge'] = True
-                    val['alternative_class'] = 'None'
-            validate_defender(val, model_input, 'classification')
+        if defender_policy == 'evidence_v2':
+            from src.adversarial_schemas import defender_review_schema
+            from src.defender_review import validate_defender_review, normalize_defender_review
+            review = ask(
+                'Defender', 'plea', {'prosecutor_indictment': prosecutor}, [],
+                'Audit candidate conditions and main inference before considering a replacement. '
+                'Return the complete evidence-review JSON. Use defer when primacy is unresolved.',
+                schema=defender_review_schema(),
+                validator=lambda val: validate_defender_review(val, model_input.comment),
+            )
+            defender = normalize_defender_review(prosecutor, review, model_input.comment)
+        else:
+            # Stage 2: Defender Competing Class Advocacy
+            defender = ask(
+                'Defender',
+                'plea',
+                {'prosecutor_indictment': prosecutor},
+                [],
+                'Evaluate the Prosecutor indictment against target comment and context. '
+                'Reconstruct premise and conclusion, audit the candidate conditions, and compare the runner-up using the same standard. '
+                'Explain the decisive structural difference. Challenge only for a better-supported diagnosis; otherwise concede after comparison. '
+                'IMPORTANT: If concede_charge=false, alternative_class MUST be chosen strictly from the 8 CoCoLoFa classes: '
+                'Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope.',
+                schema=defender_schema('classification'),
+                validator=lambda val: validate_defender(val, model_input, 'classification'),
+            )
 
-        # Stage 2: Defender Competing Class Advocacy
-        defender = ask(
-            'Defender',
-            'plea',
-            {'prosecutor_indictment': prosecutor},
-            [],
-            'Evaluate the Prosecutor indictment against target comment and context. '
-            'If the Prosecutor correctly identified an Appeal, False Dilemma, or Slippery Slope with a valid quote, set concede_charge=true. '
-            'Do NOT default to Hasty Generalization. If a competing class has genuine structural evidence, steelman it with a verbatim quote. '
-            'IMPORTANT: If concede_charge=false, alternative_class MUST be chosen strictly from the 8 CoCoLoFa classes: '
-            'Appeal to Authority, Appeal to Majority, Appeal to Nature, Appeal to Tradition, Appeal to Worse Problems, False Dilemma, Hasty Generalization, Slippery Slope.',
-            schema=defender_schema('classification'),
-            validator=_validate_defender_plea,
-        )
-
-        # Code-level Validator before Arbiter:
-        # Enforces: alt == candidate -> concede; quote substring, non-identical, length >= 5;
-        # structural cue match; cue-locking protection.
-        defender = validate_and_normalize_defender(prosecutor, defender, model_input.comment)
+            # Validate target evidence, preserve the submitted report, and record advisory cues.
+            defender = validate_and_normalize_defender(prosecutor, defender, model_input.comment)
 
         cand_class = prosecutor.get('candidate_class')
         cand_quote = prosecutor.get('quote')

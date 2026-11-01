@@ -387,6 +387,7 @@ def test_fallacy_cues_and_defender_validator():
 
     # Case A: alt == candidate -> concede
     def_same = {
+        'charitable_interpretation': 'Compare the candidate and alternative mechanisms.',
         'concede_charge': False,
         'alternative_class': 'Appeal to Authority',
         'counter_quote': 'confirmed the vaccine formula is unstable',
@@ -395,35 +396,39 @@ def test_fallacy_cues_and_defender_validator():
     assert norm_same['concede_charge'] is True
     assert norm_same['alternative_class'] == 'None'
 
-    # Case B: identical quote -> concede
+    # Case B: a different diagnosis may use the same quote
     def_ident = {
+        'charitable_interpretation': 'Compare the candidate and alternative mechanisms.',
         'concede_charge': False,
         'alternative_class': 'Slippery Slope',
         'counter_quote': 'Dr. Katherine Wood confirmed the vaccine formula is unstable',
     }
     norm_ident = validate_and_normalize_defender(prosecutor, def_ident, comment)
-    assert norm_ident['concede_charge'] is True
-    assert norm_ident['alternative_class'] == 'None'
+    assert norm_ident['concede_charge'] is False
+    assert norm_ident['alternative_class'] == 'Slippery Slope'
+    assert norm_ident['validation']['shared_quote'] is True
 
-    # Case C: short quote (< 3 words) -> concede
+    # Case C: short grounded quotes produce an advisory warning
     comment_short = 'Dr. Katherine Wood confirmed the formula. Too short.'
     def_short = {
+        'charitable_interpretation': 'Compare the candidate and alternative mechanisms.',
         'concede_charge': False,
         'alternative_class': 'Slippery Slope',
         'counter_quote': 'Too short',
     }
     norm_short = validate_and_normalize_defender(prosecutor, def_short, comment_short)
-    assert norm_short['concede_charge'] is True
-    assert norm_short['alternative_class'] == 'None'
+    assert norm_short['concede_charge'] is False
+    assert 'short_quote' in norm_short['validation']['warnings']
 
-    # Case D: quote lacking alternative cue -> concede
+    # Case D: missing lexical cues cannot veto the alternative
     comment_long = 'Dr. Wood said it is safe. Today is Tuesday and the sky is blue outside.'
     def_no_cue = {
+        'charitable_interpretation': 'Compare the candidate and alternative mechanisms.',
         'concede_charge': False,
         'alternative_class': 'Appeal to Tradition',
         'counter_quote': 'Today is Tuesday and the sky is blue',
     }
     norm_no_cue = validate_and_normalize_defender(prosecutor, def_no_cue, comment_long)
-    assert norm_no_cue['concede_charge'] is True
-    assert norm_no_cue['alternative_class'] == 'None'
+    assert norm_no_cue['concede_charge'] is False
+    assert 'missing_lexical_cue' in norm_no_cue['validation']['warnings']
 

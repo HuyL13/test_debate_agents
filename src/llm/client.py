@@ -50,6 +50,10 @@ def estimate_cost(config, usage):
 def _clean_payload(obj):
     if not isinstance(obj, dict):
         return obj
+    # Some compatible models wrap the requested object in a single response key.
+    # Only unwrap the unambiguous envelope; schema/evidence validation still runs.
+    if set(obj) == {'response'} and isinstance(obj['response'], dict):
+        return _clean_payload(obj['response'])
     if 'output' in obj and isinstance(obj['output'], dict):
         return obj['output']
     if 'input' in obj and ('history' in obj or 'instruction' in obj or 'reports' in obj):

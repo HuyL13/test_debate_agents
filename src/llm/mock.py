@@ -105,7 +105,7 @@ class MockTransport:
                      'premise': '', 'conclusion': '', 'defective_inference': '',
                      'strongest_nonfallacious_reading': 'OFFLINE MOCK non-fallacious reading.',
                      'auxiliary_observation': 'OFFLINE MOCK candidate fixture.'}
-        elif 'decision' in properties:
+        elif 'decision' in properties and 'candidate_assessment' not in properties:
             value = {'decision': 'keep', 'diagnosis': 'OFFLINE MOCK review fixture.',
                      'supporting_quote': user['input']['comment'],
                      'response_to_other_diagnoses': 'OFFLINE MOCK response.',
@@ -125,6 +125,17 @@ class MockTransport:
                     value['runner_up_class'] = runners[seed % len(runners)]
                     value['runner_up_defect'] = 'OFFLINE MOCK runner-up defect.'
                     value['runner_up_quote'] = quote
+        elif 'candidate_assessment' in properties:
+            value = {
+                'decision': 'uphold', 'premise_quote': quote, 'conclusion_quote': '',
+                'inference_summary': 'OFFLINE MOCK inference, not semantic analysis.',
+                'candidate_assessment': {'status': 'supported', 'condition': 'OFFLINE fixture condition.',
+                    'evidence_quote': quote, 'explanation': 'OFFLINE fixture supports candidate.'},
+                'alternative_assessment': {'class': 'None', 'status': 'not_established',
+                    'premise_quote': '', 'conclusion_quote': '', 'explanation': 'OFFLINE no competitor.'},
+                'decisive_difference': 'OFFLINE no better competitor.', 'counter_quote': '',
+                'charitable_interpretation': 'OFFLINE MOCK upholds the supplied candidate.',
+            }
         elif 'concede_charge' in properties:
             value = {'concede_charge': True if 'alternative_class' in properties else False,
                      'charitable_interpretation': 'OFFLINE MOCK charitable interpretation.',

@@ -26,7 +26,8 @@ except ImportError:
     pass
 CONFIG_KEYS = {'task', 'data_dir', 'split', 'context', 'engine', 'model', 'output_dir', 'cache_dir'}
 ENGINE_DEFAULTS = {'mode': 'adaptive', 'protocol': 'round_robin', 'max_rounds': 3, 'early_stop': True,
-                   'adaptive_policy': 'planner', 'flow': None, 'use_patterns': False}
+                   'adaptive_policy': 'planner', 'flow': None, 'use_patterns': False,
+                   'defender_policy': 'diagnostic_v1'}
 
 
 def validate_config(config):

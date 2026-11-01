@@ -3,6 +3,8 @@
 
 ---
 
+> **Cập nhật Defender v1 (2026-10-25):** Classification hiện dùng diagnostic review: so sánh candidate/runner-up theo cơ chế suy luận; cho phép quote trùng; regex và độ dài quote chỉ là cảnh báo, không ép nhận thua. Các mô tả Cue Locking/hủy lật án ở bên dưới là cơ chế trước thay đổi này. Prosecutor và Arbiter giữ nguyên. Xem [hướng dẫn thử nghiệm](docs/DEFENDER_V1.md).
+
 ## 1. Bản chất & Mục tiêu Hệ thống
 
 Dự án tập trung vào kiến trúc cốt lõi **Tranh biện Đối kháng Biện chứng (Adversarial Dialectical Debate)** để giải quyết 2 bài toán phân tích lỗi ngụy biện lập luận:

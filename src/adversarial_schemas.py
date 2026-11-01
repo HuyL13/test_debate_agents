@@ -312,3 +312,25 @@ def validate_arbiter_pairwise(value: Any, opt1: str, opt2: str) -> None:
     content = value.get('content')
     if not isinstance(content, str) or not content.strip():
         raise ValueError("Arbiter content must be a non-empty string")
+
+
+def defender_review_schema() -> Dict[str, Any]:
+    """Versioned evidence-review contract; v1 and detection schemas stay unchanged."""
+    def obj(properties):
+        return {'type': 'object', 'additionalProperties': False,
+                'properties': properties, 'required': list(properties)}
+    string = {'type': 'string'}
+    return obj({
+        'decision': {'type': 'string', 'enum': ['uphold', 'challenge', 'defer']},
+        'premise_quote': string, 'conclusion_quote': string, 'inference_summary': string,
+        'candidate_assessment': obj({
+            'status': {'type': 'string', 'enum': ['supported', 'contradicted', 'not_established', 'secondary_mechanism', 'uncertain']},
+            'condition': string, 'evidence_quote': string, 'explanation': string,
+        }),
+        'alternative_assessment': obj({
+            'class': {'type': 'string', 'enum': list(FALLACIES) + ['None']},
+            'status': {'type': 'string', 'enum': ['supported', 'not_established', 'uncertain']},
+            'premise_quote': string, 'conclusion_quote': string, 'explanation': string,
+        }),
+        'decisive_difference': string, 'counter_quote': string, 'charitable_interpretation': string,
+    })
