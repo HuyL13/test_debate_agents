@@ -1,6 +1,8 @@
 # Fallacy classification: bài toán và input/output
 
-Repo chỉ giữ **flow dialectical đầu tiên**: Prosecutor → Defender → DialecticalArbiter. Các vai trò là những lần gọi cùng model cấu hình, không phải ba model được huấn luyện riêng. Baseline single-call chỉ phục vụ đối chứng.
+Hệ thống phân loại lỗi lập luận trong bình luận tin tức thành tám nhãn của **CoCoLoFa**, sử dụng tranh luận giữa các agent LLM. **Prosecutor** đề xuất các nhãn có thể phù hợp, **Defender** kiểm tra và phản biện nhãn chính, **DialecticalArbiter** phân xử giữa các cách diễn giải.
+
+Các agent sử dụng cùng một model với prompt chuyên biệt cho từng vai trò. Phương pháp được so sánh với baseline phân loại trực tiếp bằng một lần gọi LLM.
 
 ## 1. Bài toán classification
 
@@ -63,7 +65,7 @@ Không có comment cha thì dùng chuỗi rỗng. Toàn bài báo chỉ được
 
 Trong ví dụ, cả False Dilemma và Slippery Slope có vẻ liên quan. Kết luận minh họa chọn False Dilemma vì câu khẳng định trực tiếp “không có lựa chọn ở giữa”; không chỉ dựa vào từ “collapse”.
 
-## 2. Flow classification gốc
+## 2. Quy trình phân loại bằng tranh luận
 
 ```mermaid
 flowchart TD
@@ -79,7 +81,7 @@ flowchart TD
     U -- "Không" --> MAIN["Giữ nhãn chính"]
 ```
 
-Luật gốc **ưu tiên giữ nhãn chính**. Runner-up của Prosecutor giúp Defender cân nhắc, nhưng không tự động được đưa vào mọi lượt Arbiter; nhánh tranh chấp dùng primary và alternative thực tế của Defender.
+Quy tắc ra quyết định **ưu tiên giữ nhãn chính** khi phản biện chưa đủ thuyết phục. Runner-up của Prosecutor giúp Defender cân nhắc; nhánh tranh chấp đưa nhãn chính và nhãn thay thế thực tế của Defender vào Arbiter.
 
 ### 2.1. Chuẩn bị dữ liệu — code
 
@@ -145,12 +147,12 @@ Một output phản đối minh họa trên cùng X, để thấy format nhánh 
 ### 2.4. Validator — code, không phải agent
 
 - **Input:** X, P, D.
-- **Kiểm tra:** schema JSON, nhãn, trích dẫn; các rule cue/grounding/locking của bản gốc.
+- **Kiểm tra:** cấu trúc JSON, nhãn hợp lệ, trích dẫn có trong TARGET và các điều kiện về dấu hiệu lập luận.
 - **Output:** D sau kiểm tra/chuẩn hóa. Ví dụ D ở trên vẫn là đồng ý.
-- Code có thể chuyển phản biện thành đồng ý khi alternative/quote không đạt các điều kiện của flow gốc. Vì vậy phải phân biệt response model và kết quả sau rule; rule không bảo đảm ngữ nghĩa đúng.
+- Phản biện không đạt điều kiện được chuẩn hóa thành đồng ý. Khi phân tích lỗi, cần đối chiếu response model với kết quả sau bộ kiểm tra để xác định bước nào ảnh hưởng tới nhãn cuối.
 - Code: `src/dialectical/schemas.py`, `src/dialectical/validation.py`.
 
-Trong code hiện tại, phản biện có thể bị chuyển thành đồng ý nếu alternative trùng primary, quote không đạt grounding, quote giống quote chính, quá ngắn hoặc thiếu cue của alternative. Ngưỡng độ dài quote thực thi là `min(3, số từ TARGET)`. Đây là heuristic của implementation gốc, không phải chứng minh một nhãn đúng hoặc sai.
+Phản biện có thể bị chuyển thành đồng ý nếu nhãn thay thế trùng nhãn chính, quote không nằm trong TARGET, quote giống quote chính, quá ngắn hoặc thiếu dấu hiệu mà bộ lọc yêu cầu cho nhãn thay thế. Ngưỡng độ dài quote là `min(3, số từ TARGET)`. Các điều kiện này là heuristic và cần được xem xét khi đánh giá lỗi phân loại.
 
 ### 2.5. DialecticalArbiter — agent trọng tài
 
@@ -176,7 +178,7 @@ Sample output:
 }
 ```
 
-Sau call xác nhận, code gốc giữ `candidate_class` ngay cả khi Arbiter trả nhãn khác.
+Ở nhánh xác nhận, kết quả cuối giữ `candidate_class` ngay cả khi Arbiter trả nhãn khác.
 
 **Nhánh tranh chấp:** nhận X và hai phương án dưới dạng `option_1`, `option_2`, mỗi phương án có `class`, `quote`. Gọi hai lần với thứ tự đảo nhau. Mỗi call chỉ được chọn một trong hai nhãn, output có `prediction`, `confidence`, `content`.
 
@@ -196,7 +198,7 @@ Ví dụ phần `reports` của lượt A khi alternative là Slippery Slope:
 }
 ```
 
-Lượt B hoán đổi nguyên hai object `option_1` và `option_2`. Arbiter nhận raw input và hai nhãn/quote; flow gốc không chuyển toàn bộ lời giải thích Defender vào hai payload này. Một output của mỗi lượt có cùng dạng JSON ba trường như ví dụ Arbiter ở trên, nhưng `prediction` chỉ được nằm trong cặp đang so sánh.
+Lượt B hoán đổi nguyên hai object `option_1` và `option_2`. Arbiter nhận input ban đầu cùng hai nhãn và quote tương ứng. Mỗi output có cùng dạng JSON ba trường như ví dụ Arbiter ở trên; `prediction` chỉ được nằm trong cặp đang so sánh.
 
 Ví dụ bộ tổng hợp nhận:
 
@@ -221,7 +223,7 @@ Ví dụ bộ tổng hợp nhận:
 | Bộ tổng hợp | Hai prediction của Arbiter khi tranh chấp | Chỉ đổi sang alternative nếu cả hai lượt chọn alternative |
 | Scorer | Prediction + gold ngoài model | Accuracy, macro-F1, confusion matrix và thống kê từng nhãn |
 
-Mỗi call LLM có payload chung gồm `input`, `reports`, `history`, `instruction`, `question`, `plan`; history rỗng và plan null trong flow này. Không có agent planner. Các trường trace lịch sử `planner_protocol`/`plan` được giữ để tương thích định dạng lưu kết quả.
+Mỗi call LLM có payload chung gồm `input`, `reports`, `history`, `instruction`, `question`, `plan`. Trong quy trình này, `history` rỗng và `plan` là null; thông tin giữa các bước được truyền qua `reports`. Trace ghi tên luồng thực thi trong `planner_protocol`.
 
 ## 3. Đánh giá classification và chi phí
 
@@ -265,13 +267,13 @@ Gold trong artifact đánh giá không có nghĩa agent được nhìn thấy go
 3. [Boosting Logical Fallacy Reasoning in LLMs via Logical Structure Tree — Lei & Huang, EMNLP 2024](https://aclanthology.org/2024.emnlp-main.730/): hướng khai thác cấu trúc logic; repo này không triển khai LST.
 4. [Improving Factuality and Reasoning in Language Models through Multiagent Debate — Du et al., ICML 2024](https://arxiv.org/abs/2305.14325): nền tảng nhiều instance LLM trao đổi và phản biện.
 5. [Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate — Liang et al.](https://arxiv.org/abs/2305.19118): tranh luận đối lập và judge.
-6. [PARD: Deconstruct, Diagnose, and Deliberate, Findings ACL 2026](https://aclanthology.org/2026.findings-acl.1227/): nguồn cảm hứng ban đầu; flow này không phải reproduction đầy đủ của PARD.
+6. [PARD: Deconstruct, Diagnose, and Deliberate, Findings ACL 2026](https://aclanthology.org/2026.findings-acl.1227/): tài liệu liên quan về phân vai và điều phối suy luận nhiều agent.
 
 ## 5. Code và giới hạn
 
-- Điều phối: `src/engine.py`; thuật toán gốc: `src/dialectical/debate.py`.
+- Điều phối: `src/engine.py`; quy trình tranh luận: `src/dialectical/debate.py`.
 - Prompt: `src/dialectical/prompts.py`; contract: `src/dialectical/schemas.py`.
 - Quote/cue rules: `src/dialectical/validation.py`; định nghĩa: `src/dialectical/fallacy_definitions.py`.
 - Single baseline: `src/baseline/single.py`.
 
-Giới hạn: primary được ưu tiên theo luật gốc; cue/quote rules có thể chặn một cách diễn giải hợp lý; lời giải thích của model không bảo đảm đúng; nhiều call tốn chi phí và chịu lỗi dịch vụ. Ví dụ/smoke không phải benchmark. Gold-positive classification buộc chọn nhãn dù một số mẫu có thể mơ hồ. Không có web retrieval, huấn luyện, RL, graph hay GEPA trong flow chạy.
+Giới hạn: quy tắc ưu tiên primary và bộ lọc quote/cue có thể chặn một cách diễn giải hợp lý; lời giải thích của model có thể sai; nhiều call làm tăng chi phí và thời gian. Thiết lập một nhãn buộc hệ thống chọn một lớp dù câu có thể mơ hồ. Kết quả smoke dùng mock chỉ xác minh quy trình chạy; hiệu quả phân loại phải được đánh giá trên dữ liệu có nhãn.
