@@ -14,6 +14,10 @@ from src.schemas import validate_output
 
 
 def _check_report(report, target):
+    if 'ranking_reason' in report:
+        from src.aligned_classification import validate_prosecutor as validate_aligned
+        validate_aligned(report, target)
+        return
     validate_output(report, prosecutor_schema('classification'))
     validate_prosecutor(deepcopy(report), target, 'classification')
 
@@ -149,6 +153,11 @@ def prepare(config, snapshot_path, limit=None):
     validate_snapshot(snapshot, {sid:samples[sid].model_input(config['context']) for sid in ids},
         dataset_hash=file_hash(Path(config['data_dir'])/(config['split']+'.json')),
         split=config['split'], context=config['context'])
+    # Reject incompatible contracts before creating a client or making any API call.
+    aligned = config['engine'].get('defender_policy') == 'proposal_1'
+    for record in snapshot['records']:
+        if ('ranking_reason' in record['report']) != aligned:
+            raise ValueError('Snapshot Prosecutor contract does not match selected profile; create a new snapshot')
     if limit is not None and (type(limit) is not int or limit < 1): raise ValueError('limit must be positive')
     ids = ids[:limit] if limit else ids
     body = {'experiment': experiment_identity(config), 'snapshot': snapshot['fingerprint'], 'sample_ids': ids}

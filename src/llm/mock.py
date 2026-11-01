@@ -12,7 +12,13 @@ class MockTransport:
         seed = int(digest(user.get('input', user))[:8], 16)
         comment = user.get('input', {}).get('comment', '')
         quote = comment[:220]
-        if 'protocol' in properties:
+        if 'ranking_reason' in properties or 'option_assessments' in properties or (
+            'candidate_assessment' in properties and
+            'condition_status' in properties['candidate_assessment']['properties']
+        ):
+            from src.llm.proposal_mock import response
+            value = response(schema, user, seed)
+        elif 'protocol' in properties:
             value = {'protocol': ('round_robin', 'cross_examination')[seed % 2],
                      'topic': 'Offline fixture discussion.', 'reason': 'Synthetic route for smoke testing.',
                      'order': ['Factual', 'Logical', 'Contextual'], 'affirmative': ['Factual'],
