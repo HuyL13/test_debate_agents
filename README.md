@@ -2,99 +2,6 @@
 
 Repo chỉ giữ **flow dialectical đầu tiên**: Prosecutor → Defender → DialecticalArbiter. Các vai trò là những lần gọi cùng model cấu hình, không phải ba model được huấn luyện riêng. Baseline single-call chỉ phục vụ đối chứng.
 
-## Chạy nhanh
-
-Yêu cầu Python 3.11+. Từ thư mục repo, trong PowerShell:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe scripts/smoke_test.py
-```
-
-Smoke dùng mock và dữ liệu tự tạo, **không gọi API và không đo năng lực model**. Linux/macOS dùng `.venv/bin/python`.
-
-### Dữ liệu CoCoLoFa
-
-Repo kèm đủ `data/cocolofa/train.json`, `dev.json`, `test.json`, khớp hash phiên bản upstream đã ghim. Có thể kiểm tra trực tiếp bằng `python scripts/verify_dataset.py`. Các lệnh dưới chỉ cần khi muốn lấy lại dữ liệu từ nguồn:
-
-```powershell
-git clone https://github.com/Crowd-AI-Lab/cocolofa.git upstream/cocolofa
-git -C upstream/cocolofa checkout c39d45fdd57401e1f6cb674f25113dfa0304e734
-.\.venv\Scripts\python.exe scripts/prepare_data.py
-.\.venv\Scripts\python.exe scripts/verify_dataset.py
-```
-
-`prepare_data.py` đọc blob Git gốc để tránh thay đổi newline trên Windows. `data/cocolofa/provenance.json` ghi nguồn và hash. Xem [nguồn dữ liệu và refactor](docs/PROVENANCE.md).
-
-### Chạy NVIDIA
-
-Đặt key trong environment; chọn model mà key có quyền truy cập. Các config để `SET_MODEL_SNAPSHOT` nhằm yêu cầu người chạy chọn model rõ ràng. Không có key thật trong config.
-
-```powershell
-$env:NVIDIA_API_KEY = "YOUR_NVIDIA_API_KEY"
-$env:COCOLOFA_MODEL = "YOUR_ACCESSIBLE_NVIDIA_MODEL_ID"
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10
-```
-
-Config mẫu dùng temperature 0, timeout 300 giây. Không có marketplace fallback. Client có thể dùng endpoint tương thích khác nếu người chạy chủ động cấu hình.
-
-| Config | Flow |
-|---|---|
-| `classification.nvidia.yaml` | Flow dialectical gốc |
-| `classification.single.nvidia.yaml` | Baseline classification một call |
-
-### Resume và đánh giá
-
-```powershell
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10 --resume
-.\.venv\Scripts\python.exe -m src.evaluate --predictions outputs/classification-dev/predictions.jsonl
-```
-
-Resume phải dùng đúng config, model, dữ liệu, source và lựa chọn mẫu của lượt cũ. Không resume output lịch sử bằng source sau refactor. File đã hoàn tất được tái sử dụng; lỗi API/contract được lưu rõ, không coi là kết quả thành công. `--limit` là smoke/prefix subset, không đại diện một benchmark cân bằng.
-
-Trước khi chạy TEST, đặt model thực và `split: test` trong bản config thí nghiệm, rồi freeze:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/freeze_experiment.py --config configs/my-test.yaml --output outputs/my-test.freeze.json
-.\.venv\Scripts\python.exe -m src.run_classification --config configs/my-test.yaml --frozen outputs/my-test.freeze.json
-```
-
-Freeze ghi config/source/data fingerprint; evaluator kiểm tra đủ mẫu và đúng manifest trước khi báo điểm. `confidence` không được hiệu chuẩn; cost theo đơn giá cấu hình, không phải hóa đơn provider. Trace có thể chứa nguyên văn dữ liệu đầu vào, nên không tự động publish raw run.
-
-## Cấu trúc phần classification
-
-```text
-configs/                  # Classification và single-call control
-src/
-  engine.py               # Điều phối dialectical hoặc single
-  runner.py               # Chạy, freeze, resume và ghi trace
-  run_classification.py
-  evaluate.py
-  schemas.py              # JSON validation/quote normalization dùng chung
-  labels.py
-  io_utils.py
-  dialectical/
-    debate.py
-    prompts.py
-    schemas.py
-    validation.py
-    fallacy_definitions.py
-  baseline/single.py      # Prompt single-call đối chứng
-  data/                   # Loader và xác minh dữ liệu
-  llm/                    # Client, transport, mock, cache, usage
-scripts/                  # Prepare/verify/freeze và smoke offline
-tests/                    # Test agent, grounding, runner, client, baseline
-docs/                     # Chi tiết policy, provenance và bản I/O độc lập
-```
-
-`outputs/`, `cache/`, `reports/`, `scratch/` và `.env` là artifact local được Git bỏ qua. README chứa đầy đủ bài toán và I/O bên dưới; [bản riêng](docs/DIALECTICAL_TASK_AND_AGENT_IO.vi.md) dùng để chia sẻ.
-
----
-
-Repo chỉ giữ **flow dialectical đầu tiên**: Prosecutor → Defender → DialecticalArbiter. Các vai trò là những lần gọi cùng model cấu hình, không phải ba model được huấn luyện riêng. Baseline single-call chỉ phục vụ đối chứng.
-
 ## 1. Bài toán classification
 
 **Input:** một bình luận đã được bộ dữ liệu gán là có fallacy, kèm ngữ cảnh. **Output:** đúng một trong tám loại fallacy và lời giải thích ngắn dựa vào văn bản. Đây là bài toán **single-label, closed-set, 8 lớp**: không được trả nhãn ngoài taxonomy hoặc nhiều nhãn cùng lúc.
@@ -368,3 +275,94 @@ Gold trong artifact đánh giá không có nghĩa agent được nhìn thấy go
 - Single baseline: `src/baseline/single.py`.
 
 Giới hạn: primary được ưu tiên theo luật gốc; cue/quote rules có thể chặn một cách diễn giải hợp lý; lời giải thích của model không bảo đảm đúng; nhiều call tốn chi phí và chịu lỗi dịch vụ. Ví dụ/smoke không phải benchmark. Gold-positive classification buộc chọn nhãn dù một số mẫu có thể mơ hồ. Không có web retrieval, huấn luyện, RL, graph hay GEPA trong flow chạy.
+
+---
+
+## Chạy nhanh
+
+Yêu cầu Python 3.11+. Từ thư mục repo, trong PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts/smoke_test.py
+```
+
+Smoke dùng mock và dữ liệu tự tạo, **không gọi API và không đo năng lực model**. Linux/macOS dùng `.venv/bin/python`.
+
+### Dữ liệu CoCoLoFa
+
+Repo kèm đủ `data/cocolofa/train.json`, `dev.json`, `test.json`, khớp hash phiên bản upstream đã ghim. Có thể kiểm tra trực tiếp bằng `python scripts/verify_dataset.py`. Các lệnh dưới chỉ cần khi muốn lấy lại dữ liệu từ nguồn:
+
+```powershell
+git clone https://github.com/Crowd-AI-Lab/cocolofa.git upstream/cocolofa
+git -C upstream/cocolofa checkout c39d45fdd57401e1f6cb674f25113dfa0304e734
+.\.venv\Scripts\python.exe scripts/prepare_data.py
+.\.venv\Scripts\python.exe scripts/verify_dataset.py
+```
+
+`prepare_data.py` đọc blob Git gốc để tránh thay đổi newline trên Windows. `data/cocolofa/provenance.json` ghi nguồn và hash. Xem [nguồn dữ liệu và refactor](docs/PROVENANCE.md).
+
+### Chạy NVIDIA
+
+Đặt key trong environment; chọn model mà key có quyền truy cập. Các config để `SET_MODEL_SNAPSHOT` nhằm yêu cầu người chạy chọn model rõ ràng. Không có key thật trong config.
+
+```powershell
+$env:NVIDIA_API_KEY = "YOUR_NVIDIA_API_KEY"
+$env:COCOLOFA_MODEL = "YOUR_ACCESSIBLE_NVIDIA_MODEL_ID"
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10
+```
+
+Config mẫu dùng temperature 0, timeout 300 giây. Không có marketplace fallback. Client có thể dùng endpoint tương thích khác nếu người chạy chủ động cấu hình.
+
+| Config | Flow |
+|---|---|
+| `classification.nvidia.yaml` | Flow dialectical gốc |
+| `classification.single.nvidia.yaml` | Baseline classification một call |
+
+### Resume và đánh giá
+
+```powershell
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/classification.nvidia.yaml --model $env:COCOLOFA_MODEL --limit 10 --resume
+.\.venv\Scripts\python.exe -m src.evaluate --predictions outputs/classification-dev/predictions.jsonl
+```
+
+Resume phải dùng đúng config, model, dữ liệu, source và lựa chọn mẫu của lượt cũ. Không resume output lịch sử bằng source sau refactor. File đã hoàn tất được tái sử dụng; lỗi API/contract được lưu rõ, không coi là kết quả thành công. `--limit` là smoke/prefix subset, không đại diện một benchmark cân bằng.
+
+Trước khi chạy TEST, đặt model thực và `split: test` trong bản config thí nghiệm, rồi freeze:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/freeze_experiment.py --config configs/my-test.yaml --output outputs/my-test.freeze.json
+.\.venv\Scripts\python.exe -m src.run_classification --config configs/my-test.yaml --frozen outputs/my-test.freeze.json
+```
+
+Freeze ghi config/source/data fingerprint; evaluator kiểm tra đủ mẫu và đúng manifest trước khi báo điểm. `confidence` không được hiệu chuẩn; cost theo đơn giá cấu hình, không phải hóa đơn provider. Trace có thể chứa nguyên văn dữ liệu đầu vào, nên không tự động publish raw run.
+
+## Cấu trúc phần classification
+
+```text
+configs/                  # Classification và single-call control
+src/
+  engine.py               # Điều phối dialectical hoặc single
+  runner.py               # Chạy, freeze, resume và ghi trace
+  run_classification.py
+  evaluate.py
+  schemas.py              # JSON validation/quote normalization dùng chung
+  labels.py
+  io_utils.py
+  dialectical/
+    debate.py
+    prompts.py
+    schemas.py
+    validation.py
+    fallacy_definitions.py
+  baseline/single.py      # Prompt single-call đối chứng
+  data/                   # Loader và xác minh dữ liệu
+  llm/                    # Client, transport, mock, cache, usage
+scripts/                  # Prepare/verify/freeze và smoke offline
+tests/                    # Test agent, grounding, runner, client, baseline
+docs/                     # Chi tiết policy, provenance và bản I/O độc lập
+```
+
+`outputs/`, `cache/`, `reports/`, `scratch/` và `.env` là artifact local được Git bỏ qua. README chứa đầy đủ bài toán và I/O bên dưới; [bản riêng](docs/DIALECTICAL_TASK_AND_AGENT_IO.vi.md) dùng để chia sẻ.
