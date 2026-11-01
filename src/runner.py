@@ -179,6 +179,9 @@ def evaluate_run(predictions):
                                                and semantic['context'] == 'paper'
                                                and manifest['experiment']['dataset_hashes'] == PINNED_HASHES))
     result.update(_audit_usage(predictions.parent, semantic['model']))
+    if semantic['engine'].get('defender_policy') == 'proposal_2':
+        from src.game_evaluation import evaluate_game
+        result['game_metrics'] = evaluate_game(rows, total_tokens=result['usage']['total_tokens'])
     return result
 
 

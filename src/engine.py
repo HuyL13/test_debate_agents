@@ -38,9 +38,9 @@ class Engine:
             raise ValueError('flow must be A or B')
         if flow and (mode not in ('no_deliberation', 'adaptive', 'fixed') or adaptive_policy != 'planner'):
             raise ValueError('Simplified flows require no_deliberation, fixed, or adaptive planner')
-        if defender_policy not in ('diagnostic_v1', 'evidence_v2', 'proposal_1'):
+        if defender_policy not in ('diagnostic_v1', 'evidence_v2', 'proposal_1', 'proposal_2'):
             raise ValueError('Unknown defender_policy')
-        if defender_policy in ('evidence_v2', 'proposal_1') and (
+        if defender_policy in ('evidence_v2', 'proposal_1', 'proposal_2') and (
             task != 'classification' or mode != 'adaptive' or adaptive_policy != 'adversarial' or flow
         ):
             raise ValueError('defender_policy requires classification adaptive adversarial')
@@ -67,7 +67,10 @@ class Engine:
             adv_role = role in ('Prosecutor', 'Defender', 'DialecticalArbiter')
             if adv_role:
                 selected_system_prompt = adversarial_system_prompt(role, self.task, use_patterns=self.use_patterns)
-                if self.defender_policy == 'proposal_1':
+                if self.defender_policy == 'proposal_2':
+                    from src.evidence_game import system_prompt as game_prompt
+                    selected_system_prompt = game_prompt(role, schema)
+                elif self.defender_policy == 'proposal_1':
                     from src.aligned_classification import system_prompt as aligned_prompt
                     selected_system_prompt = aligned_prompt(role, schema)
                 elif role == 'Defender' and self.defender_policy == 'evidence_v2':
@@ -89,7 +92,10 @@ class Engine:
         initial, final_agents, history = {}, {}, []
         if self.mode == 'adaptive' and self.adaptive_policy == 'adversarial':
             selected_protocol = 'adversarial'
-            if self.defender_policy == 'proposal_1':
+            if self.defender_policy == 'proposal_2':
+                from src.evidence_game import execute as execute_game
+                prosecutor, defender, arbiter, reason = execute_game(ask, model_input)
+            elif self.defender_policy == 'proposal_1':
                 from src.aligned_classification import execute as execute_aligned
                 prosecutor, defender, arbiter, reason = execute_aligned(ask, model_input)
             else:
@@ -106,7 +112,7 @@ class Engine:
                 **({'defender_review': defender['raw_report'],
                     'defender_effective': {k: defender[k] for k in ('concede_charge', 'alternative_class', 'counter_quote', 'charitable_interpretation')},
                     'defender_validation': defender['validation']}
-                   if self.defender_policy in ('evidence_v2', 'proposal_1') else {}),
+                   if self.defender_policy in ('evidence_v2', 'proposal_1', 'proposal_2') else {}),
                 'initial_agents': {'Prosecutor': prosecutor},
                 'deliberation': [{'round': 0, 'role': 'Defender', **defender}],
                 'final_agents': {'Prosecutor': prosecutor, 'Defender': defender},

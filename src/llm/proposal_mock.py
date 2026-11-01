@@ -31,12 +31,15 @@ def response(schema, user, seed):
                 'runner_up_assessment': assessment(rival, quote, False), 'ranking_reason': 'OFFLINE ranking.'}
     if 'candidate_assessment' in properties:
         candidate = reports['prosecutor_indictment']['candidate_class']
-        return {'decision': 'uphold', 'inference': inference(quote),
+        return {('action' if 'action' in properties else 'decision'): 'uphold', 'inference': inference(quote),
                 'candidate_assessment': assessment(candidate, quote),
                 'alternative_assessment': assessment('None', quote, False),
                 'candidate_objection': '', 'decisive_difference': 'OFFLINE no supported rival.',
                 'unresolved_commitment': '', 'comparison': 'OFFLINE uphold contract fixture.'}
     options = reports['options']
-    return {'prediction': options[0]['class'], 'confidence': 0.5, 'content': 'OFFLINE forced choice.',
+    value = {'prediction': options[0]['class'], 'confidence': 0.5, 'content': 'OFFLINE forced choice.',
             'selection_reason': 'OFFLINE fixture selection.', 'rejected_reason': 'OFFLINE limitations.',
             'resolution': 'selected', 'option_assessments': [assessment(o['class'], quote) for o in options]}
+    if 'probabilities' in properties:
+        value['probabilities'] = {label: (0.5 if label == value['prediction'] else 0.5 / 7) for label in FALLACIES}
+    return value

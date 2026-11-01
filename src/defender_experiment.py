@@ -84,7 +84,7 @@ def stage_metrics(rows):
             p = row['prosecutor']['candidate_class']; de = row['defender']; gold = row['gold']
             direct = p if de['concede_charge'] else de['alternative_class']
             raw = row.get('defender_review')
-            submitted = raw['alternative_assessment']['class'] if raw and raw['decision'] == 'challenge' else direct
+            submitted = raw['alternative_assessment']['class'] if raw and raw.get('decision', raw.get('action')) in ('challenge', 'request_comparison') else direct
             if submitted == 'None': submitted = p
             pred = {'prosecutor': p, 'submitted_defender': submitted,
                     'defender_policy': direct, 'final': row['prediction']}[stage]
@@ -154,7 +154,7 @@ def prepare(config, snapshot_path, limit=None):
         dataset_hash=file_hash(Path(config['data_dir'])/(config['split']+'.json')),
         split=config['split'], context=config['context'])
     # Reject incompatible contracts before creating a client or making any API call.
-    aligned = config['engine'].get('defender_policy') == 'proposal_1'
+    aligned = config['engine'].get('defender_policy') in ('proposal_1', 'proposal_2')
     for record in snapshot['records']:
         if ('ranking_reason' in record['report']) != aligned:
             raise ValueError('Snapshot Prosecutor contract does not match selected profile; create a new snapshot')
@@ -212,5 +212,8 @@ def run_experiment(config, snapshot_path, output, *, limit=None, resume=False, f
                'expected_count':len(samples), 'snapshot':snapshot['fingerprint'],
                'synthetic':model.provider=='mock', **usage,
                'metrics':stage_metrics(rows) if complete else None}
+    if complete and config['engine'].get('defender_policy') == 'proposal_2':
+        from src.game_evaluation import evaluate_game
+        summary['game_metrics'] = evaluate_game(rows, total_tokens=usage['usage']['total_tokens'])
     write_json(directory/'summary.json', summary)
     return summary
